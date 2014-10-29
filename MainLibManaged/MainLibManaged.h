@@ -167,6 +167,9 @@ namespace MainLibManaged
 
         EM_ReturnCode eAnalyze(String^ sText);
 
+        EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% pLexeme);
+        EM_ReturnCode eGetNextWordForm(CWordFormManaged^% pLexeme);
+
         void Clear();
 
         EM_ReturnCode eGetVerifier(IVerifier *& pVerifier);

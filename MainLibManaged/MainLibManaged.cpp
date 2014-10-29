@@ -238,7 +238,9 @@ CDictionaryManaged::CDictionaryManaged()
 }
 
 CDictionaryManaged::~CDictionaryManaged()
-{}
+{
+    delete m_pDictionary;
+}
 
 EM_ReturnCode CDictionaryManaged::eSetDbPath(String^ sDbPath)
 {
@@ -410,6 +412,46 @@ EM_ReturnCode CDictionaryManaged::eAnalyze(String^ sForm)
     delete mc;
 
     return (EM_ReturnCode)m_pDictionary->eAnalyze(cestrForm);
+}
+
+EM_ReturnCode CDictionaryManaged::eGetFirstWordForm(CWordFormManaged^% wordform)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    IWordForm * pWordForm = NULL;
+    ET_ReturnCode eRet = m_pDictionary->eGetFirstWordForm(pWordForm);
+    if (H_NO_ERROR == eRet)
+    {
+        if (pWordForm)
+        {
+            wordform = gcnew CWordFormManaged(pWordForm);
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CDictionaryManaged::eGetNextWordForm(CWordFormManaged^% wordform)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    IWordForm * pWordForm = NULL;
+    ET_ReturnCode eRet = m_pDictionary->eGetNextWordForm(pWordForm);
+    if (H_NO_ERROR == eRet)
+    {
+        if (pWordForm)
+        {
+            wordform = gcnew CWordFormManaged(pWordForm);
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
 }
 
 void CDictionaryManaged::Clear()
