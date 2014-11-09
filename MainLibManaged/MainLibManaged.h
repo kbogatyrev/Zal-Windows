@@ -6,6 +6,8 @@
 #include "ILexeme.h"
 #include "IWordForm.h"
 #include "Gramhasher.h"
+#include "IParser.h"
+#include "IVerifier.h"
 #include "..\Hlib-Windows\SqliteWrapper.h"
 #include "EnumsManaged.h"
 
@@ -18,6 +20,8 @@ namespace MainLibManaged
     public delegate void DelegateProgress(int iPercentDone);
 
     ref class CLexemeManaged;
+    ref class CParserManaged;
+    ref class CVerifierManaged;
 
     public ref class CWordFormManaged
     {
@@ -165,14 +169,15 @@ namespace MainLibManaged
         EM_ReturnCode eGetFirstLexeme(CLexemeManaged^% pLexeme);
         EM_ReturnCode eGetNextLexeme(CLexemeManaged^% pLexeme);
 
-        EM_ReturnCode eAnalyze(String^ sText);
+//        EM_ReturnCode eAnalyze(String^ sText);
 
-        EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% pLexeme);
-        EM_ReturnCode eGetNextWordForm(CWordFormManaged^% pLexeme);
+//        EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% pWordFrom);
+//        EM_ReturnCode eGetNextWordForm(CWordFormManaged^% pWordForm);
 
         void Clear();
 
-        EM_ReturnCode eGetVerifier(IVerifier *& pVerifier);
+        EM_ReturnCode eGetParser(CParserManaged^%); 
+        EM_ReturnCode eGetVerifier(CVerifierManaged^%);
         EM_ReturnCode eExportTestData(String^ sPath, DelegateProgress^);
         EM_ReturnCode eImportTestData(String^ sPath, DelegateProgress^);
     };
@@ -195,6 +200,39 @@ namespace MainLibManaged
         void SetReflexivity(EM_Reflexive);
         void SetAspect(EM_Aspect);
         int iHash();
+    };
+
+    public ref class CParserManaged
+    {
+        Hlib::IParser * m_pParser;
+
+    public:
+        CParserManaged(IParser *);
+        ~CParserManaged();
+
+        EM_ReturnCode eAnalyze(String^ sText);
+        EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% pWordFrom);
+        EM_ReturnCode eGetNextWordForm(CWordFormManaged^% pWordFrom);
+    };
+
+    public ref class CVerifierManaged
+    {
+        Hlib::IVerifier * m_pVerifier;
+
+    public:
+        CVerifierManaged(IVerifier *);
+        ~CVerifierManaged();
+
+        EM_ReturnCode eVerify(String^ sLexemeHash);
+        EM_TestResult eResult();
+
+        int iCount();
+
+        EM_ReturnCode eLoadStoredLexemes();
+        EM_ReturnCode eDeleteStoredLexeme(String^);
+
+        EM_ReturnCode eGetFirstLexemeData(String^% sLexemeHash, String^% sHeadword);
+        EM_ReturnCode eGetNextLexemeData(String^% sLexemeHash, String^% sHeadword);
     };
 
 }       //  namespace MainLibManaged

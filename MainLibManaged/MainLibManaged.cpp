@@ -11,6 +11,16 @@ using namespace System::Runtime::InteropServices;
 using namespace std;
 using namespace MainLibManaged;
 
+CEString sFromManagedString(String^ sSource)
+{
+    // This conversion requires an instance of marshal_context class
+    marshal_context^ mc = gcnew marshal_context();
+    CEString cestrResult(mc->marshal_as<const wchar_t *>(sSource));
+    delete mc;
+
+    return cestrResult;
+}
+
 extern "C"
 {
     ET_ReturnCode GetDictionary(Hlib::IDictionary *&);        // the only external function defined in MainLib
@@ -249,12 +259,7 @@ EM_ReturnCode CDictionaryManaged::eSetDbPath(String^ sDbPath)
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    // This conversion requires an instance of marshal_context class
-    marshal_context^ mc = gcnew marshal_context();
-    CEString cestrDbPath(mc->marshal_as<const wchar_t *>(sDbPath));
-    delete mc;
-
-    return (EM_ReturnCode)m_pDictionary->eSetDbPath(cestrDbPath);
+    return (EM_ReturnCode)m_pDictionary->eSetDbPath(sFromManagedString(sDbPath));
 }
 
 String^ CDictionaryManaged::sGetDbPath()
@@ -284,12 +289,7 @@ EM_ReturnCode CDictionaryManaged::eGetLexemesByHash(String^ sHash)
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    // This conversion requires an instance of marshal_context class
-    marshal_context^ mc = gcnew marshal_context();
-    CEString cestrHash(mc->marshal_as<const wchar_t *>(sHash));
-    delete mc;
-
-    return (EM_ReturnCode)m_pDictionary->eGetLexemesByHash(cestrHash);
+    return (EM_ReturnCode)m_pDictionary->eGetLexemesByHash(sFromManagedString(sHash));
 }
 
 EM_ReturnCode CDictionaryManaged::eGetLexemesByGraphicStem(String^ sGrStem)
@@ -299,12 +299,7 @@ EM_ReturnCode CDictionaryManaged::eGetLexemesByGraphicStem(String^ sGrStem)
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    // This conversion requires an instance of marshal_context class
-    marshal_context^ mc = gcnew marshal_context();
-    CEString cestrGrStem(mc->marshal_as<const wchar_t *>(sGrStem));
-    delete mc;
-
-    return (EM_ReturnCode)m_pDictionary->eGetLexemesByGraphicStem(cestrGrStem);
+    return (EM_ReturnCode)m_pDictionary->eGetLexemesByGraphicStem(sFromManagedString(sGrStem));
 }
 
 EM_ReturnCode CDictionaryManaged::eGetLexemesByInitialForm(String^ sInitForm)
@@ -314,12 +309,7 @@ EM_ReturnCode CDictionaryManaged::eGetLexemesByInitialForm(String^ sInitForm)
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    // This conversion requires an instance of marshal_context class
-    marshal_context^ mc = gcnew marshal_context();
-    CEString cestrInitForm(mc->marshal_as<const wchar_t *>(sInitForm));
-    delete mc;
-
-    return (EM_ReturnCode)m_pDictionary->eGetLexemesByInitialForm(cestrInitForm);
+    return (EM_ReturnCode)m_pDictionary->eGetLexemesByInitialForm(sFromManagedString(sInitForm));
 }
 
 EM_ReturnCode CDictionaryManaged::eGenerateAllForms()
@@ -399,6 +389,7 @@ EM_ReturnCode CDictionaryManaged::eGetNextLexeme(CLexemeManaged^% lexeme)
     return (EM_ReturnCode)eRet;
 }
 
+/*
 EM_ReturnCode CDictionaryManaged::eAnalyze(String^ sForm)
 {
     if (NULL == m_pDictionary)
@@ -406,12 +397,7 @@ EM_ReturnCode CDictionaryManaged::eAnalyze(String^ sForm)
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    // This conversion requires an instance of marshal_context class
-    marshal_context^ mc = gcnew marshal_context();
-    CEString cestrForm(mc->marshal_as<const wchar_t *>(sForm));
-    delete mc;
-
-    return (EM_ReturnCode)m_pDictionary->eAnalyze(cestrForm);
+    return (EM_ReturnCode)m_pDictionary->eAnalyze(sFromManagedString(sForm));
 }
 
 EM_ReturnCode CDictionaryManaged::eGetFirstWordForm(CWordFormManaged^% wordform)
@@ -449,10 +435,15 @@ EM_ReturnCode CDictionaryManaged::eGetNextWordForm(CWordFormManaged^% wordform)
         {
             wordform = gcnew CWordFormManaged(pWordForm);
         }
+        else
+        {
+            return EM_ReturnCode::H_ERROR_UNEXPECTED;
+        }
     }
 
     return (EM_ReturnCode)eRet;
 }
+*/
 
 void CDictionaryManaged::Clear()
 {
@@ -464,14 +455,52 @@ void CDictionaryManaged::Clear()
     m_pDictionary->Clear();
 }
 
-EM_ReturnCode CDictionaryManaged::eGetVerifier(IVerifier *& pVerifier)
+EM_ReturnCode CDictionaryManaged::eGetParser(CParserManaged^% pParserManaged)
 {
     if (NULL == m_pDictionary)
     {
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    return (EM_ReturnCode)m_pDictionary->eGetVerifier(pVerifier);
+    IParser * pParser = NULL;
+    ET_ReturnCode eRet = m_pDictionary->eGetParser(pParser);
+    if (H_NO_ERROR == eRet)
+    {
+        if (pParser)
+        {
+            pParserManaged = gcnew CParserManaged(pParser);
+        }
+        else
+        {
+            return EM_ReturnCode::H_ERROR_UNEXPECTED;
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CDictionaryManaged::eGetVerifier(CVerifierManaged^% verifier)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    IVerifier * pVerifier = NULL;
+    ET_ReturnCode eRet = m_pDictionary->eGetVerifier(pVerifier);
+    if (H_NO_ERROR == eRet)
+    {
+        if (pVerifier)
+        {
+            verifier = gcnew CVerifierManaged(pVerifier);
+        }
+        else
+        {
+            return EM_ReturnCode::H_ERROR_UNEXPECTED;
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
 }
 
 EM_ReturnCode CDictionaryManaged::eExportTestData(String^ sPath, DelegateProgress^ progressCallback)
@@ -481,16 +510,11 @@ EM_ReturnCode CDictionaryManaged::eExportTestData(String^ sPath, DelegateProgres
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    // This conversion requires an instance of marshal_context class
-    marshal_context^ mc = gcnew marshal_context();
-    CEString cestrDbPath(mc->marshal_as<const wchar_t *>(sPath));
-    delete mc;
-
     GCHandle gch = GCHandle::Alloc(progressCallback);
     IntPtr iptr = Marshal::GetFunctionPointerForDelegate(progressCallback);
     CProgressCallback * pProgress = static_cast<CProgressCallback*>(iptr.ToPointer());
 
-    return (EM_ReturnCode)m_pDictionary->eExportTestData(cestrDbPath, *pProgress);
+    return (EM_ReturnCode)m_pDictionary->eExportTestData(sFromManagedString(sPath), *pProgress);
 }
 
 EM_ReturnCode CDictionaryManaged::eImportTestData(String^ sPath, DelegateProgress^ progressCallback)
@@ -500,16 +524,11 @@ EM_ReturnCode CDictionaryManaged::eImportTestData(String^ sPath, DelegateProgres
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    // This conversion requires an instance of marshal_context class
-    marshal_context^ mc = gcnew marshal_context();
-    CEString cestrDbPath(mc->marshal_as<const wchar_t *>(sPath));
-    delete mc;
-
     GCHandle gch = GCHandle::Alloc(progressCallback);
     IntPtr iptr = Marshal::GetFunctionPointerForDelegate(progressCallback);
     CProgressCallback * pProgress = static_cast<CProgressCallback*>(iptr.ToPointer());
 
-    return (EM_ReturnCode)m_pDictionary->eImportTestData(cestrDbPath, *pProgress);
+    return (EM_ReturnCode)m_pDictionary->eImportTestData(sFromManagedString(sPath), *pProgress);
 }
 
 
@@ -1157,13 +1176,8 @@ bool CLexemeManaged::bFindStandardAlternation(String^ sKey, String^% sValue)
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    // This conversion requires an instance of marshal_context class
-    marshal_context^ mc = gcnew marshal_context();
-    CEString cestrKey(mc->marshal_as<const wchar_t *>(sKey));
-    delete mc;
-
     CEString cestrValue;
-    bool bRet = m_pLexeme->bFindStandardAlternation(cestrKey, cestrValue);
+    bool bRet = m_pLexeme->bFindStandardAlternation(sFromManagedString(sKey), cestrValue);
     sValue = gcnew String(sValue);
 
     return bRet;
@@ -1176,13 +1190,8 @@ EM_ReturnCode CLexemeManaged::eGetStemStressPositions(String^ sLemma, List<int>%
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    // This conversion requires an instance of marshal_context class
-    marshal_context^ mc = gcnew marshal_context();
-    CEString cestrLemma(mc->marshal_as<const wchar_t *>(sLemma));
-    delete mc;
-
     vector<int> vecPositions;
-    ET_ReturnCode eRet = m_pLexeme->eGetStemStressPositions(cestrLemma, vecPositions);
+    ET_ReturnCode eRet = m_pLexeme->eGetStemStressPositions(sFromManagedString(sLemma), vecPositions);
     if (H_NO_ERROR == eRet)
     {
         for (vector<int>::iterator it = vecPositions.begin(); it != vecPositions.end(); ++it)
@@ -1201,14 +1210,9 @@ EM_ReturnCode CLexemeManaged::eGetAlternatingPreverb(String^ sVerbForm, String^%
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    // This conversion requires an instance of marshal_context class
-    marshal_context^ mc = gcnew marshal_context();
-    CEString cestrVerbForm(mc->marshal_as<const wchar_t *>(sVerbForm));
-    delete mc;
-
     CEString cestrPreverb;
     bool cppbVoicing;
-    ET_ReturnCode eRet = m_pLexeme->eGetAlternatingPreverb(cestrVerbForm, cestrPreverb, cppbVoicing);
+    ET_ReturnCode eRet = m_pLexeme->eGetAlternatingPreverb(sFromManagedString(sVerbForm), cestrPreverb, cppbVoicing);
     if (H_NO_ERROR == eRet)
     {
         sPreverb = gcnew String(cestrPreverb);
@@ -1617,3 +1621,197 @@ EM_ReturnCode CSqliteManaged::eExportTable(string sPathToTextFile, array<String^
     return EM_ReturnCode::H_NO_ERROR;
 }
 */
+
+CParserManaged::CParserManaged(IParser * pParser) : m_pParser(pParser)
+{}
+
+CParserManaged::~CParserManaged()
+{}
+
+EM_ReturnCode CParserManaged::eAnalyze(String^ sForm)
+{
+    if (NULL == m_pParser)
+    {
+        throw gcnew Exception(L"Parser object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pParser->eAnalyze(sFromManagedString(sForm));
+}
+
+EM_ReturnCode CParserManaged::eGetFirstWordForm(CWordFormManaged^% pManagedWordFrom)
+{
+    if (NULL == m_pParser)
+    {
+        throw gcnew Exception(L"Parser object is NULL.");
+    }
+
+    IWordForm * pWordForm = NULL;
+    ET_ReturnCode eRet = m_pParser->eGetFirstWordForm(pWordForm);
+    if (H_NO_ERROR == eRet)
+    {
+        if (pWordForm)
+        {
+            pManagedWordFrom = gcnew CWordFormManaged(pWordForm);
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CParserManaged::eGetNextWordForm(CWordFormManaged^% pManagedWordFrom)
+{
+    if (NULL == m_pParser)
+    {
+        throw gcnew Exception(L"Parser object is NULL.");
+    }
+
+    IWordForm * pWordForm = NULL;
+    ET_ReturnCode eRet = m_pParser->eGetNextWordForm(pWordForm);
+    if (H_NO_ERROR == eRet)
+    {
+        if (pWordForm)
+        {
+            pManagedWordFrom = gcnew CWordFormManaged(pWordForm);
+        }
+        else
+        {
+            return EM_ReturnCode::H_ERROR_UNEXPECTED;
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+CVerifierManaged::CVerifierManaged(IVerifier * pVerifier) : m_pVerifier(pVerifier)
+{}
+
+CVerifierManaged::~CVerifierManaged()
+{}
+
+//EM_ReturnCode CVerifierManaged::eSetHeadword(String^ sHeadword)
+//{
+//    if (NULL == m_pVerifier)
+//    {
+//        throw gcnew Exception(L"Verifier object is NULL.");
+//    }
+//
+//    return (EM_ReturnCode)m_pVerifier->eSetHeadword(sFromManagedString(sHeadword));
+//}
+//
+//String^ CVerifierManaged::sGetHeadword()
+//{
+//    if (NULL == m_pVerifier)
+//    {
+//        throw gcnew Exception(L"Verifier object is NULL.");
+//    }
+//
+//    return gcnew String(m_pVerifier->sGetHeadword());
+//}
+//
+//void CVerifierManaged::SetLexemeHash(String^ sHash)
+//{
+//    if (NULL == m_pVerifier)
+//    {
+//        throw gcnew Exception(L"Verifier object is NULL.");
+//    }
+//
+//    return m_pVerifier->SetLexemeHash(sFromManagedString(sHash));
+//}
+//
+//String^ CVerifierManaged::sGetLexemeHash()
+//{
+//    if (NULL == m_pVerifier)
+//    {
+//        throw gcnew Exception(L"Verifier object is NULL.");
+//    }
+//
+//    return gcnew String(m_pVerifier->sGetLexemeHash());
+//}
+
+EM_ReturnCode CVerifierManaged::eVerify(String^ sLexemeHash)
+{
+    if (NULL == m_pVerifier)
+    {
+        throw gcnew Exception(L"Verifier object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pVerifier->eVerify(sFromManagedString(sLexemeHash));
+}
+
+EM_TestResult CVerifierManaged::eResult()
+{
+    if (NULL == m_pVerifier)
+    {
+        throw gcnew Exception(L"Verifier object is NULL.");
+    }
+
+    return (EM_TestResult)m_pVerifier->eResult();
+}
+
+int CVerifierManaged::iCount()
+{
+    if (NULL == m_pVerifier)
+    {
+        throw gcnew Exception(L"Verifier object is NULL.");
+    }
+
+    return m_pVerifier->iCount();
+}
+
+EM_ReturnCode CVerifierManaged::eLoadStoredLexemes()
+{
+    if (NULL == m_pVerifier)
+    {
+        throw gcnew Exception(L"Verifier object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pVerifier->eLoadStoredLexemes();
+}
+
+EM_ReturnCode CVerifierManaged::eDeleteStoredLexeme(String^ sLexeme)
+{
+    if (NULL == m_pVerifier)
+    {
+        throw gcnew Exception(L"Verifier object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pVerifier->eDeleteStoredLexeme(sFromManagedString(sLexeme));
+}
+
+EM_ReturnCode CVerifierManaged::eGetFirstLexemeData(String^% sHash, String^% sHeadword)
+{
+    if (NULL == m_pVerifier)
+    {
+        throw gcnew Exception(L"Verifier object is NULL.");
+    }
+
+    CEString cestrHash;
+    CEString cestrHeadword;
+    ET_ReturnCode eRet = m_pVerifier->eGetFirstLexemeData(cestrHash, cestrHeadword);
+    if (H_NO_ERROR == eRet)
+    {
+        sHash = gcnew String(cestrHash);
+        sHeadword = gcnew String(cestrHeadword);
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CVerifierManaged::eGetNextLexemeData(String^% sHash, String^% sHeadword)
+{
+    if (NULL == m_pVerifier)
+    {
+        throw gcnew Exception(L"Verifier object is NULL.");
+    }
+
+    CEString cestrHash;
+    CEString cestrHeadword;
+    ET_ReturnCode eRet = m_pVerifier->eGetNextLexemeData(cestrHash, cestrHeadword);
+    if (H_NO_ERROR == eRet)
+    {
+        sHash = gcnew String(cestrHash);
+        sHeadword = gcnew String(cestrHeadword);
+    }
+
+    return (EM_ReturnCode)eRet;
+}
