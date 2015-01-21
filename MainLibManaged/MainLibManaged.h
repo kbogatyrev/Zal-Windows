@@ -209,6 +209,7 @@ namespace MainLibManaged
     public:
         CParserManaged(IParser *);
         ~CParserManaged();
+        !CParserManaged();
 
         EM_ReturnCode eAnalyze(String^ sText);
         EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% pWordFrom);

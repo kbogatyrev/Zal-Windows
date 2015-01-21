@@ -1626,7 +1626,14 @@ CParserManaged::CParserManaged(IParser * pParser) : m_pParser(pParser)
 {}
 
 CParserManaged::~CParserManaged()
-{}
+{
+    delete m_pParser;
+}
+
+CParserManaged::!CParserManaged()
+{
+    delete m_pParser;
+}
 
 EM_ReturnCode CParserManaged::eAnalyze(String^ sForm)
 {
