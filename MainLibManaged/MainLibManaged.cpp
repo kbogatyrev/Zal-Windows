@@ -512,7 +512,7 @@ EM_ReturnCode CDictionaryManaged::eExportTestData(String^ sPath, DelegateProgres
 
     GCHandle gch = GCHandle::Alloc(progressCallback);
     IntPtr iptr = Marshal::GetFunctionPointerForDelegate(progressCallback);
-    CProgressCallback * pProgress = static_cast<CProgressCallback*>(iptr.ToPointer());
+    PROGRESS_CALLBACK_CLR pProgress = static_cast<PROGRESS_CALLBACK_CLR>(iptr.ToPointer());
 
     return (EM_ReturnCode)m_pDictionary->eExportTestData(sFromManagedString(sPath), *pProgress);
 }
@@ -526,7 +526,7 @@ EM_ReturnCode CDictionaryManaged::eImportTestData(String^ sPath, DelegateProgres
 
     GCHandle gch = GCHandle::Alloc(progressCallback);
     IntPtr iptr = Marshal::GetFunctionPointerForDelegate(progressCallback);
-    CProgressCallback * pProgress = static_cast<CProgressCallback*>(iptr.ToPointer());
+    PROGRESS_CALLBACK_CLR pProgress = static_cast<PROGRESS_CALLBACK_CLR>(iptr.ToPointer());
 
     return (EM_ReturnCode)m_pDictionary->eImportTestData(sFromManagedString(sPath), *pProgress);
 }
