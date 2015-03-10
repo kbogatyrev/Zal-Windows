@@ -249,6 +249,11 @@ CDictionaryManaged::CDictionaryManaged()
 
 CDictionaryManaged::~CDictionaryManaged()
 {
+    this->!CDictionaryManaged();
+}
+
+CDictionaryManaged::!CDictionaryManaged()
+{
     delete m_pDictionary;
 }
 
