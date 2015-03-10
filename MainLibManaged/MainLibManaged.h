@@ -155,6 +155,7 @@ namespace MainLibManaged
     public:
         CDictionaryManaged();
         ~CDictionaryManaged();
+        !CDictionaryManaged();
 
         EM_ReturnCode eSetDbPath(String^ sDbPath);
         String^ sGetDbPath();
