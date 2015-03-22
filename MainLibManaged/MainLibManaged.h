@@ -155,7 +155,6 @@ namespace MainLibManaged
     public:
         CDictionaryManaged();
         ~CDictionaryManaged();
-        !CDictionaryManaged();
 
         EM_ReturnCode eSetDbPath(String^ sDbPath);
         String^ sGetDbPath();
@@ -176,6 +175,7 @@ namespace MainLibManaged
 //        EM_ReturnCode eGetNextWordForm(CWordFormManaged^% pWordForm);
 
         void Clear();
+        EM_ReturnCode Clear(CLexemeManaged^ pLexeme);
 
         EM_ReturnCode eGetParser(CParserManaged^%); 
         EM_ReturnCode eGetVerifier(CVerifierManaged^%);
@@ -210,7 +210,6 @@ namespace MainLibManaged
     public:
         CParserManaged(IParser *);
         ~CParserManaged();
-        !CParserManaged();
 
         EM_ReturnCode eAnalyze(String^ sText);
         EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% pWordFrom);

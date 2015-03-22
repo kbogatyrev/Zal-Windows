@@ -249,11 +249,6 @@ CDictionaryManaged::CDictionaryManaged()
 
 CDictionaryManaged::~CDictionaryManaged()
 {
-    this->!CDictionaryManaged();
-}
-
-CDictionaryManaged::!CDictionaryManaged()
-{
     delete m_pDictionary;
 }
 
@@ -460,6 +455,18 @@ void CDictionaryManaged::Clear()
     m_pDictionary->Clear();
 }
 
+EM_ReturnCode CDictionaryManaged::Clear(CLexemeManaged^ pLexeme)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pDictionary->Clear(pLexeme->m_pLexeme);
+
+    return (EM_ReturnCode)eRet;
+}
+
 EM_ReturnCode CDictionaryManaged::eGetParser(CParserManaged^% pParserManaged)
 {
     if (NULL == m_pDictionary)
@@ -544,7 +551,10 @@ CLexemeManaged::CLexemeManaged(ILexeme * pLexeme) : m_pLexeme(pLexeme)
 {}
 
 CLexemeManaged::~CLexemeManaged()
-{}
+{
+    delete m_pLexeme;
+    m_pLexeme = NULL;
+}
 
 /*
 const StLexemeProperties& CLexemeManaged::stGetProperties()
@@ -1633,11 +1643,8 @@ CParserManaged::CParserManaged(IParser * pParser) : m_pParser(pParser)
 CParserManaged::~CParserManaged()
 {
     delete m_pParser;
-}
 
-CParserManaged::!CParserManaged()
-{
-    delete m_pParser;
+//    this->!CParserManaged();
 }
 
 EM_ReturnCode CParserManaged::eAnalyze(String^ sForm)
