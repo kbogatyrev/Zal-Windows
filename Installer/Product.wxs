@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?define S_BUILD_DIR = "..\Release" ?>
+<?define S_DATA_DIR = "..\ZalData\" ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="Zalizniak's Grammatical Dictionary of Russian" Language="1033" Version="1.0.4.0" Manufacturer="Xiao Gogo Software and Baked Goods" UpgradeCode="21a83a2f-48ab-477e-bd50-ccb1ba338417">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x86" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+    <MediaTemplate CabinetTemplate="CF{0}.cab" EmbedCab="yes" />
+
+    <Icon Id="AppIcon.exe" SourceFile="Zal.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="AppIcon.exe" />
+
+    <Feature Id="ProductFeature" Title="Zal" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ApplicationShortcutStartMenu" />
+    </Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="Zal" />
+        <Directory Id="ProgramMenuFolder">
+          <Directory Id="ZalShortcutsDir" Name="Zal" />
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="ZalShortcutsDir" >
+      <Component Id="ApplicationShortcutStartMenu" Guid="{95A7727B-2A4E-4215-8430-125670314A21}">
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="Zal" WorkingDirectory="INSTALLFOLDER" Description="Zalizniak's Grammatical Dictionary" Target="[INSTALLFOLDER]\Zal.exe" Icon="AppIcon.exe"/>
+        <RemoveFolder Id="ZalShortcutsDir" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Gogo\Zal" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Guid="*" Id="Zal_exe">
+        <File Id="Zal_exe" KeyPath="yes" Source="$(var.S_BUILD_DIR)\Zal.exe" />
+      </Component>
+      <Component Guid="*" Id="MainLib_dll">
+        <File Id="MainLib_dll" KeyPath="yes" Source="$(var.S_BUILD_DIR)\MainLib.dll" />
+      </Component>
+      <Component Guid="*" Id="MainLibManaged_dll">
+          <File Id="MainLibManaged_dll" KeyPath="yes" Source="$(var.S_BUILD_DIR)\MainLibManaged.dll" />
+      </Component>
+      <Component Guid="*" Id="Zal_db3">
+        <File Id="Zal_db3" KeyPath="yes" Source="$(var.S_BUILD_DIR)\Zal.db3" />
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>
