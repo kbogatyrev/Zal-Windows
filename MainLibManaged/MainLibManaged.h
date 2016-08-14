@@ -49,8 +49,8 @@ namespace MainLibManaged
         EM_ReturnCode eGetFirstStressPos(int% iPos, EM_StressType% eType);
         EM_ReturnCode eGetNextStressPos(int% iPos, EM_StressType% eType);
 
-        int iGramHash();
-        EM_ReturnCode eInitFromHash(int iHash);
+        String^ sGramHash();
+        EM_ReturnCode eInitFromHash(String^ sHash);
     };
 
     public ref class CLexemeManaged
@@ -128,17 +128,17 @@ namespace MainLibManaged
         EM_ReturnCode eGetStemStressPositions(String^ sLemma, List<int>% listPositions);
         EM_ReturnCode eGetAlternatingPreverb(String^ sVerbForm, String^% sPreverb, bool% bVoicing);
         String^ sHash();
-        EM_ReturnCode eWordFormFromHash(int iHash, unsigned int uiAt, CWordFormManaged^% Wf);
-        bool bHasIrregularForm(int iGramHash);
-        bool bNoRegularForms(int iGramHash);
+        EM_ReturnCode eWordFormFromHash(String^ sHash, unsigned int uiAt, CWordFormManaged^% Wf);
+        bool bHasIrregularForm(String^ sGramHash);
+        bool bNoRegularForms(String^ sGramHash);
         EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% wf);
         EM_ReturnCode eGetNextWordForm(CWordFormManaged^% wf);
-        EM_ReturnCode eGetFirstIrregularForm(int iHash, CWordFormManaged^%, bool% bIsOptional);
+        EM_ReturnCode eGetFirstIrregularForm(String^ sHash, CWordFormManaged^%, bool% bIsOptional);
         EM_ReturnCode eGetNextIrregularForm(CWordFormManaged^%, bool% bIsOptional);
-        unsigned int uiFormCount(int iHash);
+        unsigned int uiFormCount(String^ sHash);
         bool bHasCommonDeviation(int iCd);
         bool bDeviationOptional(int iCd);
-        bool bIsFormMissing(int iGramHash);
+        bool bIsFormMissing(String^ sGramHash);
         bool bIsMultistressedCompound();
         EM_ReturnCode eGetFirstStemStressPos(int% iPos);
         EM_ReturnCode eGetNextStemStressPos(int% iPos);
@@ -200,7 +200,7 @@ namespace MainLibManaged
         void SetAnimacy(EM_Animacy);
         void SetReflexivity(EM_Reflexive);
         void SetAspect(EM_Aspect);
-        int iHash();
+        String^ sHash();
     };
 
     public ref class CParserManaged

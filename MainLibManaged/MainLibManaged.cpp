@@ -220,24 +220,24 @@ EM_ReturnCode CWordFormManaged::eGetNextStressPos(int% iPos, EM_StressType% eTyp
     return (EM_ReturnCode)eRet;
 }
 
-int CWordFormManaged::iGramHash()
+String^ CWordFormManaged::sGramHash()
 {
     if (NULL == m_pWordForm)
     {
         throw gcnew Exception(L"WordForm object is NULL.");
     }
 
-    return m_pWordForm->iGramHash();
+    return gcnew String(m_pWordForm->sGramHash());
 }
 
-EM_ReturnCode CWordFormManaged::eInitFromHash(int iHash)
+EM_ReturnCode CWordFormManaged::eInitFromHash(String^ sHash)
 {
     if (NULL == m_pWordForm)
     {
         throw gcnew Exception(L"WordForm object is NULL.");
     }
 
-    return (EM_ReturnCode)m_pWordForm->eInitFromHash(iHash);
+    return (EM_ReturnCode)m_pWordForm->eInitFromHash(sFromManagedString(sHash));
 }
 
 CDictionaryManaged::CDictionaryManaged()
@@ -1247,7 +1247,7 @@ String^ CLexemeManaged::sHash()
     return gcnew String(m_pLexeme->sHash());
 }
  
-EM_ReturnCode CLexemeManaged::eWordFormFromHash(int iHash, unsigned int uiAt, CWordFormManaged^% wf)
+EM_ReturnCode CLexemeManaged::eWordFormFromHash(String^ sHash, unsigned int uiAt, CWordFormManaged^% wf)
 {
     if (NULL == m_pLexeme)
     {
@@ -1255,7 +1255,7 @@ EM_ReturnCode CLexemeManaged::eWordFormFromHash(int iHash, unsigned int uiAt, CW
     }
 
     IWordForm * pWf = NULL;
-    ET_ReturnCode eRet = m_pLexeme->eWordFormFromHash(iHash, uiAt, pWf);
+    ET_ReturnCode eRet = m_pLexeme->eWordFormFromHash(sFromManagedString(sHash), uiAt, pWf);
     if (H_NO_ERROR == eRet)
     {
         if (pWf)
@@ -1267,24 +1267,24 @@ EM_ReturnCode CLexemeManaged::eWordFormFromHash(int iHash, unsigned int uiAt, CW
     return (EM_ReturnCode)eRet;
 }
  
-bool CLexemeManaged::bHasIrregularForm(int iGramHash)
+bool CLexemeManaged::bHasIrregularForm(String^ sGramHash)
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->bHasIrregularForm(iGramHash);
+    return m_pLexeme->bHasIrregularForm(sFromManagedString(sGramHash));
 }
  
-bool CLexemeManaged::bNoRegularForms(int iGramHash)
+bool CLexemeManaged::bNoRegularForms(String^ sGramHash)
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->bNoRegularForms(iGramHash);
+    return m_pLexeme->bNoRegularForms(sFromManagedString(sGramHash));
 }
  
 EM_ReturnCode CLexemeManaged::eGetFirstWordForm(CWordFormManaged^% wf)
@@ -1327,7 +1327,7 @@ EM_ReturnCode CLexemeManaged::eGetNextWordForm(CWordFormManaged^% wf)
     return (EM_ReturnCode)eRet;
 }
  
-EM_ReturnCode CLexemeManaged::eGetFirstIrregularForm(int iHash, CWordFormManaged^% wf, bool% bIsOptional)
+EM_ReturnCode CLexemeManaged::eGetFirstIrregularForm(String^ sHash, CWordFormManaged^% wf, bool% bIsOptional)
 {
     if (NULL == m_pLexeme)
     {
@@ -1336,7 +1336,7 @@ EM_ReturnCode CLexemeManaged::eGetFirstIrregularForm(int iHash, CWordFormManaged
 
     IWordForm * pWf = NULL;
     bool cppbIsOptional = false;
-    ET_ReturnCode eRet = m_pLexeme->eGetFirstIrregularForm(iHash, pWf, cppbIsOptional);
+    ET_ReturnCode eRet = m_pLexeme->eGetFirstIrregularForm(sFromManagedString(sHash), pWf, cppbIsOptional);
     if (H_NO_ERROR == eRet)
     {
         if (pWf)
@@ -1371,14 +1371,14 @@ EM_ReturnCode CLexemeManaged::eGetNextIrregularForm(CWordFormManaged^% wf, bool%
     return (EM_ReturnCode)eRet;
 }
  
-unsigned int CLexemeManaged::uiFormCount(int iHash)
+unsigned int CLexemeManaged::uiFormCount(String^ sHash)
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->uiFormCount(iHash);
+    return m_pLexeme->uiFormCount(sFromManagedString(sHash));
 }
  
 bool CLexemeManaged::bHasCommonDeviation(int iCd)
@@ -1401,14 +1401,14 @@ bool CLexemeManaged::bDeviationOptional(int iCd)
     return m_pLexeme->bDeviationOptional(iCd);
 }
  
-bool CLexemeManaged::bIsFormMissing(int iGramHash)
+bool CLexemeManaged::bIsFormMissing(String^ sGramHash)
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->bIsFormMissing(iGramHash);
+    return m_pLexeme->bIsFormMissing(sFromManagedString(sGramHash));
 }
  
 bool CLexemeManaged::bIsMultistressedCompound()
@@ -1588,14 +1588,14 @@ void CGramHasherManaged::SetAspect(EM_Aspect eAspect)
     m_pHasher->m_eAspect = (ET_Aspect)eAspect;
 }
 
-int CGramHasherManaged::iHash()
+String^ CGramHasherManaged::sHash()
 {
     if (NULL == m_pHasher)
     {
         throw gcnew Exception(L"Gram hasher object is NULL.");
     }
 
-    return m_pHasher->iGramHash();
+    return gcnew String(m_pHasher->sGramHash());
 }
 
 /*
