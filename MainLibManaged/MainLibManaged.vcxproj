@@ -43,13 +43,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\K\Documents\Personal\Zal-Windows\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\K\Documents\Personal\Zal-Windows\Sqlite;C:\Users\K\Documents\Personal\HLib-Windows;C:\Users\K\Documents\Personal\Zal-Windows\MainLib;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\MainLib;..\..\HLib-Windows;..\..\ThirdPartyLibs-Windows\Sqlite;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>C:\Users\K\Documents\Personal\Zal-Windows\Release;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\K\Documents\Personal\Zal-Windows\Sqlite;C:\Users\K\Documents\Personal\HLib-Windows;C:\Users\K\Documents\Personal\Zal-Windows\MainLib;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\MainLib;..\..\HLib-Windows;..\..\ThirdPartyLibs-Windows\Sqlite;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
