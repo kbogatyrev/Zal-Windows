@@ -15,6 +15,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>MainLibManaged</RootNamespace>
+    <ProjectName>ZalMainLibManaged</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -43,13 +44,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>..\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\Debug;..\..\bin\Debug;$(LibraryPath)</LibraryPath>
     <IncludePath>..\MainLib;..\..\HLib-Windows;..\..\ThirdPartyLibs-Windows\Sqlite;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>..\Release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\Release;..\..\bin\Release;$(LibraryPath)</LibraryPath>
     <IncludePath>..\MainLib;..\..\HLib-Windows;..\..\ThirdPartyLibs-Windows\Sqlite;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -60,7 +63,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>MainLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ZalMainLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AddModuleNamesToAssembly>
       </AddModuleNamesToAssembly>
     </Link>
@@ -73,7 +76,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>MainLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ZalMainLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AddModuleNamesToAssembly>
       </AddModuleNamesToAssembly>
     </Link>
