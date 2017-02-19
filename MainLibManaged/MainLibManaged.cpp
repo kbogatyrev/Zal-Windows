@@ -1093,14 +1093,14 @@ bool CLexemeManaged::bNoLongForms()
     return m_pLexeme->bNoLongForms();
 }
  
-bool CLexemeManaged::bNoShortForms()
+bool CLexemeManaged::bShortFormsIncomplete()
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->bNoShortForms();
+    return m_pLexeme->bShortFormsIncomplete();
 }
  
 bool CLexemeManaged::bNoPastParticiple()

@@ -115,7 +115,7 @@ namespace MainLibManaged
         bool bShortFormsRestricted();
         bool bPastParticipleRestricted();
         bool bNoLongForms();
-        bool bNoShortForms();
+        bool bShortFormsIncomplete();
         bool bNoPastParticiple();
         bool bFleetingVowel();
         int iStemAugment();
