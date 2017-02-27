@@ -227,6 +227,7 @@
         STATUS_OBSOLETE,
         STATUS_RARE,
         STATUS_QUESTIONABLE,
+        STATUS_ASSUMED,
         STATUS_INCORRECT,
         STATUS_COUNT
     };
