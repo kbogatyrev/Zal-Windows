@@ -335,14 +335,14 @@ EM_ReturnCode CDictionaryManaged::eGenerateFormsForSelectedLexemes()
     return (EM_ReturnCode)m_pDictionary->eGenerateFormsForSelectedLexemes();
 }
 
-EM_ReturnCode CDictionaryManaged::eCountLexemes(int% iLexemes)
+EM_ReturnCode CDictionaryManaged::eCountLexemes(Int64% iLexemes)
 {
     if (NULL == m_pDictionary)
     {
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    int cppiLexemes = 0;
+    int64_t cppiLexemes = 0;
     ET_ReturnCode eRet = m_pDictionary->eCountLexemes(cppiLexemes);
     if (H_NO_ERROR == eRet)
     {
@@ -1250,7 +1250,7 @@ String^ CLexemeManaged::sHash()
     return gcnew String(m_pLexeme->sHash());
 }
  
-EM_ReturnCode CLexemeManaged::eWordFormFromHash(String^ sHash, unsigned int uiAt, CWordFormManaged^% wf)
+EM_ReturnCode CLexemeManaged::eWordFormFromHash(String^ sHash, int iAt, CWordFormManaged^% wf)
 {
     if (NULL == m_pLexeme)
     {
@@ -1258,7 +1258,7 @@ EM_ReturnCode CLexemeManaged::eWordFormFromHash(String^ sHash, unsigned int uiAt
     }
 
     IWordForm * pWf = NULL;
-    ET_ReturnCode eRet = m_pLexeme->eWordFormFromHash(sFromManagedString(sHash), uiAt, pWf);
+    ET_ReturnCode eRet = m_pLexeme->eWordFormFromHash(sFromManagedString(sHash), iAt, pWf);
     if (H_NO_ERROR == eRet)
     {
         if (pWf)
@@ -1374,14 +1374,14 @@ EM_ReturnCode CLexemeManaged::eGetNextIrregularForm(CWordFormManaged^% wf, bool%
     return (EM_ReturnCode)eRet;
 }
  
-unsigned int CLexemeManaged::uiFormCount(String^ sHash)
+int CLexemeManaged::iFormCount(String^ sHash)
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->uiFormCount(sFromManagedString(sHash));
+    return m_pLexeme->iFormCount(sFromManagedString(sHash));
 }
  
 bool CLexemeManaged::bHasCommonDeviation(int iCd)

@@ -128,14 +128,14 @@ namespace MainLibManaged
         EM_ReturnCode eGetStemStressPositions(String^ sLemma, List<int>% listPositions);
         EM_ReturnCode eGetAlternatingPreverb(String^ sVerbForm, String^% sPreverb, bool% bVoicing);
         String^ sHash();
-        EM_ReturnCode eWordFormFromHash(String^ sHash, unsigned int uiAt, CWordFormManaged^% Wf);
+        EM_ReturnCode eWordFormFromHash(String^ sHash, int iAt, CWordFormManaged^% Wf);
         bool bHasIrregularForm(String^ sGramHash);
         bool bNoRegularForms(String^ sGramHash);
         EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% wf);
         EM_ReturnCode eGetNextWordForm(CWordFormManaged^% wf);
         EM_ReturnCode eGetFirstIrregularForm(String^ sHash, CWordFormManaged^%, bool% bIsOptional);
         EM_ReturnCode eGetNextIrregularForm(CWordFormManaged^%, bool% bIsOptional);
-        unsigned int uiFormCount(String^ sHash);
+        int iFormCount(String^ sHash);
         bool bHasCommonDeviation(int iCd);
         bool bDeviationOptional(int iCd);
         bool bIsFormMissing(String^ sGramHash);
@@ -164,7 +164,7 @@ namespace MainLibManaged
         EM_ReturnCode eGetLexemesByInitialForm(String^);
         EM_ReturnCode eGenerateAllForms();
         EM_ReturnCode eGenerateFormsForSelectedLexemes();
-        MainLibManaged::EM_ReturnCode eCountLexemes(int% iLexemes);
+        MainLibManaged::EM_ReturnCode eCountLexemes(Int64% iLexemes);
 
         EM_ReturnCode eGetFirstLexeme(CLexemeManaged^% pLexeme);
         EM_ReturnCode eGetNextLexeme(CLexemeManaged^% pLexeme);
