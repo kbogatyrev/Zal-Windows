@@ -579,7 +579,7 @@ EM_Gender CLexemeManaged::eGender()
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return (EM_Gender)m_pLexeme->eGender();
+    return (EM_Gender)m_pLexeme->eInflectionTypeToGender();
 }
  
 EM_Animacy CLexemeManaged::eAnimacy()
@@ -589,7 +589,7 @@ EM_Animacy CLexemeManaged::eAnimacy()
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return (EM_Animacy)m_pLexeme->eAnimacy();
+    return (EM_Animacy)m_pLexeme->eInflectionTypeToAnimacy();
 }
  
 String^ CLexemeManaged::sGraphicStem()
