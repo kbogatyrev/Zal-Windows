@@ -17,7 +17,7 @@ using namespace Hlib;
 
 namespace MainLibManaged 
 {
-    public delegate void DelegateProgress(int iPercentDone);
+    public delegate void DelegateProgress(int iPercentDone, bool bOperationComplete);
 
     ref class CLexemeManaged;
     ref class CParserManaged;
