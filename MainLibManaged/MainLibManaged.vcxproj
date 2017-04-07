@@ -23,35 +23,55 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>MainLibManaged</RootNamespace>
+<<<<<<< Updated upstream
     <ProjectName>ZalMainLibManaged</ProjectName>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+=======
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+>>>>>>> Stashed changes
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
+<<<<<<< Updated upstream
     <PlatformToolset>v140</PlatformToolset>
+=======
+    <PlatformToolset>v141</PlatformToolset>
+>>>>>>> Stashed changes
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
+<<<<<<< Updated upstream
     <PlatformToolset>v140</PlatformToolset>
+=======
+    <PlatformToolset>v141</PlatformToolset>
+>>>>>>> Stashed changes
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
+<<<<<<< Updated upstream
     <PlatformToolset>v140</PlatformToolset>
+=======
+    <PlatformToolset>v141</PlatformToolset>
+>>>>>>> Stashed changes
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
+<<<<<<< Updated upstream
     <PlatformToolset>v140</PlatformToolset>
+=======
+    <PlatformToolset>v141</PlatformToolset>
+>>>>>>> Stashed changes
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -85,6 +105,11 @@
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>C:\Users\K\Documents\Personal\Zal-Windows\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\K\Documents\Personal\Zal-Windows\Sqlite;C:\Users\K\Documents\Personal\HLib-Windows;C:\Users\K\Documents\Personal\Zal-Windows\MainLib;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);..\..\lib\$(Platform)\$(Configuration)</LibraryPath>
@@ -98,6 +123,11 @@
     <IncludePath>..\MainLib;..\..\HLib-Windows;..\..\ThirdPartyLibs-Windows\Sqlite;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>C:\Users\K\Documents\Personal\Zal-Windows\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\K\Documents\Personal\Zal-Windows\Sqlite;C:\Users\K\Documents\Personal\HLib-Windows;C:\Users\K\Documents\Personal\Zal-Windows\MainLib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -127,6 +157,20 @@
       </AddModuleNamesToAssembly>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>MainLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AddModuleNamesToAssembly>
+      </AddModuleNamesToAssembly>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -149,6 +193,19 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ZalMainLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AddModuleNamesToAssembly>
+      </AddModuleNamesToAssembly>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>MainLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AddModuleNamesToAssembly>
       </AddModuleNamesToAssembly>
     </Link>
