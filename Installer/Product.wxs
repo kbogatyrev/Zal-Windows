@@ -4,7 +4,7 @@
 <?define S_DATA_DIR = "..\ZalData\" ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Zalizniak's Grammatical Dictionary of Russian" Language="1033" Version="2.0.10.12" Manufacturer="Xiao Gogo Software and Baked Goods" UpgradeCode="21a83a2f-48ab-477e-bd50-ccb1ba338417">
+	<Product Id="*" Name="Zalizniak's Grammatical Dictionary of Russian" Language="1033" Version="2.0.14.18" Manufacturer="Xiao Gogo Software and Baked Goods" UpgradeCode="21a83a2f-48ab-477e-bd50-ccb1ba338417">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x86" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
