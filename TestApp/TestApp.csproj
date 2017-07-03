@@ -58,11 +58,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EnterDataDlg.xaml.cs">
+      <DependentUpon>EnterDataDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EnterDataViewModel.cs" />
     <Compile Include="LexemeViewModel.cs" />
     <Compile Include="MainModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="NounViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
+    <Page Include="EnterDataDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

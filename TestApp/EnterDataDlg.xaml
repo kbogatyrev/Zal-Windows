@@ -1,0 +1,22 @@
+﻿<Window x:Class="ZalTestApp.EnterDataDlg"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:ZalTestApp"
+    mc:Ignorable="d"
+    Title="{Binding Path=DlgTitle}" Height="155" Width="350" MaxHeight="155" MaxWidth="350" MinHeight="155" MinWidth="350" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+
+<!--    
+    <Window.DataContext>
+        <local:EnterDataViewModel/>
+    </Window.DataContext>
+-->
+    
+    <Grid Margin="0,0,0,0">
+        <TextBox Text="{Binding Path=DataString, Mode=TwoWay}" Margin="20,27.136,0,0"  HorizontalAlignment="Left" Height="18" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <Button Content="OK" HorizontalAlignment="Left" Command="{Binding OKCommand}" Margin="165,75,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="245.48,75,0,0" VerticalAlignment="Top" Width="75"/>
+    </Grid>
+</Window>

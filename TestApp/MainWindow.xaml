@@ -50,6 +50,6 @@ https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/how-to-define-a-t
 -->        
     </Window.Resources>
 
-    <ContentControl Content="{Binding CurrentView}" />
+    <ContentControl Content="{Binding CurrentViewModel}" />
 
 </Window>

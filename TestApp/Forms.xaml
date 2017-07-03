@@ -147,6 +147,9 @@
                 <MenuItem Header="_File">
                     <MenuItem Header="_Open Dictionary" Command="{Binding OpenDictionaryCommand}"/>
                 </MenuItem>
+                <MenuItem Header="_Synthesize" Command="{Binding SearchByInitialFormCommand}"/>
+                <MenuItem Header="_Analyze" IsEnabled="False"/>
+                <MenuItem Header="_Test" IsEnabled="False"/>
             </Menu>
             <StackPanel>
                 <Button Content="Button" Margin="957,289,10,323" Command="{Binding ShowNounCommand}"/>

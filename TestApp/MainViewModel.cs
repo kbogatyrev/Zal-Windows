@@ -8,18 +8,18 @@ namespace ZalTestApp
     {
         private LexemeViewModel m_LexemeViewModel = null;
         private NounViewModel m_NounViewModel = null;
-        private ViewModelBase m_CurrentViewModel = null;
+        private ViewModelBase m_CurrentViewModelModel = null;
  
-        public ViewModelBase CurrentView
+        public ViewModelBase CurrentViewModel
         {
             get
             {
-                return m_CurrentViewModel;
+                return m_CurrentViewModelModel;
             }
             set
             {
-                m_CurrentViewModel = value;
-                this.OnPropertyChanged("CurrentView");
+                m_CurrentViewModelModel = value;
+                this.OnPropertyChanged("CurrentViewModel");
             }
         }
 
@@ -85,7 +85,7 @@ namespace ZalTestApp
             ShowNounCommand = new RelayCommand(new Action<object>(ShowNoun));
             m_MainModel = new MainModel();
             m_MainModel.Path = "";
-            m_CurrentViewModel = this;
+            m_CurrentViewModelModel = this;
         }
  
         public void OpenDictionary(object obj)
@@ -95,7 +95,11 @@ namespace ZalTestApp
 
         public void SearchByInitialForm(object obj)
         {
-            m_MainModel.SearchByInitalForm(obj.ToString());
+            EnterDataDlg edd = new EnterDataDlg();
+            edd.Owner = Application.Current.MainWindow;
+            edd.ShowDialog();
+            EnterDataViewModel eddvm =  (EnterDataViewModel)edd.DataContext;
+            m_MainModel.SearchByInitalForm(eddvm.DataString);
         }
 
         public void ShowLexeme(object obj)
@@ -104,7 +108,7 @@ namespace ZalTestApp
             {
                 m_LexemeViewModel = new LexemeViewModel();
             }
-            CurrentView = m_LexemeViewModel;
+            CurrentViewModel = m_LexemeViewModel;
         }
 
         public void ShowNoun(object obj)
@@ -113,7 +117,7 @@ namespace ZalTestApp
             {
                 m_NounViewModel = new NounViewModel();
             }
-            CurrentView = m_NounViewModel;
+            CurrentViewModel = m_NounViewModel;
         }
     }
 }
