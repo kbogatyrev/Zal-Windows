@@ -26,5 +26,18 @@ namespace ZalTestApp
                 OnPropertyChanged("SourceForm");
             }
         }
+        private string m_sGraphicStem = "псевдосинхрофазотрон";
+        public string GraphicStem
+        {
+            get
+            {
+                return m_sGraphicStem;
+            }
+            set
+            {
+                m_sGraphicStem = value;
+                OnPropertyChanged("GraphicStem");
+            }
+        }
     }
 }

@@ -2,6 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ZalTestApp">
 
+    <DataTemplate DataType="{x:Type local:LexemeGridViewModel}">
+        <ScrollViewer>
+        <ItemsControl Name="Lexemes" ItemsSource="{Binding LexemeCollection}" />
+        </ScrollViewer>
+    </DataTemplate>
+
+<!--    <ControlTemplate x:Key="LexemeDescription" DataType="{x:Type local:LexemeViewModel}">  -->
     <DataTemplate DataType="{x:Type local:LexemeViewModel}">
         <Grid Margin="30,30,30,30">
             <Grid.ColumnDefinitions>
@@ -10,26 +17,26 @@
                 <ColumnDefinition Width="82*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Style="{DynamicResource NameField}" Text="Исходная форма" />
+            <TextBlock Style="{DynamicResource NameField}" Text="Исходная форма"/>
             <TextBlock Style="{DynamicResource NameField}" Text="Графическая основа" Grid.Row="1"/>
             <TextBlock Style="{DynamicResource NameField}" Text="Основной символ" Grid.Row="2"/>
             <TextBlock Style="{DynamicResource NameField}" Text="Индекс" Grid.Row="3"/>
             <TextBlock Style="{DynamicResource NameField}" Text="Схема ударения" Grid.Row="4"/>
             <TextBlock Style="{DynamicResource NameField}" Text="Доп. информация" Grid.Row="5"/>
 
-            <TextBlock Text="{Binding Path=SourceForm}" Grid.Column="1"/>
-            <TextBlock Text="{Binding Path=GraphicStem}" Grid.Row="1" Grid.Column="1"/>
-            <TextBlock Text="{Binding Path=MainSymbol}" Grid.Row="2" Grid.Column="1"/>
-            <TextBlock Text="{Binding Path=Index}" Grid.Row="3" Grid.Column="1"/>
-            <TextBlock Text="{Binding Path=StressSchema}" Grid.Row="4" Grid.Column="1"/>
-            <TextBlock Text="{Binding Path=Advanced}" Grid.Row="5" Grid.Column="1"/>
+            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=SourceForm}" Grid.Column="1"/>
+            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=GraphicStem}" Grid.Row="1" Grid.Column="1"/>
+            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=MainSymbol}" Grid.Row="2" Grid.Column="1"/>
+            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Index}" Grid.Row="3" Grid.Column="1"/>
+            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=StressSchema}" Grid.Row="4" Grid.Column="1"/>
+            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Advanced}" Grid.Row="5" Grid.Column="1"/>
         </Grid>
     </DataTemplate>
 

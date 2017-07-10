@@ -76,7 +76,7 @@ namespace ZalTestApp
             }
             else
             {
-                m_Action(null);
+                m_Action("");
             }
         }
         #endregion

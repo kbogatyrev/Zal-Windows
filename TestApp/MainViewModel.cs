@@ -6,6 +6,7 @@ namespace ZalTestApp
 {
     class MainViewModel : ViewModelBase
     {
+        private LexemeGridViewModel m_LexemeGridViewModel = null;
         private LexemeViewModel m_LexemeViewModel = null;
         private NounViewModel m_NounViewModel = null;
         private ViewModelBase m_CurrentViewModelModel = null;
@@ -100,15 +101,32 @@ namespace ZalTestApp
             edd.ShowDialog();
             EnterDataViewModel eddvm =  (EnterDataViewModel)edd.DataContext;
             m_MainModel.SearchByInitalForm(eddvm.DataString);
+            if (m_MainModel.NLexemes < 1)
+            {
+                return;
+            }
+
+            ShowLexeme(null);
         }
 
         public void ShowLexeme(object obj)
         {
-            if (null == m_LexemeViewModel)
+            if (null == m_LexemeGridViewModel)
             {
                 m_LexemeViewModel = new LexemeViewModel();
+                if (null == m_LexemeGridViewModel)
+                {
+                    m_LexemeGridViewModel = new LexemeGridViewModel();
+                    m_LexemeGridViewModel.Add(m_LexemeViewModel);
+                    m_LexemeGridViewModel.Add(m_LexemeViewModel);
+                    m_LexemeGridViewModel.Add(m_LexemeViewModel);
+                    m_LexemeGridViewModel.Add(m_LexemeViewModel);
+                    m_LexemeGridViewModel.Add(m_LexemeViewModel);
+                    m_LexemeGridViewModel.Add(m_LexemeViewModel);
+                }
+
             }
-            CurrentViewModel = m_LexemeViewModel;
+            CurrentViewModel = m_LexemeGridViewModel;
         }
 
         public void ShowNoun(object obj)

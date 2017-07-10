@@ -7,6 +7,40 @@ using System.Windows.Forms;
 
 namespace ZalTestApp
 {
+    #region Lexeme
+    public class Lexemes
+    {
+        private List<CLexemeManaged> m_Lexemes;
+        public int NLexemes
+        {
+            get { return m_Lexemes.Count; }
+        }
+
+        public void Add(CLexemeManaged l)
+        {
+            m_Lexemes.Add(l);
+        }
+
+        public Lexemes()
+        {
+            m_Lexemes = new List<CLexemeManaged>();
+        }
+
+        public CLexemeManaged this[int index]
+        {
+            get
+            {
+                return m_Lexemes[index];
+            }
+
+            set
+            {
+                m_Lexemes[index] = value;
+            }
+        }
+    }
+    #endregion
+
     public class MainModel : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Members
@@ -43,7 +77,23 @@ namespace ZalTestApp
             }
         }
 
-        private List<CLexemeManaged> m_Lexemes;
+        public Lexemes m_Lexemes = new Lexemes();
+        public int NLexemes
+        {
+            get
+            {
+                return m_Lexemes.NLexemes;
+            }
+        }
+
+        public CLexemeManaged GetLexemeAt(int iAt)
+        {
+            if (iAt < 0 || iAt >= m_Lexemes.NLexemes)
+            {
+                return null;
+            }
+            return m_Lexemes[iAt];
+        }
 
         public void OpenDictionary(string str)
         {
@@ -57,6 +107,12 @@ namespace ZalTestApp
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 Path = openFileDialog1.FileName;
+                var eRet = m_Dictionary.eSetDbPath(Path);
+                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                {
+                    Path = "";
+                    System.Windows.MessageBox.Show("Unable to open dictionary.");
+                }
             }
         }
 
@@ -69,22 +125,28 @@ namespace ZalTestApp
             }
 
             var eRet = m_Dictionary.eGetLexemesByInitialForm(str);
+
             CLexemeManaged l = null;
-            if (EM_ReturnCode.H_NO_ERROR == eRet)
+            eRet = m_Dictionary.eGetFirstLexeme(ref l);
+            if (EM_ReturnCode.H_NO_ERROR != eRet)
             {
-                eRet = m_Dictionary.eGetFirstLexeme(ref l);
+                System.Windows.MessageBox.Show("Lexeme not found.");
+                return;
             }
-            while (EM_ReturnCode.H_NO_ERROR == eRet)
+
+            do
             {
                 m_Lexemes.Add(l);
-                eRet = m_Dictionary.eGetFirstLexeme(ref l);
-            }
+                eRet = m_Dictionary.eGetNextLexeme(ref l);
+
+            } while (EM_ReturnCode.H_NO_ERROR == eRet);
 
             if (eRet != EM_ReturnCode.H_NO_MORE)
             {
                 System.Windows.MessageBox.Show("Error accessing lexeme collection.");
+                return;
             }
         }
 
     }
-}
+}       //  namespace ZalTestApp
