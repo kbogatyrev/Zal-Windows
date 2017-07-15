@@ -84,16 +84,5 @@ namespace ZalTestApp
             CloseWindowAction();
             DataString = "";
         }
-
-/*
-        public void ShowNoun(object obj)
-        {
-            if (null == m_NounViewModel)
-            {
-                m_NounViewModel = new NounViewModel();
-            }
-            CurrentViewModel = m_NounViewModel;
-        }
-*/
     }
 }

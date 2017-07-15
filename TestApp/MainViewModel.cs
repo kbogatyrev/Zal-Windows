@@ -2,15 +2,16 @@
 using System.Windows;
 using System.Windows.Input;
 
+using MainLibManaged;
+
 namespace ZalTestApp
 {
     class MainViewModel : ViewModelBase
     {
         private LexemeGridViewModel m_LexemeGridViewModel = null;
-        private LexemeViewModel m_LexemeViewModel = null;
         private NounViewModel m_NounViewModel = null;
         private ViewModelBase m_CurrentViewModelModel = null;
- 
+
         public ViewModelBase CurrentViewModel
         {
             get
@@ -25,7 +26,8 @@ namespace ZalTestApp
         }
 
         private MainModel m_MainModel;
- 
+
+        #region ICommand
         private ICommand m_OpenDictionaryCommand;
         public ICommand OpenDictionaryCommand
         {
@@ -51,20 +53,7 @@ namespace ZalTestApp
                 m_SearchByInitialFormCommand = value;
             }
         }
-
-        private ICommand m_ShowLexemeCommand;
-        public ICommand ShowLexemeCommand
-        {
-            get
-            {
-                return m_ShowLexemeCommand;
-            }
-            set
-            {
-                m_ShowLexemeCommand = value;
-            }
-        }
-
+/*
         private ICommand m_ShowNounCommand;
         public ICommand ShowNounCommand
         {
@@ -77,13 +66,26 @@ namespace ZalTestApp
                 m_ShowNounCommand = value;
             }
         }
+*/
+        private ICommand m_BackToLexemeGridCommand;
+        public ICommand BackToLexemeGridCommand
+        {
+            get
+            {
+                return m_BackToLexemeGridCommand;
+            }
+            set
+            {
+                m_BackToLexemeGridCommand = value;
+            }
+        }
+
+        #endregion
 
         public MainViewModel()
         {
             OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
             SearchByInitialFormCommand = new RelayCommand(new Action<object>(SearchByInitialForm));
-            ShowLexemeCommand = new RelayCommand(new Action<object>(ShowLexeme));
-            ShowNounCommand = new RelayCommand(new Action<object>(ShowNoun));
             m_MainModel = new MainModel();
             m_MainModel.Path = "";
             m_CurrentViewModelModel = this;
@@ -106,30 +108,22 @@ namespace ZalTestApp
                 return;
             }
 
-            ShowLexeme(null);
-        }
-
-        public void ShowLexeme(object obj)
-        {
             if (null == m_LexemeGridViewModel)
             {
-                m_LexemeViewModel = new LexemeViewModel();
-                if (null == m_LexemeGridViewModel)
-                {
-                    m_LexemeGridViewModel = new LexemeGridViewModel();
-                    m_LexemeGridViewModel.Add(m_LexemeViewModel);
-                    m_LexemeGridViewModel.Add(m_LexemeViewModel);
-                    m_LexemeGridViewModel.Add(m_LexemeViewModel);
-                    m_LexemeGridViewModel.Add(m_LexemeViewModel);
-                    m_LexemeGridViewModel.Add(m_LexemeViewModel);
-                    m_LexemeGridViewModel.Add(m_LexemeViewModel);
-                }
-
+                m_LexemeGridViewModel = new LexemeGridViewModel();
             }
+            
+            for (int iL = 0; iL < m_MainModel.NLexemes; ++iL)
+            {
+                LexemeViewModel lvm = new LexemeViewModel(m_MainModel.GetLexemeAt(iL));
+                m_LexemeGridViewModel.Add(lvm);
+                lvm.ShowNounFormsEvent += new LexemeViewModel.ShowNounFormsHandler(ShowNoun);
+            }
+
             CurrentViewModel = m_LexemeGridViewModel;
         }
 
-        public void ShowNoun(object obj)
+        void ShowNoun(CLexemeManaged l)
         {
             if (null == m_NounViewModel)
             {
@@ -137,5 +131,7 @@ namespace ZalTestApp
             }
             CurrentViewModel = m_NounViewModel;
         }
+
     }
+
 }

@@ -8,10 +8,6 @@ namespace ZalTestApp
         private ObservableCollection<LexemeViewModel> m_Lexemes;
         public ObservableCollection<LexemeViewModel> LexemeCollection
         {
-//            set
-//            {
-//                m_Lexemes = value;
-//            }
             get
             {
                 return m_Lexemes;

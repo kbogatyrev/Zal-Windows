@@ -8,145 +8,151 @@
         </ScrollViewer>
     </DataTemplate>
 
-<!--    <ControlTemplate x:Key="LexemeDescription" DataType="{x:Type local:LexemeViewModel}">  -->
     <DataTemplate DataType="{x:Type local:LexemeViewModel}">
-        <Grid Margin="30,30,30,30">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="121*"/>
-                <ColumnDefinition Width="159*"/>
-                <ColumnDefinition Width="82*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Style="{DynamicResource NameField}" Text="Исходная форма"/>
-            <TextBlock Style="{DynamicResource NameField}" Text="Графическая основа" Grid.Row="1"/>
-            <TextBlock Style="{DynamicResource NameField}" Text="Основной символ" Grid.Row="2"/>
-            <TextBlock Style="{DynamicResource NameField}" Text="Индекс" Grid.Row="3"/>
-            <TextBlock Style="{DynamicResource NameField}" Text="Схема ударения" Grid.Row="4"/>
-            <TextBlock Style="{DynamicResource NameField}" Text="Доп. информация" Grid.Row="5"/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="80, 10, 80, 10">
+            <Grid Margin="30,30,30,30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="121*"/>
+                    <ColumnDefinition Width="159*"/>
+                    <ColumnDefinition Width="82*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            
+                <TextBlock Style="{DynamicResource NameField}" Text="Исходная форма"/>
+                <TextBlock Style="{DynamicResource NameField}" Text="Графическая основа" Grid.Row="1"/>
+                <TextBlock Style="{DynamicResource NameField}" Text="Основной символ" Grid.Row="2"/>
+                <TextBlock Style="{DynamicResource NameField}" Text="Индекс" Grid.Row="3"/>
+                <TextBlock Style="{DynamicResource NameField}" Text="Схема ударения" Grid.Row="4"/>
+                <TextBlock Style="{DynamicResource NameField}" Text="Доп. информация" Grid.Row="5"/>
 
-            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=SourceForm}" Grid.Column="1"/>
-            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=GraphicStem}" Grid.Row="1" Grid.Column="1"/>
-            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=MainSymbol}" Grid.Row="2" Grid.Column="1"/>
-            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Index}" Grid.Row="3" Grid.Column="1"/>
-            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=StressSchema}" Grid.Row="4" Grid.Column="1"/>
-            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Advanced}" Grid.Row="5" Grid.Column="1"/>
-        </Grid>
+                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=SourceForm}" Grid.Column="1"/>
+                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=GraphicStem}" Grid.Row="1" Grid.Column="1"/>
+                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=MainSymbol}" Grid.Row="2" Grid.Column="1"/>
+                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Index}" Grid.Row="3" Grid.Column="1"/>
+                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=StressSchema}" Grid.Row="4" Grid.Column="1"/>
+                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Advanced}" Grid.Row="5" Grid.Column="1"/>
+
+                <Button Style="{DynamicResource Btn}" Content="Парадигма" Command="{Binding ShowParadigmCommand}" Grid.Row="2" Grid.Column="2" />
+            </Grid>
+        </Border>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type local:NounViewModel}">
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0">
-            <Grid>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="128,25,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="Sg" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="445,25,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="Pl" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
+        <StackPanel Orientation="Horizontal">
+            <Button Style="{DynamicResource Btn}" Content="Вернуццо" Command="{Binding ShowParadigmCommand}" Margin="40,0,0,300"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="100,0,0,0">
+                <Grid>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="128,25,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="Sg" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="445,25,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="Pl" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
 
-                <!-- Singular -->
-                <!-- Cases -->
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,70,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="N" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,105,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="A" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,140,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="G" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,175,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="P" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,210,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="D" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,245,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="I" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,305,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="G2" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,340,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="L2" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
+                    <!-- Singular -->
+                    <!-- Cases -->
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,70,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="N" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,105,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="A" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,140,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="G" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,175,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="P" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,210,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="D" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,245,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="I" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,305,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="G2" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,340,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="L2" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
 
-                <!-- Data -->
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,70,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_N}" FontWeight="Bold" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,105,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_A}" FontWeight="Bold" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,140,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_G}" FontWeight="Bold" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,175,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_P}" FontWeight="Bold" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,210,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_D}" FontWeight="Bold" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,245,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_I}" FontWeight="Bold" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,305,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_L}" FontWeight="Bold" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,340,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_Part}" FontWeight="Bold" />
-                </Border>
+                    <!-- Data -->
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,70,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_N}" FontWeight="Bold" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,105,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_A}" FontWeight="Bold" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,140,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_G}" FontWeight="Bold" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,175,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_P}" FontWeight="Bold" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,210,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_D}" FontWeight="Bold" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,245,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_I}" FontWeight="Bold" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,305,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_L}" FontWeight="Bold" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,340,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Sg_Part}" FontWeight="Bold" />
+                    </Border>
 
-                <!-- Plural -->
-                <!-- Cases -->
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="350,70,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="N" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="350,105,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="A" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="350,140,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="G" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="350,175,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="P" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="350,210,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="D" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="350,245,0,0" Width="22" Height="22" >
-                    <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="I" FontWeight="Bold" TextAlignment="Center" />
-                </Border>
+                    <!-- Plural -->
+                    <!-- Cases -->
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="350,70,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="N" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="350,105,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="A" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="350,140,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="G" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="350,175,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="P" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="350,210,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="D" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="350,245,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="I" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
 
-                <!-- Data -->
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,70,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_N}" FontWeight="Bold" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,105,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_A}" FontWeight="Bold" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,140,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_G}" FontWeight="Bold" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,175,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_L}" FontWeight="Bold" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,210,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_D}" FontWeight="Bold" />
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,245,0,0" Width="135" Height="22" >
-                    <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_I}" FontWeight="Bold" />
-                </Border>
-            </Grid>
-        </ScrollViewer>
+                    <!-- Data -->
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,70,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_N}" FontWeight="Bold" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,105,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_A}" FontWeight="Bold" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,140,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_G}" FontWeight="Bold" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,175,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_L}" FontWeight="Bold" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,210,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_D}" FontWeight="Bold" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,245,0,0" Width="135" Height="22" >
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_I}" FontWeight="Bold" />
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+        </StackPanel>
     </DataTemplate>
-
 
     <DataTemplate DataType="{x:Type local:MainViewModel}">
         <DockPanel Name="HomeView">
@@ -158,10 +164,7 @@
                 <MenuItem Header="_Analyze" IsEnabled="False"/>
                 <MenuItem Header="_Test" IsEnabled="False"/>
             </Menu>
-            <StackPanel>
-                <Button Content="Button" Margin="957,289,10,323" Command="{Binding ShowNounCommand}"/>
-            </StackPanel>
-            <!--        
+<!--        
         <TabControl >
             <TabItem Header="TabItem">
                 <Grid Background="#FFE5E5E5">

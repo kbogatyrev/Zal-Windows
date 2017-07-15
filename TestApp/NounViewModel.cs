@@ -2,11 +2,6 @@
 {
     public class NounViewModel : ViewModelBase
     {
-        public NounViewModel()
-        {
-            int kiki = 0;
-        }
-
         private string m_sSourceForm = "псевдосинхрофазотрон";
         public string SourceForm
         {
