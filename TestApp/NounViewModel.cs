@@ -1,7 +1,29 @@
-﻿namespace ZalTestApp
+﻿using System;
+using System.Windows.Input;
+
+namespace ZalTestApp
 {
     public class NounViewModel : ViewModelBase
     {
+        public delegate void BackButtonHandler();
+        public event BackButtonHandler BackButtonEvent;
+
+        #region ICommand
+        private ICommand m_BackCommand;
+        public ICommand BackCommand
+        {
+            get
+            {
+                return m_BackCommand;
+            }
+            set
+            {
+                m_BackCommand = value;
+            }
+        }
+        #endregion
+
+        #region Bindings
         private string m_sSourceForm = "псевдосинхрофазотрон";
         public string SourceForm
         {
@@ -27,6 +49,17 @@
                 m_sSourceForm = value;
                 OnPropertyChanged("Noun_Sg_N");
             }
+        }
+        #endregion
+
+        public NounViewModel()
+        {
+            BackCommand = new RelayCommand(new Action<object>(GoBack));
+        }
+
+        public void GoBack(Object obj)
+        {
+            BackButtonEvent?.Invoke();
         }
     }
 }

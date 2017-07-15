@@ -13,6 +13,21 @@ namespace ZalTestApp
         public delegate void ShowNounFormsHandler(CLexemeManaged l);
         public event ShowNounFormsHandler ShowNounFormsEvent;
 
+        #region ICommand
+        private ICommand m_ShowParadigmCommand;
+        public ICommand ShowParadigmCommand
+        {
+            get
+            {
+                return m_ShowParadigmCommand;
+            }
+            set
+            {
+                m_ShowParadigmCommand = value;
+            }
+        }
+        #endregion
+
         #region Bindings
         public string SourceForm
         {
@@ -104,33 +119,15 @@ namespace ZalTestApp
             if (null == m_NounViewModel)
             {
                 m_NounViewModel = new NounViewModel();
-                if (ShowNounFormsEvent != null)
-                {
-                    ShowNounFormsEvent(m_Lexeme);
-                }
             }
+            ShowNounFormsEvent?.Invoke(m_Lexeme);
         }
-
-        #region ICommand
-        private ICommand m_ShowParadigmCommand;
-        public ICommand ShowParadigmCommand
-        {
-            get
-            {
-                return m_ShowParadigmCommand;
-            }
-            set
-            {
-                m_ShowParadigmCommand = value;
-            }
-        }
-        #endregion
 
         #region Helpers
         private string sAccenTypeToStressSchema(EM_AccentType eType)
         {
             switch (eType)
-            { 
+            {
                 case EM_AccentType.AT_A:
                     return "a";
                 case EM_AccentType.AT_A1:
@@ -161,7 +158,6 @@ namespace ZalTestApp
                 default:
                     return "Undefined";
             };
-
         }
         #endregion
     }

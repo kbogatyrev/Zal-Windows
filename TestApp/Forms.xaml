@@ -46,7 +46,7 @@
 
     <DataTemplate DataType="{x:Type local:NounViewModel}">
         <StackPanel Orientation="Horizontal">
-            <Button Style="{DynamicResource Btn}" Content="Вернуццо" Command="{Binding ShowParadigmCommand}" Margin="40,0,0,300"/>
+            <Button Style="{DynamicResource Btn}" Content="Вернуццо" Command="{Binding BackCommand }"  Margin="40,0,0,300"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="100,0,0,0">
                 <Grid>
                     <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="128,25,0,0" Width="22" Height="22" >
