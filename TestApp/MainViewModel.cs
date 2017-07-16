@@ -80,7 +80,7 @@ namespace ZalTestApp
             edd.Owner = Application.Current.MainWindow;
             edd.ShowDialog();
             EnterDataViewModel eddvm =  (EnterDataViewModel)edd.DataContext;
-            m_MainModel.SearchByInitalForm(eddvm.DataString);
+            m_MainModel.SearchByInitialForm(eddvm.DataString);
             if (m_MainModel.NLexemes < 1)
             {
                 return;
@@ -122,7 +122,7 @@ namespace ZalTestApp
         {
             if (null == m_NounViewModel)
             {
-                m_NounViewModel = new NounViewModel();
+                m_NounViewModel = new NounViewModel(l);
                 m_NounViewModel.BackButtonEvent += new NounViewModel.BackButtonHandler(GoBack);
             }
             m_BreadCrumbs.Push(m_CurrentViewModel);

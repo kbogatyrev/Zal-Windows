@@ -141,7 +141,7 @@
                         <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_G}" FontWeight="Bold" />
                     </Border>
                     <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,175,0,0" Width="135" Height="22" >
-                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_L}" FontWeight="Bold" />
+                        <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_P}" FontWeight="Bold" />
                     </Border>
                     <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="387,210,0,0" Width="135" Height="22" >
                         <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Path=Noun_Pl_D}" FontWeight="Bold" />

@@ -59,6 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers.cs" />
+    <Compile Include="NounModel.cs" />
     <Compile Include="EnterDataDlg.xaml.cs">
       <DependentUpon>EnterDataDlg.xaml</DependentUpon>
     </Compile>

@@ -116,7 +116,7 @@ namespace ZalTestApp
             }
         }
 
-        public void SearchByInitalForm(string str)
+        public void SearchByInitialForm(string str)
         {
             if (null == m_Dictionary)
             {
@@ -146,7 +146,7 @@ namespace ZalTestApp
                 System.Windows.MessageBox.Show("Error accessing lexeme collection.");
                 return;
             }
-        }
 
+        }   //  SearchByInitialForm()
     }
 }       //  namespace ZalTestApp
