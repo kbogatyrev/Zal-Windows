@@ -8,11 +8,11 @@ namespace ZalTestApp
 {
     public class NounModel
     {
-        public Dictionary<string, string> m_GramHashToWordForm;
+        public Dictionary<string, List<string> > m_GramHashToWordForm;
 
         public NounModel()
         {
-            m_GramHashToWordForm = new Dictionary<string, string>();
+            m_GramHashToWordForm = new Dictionary<string, List<string> >();
         }
 
         public bool bGenerateNounForms(CLexemeManaged lexeme)
@@ -40,7 +40,11 @@ namespace ZalTestApp
                 string sWordForm = wf.sWordForm();
                 Helpers.MarkStress(ref sWordForm, wf);
 
-                m_GramHashToWordForm[sKey] = sWordForm;
+                if (!m_GramHashToWordForm.ContainsKey(sKey))
+                {
+                    m_GramHashToWordForm[sKey] = new List<string>();
+                }
+                m_GramHashToWordForm[sKey].Add(sWordForm);
 
                 eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
 
@@ -55,7 +59,15 @@ namespace ZalTestApp
             string sValue = "";
             try
             {
-                sValue = m_GramHashToWordForm[sHash];
+                List<string> values = m_GramHashToWordForm[sHash];
+                foreach (var sForm in values)
+                {
+                    if (sValue.Length > 0)
+                    {
+                        sValue += '\n';
+                    }
+                    sValue += sForm;
+                }
             }
             catch (KeyNotFoundException)
             {
