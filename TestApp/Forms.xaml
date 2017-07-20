@@ -2,12 +2,59 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ZalTestApp">
 
+<!--    
+                Main panel
+-->
+    <DataTemplate DataType="{x:Type local:MainViewModel}">
+        <DockPanel Name="HomeView">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Open Dictionary" Command="{Binding OpenDictionaryCommand}"/>
+                </MenuItem>
+                <MenuItem Header="_Synthesize" Command="{Binding SearchByInitialFormCommand}"/>
+                <MenuItem Header="_Analyze" IsEnabled="False"/>
+                <MenuItem Header="_Test" IsEnabled="False"/>
+            </Menu>
+            <!--        
+        <TabControl >
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5">
+                    
+                    <ItemsControl>
+                        <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
+                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
+                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
+                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
+                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
+                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
+                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
+                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
+                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
+                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
+                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
+                        </ItemsControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="TabItem" Margin="1,1,1,2">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+        -->
+        </DockPanel>
+        
+<!--
+                Lexeme grid        
+-->        
+    </DataTemplate>
     <DataTemplate DataType="{x:Type local:LexemeGridViewModel}">
         <ScrollViewer>
         <ItemsControl Name="Lexemes" ItemsSource="{Binding LexemeCollection}" />
         </ScrollViewer>
     </DataTemplate>
 
+<!--
+                Lexeme description panel    
+-->    
     <DataTemplate DataType="{x:Type local:LexemeViewModel}">
         <Border BorderBrush="Black" BorderThickness="1" Margin="80, 10, 80, 10">
             <Grid Margin="30,30,30,30">
@@ -44,6 +91,9 @@
         </Border>
     </DataTemplate>
 
+<!--
+                Noun panel
+-->
     <DataTemplate DataType="{x:Type local:NounViewModel}">
         <StackPanel Orientation="Horizontal">
             <Button Style="{DynamicResource Btn}" Content="Вернуццо" Command="{Binding BackCommand }"  Margin="40,0,0,300"/>
@@ -94,49 +144,68 @@
                     <TextBox Text="{Binding Path=Noun_Pl_P}" Margin="387,205,0,0" Style="{StaticResource FormText}" />
                     <TextBox Text="{Binding Path=Noun_Pl_D}" Margin="387,250,0,0" Style="{StaticResource FormText}" />
                     <TextBox Text="{Binding Path=Noun_Pl_I}" Margin="387,295,0,0" Style="{StaticResource FormText}" />
+                </Grid>
+            </ScrollViewer>
+        </StackPanel>
+    </DataTemplate>
+    
+<!--                       Adjective panel
+-->
+    <DataTemplate DataType="{x:Type local:AdjViewModel}">
+        <StackPanel Orientation="Horizontal">
+            <Button Style="{DynamicResource Btn}" Content="Вернуццо" Command="{Binding BackCommand }"  Margin="40,0,0,300"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="100,0,0,0">
+                <Grid>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="128,25,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="Sg" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="445,25,0,0" Width="22" Height="22" >
+                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="Pl" FontWeight="Bold" TextAlignment="Center" />
+                    </Border>
+
+                    <!-- Masculine -->
+                    <!-- Singular -->
+                    <!-- Case Labels -->
+                    <TextBox Text="N" Margin="0,70,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="A" Margin="0,115,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="A Anim." Margin="0,160,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="G" Margin="0,205,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="P" Margin="0,250,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="D" Margin="0,295,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="I" Margin="0,340,0,0" Style="{StaticResource FormLabelWide}" />
+
+                    <!-- Forms -->
+                    <TextBox Text="{Binding Path=AdjL_M_Sg_N}" Margin="85,70,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_M_Sg_A_Inanim}" Margin="85,115,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_M_Sg_A_Anim}" Margin="85,160,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_M_Sg_G}" Margin="85,205,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_M_Sg_P}" Margin="85,250,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_M_Sg_D}" Margin="85,295,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_M_Sg_I}" Margin="85,340,0,0" Style="{StaticResource FormText}" />
+
+                    <!-- Plural -->
+                    <!-- Case Labels -->
+                    <TextBox Text="N" Margin="370,70,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="A" Margin="370,115,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="A Anim" Margin="370,160,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="G" Margin="370,205,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="P" Margin="370,250,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="D" Margin="370,295,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="I" Margin="370,340,0,0" Style="{StaticResource FormLabelWide}" />
+
+                    <!-- Forms -->
+                    <TextBox Text="{Binding Path=AdjL_Pl_N}" Margin="455,70,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_Pl_A_Inanim}" Margin="455,115,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_Pl_A_Anim}" Margin="455,160,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_Pl_G}" Margin="455,205,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_Pl_P}" Margin="455,250,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_Pl_D}" Margin="455,295,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_Pl_I}" Margin="455,340,0,0" Style="{StaticResource FormText}" />
+
 
                 </Grid>
             </ScrollViewer>
         </StackPanel>
     </DataTemplate>
-
-    <DataTemplate DataType="{x:Type local:MainViewModel}">
-        <DockPanel Name="HomeView">
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_File">
-                    <MenuItem Header="_Open Dictionary" Command="{Binding OpenDictionaryCommand}"/>
-                </MenuItem>
-                <MenuItem Header="_Synthesize" Command="{Binding SearchByInitialFormCommand}"/>
-                <MenuItem Header="_Analyze" IsEnabled="False"/>
-                <MenuItem Header="_Test" IsEnabled="False"/>
-            </Menu>
-<!--        
-        <TabControl >
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5">
-                    
-                    <ItemsControl>
-                        <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                        </ItemsControl>
-                </Grid>
-            </TabItem>
-            <TabItem Header="TabItem" Margin="1,1,1,2">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-        </TabControl>
-        -->
-        </DockPanel>
-    </DataTemplate>
-
 </ResourceDictionary>
     

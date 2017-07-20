@@ -12,6 +12,7 @@ namespace ZalTestApp
         private Stack<ViewModelBase> m_BreadCrumbs = null;
         private LexemeGridViewModel m_LexemeGridViewModel = null;
         private NounViewModel m_NounViewModel = null;
+        private AdjViewModel m_AdjViewModel = null;
         private ViewModelBase m_CurrentViewModel = null;
 
         public ViewModelBase CurrentViewModel
@@ -90,13 +91,34 @@ namespace ZalTestApp
             {
                 m_LexemeGridViewModel = new LexemeGridViewModel();
             }
-            
+
             for (int iL = 0; iL < m_MainModel.NLexemes; ++iL)
             {
-                LexemeViewModel lvm = new LexemeViewModel(m_MainModel.GetLexemeAt(iL));
+                CLexemeManaged l = m_MainModel.GetLexemeAt(iL);
+                if (null == l)
+                {
+                    MessageBox.Show("Internal error: lexeme descriptor is corrupt.");
+                    return;
+                }
+
+                LexemeViewModel lvm = new LexemeViewModel(l);
                 m_LexemeGridViewModel.Add(lvm);
-                lvm.ShowNounFormsEvent += new LexemeViewModel.ShowNounFormsHandler(ShowNoun);
+
+                switch (l.ePartOfSpeech())
+                {
+                    case EM_PartOfSpeech.POS_NOUN:
+                        lvm.ShowNounFormsEvent += new LexemeViewModel.ShowNounFormsHandler(ShowNoun);
+                        break;
+                    case EM_PartOfSpeech.POS_ADJ:
+                        lvm.ShowAdjFormsEvent += new LexemeViewModel.ShowAdjFormsHandler(ShowAdj);
+                        break;
+                    default:
+                        MessageBox.Show("Illegal part of speech value in lexeme descriptor.");
+                        return;
+
+                }
             }
+        
 
             m_BreadCrumbs.Push(m_CurrentViewModel);
             CurrentViewModel = m_LexemeGridViewModel;
@@ -128,5 +150,19 @@ namespace ZalTestApp
             m_BreadCrumbs.Push(m_CurrentViewModel);
             CurrentViewModel = m_NounViewModel;
         }
-    }
-}
+
+        void ShowAdj(CLexemeManaged l)
+        {
+            if (null == m_AdjViewModel)
+            {
+                m_AdjViewModel = new AdjViewModel(l);
+                m_AdjViewModel.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
+            }
+            m_BreadCrumbs.Push(m_CurrentViewModel);
+            CurrentViewModel = m_AdjViewModel;
+        }
+
+    }   //  class MainViewModel 
+
+}   //  namespace ZalTestApp
+

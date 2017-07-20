@@ -87,11 +87,11 @@ namespace ZalTestApp
             switch (eGender)
             {
                 case EM_Gender.GENDER_M:
-                    return "m";
+                    return "M";
                 case EM_Gender.GENDER_F:
-                    return "f";
+                    return "F";
                 case EM_Gender.GENDER_N:
-                    return "n";
+                    return "N";
                 case EM_Gender.GENDER_UNDEFINED:
                 default:
                     return "Undefined";

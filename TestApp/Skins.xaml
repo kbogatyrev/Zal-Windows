@@ -49,9 +49,26 @@
         <Setter Property="IsReadOnly" Value="True"/>
     </Style>
 
+    <Style TargetType="TextBox" x:Key="FormLabelWide">
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Width" Value="78"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="1,3,0,1"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+    </Style>
+
     <Style TargetType="TextBox" x:Key="FormText">
         <Setter Property="Height" Value="30"/>
-        <Setter Property="Width" Value="135"/>
+        <Setter Property="Width" Value="180"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="Foreground" Value="Navy"/>
         <Setter Property="BorderThickness" Value="1"/>

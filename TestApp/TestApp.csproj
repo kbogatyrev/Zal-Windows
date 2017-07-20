@@ -59,6 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdjModel.cs" />
+    <Compile Include="AdjViewModel.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="NounModel.cs" />
     <Compile Include="EnterDataDlg.xaml.cs">

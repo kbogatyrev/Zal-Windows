@@ -9,9 +9,13 @@ namespace ZalTestApp
     {
         private CLexemeManaged m_Lexeme = null;
         private NounViewModel m_NounViewModel = null;
+        private AdjViewModel m_AdjViewModel = null;
 
         public delegate void ShowNounFormsHandler(CLexemeManaged l);
         public event ShowNounFormsHandler ShowNounFormsEvent;
+
+        public delegate void ShowAdjFormsHandler(CLexemeManaged l);
+        public event ShowAdjFormsHandler ShowAdjFormsEvent;
 
         #region ICommand
         private ICommand m_ShowParadigmCommand;
@@ -116,11 +120,33 @@ namespace ZalTestApp
                 return;
             }
 
-            if (null == m_NounViewModel)
+            switch (m_Lexeme.ePartOfSpeech())
             {
-                m_NounViewModel = new NounViewModel(m_Lexeme);
-            }
-            ShowNounFormsEvent?.Invoke(m_Lexeme);
-        }
-    }
-}
+                case EM_PartOfSpeech.POS_NOUN:
+                    if (null == m_NounViewModel)
+                    {
+                        m_NounViewModel = new NounViewModel(m_Lexeme);
+                    }
+                    ShowNounFormsEvent?.Invoke(m_Lexeme);
+                    break;
+
+                case EM_PartOfSpeech.POS_ADJ:
+                    if (null == m_AdjViewModel)
+                    {
+                        m_AdjViewModel = new AdjViewModel(m_Lexeme);
+                    }
+                    ShowAdjFormsEvent?.Invoke(m_Lexeme);
+                    break;
+
+                default:
+                    MessageBox.Show("Internal error: illegal part of speech value.");
+                    return;
+
+            }   //  switch...
+
+        }   // ShowParadigm()
+
+    }   //  public class LexemeViewModel 
+
+}   //  namespace ZalTestApp
+

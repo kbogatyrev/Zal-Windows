@@ -118,6 +118,12 @@ namespace ZalTestApp
 
         public void SearchByInitialForm(string str)
         {
+            if (null == str)
+            {
+                System.Windows.MessageBox.Show("Empty search string.");
+                return;
+            }
+
             if (null == m_Dictionary)
             {
                 System.Windows.MessageBox.Show("Dictionary was not initialized.");
