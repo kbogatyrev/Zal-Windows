@@ -30,9 +30,14 @@ namespace ZalTestApp
             }
         }
 
-//        public void CloseWindow()
-//        {
-//            Close();
-//        }
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        private void BtnOK_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
 }

@@ -11,8 +11,9 @@ namespace ZalTestApp
     {
         private Stack<ViewModelBase> m_BreadCrumbs = null;
         private LexemeGridViewModel m_LexemeGridViewModel = null;
-        private NounViewModel m_NounViewModel = null;
-        private AdjViewModel m_AdjViewModel = null;
+
+        private Dictionary<CLexemeManaged, NounViewModel> m_NounViewModels = null;
+        private Dictionary<CLexemeManaged, AdjViewModel> m_AdjViewModels = null;
         private ViewModelBase m_CurrentViewModel = null;
 
         public ViewModelBase CurrentViewModel
@@ -79,7 +80,12 @@ namespace ZalTestApp
         {
             EnterDataDlg edd = new EnterDataDlg();
             edd.Owner = Application.Current.MainWindow;
-            edd.ShowDialog();
+            bool? bnRet = edd.ShowDialog();
+            if (bnRet != true)
+            {
+                return;
+            }
+
             EnterDataViewModel eddvm =  (EnterDataViewModel)edd.DataContext;
             m_MainModel.SearchByInitialForm(eddvm.DataString);
             if (m_MainModel.NLexemes < 1)
@@ -91,6 +97,8 @@ namespace ZalTestApp
             {
                 m_LexemeGridViewModel = new LexemeGridViewModel();
             }
+
+            m_LexemeGridViewModel.Clear();
 
             for (int iL = 0; iL < m_MainModel.NLexemes; ++iL)
             {
@@ -115,10 +123,8 @@ namespace ZalTestApp
                     default:
                         MessageBox.Show("Illegal part of speech value in lexeme descriptor.");
                         return;
-
                 }
             }
-        
 
             m_BreadCrumbs.Push(m_CurrentViewModel);
             CurrentViewModel = m_LexemeGridViewModel;
@@ -142,24 +148,38 @@ namespace ZalTestApp
 
         void ShowNoun(CLexemeManaged l)
         {
-            if (null == m_NounViewModel)
+            if (null == m_NounViewModels)
             {
-                m_NounViewModel = new NounViewModel(l);
-                m_NounViewModel.BackButtonEvent += new NounViewModel.BackButtonHandler(GoBack);
+                m_NounViewModels = new Dictionary<CLexemeManaged, NounViewModel>();
             }
+
+            if (!m_NounViewModels.TryGetValue(l, out NounViewModel nvm))
+            {
+                nvm = new NounViewModel(l);
+                nvm.BackButtonEvent += new NounViewModel.BackButtonHandler(GoBack);
+                m_NounViewModels[l] = nvm;
+            }
+
             m_BreadCrumbs.Push(m_CurrentViewModel);
-            CurrentViewModel = m_NounViewModel;
+            CurrentViewModel = nvm;
         }
 
         void ShowAdj(CLexemeManaged l)
         {
-            if (null == m_AdjViewModel)
+            if (null == m_AdjViewModels)
             {
-                m_AdjViewModel = new AdjViewModel(l);
-                m_AdjViewModel.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
+                m_AdjViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
             }
+
+            if (!m_AdjViewModels.TryGetValue(l, out AdjViewModel avm))
+            {
+                avm = new AdjViewModel(l);
+                avm.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
+                m_AdjViewModels[l] = avm;
+            }
+
             m_BreadCrumbs.Push(m_CurrentViewModel);
-            CurrentViewModel = m_AdjViewModel;
+            CurrentViewModel = avm;
         }
 
     }   //  class MainViewModel 

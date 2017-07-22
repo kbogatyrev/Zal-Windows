@@ -12,6 +12,11 @@ namespace ZalTestApp
             {
                 return m_Lexemes;
             }
+
+            set
+            {
+                m_Lexemes = value;
+            }
         }
 
         public LexemeGridViewModel()
@@ -23,5 +28,11 @@ namespace ZalTestApp
         {
             m_Lexemes.Add(lvm);
         }
+
+        public void Clear()
+        {
+            m_Lexemes.Clear();
+        }
+
     }
 }

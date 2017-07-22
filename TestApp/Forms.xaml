@@ -7,6 +7,7 @@
 -->
     <DataTemplate DataType="{x:Type local:MainViewModel}">
         <DockPanel Name="HomeView">
+<!--
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="_Open Dictionary" Command="{Binding OpenDictionaryCommand}"/>
@@ -15,6 +16,7 @@
                 <MenuItem Header="_Analyze" IsEnabled="False"/>
                 <MenuItem Header="_Test" IsEnabled="False"/>
             </Menu>
+-->            
             <!--        
         <TabControl >
             <TabItem Header="TabItem">
@@ -27,6 +29,7 @@
                     <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
                     <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
                     <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
+            
                     <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
                     <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
                     <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
@@ -47,9 +50,11 @@
 -->        
     </DataTemplate>
     <DataTemplate DataType="{x:Type local:LexemeGridViewModel}">
-        <ScrollViewer>
-        <ItemsControl Name="Lexemes" ItemsSource="{Binding LexemeCollection}" />
-        </ScrollViewer>
+        <DockPanel Name="HomeView">
+            <ScrollViewer>
+                <ItemsControl Name="Lexemes" ItemsSource="{Binding LexemeCollection}" />
+            </ScrollViewer>
+        </DockPanel>
     </DataTemplate>
 
 <!--
@@ -201,7 +206,6 @@
                     <TextBox Text="{Binding Path=AdjL_Pl_P}" Margin="455,250,0,0" Style="{StaticResource FormText}" />
                     <TextBox Text="{Binding Path=AdjL_Pl_D}" Margin="455,295,0,0" Style="{StaticResource FormText}" />
                     <TextBox Text="{Binding Path=AdjL_Pl_I}" Margin="455,340,0,0" Style="{StaticResource FormText}" />
-
 
                 </Grid>
             </ScrollViewer>

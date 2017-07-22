@@ -16,7 +16,7 @@
     
     <Grid Margin="0,0,0,0">
         <TextBox Text="{Binding Path=DataString, Mode=TwoWay}" Margin="20,27.136,0,0"  HorizontalAlignment="Left" Height="18" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
-        <Button Content="OK" HorizontalAlignment="Left" Command="{Binding OKCommand}" Margin="165,75,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="245.48,75,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="OK" Click="BtnOK_Click" HorizontalAlignment="Left" Command="{Binding OKCommand}" Margin="165,75,0,0" VerticalAlignment="Top" Width="75" IsDefault="True"/>
+        <Button Content="Cancel" Click="BtnCancel_Click" HorizontalAlignment="Left" Command="{Binding CancelCommand}" Margin="245.48,75,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
     </Grid>
 </Window>

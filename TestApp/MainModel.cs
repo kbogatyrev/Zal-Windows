@@ -21,6 +21,11 @@ namespace ZalTestApp
             m_Lexemes.Add(l);
         }
 
+        public void Clear()
+        {
+            m_Lexemes.Clear();
+        }
+
         public Lexemes()
         {
             m_Lexemes = new List<CLexemeManaged>();
@@ -129,6 +134,8 @@ namespace ZalTestApp
                 System.Windows.MessageBox.Show("Dictionary was not initialized.");
                 return;
             }
+
+            m_Lexemes.Clear();
 
             var eRet = m_Dictionary.eGetLexemesByInitialForm(str);
 
