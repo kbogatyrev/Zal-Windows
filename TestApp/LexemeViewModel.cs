@@ -1,13 +1,22 @@
-﻿using MainLibManaged;
-using System.Collections.Generic;
+﻿using System;
 using System.Windows;
 using System.Windows.Input;
+
+using MainLibManaged;
 
 namespace ZalTestApp
 {
     public class LexemeViewModel : ViewModelBase
     {
         private CLexemeManaged m_Lexeme = null;
+        public CLexemeManaged Lexeme
+        {
+            get
+            {
+                return m_Lexeme;
+            }
+        }
+
         private NounViewModel m_NounViewModel = null;
         private AdjViewModel m_AdjViewModel = null;
 
@@ -16,6 +25,9 @@ namespace ZalTestApp
 
         public delegate void ShowAdjFormsHandler(CLexemeManaged l);
         public event ShowAdjFormsHandler ShowAdjFormsEvent;
+
+        public delegate void RemoveLexemeHandler(LexemeViewModel lvm);
+        public event RemoveLexemeHandler RemoveLexemeEvent;
 
         #region ICommand
         private ICommand m_ShowParadigmCommand;
@@ -30,6 +42,20 @@ namespace ZalTestApp
                 m_ShowParadigmCommand = value;
             }
         }
+
+        private ICommand m_RemoveLexemeCommand;
+        public ICommand RemoveLexemeCommand
+        {
+            get
+            {
+                return m_RemoveLexemeCommand;
+            }
+            set
+            {
+                m_RemoveLexemeCommand = value;
+            }
+        }
+
         #endregion
 
         #region Bindings
@@ -109,7 +135,8 @@ namespace ZalTestApp
         public LexemeViewModel(CLexemeManaged l)
         {
             m_Lexeme = l;
-            ShowParadigmCommand = new RelayCommand(new System.Action<object>(ShowParadigm));
+            ShowParadigmCommand = new RelayCommand(new Action<object>(ShowParadigm));
+            RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
         }
 
         private void ShowParadigm(object arg)
@@ -145,6 +172,11 @@ namespace ZalTestApp
             }   //  switch...
 
         }   // ShowParadigm()
+
+        private void RemoveLexeme(object arg)
+        {
+            RemoveLexemeEvent?.Invoke(this);
+        }
 
     }   //  public class LexemeViewModel 
 

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace ZalTestApp
 {
-    #region Lexeme
+    #region Lexemes
     public class Lexemes
     {
         private List<CLexemeManaged> m_Lexemes;
@@ -19,6 +19,11 @@ namespace ZalTestApp
         public void Add(CLexemeManaged l)
         {
             m_Lexemes.Add(l);
+        }
+
+        public void Remove(CLexemeManaged l)
+        {
+            m_Lexemes.Remove(l);
         }
 
         public void Clear()
@@ -100,6 +105,12 @@ namespace ZalTestApp
             return m_Lexemes[iAt];
         }
 
+        public void RemoveLexeme(CLexemeManaged l)
+        {
+            m_Dictionary.Clear(l);
+            m_Lexemes.Remove(l);
+        }
+
         public void OpenDictionary(string str)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -160,6 +171,6 @@ namespace ZalTestApp
                 return;
             }
 
-        }   //  SearchByInitialForm()
-    }
+        }       //  SearchByInitialForm()
+    }       //  public class MainModel
 }       //  namespace ZalTestApp

@@ -110,6 +110,7 @@ namespace ZalTestApp
                 }
 
                 LexemeViewModel lvm = new LexemeViewModel(l);
+                lvm.RemoveLexemeEvent += new LexemeViewModel.RemoveLexemeHandler(RemoveLexeme);
                 m_LexemeGridViewModel.Add(lvm);
 
                 switch (l.ePartOfSpeech())
@@ -130,21 +131,6 @@ namespace ZalTestApp
             CurrentViewModel = m_LexemeGridViewModel;
 
         }   // SearchByInitialForm()
-
-        void GoBack()
-        {
-            if (null == m_BreadCrumbs)
-            {
-                return;
-            }
-
-            if (m_BreadCrumbs.Count == 0)
-            {
-                return;
-            }
-
-            CurrentViewModel = m_BreadCrumbs.Pop();
-        }
 
         void ShowNoun(CLexemeManaged l)
         {
@@ -180,6 +166,27 @@ namespace ZalTestApp
 
             m_BreadCrumbs.Push(m_CurrentViewModel);
             CurrentViewModel = avm;
+        }
+
+        void GoBack()
+        {
+            if (null == m_BreadCrumbs)
+            {
+                return;
+            }
+
+            if (m_BreadCrumbs.Count == 0)
+            {
+                return;
+            }
+
+            CurrentViewModel = m_BreadCrumbs.Pop();
+        }
+
+        void RemoveLexeme(LexemeViewModel lvm)
+        {
+            m_LexemeGridViewModel.Remove(lvm);
+            m_MainModel.RemoveLexeme(lvm.Lexeme);
         }
 
     }   //  class MainViewModel 

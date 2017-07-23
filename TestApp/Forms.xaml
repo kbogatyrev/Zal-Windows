@@ -91,7 +91,8 @@
                 <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=StressSchema}" Grid.Row="4" Grid.Column="1"/>
                 <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Advanced}" Grid.Row="5" Grid.Column="1"/>
 
-                <Button Style="{DynamicResource Btn}" Content="Парадигма" Command="{Binding ShowParadigmCommand}" Grid.Row="2" Grid.Column="2" />
+                <Button Style="{DynamicResource BtnLarge}" Content="Парадигма" Command="{Binding ShowParadigmCommand}" Grid.Column="2" Grid.Row="2" Margin="10,0,0,0" />
+                <Button Style="{DynamicResource BtnLarge}" Content="Закрыть" Command="{Binding RemoveLexemeCommand }"  Grid.Column="2" Grid.Row="3" Margin="10,0,0,0" />
             </Grid>
         </Border>
     </DataTemplate>
@@ -100,8 +101,12 @@
                 Noun panel
 -->
     <DataTemplate DataType="{x:Type local:NounViewModel}">
-        <StackPanel Orientation="Horizontal">
-            <Button Style="{DynamicResource Btn}" Content="Вернуццо" Command="{Binding BackCommand }"  Margin="40,0,0,300"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="100,0,0,0">
                 <Grid>
                     <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="128,25,0,0" Width="22" Height="22" >
@@ -151,14 +156,15 @@
                     <TextBox Text="{Binding Path=Noun_Pl_I}" Margin="387,295,0,0" Style="{StaticResource FormText}" />
                 </Grid>
             </ScrollViewer>
-        </StackPanel>
+            <Button Style="{DynamicResource BtnSmall}" Content="Назад" Command="{Binding BackCommand }"  Grid.Column="1" Margin="10,0,0,300" />
+        </Grid>
     </DataTemplate>
     
 <!--                       Adjective panel
 -->
     <DataTemplate DataType="{x:Type local:AdjViewModel}">
         <StackPanel Orientation="Horizontal">
-            <Button Style="{DynamicResource Btn}" Content="Вернуццо" Command="{Binding BackCommand }"  Margin="40,0,0,300"/>
+            <Button Style="{DynamicResource Btn}" Content="Назад" Command="{Binding BackCommand }"  Margin="50,0,0,300"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="100,0,0,0">
                 <Grid>
                     <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="128,25,0,0" Width="22" Height="22" >

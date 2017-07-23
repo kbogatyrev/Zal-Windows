@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Blend for Visual Studio 15
-VisualStudioVersion = 15.0.26228.0
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp.csproj", "{7E8D98A4-F05C-4966-B55A-AFB94BE746A5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "..\WpfApp1\WpfApp1.csproj", "{8F0CEA94-B068-4556-9B4D-B436ED8CB6CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{7E8D98A4-F05C-4966-B55A-AFB94BE746A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E8D98A4-F05C-4966-B55A-AFB94BE746A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E8D98A4-F05C-4966-B55A-AFB94BE746A5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F0CEA94-B068-4556-9B4D-B436ED8CB6CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F0CEA94-B068-4556-9B4D-B436ED8CB6CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F0CEA94-B068-4556-9B4D-B436ED8CB6CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F0CEA94-B068-4556-9B4D-B436ED8CB6CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

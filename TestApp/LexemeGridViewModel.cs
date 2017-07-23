@@ -18,7 +18,7 @@ namespace ZalTestApp
                 m_Lexemes = value;
             }
         }
-
+         
         public LexemeGridViewModel()
         {
             m_Lexemes = new ObservableCollection<LexemeViewModel>();
@@ -27,6 +27,11 @@ namespace ZalTestApp
         public void Add (LexemeViewModel lvm)
         {
             m_Lexemes.Add(lvm);
+        }
+
+        public void Remove(LexemeViewModel lvm)
+        {
+            m_Lexemes.Remove(lvm);
         }
 
         public void Clear()
