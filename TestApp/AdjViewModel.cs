@@ -159,6 +159,34 @@ namespace ZalTestApp
             }
         }
 
+        private string m_sAdjL_F_Sg_A_Anim;
+        public string AdjL_F_Sg_A_Anim
+        {
+            get
+            {
+                return m_sAdjL_F_Sg_A_Anim;
+            }
+            set
+            {
+                m_sAdjL_F_Sg_A_Anim = value;
+                OnPropertyChanged("AdjL_F_Sg_A_Anim");
+            }
+        }
+
+        private string m_sAdjL_F_Sg_A_Inanim;
+        public string AdjL_F_Sg_A_Inanim
+        {
+            get
+            {
+                return m_sAdjL_F_Sg_A_Inanim;
+            }
+            set
+            {
+                m_sAdjL_F_Sg_A_Inanim = value;
+                OnPropertyChanged("AdjL_F_Sg_A_Inanim");
+            }
+        }
+
         private string m_sAdjL_F_Sg_A;
         public string AdjL_F_Sg_A
         {
@@ -244,6 +272,34 @@ namespace ZalTestApp
             {
                 m_sAdjL_N_Sg_N = value;
                 OnPropertyChanged("AdjL_N_Sg_N");
+            }
+        }
+
+        private string m_sAdjL_N_Sg_A_Anim;
+        public string AdjL_N_Sg_A_Anim
+        {
+            get
+            {
+                return m_sAdjL_N_Sg_A_Anim;
+            }
+            set
+            {
+                m_sAdjL_N_Sg_A_Anim = value;
+                OnPropertyChanged("AdjL_N_Sg_A_Anim");
+            }
+        }
+
+        private string m_sAdjL_N_Sg_A_Inanim;
+        public string AdjL_N_Sg_A_Inanim
+        {
+            get
+            {
+                return m_sAdjL_N_Sg_A_Inanim;
+            }
+            set
+            {
+                m_sAdjL_N_Sg_A_Inanim = value;
+                OnPropertyChanged("AdjL_N_Sg_A_Inanim");
             }
         }
 
@@ -354,7 +410,7 @@ namespace ZalTestApp
         {
             get
             {
-                return m_sAdjL_M_Sg_A_Inanim;
+                return m_sAdjL_Pl_A_Inanim;
             }
             set
             {
@@ -421,6 +477,84 @@ namespace ZalTestApp
 
         #endregion
 
+        #region Bindings_Short
+
+        private string m_sAdjS_M;
+        public string AdjS_M
+        {
+            get
+            {
+                return m_sAdjS_M;
+            }
+            set
+            {
+                m_sAdjS_M = value;
+                OnPropertyChanged("AdjS_M");
+            }
+        }
+
+        private string m_sAdjS_F;
+        public string AdjS_F
+        {
+            get
+            {
+                return m_sAdjS_F;
+            }
+            set
+            {
+                m_sAdjS_F = value;
+                OnPropertyChanged("AdjS_F");
+            }
+        }
+
+        private string m_sAdjS_N;
+        public string AdjS_N
+        {
+            get
+            {
+                return m_sAdjS_N;
+            }
+            set
+            {
+                m_sAdjS_N = value;
+                OnPropertyChanged("AdjS_N");
+            }
+        }
+
+        private string m_sAdjS_Pl;
+        public string AdjS_Pl
+        {
+            get
+            {
+                return m_sAdjS_Pl;
+            }
+            set
+            {
+                m_sAdjS_Pl = value;
+                OnPropertyChanged("AdjS_Pl");
+            }
+        }
+
+        #endregion
+
+        #region Bindings_Comparative
+
+        private string m_sAdjComp;
+        public string AdjComp
+        {
+            get
+            {
+                return m_sAdjComp;
+            }
+            set
+            {
+                m_sAdjComp = value;
+                OnPropertyChanged("AdjComp");
+            }
+        }
+
+        #endregion
+
         public AdjViewModel(CLexemeManaged l)
         {
             BackCommand = new RelayCommand(new Action<object>(GoBack));
@@ -443,7 +577,8 @@ namespace ZalTestApp
             AdjL_F_Sg_I = m_AdjModel.sGetFormByGramHash("AdjL_F_Sg_I");
 
             AdjL_N_Sg_N = m_AdjModel.sGetFormByGramHash("AdjL_N_Sg_N");
-            AdjL_N_Sg_A = m_AdjModel.sGetFormByGramHash("AdjL_N_Sg_A");
+            AdjL_N_Sg_A_Anim = m_AdjModel.sGetFormByGramHash("AdjL_N_Sg_A_Anim");
+            AdjL_N_Sg_A_Inanim = m_AdjModel.sGetFormByGramHash("AdjL_N_Sg_A_Inanim");
             AdjL_N_Sg_G = m_AdjModel.sGetFormByGramHash("AdjL_N_Sg_G");
             AdjL_N_Sg_P = m_AdjModel.sGetFormByGramHash("AdjL_N_Sg_P");
             AdjL_N_Sg_D = m_AdjModel.sGetFormByGramHash("AdjL_N_Sg_D");
@@ -451,11 +586,18 @@ namespace ZalTestApp
 
             AdjL_Pl_N = m_AdjModel.sGetFormByGramHash("AdjL_Pl_N");
             AdjL_Pl_A_Anim = m_AdjModel.sGetFormByGramHash("AdjL_Pl_A_Anim");
-            AdjL_Pl_A_Inanim = m_AdjModel.sGetFormByGramHash("AdjL_PL_A_Inanim");
+            AdjL_Pl_A_Inanim = m_AdjModel.sGetFormByGramHash("AdjL_Pl_A_Inanim");
             AdjL_Pl_G = m_AdjModel.sGetFormByGramHash("AdjL_Pl_G");
             AdjL_Pl_P = m_AdjModel.sGetFormByGramHash("AdjL_Pl_P");
             AdjL_Pl_D = m_AdjModel.sGetFormByGramHash("AdjL_Pl_D");
             AdjL_Pl_I = m_AdjModel.sGetFormByGramHash("AdjL_Pl_I");
+
+            AdjS_M = m_AdjModel.sGetFormByGramHash("AdjS_M");
+            AdjS_F = m_AdjModel.sGetFormByGramHash("AdjS_F");
+            AdjS_N = m_AdjModel.sGetFormByGramHash("AdjS_N");
+            AdjS_Pl = m_AdjModel.sGetFormByGramHash("AdjS_Pl");
+
+            AdjComp = m_AdjModel.sGetFormByGramHash("AdjComp");
         }
 
         public void GoBack(Object obj)
@@ -463,6 +605,6 @@ namespace ZalTestApp
             BackButtonEvent?.Invoke();
         }
 
-    }
+    }       //  AdjViewModel 
 
 }       //  namespace ZalTestApp

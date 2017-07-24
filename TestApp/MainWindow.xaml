@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d"
-        Title="Zal Test App" Height="700" Width="1050" Margin="0">
+        WindowStartupLocation="CenterScreen"
+        Title="Zal Test App" Height="750" Width="1300" Margin="0">
 
    
     <Window.DataContext>

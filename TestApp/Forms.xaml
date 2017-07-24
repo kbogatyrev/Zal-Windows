@@ -109,12 +109,8 @@
 
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="100,0,0,0">
                 <Grid>
-                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="128,25,0,0" Width="22" Height="22" >
-                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="Sg" FontWeight="Bold" TextAlignment="Center" />
-                    </Border>
-                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="445,25,0,0" Width="22" Height="22" >
-                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="Pl" FontWeight="Bold" TextAlignment="Center" />
-                    </Border>
+                    <TextBox Text="Sg" Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
+                    <TextBox Text="Pl" Margin="445,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
 
                     <!-- Singular -->
                     <!-- Case Labels -->
@@ -156,26 +152,24 @@
                     <TextBox Text="{Binding Path=Noun_Pl_I}" Margin="387,295,0,0" Style="{StaticResource FormText}" />
                 </Grid>
             </ScrollViewer>
-            <Button Style="{DynamicResource BtnSmall}" Content="Назад" Command="{Binding BackCommand }"  Grid.Column="1" Margin="10,0,0,300" />
+            <Button Style="{DynamicResource BtnLarge}" Content="Назад" Command="{Binding BackCommand }"  Grid.Column="1" Margin="10,0,0,300" />
         </Grid>
     </DataTemplate>
     
 <!--                       Adjective panel
 -->
     <DataTemplate DataType="{x:Type local:AdjViewModel}">
-        <StackPanel Orientation="Horizontal">
-            <Button Style="{DynamicResource Btn}" Content="Назад" Command="{Binding BackCommand }"  Margin="50,0,0,300"/>
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="100,0,0,0">
-                <Grid>
-                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="128,25,0,0" Width="22" Height="22" >
-                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="Sg" FontWeight="Bold" TextAlignment="Center" />
-                    </Border>
-                    <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="445,25,0,0" Width="22" Height="22" >
-                        <TextBlock Height="22" Margin="0,0,0,0" TextWrapping="Wrap" Text="Pl" FontWeight="Bold" TextAlignment="Center" />
-                    </Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="100,0,0,0" Padding="0,0,0,30">
+                <Grid>
                     <!-- Masculine -->
                     <!-- Singular -->
+                    <TextBox Text="M Sg" Margin="130,20,0,0" Style="{StaticResource FormLabelWide}" />
                     <!-- Case Labels -->
                     <TextBox Text="N" Margin="0,70,0,0" Style="{StaticResource FormLabelWide}" />
                     <TextBox Text="A" Margin="0,115,0,0" Style="{StaticResource FormLabelWide}" />
@@ -194,28 +188,92 @@
                     <TextBox Text="{Binding Path=AdjL_M_Sg_D}" Margin="85,295,0,0" Style="{StaticResource FormText}" />
                     <TextBox Text="{Binding Path=AdjL_M_Sg_I}" Margin="85,340,0,0" Style="{StaticResource FormText}" />
 
-                    <!-- Plural -->
+                    <!-- Feminine -->
+                    <!-- Singular -->
+                    <TextBox Text="F Sg" Margin="435,20,0,0" Style="{StaticResource FormLabelWide}" />
+
                     <!-- Case Labels -->
-                    <TextBox Text="N" Margin="370,70,0,0" Style="{StaticResource FormLabelWide}" />
-                    <TextBox Text="A" Margin="370,115,0,0" Style="{StaticResource FormLabelWide}" />
-                    <TextBox Text="A Anim" Margin="370,160,0,0" Style="{StaticResource FormLabelWide}" />
-                    <TextBox Text="G" Margin="370,205,0,0" Style="{StaticResource FormLabelWide}" />
-                    <TextBox Text="P" Margin="370,250,0,0" Style="{StaticResource FormLabelWide}" />
-                    <TextBox Text="D" Margin="370,295,0,0" Style="{StaticResource FormLabelWide}" />
-                    <TextBox Text="I" Margin="370,340,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="N" Margin="310,70,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="A" Margin="310,115,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="G" Margin="310,160,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="P" Margin="310,205,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="D" Margin="310,250,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="I" Margin="310,295,0,0" Style="{StaticResource FormLabelWide}" />
 
                     <!-- Forms -->
-                    <TextBox Text="{Binding Path=AdjL_Pl_N}" Margin="455,70,0,0" Style="{StaticResource FormText}" />
-                    <TextBox Text="{Binding Path=AdjL_Pl_A_Inanim}" Margin="455,115,0,0" Style="{StaticResource FormText}" />
-                    <TextBox Text="{Binding Path=AdjL_Pl_A_Anim}" Margin="455,160,0,0" Style="{StaticResource FormText}" />
-                    <TextBox Text="{Binding Path=AdjL_Pl_G}" Margin="455,205,0,0" Style="{StaticResource FormText}" />
-                    <TextBox Text="{Binding Path=AdjL_Pl_P}" Margin="455,250,0,0" Style="{StaticResource FormText}" />
-                    <TextBox Text="{Binding Path=AdjL_Pl_D}" Margin="455,295,0,0" Style="{StaticResource FormText}" />
-                    <TextBox Text="{Binding Path=AdjL_Pl_I}" Margin="455,340,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_F_Sg_N}" Margin="395,70,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_F_Sg_A}" Margin="395,115,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_F_Sg_G}" Margin="395,160,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_F_Sg_P}" Margin="395,205,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_F_Sg_D}" Margin="395,250,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_F_Sg_I}" Margin="395,295,0,0" Style="{StaticResource FormText}" />
+
+                    <!-- Neuter -->
+                    <!-- Singular -->
+                    <TextBox Text="N Sg" Margin="765,20,0,0" Style="{StaticResource FormLabelWide}" />
+
+                    <!-- Case Labels -->
+                    <TextBox Text="N" Margin="620,70,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="A" Margin="620,115,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="A Anim." Margin="620,160,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="G" Margin="620,205,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="P" Margin="620,250,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="D" Margin="620,295,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="I" Margin="620,340,0,0" Style="{StaticResource FormLabelWide}" />
+
+                    <!-- Forms -->
+                    <TextBox Text="{Binding Path=AdjL_N_Sg_N}" Margin="705,70,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_N_Sg_A_Inanim}" Margin="705,115,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_N_Sg_A_Anim}" Margin="705,160,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_N_Sg_G}" Margin="705,205,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_N_Sg_P}" Margin="705,250,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_N_Sg_D}" Margin="705,295,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_N_Sg_I}" Margin="705,340,0,0" Style="{StaticResource FormText}" />
+
+                    <!-- Plural -->
+                    <TextBox Text="Pl" Margin="130,430,0,0" Style="{StaticResource FormLabelWide}" /> 
+
+                    <!-- Case Labels -->                    
+                    <TextBox Text="N" Margin="0,480,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="A" Margin="0,525,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="A Anim" Margin="0,570,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="G" Margin="0,615,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="P" Margin="0,660,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="D" Margin="0,705,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="I" Margin="0,750,0,0" Style="{StaticResource FormLabelWide}" />
+
+                    <!-- Forms -->
+                    <TextBox Text="{Binding Path=AdjL_Pl_N}" Margin="85,480,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_Pl_A_Inanim}" Margin="85,525,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_Pl_A_Anim}" Margin="85,570,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_Pl_G}" Margin="85,615,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_Pl_P}" Margin="85,660,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_Pl_D}" Margin="85,705,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_Pl_I}" Margin="85,750,0,0" Style="{StaticResource FormText}" />
+
+                    <!-- Short -->
+                    <TextBox Text="Short" Margin="435,430,0,0" Style="{StaticResource FormLabelWide}" />
+
+                    <!-- Labels -->
+                    <TextBox Text="M Sg" Margin="310,480,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="F Sg" Margin="310,525,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="N Sg" Margin="310,570,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="Pl" Margin="310,615,0,0" Style="{StaticResource FormLabelWide}" />
+
+                    <!-- Forms -->
+                    <TextBox Text="{Binding Path=AdjS_M}" Margin="395,480,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjS_F}" Margin="395,525,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjS_N}" Margin="395,570,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjS_Pl}" Margin="395,615,0,0" Style="{StaticResource FormText}" />
+
+                    <!-- Comparative -->
+                    <TextBox Text="Сравн." Margin="765,430,0,0" Style="{StaticResource FormLabelWide}" />
+                    <TextBox Text="{Binding Path=AdjComp}" Margin="705,480,0,0" Style="{StaticResource FormText}" />
 
                 </Grid>
             </ScrollViewer>
-        </StackPanel>
+            <Button Style="{DynamicResource BtnLarge}" Content="Назад" Command="{Binding BackCommand }"  Grid.Column="1" Margin="0,0,0,60" />
+        </Grid>
     </DataTemplate>
 </ResourceDictionary>
     

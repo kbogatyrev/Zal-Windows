@@ -38,13 +38,33 @@ namespace ZalTestApp
                 if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_LONG_ADJ)
                 {
                     sKey = "AdjL_";
-                    if (EM_Number.NUM_SG == wf.eNumber())
+                    if (wf.eNumber() == EM_Number.NUM_SG)
                     {
                         sKey += Helpers.sGenderToString(wf.eGender()) + "_";
                     }
 
                     sKey += Helpers.sNumberToString(wf.eNumber()) + "_" 
                         + Helpers.sCaseToString(wf.eCase());
+                }
+                else if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_SHORT_ADJ)
+                {
+                    sKey = "AdjS_";
+                    if (wf.eNumber() == EM_Number.NUM_SG)
+                    {
+                        sKey += Helpers.sGenderToString(wf.eGender());
+                    }
+                    else if (wf.eNumber() == EM_Number.NUM_PL)
+                    {
+                        sKey += Helpers.sNumberToString(wf.eNumber());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error: illegal number value.");
+                    }
+                }
+                else if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_COMPARATIVE)
+                {
+                    sKey = "AdjComp";
                 }
 
                 string sWordForm = wf.sWordForm();
@@ -80,6 +100,26 @@ namespace ZalTestApp
                         m_GramHashToWordForm["AdjL_M_Sg_A_Anim"] = new List<string>();
                     }
                     m_GramHashToWordForm["AdjL_M_Sg_A_Anim"].Add(sForm);
+                }
+
+                values = m_GramHashToWordForm["AdjL_N_Sg_N"];
+                foreach (var sForm in values)
+                {
+                    if (!m_GramHashToWordForm.ContainsKey("AdjL_N_Sg_A_Inanim"))
+                    {
+                        m_GramHashToWordForm["AdjL_N_Sg_A_Inanim"] = new List<string>();
+                    }
+                    m_GramHashToWordForm["AdjL_N_Sg_A_Inanim"].Add(sForm);
+                }
+
+                values = m_GramHashToWordForm["AdjL_N_Sg_G"];
+                foreach (var sForm in values)
+                {
+                    if (!m_GramHashToWordForm.ContainsKey("AdjL_N_Sg_A_Anim"))
+                    {
+                        m_GramHashToWordForm["AdjL_N_Sg_A_Anim"] = new List<string>();
+                    }
+                    m_GramHashToWordForm["AdjL_N_Sg_A_Anim"].Add(sForm);
                 }
 
                 values = m_GramHashToWordForm["AdjL_Pl_N"];
