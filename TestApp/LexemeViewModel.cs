@@ -19,12 +19,16 @@ namespace ZalTestApp
 
         private NounViewModel m_NounViewModel = null;
         private AdjViewModel m_AdjViewModel = null;
+        private VerbViewModel m_VerbViewModel = null;
 
         public delegate void ShowNounFormsHandler(CLexemeManaged l);
         public event ShowNounFormsHandler ShowNounFormsEvent;
 
         public delegate void ShowAdjFormsHandler(CLexemeManaged l);
         public event ShowAdjFormsHandler ShowAdjFormsEvent;
+
+        public delegate void ShowVerbFormsHandler(CLexemeManaged l);
+        public event ShowVerbFormsHandler ShowVerbFormsEvent;
 
         public delegate void RemoveLexemeHandler(LexemeViewModel lvm);
         public event RemoveLexemeHandler RemoveLexemeEvent;
@@ -160,9 +164,17 @@ namespace ZalTestApp
                 case EM_PartOfSpeech.POS_ADJ:
                     if (null == m_AdjViewModel)
                     {
-                        m_AdjViewModel = new AdjViewModel(m_Lexeme);
+                        m_AdjViewModel = new AdjViewModel(m_Lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ);
                     }
                     ShowAdjFormsEvent?.Invoke(m_Lexeme);
+                    break;
+
+                case EM_PartOfSpeech.POS_VERB:
+                    if (null == m_VerbViewModel)
+                    {
+                        m_VerbViewModel = new VerbViewModel(m_Lexeme);
+                    }
+                    ShowVerbFormsEvent?.Invoke(m_Lexeme);
                     break;
 
                 default:
@@ -181,4 +193,3 @@ namespace ZalTestApp
     }   //  public class LexemeViewModel 
 
 }   //  namespace ZalTestApp
-

@@ -98,6 +98,22 @@ namespace ZalTestApp
             }
         }
 
+        public static string sPersonToString(EM_Person ePerson)
+        {
+            switch (ePerson)
+            {
+                case EM_Person.PERSON_1:
+                    return "1";
+                case EM_Person.PERSON_2:
+                    return "2";
+                case EM_Person.PERSON_3:
+                    return "3";
+                case EM_Person.PERSON_UNDEFINED:
+                default:
+                    return "Undefined";
+            }
+        }
+
         public static void MarkStress(ref string sWordForm, CWordFormManaged wf)
         {
             int iPos = -1;

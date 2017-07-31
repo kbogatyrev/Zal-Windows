@@ -23,7 +23,7 @@
     </Style>
 
     <Style TargetType="Button" x:Key="BtnLarge">
-        <Setter Property="Background" Value="White"/>
+        <Setter Property="Background" Value="#eee"/>
         <Setter Property="FontFamily" Value="Calibri"/>
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="FontWeight" Value="Bold"/>
@@ -33,13 +33,16 @@
     </Style>
 
     <Style TargetType="Button" x:Key="BtnSmall">
-        <Setter Property="Background" Value="White"/>
+        <Setter Property="Background" Value="#eee"/>
         <Setter Property="FontFamily" Value="Calibri"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontWeight" Value="Normal"/>
-        <!--        <Setter Property="Foreground" Value="Navy"/>  -->
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="Navy"/>
         <Setter Property="Width" Value="120"/>
-        <Setter Property="Height" Value="30"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
     </Style>
 
     <Style TargetType="TextBox" x:Key="FormLabel">
@@ -77,7 +80,7 @@
     </Style>
 
     <Style TargetType="TextBox" x:Key="FormText">
-        <Setter Property="Height" Value="30"/>
+        <Setter Property="Height" Value="32"/>
         <Setter Property="Width" Value="180"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="Foreground" Value="Navy"/>
