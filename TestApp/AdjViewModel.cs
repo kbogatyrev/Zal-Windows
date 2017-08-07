@@ -163,35 +163,6 @@ namespace ZalTestApp
             }
         }
 
-/*
-        private string m_sAdjL_F_Sg_A_Anim;
-        public string AdjL_F_Sg_A_Anim
-        {
-            get
-            {
-                return m_sAdjL_F_Sg_A_Anim;
-            }
-            set
-            {
-                m_sAdjL_F_Sg_A_Anim = value;
-                OnPropertyChanged("AdjL_F_Sg_A_Anim");
-            }
-        }
-
-        private string m_sAdjL_F_Sg_A_Inanim;
-        public string AdjL_F_Sg_A_Inanim
-        {
-            get
-            {
-                return m_sAdjL_F_Sg_A_Inanim;
-            }
-            set
-            {
-                m_sAdjL_F_Sg_A_Inanim = value;
-                OnPropertyChanged("AdjL_F_Sg_A_Inanim");
-            }
-        }
-*/
         private string m_sAdjL_F_Sg_A;
         public string AdjL_F_Sg_A
         {
@@ -279,36 +250,6 @@ namespace ZalTestApp
                 OnPropertyChanged("AdjL_N_Sg_N");
             }
         }
-
-/*
-        private string m_sAdjL_N_Sg_A_Anim;
-        public string AdjL_N_Sg_A_Anim
-        {
-            get
-            {
-                return m_sAdjL_N_Sg_A_Anim;
-            }
-            set
-            {
-                m_sAdjL_N_Sg_A_Anim = value;
-                OnPropertyChanged("AdjL_N_Sg_A_Anim");
-            }
-        }
-
-        private string m_sAdjL_N_Sg_A_Inanim;
-        public string AdjL_N_Sg_A_Inanim
-        {
-            get
-            {
-                return m_sAdjL_N_Sg_A_Inanim;
-            }
-            set
-            {
-                m_sAdjL_N_Sg_A_Inanim = value;
-                OnPropertyChanged("AdjL_N_Sg_A_Inanim");
-            }
-        }
-*/
 
         private string m_sAdjL_N_Sg_A;
         public string AdjL_N_Sg_A
@@ -702,9 +643,6 @@ namespace ZalTestApp
                 m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_N", out forms);
                 AdjL_N_Sg_N = Helpers.sListToCommaSeparatedString(forms);
                 m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_A", out forms);
-//                AdjL_N_Sg_A_Anim = Helpers.sListToCommaSeparatedString(forms);
-//                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_A_Inanim", out forms);
-//                AdjL_N_Sg_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
                 m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_G", out forms);
                 AdjL_N_Sg_G = Helpers.sListToCommaSeparatedString(forms);
                 m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_P", out forms);
@@ -743,31 +681,11 @@ namespace ZalTestApp
             }
             else if (lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
             {
-/*
-                if (EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT == m_eSubparadigm ||
-                    EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT == m_eSubparadigm ||
-                    EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG == m_eSubparadigm ||
-                    EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG == m_eSubparadigm)
-                {
-                    m_AdjModel.bGenerateParticipialFormsLong(lexeme, m_eSubparadigm);
-                }
-                else if (EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT == m_eSubparadigm ||
-                         EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG == m_eSubparadigm)
-                {
-                    m_AdjModel.bGenerateParticipialFormsShort(lexeme, m_eSubparadigm);
-                }
-                else
-                {
-                    MessageBox.Show("Illegal subparadigm. Expected a participle.");
-                    return;
-                }
-*/
+                List<string> forms = null;
+
                 switch (m_eSubparadigm)
                 {
                     case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
-
-                        List<string> forms = null;
-
                         m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_N", out forms);
                         AdjL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
                         m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_A_Anim", out forms);
@@ -795,7 +713,7 @@ namespace ZalTestApp
                         AdjL_F_Sg_I = Helpers.sListToCommaSeparatedString(forms);
                         m_MainModel.GetFormsByGramHash(lexeme, "PPresA_F_Sg_D", out forms);
                         AdjL_F_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_F_Sg_I", out forms);
                         AdjL_F_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
                         m_MainModel.GetFormsByGramHash(lexeme, "PPresA_N_Sg_N", out forms);
@@ -860,7 +778,7 @@ namespace ZalTestApp
 
                         m_MainModel.GetFormsByGramHash(lexeme, "PPastA_N_Sg_N", out forms);
                         AdjL_N_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_N_Sg_A_Inanim", out forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_N_Sg_A", out forms);
                         AdjL_N_Sg_A = Helpers.sListToCommaSeparatedString(forms);
                         m_MainModel.GetFormsByGramHash(lexeme, "PPastA_N_Sg_G", out forms);
                         AdjL_N_Sg_G = Helpers.sListToCommaSeparatedString(forms);
@@ -916,7 +834,7 @@ namespace ZalTestApp
                         m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_F_Sg_D", out forms);
                         AdjL_F_Sg_D = Helpers.sListToCommaSeparatedString(forms);
                         m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_F_Sg_I", out forms);
-                        AdjL_M_Sg_I = Helpers.sListToCommaSeparatedString(forms);
+                        AdjL_F_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
                         m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_N_Sg_N", out forms);
                         AdjL_N_Sg_N = Helpers.sListToCommaSeparatedString(forms);
@@ -989,7 +907,7 @@ namespace ZalTestApp
                         m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_F_Sg_D", out forms);
                         AdjL_F_Sg_D = Helpers.sListToCommaSeparatedString(forms);
                         m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_F_Sg_I", out forms);
-                        AdjL_M_Sg_I = Helpers.sListToCommaSeparatedString(forms);
+                        AdjL_F_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
                         m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_N_Sg_N", out forms);
                         AdjL_N_Sg_N = Helpers.sListToCommaSeparatedString(forms);
@@ -1003,6 +921,21 @@ namespace ZalTestApp
                         AdjL_N_Sg_D = Helpers.sListToCommaSeparatedString(forms);
                         m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_N_Sg_I", out forms);
                         AdjL_N_Sg_I = Helpers.sListToCommaSeparatedString(forms);
+
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_N", out forms);
+                        AdjL_Pl_N = Helpers.sListToCommaSeparatedString(forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_A_Anim", out forms);
+                        AdjL_Pl_A_Anim = Helpers.sListToCommaSeparatedString(forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_A_Inanim", out forms);
+                        AdjL_Pl_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_G", out forms);
+                        AdjL_Pl_G = Helpers.sListToCommaSeparatedString(forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_P", out forms);
+                        AdjL_Pl_P = Helpers.sListToCommaSeparatedString(forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_D", out forms);
+                        AdjL_Pl_D = Helpers.sListToCommaSeparatedString(forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_I", out forms);
+                        AdjL_Pl_I = Helpers.sListToCommaSeparatedString(forms);
 
                         break;
 
