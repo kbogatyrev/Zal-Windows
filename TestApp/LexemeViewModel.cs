@@ -154,26 +154,14 @@ namespace ZalTestApp
             switch (m_Lexeme.ePartOfSpeech())
             {
                 case EM_PartOfSpeech.POS_NOUN:
-                    if (null == m_NounViewModel)
-                    {
-                        m_NounViewModel = new NounViewModel(m_Lexeme);
-                    }
                     ShowNounFormsEvent?.Invoke(m_Lexeme);
                     break;
 
                 case EM_PartOfSpeech.POS_ADJ:
-                    if (null == m_AdjViewModel)
-                    {
-                        m_AdjViewModel = new AdjViewModel(m_Lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ);
-                    }
                     ShowAdjFormsEvent?.Invoke(m_Lexeme);
                     break;
 
                 case EM_PartOfSpeech.POS_VERB:
-                    if (null == m_VerbViewModel)
-                    {
-                        m_VerbViewModel = new VerbViewModel(m_Lexeme);
-                    }
                     ShowVerbFormsEvent?.Invoke(m_Lexeme);
                     break;
 

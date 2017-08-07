@@ -1,4 +1,5 @@
 ﻿using MainLibManaged;
+using System.Collections.Generic;
 
 namespace ZalTestApp
 {
@@ -144,6 +145,27 @@ namespace ZalTestApp
                 eRet = wf.eGetNextStressPos(ref iPos, ref eType);
 
             } while (EM_ReturnCode.H_NO_ERROR == eRet);
+
+        }    //  MarkStress()
+
+        public static string sListToCommaSeparatedString(List<string> forms)
+        {
+            string sOut = "";
+            if (null == forms)
+            {
+                return sOut;
+            }
+
+            foreach (var sForm in forms)
+            {
+                if (sOut.Length > 0)
+                {
+                    sOut += ", ";
+                }
+                sOut += sForm;
+            }
+            return sOut;
         }
-    }       //  MarkStress()
-}
+    }       //  public static class Helpers
+}       //  namespace ZalTestApp
+

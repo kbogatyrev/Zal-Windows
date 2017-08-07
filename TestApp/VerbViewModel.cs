@@ -2,6 +2,7 @@
 using System.Windows.Input;
 
 using MainLibManaged;
+using System.Collections.Generic;
 
 namespace ZalTestApp
 {
@@ -13,8 +14,10 @@ namespace ZalTestApp
         public delegate void ShowParticipleForms(CLexemeManaged l, EM_Subparadigm sp);
         public event ShowParticipleForms ShowParticipleFormsEvent;
 
-        VerbModel m_VerbModel = null;
+        //        VerbModel m_VerbModel = null;
+        MainModel m_MainModel = null;
         CLexemeManaged m_Lexeme = null;
+
 
         #region ICommand
         private ICommand m_BackCommand;
@@ -43,42 +46,42 @@ namespace ZalTestApp
             }
         }
 
-        private ICommand m_ShowPastActCommand;
-        public ICommand ShowPastActCommand
+        private ICommand m_ShowPastActFormsCommand;
+        public ICommand ShowPastActFormsCommand
         {
             get
             {
-                return m_ShowPastActCommand;
+                return m_ShowPastActFormsCommand;
             }
             set
             {
-                m_ShowPastActCommand = value;
+                m_ShowPastActFormsCommand = value;
             }
         }
 
-        private ICommand m_ShowPresPassCommand;
-        public ICommand ShowPresPassCommand
+        private ICommand m_ShowPresPassFormsCommand;
+        public ICommand ShowPresPassFormsCommand
         {
             get
             {
-                return m_ShowPresPassCommand;
+                return m_ShowPresPassFormsCommand;
             }
             set
             {
-                m_ShowPresPassCommand = value;
+                m_ShowPresPassFormsCommand = value;
             }
         }
 
-        private ICommand m_ShowPastPassCommand;
-        public ICommand ShowPastPassCommand
+        private ICommand m_ShowPastPassFormsCommand;
+        public ICommand ShowPastPassFormsCommand
         {
             get
             {
-                return m_ShowPastPassCommand;
+                return m_ShowPastPassFormsCommand;
             }
             set
             {
-                m_ShowPastPassCommand = value;
+                m_ShowPastPassFormsCommand = value;
             }
         }
         #endregion
@@ -372,42 +375,61 @@ namespace ZalTestApp
         }
         #endregion
 
-        public VerbViewModel(CLexemeManaged lexeme)
+        public VerbViewModel(CLexemeManaged lexeme, MainModel m)
         {
+            m_MainModel = m;
             m_Lexeme = lexeme;
 
             BackCommand = new RelayCommand(new Action<object>(GoBack));
             ShowPresActFormsCommand = new RelayCommand(new Action<object>(ShowPresActForms));
+            ShowPastActFormsCommand = new RelayCommand(new Action<object>(ShowPastActForms));
+            ShowPresPassFormsCommand = new RelayCommand(new Action<object>(ShowPresPassForms));
+            ShowPastPassFormsCommand = new RelayCommand(new Action<object>(ShowPastPassForms));
 
+            List<string> forms = null;
+            m_MainModel.GetFormsByGramHash(lexeme, "Infinitive", out forms);
+            Infinitive = Helpers.sListToCommaSeparatedString(forms);
 
-            m_VerbModel = new VerbModel();
+            m_MainModel.GetFormsByGramHash(lexeme, "Pres_Sg_1", out forms);
+            Pres_Sg_1 = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Pres_Sg_2", out forms);
+            Pres_Sg_2 = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Pres_Sg_3", out forms);
+            Pres_Sg_3 = Helpers.sListToCommaSeparatedString(forms);
 
-            m_VerbModel.bGenerateVerbForms(lexeme);
+            m_MainModel.GetFormsByGramHash(lexeme, "Pres_Pl_1", out forms);
+            Pres_Pl_1 = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Pres_Pl_2", out forms);
+            Pres_Pl_2 = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Pres_Pl_3", out forms);
+            Pres_Pl_3 = Helpers.sListToCommaSeparatedString(forms);
 
-            Infinitive = m_VerbModel.sGetFormByGramHash("Infinitive");
+            m_MainModel.GetFormsByGramHash(lexeme, "Past_M", out forms);
+            Past_M = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Past_F", out forms);
+            Past_F = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Past_N", out forms);
+            Past_N = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Past_Pl", out forms);
+            Past_Pl = Helpers.sListToCommaSeparatedString(forms);
 
-            Pres_Sg_1 = m_VerbModel.sGetFormByGramHash("Pres_Sg_1");
-            Pres_Sg_2 = m_VerbModel.sGetFormByGramHash("Pres_Sg_2");
-            Pres_Sg_3 = m_VerbModel.sGetFormByGramHash("Pres_Sg_3");
+            m_MainModel.GetFormsByGramHash(lexeme, "Impv_Sg_2", out forms);
+            Impv_Sg_2 = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Impv_Pl_2", out forms);
+            Impv_Pl_2 = Helpers.sListToCommaSeparatedString(forms);
 
-            Pres_Pl_1 = m_VerbModel.sGetFormByGramHash("Pres_Pl_1");
-            Pres_Pl_2 = m_VerbModel.sGetFormByGramHash("Pres_Pl_2");
-            Pres_Pl_3 = m_VerbModel.sGetFormByGramHash("Pres_Pl_3");
-
-            Past_M = m_VerbModel.sGetFormByGramHash("Past_M");
-            Past_F = m_VerbModel.sGetFormByGramHash("Past_F");
-            Past_N = m_VerbModel.sGetFormByGramHash("Past_N");
-            Past_Pl = m_VerbModel.sGetFormByGramHash("Past_Pl");
-
-            Impv_Sg_2 = m_VerbModel.sGetFormByGramHash("Impv_Sg_2");
-            Impv_Pl_2 = m_VerbModel.sGetFormByGramHash("Impv_Pl_2");
-
-            PPresA_M_Sg_N = m_VerbModel.sGetFormByGramHash("PPresA_M_Sg_N");
-            VAdvPres = m_VerbModel.sGetFormByGramHash("VAdvPres");
-            PPastA_M_Sg_N = m_VerbModel.sGetFormByGramHash("PPastA_M_Sg_N");
-            VAdvPast = m_VerbModel.sGetFormByGramHash("VAdvPast");
-            PPresPL_M_Sg_N = m_VerbModel.sGetFormByGramHash("PPresPL_M_Sg_N");
-            PPastPL_M_Sg_N = m_VerbModel.sGetFormByGramHash("PPastPL_M_Sg_N");
+            m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_N", out forms);
+            PPresA_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "VAdvPres", out forms);
+            VAdvPres = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "PPastA_M_Sg_N", out forms);
+            PPastA_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "VAdvPast", out forms);
+            VAdvPast = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_M_Sg_N", out forms);
+            PPresPL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_M_Sg_N", out forms);
+            PPastPL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
         }
 
         public void GoBack(Object obj)
@@ -418,6 +440,21 @@ namespace ZalTestApp
         public void ShowPresActForms(Object obj)
         {
             ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT);
+        }
+
+        public void ShowPastActForms(Object obj)
+        {
+            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT);
+        }
+
+        public void ShowPresPassForms(Object obj)
+        {
+            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG);
+        }
+
+        public void ShowPastPassForms(Object obj)
+        {
+            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG);
         }
 
     }       //  AdjViewModel 

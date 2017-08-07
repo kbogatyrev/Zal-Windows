@@ -223,8 +223,8 @@
 
                     <!-- Forms -->
                     <TextBox Text="{Binding Path=AdjL_N_Sg_N}" Margin="705,70,0,0" Style="{StaticResource FormText}" />
-                    <TextBox Text="{Binding Path=AdjL_N_Sg_A_Inanim}" Margin="705,115,0,0" Style="{StaticResource FormText}" />
-                    <TextBox Text="{Binding Path=AdjL_N_Sg_A_Anim}" Margin="705,160,0,0" Style="{StaticResource FormText}" />
+                    <TextBox Text="{Binding Path=AdjL_N_Sg_A}" Margin="705,115,0,0" Style="{StaticResource FormText}" />
+<!--                    <TextBox Text="{Binding Path=AdjL_N_Sg_A_Anim}" Margin="705,160,0,0" Style="{StaticResource FormText}" />  -->
                     <TextBox Text="{Binding Path=AdjL_N_Sg_G}" Margin="705,205,0,0" Style="{StaticResource FormText}" />
                     <TextBox Text="{Binding Path=AdjL_N_Sg_P}" Margin="705,250,0,0" Style="{StaticResource FormText}" />
                     <TextBox Text="{Binding Path=AdjL_N_Sg_D}" Margin="705,295,0,0" Style="{StaticResource FormText}" />
@@ -353,18 +353,18 @@
 
                     <TextBox Text="Действ. прош. вр." Width="175" Margin="0,870,0,0" Style="{StaticResource FormLabelWide}" />
                     <TextBox Text="{Binding Path=PPastA_M_Sg_N}" Margin="182,870,0,0" Style="{StaticResource FormText}" />
-                    <Button Content="Показать формы" Margin="400,870,0,0" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Button Content="Показать формы" Margin="400,870,0,0" Command="{Binding ShowPastActFormsCommand }" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                     <TextBox Text="Деепр. прош вр." Width="175" Margin="0,915,0,0" Style="{StaticResource FormLabelWide}" />
                     <TextBox Text="{Binding Path=VAdvPast}" Margin="182,915,0,0" Style="{StaticResource FormText}" />
 
                     <TextBox Text="Страд. наст. вр." Width="175" Margin="0,960,0,0" Style="{StaticResource FormLabelWide}" />
                     <TextBox Text="{Binding Path=PPresPL_M_Sg_N}" Margin="182,960,0,0" Style="{StaticResource FormText}" />
-                    <Button Content="Показать формы" Margin="400,960,0,0" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Button Content="Показать формы" Margin="400,960,0,0" Command="{Binding ShowPresPassFormsCommand }" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                     <TextBox Text="Страд. прош. вр." Width="175" Margin="0,1005,0,0" Style="{StaticResource FormLabelWide}" />
                     <TextBox Text="{Binding Path=PPastPL_M_Sg_N}" Margin="182,1005,0,0" Style="{StaticResource FormText}" />
-                    <Button Content="Показать формы" Margin="400,1005,0,0" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Button Content="Показать формы" Margin="400,1005,0,0" Command="{Binding ShowPastPassFormsCommand }" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 </Grid>
             </ScrollViewer>
             <Button Style="{DynamicResource BtnLarge}" Content="Назад" Command="{Binding BackCommand }"  Grid.Column="1" Margin="0,0,0,60" />

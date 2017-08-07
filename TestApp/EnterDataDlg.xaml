@@ -5,18 +5,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:ZalTestApp"
     mc:Ignorable="d"
-    Title="{Binding Path=DlgTitle}" Height="155" Width="350" MaxHeight="155" MaxWidth="350" MinHeight="155" MinWidth="350" ResizeMode="NoResize"
+    Title="{Binding Path=DlgTitle}" Height="130" Width="300" MaxHeight="155" MaxWidth="350" MinHeight="130" MinWidth="300" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
 
-<!--    
+    <!--    
     <Window.DataContext>
         <local:EnterDataViewModel/>
     </Window.DataContext>
 -->
 
-    <Grid Margin="0,0,0,0" FocusManager.FocusedElement="{Binding ElementName=TextBox}">
-        <TextBox Name="TextBox" Text="{Binding Path=DataString, Mode=TwoWay}" Margin="20,27.136,0,0"  HorizontalAlignment="Left" Height="18" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
-        <Button Content="OK" Click="BtnOK_Click" HorizontalAlignment="Left" Command="{Binding OKCommand}" Margin="165,75,0,0" VerticalAlignment="Top" Width="75" IsDefault="True"/>
-        <Button Content="Cancel" Click="BtnCancel_Click" HorizontalAlignment="Left" Command="{Binding CancelCommand}" Margin="245.48,75,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
+    <Grid Margin="0,0,0,0" FocusManager.FocusedElement="{Binding ElementName=TextBox}" Height="105" VerticalAlignment="Top">
+        <TextBox Name="TextBox" Text="{Binding Path=DataString, Mode=TwoWay}" Margin="20,20,0,20"  HorizontalAlignment="Left" Height="18" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"/>
+        <Button Content="OK" Click="BtnOK_Click" HorizontalAlignment="Left" Command="{Binding OKCommand}" Margin="117,60,0,0" VerticalAlignment="Top" Width="75" IsDefault="True"/>
+        <Button Content="Cancel" Click="BtnCancel_Click" HorizontalAlignment="Left" Command="{Binding CancelCommand}" Margin="197,60,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
     </Grid>
 </Window>

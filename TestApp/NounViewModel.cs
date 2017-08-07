@@ -2,6 +2,7 @@
 using System.Windows.Input;
 
 using MainLibManaged;
+using System.Collections.Generic;
 
 namespace ZalTestApp
 {
@@ -10,7 +11,7 @@ namespace ZalTestApp
         public delegate void BackButtonHandler();
         public event BackButtonHandler BackButtonEvent;
 
-        NounModel m_NounModel = null;
+        MainModel m_MainModel = null;
 
         #region ICommand
         private ICommand m_BackCommand;
@@ -240,25 +241,37 @@ namespace ZalTestApp
 
         #endregion
 
-        public NounViewModel(CLexemeManaged l)
+        public NounViewModel(CLexemeManaged lexeme, MainModel m)
         {
             BackCommand = new RelayCommand(new Action<object>(GoBack));
-            m_NounModel = new NounModel();
-            m_NounModel.bGenerateNounForms(l);
+            m_MainModel = m;
 
-            Noun_Sg_N = m_NounModel.sGetFormByGramHash("Noun_Sg_N");
-            Noun_Sg_A = m_NounModel.sGetFormByGramHash("Noun_Sg_A");
-            Noun_Sg_G = m_NounModel.sGetFormByGramHash("Noun_Sg_G");
-            Noun_Sg_P = m_NounModel.sGetFormByGramHash("Noun_Sg_P");
-            Noun_Sg_D = m_NounModel.sGetFormByGramHash("Noun_Sg_D");
-            Noun_Sg_I = m_NounModel.sGetFormByGramHash("Noun_Sg_I");
+            List<string> forms = null;
+            m_MainModel.GetFormsByGramHash(lexeme, "Noun_Sg_N", out forms);
+            Noun_Sg_N = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Noun_Sg_A", out forms);
+            Noun_Sg_A = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Noun_Sg_G", out forms);
+            Noun_Sg_G = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Noun_Sg_P", out forms);
+            Noun_Sg_P = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Noun_Sg_D", out forms);
+            Noun_Sg_D = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Noun_Sg_I", out forms);
+            Noun_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-            Noun_Pl_N = m_NounModel.sGetFormByGramHash("Noun_Pl_N");
-            Noun_Pl_A = m_NounModel.sGetFormByGramHash("Noun_Pl_A");
-            Noun_Pl_G = m_NounModel.sGetFormByGramHash("Noun_Pl_G");
-            Noun_Pl_P = m_NounModel.sGetFormByGramHash("Noun_Pl_P");
-            Noun_Pl_D = m_NounModel.sGetFormByGramHash("Noun_Pl_D");
-            Noun_Pl_I = m_NounModel.sGetFormByGramHash("Noun_Pl_I");
+            m_MainModel.GetFormsByGramHash(lexeme, "Noun_Pl_N", out forms);
+            Noun_Pl_N = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Noun_Pl_A", out forms);
+            Noun_Pl_A = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Noun_Pl_G", out forms);
+            Noun_Pl_G = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Noun_Pl_P", out forms);
+            Noun_Pl_P = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Noun_Pl_D", out forms);
+            Noun_Pl_D = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(lexeme, "Noun_Pl_I", out forms);
+            Noun_Pl_I = Helpers.sListToCommaSeparatedString(forms);
         }
 
         public void GoBack(Object obj)

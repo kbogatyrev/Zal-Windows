@@ -12,9 +12,14 @@ namespace ZalTestApp
         private Stack<ViewModelBase> m_BreadCrumbs = null;
         private LexemeGridViewModel m_LexemeGridViewModel = null;
 
-        private Dictionary<CLexemeManaged, NounViewModel> m_NounViewModels = null;
-        private Dictionary<CLexemeManaged, AdjViewModel> m_AdjViewModels = null;
-        private Dictionary<CLexemeManaged, VerbViewModel> m_VerbViewModels = null;
+        private Dictionary<CLexemeManaged, NounViewModel> m_NounViewModels = new Dictionary<CLexemeManaged, NounViewModel>();
+        private Dictionary<CLexemeManaged, AdjViewModel> m_AdjViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
+        private Dictionary<CLexemeManaged, VerbViewModel> m_VerbViewModels = new Dictionary<CLexemeManaged, VerbViewModel>();
+        private Dictionary<CLexemeManaged, AdjViewModel> m_PartPresActViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
+        private Dictionary<CLexemeManaged, AdjViewModel> m_PartPastActViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
+        private Dictionary<CLexemeManaged, AdjViewModel> m_PartPresPassViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
+        private Dictionary<CLexemeManaged, AdjViewModel> m_PartPastPassViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
+
         private ViewModelBase m_CurrentViewModel = null;
 
         public ViewModelBase CurrentViewModel
@@ -101,9 +106,8 @@ namespace ZalTestApp
 
             m_LexemeGridViewModel.Clear();
 
-            for (int iL = 0; iL < m_MainModel.NLexemes; ++iL)
-            {
-                CLexemeManaged lexeme = m_MainModel.GetLexemeAt(iL);
+            foreach (CLexemeManaged lexeme in m_MainModel)
+            { 
                 if (null == lexeme)
                 {
                     MessageBox.Show("Internal error: lexeme descriptor is corrupt.");
@@ -145,7 +149,7 @@ namespace ZalTestApp
 
             if (!m_NounViewModels.TryGetValue(l, out NounViewModel nvm))
             {
-                nvm = new NounViewModel(l);
+                nvm = new NounViewModel(l, m_MainModel);
                 nvm.BackButtonEvent += new NounViewModel.BackButtonHandler(GoBack);
                 m_NounViewModels[l] = nvm;
             }
@@ -163,7 +167,7 @@ namespace ZalTestApp
 
             if (!m_AdjViewModels.TryGetValue(lexeme, out AdjViewModel avm))
             {
-                avm = new AdjViewModel(lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ);
+                avm = new AdjViewModel(lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ, m_MainModel);
                 avm.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
                 m_AdjViewModels[lexeme] = avm;
             }
@@ -181,7 +185,7 @@ namespace ZalTestApp
 
             if (!m_VerbViewModels.TryGetValue(lexeme, out VerbViewModel vvm))
             {
-                vvm = new VerbViewModel(lexeme);
+                vvm = new VerbViewModel(lexeme, m_MainModel);
                 vvm.BackButtonEvent += new VerbViewModel.BackButtonHandler(GoBack);
                 vvm.ShowParticipleFormsEvent += new VerbViewModel.ShowParticipleForms(ShowParticiple);
                 m_VerbViewModels[lexeme] = vvm;
@@ -193,21 +197,53 @@ namespace ZalTestApp
 
         void ShowParticiple(CLexemeManaged lexeme, EM_Subparadigm sp)
         {
-            if (null == m_AdjViewModels)
+            switch (sp)
             {
-                m_AdjViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
+                    if (!m_PartPresActViewModels.TryGetValue(lexeme, out AdjViewModel avmPresAct))
+                    {
+                        avmPresAct = new AdjViewModel(lexeme, sp, m_MainModel);
+                        avmPresAct.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
+                        m_PartPresActViewModels[lexeme] = avmPresAct;
+                    }
+                    m_BreadCrumbs.Push(m_CurrentViewModel);
+                    CurrentViewModel = avmPresAct;
+                    break;
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
+                    if (!m_PartPastActViewModels.TryGetValue(lexeme, out AdjViewModel avmPastAct))
+                    {
+                        avmPastAct = new AdjViewModel(lexeme, sp, m_MainModel);
+                        avmPastAct.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
+                        m_PartPastActViewModels[lexeme] = avmPastAct;
+                    }
+                    m_BreadCrumbs.Push(m_CurrentViewModel);
+                    CurrentViewModel = avmPastAct;
+                    break;
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
+                    if (!m_PartPresPassViewModels.TryGetValue(lexeme, out AdjViewModel avmPresPass))
+                    {
+                        avmPresPass = new AdjViewModel(lexeme, sp, m_MainModel);
+                        avmPresPass.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
+                        m_PartPresPassViewModels[lexeme] = avmPresPass;
+                    }
+                    m_BreadCrumbs.Push(m_CurrentViewModel);
+                    CurrentViewModel = avmPresPass;
+                    break;
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
+                    if (!m_PartPastPassViewModels.TryGetValue(lexeme, out AdjViewModel avmPastPass))
+                    {
+                        avmPastPass = new AdjViewModel(lexeme, sp, m_MainModel);
+                        avmPastPass.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
+                        m_PartPastPassViewModels[lexeme] = avmPastPass;
+                    }
+                    m_BreadCrumbs.Push(m_CurrentViewModel);
+                    CurrentViewModel = avmPastPass;                    
+                    break;
+                default:
+                    MessageBox.Show("Unexpected subparadigm.");
+                    return;
             }
-
-            if (!m_AdjViewModels.TryGetValue(lexeme, out AdjViewModel avm))
-            {
-                avm = new AdjViewModel(lexeme, sp);
-                avm.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
-                m_AdjViewModels[lexeme] = avm;
-            }
-
-            m_BreadCrumbs.Push(m_CurrentViewModel);
-            CurrentViewModel = avm;
-        }
+        }       //  ShowParticiple()
 
         void GoBack()
         {

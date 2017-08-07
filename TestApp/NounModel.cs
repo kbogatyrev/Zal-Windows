@@ -27,12 +27,9 @@ namespace ZalTestApp
 
             CWordFormManaged wf = null;
             eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
-            do
+
+            while (EM_ReturnCode.H_NO_ERROR == eRet)
             {
-                if (EM_ReturnCode.H_NO_ERROR != eRet)
-                {
-                    continue;
-                }
                 string sKey = "Noun_" + Helpers.sNumberToString(wf.eNumber());
                 sKey += "_";
                 sKey += Helpers.sCaseToString(wf.eCase()); 
@@ -48,7 +45,7 @@ namespace ZalTestApp
 
                 eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
 
-            } while (EM_ReturnCode.H_NO_ERROR == eRet);
+            }   //  while...
 
             return true;
 

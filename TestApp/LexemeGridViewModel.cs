@@ -1,5 +1,4 @@
-﻿using MainLibManaged;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace ZalTestApp
 {

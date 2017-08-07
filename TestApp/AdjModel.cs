@@ -27,13 +27,9 @@ namespace ZalTestApp
 
             CWordFormManaged wf = null;
             eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
-            do
-            {
-                if (EM_ReturnCode.H_NO_ERROR != eRet)
-                {
-                    continue;
-                }
 
+            while (EM_ReturnCode.H_NO_ERROR == eRet)
+            {
                 string sKey = "";
                 if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_LONG_ADJ)
                 {
@@ -81,14 +77,14 @@ namespace ZalTestApp
 
                 eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
 
-            } while (EM_ReturnCode.H_NO_ERROR == eRet);
+            }   //  while... 
 
             HandleAccusatives(EM_Subparadigm.SUBPARADIGM_LONG_ADJ);
             return true;
 
         }   //  GenerateAdjForms()
 
-        public bool bGeneratePartPresActForms(CLexemeManaged lexeme)
+        public bool bGenerateParticipialFormsLong(CLexemeManaged lexeme, EM_Subparadigm subparadigm)
         {
             EM_ReturnCode eRet = lexeme.eGenerateParadigm();
             if (eRet != EM_ReturnCode.H_NO_ERROR)
@@ -97,6 +93,30 @@ namespace ZalTestApp
             }
 
             m_GramHashToWordForm.Clear();
+
+            string sKey = null;
+            switch(subparadigm)
+            {
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
+                    sKey = "PPresA_";
+                    break;
+
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
+                    sKey = "PPastA_";
+                    break;
+
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
+                    sKey = "PPresPL_";
+                    break;
+
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
+                    sKey = "PPastPL_";
+                    break;
+
+                default:
+                    MessageBox.Show("Illegal subparadigm: expected a long-form participle.");
+                    return false;
+            }
 
             CWordFormManaged wf = null;
             eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
@@ -107,27 +127,22 @@ namespace ZalTestApp
                     continue;
                 }
 
-                string sKey = null;
-                if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT)
+                if (wf.eNumber() == EM_Number.NUM_SG)
                 {
-                    sKey = "PPresA_";
-                    if (wf.eNumber() == EM_Number.NUM_SG)
-                    {
-                        sKey += Helpers.sGenderToString(wf.eGender()) + "_";
-                    }
-
-                    sKey += Helpers.sNumberToString(wf.eNumber()) + "_"
-                        + Helpers.sCaseToString(wf.eCase());
-
-                    string sWordForm = wf.sWordForm();
-                    Helpers.MarkStress(ref sWordForm, wf);
-
-                    if (!m_GramHashToWordForm.ContainsKey(sKey))
-                    {
-                        m_GramHashToWordForm[sKey] = new List<string>();
-                    }
-                    m_GramHashToWordForm[sKey].Add(sWordForm);
+                    sKey += Helpers.sGenderToString(wf.eGender()) + "_";
                 }
+
+                sKey += Helpers.sNumberToString(wf.eNumber()) + "_"
+                    + Helpers.sCaseToString(wf.eCase());
+
+                string sWordForm = wf.sWordForm();
+                Helpers.MarkStress(ref sWordForm, wf);
+
+                if (!m_GramHashToWordForm.ContainsKey(sKey))
+                {
+                    m_GramHashToWordForm[sKey] = new List<string>();
+                }
+                m_GramHashToWordForm[sKey].Add(sWordForm);
 
                 eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
 
@@ -137,7 +152,65 @@ namespace ZalTestApp
 
             return true;
 
-        }   //  bGeneratePartPresActForms()
+        }   // bGenerateParticipialLongForms()
+
+        public bool bGenerateParticipialFormsShort(CLexemeManaged lexeme, EM_Subparadigm subparadigm)
+        {
+            string sKey = null;
+            switch (subparadigm)
+            {
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
+                    sKey = "PPresPS_";
+                    break;
+
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
+                    sKey = "PPastPS_";
+                    break;
+
+                default:
+                    MessageBox.Show("Illegal subparadigm: expected a short-form participle.");
+                    return false;
+            }
+
+            CWordFormManaged wf = null;
+            EM_ReturnCode eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
+            do
+            {
+                if (EM_ReturnCode.H_NO_ERROR != eRet)
+                {
+                    continue;
+                }
+
+                if (wf.eNumber() == EM_Number.NUM_SG)
+                {
+                    sKey += Helpers.sGenderToString(wf.eGender());
+                }
+                else if (wf.eNumber() == EM_Number.NUM_PL)
+                {
+                    sKey += Helpers.sNumberToString(wf.eNumber());
+                }
+                else
+                {
+                    MessageBox.Show("Illegal number value.");
+                    return false;
+                }
+
+                string sWordForm = wf.sWordForm();
+                Helpers.MarkStress(ref sWordForm, wf);
+
+                if (!m_GramHashToWordForm.ContainsKey(sKey))
+                {
+                    m_GramHashToWordForm[sKey] = new List<string>();
+                }
+                m_GramHashToWordForm[sKey].Add(sWordForm);
+
+                eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
+
+            } while (EM_ReturnCode.H_NO_ERROR == eRet);
+
+            return true;
+ 
+        }   //  bGenerateParticipialLongForms()
 
         public string sGetFormByGramHash(string sHash)
         {
@@ -208,6 +281,7 @@ namespace ZalTestApp
                     m_GramHashToWordForm[sPrefix + "M_Sg_A_Anim"].Add(sForm);
                 }
 
+/*
                 values = m_GramHashToWordForm[sPrefix + "N_Sg_N"];
                 foreach (var sForm in values)
                 {
@@ -227,7 +301,7 @@ namespace ZalTestApp
                     }
                     m_GramHashToWordForm[sPrefix + "N_Sg_A_Anim"].Add(sForm);
                 }
-
+*/
                 values = m_GramHashToWordForm[sPrefix + "Pl_N"];
                 foreach (var sForm in values)
                 {
