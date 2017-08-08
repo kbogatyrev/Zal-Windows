@@ -864,6 +864,14 @@ namespace ZalTestApp
                         m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_Pl_I", out forms);
                         AdjL_Pl_I = Helpers.sListToCommaSeparatedString(forms);
 
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPS_M", out forms);
+                        AdjS_M = Helpers.sListToCommaSeparatedString(forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPS_F", out forms);
+                        AdjS_F = Helpers.sListToCommaSeparatedString(forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPS_N", out forms);
+                        AdjS_N = Helpers.sListToCommaSeparatedString(forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPS_Pl", out forms);
+                        AdjS_Pl = Helpers.sListToCommaSeparatedString(forms);
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
@@ -936,6 +944,15 @@ namespace ZalTestApp
                         AdjL_Pl_D = Helpers.sListToCommaSeparatedString(forms);
                         m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_I", out forms);
                         AdjL_Pl_I = Helpers.sListToCommaSeparatedString(forms);
+
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPS_M", out forms);
+                        AdjS_M = Helpers.sListToCommaSeparatedString(forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPS_F", out forms);
+                        AdjS_F = Helpers.sListToCommaSeparatedString(forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPS_N", out forms);
+                        AdjS_N = Helpers.sListToCommaSeparatedString(forms);
+                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPS_Pl", out forms);
+                        AdjS_Pl = Helpers.sListToCommaSeparatedString(forms);
 
                         break;
 

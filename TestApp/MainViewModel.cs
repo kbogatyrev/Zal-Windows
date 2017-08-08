@@ -239,6 +239,10 @@ namespace ZalTestApp
                     m_BreadCrumbs.Push(m_CurrentViewModel);
                     CurrentViewModel = avmPastPass;                    
                     break;
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
+                    // handled together with long forms, no need for separate processing
+                    break;
                 default:
                     MessageBox.Show("Unexpected subparadigm.");
                     return;

@@ -450,11 +450,13 @@ namespace ZalTestApp
         public void ShowPresPassForms(Object obj)
         {
             ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG);
+            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT);
         }
 
         public void ShowPastPassForms(Object obj)
         {
             ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG);
+            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT);
         }
 
     }       //  AdjViewModel 
