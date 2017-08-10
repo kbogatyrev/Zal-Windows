@@ -304,6 +304,20 @@ namespace ZalTestApp
             }
         }
 
+        private bool m_bPPresAExists;
+        public bool PPresAExists
+        {
+            get
+            {
+                return m_bPPresAExists;
+            }
+            set
+            {
+                m_bPPresAExists = value;
+                OnPropertyChanged("PPresAExists");
+            }
+        }
+
         private string m_sPPastA_M_Sg_N;
         public string PPastA_M_Sg_N
         {
@@ -315,6 +329,20 @@ namespace ZalTestApp
             {
                 m_sPPastA_M_Sg_N = value;
                 OnPropertyChanged("PPastA_M_Sg_N");
+            }
+        }
+
+        private bool m_bPPastAExists;
+        public bool PPastAExists
+        {
+            get
+            {
+                return m_bPPastAExists;
+            }
+            set
+            {
+                m_bPPastAExists = value;
+                OnPropertyChanged("PPastAExists");
             }
         }
 
@@ -332,6 +360,20 @@ namespace ZalTestApp
             }
         }
 
+        private bool m_bPPresPExists;
+        public bool PPresPExists
+        {
+            get
+            {
+                return m_bPPresPExists;
+            }
+            set
+            {
+                m_bPPresPExists = value;
+                OnPropertyChanged("PPresPExists");
+            }
+        }
+
         private string m_sPPastPL_M_Sg_N;
         public string PPastPL_M_Sg_N
         {
@@ -343,6 +385,20 @@ namespace ZalTestApp
             {
                 m_sPPastPL_M_Sg_N = value;
                 OnPropertyChanged("PPastPL_M_Sg_N");
+            }
+        }
+
+        private bool m_bPPastPExists;
+        public bool PPastPExists
+        {
+            get
+            {
+                return m_bPPastPExists;
+            }
+            set
+            {
+                m_bPPastPExists = value;
+                OnPropertyChanged("PPastPExists");
             }
         }
 
@@ -420,16 +476,25 @@ namespace ZalTestApp
 
             m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_N", out forms);
             PPresA_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
+            PPresAExists = m_sPPresA_M_Sg_N.Length > 0;
+
             m_MainModel.GetFormsByGramHash(lexeme, "VAdvPres", out forms);
             VAdvPres = Helpers.sListToCommaSeparatedString(forms);
+
             m_MainModel.GetFormsByGramHash(lexeme, "PPastA_M_Sg_N", out forms);
             PPastA_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
+            PPastAExists = m_sPPastA_M_Sg_N.Length > 0;
+
             m_MainModel.GetFormsByGramHash(lexeme, "VAdvPast", out forms);
             VAdvPast = Helpers.sListToCommaSeparatedString(forms);
+
             m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_M_Sg_N", out forms);
             PPresPL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
+            PPresPExists = m_sPPresPL_M_Sg_N.Length > 0;
+
             m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_M_Sg_N", out forms);
             PPastPL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
+            PPastPExists = m_sPPastPL_M_Sg_N.Length > 0;
         }
 
         public void GoBack(Object obj)

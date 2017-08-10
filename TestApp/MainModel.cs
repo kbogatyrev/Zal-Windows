@@ -119,7 +119,7 @@ namespace ZalTestApp
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show("Gram hash not recognized." + ex.Message);
+//                System.Windows.MessageBox.Show("Gram hash not recognized." + ex.Message);
                 return false;
             }
             return true;
@@ -571,10 +571,22 @@ namespace ZalTestApp
 
             m_Lexemes[lexeme] = paradigm;
 
-            HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT);
-            HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT);
-            HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG);
-            HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG);
+            if (paradigm.ContainsKey("PPresA_M_Sg_N"))
+            {
+                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT);
+            }
+            if (paradigm.ContainsKey("PPastA_M_Sg_N"))
+            {
+                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT);
+            }
+            if (paradigm.ContainsKey("PPresPL_M_Sg_N"))
+            {
+                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG);
+            }
+            if (paradigm.ContainsKey("PPastPL_M_Sg_N"))
+            {
+                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG);
+            }
 
             return true;
 

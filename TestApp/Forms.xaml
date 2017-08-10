@@ -344,7 +344,7 @@
 
                     <TextBox Text="Действ. наст. вр." Width="175" Margin="0,780,0,0" Style="{StaticResource FormLabelWide}" />
                     <TextBox Text="{Binding Path=PPresA_M_Sg_N}" Margin="182,780,0,0" Style="{StaticResource FormText}" />
-                    <Button Content="Показать формы" Margin="400,780,0,0" Command="{Binding ShowPresActFormsCommand }" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Button Content="Показать формы" Margin="400,780,0,0" Command="{Binding ShowPresActFormsCommand }" IsEnabled="{Binding Path=PPresAExists}" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                     <TextBox Text="Деепр. наст. вр." Width="175" Margin="0,825,0,0" Style="{StaticResource FormLabelWide}" />
                     <TextBox Text="{Binding Path=VAdvPres}" Margin="182,825,0,0" Style="{StaticResource FormText}" />
@@ -358,11 +358,11 @@
 
                     <TextBox Text="Страд. наст. вр." Width="175" Margin="0,960,0,0" Style="{StaticResource FormLabelWide}" />
                     <TextBox Text="{Binding Path=PPresPL_M_Sg_N}" Margin="182,960,0,0" Style="{StaticResource FormText}" />
-                    <Button Content="Показать формы" Margin="400,960,0,0" Command="{Binding ShowPresPassFormsCommand }" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Button Content="Показать формы" Margin="400,960,0,0" Command="{Binding ShowPresPassFormsCommand }" IsEnabled="{Binding Path=PPresPExists}" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                     <TextBox Text="Страд. прош. вр." Width="175" Margin="0,1005,0,0" Style="{StaticResource FormLabelWide}" />
                     <TextBox Text="{Binding Path=PPastPL_M_Sg_N}" Margin="182,1005,0,0" Style="{StaticResource FormText}" />
-                    <Button Content="Показать формы" Margin="400,1005,0,0" Command="{Binding ShowPastPassFormsCommand }" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Button Content="Показать формы" Margin="400,1005,0,0" Command="{Binding ShowPastPassFormsCommand }" IsEnabled="{Binding Path=PPastPExists}" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 </Grid>
             </ScrollViewer>
             <Button Style="{DynamicResource BtnLarge}" Content="Назад" Command="{Binding BackCommand }"  Grid.Column="1" Margin="0,0,0,60" />
