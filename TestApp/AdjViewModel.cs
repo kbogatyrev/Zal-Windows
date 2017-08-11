@@ -643,6 +643,7 @@ namespace ZalTestApp
                 m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_N", out forms);
                 AdjL_N_Sg_N = Helpers.sListToCommaSeparatedString(forms);
                 m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_A", out forms);
+                AdjL_N_Sg_A = Helpers.sListToCommaSeparatedString(forms);
                 m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_G", out forms);
                 AdjL_N_Sg_G = Helpers.sListToCommaSeparatedString(forms);
                 m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_P", out forms);

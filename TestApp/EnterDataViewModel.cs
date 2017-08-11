@@ -25,7 +25,7 @@ namespace ZalTestApp
             }
         }
 
-        private string m_sDlgTitle = "Enter Source Form";
+        private string m_sDlgTitle = "Исходная форма";
         public string DlgTitle
         {
             get

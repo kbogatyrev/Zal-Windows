@@ -120,6 +120,7 @@ namespace ZalTestApp
             int iPos = -1;
             EM_StressType eType = EM_StressType.STRESS_TYPE_UNDEFINED;
             char chrMark = ' ';
+            int iStressMarksInserted = 0;
 
             EM_ReturnCode eRet = wf.eGetFirstStressPos(ref iPos, ref eType);
             do
@@ -134,12 +135,13 @@ namespace ZalTestApp
                     if (sWordForm[iPos] != 'ё')
                     {
                         chrMark = '\x301';
-                        sWordForm = sWordForm.Insert(iPos + 1, chrMark.ToString());
+                        sWordForm = sWordForm.Insert(iPos + iStressMarksInserted++ + 1, chrMark.ToString());
                     }
                 }
                 else if (EM_StressType.STRESS_SECONDARY == eType)
                 {
                     chrMark = '\x300';
+                    sWordForm = sWordForm.Insert(iPos + iStressMarksInserted++ + 1, chrMark.ToString());
                 }
 
                 eRet = wf.eGetNextStressPos(ref iPos, ref eType);
