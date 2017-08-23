@@ -8,51 +8,21 @@ using System.Windows.Forms;
 
 namespace ZalTestApp
 {
-    #region Lexemes
-    /*
-    public class Lexemes : IEnumerable
-    {
-        private Dictionary<CLexemeManaged, Dictionary<string, List<string>>> m_Paradigms;
-
-        public int NLexemes
-        {
-            get { return m_Paradigms.Count; }
-        }
-
-        public void Add(CLexemeManaged l)
-        {
-            m_Lexemes.Add(l, new Dictionary<string, List<string>>());
-        }
-
-        public void Remove(CLexemeManaged l)
-        {
-            m_Lexemes.Remove(l);
-        }
-
-        public void Clear()
-        {
-            m_Lexemes.Clear();
-        }
-
-        public Lexemes()
-        {
-            m_Lexemes = new Dictionary<CLexemeManaged, Dictionary<string, List<string>>>();
-        }
-
-        public IEnumerator GetEnumerator()
-        {
-            return m_Lexemes.Keys.GetEnumerator();
-        }
-    }
-    */
-    #endregion
-
     public class MainModel : INotifyPropertyChanged
     {
+        private CDictionaryManaged m_Dictionary = null;
+        public CVerifierManaged m_Verifier = null; 
+
         private Dictionary<CLexemeManaged, Dictionary<string, List<string>>> m_Lexemes;
         public IEnumerator GetEnumerator()
         {
             return m_Lexemes.Keys.GetEnumerator();
+        }
+
+        private Dictionary<string, string> m_StoredLexemes; // source form --> hash
+        public IEnumerator GetStoredLexemesEnumerator()
+        {
+            return m_StoredLexemes.GetEnumerator();
         }
 
         #region INotifyPropertyChanged Members
@@ -66,6 +36,7 @@ namespace ZalTestApp
         }
         #endregion
 
+        #region Properties
         string m_sPath;
         public string Path
         {
@@ -80,14 +51,42 @@ namespace ZalTestApp
             }
         }
 
-        public CDictionaryManaged m_Dictionary = new CDictionaryManaged();
-        public CDictionaryManaged Engine
+        string m_sImportPath;
+        public string ImportPath
         {
             get
             {
-                return m_Dictionary;
+                return m_sImportPath;
+            }
+            set
+            {
+                m_sImportPath = value;
+                OnPropertyChanged("ImportPath");
             }
         }
+
+        string m_sExportPath;
+        public string ExportPath
+        {
+            get
+            {
+                return m_sExportPath;
+            }
+            set
+            {
+                m_sExportPath = value;
+                OnPropertyChanged("ExportPath");
+            }
+        }
+
+//        public CDictionaryManaged m_Dictionary = new CDictionaryManaged();
+//        public CDictionaryManaged Engine
+//        {
+//            get
+//            {
+//                return m_Dictionary;
+//            }
+//        }
  
         public int NLexemes
         {
@@ -96,10 +95,15 @@ namespace ZalTestApp
                 return m_Lexemes.Count;
             }
         }
+        #endregion
 
         public MainModel()
         {
+            // TODO: error checking...
+            m_Dictionary = new CDictionaryManaged();
+//            m_Dictionary.eGetVerifier(ref m_Verifier);
             m_Lexemes = new Dictionary<CLexemeManaged, Dictionary<string, List<string>>>();
+            m_StoredLexemes = new Dictionary<string, string>();
         }
 
         public bool GetFormsByGramHash(CLexemeManaged lexeme, string sHash, out List<string> forms)
@@ -207,6 +211,88 @@ namespace ZalTestApp
                 return;
             }
         }       //  SearchByInitialForm()
+
+        #region Regression
+        public void RunRegression()
+        {
+
+        }
+
+        public void ExportTestData(string str)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.InitialDirectory = "c:\\";
+            openFileDialog1.Filter = "CSV Files(*.csv)| *.csv | All Files(*.*) | *.* ";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Path = openFileDialog1.FileName;
+                var eRet = m_Dictionary.eSetDbPath(Path);
+                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                {
+                    Path = "";
+                    System.Windows.MessageBox.Show("Unable to open export file.");
+                }
+            }
+        }
+
+        public void ImportTestData(string str)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.InitialDirectory = "c:\\";
+            openFileDialog1.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Path = openFileDialog1.FileName;
+                var eRet = m_Dictionary.eSetDbPath(Path);
+                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                {
+                    Path = "";
+                    System.Windows.MessageBox.Show("Unable to open import file.");
+                }
+            }
+        }
+
+        public bool GetStoredLexemeData()
+        {
+            EM_ReturnCode eRet = m_Dictionary.eGetVerifier(ref m_Verifier);
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                System.Windows.MessageBox.Show("Unable to load Verifier.");
+                return false;
+            }
+
+            eRet = m_Verifier.eLoadStoredLexemes();
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                System.Windows.MessageBox.Show("Unable to load stored data.");
+                return false;
+            }
+
+            if (m_Verifier.iCount() <= 0)
+            {
+                System.Windows.MessageBox.Show("No test forms in the database", "Zal Test");
+                return false;
+            }
+
+            string sLexemeHash = null, sHeadword = null;
+            eRet = m_Verifier.eGetFirstLexemeData(ref sLexemeHash, ref sHeadword);
+            while (EM_ReturnCode.H_NO_ERROR == eRet)
+            {
+                m_StoredLexemes[sHeadword] = sLexemeHash;
+                eRet = m_Verifier.eGetNextLexemeData(ref sLexemeHash, ref sHeadword);
+            }
+
+            return true;
+        }
+        #endregion
 
         #region FormGeneration
         private bool bArrangeParadigm(CLexemeManaged lexeme)

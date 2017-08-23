@@ -65,12 +65,55 @@ namespace ZalTestApp
             }
         }
 
+        private ICommand m_RunRegressionTestCommand;
+        public ICommand RunRegressionTestCommand
+        {
+            get
+            {
+                return m_RunRegressionTestCommand;
+            }
+            set
+            {
+                m_RunRegressionTestCommand = value;
+            }
+        }
+
+        private ICommand m_ImportTestDataCommand;
+        public ICommand ImportTestDataCommand
+        {
+            get
+            {
+                return m_ImportTestDataCommand;
+            }
+            set
+            {
+                m_ImportTestDataCommand = value;
+            }
+        }
+
+        private ICommand m_ExportTestDataCommand;
+        public ICommand ExportTestDataCommand
+        {
+            get
+            {
+                return m_ExportTestDataCommand;
+            }
+            set
+            {
+                m_ExportTestDataCommand = value;
+            }
+        }
+
         #endregion
 
         public MainViewModel()
         {
             OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
             SearchByInitialFormCommand = new RelayCommand(new Action<object>(SearchByInitialForm));
+            RunRegressionTestCommand = new RelayCommand(new Action<object>(RunRegression));
+            ImportTestDataCommand = new RelayCommand(new Action<object>(ImportTestData));
+            ExportTestDataCommand = new RelayCommand(new Action<object>(ExportTestData));
+
             m_MainModel = new MainModel();
             m_MainModel.Path = "";
             m_CurrentViewModel = this;
@@ -248,6 +291,23 @@ namespace ZalTestApp
                     return;
             }
         }       //  ShowParticiple()
+
+        public void RunRegression(object obj)
+        {
+            var rm = new RegressionGridViewModel(m_MainModel);
+            rm.BackButtonEvent += new RegressionGridViewModel.BackButtonHandler(GoBack);
+            m_BreadCrumbs.Push(m_CurrentViewModel);
+            CurrentViewModel = rm;
+        }
+
+        public void ImportTestData(object obj)
+        {
+            MessageBox.Show("ImportTestData");
+        }
+        public void ExportTestData(object obj)
+        {
+            MessageBox.Show("ExportTestData");
+        }
 
         void GoBack()
         {

@@ -98,6 +98,21 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
         <Setter Property="ScrollViewer.Height" Value="32.0"/>
     </Style>
-    
+
+    <Style TargetType="Menu" x:Key="Menu">
+        <Setter Property="Foreground" Value="Navy"/>
+        <Setter Property="Padding" Value="10,3,0,4"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
+    </Style>
+
+    <Style TargetType="DataGrid" x:Key="Table">
+        <Setter Property="Foreground" Value="Navy"/>
+        <Setter Property="Padding" Value="10,3,0,4"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
+    </Style>
 </ResourceDictionary>
     

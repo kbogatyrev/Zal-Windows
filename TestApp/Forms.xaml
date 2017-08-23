@@ -6,49 +6,11 @@
                 Main panel
 -->
     <DataTemplate DataType="{x:Type local:MainViewModel}">
-        <DockPanel Name="HomeView">
-<!--
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_File">
-                    <MenuItem Header="_Open Dictionary" Command="{Binding OpenDictionaryCommand}"/>
-                </MenuItem>
-                <MenuItem Header="_Synthesize" Command="{Binding SearchByInitialFormCommand}"/>
-                <MenuItem Header="_Analyze" IsEnabled="False"/>
-                <MenuItem Header="_Test" IsEnabled="False"/>
-            </Menu>
--->            
-            <!--        
-        <TabControl >
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5">
-                    
-                    <ItemsControl>
-                        <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-            
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                    <TextBlock Text="lkjsdhflskadfklhsdfkhksldf"/>
-                        </ItemsControl>
-                </Grid>
-            </TabItem>
-            <TabItem Header="TabItem" Margin="1,1,1,2">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-        </TabControl>
-        -->
-        </DockPanel>
-        
 <!--
                 Lexeme grid        
 -->        
     </DataTemplate>
+
     <DataTemplate DataType="{x:Type local:LexemeGridViewModel}">
         <DockPanel Name="HomeView">
             <ScrollViewer>
@@ -92,7 +54,8 @@
                 <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Advanced}" Grid.Row="5" Grid.Column="1"/>
 
                 <Button Style="{DynamicResource BtnLarge}" Content="Парадигма" Command="{Binding ShowParadigmCommand}" Grid.Column="2" Grid.Row="2" Margin="10,0,0,0" />
-                <Button Style="{DynamicResource BtnLarge}" Content="Закрыть" Command="{Binding RemoveLexemeCommand }"  Grid.Column="2" Grid.Row="3" Margin="10,0,0,0" />
+                <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveParadigmCommand}" Grid.Column="2" Grid.Row="3" Margin="10,0,0,0" />
+                <Button Style="{DynamicResource BtnLarge}" Content="Закрыть" Command="{Binding RemoveLexemeCommand }"  Grid.Column="2" Grid.Row="4" Margin="10,0,0,0" />
             </Grid>
         </Border>
     </DataTemplate>
@@ -368,6 +331,31 @@
             <Button Style="{DynamicResource BtnLarge}" Content="Назад" Command="{Binding BackCommand }"  Grid.Column="1" Margin="0,0,0,60" />
         </Grid>
     </DataTemplate>
- 
+
+    <DataTemplate DataType="{x:Type local:RegressionGridViewModel}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="51*">
+                </ColumnDefinition>
+                <ColumnDefinition Width="14*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Style="{DynamicResource BtnSmall}" Content="Прогнать" Command="{Binding RunTestCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="108,260,0,0" VerticalAlignment="Top" Width="95"/>
+            <Button Style="{DynamicResource BtnSmall}" Content="Сохранить" Command="{Binding SaveCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="108,300,0,0" VerticalAlignment="Top" Width="95"/>
+            <Button Style="{DynamicResource BtnSmall}" Content="Стереть" Command="{Binding DeleteCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="108,340,0,0" VerticalAlignment="Top" Width="95"/>
+            <Button Style="{DynamicResource BtnSmall}" Content="Отмена" Command="{Binding CancelCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="108,380,0,0" VerticalAlignment="Top" Width="95"/>
+            <Button Style="{DynamicResource BtnSmall}" Content="Назад" Command="{Binding BackCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="108,420,0,0" VerticalAlignment="Top" Width="95"/>
+
+            <DataGrid Style="{DynamicResource Table}" ItemsSource="{Binding RegressionData}"  AutoGenerateColumns="False" CanUserAddRows="False" AlternatingRowBackground="Gainsboro" AlternationCount="2">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Binding="{Binding Selected}" Width="30" IsReadOnly="False" />
+                    <DataGridTextColumn Header="Исходная форма" Binding="{Binding SourceForm}" Width="250" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Хеш" Binding="{Binding LexemeHash}" Width="500" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Результат" Binding="{Binding TestResult}" Width="150" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </DataTemplate>
+
 </ResourceDictionary>
     

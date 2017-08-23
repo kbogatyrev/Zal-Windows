@@ -70,6 +70,8 @@
     <Compile Include="MainModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="NounViewModel.cs" />
+    <Compile Include="RegressionGridViewModel.cs" />
+    <Compile Include="RegressionViewModel.cs" />
     <Compile Include="VerbViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Page Include="EnterDataDlg.xaml">

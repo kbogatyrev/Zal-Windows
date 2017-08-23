@@ -47,6 +47,19 @@ namespace ZalTestApp
             }
         }
 
+        private ICommand m_SaveParadigmCommand;
+        public ICommand SaveParadigmCommand
+        {
+            get
+            {
+                return m_SaveParadigmCommand;
+            }
+            set
+            {
+                m_SaveParadigmCommand = value;
+            }
+        }
+
         private ICommand m_RemoveLexemeCommand;
         public ICommand RemoveLexemeCommand
         {
@@ -59,7 +72,6 @@ namespace ZalTestApp
                 m_RemoveLexemeCommand = value;
             }
         }
-
         #endregion
 
         #region Bindings
@@ -140,6 +152,7 @@ namespace ZalTestApp
         {
             m_Lexeme = l;
             ShowParadigmCommand = new RelayCommand(new Action<object>(ShowParadigm));
+            SaveParadigmCommand = new RelayCommand(new Action<object>(SaveParadigm));
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
         }
 
@@ -172,6 +185,24 @@ namespace ZalTestApp
             }   //  switch...
 
         }   // ShowParadigm()
+
+        private void SaveParadigm(object arg)
+        {
+            try
+            {
+                m_Lexeme.eGenerateParadigm();
+                m_Lexeme.eSaveTestData();
+                MessageBox.Show("Парадигма сохранена.", "Zal");
+            }
+            catch (Exception ex)
+            {
+                //                MainLib.ZalError err = new MainLib.ZalError();
+                string sMsg = "LexemeDataPanel_Save: ";
+                sMsg += ex.Message;
+                MessageBox.Show(sMsg, "Zal Error");
+                return;
+            }
+        }   // SaveParadigm()
 
         private void RemoveLexeme(object arg)
         {

@@ -52,8 +52,8 @@ https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/how-to-define-a-t
     </Window.Resources>
     
     <DockPanel Name="HomeView">
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File">
+        <Menu Style="{DynamicResource Menu}" DockPanel.Dock="Top">
+            <MenuItem Header="_Файл">
                 <MenuItem Header="_Открыть словарь" Command="{Binding OpenDictionaryCommand}"/>
             </MenuItem>
             <MenuItem Header="_Синтез" Command="{Binding SearchByInitialFormCommand}"/>
@@ -61,6 +61,7 @@ https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/how-to-define-a-t
             <MenuItem Header="_Регрессия" IsEnabled="True">
                 <MenuItem Header="_Экспорт" Command="{Binding ExportTestDataCommand}"/>
                 <MenuItem Header="_Импорт" Command="{Binding ImportTestDataCommand}"/>
+                <MenuItem Header="_Прогнать" Command="{Binding RunRegressionTestCommand}"/>
             </MenuItem>
         </Menu>
         <ContentControl Content="{Binding CurrentViewModel}" />
