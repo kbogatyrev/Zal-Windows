@@ -11,7 +11,12 @@ namespace ZalTestApp
     public class MainModel : INotifyPropertyChanged
     {
         private CDictionaryManaged m_Dictionary = null;
-        public CVerifierManaged m_Verifier = null; 
+
+        private CVerifierManaged m_Verifier = null; 
+        public CVerifierManaged Verifier()
+        {
+            return m_Verifier;
+        }
 
         private Dictionary<CLexemeManaged, Dictionary<string, List<string>>> m_Lexemes;
         public IEnumerator GetEnumerator()
@@ -101,7 +106,7 @@ namespace ZalTestApp
         {
             // TODO: error checking...
             m_Dictionary = new CDictionaryManaged();
-//            m_Dictionary.eGetVerifier(ref m_Verifier);
+            m_Dictionary.eGetVerifier(ref m_Verifier);
             m_Lexemes = new Dictionary<CLexemeManaged, Dictionary<string, List<string>>>();
             m_StoredLexemes = new Dictionary<string, string>();
         }
@@ -213,11 +218,6 @@ namespace ZalTestApp
         }       //  SearchByInitialForm()
 
         #region Regression
-        public void RunRegression()
-        {
-
-        }
-
         public void ExportTestData(string str)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -292,6 +292,25 @@ namespace ZalTestApp
 
             return true;
         }
+
+        public EM_ReturnCode VerifyLexeme(string sLexemeHash, ref EM_TestResult eTestResult)
+        {
+            eTestResult = EM_TestResult.TEST_RESULT_UNDEFINED;
+
+            if (null == m_Verifier)
+            {
+                return EM_ReturnCode.H_UNAVAILABLE;
+            }
+
+            var eRet = m_Verifier.eVerify(sLexemeHash);
+            if (EM_ReturnCode.H_NO_ERROR == eRet)
+            {
+                eTestResult = m_Verifier.eResult();
+            }
+
+            return eRet;
+        }
+
         #endregion
 
         #region FormGeneration
