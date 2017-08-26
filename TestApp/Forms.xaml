@@ -348,7 +348,7 @@
 
             <DataGrid Style="{DynamicResource Table}" ItemsSource="{Binding RegressionData}"  AutoGenerateColumns="False" CanUserAddRows="False" AlternatingRowBackground="Gainsboro" AlternationCount="2">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Binding="{Binding Selected}" Width="30" IsReadOnly="False" />
+                    <DataGridCheckBoxColumn Binding="{Binding IsSelected}" Width="30" IsReadOnly="False" />
                     <DataGridTextColumn Header="Исходная форма" Binding="{Binding SourceForm}" Width="250" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Хеш" Binding="{Binding LexemeHash}" Width="500" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Результат" Binding="{Binding TestResult}" Width="150" IsReadOnly="True"/>

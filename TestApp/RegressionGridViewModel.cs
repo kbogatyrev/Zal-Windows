@@ -7,6 +7,7 @@ using System.Collections;
 
 using MainLibManaged;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace ZalTestApp
 {
@@ -29,6 +30,96 @@ namespace ZalTestApp
             {
                 m_RegressionData = value;
             }
+        }
+
+        public int NLexemes
+        {
+            get
+            {
+                return m_RegressionData.Rows.Count;
+            }
+        }
+
+        private bool m_bCancelBatchVerifier;
+        public bool CancelVerifier
+        {
+            get
+            {
+                return m_bCancelBatchVerifier;
+            }
+
+            set
+            {
+                m_bCancelBatchVerifier = value;
+            }
+        }
+
+        public void SetResult(int iRow, string sText)
+        {
+            try
+            {
+                DataRow row = m_RegressionData.Rows[iRow];
+                row["TestResult"] = sText;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error: unable to change result value: " + ex.Message);
+                return;
+            }
+        }
+
+        public bool IsChecked(int iRow)
+        {
+            try
+            {
+                DataRow row = m_RegressionData.Rows[iRow];
+                return (bool)row["IsSelected"];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: unable retrieve selection status value: " + ex.Message);
+                return false;
+            }
+        }
+
+        public string LexemeHash(int iRow)
+        {
+            try
+            {
+                DataRow row = m_RegressionData.Rows[iRow];
+                return (string)row["LexemeHash"];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: unable to retrieve lexeme hash value: " + ex.Message);
+                return "";
+            }
+        }
+
+        public string SourceForm(int iRow)
+        {
+            try
+            {
+                DataRow row = m_RegressionData.Rows[iRow];
+                return (string)row["SourceForm"];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: unable to retrieve source form value: " + ex.Message);
+                return "";
+            }
+        }
+
+        public EM_ReturnCode Verify(int iRow, ref EM_TestResult eTestResult)
+        {
+            string sLexemeHash = LexemeHash(iRow);
+            var eRet = m_MainModel.VerifyLexeme(sLexemeHash, ref eTestResult);
+            return eRet;
+        }
+
+        public int Rows()
+        {
+            return m_RegressionData.Rows.Count;
         }
 
         #region ICommand
@@ -115,7 +206,7 @@ namespace ZalTestApp
 
             DataColumn colCheckbox = new DataColumn();
             colCheckbox.DataType = Type.GetType("System.Boolean");
-            colCheckbox.ColumnName = "Selected";
+            colCheckbox.ColumnName = "IsSelected";
             m_RegressionData.Columns.Add(colCheckbox);
 
             DataColumn colHeadWord = new DataColumn();
@@ -144,10 +235,10 @@ namespace ZalTestApp
                 DataRow row = m_RegressionData.NewRow();
                 row["SourceForm"] = headWordToHash.Key;
                 row["LexemeHash"] = headWordToHash.Value;
-                row["Selected"] = false;
+                row["IsSelected"] = false;
                 m_RegressionData.Rows.Add(row);
             }
-        }
+        }       //  RegressionGridViewModel()
 
         public void GoBack(Object obj)
         {
@@ -157,8 +248,23 @@ namespace ZalTestApp
         public void RunTest(Object obj)
         {
             MessageBox.Show("RunTest");
-            var row = m_RegressionData.Rows[1];
-            row["TestResult"] = "Pass";
+
+            try
+            {
+                VerifierThread vt = new VerifierThread(this);
+                System.Threading.Thread t = new Thread(new ThreadStart(vt.ThreadProc));
+                t.Name = "TesApp batch verifier thread";
+                t.IsBackground = true;
+                //              m_WorkerThread.Priority = ThreadPriority.Lowest;
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+                t.Join();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return;
+            }
         }
 
         public void Save(Object obj)
@@ -176,5 +282,86 @@ namespace ZalTestApp
             MessageBox.Show("Cancel");
         }
 
-    }
+    }   //  class RegressionGridViewModel
+
+    #region VerifierThread
+    public class VerifierThread
+    {
+        private RegressionGridViewModel m_Caller;
+//        private CVerifierManaged m_Verifier;
+
+        public VerifierThread(RegressionGridViewModel rvm)
+        {
+            m_Caller = rvm;
+        }
+
+        public void ThreadProc()
+        {
+            try
+            {
+                for (int iLexeme = 0; iLexeme < m_Caller.NLexemes; ++iLexeme)
+                {
+                    if (m_Caller.CancelVerifier)
+                    {
+                        m_Caller.SetResult(iLexeme, "Cancelled");
+                        break;
+                    }
+
+                    if (!m_Caller.IsChecked(iLexeme))
+                    {
+                        continue;
+                    }
+
+                    EM_TestResult eTestResult = EM_TestResult.TEST_RESULT_UNDEFINED;
+                    EM_ReturnCode eRet = m_Caller.Verify(iLexeme, ref eTestResult);
+                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    {
+                        MessageBox.Show(string.Format("Unable to verify lexeme hash {0}", m_Caller.LexemeHash(iLexeme)));
+                    }
+
+                    switch (eTestResult)
+                    {
+                        case EM_TestResult.TEST_RESULT_OK:
+                        {
+                            m_Caller.SetResult(iLexeme, "Pass");
+                            break;
+                        }
+                        case EM_TestResult.TEST_RESULT_FAIL:
+                        {
+                            m_Caller.SetResult(iLexeme, "Fail");
+                            break;
+                        }
+                        case EM_TestResult.TEST_RESULT_INCOMPLETE:
+                        {
+                            m_Caller.SetResult(iLexeme, "Missing forms");
+                            break;
+                        }
+                        default:
+                        {
+                            //                            MainLib.ZalError err = new MainLib.ZalError();
+                            string sMsg = "Unexpected return from IVerifier; error msg: ";
+                            //                            sMsg += err.LastError;
+                            sMsg += eTestResult.ToString();
+                            MessageBox.Show(sMsg, "Zal Error");
+                            return;
+                        }
+
+                    }       //  switch ...
+
+                }   //  foreach (DataGridViewRow row in dataGridView.Rows)
+            }
+            catch (Exception ex)
+            {
+                //                MainLib.ZalError err = new MainLib.ZalError();
+                string sMsg = ex.Message;
+                sMsg += "\n";
+                //                sMsg += err.LastError;
+                MessageBox.Show(sMsg, "Error");
+                return;
+            }
+
+        }   //  ThreadProc()
+
+    }   //  public class VerifierThread
+    #endregion
 }
