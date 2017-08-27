@@ -73,7 +73,7 @@ namespace ZalTestApp
             try
             {
                 DataRow row = m_RegressionData.Rows[iRow];
-                return (bool)row["IsSelected"];
+                return (bool)row["IsChecked"];
             }
             catch (Exception ex)
             {
@@ -206,7 +206,7 @@ namespace ZalTestApp
 
             DataColumn colCheckbox = new DataColumn();
             colCheckbox.DataType = Type.GetType("System.Boolean");
-            colCheckbox.ColumnName = "IsSelected";
+            colCheckbox.ColumnName = "IsChecked";
             m_RegressionData.Columns.Add(colCheckbox);
 
             DataColumn colHeadWord = new DataColumn();
@@ -235,7 +235,7 @@ namespace ZalTestApp
                 DataRow row = m_RegressionData.NewRow();
                 row["SourceForm"] = headWordToHash.Key;
                 row["LexemeHash"] = headWordToHash.Value;
-                row["IsSelected"] = false;
+                row["IsChecked"] = true;
                 m_RegressionData.Rows.Add(row);
             }
         }       //  RegressionGridViewModel()
@@ -247,8 +247,6 @@ namespace ZalTestApp
 
         public void RunTest(Object obj)
         {
-            MessageBox.Show("RunTest");
-
             try
             {
                 VerifierThread vt = new VerifierThread(this);
@@ -288,7 +286,6 @@ namespace ZalTestApp
     public class VerifierThread
     {
         private RegressionGridViewModel m_Caller;
-//        private CVerifierManaged m_Verifier;
 
         public VerifierThread(RegressionGridViewModel rvm)
         {
@@ -309,6 +306,7 @@ namespace ZalTestApp
 
                     if (!m_Caller.IsChecked(iLexeme))
                     {
+                        m_Caller.SetResult(iLexeme, "Ignored");
                         continue;
                     }
 

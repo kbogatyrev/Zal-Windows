@@ -107,12 +107,23 @@
         <Setter Property="FontFamily" Value="Calibri"/>
     </Style>
 
-    <Style TargetType="DataGrid" x:Key="Table">
+    <Style TargetType="DataGridCell" >
         <Setter Property="Foreground" Value="Navy"/>
         <Setter Property="Padding" Value="10,3,0,4"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="FontFamily" Value="Calibri"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=TestResult}" Value="Fail">
+                <Setter Property="Foreground" Value="Red" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=IsChecked}" Value="False">
+                <Setter Property="Foreground" Value="DarkGray" />
+            </DataTrigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="LightBlue" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>
     
