@@ -70,6 +70,9 @@
     <Compile Include="MainModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="NounViewModel.cs" />
+    <Compile Include="RegressionGridView.xaml.cs">
+      <DependentUpon>RegressionGridView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RegressionGridViewModel.cs" />
     <Compile Include="VerbViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
@@ -93,6 +96,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RegressionGridView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Skins.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

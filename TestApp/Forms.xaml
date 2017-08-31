@@ -332,29 +332,8 @@
         </Grid>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:RegressionGridViewModel}">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="51*">
-                </ColumnDefinition>
-                <ColumnDefinition Width="14*"/>
-            </Grid.ColumnDefinitions>
-
-            <Button Style="{DynamicResource BtnSmall}" Content="Прогнать" Command="{Binding RunTestCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="108,260,0,0" VerticalAlignment="Top" Width="95"/>
-            <Button Style="{DynamicResource BtnSmall}" Content="Сохранить" Command="{Binding SaveCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="108,300,0,0" VerticalAlignment="Top" Width="95"/>
-            <Button Style="{DynamicResource BtnSmall}" Content="Стереть" Command="{Binding DeleteCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="108,340,0,0" VerticalAlignment="Top" Width="95"/>
-            <Button Style="{DynamicResource BtnSmall}" Content="Отмена" Command="{Binding CancelCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="108,380,0,0" VerticalAlignment="Top" Width="95"/>
-            <Button Style="{DynamicResource BtnSmall}" Content="Назад" Command="{Binding BackCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="108,420,0,0" VerticalAlignment="Top" Width="95"/>
-
-            <DataGrid Style="{DynamicResource ZalDataGrid}" ItemsSource="{Binding RegressionData}" AutoGenerateColumns="False" CanUserAddRows="False" AlternatingRowBackground="Gainsboro" AlternationCount="2">
-                <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Binding="{Binding IsChecked}" Width="30" IsThreeState="False" IsReadOnly="False" />
-                    <DataGridTextColumn Header="Исходная форма" Binding="{Binding SourceForm}" Width="250" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Хеш" Binding="{Binding LexemeHash}" Width="500" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Результат" Binding="{Binding TestResult}" Width="150" IsReadOnly="True"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
+    <DataTemplate DataType="{x:Type local:RegressionGridViewModel}" >
+        <local:RegressionGridView />
     </DataTemplate>
 
 </ResourceDictionary>

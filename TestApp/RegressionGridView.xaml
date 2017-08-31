@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="ZalTestApp.RegressionGridView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZalTestApp"
+             mc:Ignorable="d" >
+    <!--             d:DesignHeight="200" d:DesignWidth="900">  -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1000"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="ZalRegressionDataGrid"  Style="{DynamicResource ZalDataGrid}" ItemsSource="{Binding RegressionData}"
+                  AutoGenerateColumns="False" CanUserAddRows="False" AlternatingRowBackground="Gainsboro" AlternationCount="2" 
+                  Grid.ColumnSpan="1" Margin="0,0,0,0" HorizontalAlignment="Left" >
+
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                       <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" />  
+                    </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Исходная форма" Binding="{Binding SourceForm}" Width="250" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Хеш" Binding="{Binding LexemeHash}" Width="500" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Результат" Binding="{Binding TestResult}"  Width="150" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Style="{DynamicResource BtnSmall}" Content="Прогнать" Command="{Binding RunTestCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="50,260,0,0" VerticalAlignment="Top" Width="95"/>
+        <Button Style="{DynamicResource BtnSmall}" Content="Сохранить" Command="{Binding SaveCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="50,300,0,0" VerticalAlignment="Top" Width="95"/>
+        <Button Style="{DynamicResource BtnSmall}" Content="Стереть" Command="{Binding DeleteCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="50,340,0,0" VerticalAlignment="Top" Width="95"/>
+        <Button Style="{DynamicResource BtnSmall}" Content="Отмена" Command="{Binding CancelCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="50,380,08,0" VerticalAlignment="Top" Width="95"/>
+        <Button Style="{DynamicResource BtnSmall}" Content="Назад" Command="{Binding BackCommand}" Grid.Column="1" HorizontalAlignment="Left" Margin="50,420,0,0" VerticalAlignment="Top" Width="95"/>
+
+    </Grid>
+</UserControl>

@@ -256,7 +256,7 @@ namespace ZalTestApp
                 //              m_WorkerThread.Priority = ThreadPriority.Lowest;
                 t.SetApartmentState(ApartmentState.STA);
                 t.Start();
-                t.Join();
+//                t.Join();
             }
             catch (Exception ex)
             {
