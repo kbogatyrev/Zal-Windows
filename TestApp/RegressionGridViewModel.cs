@@ -61,7 +61,7 @@ namespace ZalTestApp
                 DataRow row = m_RegressionData.Rows[iRow];
                 row["TestResult"] = sText;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Error: unable to change result value: " + ex.Message);
                 return;
@@ -114,6 +114,13 @@ namespace ZalTestApp
         {
             string sLexemeHash = LexemeHash(iRow);
             var eRet = m_MainModel.VerifyLexeme(sLexemeHash, ref eTestResult);
+            return eRet;
+        }
+
+        public EM_ReturnCode DeleteStoredLexeme(int iRow, ref EM_TestResult eTestResult)
+        {
+            string sLexemeHash = LexemeHash(iRow);
+            var eRet = m_MainModel.DeleteSavedLexeme(sLexemeHash, ref eTestResult);
             return eRet;
         }
 
@@ -188,7 +195,7 @@ namespace ZalTestApp
         public RegressionGridViewModel(MainModel mm)
         {
             m_MainModel = mm;
- 
+
             RunTestCommand = new RelayCommand(new Action<object>(RunTest));
             SaveCommand = new RelayCommand(new Action<object>(Save));
             DeleteCommand = new RelayCommand(new Action<object>(Delete));
@@ -242,6 +249,7 @@ namespace ZalTestApp
 
         public void GoBack(Object obj)
         {
+            m_MainModel.Clear();
             BackButtonEvent?.Invoke();
         }
 
@@ -256,7 +264,7 @@ namespace ZalTestApp
                 //              m_WorkerThread.Priority = ThreadPriority.Lowest;
                 t.SetApartmentState(ApartmentState.STA);
                 t.Start();
-//                t.Join();
+                //                t.Join();
             }
             catch (Exception ex)
             {
@@ -272,9 +280,27 @@ namespace ZalTestApp
 
         public void Delete(Object obj)
         {
-            MessageBox.Show("Delete");
-        }
+            try
+            {
+                for (int iLexeme = 0; iLexeme < NLexemes; ++iLexeme)
+                {
+                    if (!IsChecked(iLexeme))
+                    {
+                        continue;
+                    }
 
+                    EM_TestResult eRet = EM_TestResult.TEST_RESULT_UNDEFINED;
+                    DeleteStoredLexeme(iLexeme, ref eRet);
+                }       //  switch ...
+
+            }   //  foreach (DataGridViewRow row in dataGridView.Rows)
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+                return;
+            }
+        }
+ 
         public void Cancel(Object obj)
         {
             MessageBox.Show("Cancel");

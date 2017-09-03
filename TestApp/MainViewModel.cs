@@ -11,6 +11,7 @@ namespace ZalTestApp
     {
         private Stack<ViewModelBase> m_BreadCrumbs = null;
         private LexemeGridViewModel m_LexemeGridViewModel = null;
+        private RegressionGridViewModel m_RegressionGridViewModel = null;
 
         private Dictionary<CLexemeManaged, NounViewModel> m_NounViewModels = new Dictionary<CLexemeManaged, NounViewModel>();
         private Dictionary<CLexemeManaged, AdjViewModel> m_AdjViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
@@ -294,10 +295,19 @@ namespace ZalTestApp
 
         public void RunRegression(object obj)
         {
-            var rm = new RegressionGridViewModel(m_MainModel);
-            rm.BackButtonEvent += new RegressionGridViewModel.BackButtonHandler(GoBack);
+            m_MainModel.Clear();
+            if (m_LexemeGridViewModel != null)
+            {
+                m_LexemeGridViewModel.Clear();
+            }
+
+            if (null == m_RegressionGridViewModel)
+            {
+                m_RegressionGridViewModel = new RegressionGridViewModel(m_MainModel);
+                m_RegressionGridViewModel.BackButtonEvent += new RegressionGridViewModel.BackButtonHandler(GoBack);
+            }
             m_BreadCrumbs.Push(m_CurrentViewModel);
-            CurrentViewModel = rm;
+            CurrentViewModel = m_RegressionGridViewModel;
         }
 
         public void ImportTestData(object obj)

@@ -140,6 +140,12 @@ namespace ZalTestApp
             m_Lexemes.Remove(l);
         }
 
+        public void Clear()
+        {
+            m_Dictionary.Clear();
+            m_Lexemes.Clear();
+        }
+
         public void OpenDictionary(string str)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -303,6 +309,24 @@ namespace ZalTestApp
             }
 
             var eRet = m_Verifier.eVerify(sLexemeHash);
+            if (EM_ReturnCode.H_NO_ERROR == eRet)
+            {
+                eTestResult = m_Verifier.eResult();
+            }
+
+            return eRet;
+        }
+
+        public EM_ReturnCode DeleteSavedLexeme(string sLexemeHash, ref EM_TestResult eTestResult)
+        {
+            eTestResult = EM_TestResult.TEST_RESULT_UNDEFINED;
+
+            if (null == m_Verifier)
+            {
+                return EM_ReturnCode.H_UNAVAILABLE;
+            }
+
+            var eRet = m_Verifier.eDeleteStoredLexeme(sLexemeHash);
             if (EM_ReturnCode.H_NO_ERROR == eRet)
             {
                 eTestResult = m_Verifier.eResult();
