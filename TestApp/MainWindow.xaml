@@ -6,63 +6,30 @@
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Zal Test App" Height="750" Width="1300" Margin="0">
-
+        Title="Zal Test App" Height="560" Width="975" Margin="0">
    
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
 
-    <Window.Resources>
-<!--        
-        <DataTemplate DataType="{x:Type local:LexemeViewModel}">
-            <Grid Margin="30,30,30,30">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="121*"/>
-                    <ColumnDefinition Width="159*"/>
-                    <ColumnDefinition Width="82*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBlock Style="{DynamicResource NameField}" Text="Исходная форма" />
-                <TextBlock Style="{DynamicResource NameField}" Text="Графическая основа" Grid.Row="1"/>
-                <TextBlock Style="{DynamicResource NameField}" Text="Основной символ" Grid.Row="2"/>
-                <TextBlock Style="{DynamicResource NameField}" Text="Индекс" Grid.Row="3"/>
-                <TextBlock Style="{DynamicResource NameField}" Text="Схема ударения" Grid.Row="4"/>
-                <TextBlock Style="{DynamicResource NameField}" Text="Доп. информация" Grid.Row="5"/>
-
-                <TextBlock Text="{Binding Path=SourceForm}" Grid.Column="1"/>
-                <TextBlock Text="{Binding Path=GraphicStem}" Grid.Row="1" Grid.Column="1"/>
-                <TextBlock Text="{Binding Path=MainSymbol}" Grid.Row="2" Grid.Column="1"/>
-                <TextBlock Text="{Binding Path=Index}" Grid.Row="3" Grid.Column="1"/>
-                <TextBlock Text="{Binding Path=StressSchema}" Grid.Row="4" Grid.Column="1"/>
-                <TextBlock Text="{Binding Path=Advanced}" Grid.Row="5" Grid.Column="1"/>
-            </Grid>
-        </DataTemplate>
--->
-<!-- 
-https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/how-to-define-a-table-with-xaml        
--->        
-    </Window.Resources>
-    
     <DockPanel Name="HomeView">
         <Menu Style="{DynamicResource Menu}" DockPanel.Dock="Top">
             <MenuItem Header="_Файл">
                 <MenuItem Header="_Открыть словарь" Command="{Binding OpenDictionaryCommand}"/>
             </MenuItem>
-            <MenuItem Header="_Синтез" Command="{Binding SearchByInitialFormCommand}"/>
+            <MenuItem Header="_Синтез" Command="{Binding SearchByInitialFormCommand}" IsEnabled="{Binding DbOpen}" />
             <MenuItem Header="_Анализ" IsEnabled="False"/>
-            <MenuItem Header="_Регрессия" IsEnabled="True">
-                <MenuItem Header="_Экспорт" Command="{Binding ExportTestDataCommand}"/>
-                <MenuItem Header="_Импорт" Command="{Binding ImportTestDataCommand}"/>
+            <MenuItem Header="_Регрессия" IsEnabled="False">
+                <MenuItem Header="_Экспорт" Command="{Binding ExportRegressionDataCommand}"/>
+                <MenuItem Header="_Импорт" Command="{Binding ImportRegressionDataCommand}"/>
                 <MenuItem Header="_Прогнать" Command="{Binding RunRegressionTestCommand}"/>
             </MenuItem>
+            <ToolBarTray>
+            <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Band="1" BandIndex="1" >
+                    <Button Style="{DynamicResource BtnSmallSquare}" Content="←" Command="{Binding BackButtonCommand}" IsEnabled="{Binding IsBackButtonEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" />
+                    <Button Style="{DynamicResource BtnSmallSquare}" Content="→" Command="{Binding ForwardButtonCommand}" IsEnabled="{Binding IsForwardButtonEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" />
+            </ToolBar>
+            </ToolBarTray>
         </Menu>
         <ContentControl Content="{Binding CurrentViewModel}" />
     </DockPanel>

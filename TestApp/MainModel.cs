@@ -146,25 +146,17 @@ namespace ZalTestApp
             m_Lexemes.Clear();
         }
 
-        public void OpenDictionary(string str)
+        public EM_ReturnCode OpenDictionary(string sPath)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
-            openFileDialog1.InitialDirectory = "c:\\";
-            openFileDialog1.Filter = "All files (*.*)|*.*|SQLite 3 files (*.db3)|*.db3";
-            openFileDialog1.FilterIndex = 2;
-            openFileDialog1.RestoreDirectory = true;
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            Path = sPath;
+            var eRet = m_Dictionary.eSetDbPath(Path);
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
-                Path = openFileDialog1.FileName;
-                var eRet = m_Dictionary.eSetDbPath(Path);
-                if (eRet != EM_ReturnCode.H_NO_ERROR)
-                {
-                    Path = "";
-                    System.Windows.MessageBox.Show("Unable to open dictionary.");
-                }
+                Path = "";
+                System.Windows.MessageBox.Show("Unable to open dictionary.");
             }
+
+            return eRet;
         }
 
         public void SearchByInitialForm(string str)
@@ -224,48 +216,6 @@ namespace ZalTestApp
         }       //  SearchByInitialForm()
 
         #region Regression
-        public void ExportTestData(string str)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
-            openFileDialog1.InitialDirectory = "c:\\";
-            openFileDialog1.Filter = "CSV Files(*.csv)| *.csv | All Files(*.*) | *.* ";
-            openFileDialog1.FilterIndex = 2;
-            openFileDialog1.RestoreDirectory = true;
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                Path = openFileDialog1.FileName;
-                var eRet = m_Dictionary.eSetDbPath(Path);
-                if (eRet != EM_ReturnCode.H_NO_ERROR)
-                {
-                    Path = "";
-                    System.Windows.MessageBox.Show("Unable to open export file.");
-                }
-            }
-        }
-
-        public void ImportTestData(string str)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
-            openFileDialog1.InitialDirectory = "c:\\";
-            openFileDialog1.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 2;
-            openFileDialog1.RestoreDirectory = true;
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                Path = openFileDialog1.FileName;
-                var eRet = m_Dictionary.eSetDbPath(Path);
-                if (eRet != EM_ReturnCode.H_NO_ERROR)
-                {
-                    Path = "";
-                    System.Windows.MessageBox.Show("Unable to open import file.");
-                }
-            }
-        }
-
         public bool GetStoredLexemeData()
         {
             EM_ReturnCode eRet = m_Dictionary.eGetVerifier(ref m_Verifier);
@@ -313,6 +263,34 @@ namespace ZalTestApp
             {
                 eTestResult = m_Verifier.eResult();
             }
+
+            return eRet;
+        }
+
+        public EM_ReturnCode ImportRegressionData(string sPath, MainLibManaged.DelegateProgress callback)
+        {
+            if (null == m_Dictionary)
+            {
+                return EM_ReturnCode.H_UNAVAILABLE;
+            }
+
+            MainLibManaged.DelegateProgress DelegateProgress = new MainLibManaged.DelegateProgress(callback);
+
+            var eRet = m_Dictionary.eImportTestData(sPath, callback);
+
+            return eRet;
+        }
+
+        public EM_ReturnCode ExportRegressionData(string sPath, MainLibManaged.DelegateProgress callback)
+        {
+            if (null == m_Dictionary)
+            {
+                return EM_ReturnCode.H_UNAVAILABLE;
+            }
+
+            MainLibManaged.DelegateProgress DelegateProgress = new MainLibManaged.DelegateProgress(callback);
+
+            var eRet = m_Dictionary.eExportTestData(sPath, callback);
 
             return eRet;
         }
