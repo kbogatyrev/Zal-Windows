@@ -2,25 +2,62 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.Generic;
+using Microsoft.Win32;
+using System.Collections.ObjectModel;
 
 using MainLibManaged;
-using Microsoft.Win32;
 
 namespace ZalTestApp
 {
+    public class ViewPage
+    {
+        public ViewPage(string sHeader, ViewModelBase page)
+        {
+            m_sHeader = sHeader;
+            m_Page = page;
+        }
+        string m_sHeader;
+        ViewModelBase m_Page;
+
+        public string Header
+        {
+            get
+            {
+                return m_sHeader;
+            }
+        }
+
+        public ViewModelBase Page
+        {
+            get
+            {
+                return m_Page;
+            }
+        }
+    }
+
     class MainViewModel : ViewModelBase
     {
         private LinkedList<ViewModelBase> m_BreadCrumbs = null;
-        private LexemeGridViewModel m_LexemeGridViewModel = null;
-        private RegressionGridViewModel m_RegressionGridViewModel = null;
 
-        private Dictionary<CLexemeManaged, NounViewModel> m_NounViewModels = new Dictionary<CLexemeManaged, NounViewModel>();
-        private Dictionary<CLexemeManaged, AdjViewModel> m_AdjViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
-        private Dictionary<CLexemeManaged, VerbViewModel> m_VerbViewModels = new Dictionary<CLexemeManaged, VerbViewModel>();
-        private Dictionary<CLexemeManaged, AdjViewModel> m_PartPresActViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
-        private Dictionary<CLexemeManaged, AdjViewModel> m_PartPastActViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
-        private Dictionary<CLexemeManaged, AdjViewModel> m_PartPresPassViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
-        private Dictionary<CLexemeManaged, AdjViewModel> m_PartPastPassViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
+        private ViewPage m_LexemeGridViewModel = null;
+        private ViewPage m_RegressionGridViewModel = null;
+        private Dictionary<CLexemeManaged, ViewPage> m_NounViewModels = new Dictionary<CLexemeManaged, ViewPage>();
+        private Dictionary<CLexemeManaged, ViewPage> m_AdjViewModels = new Dictionary<CLexemeManaged, ViewPage>();
+        private Dictionary<CLexemeManaged, ViewPage> m_VerbViewModels = new Dictionary<CLexemeManaged, ViewPage>();
+        private Dictionary<CLexemeManaged, ViewPage> m_PartPresActViewModels = new Dictionary<CLexemeManaged, ViewPage>();
+        private Dictionary<CLexemeManaged, ViewPage> m_PartPastActViewModels = new Dictionary<CLexemeManaged, ViewPage>();
+        private Dictionary<CLexemeManaged, ViewPage> m_PartPresPassViewModels = new Dictionary<CLexemeManaged, ViewPage>();
+        private Dictionary<CLexemeManaged, ViewPage> m_PartPastPassViewModels = new Dictionary<CLexemeManaged, ViewPage>();
+
+        private ObservableCollection<ViewPage> m_Pages = new ObservableCollection<ViewPage>();
+        public ObservableCollection<ViewPage> Pages
+        {
+            get
+            {
+                return m_Pages;
+            }
+        }
 
         private LinkedListNode<ViewModelBase> m_CurrentViewModel = null;
         public ViewModelBase CurrentViewModel
@@ -29,11 +66,38 @@ namespace ZalTestApp
             {
                 return m_CurrentViewModel.Value;
             }
-            //            set
-            //            {
-            //                m_CurrentViewModel = value;
-            //                this.OnPropertyChanged("CurrentViewModel");
-            //            }
+
+//            set
+//            {
+//                m_CurrentViewModel.Value = value;
+//            }
+        }
+
+        private ViewPage m_CurrentPage;
+        public ViewPage CurrentPage
+        {
+            get
+            {
+                return m_CurrentPage;
+            }
+
+            set
+            {
+                m_CurrentPage = value;
+            }
+        }
+
+        private int m_iSelectedIndex;
+        public int SelectedIndex
+        {
+            get
+            {
+                return m_iSelectedIndex;
+            }
+            set
+            {
+                m_iSelectedIndex = value;
+            }
         }
 
         public bool IsBackButtonEnabled
@@ -54,7 +118,7 @@ namespace ZalTestApp
             }
         }
 
-        public bool IsFrontButtonEnabled
+        public bool IsForwardButtonEnabled
         {
             get
             {
@@ -188,6 +252,7 @@ namespace ZalTestApp
 
         public MainViewModel()
         {
+            m_Pages = new ObservableCollection<ViewPage>();
             BackButtonCommand = new RelayCommand(new Action<object>(GoBack));
             ForwardButtonCommand = new RelayCommand(new Action<object>(GoForward));
             OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
@@ -199,7 +264,10 @@ namespace ZalTestApp
             m_MainModel = new MainModel();
             m_MainModel.Path = "";
             m_BreadCrumbs = new LinkedList<ViewModelBase>();
-            m_CurrentViewModel = m_BreadCrumbs.AddLast(this);
+            m_LexemeGridViewModel = new ViewPage ("парадигмы", new LexemeGridViewModel());
+            m_Pages.Add(m_LexemeGridViewModel);
+            m_iSelectedIndex = 0;
+            m_CurrentViewModel = m_BreadCrumbs.AddLast(m_LexemeGridViewModel.Page);
 
             m_bDbOpen = false;
         }
@@ -294,12 +362,7 @@ namespace ZalTestApp
                 return;
             }
 
-            if (null == m_LexemeGridViewModel)
-            {
-                m_LexemeGridViewModel = new LexemeGridViewModel();
-            }
-
-            m_LexemeGridViewModel.Clear();
+            ((LexemeGridViewModel)m_LexemeGridViewModel.Page).Clear();
 
             foreach (CLexemeManaged lexeme in m_MainModel)
             { 
@@ -311,7 +374,7 @@ namespace ZalTestApp
 
                 LexemeViewModel lvm = new LexemeViewModel(lexeme);
                 lvm.RemoveLexemeEvent += new LexemeViewModel.RemoveLexemeHandler(RemoveLexeme);
-                m_LexemeGridViewModel.Add(lvm);
+                ((LexemeGridViewModel)m_LexemeGridViewModel.Page).Add(lvm);
 
                 switch (lexeme.ePartOfSpeech())
                 {
@@ -330,7 +393,8 @@ namespace ZalTestApp
                 }
             }
 
-            m_CurrentViewModel = m_BreadCrumbs.AddLast(m_LexemeGridViewModel);
+            //            m_CurrentViewModel = m_BreadCrumbs.AddAfter(m_CurrentViewModel, m_LexemeGridViewModel);
+            m_CurrentPage = m_LexemeGridViewModel;
             UpdateView();
 
         }   // SearchByInitialForm()
@@ -339,17 +403,20 @@ namespace ZalTestApp
         {
             if (null == m_NounViewModels)
             {
-                m_NounViewModels = new Dictionary<CLexemeManaged, NounViewModel>();
+                m_NounViewModels = new Dictionary<CLexemeManaged, ViewPage>();
             }
 
-            if (!m_NounViewModels.TryGetValue(l, out NounViewModel nvm))
+            if (!m_NounViewModels.TryGetValue(l, out ViewPage nvp))
             {
-                nvm = new NounViewModel(l, m_MainModel);
-//                nvm.BackButtonEvent += new NounViewModel.BackButtonHandler(GoBack);
-                m_NounViewModels[l] = nvm;
+                NounViewModel nvm = new NounViewModel(l, m_MainModel);
+                //                nvm.BackButtonEvent += new NounViewModel.BackButtonHandler(GoBack);
+                nvp = new ViewPage(l.sSourceForm(), nvm);
+                m_Pages.Add(nvp);
+                m_NounViewModels[l] = nvp;
+//                m_iSelectedIndex = m_Pages.Count - 1;                
             }
-
-            m_CurrentViewModel = m_BreadCrumbs.AddLast(nvm);
+            m_CurrentViewModel = m_BreadCrumbs.AddLast(nvp.Page);
+            m_CurrentPage = nvp; 
             UpdateView();
         }
 
@@ -357,17 +424,20 @@ namespace ZalTestApp
         {
             if (null == m_AdjViewModels)
             {
-                m_AdjViewModels = new Dictionary<CLexemeManaged, AdjViewModel>();
+                m_AdjViewModels = new Dictionary<CLexemeManaged, ViewPage>();
             }
 
-            if (!m_AdjViewModels.TryGetValue(lexeme, out AdjViewModel avm))
+            if (!m_AdjViewModels.TryGetValue(lexeme, out ViewPage avp))
             {
-                avm = new AdjViewModel(lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ, m_MainModel);
-//                avm.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
-                m_AdjViewModels[lexeme] = avm;
+                AdjViewModel avm = new AdjViewModel(lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ, m_MainModel);
+                avp = new ViewPage(lexeme.sSourceForm(), avm);
+                //                avm.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
+                m_Pages.Add(avp);
+                m_AdjViewModels[lexeme] = avp;
             }
 
-            m_CurrentViewModel = m_BreadCrumbs.AddLast(avm);
+            m_CurrentViewModel = m_BreadCrumbs.AddLast(avp.Page);
+            m_CurrentPage = avp;
             UpdateView();
         }
 
@@ -375,18 +445,21 @@ namespace ZalTestApp
         {
             if (null == m_VerbViewModels)
             {
-                m_VerbViewModels = new Dictionary<CLexemeManaged, VerbViewModel>();
+                m_VerbViewModels = new Dictionary<CLexemeManaged, ViewPage>();
             }
 
-            if (!m_VerbViewModels.TryGetValue(lexeme, out VerbViewModel vvm))
+            if (!m_VerbViewModels.TryGetValue(lexeme, out ViewPage vvp))
             {
-                vvm = new VerbViewModel(lexeme, m_MainModel);
+                VerbViewModel vvm = new VerbViewModel(lexeme, m_MainModel);
+                vvp = new ViewPage(lexeme.sSourceForm(), vvm);
 //                vvm.BackButtonEvent += new VerbViewModel.BackButtonHandler(GoBack);
                 vvm.ShowParticipleFormsEvent += new VerbViewModel.ShowParticipleForms(ShowParticiple);
-                m_VerbViewModels[lexeme] = vvm;
+                m_Pages.Add(vvp);
+                m_VerbViewModels[lexeme] = vvp;
             }
 
-            m_CurrentViewModel = m_BreadCrumbs.AddLast(vvm);
+            m_CurrentViewModel = m_BreadCrumbs.AddLast(vvp.Page);
+            m_CurrentPage = vvp;
             UpdateView();
         }
 
@@ -395,43 +468,55 @@ namespace ZalTestApp
             switch (sp)
             {
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
-                    if (!m_PartPresActViewModels.TryGetValue(lexeme, out AdjViewModel avmPresAct))
+                    if (!m_PartPresActViewModels.TryGetValue(lexeme, out ViewPage avpPresAct))
                     {
-                        avmPresAct = new AdjViewModel(lexeme, sp, m_MainModel);
-//                        avmPresAct.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
-                        m_PartPresActViewModels[lexeme] = avmPresAct;
+                        AdjViewModel avmPresAct = new AdjViewModel(lexeme, sp, m_MainModel);
+                        //                        avmPresAct.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
+                        avpPresAct = new ViewPage(lexeme.sSourceForm(), avmPresAct);
+                        m_Pages.Add(avpPresAct);
+                        m_PartPresActViewModels[lexeme] = avpPresAct;
                     }
-                    m_CurrentViewModel = m_BreadCrumbs.AddLast(avmPresAct);
+                    m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPresAct.Page);
+                    m_CurrentPage = avpPresAct;
                     UpdateView();
                     break;
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
-                    if (!m_PartPastActViewModels.TryGetValue(lexeme, out AdjViewModel avmPastAct))
+                    if (!m_PartPastActViewModels.TryGetValue(lexeme, out ViewPage avpPastAct))
                     {
-                        avmPastAct = new AdjViewModel(lexeme, sp, m_MainModel);
+                        AdjViewModel avmPastAct = new AdjViewModel(lexeme, sp, m_MainModel);
+                        avpPastAct = new ViewPage(lexeme.sSourceForm(), avmPastAct);
+                        m_Pages.Add(avpPastAct);
 //                        avmPastAct.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
-                        m_PartPastActViewModels[lexeme] = avmPastAct;
+                        m_PartPastActViewModels[lexeme] = avpPastAct;
                     }
-                    m_CurrentViewModel = m_BreadCrumbs.AddLast(avmPastAct);
+                    m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPastAct.Page);
+                    m_CurrentPage = avpPastAct;
                     UpdateView();
                     break;
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
-                    if (!m_PartPresPassViewModels.TryGetValue(lexeme, out AdjViewModel avmPresPass))
+                    if (!m_PartPresPassViewModels.TryGetValue(lexeme, out ViewPage avpPresPass))
                     {
-                        avmPresPass = new AdjViewModel(lexeme, sp, m_MainModel);
+                        AdjViewModel avmPresPass = new AdjViewModel(lexeme, sp, m_MainModel);
+                        avpPresPass = new ViewPage(lexeme.sSourceForm(), avmPresPass);
+                        m_Pages.Add(avpPresPass);
 //                        avmPresPass.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
-                        m_PartPresPassViewModels[lexeme] = avmPresPass;
+                        m_PartPresPassViewModels[lexeme] = avpPresPass;
                     }
-                    m_CurrentViewModel = m_BreadCrumbs.AddLast(avmPresPass);
+                    m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPresPass.Page);
+                    m_CurrentPage = avpPresPass;
                     UpdateView();
                     break;
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
-                    if (!m_PartPastPassViewModels.TryGetValue(lexeme, out AdjViewModel avmPastPass))
+                    if (!m_PartPastPassViewModels.TryGetValue(lexeme, out ViewPage avpPastPass))
                     {
-                        avmPastPass = new AdjViewModel(lexeme, sp, m_MainModel);
-//                        avmPastPass.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
-                        m_PartPastPassViewModels[lexeme] = avmPastPass;
+                        AdjViewModel avmPastPass = new AdjViewModel(lexeme, sp, m_MainModel);
+                        avpPastPass = new ViewPage(lexeme.sSourceForm(), avmPastPass);
+                        //                        avmPastPass.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
+                        m_Pages.Add(avpPastPass);
+                        m_PartPastPassViewModels[lexeme] = avpPastPass;
                     }
-                    m_CurrentViewModel = m_BreadCrumbs.AddLast(avmPastPass);
+                    m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPastPass.Page);
+                    m_CurrentPage = avpPastPass;
                     UpdateView();
                     break;
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
@@ -449,15 +534,18 @@ namespace ZalTestApp
             m_MainModel.Clear();
             if (m_LexemeGridViewModel != null)
             {
-                m_LexemeGridViewModel.Clear();
+                ((LexemeGridViewModel)m_LexemeGridViewModel.Page).Clear();
             }
 
             if (null == m_RegressionGridViewModel)
             {
-                m_RegressionGridViewModel = new RegressionGridViewModel(m_MainModel);
+                m_RegressionGridViewModel = new ViewPage("Тест", new RegressionGridViewModel(m_MainModel));
+                m_Pages.Add(m_RegressionGridViewModel);
+
 //                m_RegressionGridViewModel.BackButtonEvent += new RegressionGridViewModel.BackButtonHandler(GoBack);
             }
-            m_CurrentViewModel = m_BreadCrumbs.AddLast(m_RegressionGridViewModel);
+            m_CurrentViewModel = m_BreadCrumbs.AddLast(m_RegressionGridViewModel.Page);
+            m_CurrentPage = m_RegressionGridViewModel;
             UpdateView();
         }
 
@@ -485,6 +573,7 @@ namespace ZalTestApp
             openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
             openFileDialog.FilterIndex = 2;
             openFileDialog.RestoreDirectory = true;
+            openFileDialog.CheckFileExists = false;
 
             if (true == openFileDialog.ShowDialog())
             {
@@ -495,7 +584,42 @@ namespace ZalTestApp
 
         void RemoveLexeme(LexemeViewModel lvm)
         {
-            m_LexemeGridViewModel.Remove(lvm);
+            List<ViewPage> pagesToRemove = new List<ViewPage>();
+
+            foreach (var pageView in m_Pages)
+            {
+                if (pageView.Page is NounViewModel)
+                {
+                    NounViewModel nvm = pageView.Page as NounViewModel;
+                    if (nvm.Parent == lvm.Lexeme)
+                    {
+                        pagesToRemove.Add(pageView);
+                    }
+                }
+                else if (pageView.Page is AdjViewModel)
+                {
+                    AdjViewModel avm = pageView.Page as AdjViewModel;
+                    if (avm.Parent == lvm.Lexeme)
+                    {
+                        pagesToRemove.Add(pageView);
+                    }
+                }
+                else if (pageView.Page is VerbViewModel)
+                {
+                    VerbViewModel vvm = pageView.Page as VerbViewModel;
+                    if (vvm.Parent == lvm.Lexeme)
+                    {
+                        pagesToRemove.Add(pageView);
+                    }
+                }
+            }
+
+            foreach (var pageView in pagesToRemove)
+            {
+                m_Pages.Remove(pageView);
+            }
+
+            ((LexemeGridViewModel)m_LexemeGridViewModel.Page).Remove(lvm);
             m_MainModel.RemoveLexeme(lvm.Lexeme);
         }
 
@@ -507,8 +631,9 @@ namespace ZalTestApp
         private void UpdateView()
         {
             this.OnPropertyChanged("CurrentViewModel");
+            this.OnPropertyChanged("CurrentPage");
             this.OnPropertyChanged("IsBackButtonEnabled");
-            this.OnPropertyChanged("IsFrontButtonEnabled");
+            this.OnPropertyChanged("IsForwardButtonEnabled");
         }
 
     }   //  class MainViewModel 

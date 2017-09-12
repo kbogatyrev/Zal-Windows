@@ -19,19 +19,31 @@
             </MenuItem>
             <MenuItem Header="_Синтез" Command="{Binding SearchByInitialFormCommand}" IsEnabled="{Binding DbOpen}" />
             <MenuItem Header="_Анализ" IsEnabled="False"/>
-            <MenuItem Header="_Регрессия" IsEnabled="False">
+            <MenuItem Header="_Регрессия" IsEnabled="{Binding DbOpen}" >
                 <MenuItem Header="_Экспорт" Command="{Binding ExportRegressionDataCommand}"/>
                 <MenuItem Header="_Импорт" Command="{Binding ImportRegressionDataCommand}"/>
-                <MenuItem Header="_Прогнать" Command="{Binding RunRegressionTestCommand}"/>
+                <MenuItem Header="_Тест" Command="{Binding RunRegressionTestCommand}"/>
             </MenuItem>
             <ToolBarTray>
             <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Band="1" BandIndex="1" >
-                    <Button Style="{DynamicResource BtnSmallSquare}" Content="←" Command="{Binding BackButtonCommand}" IsEnabled="{Binding IsBackButtonEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" />
-                    <Button Style="{DynamicResource BtnSmallSquare}" Content="→" Command="{Binding ForwardButtonCommand}" IsEnabled="{Binding IsForwardButtonEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" />
+                <Button Style="{DynamicResource BtnSmallSquare}" Content="←" Command="{Binding BackButtonCommand}" IsEnabled="{Binding IsBackButtonEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" />
+                <Button Style="{DynamicResource BtnSmallSquare}" Content="→" Command="{Binding ForwardButtonCommand}" IsEnabled="{Binding IsForwardButtonEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" />
             </ToolBar>
             </ToolBarTray>
         </Menu>
-        <ContentControl Content="{Binding CurrentViewModel}" />
+<!--        <ContentControl Content="{Binding CurrentViewModel}" />  -->
+        <TabControl ItemsSource="{Binding Pages}" SelectedItem="{Binding CurrentPage}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <HeaderedContentControl Header="{Binding Header}"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding Page}" />
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
     </DockPanel>
 
 </Window>

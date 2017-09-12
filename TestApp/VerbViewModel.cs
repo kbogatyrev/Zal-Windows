@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
+using System.Collections.Generic;
 
 using MainLibManaged;
-using System.Collections.Generic;
 
 namespace ZalTestApp
 {
@@ -85,6 +85,18 @@ namespace ZalTestApp
             }
         }
         #endregion
+
+        public CLexemeManaged Parent
+        {
+            get
+            {
+                return m_Lexeme;
+            }
+            set
+            {
+                m_Lexeme = value;
+            }
+        }
 
         private string m_sSourceForm;
         public string SourceForm

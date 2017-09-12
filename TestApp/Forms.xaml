@@ -14,7 +14,7 @@
     <DataTemplate DataType="{x:Type local:LexemeGridViewModel}">
         <DockPanel Name="HomeView">
             <ScrollViewer>
-                <ItemsControl Name="Lexemes" ItemsSource="{Binding LexemeCollection}" />
+                <ItemsControl Name="Lexemes" ItemsSource="{Binding LexemeCollection}" MaxWidth="600" />
             </ScrollViewer>
         </DockPanel>
     </DataTemplate>
@@ -23,8 +23,8 @@
                 Lexeme description panel    
 -->    
     <DataTemplate DataType="{x:Type local:LexemeViewModel}">
-        <Border BorderBrush="Black" BorderThickness="1" Margin="80, 10, 80, 10">
-            <Grid Margin="30,30,30,30">
+        <Border BorderBrush="Black" BorderThickness="1" Margin="20, 10, 10, 30">
+            <Grid Margin="10,30,10,30">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40*"/>
                     <ColumnDefinition Width="40*"/>
@@ -60,15 +60,10 @@
         </Border>
     </DataTemplate>
 
-<!--
-                Noun panel
--->
     <DataTemplate DataType="{x:Type local:NounViewModel}" >
         <local:NounView />
     </DataTemplate>
-    
-<!--                       Adjective panel
--->
+
     <DataTemplate DataType="{x:Type local:AdjViewModel}">
         <local:AdjView />
     </DataTemplate>

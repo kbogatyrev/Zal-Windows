@@ -18,6 +18,7 @@ namespace ZalTestApp
         public delegate void BackButtonHandler();
         public event BackButtonHandler BackButtonEvent;
 
+        #region Accessors_and_Mutators
         private DataTable m_RegressionData;
         public DataTable RegressionData
         {
@@ -110,24 +111,25 @@ namespace ZalTestApp
             }
         }
 
-        public EM_ReturnCode Verify(int iRow, ref EM_TestResult eTestResult)
-        {
-            string sLexemeHash = LexemeHash(iRow);
-            var eRet = m_MainModel.VerifyLexeme(sLexemeHash, ref eTestResult);
-            return eRet;
-        }
-
-        public EM_ReturnCode DeleteStoredLexeme(int iRow, ref EM_TestResult eTestResult)
-        {
-            string sLexemeHash = LexemeHash(iRow);
-            var eRet = m_MainModel.DeleteSavedLexeme(sLexemeHash, ref eTestResult);
-            return eRet;
-        }
-
         public int Rows()
         {
             return m_RegressionData.Rows.Count;
         }
+
+        private int m_iProgress = 0;
+        public int Progress
+        {
+            get
+            {
+                return m_iProgress;
+            }
+
+            set
+            {
+                m_iProgress = value;
+            }
+        }
+#endregion
 
         #region ICommand
         private ICommand m_BackCommand;
@@ -142,6 +144,7 @@ namespace ZalTestApp
                 m_BackCommand = value;
             }
         }
+ 
         private ICommand m_RunTestCommand;
         public ICommand RunTestCommand
         {
@@ -154,6 +157,7 @@ namespace ZalTestApp
                 m_RunTestCommand = value;
             }
         }
+
         private ICommand m_SaveCommand;
         public ICommand SaveCommand
         {
@@ -166,6 +170,7 @@ namespace ZalTestApp
                 m_SaveCommand = value;
             }
         }
+ 
         private ICommand m_DeleteCommand;
         public ICommand DeleteCommand
         {
@@ -178,6 +183,7 @@ namespace ZalTestApp
                 m_DeleteCommand = value;
             }
         }
+ 
         private ICommand m_CancelCommand;
         public ICommand CancelCommand
         {
@@ -306,6 +312,25 @@ namespace ZalTestApp
             MessageBox.Show("Cancel");
         }
 
+        public void UpdateProgress(int iProgress, bool bComplete)
+        {
+
+        }
+
+        public EM_ReturnCode Verify(int iRow, ref EM_TestResult eTestResult)
+        {
+            string sLexemeHash = LexemeHash(iRow);
+            var eRet = m_MainModel.VerifyLexeme(sLexemeHash, ref eTestResult);
+            return eRet;
+        }
+
+        public EM_ReturnCode DeleteStoredLexeme(int iRow, ref EM_TestResult eTestResult)
+        {
+            string sLexemeHash = LexemeHash(iRow);
+            var eRet = m_MainModel.DeleteSavedLexeme(sLexemeHash, ref eTestResult);
+            return eRet;
+        }
+
     }   //  class RegressionGridViewModel
 
     #region VerifierThread
@@ -388,4 +413,5 @@ namespace ZalTestApp
 
     }   //  public class VerifierThread
     #endregion
+
 }

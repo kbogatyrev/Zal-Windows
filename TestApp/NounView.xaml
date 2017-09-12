@@ -57,7 +57,5 @@
                 <TextBox Text="{Binding Path=Noun_Pl_I}" Margin="387,295,0,0" Style="{StaticResource FormText}" />
             </Grid>
         </ScrollViewer>
-        <Button Style="{DynamicResource BtnSmallSquare}" Content="&lt;" Command="{Binding BackCommand}" Margin="20,199,571,238"  />
-        <Button Style="{DynamicResource BtnSmallSquare}" Content="&gt;" Command="{Binding BackCommand}" Margin="732,200,-72.4,239" RenderTransformOrigin="1.364,0.486"  />
     </Grid>
 </UserControl>

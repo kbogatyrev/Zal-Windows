@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
-
-using MainLibManaged;
 using System.Windows;
 using System.Collections.Generic;
+
+using MainLibManaged;
 
 namespace ZalTestApp
 {
@@ -30,6 +30,20 @@ namespace ZalTestApp
             }
         }
         #endregion
+
+        private CLexemeManaged m_Parent;
+        public CLexemeManaged Parent
+        {
+            get
+            {
+                return m_Parent;
+            }
+
+            set
+            {
+                m_Parent = value;
+            }
+        }
 
         private string m_sSourceForm;
         public string SourceForm
@@ -605,6 +619,7 @@ namespace ZalTestApp
 
         public AdjViewModel(CLexemeManaged lexeme, EM_Subparadigm eSubparadigm, MainModel m)
         {
+            m_Parent = lexeme;
             m_MainModel = m;
             BackCommand = new RelayCommand(new Action<object>(GoBack));
             m_eSubparadigm = eSubparadigm;

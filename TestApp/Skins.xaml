@@ -2,6 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ZalTestApp">
 
+    <Style TargetType="TabControl" x:Key="TabControl">
+        <Setter Property="FontFamily" Value="Calibry" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <Style TargetType="TabItem" x:Key="TabItem">
+        <Setter Property="FontFamily" Value="Calibry" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
     <Style TargetType="TextBlock" x:Key="NameField">
         <Setter Property="FontFamily" Value="Calibri" />
         <Setter Property="FontSize" Value="16"/>

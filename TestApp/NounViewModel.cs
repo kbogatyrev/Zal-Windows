@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
+using System.Collections.Generic;
 
 using MainLibManaged;
-using System.Collections.Generic;
 
 namespace ZalTestApp
 {
@@ -29,6 +29,20 @@ namespace ZalTestApp
         #endregion
 
         #region Bindings
+
+        private CLexemeManaged m_Parent;
+        public CLexemeManaged Parent
+        {
+            get
+            {
+                return m_Parent;
+            }
+            set
+            {
+                m_Parent = value;
+            }
+        }
+
         private string m_sSourceForm;
         public string SourceForm
         {
@@ -243,6 +257,7 @@ namespace ZalTestApp
 
         public NounViewModel(CLexemeManaged lexeme, MainModel m)
         {
+            m_Parent = lexeme;
             BackCommand = new RelayCommand(new Action<object>(GoBack));
             m_MainModel = m;
 
