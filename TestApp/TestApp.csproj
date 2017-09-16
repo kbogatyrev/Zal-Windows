@@ -66,6 +66,9 @@
     </Compile>
     <Compile Include="EnterDataViewModel.cs" />
     <Compile Include="LexemeGridViewModel.cs" />
+    <Compile Include="LexemeView.xaml.cs">
+      <DependentUpon>LexemeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LexemeViewModel.cs" />
     <Compile Include="MainModel.cs" />
     <Compile Include="MainViewModel.cs" />
@@ -93,6 +96,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LexemeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
