@@ -21,7 +21,8 @@
 
 <!--
                 Lexeme description panel    
--->    
+--> 
+    <!--
     <DataTemplate DataType="{x:Type local:LexemeViewModel}">
         <Border BorderBrush="Black" BorderThickness="1" Margin="20, 10, 10, 30">
             <Grid Margin="10,30,10,30">
@@ -58,6 +59,11 @@
                 <Button Style="{DynamicResource BtnLarge}" Content="Закрыть" Command="{Binding RemoveLexemeCommand }"  Grid.Column="2" Grid.Row="3" Grid.RowSpan="2" Margin="10,10,0,0" />
             </Grid>
         </Border>
+    </DataTemplate>
+-->
+
+    <DataTemplate DataType="{x:Type local:LexemeViewModel}" >
+        <local:LexemeView />
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type local:NounViewModel}" >

@@ -11,12 +11,13 @@ namespace ZalTestApp
         public delegate void BackButtonHandler();
         public event BackButtonHandler BackButtonEvent;
 
-        public delegate void ShowParticipleForms(CLexemeManaged l, EM_Subparadigm sp);
+        public delegate void ShowParticipleForms(CLexemeManaged l, EM_Subparadigm sp, ViewModelBase lvm);
         public event ShowParticipleForms ShowParticipleFormsEvent;
 
         //        VerbModel m_VerbModel = null;
         MainModel m_MainModel = null;
         CLexemeManaged m_Lexeme = null;
+        ViewModelBase m_LexemeViewModel;
 
 
         #region ICommand
@@ -443,10 +444,11 @@ namespace ZalTestApp
         }
         #endregion
 
-        public VerbViewModel(CLexemeManaged lexeme, MainModel m)
+        public VerbViewModel(CLexemeManaged lexeme, MainModel m, ViewModelBase lvm)
         {
             m_MainModel = m;
             m_Lexeme = lexeme;
+            m_LexemeViewModel = lvm;
 
             BackCommand = new RelayCommand(new Action<object>(GoBack));
             ShowPresActFormsCommand = new RelayCommand(new Action<object>(ShowPresActForms));
@@ -516,24 +518,24 @@ namespace ZalTestApp
 
         public void ShowPresActForms(Object obj)
         {
-            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT);
+            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT, m_LexemeViewModel);
         }
 
         public void ShowPastActForms(Object obj)
         {
-            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT);
+            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT, m_LexemeViewModel);
         }
 
         public void ShowPresPassForms(Object obj)
         {
-            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG);
-            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT);
+            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG, m_LexemeViewModel);
+            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT, m_LexemeViewModel);
         }
 
         public void ShowPastPassForms(Object obj)
         {
-            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG);
-            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT);
+            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG, m_LexemeViewModel);
+            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT, m_LexemeViewModel);
         }
 
     }       //  AdjViewModel 

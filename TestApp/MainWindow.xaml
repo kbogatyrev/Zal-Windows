@@ -25,13 +25,14 @@
                 <MenuItem Header="_Тест" Command="{Binding RunRegressionTestCommand}"/>
             </MenuItem>
             <ToolBarTray>
-            <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Band="1" BandIndex="1" >
-                <Button Style="{DynamicResource BtnSmallSquare}" Content="←" Command="{Binding BackButtonCommand}" IsEnabled="{Binding IsBackButtonEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" />
-                <Button Style="{DynamicResource BtnSmallSquare}" Content="→" Command="{Binding ForwardButtonCommand}" IsEnabled="{Binding IsForwardButtonEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" />
-            </ToolBar>
+                <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Band="1" BandIndex="1" >
+                    <Button Style="{DynamicResource BtnSmallSquare}" Content="←" Command="{Binding BackButtonCommand}" IsEnabled="{Binding IsBackButtonEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" />
+                    <Button Style="{DynamicResource BtnSmallSquare}" Content="→" Command="{Binding ForwardButtonCommand}" IsEnabled="{Binding IsForwardButtonEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" />
+                </ToolBar>
             </ToolBarTray>
         </Menu>
-<!--        <ContentControl Content="{Binding CurrentViewModel}" />  -->
+
+        <!--        <ContentControl Content="{Binding CurrentViewModel}" />  -->
         <TabControl ItemsSource="{Binding Pages}" SelectedItem="{Binding CurrentPage}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
@@ -40,7 +41,14 @@
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <ContentControl Content="{Binding Page}" />
+                    <Grid Margin="0,0,0,0" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" MinWidth="240" />
+                            <ColumnDefinition Width="400*"/>
+                        </Grid.ColumnDefinitions>
+                        <ContentControl Content="{Binding LexemeInfo}" Grid.Column="0" />
+                        <ContentControl Content="{Binding Page}" Grid.Column="1" />
+                    </Grid>
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>
