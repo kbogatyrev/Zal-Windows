@@ -572,6 +572,17 @@ StLexemeProperties& CLexemeManaged::stGetPropertiesForWriteAccess()
 }
 */
 
+__int64 CLexemeManaged::llLexemeId()
+{
+	if (NULL == m_pLexeme)
+	{
+		throw gcnew Exception(L"Lexeme object is NULL.");
+	}
+
+	return m_pLexeme->llLexemeId();
+}
+
+
 EM_Gender CLexemeManaged::eGender()
 {
     if (NULL == m_pLexeme)
