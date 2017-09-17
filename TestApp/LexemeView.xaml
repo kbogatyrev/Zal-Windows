@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d">
-    <Border BorderBrush="Black" BorderThickness="1" Margin="30,60,0,0" Padding="10,2,2,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="280" Height="365" Grid.Column="0">
+    <Border BorderBrush="Black" BorderThickness="1" Margin="20,40,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Height="365" Grid.Column="0">
         <Grid Margin="0,0,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="170"/>
+                <ColumnDefinition Width="30*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>

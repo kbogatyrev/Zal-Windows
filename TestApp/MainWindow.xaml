@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Zal Test App" Height="560" Width="975" Margin="0">
+        Title="Zal Test App" Height="Auto" Width="1100" Margin="0">
    
     <Window.DataContext>
         <local:MainViewModel/>
@@ -32,18 +32,15 @@
             </ToolBarTray>
         </Menu>
 
-        <!--        <ContentControl Content="{Binding CurrentViewModel}" />  -->
-        <TabControl ItemsSource="{Binding Pages}" SelectedItem="{Binding CurrentPage}">
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <HeaderedContentControl Header="{Binding Header}"/>
-                </DataTemplate>
-            </TabControl.ItemTemplate>
+        <TabControl x:Name="TabControl" Width="Auto"
+                    Margin="10"
+                    ItemsSource="{Binding Pages}" SelectedItem="{Binding CurrentPage}"
+                    ItemTemplate="{StaticResource CustomHeaderTemplate}">
             <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <Grid Margin="0,0,0,0" HorizontalAlignment="Stretch">
+                    <Grid Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="240" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="400*"/>
                         </Grid.ColumnDefinitions>
                         <ContentControl Content="{Binding LexemeInfo}" Grid.Column="0" />

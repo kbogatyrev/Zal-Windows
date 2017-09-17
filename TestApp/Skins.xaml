@@ -7,11 +7,6 @@
         <Setter Property="FontSize" Value="14" />
     </Style>
 
-    <Style TargetType="TabItem" x:Key="TabItem">
-        <Setter Property="FontFamily" Value="Calibry" />
-        <Setter Property="FontSize" Value="14" />
-    </Style>
-
     <Style TargetType="TextBlock" x:Key="NameField">
         <Setter Property="FontFamily" Value="Calibri" />
         <Setter Property="FontSize" Value="16"/>
@@ -104,7 +99,7 @@
 
     <Style TargetType="TextBox" x:Key="FormText">
         <Setter Property="Height" Value="28"/>
-        <Setter Property="Width" Value="185"/>
+        <Setter Property="Width" Value="160"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="Foreground" Value="Navy"/>
         <Setter Property="BorderThickness" Value="1"/>
