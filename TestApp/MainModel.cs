@@ -187,24 +187,23 @@ namespace ZalTestApp
 
             do
             {
-                if (m_Lexemes.ContainsKey(lexeme))
+                if (!m_Lexemes.ContainsKey(lexeme))
                 {
-                    m_Lexemes.Remove(lexeme);
-                }
 
-                eRet = lexeme.eGenerateParadigm();
-                if (eRet != EM_ReturnCode.H_NO_ERROR)
-                {
-                    System.Windows.MessageBox.Show("Error generating paradigm.");
-                    return;
-                }
+                    eRet = lexeme.eGenerateParadigm();
+                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    {
+                        System.Windows.MessageBox.Show("Error generating paradigm.");
+                        return;
+                    }
 
-                if (!bArrangeParadigm(lexeme))
-                {
-                    System.Windows.MessageBox.Show("Unable to generate forms.");
-                }
+                    if (!bArrangeParadigm(lexeme))
+                    {
+                        System.Windows.MessageBox.Show("Unable to generate forms.");
+                    }
 
-                eRet = m_Dictionary.eGetNextLexeme(ref lexeme);
+                    eRet = m_Dictionary.eGetNextLexeme(ref lexeme);
+                }
 
             } while (EM_ReturnCode.H_NO_ERROR == eRet);
 

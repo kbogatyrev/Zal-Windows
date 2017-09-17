@@ -50,7 +50,8 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="ZalMainLibManaged">
+    <Reference Include="ZalMainLibManaged, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\x64\Debug\ZalMainLibManaged.dll</HintPath>
     </Reference>
   </ItemGroup>

@@ -51,7 +51,6 @@ namespace ZalTestApp
     {
         private LinkedList<ViewModelBase> m_BreadCrumbs = null;
 
-        private ViewPage m_LexemeGridViewModel = null;
         private ViewPage m_RegressionGridViewModel = null;
         private Dictionary<CLexemeManaged, ViewPage> m_NounViewModels = new Dictionary<CLexemeManaged, ViewPage>();
         private Dictionary<CLexemeManaged, ViewPage> m_AdjViewModels = new Dictionary<CLexemeManaged, ViewPage>();
@@ -182,6 +181,42 @@ namespace ZalTestApp
         #endregion
 
         #region ICommand
+
+        private RelayCommand closeCommand;
+
+        public RelayCommand CloseCommand
+        {
+            get
+            {
+                if (this.closeCommand == null)
+                {
+                    this.closeCommand = new RelayCommand(w => CloseCommandMethod(w));
+                }
+                return this.closeCommand;
+            }
+        }
+
+        private void CloseCommandMethod(object parameter)
+        {
+            LexemeViewModel lvm = (LexemeViewModel)parameter;
+            List<ViewPage> pagesToRemove = new List<ViewPage>();
+
+            foreach (ViewPage page in m_Pages)
+            {
+                CLexemeManaged lexeme = ((LexemeViewModel)page.LexemeInfo).Lexeme;
+                if (lvm.Lexeme.llLexemeId() == lexeme.llLexemeId())
+                {
+                    pagesToRemove.Add(page);
+                }
+            }
+
+            foreach (var pageView in pagesToRemove)
+            {
+                m_Pages.Remove(pageView);
+            }
+
+            m_MainModel.RemoveLexeme(lvm.Lexeme);
+        }
 
         private ICommand m_BackButtonCommand;
         public ICommand BackButtonCommand
@@ -380,14 +415,12 @@ namespace ZalTestApp
                 return;
             }
 
-            EnterDataViewModel eddvm =  (EnterDataViewModel)edd.DataContext;
+            EnterDataViewModel eddvm = (EnterDataViewModel)edd.DataContext;
             m_MainModel.SearchByInitialForm(eddvm.DataString);
             if (m_MainModel.NLexemes < 1)
             {
                 return;
             }
-
-            //((LexemeGridViewModel)m_LexemeGridViewModel.Page).Clear();
 
             foreach (CLexemeManaged lexeme in m_MainModel)
             { 
@@ -395,6 +428,22 @@ namespace ZalTestApp
                 {
                     MessageBox.Show("Internal error: lexeme descriptor is corrupt.");
                     return;
+                }
+
+                bool bIsNewLexeme = true;
+                foreach (ViewPage page in m_Pages)
+                {
+                    LexemeViewModel knownLvm = (LexemeViewModel)page.LexemeInfo;
+                    if (lexeme.llLexemeId() == knownLvm.Lexeme.llLexemeId())
+                    {
+                        bIsNewLexeme = false;
+                        break;
+                    }
+                }
+
+                if (!bIsNewLexeme)
+                {
+                    continue;
                 }
 
                 LexemeViewModel lvm = new LexemeViewModel(lexeme);
@@ -561,10 +610,6 @@ namespace ZalTestApp
         public void RunRegression(object obj)
         {
             m_MainModel.Clear();
-            if (m_LexemeGridViewModel != null)
-            {
-                ((LexemeGridViewModel)m_LexemeGridViewModel.Page).Clear();
-            }
 
             if (null == m_RegressionGridViewModel)
             {
@@ -648,7 +693,6 @@ namespace ZalTestApp
                 m_Pages.Remove(pageView);
             }
 
-            ((LexemeGridViewModel)m_LexemeGridViewModel.Page).Remove(lvm);
             m_MainModel.RemoveLexeme(lvm.Lexeme);
         }
 

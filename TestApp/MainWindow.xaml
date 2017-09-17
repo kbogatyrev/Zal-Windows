@@ -32,22 +32,8 @@
             </ToolBarTray>
         </Menu>
 
-        <TabControl x:Name="TabControl" Width="Auto"
-                    Margin="10"
-                    ItemsSource="{Binding Pages}" SelectedItem="{Binding CurrentPage}"
-                    ItemTemplate="{StaticResource CustomHeaderTemplate}">
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Stretch">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="400*"/>
-                        </Grid.ColumnDefinitions>
-                        <ContentControl Content="{Binding LexemeInfo}" Grid.Column="0" />
-                        <ContentControl Content="{Binding Page}" Grid.Column="1" />
-                    </Grid>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
+        <TabControl x:Name="TabControl" Width="Auto" Margin="10" ItemsSource="{Binding Pages}" SelectedItem="{Binding CurrentPage}"
+                    ItemTemplate="{StaticResource CustomHeaderTemplate}" ContentTemplate="{StaticResource CustomTabContentTemplate}" >
         </TabControl>
     </DockPanel>
 

@@ -2,92 +2,31 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ZalTestApp">
 
-<!--    
-                Main panel
--->
-    <DataTemplate DataType="{x:Type local:MainViewModel}">
-<!--
-                Lexeme grid        
--->        
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type local:LexemeGridViewModel}">
-        <DockPanel Name="HomeView">
-            <ScrollViewer>
-                <ItemsControl Name="Lexemes" ItemsSource="{Binding LexemeCollection}" MaxWidth="600" />
-            </ScrollViewer>
-        </DockPanel>
-    </DataTemplate>
-
     <DataTemplate x:Key="CustomHeaderTemplate">
         <DockPanel LastChildFill="True">
-            <Button Content="X" DockPanel.Dock="Right" >
-                <!--                            Command="{Binding DataContext.CloseCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"   -->
-<!--                            CommandParameter="{Binding ID}">  -->
+            <Button DockPanel.Dock="Right" 
+                Command="{Binding DataContext.CloseCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" 
+                    CommandParameter="{Binding LexemeInfo}" >
                 <Button.Template>
                     <ControlTemplate>
                         <Label FontWeight="Bold" Content="X" />
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Label Content="{Binding ID}" />
+            <Label Content="{Binding Header}" />
         </DockPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="CustomTabPage">
-        <Grid Margin="0,0,0,0" HorizontalAlignment="Stretch">
+    <DataTemplate x:Key="CustomTabContentTemplate">
+        <Grid Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="240" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="400*"/>
             </Grid.ColumnDefinitions>
             <ContentControl Content="{Binding LexemeInfo}" Grid.Column="0" />
             <ContentControl Content="{Binding Page}" Grid.Column="1" />
         </Grid>
     </DataTemplate>
-
-
-    <!--
-                Lexeme description panel    
---> 
-    <!--
-    <DataTemplate DataType="{x:Type local:LexemeViewModel}">
-        <Border BorderBrush="Black" BorderThickness="1" Margin="20, 10, 10, 30">
-            <Grid Margin="10,30,10,30">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40*"/>
-                    <ColumnDefinition Width="40*"/>
-                    <ColumnDefinition Width="40*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-            
-                <TextBlock Style="{DynamicResource NameField}" Text="Исходная форма"/>
-                <TextBlock Style="{DynamicResource NameField}" Text="Графическая основа" Grid.Row="1"/>
-                <TextBlock Style="{DynamicResource NameField}" Text="Основной символ" Grid.Row="2"/>
-                <TextBlock Style="{DynamicResource NameField}" Text="Индекс" Grid.Row="3"/>
-                <TextBlock Style="{DynamicResource NameField}" Text="Схема ударения" Grid.Row="4"/>
-                <TextBlock Style="{DynamicResource NameField}" Text="Доп. информация" Grid.Row="5"/>
-
-                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=SourceForm}" Grid.Column="1"/>
-                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=GraphicStem}" Grid.Row="1" Grid.Column="1"/>
-                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=MainSymbol}" Grid.Row="2" Grid.Column="1"/>
-                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Index}" Grid.Row="3" Grid.Column="1"/>
-                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=StressSchema}" Grid.Row="4" Grid.Column="1"/>
-                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Advanced}" Grid.Row="5" Grid.Column="1"/>
-
-                <Button Style="{DynamicResource BtnLarge}" Content="Парадигма" Command="{Binding ShowParadigmCommand}" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Margin="10,-10,0,0" />
-                <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveParadigmCommand}" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" Margin="10,0,0,0" />
-                <Button Style="{DynamicResource BtnLarge}" Content="Закрыть" Command="{Binding RemoveLexemeCommand }"  Grid.Column="2" Grid.Row="3" Grid.RowSpan="2" Margin="10,10,0,0" />
-            </Grid>
-        </Border>
-    </DataTemplate>
--->
 
     <DataTemplate DataType="{x:Type local:LexemeViewModel}" >
         <local:LexemeView />
