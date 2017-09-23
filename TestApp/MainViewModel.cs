@@ -45,6 +45,14 @@ namespace ZalTestApp
                 return m_LexemeInfo;
             }
         }
+
+        public string Type
+        {
+            get
+            {
+                return "Lexeme";
+            }
+        }
     }
 
     class MainViewModel : ViewModelBase
@@ -97,30 +105,62 @@ namespace ZalTestApp
             //            }
         }
 
-        private ViewPage m_CurrentPage;
-        public ViewPage CurrentPage
+        private ViewPage m_CurrentViewPage;
+        public ViewPage CurrentViewPage
         {
             get
             {
-                return m_CurrentPage;
+                return m_CurrentViewPage;
             }
 
             set
             {
-                m_CurrentPage = value;
+                m_CurrentViewPage = value;
             }
         }
 
-        private int m_iSelectedIndex;
-        public int SelectedIndex
+        public string CurrentHeader
         {
             get
             {
-                return m_iSelectedIndex;
+                if (m_CurrentViewPage != null)
+                {
+                    return m_CurrentViewPage.Header;
+                }
+                else
+                {
+                    MessageBox.Show("Internal error: current page is null.");
+                    return "";
+                }
+            }
+        }
+
+        public ViewModelBase LexemeInfo
+        {
+            get
+            {
+                return m_CurrentViewPage.LexemeInfo;
+            }
+        }
+
+        public string Type
+        {
+            get
+            {
+                return "Lexeme";
+            }
+        }
+
+        private int m_iCurrentTab;
+        public int CurrentTab
+        {
+            get
+            {
+                return m_iCurrentTab;
             }
             set
             {
-                m_iSelectedIndex = value;
+                m_iCurrentTab = value;
             }
         }
 
@@ -196,15 +236,15 @@ namespace ZalTestApp
             }
         }
 
-        private void CloseCommandMethod(object parameter)
+        private void CloseCommandMethod(object arg)
         {
-            LexemeViewModel lvm = (LexemeViewModel)parameter;
+            ViewModelBase vm = (ViewModelBase)arg;
+
             List<ViewPage> pagesToRemove = new List<ViewPage>();
 
             foreach (ViewPage page in m_Pages)
             {
-                CLexemeManaged lexeme = ((LexemeViewModel)page.LexemeInfo).Lexeme;
-                if (lvm.Lexeme.llLexemeId() == lexeme.llLexemeId())
+                if (page.Page.InstanceId == vm.InstanceId)
                 {
                     pagesToRemove.Add(page);
                 }
@@ -214,8 +254,6 @@ namespace ZalTestApp
             {
                 m_Pages.Remove(pageView);
             }
-
-            m_MainModel.RemoveLexeme(lvm.Lexeme);
         }
 
         private ICommand m_BackButtonCommand;
@@ -434,6 +472,8 @@ namespace ZalTestApp
                 foreach (ViewPage page in m_Pages)
                 {
                     LexemeViewModel knownLvm = (LexemeViewModel)page.LexemeInfo;
+                    if (knownLvm.Lexeme == null)
+                        continue;
                     if (lexeme.llLexemeId() == knownLvm.Lexeme.llLexemeId())
                     {
                         bIsNewLexeme = false;
@@ -472,7 +512,6 @@ namespace ZalTestApp
             }
 
             //            m_CurrentViewModel = m_BreadCrumbs.AddAfter(m_CurrentViewModel, m_LexemeGridViewModel);
-            // m_CurrentPage = m_LexemeGridViewModel;
             UpdateView();
 
         }   // SearchByInitialForm()
@@ -491,10 +530,10 @@ namespace ZalTestApp
                 nvp = new ViewPage(l.sSourceForm(), lvm, nvm);
                 m_Pages.Add(nvp);
                 m_NounViewModels[l] = nvp;
-                m_iSelectedIndex = m_Pages.Count - 1;                
+                m_iCurrentTab = m_Pages.Count - 1;                
             }
             m_CurrentViewModel = m_BreadCrumbs.AddLast(nvp.Page);
-            m_CurrentPage = nvp; 
+            m_CurrentViewPage = nvp; 
             UpdateView();
         }
 
@@ -512,10 +551,11 @@ namespace ZalTestApp
                 //                avm.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
                 m_Pages.Add(avp);
                 m_AdjViewModels[lexeme] = avp;
+                m_iCurrentTab = m_Pages.Count - 1;
             }
 
             m_CurrentViewModel = m_BreadCrumbs.AddLast(avp.Page);
-            m_CurrentPage = avp;
+            m_CurrentViewPage = avp;
             UpdateView();
         }
 
@@ -534,10 +574,11 @@ namespace ZalTestApp
                 vvm.ShowParticipleFormsEvent += new VerbViewModel.ShowParticipleForms(ShowParticiple);
                 m_Pages.Add(vvp);
                 m_VerbViewModels[lexeme] = vvp;
+                m_iCurrentTab = m_Pages.Count - 1;
             }
 
             m_CurrentViewModel = m_BreadCrumbs.AddLast(vvp.Page);
-            m_CurrentPage = vvp;
+            m_CurrentViewPage = vvp;
             UpdateView();
         }
 
@@ -555,7 +596,7 @@ namespace ZalTestApp
                         m_PartPresActViewModels[lexeme] = avpPresAct;
                     }
                     m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPresAct.Page);
-                    m_CurrentPage = avpPresAct;
+                    m_CurrentViewPage = avpPresAct;
                     UpdateView();
                     break;
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
@@ -568,7 +609,7 @@ namespace ZalTestApp
                         m_PartPastActViewModels[lexeme] = avpPastAct;
                     }
                     m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPastAct.Page);
-                    m_CurrentPage = avpPastAct;
+                    m_CurrentViewPage = avpPastAct;
                     UpdateView();
                     break;
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
@@ -581,7 +622,7 @@ namespace ZalTestApp
                         m_PartPresPassViewModels[lexeme] = avpPresPass;
                     }
                     m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPresPass.Page);
-                    m_CurrentPage = avpPresPass;
+                    m_CurrentViewPage = avpPresPass;
                     UpdateView();
                     break;
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
@@ -594,7 +635,7 @@ namespace ZalTestApp
                         m_PartPastPassViewModels[lexeme] = avpPastPass;
                     }
                     m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPastPass.Page);
-                    m_CurrentPage = avpPastPass;
+                    m_CurrentViewPage = avpPastPass;
                     UpdateView();
                     break;
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
@@ -609,17 +650,17 @@ namespace ZalTestApp
 
         public void RunRegression(object obj)
         {
-            m_MainModel.Clear();
+//            m_MainModel.Clear();
 
             if (null == m_RegressionGridViewModel)
             {
-                m_RegressionGridViewModel = new ViewPage("Тест", null, new RegressionGridViewModel(m_MainModel));
+                m_RegressionGridViewModel = new ViewPage("Тест", new LexemeViewModel(), new RegressionGridViewModel(m_MainModel));
                 m_Pages.Add(m_RegressionGridViewModel);
 
 //                m_RegressionGridViewModel.BackButtonEvent += new RegressionGridViewModel.BackButtonHandler(GoBack);
             }
             m_CurrentViewModel = m_BreadCrumbs.AddLast(m_RegressionGridViewModel.Page);
-            m_CurrentPage = m_RegressionGridViewModel;
+            m_CurrentViewPage = m_RegressionGridViewModel;
             UpdateView();
         }
 
@@ -704,9 +745,10 @@ namespace ZalTestApp
         private void UpdateView()
         {
             this.OnPropertyChanged("CurrentViewModel");
-            this.OnPropertyChanged("CurrentPage");
+            this.OnPropertyChanged("CurrentTab");
             this.OnPropertyChanged("IsBackButtonEnabled");
             this.OnPropertyChanged("IsForwardButtonEnabled");
+            this.OnPropertyChanged("Type");
         }
 
     }   //  class MainViewModel 

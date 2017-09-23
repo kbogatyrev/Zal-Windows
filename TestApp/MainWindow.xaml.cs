@@ -12,5 +12,4 @@ namespace ZalTestApp
             InitializeComponent();
         }
     }
-
 }

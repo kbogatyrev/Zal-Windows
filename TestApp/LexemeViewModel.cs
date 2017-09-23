@@ -148,6 +148,14 @@ namespace ZalTestApp
         }
         #endregion
 
+        public LexemeViewModel()
+        {
+            m_Lexeme = null;
+            ShowParadigmCommand = new RelayCommand(new Action<object>(ShowParadigm));
+            SaveParadigmCommand = new RelayCommand(new Action<object>(SaveParadigm));
+            RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
+        }
+
         public LexemeViewModel(CLexemeManaged l)
         {
             m_Lexeme = l;

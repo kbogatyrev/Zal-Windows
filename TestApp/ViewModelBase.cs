@@ -19,6 +19,21 @@ namespace ZalTestApp
     /// </summary>
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
+        protected Guid m_InstanceId;
+
+        public ViewModelBase()
+        {
+            m_InstanceId = Guid.NewGuid();
+        }
+
+        public string InstanceId
+        {
+            get
+            {
+                return m_InstanceId.ToString();
+            }
+        }
+
         /// <summary>
         /// Raised when a property on this object has a new value.
         /// </summary>

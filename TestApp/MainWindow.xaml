@@ -7,10 +7,70 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Zal Test App" Height="Auto" Width="1100" Margin="0">
-   
+
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate x:Key="CustomHeaderTemplate">
+            <DockPanel LastChildFill="True">
+                <Button DockPanel.Dock="Right" 
+                    Command="{Binding DataContext.CloseCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+                   CommandParameter="{Binding Page}" > 
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Label FontWeight="Bold" Content="X" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Label Content="{Binding Header}" />
+            </DockPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="CustomTabContentTemplate">
+            <Grid Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="400*" />
+                </Grid.ColumnDefinitions>
+                <ContentControl Grid.Column="0" Content="{Binding LexemeInfo}" >
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Header}" Value="Тест">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+                <ContentControl Content="{Binding Page}" Grid.Column="1" />
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type local:LexemeViewModel}" >
+            <local:LexemeView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:NounViewModel}" >
+            <local:NounView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:AdjViewModel}">
+            <local:AdjView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:VerbViewModel}">
+            <local:VerbView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:RegressionGridViewModel}" >
+            <local:RegressionGridView />
+        </DataTemplate>
+
+    </Window.Resources>
 
     <DockPanel Name="HomeView">
         <Menu Style="{DynamicResource Menu}" DockPanel.Dock="Top">
@@ -24,17 +84,19 @@
                 <MenuItem Header="_Импорт" Command="{Binding ImportRegressionDataCommand}"/>
                 <MenuItem Header="_Тест" Command="{Binding RunRegressionTestCommand}"/>
             </MenuItem>
+<!--            
             <ToolBarTray>
                 <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Band="1" BandIndex="1" >
                     <Button Style="{DynamicResource BtnSmallSquare}" Content="←" Command="{Binding BackButtonCommand}" IsEnabled="{Binding IsBackButtonEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" />
                     <Button Style="{DynamicResource BtnSmallSquare}" Content="→" Command="{Binding ForwardButtonCommand}" IsEnabled="{Binding IsForwardButtonEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" />
                 </ToolBar>
             </ToolBarTray>
+-->            
         </Menu>
 
-        <TabControl x:Name="TabControl" Width="Auto" Margin="10" ItemsSource="{Binding Pages}" SelectedItem="{Binding CurrentPage}"
-                    ItemTemplate="{StaticResource CustomHeaderTemplate}" ContentTemplate="{StaticResource CustomTabContentTemplate}" >
-        </TabControl>
+        <TabControl x:Name="TabControl" Width="Auto" Margin="10" ItemsSource="{Binding Pages}" SelectedIndex="{Binding CurrentTab}"
+                    ItemTemplate="{StaticResource CustomHeaderTemplate}" ContentTemplate="{StaticResource CustomTabContentTemplate}" />
+
     </DockPanel>
 
 </Window>

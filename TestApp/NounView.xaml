@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d">
 
-        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0"  >
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0"  >
             <Grid >
                 <TextBox Text="Sg" Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
                 <TextBox Text="Pl" Margin="445,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
