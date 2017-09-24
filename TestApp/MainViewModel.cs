@@ -288,16 +288,16 @@ namespace ZalTestApp
             }
         }
 
-        private ICommand m_RunRegressionTestCommand;
-        public ICommand RunRegressionTestCommand
+        private ICommand m_ShowRegressionPageCommand;
+        public ICommand ShowRegressionPageCommand
         {
             get
             {
-                return m_RunRegressionTestCommand;
+                return m_ShowRegressionPageCommand;
             }
             set
             {
-                m_RunRegressionTestCommand = value;
+                m_ShowRegressionPageCommand = value;
             }
         }
 
@@ -335,7 +335,7 @@ namespace ZalTestApp
             ForwardButtonCommand = new RelayCommand(new Action<object>(GoForward));
             OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
             SearchByInitialFormCommand = new RelayCommand(new Action<object>(SearchByInitialForm));
-            RunRegressionTestCommand = new RelayCommand(new Action<object>(RunRegression));
+            ShowRegressionPageCommand = new RelayCommand(new Action<object>(ShowRegression));
             ImportRegressionDataCommand = new RelayCommand(new Action<object>(ImportRegressionData));
             ExportRegressionDataCommand = new RelayCommand(new Action<object>(ExportRegressionData));
 
@@ -514,7 +514,7 @@ namespace ZalTestApp
             }
             m_CurrentViewModel = m_BreadCrumbs.AddLast(nvp.Page);
             m_CurrentViewPage = nvp; 
-            UpdateView();
+//            UpdateView();
         }
 
         void ShowAdj(CLexemeManaged lexeme, LexemeViewModel lvm)
@@ -577,7 +577,6 @@ namespace ZalTestApp
                     }
                     m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPresAct.Page);
                     m_CurrentViewPage = avpPresAct;
-                    UpdateView();
                     break;
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
                     if (!m_PartPastActViewModels.TryGetValue(lexeme, out ViewPage avpPastAct))
@@ -590,7 +589,6 @@ namespace ZalTestApp
                     }
                     m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPastAct.Page);
                     m_CurrentViewPage = avpPastAct;
-                    UpdateView();
                     break;
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
                     if (!m_PartPresPassViewModels.TryGetValue(lexeme, out ViewPage avpPresPass))
@@ -603,7 +601,6 @@ namespace ZalTestApp
                     }
                     m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPresPass.Page);
                     m_CurrentViewPage = avpPresPass;
-                    UpdateView();
                     break;
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
                     if (!m_PartPastPassViewModels.TryGetValue(lexeme, out ViewPage avpPastPass))
@@ -616,7 +613,6 @@ namespace ZalTestApp
                     }
                     m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPastPass.Page);
                     m_CurrentViewPage = avpPastPass;
-                    UpdateView();
                     break;
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
@@ -626,9 +622,13 @@ namespace ZalTestApp
                     MessageBox.Show("Unexpected subparadigm.");
                     return;
             }
+
+            m_iCurrentTab = m_Pages.Count - 1;
+            UpdateView();
+
         }       //  ShowParticiple()
 
-        public void RunRegression(object obj)
+        public void ShowRegression(object obj)
         {
 //            m_MainModel.Clear();
 
@@ -641,6 +641,7 @@ namespace ZalTestApp
             }
             m_CurrentViewModel = m_BreadCrumbs.AddLast(m_RegressionGridViewModel.Page);
             m_CurrentViewPage = m_RegressionGridViewModel;
+            m_iCurrentTab = m_Pages.Count - 1;
             UpdateView();
         }
 

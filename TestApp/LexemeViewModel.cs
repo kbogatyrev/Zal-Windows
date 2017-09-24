@@ -81,7 +81,6 @@ namespace ZalTestApp
             {
                 if (null == m_Lexeme)
                 {
-                    MessageBox.Show("Internal error: lexeme not loaded.");
                     return "";
                 }
                 return m_Lexeme.sSourceForm();
@@ -93,7 +92,6 @@ namespace ZalTestApp
             {
                 if (null == m_Lexeme)
                 {
-                    MessageBox.Show("Internal error: lexeme not loaded.");
                     return "";
                 }
                 return m_Lexeme.sGraphicStem();
@@ -106,7 +104,6 @@ namespace ZalTestApp
             {
                 if (null == m_Lexeme)
                 {
-                    MessageBox.Show("Internal error: lexeme not loaded.");
                     return "";
                 }
                 return m_Lexeme.sMainSymbol();
@@ -119,7 +116,6 @@ namespace ZalTestApp
             {
                 if (null == m_Lexeme)
                 {
-                    MessageBox.Show("Internal error: lexeme not loaded.");
                     return "";
                 }
                 return m_Lexeme.iType().ToString();
@@ -132,7 +128,6 @@ namespace ZalTestApp
             {
                 if (null == m_Lexeme)
                 {
-                    MessageBox.Show("Internal error: lexeme not loaded.");
                     return "";
                 }
 
