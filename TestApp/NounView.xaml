@@ -6,50 +6,49 @@
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d">
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0"  >
-            <Grid >
-                <TextBox Text="Sg" Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
-                <TextBox Text="Pl" Margin="445,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0"  >
+        <Grid>
+            <TextBox Text="Sg" Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
+            <TextBox Text="Pl" Margin="445,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
 
-                <!-- Singular -->
-                <!-- Case Labels -->
-                <TextBox Text="N" Margin="33,70,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="A" Margin="33,115,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="G" Margin="33,160,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="P" Margin="33,205,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="D" Margin="33,250,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="I" Margin="33,295,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="G2" Margin="33,350,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="L2" Margin="33,395,0,0" Style="{StaticResource FormLabel}" />
+            <!-- Singular -->
+            <!-- Case Labels -->
+            <TextBox Text="N" Margin="33,70,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="A" Margin="33,115,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="G" Margin="33,160,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="P" Margin="33,205,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="D" Margin="33,250,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="I" Margin="33,295,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="G2" Margin="33,350,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="L2" Margin="33,395,0,0" Style="{StaticResource FormLabel}" />
 
-                <!-- Forms -->
-                <TextBox Text="{Binding Path=Noun_Sg_N}" Margin="70,70,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Sg_A}" Margin="70,115,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Sg_G}" Margin="70,160,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Sg_P}" Margin="70,205,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Sg_D}" Margin="70,250,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Sg_I}" Margin="70,295,0,0" Style="{StaticResource FormText}" />
+            <!-- Forms -->
+            <TextBox Text="{Binding Path=Noun_Sg_N}" Margin="70,70,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Sg_A}" Margin="70,115,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Sg_G}" Margin="70,160,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Sg_P}" Margin="70,205,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Sg_D}" Margin="70,250,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Sg_I}" Margin="70,295,0,0" Style="{StaticResource FormText}" />
 
-                <TextBox Text="{Binding Path=Noun_Sg_Part}" Margin="70,350,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Sg_L}" Margin="70,395,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Sg_Part}" Margin="70,350,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Sg_L}" Margin="70,395,0,0" Style="{StaticResource FormText}" />
 
-                <!-- Plural -->
-                <!-- Case Labels -->
-                <TextBox Text="N" Margin="350,70,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="A" Margin="350,115,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="G" Margin="350,160,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="P" Margin="350,205,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="D" Margin="350,250,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="I" Margin="350,295,0,0" Style="{StaticResource FormLabel}" />
+            <!-- Plural -->
+            <!-- Case Labels -->
+            <TextBox Text="N" Margin="350,70,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="A" Margin="350,115,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="G" Margin="350,160,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="P" Margin="350,205,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="D" Margin="350,250,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="I" Margin="350,295,0,0" Style="{StaticResource FormLabel}" />
 
-                <!-- Forms -->
-                <TextBox Text="{Binding Path=Noun_Pl_N}" Margin="387,70,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Pl_A}" Margin="387,115,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Pl_G}" Margin="387,160,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Pl_P}" Margin="387,205,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Pl_D}" Margin="387,250,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Pl_I}" Margin="387,295,0,0" Style="{StaticResource FormText}" />
+            <!-- Forms -->
+            <TextBox Text="{Binding Path=Noun_Pl_N}" Margin="387,70,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Pl_A}" Margin="387,115,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Pl_G}" Margin="387,160,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Pl_P}" Margin="387,205,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Pl_D}" Margin="387,250,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Pl_I}" Margin="387,295,0,0" Style="{StaticResource FormText}" />
         </Grid>
-        </ScrollViewer>
-<!--    </Grid>  -->
+    </ScrollViewer>
 </UserControl>

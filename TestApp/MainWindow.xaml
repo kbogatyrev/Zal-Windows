@@ -29,7 +29,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="CustomTabContentTemplate">
-            <Grid Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+            <Grid Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="400*" />
