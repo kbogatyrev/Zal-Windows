@@ -70,7 +70,7 @@ namespace ZalTestApp
         }
     }
 
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private Action<object> m_Action;
         public RelayCommand(Action<object> action)

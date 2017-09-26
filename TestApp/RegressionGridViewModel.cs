@@ -255,7 +255,7 @@ namespace ZalTestApp
 
         public void GoBack(Object obj)
         {
-            m_MainModel.Clear();
+//            m_MainModel.Clear();
             BackButtonEvent?.Invoke();
         }
 
@@ -265,7 +265,7 @@ namespace ZalTestApp
             {
                 VerifierThread vt = new VerifierThread(this);
                 System.Threading.Thread t = new Thread(new ThreadStart(vt.ThreadProc));
-                t.Name = "TesApp batch verifier thread";
+                t.Name = "TestApp batch verifier thread";
                 t.IsBackground = true;
                 //              m_WorkerThread.Priority = ThreadPriority.Lowest;
                 t.SetApartmentState(ApartmentState.STA);

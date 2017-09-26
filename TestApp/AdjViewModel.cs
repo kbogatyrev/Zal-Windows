@@ -14,7 +14,6 @@ namespace ZalTestApp
 
 //        AdjModel m_AdjModel = null;
         MainModel m_MainModel = null;
-        EM_Subparadigm m_eSubparadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
 
         #region ICommand
         private ICommand m_BackCommand;
@@ -42,6 +41,34 @@ namespace ZalTestApp
             set
             {
                 m_Parent = value;
+            }
+        }
+
+        EM_Subparadigm m_eSubparadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+        public EM_Subparadigm Subparadigm
+        {
+            get
+            {
+                return m_eSubparadigm;
+            }
+
+            set
+            {
+                m_eSubparadigm = value;
+            }
+        }
+
+        bool m_bIsDerived;
+        public bool IsDerived
+        {
+            get
+            {
+                return m_bIsDerived;
+            }
+
+            set
+            {
+                m_bIsDerived = value;
             }
         }
 
@@ -623,364 +650,368 @@ namespace ZalTestApp
             m_MainModel = m;
             BackCommand = new RelayCommand(new Action<object>(GoBack));
             m_eSubparadigm = eSubparadigm;
+            m_bIsDerived = false;
+
+            string sLexemeHash = lexeme.sHash();
 
             if (lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
             {
                 List<string> forms = null;
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_M_Sg_N", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_M_Sg_N", out forms);
                 AdjL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_M_Sg_A_Anim", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_M_Sg_A_Anim", out forms);
                 AdjL_M_Sg_A_Anim = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_M_Sg_A_Inanim", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_M_Sg_A_Inanim", out forms);
                 AdjL_M_Sg_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_M_Sg_G", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_M_Sg_G", out forms);
                 AdjL_M_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_M_Sg_P", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_M_Sg_P", out forms);
                 AdjL_M_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_M_Sg_D", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_M_Sg_D", out forms);
                 AdjL_M_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_M_Sg_I", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_M_Sg_I", out forms);
                 AdjL_M_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_F_Sg_N", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_F_Sg_N", out forms);
                 AdjL_F_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_F_Sg_A", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_F_Sg_A", out forms);
                 AdjL_F_Sg_A = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_F_Sg_G", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_F_Sg_G", out forms);
                 AdjL_F_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_F_Sg_P", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_F_Sg_P", out forms);
                 AdjL_F_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_F_Sg_D", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_F_Sg_D", out forms);
                 AdjL_F_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_F_Sg_I", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_F_Sg_I", out forms);
                 AdjL_F_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_N", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_N_Sg_N", out forms);
                 AdjL_N_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_A", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_N_Sg_A", out forms);
                 AdjL_N_Sg_A = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_G", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_N_Sg_G", out forms);
                 AdjL_N_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_P", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_N_Sg_P", out forms);
                 AdjL_N_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_D", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_N_Sg_D", out forms);
                 AdjL_N_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_N_Sg_I", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_N_Sg_I", out forms);
                 AdjL_N_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_Pl_N", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_Pl_N", out forms);
                 AdjL_Pl_N = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_Pl_A_Anim", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_Pl_A_Anim", out forms);
                 AdjL_Pl_A_Anim = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_Pl_A_Inanim", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_Pl_A_Inanim", out forms);
                 AdjL_Pl_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_Pl_G", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_Pl_G", out forms);
                 AdjL_Pl_G = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_Pl_P", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_Pl_P", out forms);
                 AdjL_Pl_P = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_Pl_D", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_Pl_D", out forms);
                 AdjL_Pl_D = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjL_Pl_I", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_Pl_I", out forms);
                 AdjL_Pl_I = Helpers.sListToCommaSeparatedString(forms);
 
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjS_M", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjS_M", out forms);
                 AdjS_M = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjS_F", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjS_F", out forms);
                 AdjS_F = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjS_N", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjS_N", out forms);
                 AdjS_N = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjS_Pl", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjS_Pl", out forms);
                 AdjS_Pl = Helpers.sListToCommaSeparatedString(forms);
 
-                m_MainModel.GetFormsByGramHash(lexeme, "AdjComp", out forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjComp", out forms);
                 AdjComp = Helpers.sListToCommaSeparatedString(forms);
             }
             else if (lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
             {
+                m_bIsDerived = true;
                 List<string> forms = null;
 
                 switch (m_eSubparadigm)
                 {
                     case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_M_Sg_N", out forms);
                         AdjL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_A_Anim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_M_Sg_A_Anim", out forms);
                         AdjL_M_Sg_A_Anim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_A_Inanim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_M_Sg_A_Inanim", out forms);
                         AdjL_M_Sg_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_M_Sg_G", out forms);
                         AdjL_M_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_M_Sg_P", out forms);
                         AdjL_M_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_M_Sg_D", out forms);
                         AdjL_M_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_M_Sg_I", out forms);
                         AdjL_M_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_F_Sg_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_F_Sg_N", out forms);
                         AdjL_F_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_F_Sg_A", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_F_Sg_A", out forms);
                         AdjL_F_Sg_A = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_F_Sg_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_F_Sg_G", out forms);
                         AdjL_F_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_F_Sg_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_F_Sg_P", out forms);
                         AdjL_F_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_M_Sg_I", out forms);
                         AdjL_F_Sg_I = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_F_Sg_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_F_Sg_D", out forms);
                         AdjL_F_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_F_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_F_Sg_I", out forms);
                         AdjL_F_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_N_Sg_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_N_Sg_N", out forms);
                         AdjL_N_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_N_Sg_A", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_N_Sg_A", out forms);
                         AdjL_N_Sg_A = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_N_Sg_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_N_Sg_G", out forms);
                         AdjL_N_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_N_Sg_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_N_Sg_P", out forms);
                         AdjL_N_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_N_Sg_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_N_Sg_D", out forms);
                         AdjL_N_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_N_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_N_Sg_I", out forms);
                         AdjL_N_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_Pl_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_Pl_N", out forms);
                         AdjL_Pl_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_Pl_A_Anim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_Pl_A_Anim", out forms);
                         AdjL_Pl_A_Anim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_Pl_A_Inanim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_Pl_A_Inanim", out forms);
                         AdjL_Pl_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_Pl_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_Pl_G", out forms);
                         AdjL_Pl_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_Pl_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_Pl_P", out forms);
                         AdjL_Pl_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_Pl_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_Pl_D", out forms);
                         AdjL_Pl_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresA_Pl_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_Pl_I", out forms);
                         AdjL_Pl_I = Helpers.sListToCommaSeparatedString(forms);
 
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_M_Sg_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_M_Sg_N", out forms);
                         AdjL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_M_Sg_A_Anim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_M_Sg_A_Anim", out forms);
                         AdjL_M_Sg_A_Anim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_M_Sg_A_Inanim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_M_Sg_A_Inanim", out forms);
                         AdjL_M_Sg_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_M_Sg_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_M_Sg_G", out forms);
                         AdjL_M_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_M_Sg_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_M_Sg_P", out forms);
                         AdjL_M_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_M_Sg_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_M_Sg_D", out forms);
                         AdjL_M_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_M_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_M_Sg_I", out forms);
                         AdjL_M_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_F_Sg_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_F_Sg_N", out forms);
                         AdjL_F_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_F_Sg_A", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_F_Sg_A", out forms);
                         AdjL_F_Sg_A = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_F_Sg_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_F_Sg_G", out forms);
                         AdjL_F_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_F_Sg_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_F_Sg_P", out forms);
                         AdjL_F_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_F_Sg_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_F_Sg_D", out forms);
                         AdjL_F_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_F_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_F_Sg_I", out forms);
                         AdjL_F_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_N_Sg_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_N_Sg_N", out forms);
                         AdjL_N_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_N_Sg_A", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_N_Sg_A", out forms);
                         AdjL_N_Sg_A = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_N_Sg_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_N_Sg_G", out forms);
                         AdjL_N_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_N_Sg_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_N_Sg_P", out forms);
                         AdjL_N_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_N_Sg_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_N_Sg_D", out forms);
                         AdjL_N_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_N_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_N_Sg_I", out forms);
                         AdjL_N_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_Pl_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_Pl_N", out forms);
                         AdjL_Pl_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_Pl_A_Anim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_Pl_A_Anim", out forms);
                         AdjL_Pl_A_Anim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_Pl_A_Inanim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_Pl_A_Inanim", out forms);
                         AdjL_Pl_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_Pl_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_Pl_G", out forms);
                         AdjL_Pl_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_Pl_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_Pl_P", out forms);
                         AdjL_Pl_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_Pl_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_Pl_D", out forms);
                         AdjL_Pl_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastA_Pl_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_Pl_I", out forms);
                         AdjL_Pl_I = Helpers.sListToCommaSeparatedString(forms);
 
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_M_Sg_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_M_Sg_N", out forms);
                         AdjL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_M_Sg_A_Anim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_M_Sg_A_Anim", out forms);
                         AdjL_M_Sg_A_Anim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_M_Sg_A_Inanim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_M_Sg_A_Inanim", out forms);
                         AdjL_M_Sg_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_M_Sg_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_M_Sg_G", out forms);
                         AdjL_M_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_M_Sg_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_M_Sg_P", out forms);
                         AdjL_M_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_M_Sg_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_M_Sg_D", out forms);
                         AdjL_M_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_M_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_M_Sg_I", out forms);
                         AdjL_M_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_F_Sg_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_F_Sg_N", out forms);
                         AdjL_F_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_F_Sg_A", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_F_Sg_A", out forms);
                         AdjL_F_Sg_A = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_F_Sg_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_F_Sg_G", out forms);
                         AdjL_F_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_F_Sg_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_F_Sg_P", out forms);
                         AdjL_F_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_F_Sg_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_F_Sg_D", out forms);
                         AdjL_F_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_F_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_F_Sg_I", out forms);
                         AdjL_F_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_N_Sg_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_N_Sg_N", out forms);
                         AdjL_N_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_N_Sg_A", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_N_Sg_A", out forms);
                         AdjL_N_Sg_A = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_N_Sg_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_N_Sg_G", out forms);
                         AdjL_N_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_N_Sg_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_N_Sg_P", out forms);
                         AdjL_N_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_N_Sg_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_N_Sg_D", out forms);
                         AdjL_N_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_N_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_N_Sg_I", out forms);
                         AdjL_N_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_Pl_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_Pl_N", out forms);
                         AdjL_Pl_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_Pl_A_Anim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_Pl_A_Anim", out forms);
                         AdjL_Pl_A_Anim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_Pl_A_Inanim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_Pl_A_Inanim", out forms);
                         AdjL_Pl_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_Pl_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_Pl_G", out forms);
                         AdjL_Pl_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_Pl_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_Pl_P", out forms);
                         AdjL_Pl_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_Pl_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_Pl_D", out forms);
                         AdjL_Pl_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_Pl_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_Pl_I", out forms);
                         AdjL_Pl_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPS_M", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPS_M", out forms);
                         AdjS_M = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPS_F", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPS_F", out forms);
                         AdjS_F = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPS_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPS_N", out forms);
                         AdjS_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPS_Pl", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPS_Pl", out forms);
                         AdjS_Pl = Helpers.sListToCommaSeparatedString(forms);
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPS_M", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPS_M", out forms);
                         AdjS_M = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPS_F", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPS_F", out forms);
                         AdjS_F = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPS_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPS_N", out forms);
                         AdjS_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPresPS_Pl", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPS_Pl", out forms);
                         AdjS_Pl = Helpers.sListToCommaSeparatedString(forms);
 
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_M_Sg_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_M_Sg_N", out forms);
                         AdjL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_M_Sg_A_Anim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_M_Sg_A_Anim", out forms);
                         AdjL_M_Sg_A_Anim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_M_Sg_A_Inanim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_M_Sg_A_Inanim", out forms);
                         AdjL_M_Sg_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_M_Sg_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_M_Sg_G", out forms);
                         AdjL_M_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_M_Sg_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_M_Sg_P", out forms);
                         AdjL_M_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_M_Sg_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_M_Sg_D", out forms);
                         AdjL_M_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_M_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_M_Sg_I", out forms);
                         AdjL_M_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_F_Sg_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_F_Sg_N", out forms);
                         AdjL_F_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_F_Sg_A", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_F_Sg_A", out forms);
                         AdjL_F_Sg_A = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_F_Sg_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_F_Sg_G", out forms);
                         AdjL_F_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_F_Sg_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_F_Sg_P", out forms);
                         AdjL_F_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_F_Sg_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_F_Sg_D", out forms);
                         AdjL_F_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_F_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_F_Sg_I", out forms);
                         AdjL_F_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_N_Sg_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_N_Sg_N", out forms);
                         AdjL_N_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_N_Sg_A", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_N_Sg_A", out forms);
                         AdjL_N_Sg_A = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_N_Sg_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_N_Sg_G", out forms);
                         AdjL_N_Sg_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_N_Sg_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_N_Sg_P", out forms);
                         AdjL_N_Sg_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_N_Sg_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_N_Sg_D", out forms);
                         AdjL_N_Sg_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_N_Sg_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_N_Sg_I", out forms);
                         AdjL_N_Sg_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_Pl_N", out forms);
                         AdjL_Pl_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_A_Anim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_Pl_A_Anim", out forms);
                         AdjL_Pl_A_Anim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_A_Inanim", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_Pl_A_Inanim", out forms);
                         AdjL_Pl_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_G", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_Pl_G", out forms);
                         AdjL_Pl_G = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_P", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_Pl_P", out forms);
                         AdjL_Pl_P = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_D", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_Pl_D", out forms);
                         AdjL_Pl_D = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_Pl_I", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_Pl_I", out forms);
                         AdjL_Pl_I = Helpers.sListToCommaSeparatedString(forms);
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPS_M", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPS_M", out forms);
                         AdjS_M = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPS_F", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPS_F", out forms);
                         AdjS_F = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPS_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPS_N", out forms);
                         AdjS_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPS_Pl", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPS_Pl", out forms);
                         AdjS_Pl = Helpers.sListToCommaSeparatedString(forms);
 
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
 
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPS_M", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPS_M", out forms);
                         AdjS_M = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPS_F", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPS_F", out forms);
                         AdjS_F = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPS_N", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPS_N", out forms);
                         AdjS_N = Helpers.sListToCommaSeparatedString(forms);
-                        m_MainModel.GetFormsByGramHash(lexeme, "PPastPS_Pl", out forms);
+                        m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPS_Pl", out forms);
                         AdjS_Pl = Helpers.sListToCommaSeparatedString(forms);
 
                         break;

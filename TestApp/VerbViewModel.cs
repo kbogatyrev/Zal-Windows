@@ -456,57 +456,59 @@ namespace ZalTestApp
             ShowPresPassFormsCommand = new RelayCommand(new Action<object>(ShowPresPassForms));
             ShowPastPassFormsCommand = new RelayCommand(new Action<object>(ShowPastPassForms));
 
+            string sLexemeHash = lexeme.sHash();
+
             List<string> forms = null;
-            m_MainModel.GetFormsByGramHash(lexeme, "Infinitive", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Infinitive", out forms);
             Infinitive = Helpers.sListToCommaSeparatedString(forms);
 
-            m_MainModel.GetFormsByGramHash(lexeme, "Pres_Sg_1", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Pres_Sg_1", out forms);
             Pres_Sg_1 = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(lexeme, "Pres_Sg_2", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Pres_Sg_2", out forms);
             Pres_Sg_2 = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(lexeme, "Pres_Sg_3", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Pres_Sg_3", out forms);
             Pres_Sg_3 = Helpers.sListToCommaSeparatedString(forms);
 
-            m_MainModel.GetFormsByGramHash(lexeme, "Pres_Pl_1", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Pres_Pl_1", out forms);
             Pres_Pl_1 = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(lexeme, "Pres_Pl_2", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Pres_Pl_2", out forms);
             Pres_Pl_2 = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(lexeme, "Pres_Pl_3", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Pres_Pl_3", out forms);
             Pres_Pl_3 = Helpers.sListToCommaSeparatedString(forms);
 
-            m_MainModel.GetFormsByGramHash(lexeme, "Past_M", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Past_M", out forms);
             Past_M = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(lexeme, "Past_F", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Past_F", out forms);
             Past_F = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(lexeme, "Past_N", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Past_N", out forms);
             Past_N = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(lexeme, "Past_Pl", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Past_Pl", out forms);
             Past_Pl = Helpers.sListToCommaSeparatedString(forms);
 
-            m_MainModel.GetFormsByGramHash(lexeme, "Impv_Sg_2", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Impv_Sg_2", out forms);
             Impv_Sg_2 = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(lexeme, "Impv_Pl_2", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Impv_Pl_2", out forms);
             Impv_Pl_2 = Helpers.sListToCommaSeparatedString(forms);
 
-            m_MainModel.GetFormsByGramHash(lexeme, "PPresA_M_Sg_N", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_M_Sg_N", out forms);
             PPresA_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
             PPresAExists = m_sPPresA_M_Sg_N.Length > 0;
 
-            m_MainModel.GetFormsByGramHash(lexeme, "VAdvPres", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "VAdvPres", out forms);
             VAdvPres = Helpers.sListToCommaSeparatedString(forms);
 
-            m_MainModel.GetFormsByGramHash(lexeme, "PPastA_M_Sg_N", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_M_Sg_N", out forms);
             PPastA_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
             PPastAExists = m_sPPastA_M_Sg_N.Length > 0;
 
-            m_MainModel.GetFormsByGramHash(lexeme, "VAdvPast", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "VAdvPast", out forms);
             VAdvPast = Helpers.sListToCommaSeparatedString(forms);
 
-            m_MainModel.GetFormsByGramHash(lexeme, "PPresPL_M_Sg_N", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_M_Sg_N", out forms);
             PPresPL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
             PPresPExists = m_sPPresPL_M_Sg_N.Length > 0;
 
-            m_MainModel.GetFormsByGramHash(lexeme, "PPastPL_M_Sg_N", out forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_M_Sg_N", out forms);
             PPastPL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
             PPastPExists = m_sPPastPL_M_Sg_N.Length > 0;
         }
