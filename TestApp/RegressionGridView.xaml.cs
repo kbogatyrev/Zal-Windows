@@ -14,5 +14,17 @@ namespace ZalTestApp
         {
             InitializeComponent();
         }
+
+        private void ItemCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            RegressionGridViewModel rgvm = (RegressionGridViewModel)DataContext;
+            rgvm.CheckRow(rgvm.CurrentIdx);
+        }
+
+        private void ItemCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            RegressionGridViewModel rgvm = (RegressionGridViewModel)DataContext;
+            rgvm.UnheckRow(rgvm.CurrentIdx);
+        }
     }
 }

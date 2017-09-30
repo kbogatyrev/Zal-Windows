@@ -6,21 +6,25 @@
              xmlns:local="clr-namespace:ZalTestApp"
              mc:Ignorable="d" >
     <!--             d:DesignHeight="200" d:DesignWidth="900">  -->
-    <Grid>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="ZalRegressionDataGrid"  Style="{DynamicResource ZalDataGrid}" ItemsSource="{Binding RegressionData}"
+        <DataGrid x:Name="ZalRegressionDataGrid"  ItemsSource="{Binding RegressionData}" SelectedIndex="{Binding CurrentIdx}"
                   AutoGenerateColumns="False" CanUserAddRows="False" AlternatingRowBackground="Gainsboro" AlternationCount="2" 
-                  Grid.ColumnSpan="1" Margin="0,0,0,0" HorizontalAlignment="Left" >
+                  Grid.ColumnSpan="1" Margin="0,0,0,0" HorizontalAlignment="Left"  >
 
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        <CheckBox x:Name="HeaderCheckBox" IsChecked="True" />
+                    </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                       <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" />  
-                    </DataTemplate>
+                        <DataTemplate>
+                            <CheckBox x:Name="ItemCheckBox"  IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged, ElementName=HeaderCheckBox, Mode=OneWay}" Checked="ItemCheckBox_Checked" Unchecked="ItemCheckBox_Unchecked" /> 
+<!--                            <CheckBox IsChecked="{Binding IsChecked}" />  -->
+                        </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Исходная форма" Binding="{Binding SourceForm}" Width="2*"  IsReadOnly="True"/>
@@ -31,8 +35,8 @@
 
         <Button Style="{DynamicResource BtnSmall}" Content="Тест" Command="{Binding RunTestCommand}" Grid.Column="1" HorizontalAlignment="Center" Margin="0,160,0,0" VerticalAlignment="Top" Width="95"/>
 <!--        <Button Style="{DynamicResource BtnSmall}" Content="Сохранить" Command="{Binding SaveCommand}" Grid.Column="1" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Top" Width="95"/>  -->
-<!--        <Button Style="{DynamicResource BtnSmall}" Content="Стереть" Command="{Binding DeleteCommand}" Grid.Column="1" HorizontalAlignment="Center" Margin="0,240,0,0" VerticalAlignment="Top" Width="95"/>  -->
-        <Button Style="{DynamicResource BtnSmall}" Content="Отмена" Command="{Binding CancelCommand}" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Center" Margin="0,280,0,0" VerticalAlignment="Top" Width="95"/>
+        <Button Style="{DynamicResource BtnSmall}" Content="Стереть" Command="{Binding DeleteCommand}" Grid.Column="1" HorizontalAlignment="Center" Margin="0,193,0,0" VerticalAlignment="Top" Width="95"/> 
+        <Button Style="{DynamicResource BtnSmall}" Content="Отмена" Command="{Binding CancelCommand}" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Center" Margin="0,226,0,0" VerticalAlignment="Top" Width="95"/>
 <!--        <Button Style="{DynamicResource BtnSmall}" Content="Назад" Command="{Binding BackCommand}" Grid.Column="1" HorizontalAlignment="Center" Margin="0,320,0,0" VerticalAlignment="Top" Width="95"/>  -->
 
     </Grid>

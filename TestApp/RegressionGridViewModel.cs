@@ -33,6 +33,29 @@ namespace ZalTestApp
             }
         }
 
+        private int m_iIdx;
+        public int CurrentIdx
+        {
+            get
+            {
+                return m_iIdx;
+            }
+
+            set
+            {
+                m_iIdx = value;
+                OnPropertyChanged("CurrentIdx");
+            }
+        }
+
+        public bool IsChecked
+        {
+            get
+            {
+                return IsRowChecked(m_iIdx);
+            }
+        }
+
         public int NLexemes
         {
             get
@@ -69,7 +92,7 @@ namespace ZalTestApp
             }
         }
 
-        public bool IsChecked(int iRow)
+        public bool IsRowChecked(int iRow)
         {
             try
             {
@@ -78,8 +101,36 @@ namespace ZalTestApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: unable retrieve selection status value: " + ex.Message);
+                MessageBox.Show("Error: unable to retrieve selection status value: " + ex.Message);
                 return false;
+            }
+        }
+
+        public void CheckRow(int iRow)
+        {
+            try
+            {
+                DataRow row = m_RegressionData.Rows[iRow];
+                row["IsChecked"] = true;
+                OnPropertyChanged("IsChecked");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: unable to set row state: " + ex.Message);
+            }
+        }
+
+        public void UnheckRow(int iRow)
+        {
+            try
+            {
+                DataRow row = m_RegressionData.Rows[iRow];
+                row["IsChecked"] = false;
+                OnPropertyChanged("IsChecked");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: unable to set row state: " + ex.Message);
             }
         }
 
@@ -290,7 +341,7 @@ namespace ZalTestApp
             {
                 for (int iLexeme = 0; iLexeme < NLexemes; ++iLexeme)
                 {
-                    if (!IsChecked(iLexeme))
+                    if (!IsRowChecked(iLexeme))
                     {
                         continue;
                     }
@@ -355,7 +406,7 @@ namespace ZalTestApp
                         break;
                     }
 
-                    if (!m_Caller.IsChecked(iLexeme))
+                    if (!m_Caller.IsRowChecked(iLexeme))
                     {
                         m_Caller.SetResult(iLexeme, "Ignored");
                         continue;

@@ -608,14 +608,15 @@ namespace ZalTestApp
 
                 try
                 {
-                    RegressionDataImportThread rt = new RegressionDataImportThread(m_MainModel, m_ProgressViewModel, openFileDialog.FileName);
+                    RegressionDataImportThread rt = new RegressionDataImportThread(m_MainModel, m_ProgressViewModel, pd, openFileDialog.FileName);
                     System.Threading.Thread t = new Thread(new ThreadStart(rt.ThreadProc));
                     t.Name = "TestApp test data import thread";
                     t.IsBackground = true;
                     //              m_WorkerThread.Priority = ThreadPriority.Lowest;
                     t.SetApartmentState(ApartmentState.STA);
                     t.Start();
-                    //                t.Join();
+//                    t.Join();
+//                    pd.Close();
                 }
                 catch (Exception ex)
                 {
@@ -728,6 +729,7 @@ namespace ZalTestApp
     {
         private MainModel m_Caller;
         private ProgressViewModel m_ProgressViewModel;
+        private ProgressDialog m_ProgressDialog;
         private string m_sPath;
         private int m_iPercentDone;
         private delegate void DelegateProgress(int iPercentDone, bool bOperationComplete);
@@ -738,10 +740,11 @@ namespace ZalTestApp
             m_ProgressViewModel.Progress = m_iPercentDone;
         }
 
-        public RegressionDataImportThread(MainModel mm, ProgressViewModel pvm, string sPath)
+        public RegressionDataImportThread(MainModel mm, ProgressViewModel pvm, ProgressDialog pd, string sPath)
         {
             m_Caller = mm;
             m_ProgressViewModel = pvm;
+            m_ProgressDialog = pd;
             m_sPath = sPath;
         }
        
@@ -759,8 +762,11 @@ namespace ZalTestApp
                 sMsg += "\n";
                 //                sMsg += err.LastError;
                 MessageBox.Show(sMsg, "Error");
+                m_ProgressDialog.Close();
                 return;
             }
+
+            Application.Current.Dispatcher.Invoke(new Action(() => { m_ProgressDialog.Close(); }));
 
         }   //  ThreadProc()
 
