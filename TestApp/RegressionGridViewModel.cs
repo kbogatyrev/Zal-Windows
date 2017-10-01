@@ -198,7 +198,7 @@ namespace ZalTestApp
                 m_iProgress = value;
             }
         }
-#endregion
+        #endregion
 
         #region ICommand
         private ICommand m_BackCommand;
@@ -377,6 +377,7 @@ namespace ZalTestApp
                 string sLexemeHash = LexemeHash(iCheckedRow);
                 EM_TestResult eTestResult = EM_TestResult.TEST_RESULT_UNDEFINED;
                 var eRet = m_MainModel.DeleteSavedLexeme(sLexemeHash, ref eTestResult);
+                m_RegressionData.Rows.RemoveAt(iCheckedRow);
 
             }   //  foreach (DataGridViewRow row in dataGridView.Rows)
             catch (Exception ex)
@@ -400,13 +401,6 @@ namespace ZalTestApp
         {
             string sLexemeHash = LexemeHash(iRow);
             var eRet = m_MainModel.VerifyLexeme(sLexemeHash, ref eTestResult);
-            return eRet;
-        }
-
-        public EM_ReturnCode DeleteStoredLexeme(int iRow, ref EM_TestResult eTestResult)
-        {
-            string sLexemeHash = LexemeHash(iRow);
-            var eRet = m_MainModel.DeleteSavedLexeme(sLexemeHash, ref eTestResult);
             return eRet;
         }
 
