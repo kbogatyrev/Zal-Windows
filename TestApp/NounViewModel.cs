@@ -127,6 +127,20 @@ namespace ZalTestApp
                 OnPropertyChanged("Noun_Sg_D");
             }
         }
+        
+        private string m_sNoun_Sg_Part;
+        public string Noun_Sg_Part
+        {
+            get
+            {
+                return m_sNoun_Sg_Part;
+            }
+            set
+            {
+                m_sNoun_Sg_Part = value;
+                OnPropertyChanged("Noun_Sg_Part");
+            }
+        }
 
         private string m_sNoun_Sg_L;
         public string Noun_Sg_L
@@ -261,6 +275,11 @@ namespace ZalTestApp
             Noun_Sg_D = Helpers.sListToCommaSeparatedString(forms);
             m_MainModel.GetFormsByGramHash(sLexemeHash, "Noun_Sg_I", out forms);
             Noun_Sg_I = Helpers.sListToCommaSeparatedString(forms);
+
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Noun_Sg_Part", out forms);
+            Noun_Sg_Part = Helpers.sListToCommaSeparatedString(forms);
+            m_MainModel.GetFormsByGramHash(sLexemeHash, "Noun_Sg_L", out forms);
+            Noun_Sg_L = Helpers.sListToCommaSeparatedString(forms);
 
             m_MainModel.GetFormsByGramHash(sLexemeHash, "Noun_Pl_N", out forms);
             Noun_Pl_N = Helpers.sListToCommaSeparatedString(forms);
