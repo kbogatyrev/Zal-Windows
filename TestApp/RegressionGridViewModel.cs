@@ -54,11 +54,6 @@ namespace ZalTestApp
             {
                 return IsRowChecked(m_iIdx);
             }
-
-            set
-            {
-                int kiki = 0;
-            }
         }
 
         public int NLexemes
