@@ -38,7 +38,7 @@
             <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Advanced}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" />
 
             <!--<Button Style="{DynamicResource BtnLarge}" Content="Парадигма" Command="{Binding ShowParadigmCommand}" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Margin="10,-10,0,0" />-->
-            <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveParadigmCommand}" Grid.Column="0" Grid.Row="6" Grid.RowSpan="2" Margin="10,0,0,0" />
+            <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveParadigmCommand}" Grid.Column="0" Grid.Row="6" Grid.RowSpan="2" Margin="60,16,0,0" />
         </Grid>
     </Border>
 </UserControl>
