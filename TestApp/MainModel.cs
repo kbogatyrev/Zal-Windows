@@ -219,9 +219,9 @@ namespace ZalTestApp
                     {
                         System.Windows.MessageBox.Show("Unable to generate forms.");
                     }
-
-                    eRet = m_Dictionary.eGetNextLexeme(ref lexeme);
                 }
+
+                eRet = m_Dictionary.eGetNextLexeme(ref lexeme);
 
             } while (EM_ReturnCode.H_NO_ERROR == eRet);
 
