@@ -54,6 +54,11 @@ namespace ZalTestApp
             {
                 return IsRowChecked(m_iIdx);
             }
+
+            set
+            {
+                int kiki = 0;
+            }
         }
 
         public int NLexemes
@@ -131,6 +136,24 @@ namespace ZalTestApp
             catch (Exception ex)
             {
                 MessageBox.Show("Error: unable to set row state: " + ex.Message);
+            }
+        }
+
+        public void CheckAll()
+        {
+            foreach (DataRow row in m_RegressionData.Rows)
+            {
+                row["IsChecked"] = true;
+                OnPropertyChanged("IsChecked");
+            }
+        }
+
+        public void UncheckAll()
+        {
+            foreach (DataRow row in m_RegressionData.Rows)
+            {
+                row["IsChecked"] = false;
+                OnPropertyChanged("IsChecked");
             }
         }
 
@@ -339,6 +362,7 @@ namespace ZalTestApp
         {
             try
             {
+                int iCheckedRow = -1;
                 for (int iLexeme = 0; iLexeme < NLexemes; ++iLexeme)
                 {
                     if (!IsRowChecked(iLexeme))
@@ -346,9 +370,18 @@ namespace ZalTestApp
                         continue;
                     }
 
-                    EM_TestResult eRet = EM_TestResult.TEST_RESULT_UNDEFINED;
-                    DeleteStoredLexeme(iLexeme, ref eRet);
-                }       //  switch ...
+                    if (iCheckedRow >= 0)
+                    {
+                        MessageBox.Show("Удалять проверенные слова можно только по одному.");
+                        return;
+                    }
+
+                    iCheckedRow = iLexeme;
+                }
+
+                string sLexemeHash = LexemeHash(iCheckedRow);
+                EM_TestResult eTestResult = EM_TestResult.TEST_RESULT_UNDEFINED;
+                var eRet = m_MainModel.DeleteSavedLexeme(sLexemeHash, ref eTestResult);
 
             }   //  foreach (DataGridViewRow row in dataGridView.Rows)
             catch (Exception ex)

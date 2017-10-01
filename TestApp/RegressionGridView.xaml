@@ -18,12 +18,12 @@
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.Header>
-                        <CheckBox x:Name="HeaderCheckBox" IsChecked="True" />
+                        <CheckBox x:Name="HeaderCheckBox" IsChecked="True" Checked="HeaderCheckBox_Checked" Unchecked="HeaderCheckBox_Unchecked" />
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox x:Name="ItemCheckBox"  IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged, ElementName=HeaderCheckBox, Mode=OneWay}" Checked="ItemCheckBox_Checked" Unchecked="ItemCheckBox_Unchecked" /> 
-<!--                            <CheckBox IsChecked="{Binding IsChecked}" />  -->
+<!--                            <CheckBox x:Name="ItemCheckBox"  IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged, ElementName=HeaderCheckBox, Mode=OneWay}" Checked="ItemCheckBox_Checked" Unchecked="ItemCheckBox_Unchecked" />   -->
+                            <CheckBox IsChecked="{Binding IsChecked}" Checked="ItemCheckBox_Checked" Unchecked="ItemCheckBox_Unchecked" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
