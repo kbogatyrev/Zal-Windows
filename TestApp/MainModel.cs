@@ -150,6 +150,16 @@ namespace ZalTestApp
             return true;
         }
 
+        public bool IsL2Optonal(CLexemeManaged lexeme)
+        {
+            return lexeme.bSecondLocativeOptional();
+        }
+
+        public string sGetL2Prepositions(CLexemeManaged lexeme)
+        {
+            return lexeme.sLoc2Preposition();
+        }
+
         public void RemoveLexeme(CLexemeManaged l)
         {
             string sLexemeHash = l.sHash();
@@ -211,13 +221,13 @@ namespace ZalTestApp
                     eRet = lexeme.eGenerateParadigm();
                     if (eRet != EM_ReturnCode.H_NO_ERROR)
                     {
-                        System.Windows.MessageBox.Show("Error generating paradigm.");
-                        return;
+//                        System.Windows.MessageBox.Show("Error generating paradigm.");
+//                        return;
                     }
 
                     if (!bArrangeParadigm(lexeme))
                     {
-                        System.Windows.MessageBox.Show("Unable to generate forms.");
+//                        System.Windows.MessageBox.Show("Unable to generate forms.");
                     }
                 }
 
@@ -361,20 +371,26 @@ namespace ZalTestApp
             CWordFormManaged wf = null;
             EM_ReturnCode eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
 
-            while (EM_ReturnCode.H_NO_ERROR == eRet)
+            while (EM_ReturnCode.H_NO_ERROR == eRet || EM_ReturnCode.H_FALSE == eRet)
             {
-                string sKey = "Noun_" + Helpers.sNumberToString(wf.eNumber());
-                sKey += "_";
-                sKey += Helpers.sCaseToString(wf.eCase());
-
-                string sWordForm = wf.sWordForm();
-                Helpers.MarkStress(ref sWordForm, wf);
-
-                if (!paradigm.ContainsKey(sKey))
+                try
                 {
-                    paradigm[sKey] = new List<string>();
+                    string sKey = "Noun_" + Helpers.sNumberToString(wf.eNumber());
+                    sKey += "_";
+                    sKey += Helpers.sCaseToString(wf.eCase());
+
+                    string sWordForm = wf.sWordForm();
+                    Helpers.MarkStress(ref sWordForm, wf);
+
+                    if (!paradigm.ContainsKey(sKey))
+                    {
+                        paradigm[sKey] = new List<string>();
+                    }
+                    paradigm[sKey].Add(sWordForm);
                 }
-                paradigm[sKey].Add(sWordForm);
+                catch
+                {
+                }
 
                 eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
 
@@ -382,8 +398,8 @@ namespace ZalTestApp
 
             if (eRet != EM_ReturnCode.H_NO_MORE)
             {
-                System.Windows.MessageBox.Show("Error generating noun forms.");
-                return false;
+//                System.Windows.MessageBox.Show("Error generating noun forms.");
+                return true;        // OK to show empty paradigm
             }
 
             string sHash = lexeme.sHash();

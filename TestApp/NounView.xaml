@@ -7,7 +7,7 @@
         mc:Ignorable="d">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0"  >
-        <Grid>
+        <Grid Width="597" Height="465">
             <TextBox Text="Sg" Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
             <TextBox Text="Pl" Margin="445,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
 
@@ -32,6 +32,9 @@
 
             <TextBox Text="{Binding Path=Noun_Sg_Part}" Margin="70,350,0,0" Style="{StaticResource FormText}" />
             <TextBox Text="{Binding Path=Noun_Sg_L}" Margin="70,395,0,0" Style="{StaticResource FormText}" />
+            <CheckBox Content="Факульт." IsChecked="{Binding Path=Is_L2_optional}" HorizontalAlignment="Left" Margin="252,402,0,0" VerticalAlignment="Top" Width="87"/>
+            <Label Content="Предлоги:" HorizontalAlignment="Left" Margin="350,396,0,0" VerticalAlignment="Top" Width="66"/>
+            <TextBox Text="{Binding Path=Noun_Sg_L2_Prepositions}" Margin="421,395,0,0" Style="{StaticResource FormText}" Width="63" />
 
             <!-- Plural -->
             <!-- Case Labels -->

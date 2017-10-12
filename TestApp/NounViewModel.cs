@@ -156,6 +156,34 @@ namespace ZalTestApp
             }
         }
 
+        private bool m_bIs_L2_optional = false;
+        public bool Is_L2_optional
+        {
+            get
+            {
+                return m_bIs_L2_optional;
+            }
+            set
+            {
+                m_bIs_L2_optional = value;
+                OnPropertyChanged("Is_L2_optional");
+            }
+        }
+
+        private string m_sNoun_Sg_L2_Prepositions;
+        public string Noun_Sg_L2_Prepositions
+        {
+            get
+            {
+                return m_sNoun_Sg_L2_Prepositions;
+            }
+            set
+            {
+                m_sNoun_Sg_L2_Prepositions = value;
+                OnPropertyChanged("Noun_Sg_L2_Prepositions");
+            }
+        }
+
         private string m_sNoun_Pl_N;
         public string Noun_Pl_N
         {
@@ -279,7 +307,11 @@ namespace ZalTestApp
             m_MainModel.GetFormsByGramHash(sLexemeHash, "Noun_Sg_Part", out forms);
             Noun_Sg_Part = Helpers.sListToCommaSeparatedString(forms);
             m_MainModel.GetFormsByGramHash(sLexemeHash, "Noun_Sg_L", out forms);
+
             Noun_Sg_L = Helpers.sListToCommaSeparatedString(forms);
+            Noun_Sg_L2_Prepositions = m_MainModel.sGetL2Prepositions(lexeme);
+
+            Is_L2_optional = m_MainModel.IsL2Optonal(lexeme);
 
             m_MainModel.GetFormsByGramHash(sLexemeHash, "Noun_Pl_N", out forms);
             Noun_Pl_N = Helpers.sListToCommaSeparatedString(forms);
