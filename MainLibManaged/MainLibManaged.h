@@ -8,6 +8,7 @@
 #include "Gramhasher.h"
 #include "IParser.h"
 #include "IVerifier.h"
+#include "IAspectPair.h"
 #include "..\Hlib-Windows\SqliteWrapper.h"
 #include "EnumsManaged.h"
 
@@ -99,9 +100,13 @@ namespace MainLibManaged
         bool bSecondLocative();
         bool bSecondLocativeOptional();
         String^ sLoc2Preposition();
-        bool bHasAspectPair();
-        int iAspectPairType();
-        String^ sAspectPairComment();
+		bool bHasAspectPair();
+		bool bHasAltAspectPair();
+		int iAspectPairType();
+		int iAltAspectPairType();
+		String^ sAltAspectPairComment();
+        EM_ReturnCode eGetAspectPair(String^% sAspectPair, int% iStressPos);
+        EM_ReturnCode eGetAltAspectPair(String^% sAltAspectPair, int% iAltStressPos);
         String^ sQuestionableForms();
         bool bHasIrregularVariants();
         bool bHasDeficiencies();
@@ -145,7 +150,11 @@ namespace MainLibManaged
         EM_ReturnCode eGetNextStemStressPos(int% iPos);
 //        EM_ReturnCode eSetDb(String^ sDbPath);
         EM_ReturnCode eGenerateParadigm();
+//        EM_ReturnCode eBuildAspectPair();
         EM_ReturnCode eSaveTestData();
+
+    protected:
+//        EM_ReturnCode eGetAspectPair(String^%, int%, bool bIsVariant);
 
     };  //  public ref class CLexemeManaged
 

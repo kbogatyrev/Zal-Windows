@@ -945,6 +945,16 @@ bool CLexemeManaged::bHasAspectPair()
     return m_pLexeme->bHasAspectPair();
 }
  
+bool CLexemeManaged::bHasAltAspectPair()
+{
+	if (NULL == m_pLexeme)
+	{
+		throw gcnew Exception(L"Lexeme object is NULL.");
+	}
+
+	return m_pLexeme->bHasAltAspectPair();
+}
+
 int CLexemeManaged::iAspectPairType()
 {
     if (NULL == m_pLexeme)
@@ -954,16 +964,136 @@ int CLexemeManaged::iAspectPairType()
     return m_pLexeme->iAspectPairType();
 }
  
-String^ CLexemeManaged::sAspectPairComment()
+int CLexemeManaged::iAltAspectPairType()
+{
+	if (NULL == m_pLexeme)
+	{
+		throw gcnew Exception(L"Lexeme object is NULL.");
+	}
+	return m_pLexeme->iAltAspectPairType();
+}
+
+String^ CLexemeManaged::sAltAspectPairComment()
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(m_pLexeme->sAspectPairComment());
+    return gcnew String(m_pLexeme->sAltAspectPairComment());
 }
- 
+
+/*
+EM_ReturnCode CLexemeManaged::eGetAspectPair(String^% sAspectPair, int% iStressPos, bool bIsVariant)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    IAspectPair * pAspectPair = NULL;
+    ET_ReturnCode eRet = m_pLexeme->eGetAspectPairs(pAspectPair);
+    if (eRet != H_NO_ERROR)
+    {
+        return (EM_ReturnCode)eRet;
+    }
+
+    IWordForm * pWordForm = NULL;
+    if (!bIsVariant)
+    {
+        eRet = pAspectPair->eGetFirstAspectPair(pWordForm);
+        if (eRet != H_NO_ERROR)
+        {
+            return (EM_ReturnCode)eRet;
+        }
+    }
+    else
+    {
+        if (m_pLexeme->bHasAltAspectPair())
+        {
+            eRet = pAspectPair->eGetFirstAltAspectPair(pWordForm);
+            if (eRet != H_NO_ERROR)
+            {
+                return (EM_ReturnCode)eRet;
+            }
+        }
+        else
+        {
+            return (EM_ReturnCode)H_FALSE;
+        }
+    }
+
+    if (pWordForm->eSubparadigm() != SUBPARADIGM_INFINITIVE)
+    {
+        return (EM_ReturnCode)H_ERROR_UNEXPECTED;
+    }
+
+    sAspectPair = gcnew String(pWordForm->sWordForm());
+
+    int iSp = -1;
+    ET_StressType eType = ET_StressType::STRESS_TYPE_UNDEFINED;
+    eRet = pWordForm->eGetFirstStressPos(iSp, eType);
+    while (H_NO_ERROR == eRet && eType != ET_StressType::STRESS_PRIMARY)
+    {
+        eRet = pWordForm->eGetNextStressPos(iSp, eType);
+    }
+
+    if (eRet != H_NO_ERROR && eRet != H_NO_MORE)
+    {
+        return (EM_ReturnCode)eRet;
+    }
+
+    iStressPos = iSp;
+
+    return EM_ReturnCode(H_NO_ERROR);
+
+}       // eGetAspectPair(String^% sAspectPair, int% iStressPos, bool bIsVariant) -- PRIVATE
+*/
+
+EM_ReturnCode CLexemeManaged::eGetAspectPair(String^% sAspectPair, int% iStressPos)
+{
+    if (!bHasAspectPair())
+    {
+        return EM_ReturnCode::H_FALSE;
+    }
+
+    CEString sAp;
+    int iSp = -1;
+    ET_ReturnCode eRet = m_pLexeme->eGetAspectPair(sAp, iSp);
+    if (eRet != H_NO_ERROR)
+    {
+        return (EM_ReturnCode)eRet;
+    }
+
+    sAspectPair = gcnew String(sAp);
+    iStressPos = iSp;
+
+    return (EM_ReturnCode)eRet;
+
+}       //  eGetAspectPair()
+
+EM_ReturnCode CLexemeManaged::eGetAltAspectPair(String^% sAltAspectPair, int% iAltStressPos)
+{
+    if (!bHasAltAspectPair())
+    {
+        return EM_ReturnCode::H_FALSE;
+    }
+
+    CEString sAp;
+    int iSp = -1;
+    ET_ReturnCode eRet = m_pLexeme->eGetAltAspectPair(sAp, iSp);
+    if (eRet != H_NO_ERROR)
+    {
+        return (EM_ReturnCode)eRet;
+    }
+
+    sAltAspectPair = gcnew String(sAp);
+    iAltStressPos = iSp;
+
+    return (EM_ReturnCode)eRet;
+
+}       //  eGetAltAspectPair()
+
 String^ CLexemeManaged::sQuestionableForms()
 {
     if (NULL == m_pLexeme)
@@ -1486,6 +1616,18 @@ EM_ReturnCode CLexemeManaged::eGenerateParadigm()
 
     return (EM_ReturnCode)m_pLexeme->eGenerateParadigm();
 }
+
+/*
+EM_ReturnCode CLexemeManaged::eBuildAspectPair()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pLexeme->eGenerateParadigm();
+}
+*/
 
 EM_ReturnCode CLexemeManaged::eSaveTestData()
 {

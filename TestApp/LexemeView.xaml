@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d">
-    <Border BorderBrush="Black" BorderThickness="1" Margin="20,40,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Height="365" Grid.Column="0">
+    <Border BorderBrush="Black" BorderThickness="1" Margin="20,40,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="330" Height="365" Grid.Column="0">
         <Grid Margin="0,0,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="170"/>
-                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="136"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
@@ -25,20 +25,22 @@
 
             <!--                <TextBlock Style="{DynamicResource NameField}" Text="Исходная форма"/>  -->
             <!--                <TextBlock Style="{DynamicResource NameField}" Text="Графическая основа" Grid.Row="1"/> -->
-            <TextBlock Style="{DynamicResource NameField}" Text="Основной символ" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left"/>
-            <TextBlock Style="{DynamicResource NameField}" Text="Индекс" Grid.Row="2" HorizontalAlignment="Left"/>
-            <TextBlock Style="{DynamicResource NameField}" Text="Схема ударения" Grid.Row="3" HorizontalAlignment="Left"/>
-            <TextBlock Style="{DynamicResource NameField}" Text="Доп. информация" Grid.Row="4" HorizontalAlignment="Left" />
+            <TextBlock Style="{DynamicResource NameField}" Text="Основной символ" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Height="19" Margin="3,6,0,5.222" Width="122"/>
+            <TextBlock Style="{DynamicResource NameField}" Text="Индекс" Grid.Row="2" HorizontalAlignment="Left" Height="20" Margin="3,5.778,0,4.444" Width="50"/>
+            <TextBlock Style="{DynamicResource NameField}" Text="Схема ударения" Grid.Row="3" HorizontalAlignment="Left" Height="20" Margin="3,5.556,0,4.667" Width="109"/>
+            <TextBlock Style="{DynamicResource NameField}" Text="Видовая пара" Grid.Row="4" HorizontalAlignment="Left" Margin="3,5.111,0,5.111" Height="20" Width="93" />
+            <TextBlock Style="{DynamicResource NameField}" Text="Доп. информация" Grid.Row="5" HorizontalAlignment="Left" Height="20" Margin="3,5.333,0,4.889" Width="122" />
 
             <!--                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=SourceForm}" Grid.Column="1"/>  -->
             <!--                <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=GraphicStem}" Grid.Row="1" Grid.Column="1"/>  -->
-            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=MainSymbol}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" />
-            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Index}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" />
-            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=StressSchema}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" />
-            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Advanced}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" />
+            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=MainSymbol}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="7,6,0,5.222"  />
+            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Index}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="7,6,0,4.444"  />
+            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=StressSchema}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="7,6,0,4.667"  />
+            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=AspectPair}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="7,6,0,4.889"  />
+            <TextBlock Style="{DynamicResource DataField}" Text="{Binding Path=Advanced}" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="7,6,0,4.889"  />
 
             <!--<Button Style="{DynamicResource BtnLarge}" Content="Парадигма" Command="{Binding ShowParadigmCommand}" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Margin="10,-10,0,0" />-->
-            <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveParadigmCommand}" Grid.Column="0" Grid.Row="6" Grid.RowSpan="2" Margin="60,16,0,0" />
+            <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveParadigmCommand}" Grid.Column="0" Grid.Row="8" Margin="89,0.889,89.444,1.111" Height="Auto" Width="Auto" Grid.ColumnSpan="2" />
         </Grid>
     </Border>
 </UserControl>

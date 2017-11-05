@@ -761,6 +761,5 @@ namespace ZalTestApp
                 return false;
             }
         }
-
     }       //  public class MainModel
 }       //  namespace ZalTestApp

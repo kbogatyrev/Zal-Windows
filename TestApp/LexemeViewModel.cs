@@ -141,6 +141,37 @@ namespace ZalTestApp
                 return sRet;
             }
         }
+
+        public string AspectPair
+        {
+            get
+            {
+                string sAspectPair = "";
+                try
+                {
+                    if (m_Lexeme.bHasAspectPair())
+                    {
+                        int iStressPos = -1;
+                        m_Lexeme.eGetAspectPair(ref sAspectPair, ref iStressPos);
+                        if (sAspectPair[iStressPos] != 'ё')
+                        {
+                            char chrMark = '\x301';
+                            sAspectPair = sAspectPair.Insert(iStressPos+1, chrMark.ToString());
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string sMsg = "Error accessing aspect pair. ";
+                    sMsg += ex.Message;
+                    MessageBox.Show(sMsg, "Zal Error");
+                }
+
+                return sAspectPair;
+            }
+        }
+
+
         #endregion
 
         public LexemeViewModel()
@@ -193,8 +224,18 @@ namespace ZalTestApp
         {
             try
             {
-                m_Lexeme.eGenerateParadigm();
-                m_Lexeme.eSaveTestData();
+                EM_ReturnCode eRet = m_Lexeme.eGenerateParadigm();
+                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                {
+                    MessageBox.Show("Не удалось породить парадигму.", "Zal");
+                    return;
+                }
+                eRet = m_Lexeme.eSaveTestData();
+                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                {
+                    MessageBox.Show("Ошибка при попытке сохранить парадигму.", "Zal");
+                    return;
+                }
                 MessageBox.Show("Парадигма сохранена.", "Zal");
             }
             catch (Exception ex)
