@@ -392,62 +392,6 @@ EM_ReturnCode CDictionaryManaged::eGetNextLexeme(CLexemeManaged^% lexeme)
     return (EM_ReturnCode)eRet;
 }
 
-/*
-EM_ReturnCode CDictionaryManaged::eAnalyze(String^ sForm)
-{
-    if (NULL == m_pDictionary)
-    {
-        throw gcnew Exception(L"Dictionary object is NULL.");
-    }
-
-    return (EM_ReturnCode)m_pDictionary->eAnalyze(sFromManagedString(sForm));
-}
-
-EM_ReturnCode CDictionaryManaged::eGetFirstWordForm(CWordFormManaged^% wordform)
-{
-    if (NULL == m_pDictionary)
-    {
-        throw gcnew Exception(L"Dictionary object is NULL.");
-    }
-
-    IWordForm * pWordForm = NULL;
-    ET_ReturnCode eRet = m_pDictionary->eGetFirstWordForm(pWordForm);
-    if (H_NO_ERROR == eRet)
-    {
-        if (pWordForm)
-        {
-            wordform = gcnew CWordFormManaged(pWordForm);
-        }
-    }
-
-    return (EM_ReturnCode)eRet;
-}
-
-EM_ReturnCode CDictionaryManaged::eGetNextWordForm(CWordFormManaged^% wordform)
-{
-    if (NULL == m_pDictionary)
-    {
-        throw gcnew Exception(L"Dictionary object is NULL.");
-    }
-
-    IWordForm * pWordForm = NULL;
-    ET_ReturnCode eRet = m_pDictionary->eGetNextWordForm(pWordForm);
-    if (H_NO_ERROR == eRet)
-    {
-        if (pWordForm)
-        {
-            wordform = gcnew CWordFormManaged(pWordForm);
-        }
-        else
-        {
-            return EM_ReturnCode::H_ERROR_UNEXPECTED;
-        }
-    }
-
-    return (EM_ReturnCode)eRet;
-}
-*/
-
 void CDictionaryManaged::Clear()
 {
     if (NULL == m_pDictionary)
@@ -982,73 +926,6 @@ String^ CLexemeManaged::sAltAspectPairComment()
 
     return gcnew String(m_pLexeme->sAltAspectPairComment());
 }
-
-/*
-EM_ReturnCode CLexemeManaged::eGetAspectPair(String^% sAspectPair, int% iStressPos, bool bIsVariant)
-{
-    if (NULL == m_pLexeme)
-    {
-        throw gcnew Exception(L"Lexeme object is NULL.");
-    }
-
-    IAspectPair * pAspectPair = NULL;
-    ET_ReturnCode eRet = m_pLexeme->eGetAspectPairs(pAspectPair);
-    if (eRet != H_NO_ERROR)
-    {
-        return (EM_ReturnCode)eRet;
-    }
-
-    IWordForm * pWordForm = NULL;
-    if (!bIsVariant)
-    {
-        eRet = pAspectPair->eGetFirstAspectPair(pWordForm);
-        if (eRet != H_NO_ERROR)
-        {
-            return (EM_ReturnCode)eRet;
-        }
-    }
-    else
-    {
-        if (m_pLexeme->bHasAltAspectPair())
-        {
-            eRet = pAspectPair->eGetFirstAltAspectPair(pWordForm);
-            if (eRet != H_NO_ERROR)
-            {
-                return (EM_ReturnCode)eRet;
-            }
-        }
-        else
-        {
-            return (EM_ReturnCode)H_FALSE;
-        }
-    }
-
-    if (pWordForm->eSubparadigm() != SUBPARADIGM_INFINITIVE)
-    {
-        return (EM_ReturnCode)H_ERROR_UNEXPECTED;
-    }
-
-    sAspectPair = gcnew String(pWordForm->sWordForm());
-
-    int iSp = -1;
-    ET_StressType eType = ET_StressType::STRESS_TYPE_UNDEFINED;
-    eRet = pWordForm->eGetFirstStressPos(iSp, eType);
-    while (H_NO_ERROR == eRet && eType != ET_StressType::STRESS_PRIMARY)
-    {
-        eRet = pWordForm->eGetNextStressPos(iSp, eType);
-    }
-
-    if (eRet != H_NO_ERROR && eRet != H_NO_MORE)
-    {
-        return (EM_ReturnCode)eRet;
-    }
-
-    iStressPos = iSp;
-
-    return EM_ReturnCode(H_NO_ERROR);
-
-}       // eGetAspectPair(String^% sAspectPair, int% iStressPos, bool bIsVariant) -- PRIVATE
-*/
 
 EM_ReturnCode CLexemeManaged::eGetAspectPair(String^% sAspectPair, int% iStressPos)
 {
@@ -1616,18 +1493,6 @@ EM_ReturnCode CLexemeManaged::eGenerateParadigm()
 
     return (EM_ReturnCode)m_pLexeme->eGenerateParadigm();
 }
-
-/*
-EM_ReturnCode CLexemeManaged::eBuildAspectPair()
-{
-    if (NULL == m_pLexeme)
-    {
-        throw gcnew Exception(L"Lexeme object is NULL.");
-    }
-
-    return (EM_ReturnCode)m_pLexeme->eGenerateParadigm();
-}
-*/
 
 EM_ReturnCode CLexemeManaged::eSaveTestData()
 {

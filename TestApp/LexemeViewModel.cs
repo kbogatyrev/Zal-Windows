@@ -149,7 +149,7 @@ namespace ZalTestApp
                 string sAspectPair = "";
                 try
                 {
-                    if (m_Lexeme.bHasAspectPair())
+                    if (m_Lexeme != null && m_Lexeme.bHasAspectPair())
                     {
                         int iStressPos = -1;
                         m_Lexeme.eGetAspectPair(ref sAspectPair, ref iStressPos);
