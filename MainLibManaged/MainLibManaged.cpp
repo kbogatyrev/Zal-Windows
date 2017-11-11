@@ -616,6 +616,32 @@ String^ CLexemeManaged::sSourceForm()
     return gcnew String(m_pLexeme->sSourceForm());
 }
  
+bool CLexemeManaged::bHasHomonyms()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return m_pLexeme->stGetProperties().vecHomonyms.size() > 0;
+}
+
+List<int>^ CLexemeManaged::arrHomonyms()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    List<int>^ lHomonyms = gcnew List<int>();
+    for (int iHomonymNumber : m_pLexeme->stGetProperties().vecHomonyms)
+    {
+        lHomonyms->Add(iHomonymNumber);
+    }
+
+    return lHomonyms;
+}
+
  //    CSqlite * CLexemeManaged::pGetDb()
  //{}
  

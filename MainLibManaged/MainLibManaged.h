@@ -74,6 +74,8 @@ namespace MainLibManaged
         bool bHasYoAlternation();
         bool bHasOAlternation();
         String^ sSourceForm();
+        bool bHasHomonyms();
+        List<int>^ arrHomonyms();
         String^ sHeadwordComment();
         bool bIsUnstressed();
         bool bIsVariant();
