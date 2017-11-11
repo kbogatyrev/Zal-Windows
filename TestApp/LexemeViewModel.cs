@@ -1,13 +1,43 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 using MainLibManaged;
+using System.Collections.Generic;
 
 namespace ZalTestApp
 {
+    public class LexemeProperty : ViewModelBase
+    {
+        private string m_sName;
+        private string m_sValue;
+
+        public string LexemePropertyName
+        {
+            get { return m_sName; }
+            set
+            {
+                m_sName = value;
+                OnPropertyChanged("LexemePropertyName");
+            }
+        }
+
+        public string LexemePropertyValue
+        {
+            get { return m_sValue; }
+            set
+            {
+                m_sValue = value;
+                OnPropertyChanged("LexemePropertyValue");
+            }
+        }
+    }
+
     public class LexemeViewModel : ViewModelBase
     {
+        public ObservableCollection<LexemeProperty> LexemeDetails { get; private set; }
+
         private CLexemeManaged m_Lexeme = null;
         public CLexemeManaged Lexeme
         {
@@ -74,106 +104,6 @@ namespace ZalTestApp
         }
         #endregion
 
-        #region Bindings
-        public string SourceForm
-        {
-            get
-            {
-                if (null == m_Lexeme)
-                {
-                    return "";
-                }
-                return m_Lexeme.sSourceForm();
-            }
-        }
-        public string GraphicStem
-        {
-            get
-            {
-                if (null == m_Lexeme)
-                {
-                    return "";
-                }
-                return m_Lexeme.sGraphicStem();
-            }
-        }
-
-        public string MainSymbol
-        {
-            get
-            {
-                if (null == m_Lexeme)
-                {
-                    return "";
-                }
-                return m_Lexeme.sMainSymbol();
-            }
-        }
-
-        public string Index
-        {
-            get
-            {
-                if (null == m_Lexeme)
-                {
-                    return "";
-                }
-                return m_Lexeme.iType().ToString();
-            }
-        }
-
-        public string StressSchema
-        {
-            get
-            {
-                if (null == m_Lexeme)
-                {
-                    return "";
-                }
-
-                var eAp1 = m_Lexeme.eAccentType1();
-                string sRet = Helpers.sAccenTypeToStressSchema(eAp1);
-                var eAp2 = m_Lexeme.eAccentType2();
-                if (eAp2 != EM_AccentType.AT_UNDEFINED)
-                {
-                    sRet += "/" + Helpers.sAccenTypeToStressSchema(eAp2);
-                }
-                return sRet;
-            }
-        }
-
-        public string AspectPair
-        {
-            get
-            {
-                string sAspectPair = "";
-                try
-                {
-                    if (m_Lexeme != null && m_Lexeme.bHasAspectPair())
-                    {
-                        int iStressPos = -1;
-                        m_Lexeme.eGetAspectPair(ref sAspectPair, ref iStressPos);
-                        if (sAspectPair[iStressPos] != 'ё')
-                        {
-                            char chrMark = '\x301';
-                            sAspectPair = sAspectPair.Insert(iStressPos+1, chrMark.ToString());
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    string sMsg = "Error accessing aspect pair. ";
-                    sMsg += ex.Message;
-                    MessageBox.Show(sMsg, "Zal Error");
-                }
-
-                return sAspectPair;
-            }
-        }
-
-
-        #endregion
-
         public LexemeViewModel()
         {
             m_Lexeme = null;
@@ -188,6 +118,102 @@ namespace ZalTestApp
             ShowParadigmCommand = new RelayCommand(new Action<object>(ShowParadigm));
             SaveParadigmCommand = new RelayCommand(new Action<object>(SaveParadigm));
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
+
+            LexemeDetails = new ObservableCollection<LexemeProperty>();
+
+            CollectLexemeProperties();
+        }
+
+        private void AddProperty(string sName, string sValue)
+        {
+            LexemeProperty lp = new LexemeProperty();
+            lp.LexemePropertyName = sName;
+            lp.LexemePropertyValue = sValue;
+            LexemeDetails.Add(lp);
+        }
+
+        private void CollectLexemeProperties()
+        {
+            if (null == m_Lexeme)
+            {
+                return;
+            }
+
+            AddProperty("Исходная форма", m_Lexeme.sSourceForm());
+
+            List<int> arrHomonyms = m_Lexeme.arrHomonyms();
+            if (arrHomonyms.Count > 0)
+            {
+                string sHomonyms = "";
+                foreach (int iHomonym in arrHomonyms)
+                {
+                    if (sHomonyms.Length > 0)
+                    {
+                        sHomonyms += ", ";
+                    }
+                    sHomonyms += iHomonym.ToString();
+                }
+                AddProperty("Омонимы", sHomonyms);
+            }
+
+            AddProperty("Графическая основа", m_Lexeme.sGraphicStem());
+
+            string sMainSymbol = m_Lexeme.sMainSymbol();
+            if (m_Lexeme.sAltMainSymbol().Length > 0)
+            {
+                sMainSymbol += "//";
+                sMainSymbol += m_Lexeme.sAltMainSymbol();
+                if (m_Lexeme.sAltMainSymbolComment().Length > 0)
+                {
+                    sMainSymbol += " " + m_Lexeme.sAltMainSymbolComment();
+                }
+            }
+            AddProperty("Основной символ", sMainSymbol);
+
+            AddProperty("Индекс", m_Lexeme.iType().ToString());
+
+            var eAp1 = m_Lexeme.eAccentType1();
+            string sRet = Helpers.sAccenTypeToStressSchema(eAp1);
+            var eAp2 = m_Lexeme.eAccentType2();
+            if (eAp2 != EM_AccentType.AT_UNDEFINED)
+            {
+                sRet += "/" + Helpers.sAccenTypeToStressSchema(eAp2);
+            }
+            AddProperty("Схема ударения", sRet);
+
+            if (Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
+            {
+                if (m_Lexeme.bHasAspectPair())
+                {
+                    string sAspectPair = "";
+                    string sAltAspectPair = "";
+                    int iStressPos = -1;
+                    m_Lexeme.eGetAspectPair(ref sAspectPair, ref iStressPos);
+                    if (sAspectPair[iStressPos] != 'ё')
+                    {
+                        char chrMark = '\x301';
+                        sAspectPair = sAspectPair.Insert(iStressPos + 1, chrMark.ToString());
+                    }
+
+                    if (m_Lexeme.bHasAltAspectPair())
+                    {
+                        int iAltStressPos = -1;
+                        m_Lexeme.eGetAltAspectPair(ref sAltAspectPair, ref iAltStressPos);
+                        if (sAltAspectPair[iAltStressPos] != 'ё')
+                        {
+                            char chrMark = '\x301';
+                            sAltAspectPair = sAltAspectPair.Insert(iAltStressPos + 1, chrMark.ToString());
+                        }
+                    }
+
+                    sAspectPair += ", ";
+                    sAspectPair += sAltAspectPair;
+
+                    AddProperty("Видовая пара", sAspectPair);
+                }
+            }
+
+
         }
 
         private void ShowParadigm(object arg)
