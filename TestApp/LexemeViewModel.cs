@@ -270,35 +270,41 @@ namespace ZalTestApp
             {
                 if (m_Lexeme.bHasAspectPair())
                 {
-                    string sAspectPair = "";
-                    string sAltAspectPair = "";
-                    int iStressPos = -1;
-                    m_Lexeme.eGetAspectPair(ref sAspectPair, ref iStressPos);
-                    if (sAspectPair[iStressPos] != 'ё')
+                    try
                     {
-                        char chrMark = '\x301';
-                        sAspectPair = sAspectPair.Insert(iStressPos + 1, chrMark.ToString());
-                    }
-
-                    if (m_Lexeme.bHasAltAspectPair())
-                    {
-                        int iAltStressPos = -1;
-                        m_Lexeme.eGetAltAspectPair(ref sAltAspectPair, ref iAltStressPos);
-                        if (sAltAspectPair[iAltStressPos] != 'ё')
+                        string sAspectPair = "";
+                        string sAltAspectPair = "";
+                        int iStressPos = -1;
+                        m_Lexeme.eGetAspectPair(ref sAspectPair, ref iStressPos);
+                        if (sAspectPair[iStressPos] != 'ё')
                         {
                             char chrMark = '\x301';
-                            sAltAspectPair = sAltAspectPair.Insert(iAltStressPos + 1, chrMark.ToString());
+                            sAspectPair = sAspectPair.Insert(iStressPos + 1, chrMark.ToString());
                         }
+
+                        if (m_Lexeme.bHasAltAspectPair())
+                        {
+                            int iAltStressPos = -1;
+                            m_Lexeme.eGetAltAspectPair(ref sAltAspectPair, ref iAltStressPos);
+                            if (sAltAspectPair[iAltStressPos] != 'ё')
+                            {
+                                char chrMark = '\x301';
+                                sAltAspectPair = sAltAspectPair.Insert(iAltStressPos + 1, chrMark.ToString());
+                            }
+                        }
+                        sAspectPair += ", ";
+                        sAspectPair += sAltAspectPair;
+                        AddProperty("Видовая пара", sAspectPair);
                     }
-
-                    sAspectPair += ", ";
-                    sAspectPair += sAltAspectPair;
-
-                    AddProperty("Видовая пара", sAspectPair);
+                    catch (Exception ex)
+                    {
+                        string sMsg = "Ошибка при порождении видовой пары: ";
+                        sMsg += ex.Message;
+                        MessageBox.Show(sMsg, "Zal Error");
+                        return;
+                    }
                 }
             }
-
-
         }
 
         private void ShowParadigm(object arg)
