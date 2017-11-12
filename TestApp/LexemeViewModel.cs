@@ -156,6 +156,91 @@ namespace ZalTestApp
                 AddProperty("Омонимы", sHomonyms);
             }
 
+            if (m_Lexeme.sHeadwordComment().Length > 0)
+            {
+                AddProperty("Доп. помета (1)", m_Lexeme.sHeadwordComment());
+            }
+
+            if (m_Lexeme.sPluralOf().Length > 0)
+            {
+                AddProperty("Мн. от", m_Lexeme.sPluralOf());
+            }
+
+            if (m_Lexeme.sUsage().Length > 0)
+            {
+                AddProperty("Доп. помета (2)", m_Lexeme.sUsage());
+            }
+
+            //            if (m_Lexeme.sHeadwordVariantComment().Length > 0)
+            //            {
+            //                AddProperty("Доп. помета", m_Lexeme.sHeadwordVariantComment());
+            //            }
+
+            if (m_Lexeme.sSeeRef().Length > 0)
+            {
+                AddProperty("См. также", m_Lexeme.sSeeRef());
+            }
+
+            if (m_Lexeme.sTrailingComment().Length > 0)
+            {
+                AddProperty("Доп. помета (3)", m_Lexeme.sTrailingComment());
+            }
+
+            if (m_Lexeme.sRestrictedForms().Length > 0)
+            {
+                AddProperty("Фразеологизмы", m_Lexeme.sRestrictedForms());
+            }
+
+            if (m_Lexeme.bNoComparative())
+            {
+                AddProperty("Нет сравнительной степени", "");
+            }
+
+            if (m_Lexeme.bAssumedForms())
+            {
+                AddProperty("Есть гипотетические формы", "");
+            }
+
+            if (m_Lexeme.bHasIrregularForms())
+            {
+                AddProperty("Есть нерегулярные формы", "");
+            }
+
+            if (m_Lexeme.bHasIrregularVariants())
+            {
+                AddProperty("Есть нерегулярные варианты", "");
+            }
+
+            if (m_Lexeme.bHasDeficiencies())
+            {
+                AddProperty("Неполная парадигма", "");
+            }
+
+            if (m_Lexeme.bShortFormsRestricted())
+            {
+                AddProperty("Краткие формы затруднительны", "");
+            }
+
+            if (m_Lexeme.bShortFormsIncomplete())
+            {
+                AddProperty("Краткие формы ограничены", "");
+            }
+
+            if (m_Lexeme.bNoLongForms())
+            {
+                AddProperty("Нет полных форм", "");
+            }
+
+            if (m_Lexeme.bPastParticipleRestricted())
+            {
+                AddProperty("Прич. прош. страд. затрудн.", "");
+            }
+
+            if (m_Lexeme.bNoLongForms())
+            {
+                AddProperty("Нет прич. прошю страд.", "");
+            }
+
             AddProperty("Графическая основа", m_Lexeme.sGraphicStem());
 
             string sMainSymbol = m_Lexeme.sMainSymbol();

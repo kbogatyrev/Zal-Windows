@@ -451,7 +451,8 @@ namespace ZalTestApp
                         continue;
                     }
 
-                    if (lexeme.llLexemeId() == knownLvm.Lexeme.llLexemeId())
+                    if (lexeme.llLexemeId() == knownLvm.Lexeme.llLexemeId() && 
+                            lexeme.iInflectionId() == knownLvm.Lexeme.iInflectionId())
                     {
                         bIsNewLexeme = false;
                         break;

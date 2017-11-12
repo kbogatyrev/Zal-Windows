@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,40,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="330" Height="365" Grid.Column="0" >
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,40,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="340" Height="365" Grid.Column="0" >
         <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" >
             <Grid Margin="0,0,0,0" VerticalAlignment="Top">
                 <ItemsControl ItemsSource="{Binding LexemeDetails}" Grid.IsSharedSizeScope="True">
@@ -14,7 +14,7 @@
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150" SharedSizeGroup="one" />
+                                    <ColumnDefinition Width="200" SharedSizeGroup="one" />
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="two" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left"/>

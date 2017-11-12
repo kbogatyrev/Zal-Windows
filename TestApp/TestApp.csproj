@@ -66,6 +66,9 @@
       <DependentUpon>EnterDataDlg.xaml</DependentUpon>
     </Compile>
     <Compile Include="EnterDataViewModel.cs" />
+    <Compile Include="LexemeDetailsView.xaml.cs">
+      <DependentUpon>LexemeDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LexemeGridViewModel.cs" />
     <Compile Include="LexemeView.xaml.cs">
       <DependentUpon>LexemeView.xaml</DependentUpon>
@@ -94,6 +97,10 @@
       <DependentUpon>ProgressDialog.xaml</DependentUpon>
     </Compile>
     <Page Include="EnterDataDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LexemeDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
