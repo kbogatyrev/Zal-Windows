@@ -654,7 +654,67 @@ String^ CLexemeManaged::sHeadwordComment()
 
     return gcnew String(m_pLexeme->sHeadwordComment());
 }
- 
+
+String^ CLexemeManaged::sHeadwordVariant()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return gcnew String(m_pLexeme->sHeadwordVariant());
+}
+
+String^ CLexemeManaged::sHeadwordVariantComment()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return gcnew String(m_pLexeme->sHeadwordVariantComment());
+}
+
+String^ CLexemeManaged::sPluralOf()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return gcnew String(m_pLexeme->sPluralOf());
+}
+
+String^ CLexemeManaged::sUsage()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return gcnew String(m_pLexeme->sUsage());
+}
+
+String^ CLexemeManaged::sSeeRef()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return gcnew String(m_pLexeme->sSeeRef());
+}
+
+String^ CLexemeManaged::sBackRef()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return gcnew String(m_pLexeme->sBackRef());
+}
+
 bool CLexemeManaged::bIsUnstressed()
 {
     if (NULL == m_pLexeme)

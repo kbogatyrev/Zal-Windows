@@ -77,6 +77,12 @@ namespace MainLibManaged
         bool bHasHomonyms();
         List<int>^ arrHomonyms();
         String^ sHeadwordComment();
+        String^ sHeadwordVariant();
+        String^ sHeadwordVariantComment();
+        String^ sPluralOf();
+        String^ sUsage();
+        String^ sSeeRef();
+        String^ sBackRef();
         bool bIsUnstressed();
         bool bIsVariant();
         String^ sMainSymbol();
