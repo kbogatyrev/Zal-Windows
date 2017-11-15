@@ -465,7 +465,8 @@ namespace ZalTestApp
                             //                            sMsg += err.LastError;
                             sMsg += eTestResult.ToString();
                             MessageBox.Show(sMsg, "Zal Error");
-                            return;
+                            break;
+//                            return;
                         }
 
                     }       //  switch ...
