@@ -291,9 +291,9 @@ namespace ZalTestApp
                                 char chrMark = '\x301';
                                 sAltAspectPair = sAltAspectPair.Insert(iAltStressPos + 1, chrMark.ToString());
                             }
+                            sAspectPair += ", ";
+                            sAspectPair += sAltAspectPair;
                         }
-                        sAspectPair += ", ";
-                        sAspectPair += sAltAspectPair;
                         AddProperty("Видовая пара", sAspectPair);
                     }
                     catch (Exception ex)

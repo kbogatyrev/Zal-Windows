@@ -6,25 +6,29 @@
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,40,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="340" Height="365" Grid.Column="0" >
-        <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" >
-            <Grid Margin="0,0,0,0" VerticalAlignment="Top">
-                <ItemsControl ItemsSource="{Binding LexemeDetails}" Grid.IsSharedSizeScope="True">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="200" SharedSizeGroup="one" />
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="two" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left"/>
-                                <TextBlock Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{StaticResource DataField}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Grid>
-        </Border>
-    </ScrollViewer>
-
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,60,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="369" Height="450" Grid.Column="0" >
+            <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" >
+                <Grid Margin="0,0,0,0" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ItemsControl ItemsSource="{Binding LexemeDetails}" Grid.IsSharedSizeScope="True" Height="400">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200" SharedSizeGroup="one" />
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="two" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{StaticResource DataField}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveParadigmCommand}" />
+                </Grid>
+            </Border>
+        </ScrollViewer>
 </UserControl>
