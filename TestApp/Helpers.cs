@@ -150,6 +150,39 @@ namespace ZalTestApp
 
         }    //  MarkStress()
 
+        public static void ExtractStressMarks(ref string sWord)
+        {
+            char chrStressMark = '\x301';
+            char chrSecondaryStressMark = '\x300';
+            int iPos = 0;
+            iPos = sWord.IndexOf('/', iPos);
+            while (iPos >= 0 && iPos < sWord.Length - 1)
+            {
+                if (sWord[iPos] != sWord[iPos + 1])
+                {
+                    sWord = sWord.Substring(0, iPos) + sWord.Substring(iPos + 1, 1) + chrStressMark.ToString() + sWord.Substring(iPos + 2);
+                }
+                else
+                {
+                    iPos += 2;
+                }
+                iPos = sWord.IndexOf('/', iPos);
+            }
+            iPos = sWord.IndexOf('\\', 0);
+            while (iPos >= 0 && iPos < sWord.Length - 1)
+            {
+                if (sWord[iPos] != sWord[iPos + 1])
+                {
+                    sWord = sWord.Substring(0, iPos) + sWord.Substring(iPos + 1, 1) + chrSecondaryStressMark.ToString() + sWord.Substring(iPos + 2);
+                }
+                else
+                {
+                    iPos += 2;
+                }
+                iPos = sWord.IndexOf('\\', iPos);
+            }
+        }
+
         public static string sListToCommaSeparatedString(List<string> forms)
         {
             string sOut = "";

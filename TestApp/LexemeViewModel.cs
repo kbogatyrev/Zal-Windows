@@ -188,7 +188,9 @@ namespace ZalTestApp
 
             if (m_Lexeme.sRestrictedForms().Length > 0)
             {
-                AddProperty("Фразеологизмы", m_Lexeme.sRestrictedForms());
+                string sPhraseo = m_Lexeme.sRestrictedForms();
+                Helpers.ExtractStressMarks(ref sPhraseo);
+                AddProperty("Фразеологизмы", sPhraseo);
             }
 
             if (m_Lexeme.bNoComparative())
