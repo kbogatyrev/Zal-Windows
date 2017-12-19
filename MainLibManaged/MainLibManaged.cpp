@@ -1528,6 +1528,21 @@ bool CLexemeManaged::bIsMultistressedCompound()
     return m_pLexeme->bIsMultistressedCompound();
 }
  
+EM_ReturnCode CLexemeManaged::eGetSourceFormWithStress(String^% sSourceForm)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    CEString sSource;
+    ET_ReturnCode eRet = m_pLexeme->eGetSourceFormWithStress(sSource);
+
+    sSourceForm = gcnew String(sSource);
+
+    return (EM_ReturnCode)eRet;
+}
+
 EM_ReturnCode CLexemeManaged::eGetFirstStemStressPos(int% iPos)
 {
     if (NULL == m_pLexeme)
@@ -1562,6 +1577,40 @@ EM_ReturnCode CLexemeManaged::eGetNextStemStressPos(int% iPos)
     return (EM_ReturnCode)eRet;
 }
  
+EM_ReturnCode CLexemeManaged::eGetFirstSecondaryStemStressPos(int% iPos)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    int cppiPos = 0;
+    ET_ReturnCode eRet = m_pLexeme->eGetFirstSecondaryStemStressPos(cppiPos);
+    if (H_NO_ERROR == eRet)
+    {
+        iPos = cppiPos;
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CLexemeManaged::eGetNextSecondaryStemStressPos(int% iPos)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    int cppiPos = 0;
+    ET_ReturnCode eRet = m_pLexeme->eGetNextSecondaryStemStressPos(cppiPos);
+    if (H_NO_ERROR == eRet)
+    {
+        iPos = cppiPos;
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
 //EM_ReturnCode CLexemeManaged::eSetDb(const CEString& sDbPath)
 //{
 //    if (NULL == m_pLexeme)
