@@ -139,7 +139,13 @@ namespace ZalTestApp
                 return;
             }
 
-            AddProperty("Исходная форма", m_Lexeme.sSourceForm());
+            String sSourceForm = "";
+            EM_ReturnCode eRet = m_Lexeme.eGetSourceFormWithStress(ref sSourceForm);
+            if (eRet == EM_ReturnCode.H_NO_ERROR)
+            {
+                Helpers.ExtractStressMarks(ref sSourceForm);
+                AddProperty("Исходная форма", sSourceForm);
+            }
 
             List<int> arrHomonyms = m_Lexeme.arrHomonyms();
             if (arrHomonyms.Count > 0)
@@ -155,6 +161,8 @@ namespace ZalTestApp
                 }
                 AddProperty("Омонимы", sHomonyms);
             }
+
+//            AddProperty("Вариант", m_Lexeme.sSourceFormVariant());
 
             if (m_Lexeme.sHeadwordComment().Length > 0)
             {

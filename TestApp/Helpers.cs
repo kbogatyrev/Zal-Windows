@@ -132,7 +132,7 @@ namespace ZalTestApp
 
                 if (EM_StressType.STRESS_PRIMARY == eType)
                 {
-                    if (sWordForm[iPos] != 'ё')
+                    if (sWordForm[iPos+iStressMarksInserted] != 'ё')
                     {
                         chrMark = '\x301';
                         sWordForm = sWordForm.Insert(iPos + iStressMarksInserted++ + 1, chrMark.ToString());
@@ -158,9 +158,13 @@ namespace ZalTestApp
             iPos = sWord.IndexOf('/', iPos);
             while (iPos >= 0 && iPos < sWord.Length - 1)
             {
-                if (sWord[iPos] != sWord[iPos + 1])
+                if (sWord[iPos] != sWord[iPos + 1] && (sWord[iPos + 1] != 'ё'))
                 {
                     sWord = sWord.Substring(0, iPos) + sWord.Substring(iPos + 1, 1) + chrStressMark.ToString() + sWord.Substring(iPos + 2);
+                }
+                else if ('ё' == sWord[iPos + 1])
+                {
+                    sWord = sWord.Substring(0, iPos) + sWord.Substring(iPos + 1, 1) + sWord.Substring(iPos + 2);
                 }
                 else
                 {
