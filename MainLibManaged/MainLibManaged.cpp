@@ -1528,7 +1528,7 @@ bool CLexemeManaged::bIsMultistressedCompound()
     return m_pLexeme->bIsMultistressedCompound();
 }
  
-EM_ReturnCode CLexemeManaged::eGetSourceFormWithStress(String^% sSourceForm)
+EM_ReturnCode CLexemeManaged::eGetSourceFormWithStress(String^% sSourceForm, bool bIsVariant)
 {
     if (NULL == m_pLexeme)
     {
@@ -1536,7 +1536,7 @@ EM_ReturnCode CLexemeManaged::eGetSourceFormWithStress(String^% sSourceForm)
     }
 
     CEString sSource;
-    ET_ReturnCode eRet = m_pLexeme->eGetSourceFormWithStress(sSource);
+    ET_ReturnCode eRet = m_pLexeme->eGetSourceFormWithStress(sSource, bIsVariant);
 
     sSourceForm = gcnew String(sSource);
 

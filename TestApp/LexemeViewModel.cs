@@ -140,7 +140,7 @@ namespace ZalTestApp
             }
 
             String sSourceForm = "";
-            EM_ReturnCode eRet = m_Lexeme.eGetSourceFormWithStress(ref sSourceForm);
+            EM_ReturnCode eRet = m_Lexeme.eGetSourceFormWithStress(ref sSourceForm, false);
             if (eRet == EM_ReturnCode.H_NO_ERROR)
             {
                 Helpers.ExtractStressMarks(ref sSourceForm);
@@ -162,7 +162,14 @@ namespace ZalTestApp
                 AddProperty("Омонимы", sHomonyms);
             }
 
-//            AddProperty("Вариант", m_Lexeme.sSourceFormVariant());
+            if (m_Lexeme.sHeadwordVariant().Length > 0)
+            {
+                //                String sVariant = m_Lexeme.sHeadwordVariant();
+                String sVariant = "";
+                eRet = m_Lexeme.eGetSourceFormWithStress(ref sVariant, true);
+                Helpers.ExtractStressMarks(ref sVariant);
+                AddProperty("Вариант", sVariant);
+            }
 
             if (m_Lexeme.sHeadwordComment().Length > 0)
             {
@@ -178,11 +185,6 @@ namespace ZalTestApp
             {
                 AddProperty("Доп. помета (2)", m_Lexeme.sUsage());
             }
-
-            //            if (m_Lexeme.sHeadwordVariantComment().Length > 0)
-            //            {
-            //                AddProperty("Доп. помета", m_Lexeme.sHeadwordVariantComment());
-            //            }
 
             if (m_Lexeme.sSeeRef().Length > 0)
             {

@@ -154,7 +154,7 @@ namespace MainLibManaged
         bool bDeviationOptional(int iCd);
         bool bIsFormMissing(String^ sGramHash);
         bool bIsMultistressedCompound();
-        EM_ReturnCode eGetSourceFormWithStress(String^% sSourceForm);
+        EM_ReturnCode eGetSourceFormWithStress(String^% sSourceForm, bool bIsVariant);
         EM_ReturnCode eGetFirstStemStressPos(int% iPos);
         EM_ReturnCode eGetNextStemStressPos(int% iPos);
         EM_ReturnCode eGetFirstSecondaryStemStressPos(int% iPos);
