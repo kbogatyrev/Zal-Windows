@@ -45,9 +45,9 @@
 
                 <!-- Past tense singular -->
                 <!-- Labels -->
-                <TextBox Text="1 Sg" Margin="0,405,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="2 Sg" Margin="0,450,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="3 Sg" Margin="0,495,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="M Sg" Margin="0,405,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="F Sg" Margin="0,450,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="N Sg" Margin="0,495,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
                 <TextBox Text="{Binding Path=Past_M}" Margin="65,405,0,0" Style="{StaticResource FormText}" />
