@@ -33,7 +33,7 @@ namespace ZalTestApp
             return lexeme;
         }
 
-        private Dictionary<string, string> m_StoredLexemes; // source form --> hash
+        private Dictionary<string, string> m_StoredLexemes; // hash --> source form
         public IEnumerator GetStoredLexemesEnumerator()
         {
             return m_StoredLexemes.GetEnumerator();
@@ -269,7 +269,7 @@ namespace ZalTestApp
             eRet = m_Verifier.eGetFirstLexemeData(ref sLexemeHash, ref sHeadword);
             while (EM_ReturnCode.H_NO_ERROR == eRet)
             {
-                m_StoredLexemes[sHeadword] = sLexemeHash;
+                m_StoredLexemes[sLexemeHash] = sHeadword;
                 eRet = m_Verifier.eGetNextLexemeData(ref sLexemeHash, ref sHeadword);
             }
 

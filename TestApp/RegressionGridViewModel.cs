@@ -33,6 +33,20 @@ namespace ZalTestApp
             }
         }
 
+        private DataView m_CurrentView;
+        public DataView CurrentView
+        {
+            get
+            {
+                return m_CurrentView;
+            }
+
+            set
+            {
+                m_CurrentView = value;
+            }
+        }
+
         private int m_iIdx;
         public int CurrentIdx
         {
@@ -48,11 +62,24 @@ namespace ZalTestApp
             }
         }
 
+        private string m_sCurrentLexHash;
+        public string CurrentLexHash
+        {
+            get
+            {
+                return m_sCurrentLexHash;
+            }
+            set
+            {
+                m_sCurrentLexHash = value;
+            }
+        }
+
         public bool IsChecked
         {
             get
             {
-                return IsRowChecked(m_iIdx);
+                return IsRowChecked(m_sCurrentLexHash);
             }
         }
 
@@ -60,7 +87,8 @@ namespace ZalTestApp
         {
             get
             {
-                return m_RegressionData.Rows.Count;
+                //                return m_RegressionData.Rows.Count;
+                return m_CurrentView.Count;
             }
         }
 
@@ -78,12 +106,20 @@ namespace ZalTestApp
             }
         }
 
-        public void SetResult(int iRow, string sText)
+        public void SetResult(string sLexHash, string sText)
         {
             try
             {
-                DataRow row = m_RegressionData.Rows[iRow];
-                row["TestResult"] = sText;
+                string sFilter = "LexemeHash='" + sLexHash + "'";
+                string sSortOrder = "SourceForm ASC";
+
+                DataRow[] arrFoundRows = m_RegressionData.Select(sFilter, sSortOrder, DataViewRowState.CurrentRows);
+                if (arrFoundRows.Length > 0)
+                {
+                    DataRow row = arrFoundRows[0];
+                    row["TestResult"] = sText;
+                }
+
             }
             catch (Exception ex)
             {
@@ -92,12 +128,23 @@ namespace ZalTestApp
             }
         }
 
-        public bool IsRowChecked(int iRow)
+        public bool IsRowChecked(string sLexHash)
         {
             try
             {
-                DataRow row = m_RegressionData.Rows[iRow];
-                return (bool)row["IsChecked"];
+                string sFilter = "LexemeHash='" + sLexHash + "'";
+                string sSortOrder = "SourceForm ASC";
+
+                DataRow[] arrFoundRows = m_RegressionData.Select(sFilter, sSortOrder, DataViewRowState.CurrentRows);
+                if (arrFoundRows.Length > 0)
+                {
+                    DataRow row = arrFoundRows[0];
+                    return (bool)row["IsChecked"];
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -106,13 +153,20 @@ namespace ZalTestApp
             }
         }
 
-        public void CheckRow(int iRow)
+        public void CheckRow(string sLexHash)
         {
             try
             {
-                DataRow row = m_RegressionData.Rows[iRow];
-                row["IsChecked"] = true;
-                OnPropertyChanged("IsChecked");
+                string sFilter = "LexemeHash='" + sLexHash + "'";
+                string sSortOrder = "SourceForm ASC";
+
+                DataRow[] arrFoundRows = m_RegressionData.Select(sFilter, sSortOrder);
+                if (arrFoundRows.Length > 0)
+                {
+                    DataRow row = arrFoundRows[0];
+                    row["IsChecked"] = true;
+                    OnPropertyChanged("IsChecked");
+                }
             }
             catch (Exception ex)
             {
@@ -120,13 +174,20 @@ namespace ZalTestApp
             }
         }
 
-        public void UnheckRow(int iRow)
+        public void UnheckRow(string sLexHash)
         {
             try
             {
-                DataRow row = m_RegressionData.Rows[iRow];
-                row["IsChecked"] = false;
-                OnPropertyChanged("IsChecked");
+                string sFilter = "LexemeHash='" + sLexHash + "'";
+                string sSortOrder = "SourceForm ASC";
+
+                DataRow[] arrFoundRows = m_RegressionData.Select(sFilter, sSortOrder, DataViewRowState.CurrentRows);
+                if (arrFoundRows.Length > 0)
+                {
+                    DataRow row = arrFoundRows[0];
+                    row["IsChecked"] = false;
+                    OnPropertyChanged("IsChecked");
+                }
             }
             catch (Exception ex)
             {
@@ -313,13 +374,16 @@ namespace ZalTestApp
             IEnumerator storedLexEnumerator = m_MainModel.GetStoredLexemesEnumerator();
             while (storedLexEnumerator.MoveNext())
             {
-                var headWordToHash = (KeyValuePair<string, string>)storedLexEnumerator.Current;
+                var lexHashToHeadWord = (KeyValuePair<string, string>)storedLexEnumerator.Current;
                 DataRow row = m_RegressionData.NewRow();
-                row["SourceForm"] = headWordToHash.Key;
-                row["LexemeHash"] = headWordToHash.Value;
+                row["SourceForm"] = lexHashToHeadWord.Value;
+                row["LexemeHash"] = lexHashToHeadWord.Key;
                 row["IsChecked"] = true;
                 m_RegressionData.Rows.Add(row);
             }
+
+            m_CurrentView = new DataView(m_RegressionData);
+            m_CurrentView.Sort = "SourceForm ASC";
         }       //  RegressionGridViewModel()
 
         public void GoBack(Object obj)
@@ -360,7 +424,7 @@ namespace ZalTestApp
                 int iCheckedRow = -1;
                 for (int iLexeme = 0; iLexeme < NLexemes; ++iLexeme)
                 {
-                    if (!IsRowChecked(iLexeme))
+                    if (!IsRowChecked(m_sCurrentLexHash))
                     {
                         continue;
                     }
@@ -397,10 +461,9 @@ namespace ZalTestApp
 
         }
 
-        public EM_ReturnCode Verify(int iRow, ref EM_TestResult eTestResult)
+        public EM_ReturnCode Verify(string sLexHash, ref EM_TestResult eTestResult)
         {
-            string sLexemeHash = LexemeHash(iRow);
-            var eRet = m_MainModel.VerifyLexeme(sLexemeHash, ref eTestResult);
+            var eRet = m_MainModel.VerifyLexeme(sLexHash, ref eTestResult);
             return eRet;
         }
 
@@ -420,42 +483,44 @@ namespace ZalTestApp
         {
             try
             {
-                for (int iLexeme = 0; iLexeme < m_Caller.NLexemes; ++iLexeme)
+//                for (int iLexeme = 0; iLexeme < m_Caller.NLexemes; ++iLexeme)
+                foreach (DataRowView rowView in m_Caller.CurrentView)
                 {
+                    string sLexHash = (string)rowView.Row["LexemeHash"];
                     if (m_Caller.CancelVerifier)
                     {
-                        m_Caller.SetResult(iLexeme, "Cancelled");
+                        m_Caller.SetResult(sLexHash, "Cancelled");
                         break;
                     }
 
-                    if (!m_Caller.IsRowChecked(iLexeme))
+                    if (!m_Caller.IsRowChecked(sLexHash))
                     {
-                        m_Caller.SetResult(iLexeme, "Ignored");
+                        m_Caller.SetResult(sLexHash, "Ignored");
                         continue;
                     }
 
                     EM_TestResult eTestResult = EM_TestResult.TEST_RESULT_UNDEFINED;
-                    EM_ReturnCode eRet = m_Caller.Verify(iLexeme, ref eTestResult);
+                    EM_ReturnCode eRet = m_Caller.Verify(sLexHash, ref eTestResult);
                     if (eRet != EM_ReturnCode.H_NO_ERROR)
                     {
-                        MessageBox.Show(string.Format("Unable to verify lexeme hash {0}", m_Caller.LexemeHash(iLexeme)));
+                        MessageBox.Show(string.Format("Unable to verify lexeme hash {0}", sLexHash));
                     }
 
                     switch (eTestResult)
                     {
                         case EM_TestResult.TEST_RESULT_OK:
                         {
-                            m_Caller.SetResult(iLexeme, "Pass");
+                            m_Caller.SetResult(sLexHash, "Pass");
                             break;
                         }
                         case EM_TestResult.TEST_RESULT_FAIL:
                         {
-                            m_Caller.SetResult(iLexeme, "Fail");
+                            m_Caller.SetResult(sLexHash, "Fail");
                             break;
                         }
                         case EM_TestResult.TEST_RESULT_INCOMPLETE:
                         {
-                            m_Caller.SetResult(iLexeme, "Missing forms");
+                            m_Caller.SetResult(sLexHash, "Missing forms");
                             break;
                         }
                         default:

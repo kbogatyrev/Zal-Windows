@@ -11,9 +11,9 @@
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="ZalRegressionDataGrid"  ItemsSource="{Binding RegressionData}" SelectedIndex="{Binding CurrentIdx}"
+        <DataGrid x:Name="ZalRegressionDataGrid"  ItemsSource="{Binding CurrentView}" SelectedIndex="{Binding CurrentIdx}"
                   AutoGenerateColumns="False" CanUserAddRows="False" AlternatingRowBackground="Gainsboro" AlternationCount="2" 
-                  Grid.ColumnSpan="1" Margin="0,0,0,0" HorizontalAlignment="Left"  >
+                  Grid.ColumnSpan="1" Margin="0,0,0,0" HorizontalAlignment="Left" SelectionChanged="ZalRegressionDataGrid_SelectionChanged" >
 
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
