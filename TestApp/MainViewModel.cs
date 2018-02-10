@@ -4,9 +4,9 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.Threading;
 
 using MainLibManaged;
-using System.Threading;
 
 namespace ZalTestApp
 {
@@ -281,6 +281,19 @@ namespace ZalTestApp
             }
         }
 
+        private ICommand m_EditCommand;
+        public ICommand EditCommand
+        {
+            get
+            {
+                return m_EditCommand;
+            }
+            set
+            {
+                m_EditCommand = value;
+            }
+        }
+
         private ICommand m_ShowRegressionPageCommand;
         public ICommand ShowRegressionPageCommand
         {
@@ -328,6 +341,7 @@ namespace ZalTestApp
             ForwardButtonCommand = new RelayCommand(new Action<object>(GoForward));
             OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
             SearchByInitialFormCommand = new RelayCommand(new Action<object>(SearchByInitialForm));
+            EditCommand = new RelayCommand(new Action<object>(Edit));
             ShowRegressionPageCommand = new RelayCommand(new Action<object>(ShowRegression));
             ImportRegressionDataCommand = new RelayCommand(new Action<object>(ImportRegressionData));
             ExportRegressionDataCommand = new RelayCommand(new Action<object>(ExportRegressionData));
@@ -498,6 +512,21 @@ namespace ZalTestApp
             UpdateView();
 
         }   // SearchByInitialForm()
+
+        void Edit(object obj)
+        {
+            CreateLexemeViewModel m_clvm = new CreateLexemeViewModel();
+            CreateLexemeEntryDlg cled = new CreateLexemeEntryDlg(m_clvm);
+            cled.Owner = Application.Current.MainWindow;
+            bool? bnRet = cled.ShowDialog();
+            if (bnRet != true)
+            {
+                return;
+            }
+
+            int koko = (int)m_clvm.POS;
+            int klkl = 0;
+        }
 
         void ShowParticiple(CLexemeManaged lexeme, EM_Subparadigm sp, ViewModelBase parent)
         {

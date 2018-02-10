@@ -84,7 +84,9 @@
                 <MenuItem Header="_Импорт" Command="{Binding ImportRegressionDataCommand}"/>
                 <MenuItem Header="_Тест" Command="{Binding ShowRegressionPageCommand}"/>
             </MenuItem>
-<!--            
+            <MenuItem Header="_Редактирование" Command="{Binding EditCommand}" />
+
+            <!--            
             <ToolBarTray>
                 <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Band="1" BandIndex="1" >
                     <Button Style="{DynamicResource BtnSmallSquare}" Content="←" Command="{Binding BackButtonCommand}" IsEnabled="{Binding IsBackButtonEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" />
