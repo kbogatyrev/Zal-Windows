@@ -63,6 +63,8 @@
     <Compile Include="AdjViewModel.cs" />
     <Compile Include="CreateLexemeEntryDlg.cs" />
     <Compile Include="CreateLexemeViewModel.cs" />
+    <Compile Include="EnterLexemePropertiesDlg.cs" />
+    <Compile Include="EnterLexemePropertiesViewModel.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="EnterDataDlg.xaml.cs">
       <DependentUpon>EnterDataDlg.xaml</DependentUpon>
@@ -102,6 +104,10 @@
     <Page Include="EnterDataDlg.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EnterLexemePropertiesDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="LexemeView.xaml">
       <SubType>Designer</SubType>
