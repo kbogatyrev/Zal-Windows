@@ -1,0 +1,214 @@
+﻿<Window x:Class="ZalTestApp.EnterLexemePropertiesDlg"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:ZalTestApp"
+    mc:Ignorable="d"
+    Title="{Binding Path=DlgTitle}" Width="1000" Height="600"  MaxWidth="1000" MinHeight="600" MinWidth="1000" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="0, 0, 0, 0" >
+        <TextBox Text="Исходная форма" Margin="33,135,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="{Binding Path=SourceForm}" Margin="158,135,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
+
+        <TextBox Text="Вариант" Margin="33,170,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="{Binding Path=Variant}" Margin="158,170,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
+
+        <TextBox Text="Комментарий" Margin="33,205,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="Курсивный текст ПЕРЕД основной грамматической пометой, напр.: (без удар.) "/>
+        <TextBox Text="{Binding Path=HeadwordComment}" Margin="158,205,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
+
+        <TextBox Text="Фразеологизмы" Margin="31,240,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="{Binding Path=RestrictedContexts}" Margin="158,240,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
+
+        <TextBox Text="Примеры употр." Margin="33,275,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="{Binding Path=Usage}" Margin="158,275,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
+
+
+        <!-- DESCRIPTOR -->
+        <TextBox Text="Основной символ" Margin="356,30,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=MainSymbol}" HorizontalAlignment="Left" Margin="481,30,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="" IsEnabled="True" />
+            <ComboBoxItem Content="м" IsEnabled="True" />
+            <ComboBoxItem Content="мо" IsEnabled="True"/>
+            <ComboBoxItem Content="ж" IsEnabled="True" />
+            <ComboBoxItem Content="жо" IsEnabled="True" />
+            <ComboBoxItem Content="с" IsEnabled="True" />
+            <ComboBoxItem Content="со" IsEnabled="True"/>
+            <ComboBoxItem Content="мо-жо" IsEnabled="True" />
+            <ComboBoxItem Content="мн." IsEnabled="True" />
+            <ComboBoxItem Content="мн. неод." IsEnabled="True" />
+            <ComboBoxItem Content="мн. одуш." IsEnabled="True"/>
+            <ComboBoxItem Content="мн. _от_" IsEnabled="True" />
+            <ComboBoxItem Content="п" IsEnabled="True"/>
+            <ComboBoxItem Content="мс" IsEnabled="True" />
+            <ComboBoxItem Content="мс-п" IsEnabled="True" />
+            <ComboBoxItem Content="числ." IsEnabled="True" />
+            <ComboBoxItem Content="числ.-п" IsEnabled="True"/>
+            <ComboBoxItem Content="св" IsEnabled="True" />
+            <ComboBoxItem Content="нсв" IsEnabled="True"/>
+            <ComboBoxItem Content="св-нсв" IsEnabled="True" />
+            <ComboBoxItem Content="н" IsEnabled="True"/>
+            <ComboBoxItem Content="предл." IsEnabled="True" />
+            <ComboBoxItem Content="союз" IsEnabled="True" />
+            <ComboBoxItem Content="предик." IsEnabled="True" />
+            <ComboBoxItem Content="вводн." IsEnabled="True"/>
+            <ComboBoxItem Content="сравн." IsEnabled="True" />
+            <ComboBoxItem Content="част." IsEnabled="True"/>
+            <ComboBoxItem Content="межд." IsEnabled="True" />
+        </ComboBox>
+
+        <TextBox Text="Индекс" Margin="356,65,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=Index}" HorizontalAlignment="Left" Margin="481,65,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="" IsEnabled="True" />
+            <ComboBoxItem Content="1" IsEnabled="True" />
+            <ComboBoxItem Content="2" IsEnabled="True"/>
+            <ComboBoxItem Content="3" IsEnabled="True" />
+            <ComboBoxItem Content="4" IsEnabled="True" />
+            <ComboBoxItem Content="5" IsEnabled="True" />
+            <ComboBoxItem Content="6" IsEnabled="True"/>
+            <ComboBoxItem Content="7" IsEnabled="True" />
+            <ComboBoxItem Content="8" IsEnabled="True" />
+            <ComboBoxItem Content="9" IsEnabled="True" />
+            <ComboBoxItem Content="10" IsEnabled="True"/>
+            <ComboBoxItem Content="11" IsEnabled="True" />
+            <ComboBoxItem Content="12" IsEnabled="True"/>
+            <ComboBoxItem Content="13" IsEnabled="True" />
+            <ComboBoxItem Content="14" IsEnabled="True" />
+            <ComboBoxItem Content="15" IsEnabled="True" />
+            <ComboBoxItem Content="16" IsEnabled="True"/>
+        </ComboBox>
+
+        <TextBox Text="Кружочек" Margin="356,100,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="(Сразу после цифры)"/>
+        <ComboBox Text="{Binding Path=SmallCircle}" HorizontalAlignment="Left" Margin="482,100,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="Да" IsEnabled="True" />
+            <ComboBoxItem Content="Нет" IsEnabled="True"/>
+        </ComboBox>
+
+        <TextBox Text="Схема ударения 1" Margin="356,135,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="Единственная или слева от косой черты"/>
+        <ComboBox Text="{Binding Path=StressType1}" HorizontalAlignment="Left" Margin="481,135,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="" IsEnabled="True" />
+            <ComboBoxItem Content="a" IsEnabled="True" />
+            <ComboBoxItem Content="a'" IsEnabled="True"/>
+            <ComboBoxItem Content="b" IsEnabled="True" />
+            <ComboBoxItem Content="b'" IsEnabled="True" />
+            <ComboBoxItem Content="c" IsEnabled="True" />
+            <ComboBoxItem Content="c'" IsEnabled="True"/>
+            <ComboBoxItem Content="c''" IsEnabled="True" />
+            <ComboBoxItem Content="d" IsEnabled="True" />
+            <ComboBoxItem Content="d'" IsEnabled="True" />
+            <ComboBoxItem Content="e" IsEnabled="True"/>
+            <ComboBoxItem Content="f" IsEnabled="True" />
+            <ComboBoxItem Content="f'" IsEnabled="True"/>
+            <ComboBoxItem Content="f''" IsEnabled="True" />
+        </ComboBox>
+
+        <TextBox Text="Схема ударения 2" Margin="356,170,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="СПРАВА от косой черты"/>
+        <ComboBox Text="{Binding Path=StressType2}" HorizontalAlignment="Left" Margin="481,170,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="" IsEnabled="True" />
+            <ComboBoxItem Content="a" IsEnabled="True" />
+            <ComboBoxItem Content="a'" IsEnabled="True"/>
+            <ComboBoxItem Content="b" IsEnabled="True" />
+            <ComboBoxItem Content="b'" IsEnabled="True" />
+            <ComboBoxItem Content="c" IsEnabled="True" />
+            <ComboBoxItem Content="c'" IsEnabled="True"/>
+            <ComboBoxItem Content="c''" IsEnabled="True" />
+            <ComboBoxItem Content="d" IsEnabled="True" />
+            <ComboBoxItem Content="d'" IsEnabled="True" />
+            <ComboBoxItem Content="e" IsEnabled="True"/>
+            <ComboBoxItem Content="f" IsEnabled="True" />
+            <ComboBoxItem Content="f'" IsEnabled="True"/>
+            <ComboBoxItem Content="f''" IsEnabled="True" />
+        </ComboBox>
+
+        <TextBox Text="Цифра в кружке" Margin="355,205,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=NumberInCircle}" HorizontalAlignment="Left" Margin="481,205,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="" IsEnabled="True" />
+            <ComboBoxItem Content="1" IsEnabled="True" />
+            <ComboBoxItem Content="2" IsEnabled="True"/>
+            <ComboBoxItem Content="1+2" IsEnabled="True"/>
+            <ComboBoxItem Content="3" IsEnabled="True"/>
+            <ComboBoxItem Content="4" IsEnabled="True"/>
+            <ComboBoxItem Content="5" IsEnabled="True"/>
+            <ComboBoxItem Content="6" IsEnabled="True"/>
+            <ComboBoxItem Content="7" IsEnabled="True"/>
+            <ComboBoxItem Content="8" IsEnabled="True"/>
+            <ComboBoxItem Content="9" IsEnabled="True"/>
+        </ComboBox>
+
+        <TextBox Text="Треугольник" Margin="354,240,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=Triangle}" HorizontalAlignment="Left" Margin="480,240,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="Да" IsEnabled="True" />
+            <ComboBoxItem Content="Нет" IsEnabled="True"/>
+        </ComboBox>
+        <TextBox Text="Беглая гласная" Margin="354,275,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="Звезда"/>
+        <ComboBox Text="{Binding Path=FleetingVowel}" HorizontalAlignment="Left" Margin="480,275,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="Да" IsEnabled="True" />
+            <ComboBoxItem Content="Нет" IsEnabled="True"/>
+        </ComboBox>
+        <TextBox Text="Помета ё" Margin="354,310,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=YoAlternation}" HorizontalAlignment="Left" Margin="480,310,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="Да" IsEnabled="True" />
+            <ComboBoxItem Content="Нет" IsEnabled="True"/>
+        </ComboBox>
+        <TextBox Text="Помета о" Margin="354,345,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=OAlternation}" HorizontalAlignment="Left" Margin="480,345,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="Да" IsEnabled="True" />
+            <ComboBoxItem Content="Нет" IsEnabled="True"/>
+        </ComboBox>
+
+
+        <TextBox Text="Знак минус" Margin="678,30,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=MinusSymbol}" HorizontalAlignment="Left" Margin="805,30,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="Да" IsEnabled="True" />
+            <ComboBoxItem Content="Нет" IsEnabled="True"/>
+        </ComboBox>
+        <TextBox Text="Знак X" Margin="678,65,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=XSymbol}" HorizontalAlignment="Left" Margin="805,65,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="Да" IsEnabled="True" />
+            <ComboBoxItem Content="Нет" IsEnabled="True"/>
+        </ComboBox>
+        <TextBox Text="Знак X в рамке" Margin="679,100,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=FramedXSymbol}" HorizontalAlignment="Left" Margin="805,100,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="Да" IsEnabled="True" />
+            <ComboBoxItem Content="Нет" IsEnabled="True"/>
+        </ComboBox>
+        <TextBox Text="Знак ~" Margin="678,135,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=TildeSymbol}" HorizontalAlignment="Left" Margin="805,135,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="Да" IsEnabled="True" />
+            <ComboBoxItem Content="Нет" IsEnabled="True"/>
+        </ComboBox>
+        <TextBox Text="Помета Р2" Margin="678,170,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=Gen2}" HorizontalAlignment="Left" Margin="805,170,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="Да" IsEnabled="True" />
+            <ComboBoxItem Content="Нет" IsEnabled="True"/>
+        </ComboBox>
+        <TextBox Text="Помета П2" Margin="678,205,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=Loc2}" HorizontalAlignment="Left" Margin="805,205,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="Да" IsEnabled="True" />
+            <ComboBoxItem Content="Нет" IsEnabled="True"/>
+            <ComboBoxItem Content="Факульт." IsEnabled="True" />
+        </ComboBox>
+        <TextBox Text="Предлог при П2" Margin="678,240,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=Loc2Preposition}" HorizontalAlignment="Left" Margin="805,240,0,0" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="в" IsEnabled="True" />
+            <ComboBoxItem Content="во" IsEnabled="True"/>
+            <ComboBoxItem Content="на" IsEnabled="True" />
+        </ComboBox>
+        <TextBox Text="Черед. в гл. осн." Margin="678,275,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="{Binding Path=VerbStemAlternation}"  Margin="805,275,0,0" Style="{StaticResource FormText}" />
+
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="897,535,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="814,535,0,0" VerticalAlignment="Top" Width="75"/>
+
+        <TextBox Text="Помета ё" Margin="678,344,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox HorizontalAlignment="Left" Margin="804,343,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="Да" IsEnabled="True" />
+            <ComboBoxItem Content="Нет" IsEnabled="True"/>
+        </ComboBox>
+    </Grid>
+    <!--
+    <Window.DataContext>
+        <local:CreateLexemeViewModel/>
+    </Window.DataContext>
+-->
+</Window>
