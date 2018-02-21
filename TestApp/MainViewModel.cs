@@ -515,17 +515,15 @@ namespace ZalTestApp
 
         void Edit(object obj)
         {
-            CreateLexemeViewModel m_clvm = new CreateLexemeViewModel();
-            CreateLexemeEntryDlg cled = new CreateLexemeEntryDlg(m_clvm);
-            cled.Owner = Application.Current.MainWindow;
-            bool? bnRet = cled.ShowDialog();
+            EnterLexemePropertiesViewModel model = new EnterLexemePropertiesViewModel();
+            EnterLexemePropertiesDlg dlg = new EnterLexemePropertiesDlg(model);
+            dlg.Owner = Application.Current.MainWindow;
+            bool? bnRet = dlg.ShowDialog();
             if (bnRet != true)
             {
+                MessageBox.Show("Internal error: Bad return code from dialog.");
                 return;
             }
-
-            int koko = (int)m_clvm.POS;
-            int klkl = 0;
         }
 
         void ShowParticiple(CLexemeManaged lexeme, EM_Subparadigm sp, ViewModelBase parent)

@@ -61,9 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AdjViewModel.cs" />
-    <Compile Include="CreateLexemeEntryDlg.cs" />
-    <Compile Include="CreateLexemeViewModel.cs" />
-    <Compile Include="EnterLexemePropertiesDlg.cs" />
+    <Compile Include="EnterLexemePropertiesDlg.xaml.cs" />
     <Compile Include="EnterLexemePropertiesViewModel.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="EnterDataDlg.xaml.cs">
@@ -97,10 +95,6 @@
     <Compile Include="ProgressDialog.xaml.cs">
       <DependentUpon>ProgressDialog.xaml</DependentUpon>
     </Compile>
-    <Page Include="CreateLexemeEntryDlg.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="EnterDataDlg.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

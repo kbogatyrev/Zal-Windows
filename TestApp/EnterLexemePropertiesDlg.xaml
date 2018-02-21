@@ -197,18 +197,51 @@
         <TextBox Text="Черед. в гл. осн." Margin="678,275,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <TextBox Text="{Binding Path=VerbStemAlternation}"  Margin="805,275,0,0" Style="{StaticResource FormText}" />
 
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="897,535,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="OK" HorizontalAlignment="Left" Margin="814,535,0,0" VerticalAlignment="Top" Width="75"/>
-
-        <TextBox Text="Помета ё" Margin="678,344,0,0" Style="{StaticResource FormLabel}" Width="120" />
-        <ComboBox HorizontalAlignment="Left" Margin="804,343,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
-            <ComboBoxItem Content="Да" IsEnabled="True" />
-            <ComboBoxItem Content="Нет" IsEnabled="True"/>
+        <TextBox Text="СВ → НСВ" Margin="678,310,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox HorizontalAlignment="Left" Margin="804,310,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="" IsEnabled="True" />
+            <ComboBoxItem Content="I" IsEnabled="True" />
+            <ComboBoxItem Content="I -ё-" IsEnabled="True"/>
+            <ComboBoxItem Content="I -ó-" IsEnabled="True"/>
+            <ComboBoxItem Content="I -á-" IsEnabled="True"/>
+            <ComboBoxItem Content="II" IsEnabled="True"/>
+            <ComboBoxItem Content="III" IsEnabled="True"/>
         </ComboBox>
+
+        <TextBox Text="СВ → НСВ нерег." Margin="678,345,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="{Binding VerbStemAlternation}"  Margin="805,345,0,0" Style="{StaticResource FormText}" />
+
+        <TextBox Text="НСВ → СВ" Margin="678,380,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox HorizontalAlignment="Left" Margin="804,380,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="" IsEnabled="True" />
+            <ComboBoxItem Content="1" IsEnabled="True" />
+            <ComboBoxItem Content="2" IsEnabled="True"/>
+            <ComboBoxItem Content="3" IsEnabled="True"/>
+            <ComboBoxItem Content="4" IsEnabled="True"/>
+            <ComboBoxItem Content="5" IsEnabled="True"/>
+            <ComboBoxItem Content="6" IsEnabled="True"/>
+            <ComboBoxItem Content="7" IsEnabled="True"/>
+            <ComboBoxItem Content="8" IsEnabled="True"/>
+            <ComboBoxItem Content="9" IsEnabled="True"/>
+            <ComboBoxItem Content="10" IsEnabled="True"/>
+            <ComboBoxItem Content="11" IsEnabled="True"/>
+            <ComboBoxItem Content="12" IsEnabled="True"/>
+            <ComboBoxItem Content="13" IsEnabled="True"/>
+            <ComboBoxItem Content="14" IsEnabled="True"/>
+            <ComboBoxItem Content="15" IsEnabled="True"/>
+            <ComboBoxItem Content="16" IsEnabled="True"/>
+        </ComboBox>
+
+        <TextBox Text="НСВ → СВ черед." Margin="678,415,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="{Binding Path=VerbStemAlternation}"  Margin="805,415,0,0" Style="{StaticResource FormText}" />
+
+        <Button Content="Cancel" Style="{DynamicResource BtnLarge}" Click="BtnCancel_Click" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="864,493,0,0" VerticalAlignment="Top" Width="75" />
+        <Button Content="OK" Style="{DynamicResource BtnLarge}" Click="BtnOK_Click" Command="{Binding OKCommand}" HorizontalAlignment="Left" Margin="781,493,0,0" VerticalAlignment="Top" Width="75"/>
+
     </Grid>
     <!--
     <Window.DataContext>
         <local:CreateLexemeViewModel/>
     </Window.DataContext>
--->
+    -->
 </Window>

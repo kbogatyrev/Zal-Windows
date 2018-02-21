@@ -396,10 +396,41 @@ namespace ZalTestApp
                 OnPropertyChanged("VerbStemAlternation");
             }
         }
+
+
+        private ICommand m_OKCommand;
+        public ICommand OKCommand
+        {
+            get
+            {
+                return m_OKCommand;
+            }
+            set
+            {
+                m_OKCommand = value;
+            }
+        }
+
+        private ICommand m_CancelCommand;
+        public ICommand CancelCommand
+        {
+            get
+            {
+                return m_CancelCommand;
+            }
+            set
+            {
+                m_CancelCommand = value;
+            }
+        }
+
         #endregion
 
         public EnterLexemePropertiesViewModel()
         {
+            CancelCommand = new RelayCommand(new Action<object>(OnCancel));
+            OKCommand = new RelayCommand(new Action<object>(OnOK));
+
             m_StringToPos = new Dictionary<string, E_POS>()
             {
                 { "", E_POS.POS_UNDEFINED },
@@ -422,6 +453,12 @@ namespace ZalTestApp
                 { "POS_NULL", E_POS.POS_NULL },
                 { "POS_COUNT", E_POS.POS_COUNT }
             };
-        }
+        }       //  EnterLexemePropertiesViewModel()
+
+        public void OnCancel(object arg)
+        {}
+
+        public void OnOK(object arg)
+        {}
     }
 }
