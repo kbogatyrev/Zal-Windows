@@ -275,6 +275,26 @@ String^ CDictionaryManaged::sGetDbPath()
     return gcnew String(m_pDictionary->sGetDbPath());
 }
 
+CLexemeManaged^ CDictionaryManaged::CreateLexeme()
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary itf handle is NULL.");
+    }
+
+    ILexeme * pLexeme = NULL;
+    ET_ReturnCode eRet = m_pDictionary->eCreateLexeme(pLexeme);
+    if (eRet != H_NO_ERROR || NULL == pLexeme)
+    {
+        throw gcnew Exception(L"Unable to create lexeme.");
+    }
+
+    CLexemeManaged^ pManaged = gcnew CLexemeManaged();
+    pManaged->m_pLexeme = pLexeme;
+
+    return gcnew CLexemeManaged();
+}
+
 EM_ReturnCode CDictionaryManaged::eGetLexemeById(int iId)
 {
     if (NULL == m_pDictionary)
@@ -494,6 +514,12 @@ EM_ReturnCode CDictionaryManaged::eImportTestData(String^ sPath, DelegateProgres
 //
 // Managed wrapper for Lexeme class
 //
+CLexemeManaged::CLexemeManaged()
+{}
+
+CLexemeManaged::CLexemeManaged(String^ sGramHash)
+{}
+
 CLexemeManaged::CLexemeManaged(ILexeme * pLexeme) : m_pLexeme(pLexeme)
 {}
 
@@ -518,12 +544,12 @@ StLexemeProperties& CLexemeManaged::stGetPropertiesForWriteAccess()
 
 __int64 CLexemeManaged::llLexemeId()
 {
-	if (NULL == m_pLexeme)
-	{
-		throw gcnew Exception(L"Lexeme object is NULL.");
-	}
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
 
-	return m_pLexeme->llLexemeId();
+    return m_pLexeme->llLexemeId();
 }
 
 
@@ -537,16 +563,6 @@ EM_Gender CLexemeManaged::eGender()
     return (EM_Gender)m_pLexeme->eInflectionTypeToGender();
 }
  
-EM_Animacy CLexemeManaged::eAnimacy()
-{
-    if (NULL == m_pLexeme)
-    {
-        throw gcnew Exception(L"Lexeme object is NULL.");
-    }
-
-    return (EM_Animacy)m_pLexeme->eInflectionTypeToAnimacy();
-}
- 
 String^ CLexemeManaged::sGraphicStem()
 {
     if (NULL == m_pLexeme)
@@ -556,7 +572,17 @@ String^ CLexemeManaged::sGraphicStem()
 
     return gcnew String(m_pLexeme->sGraphicStem());
 }
- 
+
+void CLexemeManaged::sSetGraphicStem(String^ sGraphicStem)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    m_pLexeme->SetGraphicStem(sFromManagedString(sGraphicStem));
+}
+
 bool CLexemeManaged::bHasIrregularForms()
 {
     if (NULL == m_pLexeme)
@@ -565,6 +591,16 @@ bool CLexemeManaged::bHasIrregularForms()
     }
 
     return m_pLexeme->bHasIrregularForms();
+}
+
+void CLexemeManaged::SetHasIrregularForms(bool bValue)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    m_pLexeme->sethas
 }
 
 bool CLexemeManaged::bHasSecondaryStress()
@@ -977,12 +1013,12 @@ bool CLexemeManaged::bHasAspectPair()
  
 bool CLexemeManaged::bHasAltAspectPair()
 {
-	if (NULL == m_pLexeme)
-	{
-		throw gcnew Exception(L"Lexeme object is NULL.");
-	}
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
 
-	return m_pLexeme->bHasAltAspectPair();
+    return m_pLexeme->bHasAltAspectPair();
 }
 
 int CLexemeManaged::iAspectPairType()
@@ -996,11 +1032,11 @@ int CLexemeManaged::iAspectPairType()
  
 int CLexemeManaged::iAltAspectPairType()
 {
-	if (NULL == m_pLexeme)
-	{
-		throw gcnew Exception(L"Lexeme object is NULL.");
-	}
-	return m_pLexeme->iAltAspectPairType();
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return m_pLexeme->iAltAspectPairType();
 }
 
 String^ CLexemeManaged::sAltAspectPairComment()
