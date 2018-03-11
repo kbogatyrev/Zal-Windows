@@ -1841,24 +1841,24 @@ void CLexemeManaged::SetFleetingVowel(bool bValue)
     m_pLexeme->SetFleetingVowel(bValue);
 }
 
-int CLexemeManaged::iStemAugment()
+bool CLexemeManaged::bStemAugment()
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->iStemAugment();
+    return m_pLexeme->bStemAugment();
 }
  
-void CLexemeManaged::SetStemAugment(int iValue)
+void CLexemeManaged::SetStemAugment(bool bValue)
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->SetStemAugment(iValue);
+    return m_pLexeme->SetStemAugment(bValue);
 }
 
 String^ CLexemeManaged::s1SgStem()

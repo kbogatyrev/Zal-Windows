@@ -194,8 +194,8 @@ namespace MainLibManaged
         void SetNoPastParticiple(bool);
         bool bFleetingVowel();
         void SetFleetingVowel(bool);
-        int iStemAugment();
-        void SetStemAugment(int);
+        bool bStemAugment();
+        void SetStemAugment(bool);
         String^ s1SgStem();
         void Set1SgStem(String^);
         String^ s3SgStem();
