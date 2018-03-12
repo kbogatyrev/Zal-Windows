@@ -34,7 +34,7 @@ namespace MainLibManaged
 
         CLexemeManaged^ Lexeme();
         String^ sWordForm();
-        String^ sLemma();
+        String^ sStem();
         __int64 llLexemeId();
         EM_PartOfSpeech ePos();
         EM_Case eCase();
@@ -207,7 +207,7 @@ namespace MainLibManaged
 
         bool bFindCommonDeviation(int iNum, bool% bIsOptional);
         bool bFindStandardAlternation(String^ sKey, String^% sValue);
-        EM_ReturnCode eGetStemStressPositions(String^ sLemma, List<int>% listPositions);
+        EM_ReturnCode eGetStemStressPositions(String^ sStem, List<int>% listPositions);
         EM_ReturnCode eGetAlternatingPreverb(String^ sVerbForm, String^% sPreverb, bool% bVoicing);
         String^ sHash();
         EM_ReturnCode eWordFormFromHash(String^ sHash, int iAt, CWordFormManaged^% Wf);

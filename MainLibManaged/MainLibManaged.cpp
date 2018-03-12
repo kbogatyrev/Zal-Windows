@@ -55,14 +55,14 @@ String^ CWordFormManaged::sWordForm()
     return gcnew String (m_pWordForm->sWordForm());
 }
 
-String^ CWordFormManaged::sLemma()
+String^ CWordFormManaged::sStem()
 {
     if (NULL == m_pWordForm)
     {
         throw gcnew Exception(L"WordForm object is NULL.");
     }
 
-    return gcnew String(m_pWordForm->sLemma());
+    return gcnew String(m_pWordForm->sStem());
 }
 
 __int64 CWordFormManaged::llLexemeId()
@@ -292,7 +292,7 @@ CLexemeManaged^ CDictionaryManaged::CreateLexeme()
     CLexemeManaged^ pManaged = gcnew CLexemeManaged();
     pManaged->m_pLexeme = pLexeme;
 
-    return gcnew CLexemeManaged();
+    return pManaged;
 }
 
 EM_ReturnCode CDictionaryManaged::eGetLexemeById(int iId)
@@ -1969,7 +1969,7 @@ bool CLexemeManaged::bFindStandardAlternation(String^ sKey, String^% sValue)
     return bRet;
 }
 
-EM_ReturnCode CLexemeManaged::eGetStemStressPositions(String^ sLemma, List<int>% listPositions)
+EM_ReturnCode CLexemeManaged::eGetStemStressPositions(String^ sStem, List<int>% listPositions)
 {
     if (NULL == m_pLexeme)
     {
@@ -1977,7 +1977,7 @@ EM_ReturnCode CLexemeManaged::eGetStemStressPositions(String^ sLemma, List<int>%
     }
 
     vector<int> vecPositions;
-    ET_ReturnCode eRet = m_pLexeme->eGetStemStressPositions(sFromManagedString(sLemma), vecPositions);
+    ET_ReturnCode eRet = m_pLexeme->eGetStemStressPositions(sFromManagedString(sStem), vecPositions);
     if (H_NO_ERROR == eRet)
     {
         for (vector<int>::iterator it = vecPositions.begin(); it != vecPositions.end(); ++it)
