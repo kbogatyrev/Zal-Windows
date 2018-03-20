@@ -194,8 +194,8 @@ namespace MainLibManaged
         void SetNoPastParticiple(bool);
         bool bFleetingVowel();
         void SetFleetingVowel(bool);
-        bool bStemAugment();
-        void SetStemAugment(bool);
+        bool iStemAugment();
+        void SetStemAugment(int);
         String^ s1SgStem();
         void Set1SgStem(String^);
         String^ s3SgStem();
@@ -249,13 +249,19 @@ namespace MainLibManaged
         EM_ReturnCode eSetDbPath(String^ sDbPath);
         String^ sGetDbPath();
         CLexemeManaged^ CreateLexeme();
+
         EM_ReturnCode eGetLexemeById(int Id);
         EM_ReturnCode eGetLexemesByHash(String^);
         EM_ReturnCode eGetLexemesByGraphicStem(String^);
         EM_ReturnCode eGetLexemesByInitialForm(String^);
         EM_ReturnCode eGenerateAllForms();
         EM_ReturnCode eGenerateFormsForSelectedLexemes();
-        MainLibManaged::EM_ReturnCode eCountLexemes(Int64% iLexemes);
+        EM_ReturnCode eCountLexemes(Int64% iLexemes);
+
+//        EM_ReturnCode eVerifyLexemeProperties(CLexemeManaged^);
+//        EM_ReturnCode eSourceFormExists(CLexemeManaged^, bool%);
+
+        EM_ReturnCode eSaveLexeme(CLexemeManaged^);
 
         EM_ReturnCode eGetFirstLexeme(CLexemeManaged^% pLexeme);
         EM_ReturnCode eGetNextLexeme(CLexemeManaged^% pLexeme);

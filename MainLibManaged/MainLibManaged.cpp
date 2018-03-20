@@ -372,6 +372,22 @@ EM_ReturnCode CDictionaryManaged::eCountLexemes(Int64% iLexemes)
     return (EM_ReturnCode)eRet;
 }
 
+//EM_ReturnCode eVerifyLexemeProperties(CLexemeManaged^);
+//EM_ReturnCode eSourceFormExists(CLexemeManaged^, bool%);
+
+
+EM_ReturnCode CDictionaryManaged::eSaveLexeme(CLexemeManaged^ l)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pDictionary->eSaveLexeme(l->m_pLexeme);
+
+    return (EM_ReturnCode)eRet;
+}
+
 EM_ReturnCode CDictionaryManaged::eGetFirstLexeme(CLexemeManaged^% lexeme)
 {
     if (NULL == m_pDictionary)
@@ -1841,24 +1857,24 @@ void CLexemeManaged::SetFleetingVowel(bool bValue)
     m_pLexeme->SetFleetingVowel(bValue);
 }
 
-bool CLexemeManaged::bStemAugment()
+bool CLexemeManaged::iStemAugment()
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->bStemAugment();
+    return m_pLexeme->iStemAugment();
 }
  
-void CLexemeManaged::SetStemAugment(bool bValue)
+void CLexemeManaged::SetStemAugment(int iValue)
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->SetStemAugment(bValue);
+    return m_pLexeme->SetStemAugment(iValue);
 }
 
 String^ CLexemeManaged::s1SgStem()
