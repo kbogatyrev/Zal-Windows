@@ -121,6 +121,37 @@ namespace ZalTestApp
             m_StoredLexemes = new Dictionary<string, string>();
         }
 
+        public bool bCreateLexeme(ref CLexemeManaged l)
+        {
+            if (null == m_Dictionary)
+            {
+                System.Windows.MessageBox.Show("Dictionary was not initialized.");
+                return false;
+            }
+
+            l = m_Dictionary.CreateLexeme();
+            if (l != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool bSaveLexeme(CLexemeManaged l)
+        {
+            if (null == m_Dictionary)
+            {
+                System.Windows.MessageBox.Show("Dictionary was not initialized.");
+                return false;
+            }
+
+            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveLexeme(l);
+            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+        }
+
         public bool GetFormsByGramHash(string sLexemeHash, string sGramHash, out List<string> forms)
         {
             forms = null;
@@ -217,7 +248,6 @@ namespace ZalTestApp
             {
                 if (!m_Lexemes.ContainsKey(lexeme.sHash()))
                 {
-
                     eRet = lexeme.eGenerateParadigm();
                     if (eRet != EM_ReturnCode.H_NO_ERROR)
                     {
@@ -388,8 +418,9 @@ namespace ZalTestApp
                     }
                     paradigm[sKey].Add(sWordForm);
                 }
-                catch
+                catch(Exception ex)
                 {
+                    return false;
                 }
 
                 eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);

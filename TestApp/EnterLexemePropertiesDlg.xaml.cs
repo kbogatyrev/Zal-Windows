@@ -19,14 +19,15 @@ namespace ZalTestApp
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
-            ((EnterLexemePropertiesViewModel)this.DataContext).OnCancel(null);
             this.Close();
         }
 
         private void BtnOK_Click(object sender, RoutedEventArgs e)
         {
+
+            var model = (EnterLexemePropertiesViewModel)this.DataContext;
+
             DialogResult = true;
-            ((EnterLexemePropertiesViewModel)this.DataContext).OnOK(null);
             this.Close();
         }
     }

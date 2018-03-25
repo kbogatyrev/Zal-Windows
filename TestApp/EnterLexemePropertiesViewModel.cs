@@ -1,15 +1,22 @@
-﻿using MainLibManaged;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
+
+using MainLibManaged;
 
 namespace ZalTestApp
 {
     public class EnterLexemePropertiesViewModel : ViewModelBase
     {
-#region POS_String_to_POS_Enum
+        CLexemeManaged m_Lexeme;
+        List<string> m_PropertiesChanged;
+        HashSet<char> m_CyrillicAlphabet;
+
+        List<string> m_Errors;
+
+        #region POS_String_to_POS_Enum
 
         public enum E_POS
         {
@@ -28,8 +35,8 @@ namespace ZalTestApp
             POS_PREP,
             POS_CONJ,
             POS_PARTICLE,
-            POS_INTERJ,
-            POS_PARENTH,
+            POS_INTERJ,     // вводн.
+            POS_PARENTH,    // межд.
             POS_NULL,
             POS_COUNT
         };
@@ -105,6 +112,23 @@ namespace ZalTestApp
                     m_sRestrictedContexts = value;
                 }
                 OnPropertyChanged("RestrictedContexts");
+            }
+        }
+
+        private string m_sUsage;
+        public string Usage
+        {
+            get
+            {
+                return m_sUsage;
+            }
+            set
+            {
+                if (value != m_sUsage)
+                {
+                    m_sUsage = value;
+                }
+                OnPropertyChanged("Usage");
             }
         }
 
@@ -397,7 +421,6 @@ namespace ZalTestApp
             }
         }
 
-
         private ICommand m_OKCommand;
         public ICommand OKCommand
         {
@@ -426,10 +449,19 @@ namespace ZalTestApp
 
         #endregion
 
-        public EnterLexemePropertiesViewModel()
+        public EnterLexemePropertiesViewModel(CLexemeManaged lexeme)
         {
+            m_Lexeme = lexeme;
+            m_PropertiesChanged = new List<string>();
+
+            String sAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+            m_CyrillicAlphabet = new HashSet<char>(sAlphabet.ToCharArray());
+
+            m_Errors = new List<string>();
+
             CancelCommand = new RelayCommand(new Action<object>(OnCancel));
             OKCommand = new RelayCommand(new Action<object>(OnOK));
+            PropertyChanged += new PropertyChangedEventHandler(lexeme_PropertyChanged);
 
             m_StringToPos = new Dictionary<string, E_POS>()
             {
@@ -455,10 +487,844 @@ namespace ZalTestApp
             };
         }       //  EnterLexemePropertiesViewModel()
 
-        public void OnCancel(object arg)
-        {}
+        public bool bErrors()
+        {
+            return (m_Errors.Count > 0);
+        }
 
-        public void OnOK(object arg)
-        {}
+        public string sErrorList()
+        {
+            string sMsg = "";
+            foreach (string sErr in m_Errors)
+            {
+                if (sMsg.Length > 0)
+                {
+                    sMsg += System.Environment.NewLine;
+                }
+                sMsg += '\t' + sErr;
+            }
+
+            return sMsg;
+        }
+
+        public void OnCancel(object view)
+        {
+            ((Window)view).Close();
+        }
+
+        public void OnOK(object view)
+        {
+            var bRet = bVerifyData();
+            if (!bRet)
+            {
+                string sMsg = "Ошибки в параметрах лексемы:";
+                sMsg += System.Environment.NewLine;
+                sMsg += sErrorList();
+                MessageBox.Show(sMsg);
+                m_Errors.Clear();
+            }
+            else
+            {
+                OffLoadData();
+                ((Window)view).Close();
+            }
+        }
+
+        public bool bSetYesNoValue(string sPropertyName, string sValue, ref bool bResult)
+        {
+            string sYesValue = "Да";
+            string sNoValue = "Нет";
+
+            if (sYesValue == sValue)
+            {
+                bResult = true;
+            }
+            else if (sNoValue == sValue)
+            {
+                bResult = false;
+            }
+            else
+            {
+                MessageBox.Show(String.Format("Unexpected value for {1} property", sPropertyName), "Error");
+                return false;
+            }
+            return true;
+        }
+
+        public bool bVerifyData()
+        {
+            bool bRet = true;
+
+            // Headword: only required part is source form
+            if (null == m_sSourceForm || m_sSourceForm.Length < 1)
+            {
+                m_Errors.Add("Нет исходной формы.");
+                return false;
+            }
+
+            if (!m_CyrillicAlphabet.IsSupersetOf(m_sSourceForm))
+            {
+                m_Errors.Add("Посторонние символы в исходной форме.");
+                return false;
+            }
+
+            EM_MainSymbol eMainSymbol = Helpers.eMainSymbolToEnum(m_sMainSymbol);
+            switch (eMainSymbol)
+            {
+                case EM_MainSymbol.MS_MO:
+                case EM_MainSymbol.MS_ZH:
+                case EM_MainSymbol.MS_ZHO:
+                case EM_MainSymbol.MS_S:
+                case EM_MainSymbol.MS_SO:
+                    break;
+                case EM_MainSymbol.MS_MO_ZHO:
+                    break;
+                case EM_MainSymbol.MS_MN:
+                    break;
+                case EM_MainSymbol.MS_MN_NEOD:
+                    break;
+                case EM_MainSymbol.MS_MN_ODUSH:
+                    break;
+                case EM_MainSymbol.MS_MN_OT:
+                    break;
+                case EM_MainSymbol.MS_P:
+                    break;
+                case EM_MainSymbol.MS_MS:
+                    break;
+                case EM_MainSymbol.MS_MS_P:
+                    break;
+                case EM_MainSymbol.MS_CHISL:
+                    break;
+                case EM_MainSymbol.MS_CHISL_P:
+                    break;
+                case EM_MainSymbol.MS_SV:
+                    break;
+                case EM_MainSymbol.MS_NSV:
+                    break;
+                case EM_MainSymbol.MS_SV_NSV:
+                    break;
+                case EM_MainSymbol.MS_N:
+                    break;
+                case EM_MainSymbol.MS_PREDL:
+                    break;
+                case EM_MainSymbol.MS_SOJUZ:
+                    break;
+                case EM_MainSymbol.MS_PREDIK:
+                    break;
+                case EM_MainSymbol.MS_VVODN:
+                    break;
+                case EM_MainSymbol.MS_SRAVN:
+                    break;
+                case EM_MainSymbol.MS_CHAST:
+                    break;
+                case EM_MainSymbol.MS_MEZHD:
+                    break;
+                case EM_MainSymbol.MS_END:
+                    break;
+                default:
+                    m_Errors.Add("Непознан основной символ.");
+                    return false;
+            }
+
+
+            return !bErrors();
+        }
+
+        public void OffLoadData()
+        {
+            bool bRet = true;
+            bool bValue = true;
+
+            foreach (string sProperty in m_PropertiesChanged)
+            {
+                switch (sProperty)
+                {
+                    //case "GraphicStem":
+                    //case "HasIrregularForms":
+
+                    case "FleetingVowel":
+                    {
+                        bRet = bSetYesNoValue("FleetingVowel", m_sFleetingVowel, ref bValue);
+                        if (bRet)
+                        {
+                            m_Lexeme.SetHasFleetingVowel(bValue);
+                        }
+                        break;
+                    }
+
+                    case "HasYoAlternation":
+                    {
+                        bRet = bSetYesNoValue("YoAlternation", m_sYoAlternation, ref bValue);
+                        if (bRet)
+                        {
+                            m_Lexeme.SetHasYoAlternation(bValue);
+                        }
+                        break;
+                    }
+
+                    case "HasOAlternation":
+                    {
+                        bRet = bSetYesNoValue("OAlternation", m_sOAlternation, ref bValue);
+                        if (bRet)
+                        {
+                            m_Lexeme.SetHasOAlternation(bValue);
+                        }
+                        break;
+                    }
+
+                    case "SourceForm":
+                    {
+                        if (null == m_sSourceForm || m_sSourceForm.Length < 1)
+                        {
+                            MessageBox.Show("Unexpected value for SourceForm property" + m_sSourceForm, "Error");
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetSourceForm(m_sSourceForm);
+                        }
+                        break;
+                    }
+
+                    case "HeadwordComment":
+                    {
+                        if (null == m_sHeadwordComment || m_sHeadwordComment.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetHeadwordComment(m_sHeadwordComment);
+                        }
+                        break;
+                    }
+
+                    case "Variant":
+                    {
+                        if (null == m_sVariant || m_sVariant.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetHeadwordVariant(m_sVariant);
+                        }
+                        break;
+                    }
+
+                    /*
+                    case "HeadwordVariantComment":
+                    {
+                        if (null == m_sHeadwordVariantComment || m_sHeadwordVariantComment.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetHeadwordVariantComment(m_sHeadwordVariantComment);
+                        }
+                        break;
+                    }
+                    */
+
+                    /*
+                    case "SetPluralOf":
+                    {
+                        if (null == m_sPluralOf || m_sm_sPluralOf.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetPluralOf(m_sPluralOf);
+                        }
+                        break;
+                    }
+                    */
+
+                    /*
+                    case "SetPluralOf":
+                    {
+                        if (null == m_sPluralOf || m_sPluralOf.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetPluralOf(m_sPluralOf);
+                        }
+                        break;
+                    }
+                    */
+
+                    case "Usage":
+                    {
+                        if (null == m_sUsage || m_sUsage.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetUsage(m_sUsage);
+                        }
+                        break;
+                    }
+
+                    /*
+                case "SeeRef":
+                {
+                    if (null == m_sSeeRef || m_sSeeRef.Length < 1)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        m_Lexeme.SetSeeRef(m_sSeeRef);
+                    }
+                    break;
+                }
+
+                case "BackRef":
+                {
+                    if (null == m_sBackRef || m_sBackRef.Length < 1)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        m_Lexeme.SetBackRef(m_sSeeRef);
+                    }
+                    break;
+                }
+
+                case "IsUnstressed":
+                {
+                    bRet = bSetYesNoValue("IsUnstressed", m_sIsUnstressed, ref bValue);
+                    if (bRet)
+                    {
+                        m_Lexeme.SetIsUnstressed(bValue);
+                    }                    
+                    break;
+                }
+
+                case "IsVariant":
+                {
+                    bRet = bSetYesNoValue("IsVariant", m_sIsVariant, ref bValue);
+                    if (bRet)
+                    {
+                        m_Lexeme.SetIsVariant(bValue);
+                    }
+                    break;
+                }
+                      */
+
+                case "MainSymbol":
+                {
+                    if (null == m_sMainSymbol || m_sMainSymbol.Length < 1)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        m_Lexeme.SetMainSymbol(m_sMainSymbol);
+                    }
+                    break;
+                }
+
+                    /*
+                case "IsPluralOf":
+                {
+                    bRet = bSetYesNoValue("IsPluralOf", m_sIsPluralOf, ref bValue);
+                    if (bRet)
+                    {
+                        m_Lexeme.SetIsPluralOf(bValue);
+                    }
+                    break;
+                }
+                    */
+                    /*
+                case "Transitive":
+                {
+                    bRet = bSetYesNoValue("Transitive", m_sTransitive, ref bValue);
+                    if (bRet)
+                    {
+                        m_Lexeme.SetTransitive(bValue);
+                    }
+                    break;
+                }
+                */
+
+                    //    virtual void SetIsReflexive(ET_Reflexive eValue)
+                    //    virtual void SetMainSymbolPluralOf(const CEString& sValue)
+
+                            /*
+                case "AltMainSymbol":
+                {
+                    if (null == m_sAltMainSymbol || m_sAltMainSymbol.Length < 1)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        m_Lexeme.SetAltMainSymbol(m_sAltMainSymbol);
+                    }
+                    break;
+                }
+                            */
+
+                            //                virtual void SetAspect(ET_Aspect eValue)
+                            //    virtual void SetInflectionType(const CEString& sValue)
+                            //    virtual void SetPartOfSpeech(ET_PartOfSpeech eValue)
+                            //    virtual void SetComment(const CEString& sValue)
+                            //    virtual void SetAltMainSymbolComment(const CEString& sValue)
+                            //    virtual void SetAltInflectionComment(const CEString& sValue)
+
+                case "AltMainSymbol":
+                {
+                    if (null == m_sVerbStemAlternation || m_sVerbStemAlternation.Length < 1)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        m_Lexeme.SetVerbStemAlternation(m_sVerbStemAlternation);
+                    }
+                    break;
+                }
+
+                    /*
+                    case "PartPastPassZhd":
+                    {
+                        bRet = bSetYesNoValue("PartPastPassZhd", m_sPartPastPassZhd, ref bValue);
+                        if (bRet)
+                        {
+                            m_Lexeme.SetPartPastPassZhd(bValue);
+                        }
+                        break;
+                    }
+                    */
+
+                    /*
+                    case "Section":
+                    {
+                        if (m_iSection < 1 || m_iSection> 18)
+                        {
+                            MessageBox.Show("Unexpected value for m_iSection property" + m_iSection, "Error");
+                            continue;
+                        }
+
+                            m_Lexeme.SetSection(m_iSection);
+                        break;
+                    }
+                    */
+                    /*
+                case "NoComparative":
+                {
+                    bRet = bSetYesNoValue("NoComparative", m_sNoComparative, ref bValue);
+                    if (bRet)
+                    {
+                        m_Lexeme.SetNoComparative(bValue);
+                    }
+                    break;
+                }
+                    */
+
+                    /*
+                case "AssumedForms":
+                {
+                    bRet = bSetYesNoValue("AssumedForms", m_sAssumedForms, ref bValue);
+                    if (bRet)
+                    {
+                        m_Lexeme.SetAssumedForms(bValue);
+                    }
+                    break;
+                }
+                    */
+                    /*
+                case "SecondGenitive":
+                {
+                    bRet = bSetYesNoValue("SecondGenitive", m_sSecondGenitive, ref bValue);
+                    if (bRet)
+                    {
+                        m_Lexeme.SetSecondGenitive(bValue);
+                    }
+                    break;
+                }
+                */
+                    /*
+                case "SecondLocative":
+                {
+                    bRet = bSetYesNoValue("SecondLocative", m_sSecondLocative, ref bValue);
+                    if (bRet)
+                    {
+                        m_Lexeme.SetSecondLocative(bValue);
+                    }
+                    break;
+                }
+                        */
+                    /*
+                case "SecondLocativeOptional":
+                {
+                    bRet = bSetYesNoValue("SecondLocativeOptional", m_sSecondLocativeOptional, ref bValue);
+                    if (bRet)
+                    {
+                        m_Lexeme.SetSecondLocativeOptional(bValue);
+                    }
+                    break;
+                }
+                            */
+
+                    /*
+                    case "Loc2Preposition":
+                    {
+                        if (null == m_sLoc2Preposition || m_sLoc2Preposition.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetLoc2Preposition(m_sLoc2Preposition);
+                        }
+                        break;
+                    }
+                        */
+
+                    /*
+                    case "HasAspectPair":
+                    {
+                        bRet = bSetYesNoValue("HasAspectPair", m_sHasAspectPair, ref bValue);
+                        if (bRet)
+                        {
+                            m_Lexeme.SetHasAspectPair(bValue);
+                        }
+                        break;
+                    }
+                        */
+                    /*
+                    case "AspectPairType":
+                    {
+                        if (m_iAspectPair < 1 || m_iAspectPair > 18)
+                        {
+                            MessageBox.Show("Unexpected value for m_iAspectPair property" + m_iAspectPair, "Error");
+                            continue;
+                        }
+
+                        m_Lexeme.SetAltAspectPairType(m_iAspectPair);
+                        break;
+                    }
+                    */
+                    /*
+                    case "AspectPairData":
+                    {
+                        if (null == m_sAspectPairData || m_sAspectPairData.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetAspectPairData(m_sAspectPairData);
+                        }
+                        break;
+                    }
+                    */
+
+                    /*
+                    case "AltAspectPairComment":
+                    {
+                        if (null == m_sAltAspectPairComment || m_sAltAspectPairComment.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetAltAspectPairComment(m_sAltAspectPairComment);
+                        }
+                        break;
+                    }
+                    */
+
+                    /*
+                    case "QuestionableForms":
+                    {
+                        if (null == m_sQuestionableForms || m_sQuestionableForms.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetQuestionableForms(m_sQuestionableForms);
+                        }
+                        break;
+                    }
+                        */
+
+                    /*
+                    case "HasIrregularVariants":
+                    {
+                        bRet = bSetYesNoValue("HasIrregularVariants", m_sHasIrregularVariants, ref bValue);
+                        if (bRet)
+                        {
+                            m_Lexeme.SetHasIrregularVariants(bValue);
+                        }
+                        break;
+                    }
+                        */
+
+                    /*
+                    case "HasDeficiencies":
+                    {
+                        bRet = bSetYesNoValue("HasDeficiencies", m_sHasDeficiencies, ref bValue);
+                        if (bRet)
+                        {
+                            m_Lexeme.SetHasDeficiencies(bValue);
+                        }
+                    }
+                        */
+
+                    /*
+                    case "RestrictedForms":
+                    {
+                        if (null == m_sRestrictedForms || m_sRestrictedForms.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetQuestionableForms(m_sRestrictedForms);
+                        }
+                        break;
+                    }
+                        */
+
+                    /*
+                    case "Contexts":
+                    {
+                        if (null == m_sContexts || m_sContexts.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetQuestionableForms(m_sContexts);
+                        }
+                        break;
+                    }
+                        */
+
+                    /*
+                    case "TrailingComment":
+                    {
+                        if (null == m_sTrailingComment || m_sTrailingComment.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetQuestionableForms(m_sTrailingComment);
+                        }
+                        break;
+                    }
+                        */
+
+                    /*
+                    case "TrailingComment":
+                    {
+                        if (null == m_sTrailingComment || m_sTrailingComment.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetQuestionableForms(m_sTrailingComment);
+                        }
+                        break;
+                    }
+                        */
+                    /*
+                    case "AspectPairType":
+                    {
+                        if (m_iInflectionId < 1 || m_iInflectionId > 16)
+                        {
+                            MessageBox.Show("Unexpected value for m_iInflectionId property" + m_iInflectionId, "Error");
+                            continue;
+                        }
+
+                        m_Lexeme.SetInflectionId(m_iInflectionId);
+                        break;
+                    }
+                    */
+                    /*
+                    case "PrimaryInflectionGroup":
+                    {
+                        bRet = bSetYesNoValue("PrimaryInflectionGroup", m_sPrimaryInflectionGroup, ref bValue);
+                        if (bRet)
+                        {
+                            m_Lexeme.SetPrimaryInflectionGroup(bValue);
+                        }
+                    }
+                    */
+                    /*
+                    case "Type":
+                    {
+                        if (m_iType < 1 || m_iType > 16)
+                        {
+                            MessageBox.Show("Unexpected value for m_iType property" + m_iType, "Error");
+                            continue;
+                        }
+
+                        m_Lexeme.SetType(m_iType);
+                        break;
+                    }
+                    */
+                    /*
+                    case "AccentType1":
+                    {
+                        m_Lexeme.SetAccentType1(m_eAccentType1);
+                        break;
+                    }
+
+                    case "AccentType2":
+                    {
+                        m_Lexeme.SetAccentType1(m_eAccentType2);
+                        break;
+                    }
+            */
+                    /*
+                    case "ShortFormsRestricted":
+                    {
+                        bRet = bSetYesNoValue("ShortFormsRestricted", m_sShortFormsRestricted, ref bValue);
+                        if (bRet)
+                        {
+                            m_Lexeme.SetShortFormsRestricted(bValue);
+                        }
+                    }
+                            */
+                    /*
+                    case "PastParticipleRestricted":
+                    {
+                        bool bValue = false;
+                        if ("Да" == m_sPastParticipleRestricted)
+                        {
+                            bValue = true;
+                        }
+                        else if ("Нет" == m_sPastParticipleRestricted)
+                        {
+                            bValue = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Unexpected value for m_sPastParticipleRestricted property" + m_sPastParticipleRestricted, "Error");
+                            continue;
+                        }
+                        m_Lexeme.SetPastParticipleRestricted(bValue);
+
+                        break;
+                    }
+                    */
+                    /*
+                    case "NoLongForms":
+                    {
+                        bRet = bSetYesNoValue("NoLongForms", m_sNoLongForms, ref bValue);
+                        if (bRet)
+                        {
+                            m_Lexeme.SetNoLongForms(bValue);
+                        }
+                    }
+                    */
+                    /*
+                case "ShortFormsIncomplete":
+                {
+                    bRet = bSetYesNoValue("ShortFormsIncomplete", m_sShortFormsIncomplete, ref bValue);
+                    if (bRet)
+                    {
+                        m_Lexeme.SetShortFormsIncomplete(bValue);
+                    }
+                }
+                */
+                    /*
+                    case "NoPastParticiple":
+                    {
+                        bRet = bSetYesNoValue("NoPastParticiple", m_sNoPastParticiple, ref bValue);
+                        if (bRet)
+                        {
+                            m_Lexeme.SetNoPastParticiple(bValue);
+                        }
+                    }
+                            */
+                    /*
+                    case "NoPastParticiple":
+                    {
+                        bRet = bSetYesNoValue("NoPastParticiple", m_sNoPastParticiple, ref bValue);
+                        if (bRet)
+                        {
+                            m_Lexeme.SetNoPastParticiple(bValue);
+                        }
+                    }
+                    */
+                    /*
+                    case "StemAugment":
+                    {
+                        bRet = bSetYesNoValue("StemAugment", m_sStemAugment, ref bValue);
+                        if (bRet)
+                        {
+                            m_Lexeme.SetStemAugment(bValue);
+                        }
+                    }
+                    
+
+                    case "1SgStem":
+                    {
+                        if (null == m_s1SgStem || m_s1SgStem.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.Set1SgStem(m_s1SgStem);
+                        }
+                        break;
+                    }
+
+                    case "3SgStem":
+                    {
+                        if (null == m_s3SgStem || m_s3SgStem.Length < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.Set3SgStem(m_s3SgStem);
+                        }
+                        break;
+                    }
+                    case "Infinitive":
+                    {
+                        if (null == m_sInfinitive || m_sInfinitive.Length< 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_Lexeme.SetInfinitive(m_sInfinitive);
+                        }
+                        break;
+                    }
+                    */
+                    default:
+                        var vvv = 0;
+                        break;
+                }
+            }
+        }
+
+        #region Event_Handlers
+
+        public void lexeme_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            m_PropertiesChanged.Add(e.PropertyName);
+        }
+
+        #endregion
+
     }
 }

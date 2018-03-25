@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.Threading;
+//using System.ComponentModel;
 
 using MainLibManaged;
 
@@ -281,16 +282,16 @@ namespace ZalTestApp
             }
         }
 
-        private ICommand m_EditCommand;
-        public ICommand EditCommand
+        private ICommand m_NewLexemeCommand;
+        public ICommand NewLexemeCommand
         {
             get
             {
-                return m_EditCommand;
+                return m_NewLexemeCommand;
             }
             set
             {
-                m_EditCommand = value;
+                m_NewLexemeCommand = value;
             }
         }
 
@@ -341,7 +342,7 @@ namespace ZalTestApp
             ForwardButtonCommand = new RelayCommand(new Action<object>(GoForward));
             OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
             SearchByInitialFormCommand = new RelayCommand(new Action<object>(SearchByInitialForm));
-            EditCommand = new RelayCommand(new Action<object>(Edit));
+            NewLexemeCommand = new RelayCommand(new Action<object>(NewLexeme));
             ShowRegressionPageCommand = new RelayCommand(new Action<object>(ShowRegression));
             ImportRegressionDataCommand = new RelayCommand(new Action<object>(ImportRegressionData));
             ExportRegressionDataCommand = new RelayCommand(new Action<object>(ExportRegressionData));
@@ -513,17 +514,26 @@ namespace ZalTestApp
 
         }   // SearchByInitialForm()
 
-        void Edit(object obj)
+        void NewLexeme(object obj)
         {
-            EnterLexemePropertiesViewModel model = new EnterLexemePropertiesViewModel();
-            EnterLexemePropertiesDlg dlg = new EnterLexemePropertiesDlg(model);
+            CLexemeManaged l = null;
+            var bRet = m_MainModel.bCreateLexeme(ref l);
+            if (null == l || !bRet)
+            {
+                return;
+            }
+
+            EnterLexemePropertiesViewModel elpModel = new EnterLexemePropertiesViewModel(l);
+            EnterLexemePropertiesDlg dlg = new EnterLexemePropertiesDlg(elpModel);
             dlg.Owner = Application.Current.MainWindow;
+
             bool? bnRet = dlg.ShowDialog();
             if (bnRet != true)
             {
-                MessageBox.Show("Internal error: Bad return code from dialog.");
                 return;
             }
+
+            m_MainModel.bSaveLexeme(l);
         }
 
         void ShowParticiple(CLexemeManaged lexeme, EM_Subparadigm sp, ViewModelBase parent)
@@ -751,7 +761,7 @@ namespace ZalTestApp
 
     }   //  class MainViewModel 
 
-    #region RegressionDataImportThread
+    #region Threading
 
     public class RegressionDataImportThread
     {

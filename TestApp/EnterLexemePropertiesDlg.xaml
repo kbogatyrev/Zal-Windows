@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:ZalTestApp"
+    x:Name="LexemePropertiesWindow"
     mc:Ignorable="d"
     Title="{Binding Path=DlgTitle}" Width="1000" Height="600"  MaxWidth="1000" MinHeight="600" MinWidth="1000" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
@@ -17,12 +18,11 @@
         <TextBox Text="Комментарий" Margin="33,205,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="Курсивный текст ПЕРЕД основной грамматической пометой, напр.: (без удар.) "/>
         <TextBox Text="{Binding Path=HeadwordComment}" Margin="158,205,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
 
-        <TextBox Text="Фразеологизмы" Margin="31,240,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="Фразеологизмы" Margin="33,240,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <TextBox Text="{Binding Path=RestrictedContexts}" Margin="158,240,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
 
         <TextBox Text="Примеры употр." Margin="33,275,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <TextBox Text="{Binding Path=Usage}" Margin="158,275,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
-
 
         <!-- DESCRIPTOR -->
         <TextBox Text="Основной символ" Margin="356,30,0,0" Style="{StaticResource FormLabel}" Width="120" />
@@ -38,7 +38,7 @@
             <ComboBoxItem Content="мн." IsEnabled="True" />
             <ComboBoxItem Content="мн. неод." IsEnabled="True" />
             <ComboBoxItem Content="мн. одуш." IsEnabled="True"/>
-            <ComboBoxItem Content="мн. _от_" IsEnabled="True" />
+            <ComboBoxItem Content="мн. от" IsEnabled="True" />
             <ComboBoxItem Content="п" IsEnabled="True"/>
             <ComboBoxItem Content="мс" IsEnabled="True" />
             <ComboBoxItem Content="мс-п" IsEnabled="True" />
@@ -120,7 +120,7 @@
             <ComboBoxItem Content="f''" IsEnabled="True" />
         </ComboBox>
 
-        <TextBox Text="Цифра в кружке" Margin="355,205,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="Цифра в кружке" Margin="356,205,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <ComboBox Text="{Binding Path=NumberInCircle}" HorizontalAlignment="Left" Margin="481,205,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="" IsEnabled="True" />
             <ComboBoxItem Content="1" IsEnabled="True" />
@@ -135,22 +135,22 @@
             <ComboBoxItem Content="9" IsEnabled="True"/>
         </ComboBox>
 
-        <TextBox Text="Треугольник" Margin="354,240,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="Треугольник" Margin="356,240,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <ComboBox Text="{Binding Path=Triangle}" HorizontalAlignment="Left" Margin="480,240,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="Да" IsEnabled="True" />
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
         </ComboBox>
-        <TextBox Text="Беглая гласная" Margin="354,275,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="Звезда"/>
+        <TextBox Text="Беглая гласная" Margin="356,275,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="Звезда"/>
         <ComboBox Text="{Binding Path=FleetingVowel}" HorizontalAlignment="Left" Margin="480,275,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="Да" IsEnabled="True" />
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
         </ComboBox>
-        <TextBox Text="Помета ё" Margin="354,310,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="Помета ё" Margin="356,310,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <ComboBox Text="{Binding Path=YoAlternation}" HorizontalAlignment="Left" Margin="480,310,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="Да" IsEnabled="True" />
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
         </ComboBox>
-        <TextBox Text="Помета о" Margin="354,345,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="Помета о" Margin="356,345,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <ComboBox Text="{Binding Path=OAlternation}" HorizontalAlignment="Left" Margin="480,345,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="Да" IsEnabled="True" />
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
@@ -235,8 +235,8 @@
         <TextBox Text="НСВ → СВ черед." Margin="678,415,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <TextBox Text="{Binding Path=VerbStemAlternation}"  Margin="805,415,0,0" Style="{StaticResource FormText}" />
 
-        <Button Content="Cancel" Style="{DynamicResource BtnLarge}" Click="BtnCancel_Click" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="864,493,0,0" VerticalAlignment="Top" Width="75" />
-        <Button Content="OK" Style="{DynamicResource BtnLarge}" Click="BtnOK_Click" Command="{Binding OKCommand}" HorizontalAlignment="Left" Margin="781,493,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Cancel" Style="{DynamicResource BtnLarge}" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=LexemePropertiesWindow}"  HorizontalAlignment="Left" Margin="889,493,0,0" VerticalAlignment="Top" Width="75" />
+        <Button Content="OK" Style="{DynamicResource BtnLarge}" Command="{Binding OKCommand}" CommandParameter="{Binding ElementName=LexemePropertiesWindow}" HorizontalAlignment="Left" Margin="806,493,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
     <!--

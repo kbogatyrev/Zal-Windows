@@ -5,6 +5,69 @@ namespace ZalTestApp
 {
     public static class Helpers
     {
+        public static EM_MainSymbol eMainSymbolToEnum(string sMainSymbol)
+        {
+            switch (sMainSymbol)
+            {
+                case "м":
+                    return EM_MainSymbol.MS_M;
+                case "мо":
+                    return EM_MainSymbol.MS_MO;
+                case "ж":
+                    return EM_MainSymbol.MS_ZH;
+                case "жо":
+                    return EM_MainSymbol.MS_ZHO;
+                case "с":
+                    return EM_MainSymbol.MS_S;
+                case "со":
+                    return EM_MainSymbol.MS_SO;
+                case "мо-жо":
+                    return EM_MainSymbol.MS_MO_ZHO;
+                case "мн.":
+                    return EM_MainSymbol.MS_MN;
+                case "мн.неод.":
+                    return EM_MainSymbol.MS_MN_NEOD;
+                case "мн.одуш.":
+                    return EM_MainSymbol.MS_MN_ODUSH;
+                case "мн. от":
+                    return EM_MainSymbol.MS_MN_OT;
+                case "п":
+                    return EM_MainSymbol.MS_P;
+                case "мс":
+                    return EM_MainSymbol.MS_MS;
+                case "мс-п":
+                    return EM_MainSymbol.MS_MS_P;
+                case "числ.":
+                    return EM_MainSymbol.MS_CHISL;
+                case "числ.-п":
+                    return EM_MainSymbol.MS_CHISL_P;
+                case "св":
+                    return EM_MainSymbol.MS_SV;
+                case "нсв":
+                    return EM_MainSymbol.MS_NSV;
+                case "св-нсв":
+                    return EM_MainSymbol.MS_SV_NSV;
+                case "н":
+                    return EM_MainSymbol.MS_N;
+                case "предл.":
+                    return EM_MainSymbol.MS_PREDL;
+                case "союз":
+                    return EM_MainSymbol.MS_SOJUZ;
+                case "предик.":
+                    return EM_MainSymbol.MS_PREDIK;
+                case "вводн.":
+                    return EM_MainSymbol.MS_VVODN;
+                case "сравн.":
+                    return EM_MainSymbol.MS_SRAVN;
+                case "част.":
+                    return EM_MainSymbol.MS_CHAST;
+                case "межд.":
+                    return EM_MainSymbol.MS_MEZHD;
+                default:
+                    return EM_MainSymbol.MS_UNDEFINED;
+            }
+        }
+
         public static string sAccenTypeToStressSchema(EM_AccentType eType)
         {
             switch (eType)
