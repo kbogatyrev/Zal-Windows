@@ -422,26 +422,35 @@ namespace ZalTestApp
             try
             {
                 int iCheckedRow = -1;
-                for (int iLexeme = 0; iLexeme < NLexemes; ++iLexeme)
+                //                foreach (DataRowView rowView in m_Caller.CurrentView)
+                //                {
+                //                    string sLexHash = (string)rowView.Row["LexemeHash"];
+                //                    if (m_Caller.CancelVerifier)
+                //                    {
+                //                        m_Caller.SetResult(sLexHash, "Cancelled");
+                //                        break;
+                //                    }
+
+                //                    for (int iLexeme = 0; iLexeme < NLexemes; ++iLexeme)
+                string sFilter = "IsChecked='true'";
+                string sSortOrder = "SourceForm ASC";
+                DataRow[] arrFoundRows = m_RegressionData.Select(sFilter, sSortOrder, DataViewRowState.CurrentRows);
+                if (arrFoundRows.Length > 1)
                 {
-                    if (!IsRowChecked(m_sCurrentLexHash))
-                    {
-                        continue;
-                    }
-
-                    if (iCheckedRow >= 0)
-                    {
-                        MessageBox.Show("Удалять проверенные слова можно только по одному.");
-                        return;
-                    }
-
-                    iCheckedRow = iLexeme;
+                    MessageBox.Show("Удалять проверенные слова можно только по одному.");
+                    return;
                 }
 
-                string sLexemeHash = LexemeHash(iCheckedRow);
+                if (arrFoundRows.Length < 1)
+                {
+                    MessageBox.Show("Ошибка: слово не найдено.");
+                    return;
+                }
+
+                string sLexemeHash = (string)arrFoundRows[0]["LexemeHash"];
                 EM_TestResult eTestResult = EM_TestResult.TEST_RESULT_UNDEFINED;
                 var eRet = m_MainModel.DeleteSavedLexeme(sLexemeHash, ref eTestResult);
-                m_RegressionData.Rows.RemoveAt(iCheckedRow);
+                arrFoundRows[0].Delete();
 
             }   //  foreach (DataGridViewRow row in dataGridView.Rows)
             catch (Exception ex)
