@@ -421,17 +421,6 @@ namespace ZalTestApp
         {
             try
             {
-                int iCheckedRow = -1;
-                //                foreach (DataRowView rowView in m_Caller.CurrentView)
-                //                {
-                //                    string sLexHash = (string)rowView.Row["LexemeHash"];
-                //                    if (m_Caller.CancelVerifier)
-                //                    {
-                //                        m_Caller.SetResult(sLexHash, "Cancelled");
-                //                        break;
-                //                    }
-
-                //                    for (int iLexeme = 0; iLexeme < NLexemes; ++iLexeme)
                 string sFilter = "IsChecked='true'";
                 string sSortOrder = "SourceForm ASC";
                 DataRow[] arrFoundRows = m_RegressionData.Select(sFilter, sSortOrder, DataViewRowState.CurrentRows);
