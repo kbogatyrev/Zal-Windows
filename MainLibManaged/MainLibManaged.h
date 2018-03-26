@@ -232,6 +232,8 @@ namespace MainLibManaged
         EM_ReturnCode eGenerateParadigm();
 //        EM_ReturnCode eBuildAspectPair();
         EM_ReturnCode eSaveTestData();
+        EM_ReturnCode eCheckLexemeProperties(); // for manual input/editing
+        EM_ReturnCode eGetErrorMsg(String^% sErrorMsg);
 
     protected:
 //        EM_ReturnCode eGetAspectPair(String^%, int%, bool bIsVariant);

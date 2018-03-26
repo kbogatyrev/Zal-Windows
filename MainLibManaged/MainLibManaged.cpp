@@ -2319,6 +2319,34 @@ EM_ReturnCode CLexemeManaged::eSaveTestData()
     return (EM_ReturnCode)m_pLexeme->eSaveTestData();
 }
 
+EM_ReturnCode CLexemeManaged::eCheckLexemeProperties() // for manual input/editing
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pLexeme->eCheckLexemeProperties();
+}
+
+EM_ReturnCode CLexemeManaged::eGetErrorMsg(String^% sErrorMsg)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    CEString sNativeErrMsg;
+    ET_ReturnCode eRet = m_pLexeme->eGetErrorMsg(sNativeErrMsg);
+    if (eRet != H_NO_ERROR)
+    {
+        return (EM_ReturnCode)eRet;
+    }
+
+    sErrorMsg = gcnew String(sNativeErrMsg);
+
+    return (EM_ReturnCode)H_NO_ERROR;
+}
 
 //
 // Managed wrapper for the Gram hasher class

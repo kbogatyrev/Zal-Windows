@@ -35,6 +35,40 @@
         }
     };
 
+    public enum class EM_MainSymbol
+    {
+        MS_START,
+        MS_M = MS_START,
+        MS_MO,
+        MS_ZH,
+        MS_ZHO,
+        MS_S,
+        MS_SO,
+        MS_MO_ZHO,
+        MS_MN,
+        MS_MN_NEOD,
+        MS_MN_ODUSH,
+        MS_MN_OT,
+        MS_P,
+        MS_MS,
+        MS_MS_P,
+        MS_CHISL,
+        MS_CHISL_P,
+        MS_SV,
+        MS_NSV,
+        MS_SV_NSV,
+        MS_N,
+        MS_PREDL,
+        MS_SOJUZ,
+        MS_PREDIK,
+        MS_VVODN,
+        MS_SRAVN,
+        MS_CHAST,
+        MS_MEZHD,
+        MS_END,
+        MS_UNDEFINED
+    };
+
     public enum class EM_PartOfSpeech
     {
         POS_UNDEFINED,
