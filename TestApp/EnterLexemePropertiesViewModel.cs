@@ -40,7 +40,6 @@ namespace ZalTestApp
             POS_NULL,
             POS_COUNT
         };
-
         Dictionary<string, E_POS> m_StringToPos;
 
         #endregion
@@ -526,7 +525,11 @@ namespace ZalTestApp
             else
             {
                 OffLoadData();
-                ((Window)view).Close();
+                var eErrCode = m_Lexeme.eCheckLexemeProperties();
+                if (EM_ReturnCode.H_NO_ERROR == eErrCode)
+                {
+                    ((Window)view).Close();
+                }
             }
         }
 
@@ -568,6 +571,8 @@ namespace ZalTestApp
                 return false;
             }
 
+//            var ret = m_Lexeme.eCheckLexemeProperties();
+/*
             EM_MainSymbol eMainSymbol = Helpers.eMainSymbolToEnum(m_sMainSymbol);
             switch (eMainSymbol)
             {
@@ -623,10 +628,10 @@ namespace ZalTestApp
                     break;
                 default:
                     m_Errors.Add("Непознан основной символ.");
-                    return false;
+                    break;
+//                    return false;
             }
-
-
+            */
             return !bErrors();
         }
 
@@ -892,6 +897,15 @@ namespace ZalTestApp
                     break;
                 }
 
+                case "Index":
+                {
+                    int iType = 0;
+                    if (Int32.TryParse(m_sIndex, out iType))
+                    {
+                        m_Lexeme.SetType(iType);
+                    }
+                    break;
+                }
                     /*
                     case "PartPastPassZhd":
                     {
@@ -1176,19 +1190,19 @@ namespace ZalTestApp
                         break;
                     }
                     */
-                    /*
-                    case "AccentType1":
+                    
+                    case "StressType1":
                     {
-                        m_Lexeme.SetAccentType1(m_eAccentType1);
+                        m_Lexeme.SetAccentType1(Helpers.eStringToAccentType(m_sStressType1));
                         break;
                     }
 
-                    case "AccentType2":
+                    case "StressType2":
                     {
-                        m_Lexeme.SetAccentType1(m_eAccentType2);
+                        m_Lexeme.SetAccentType1(Helpers.eStringToAccentType(m_sStressType2));
                         break;
                     }
-            */
+
                     /*
                     case "ShortFormsRestricted":
                     {

@@ -178,6 +178,41 @@ namespace ZalTestApp
             }
         }
 
+        public static EM_AccentType eStringToAccentType(string sAccentType)
+        {
+            switch(sAccentType)
+            {
+                case "a":
+                    return EM_AccentType.AT_A;
+                case "a'":
+                    return EM_AccentType.AT_A1;
+                case "b":
+                    return EM_AccentType.AT_B;
+                case "b'":
+                    return EM_AccentType.AT_B1;
+                case "c":
+                    return EM_AccentType.AT_C;
+                case "c'":
+                    return EM_AccentType.AT_C1;
+                case "c''":
+                    return EM_AccentType.AT_C2;
+                case "d":
+                    return EM_AccentType.AT_D;
+                case "d'":
+                    return EM_AccentType.AT_D1;
+                case "e":
+                    return EM_AccentType.AT_E;
+                case "f":
+                    return EM_AccentType.AT_F;
+                case "f'":
+                    return EM_AccentType.AT_F1;
+                case "f''":
+                    return EM_AccentType.AT_F2;
+                default:
+                    return EM_AccentType.AT_UNDEFINED;
+            }
+        }
+
         public static void MarkStress(ref string sWordForm, CWordFormManaged wf)
         {
             int iPos = -1;
