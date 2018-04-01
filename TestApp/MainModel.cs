@@ -11,6 +11,7 @@ namespace ZalTestApp
     public class MainModel : INotifyPropertyChanged
     {
         private CDictionaryManaged m_Dictionary = null;
+        private CDictionaryManaged m_EditDictionary = null;
 
         private CVerifierManaged m_Verifier = null; 
         public CVerifierManaged Verifier()
@@ -119,6 +120,8 @@ namespace ZalTestApp
             m_Lexemes = new Dictionary<string, Dictionary<string, List<string>>>();
             m_LexemeHashToLexeme = new Dictionary<string, CLexemeManaged>();
             m_StoredLexemes = new Dictionary<string, string>();
+
+            m_EditDictionary = new CDictionaryManaged();
         }
 
         public bool bCreateLexeme(ref CLexemeManaged l)
@@ -129,7 +132,7 @@ namespace ZalTestApp
                 return false;
             }
 
-            l = m_Dictionary.CreateLexeme();
+            l = m_EditDictionary.CreateLexeme();
             if (l != null)
             {
                 return true;
@@ -142,13 +145,13 @@ namespace ZalTestApp
 
         public bool bSaveLexeme(CLexemeManaged l)
         {
-            if (null == m_Dictionary)
+            if (null == m_EditDictionary)
             {
-                System.Windows.MessageBox.Show("Dictionary was not initialized.");
+                System.Windows.MessageBox.Show("Edit dictionary was not initialized.");
                 return false;
             }
 
-            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveLexeme(l);
+            EM_ReturnCode eRet = (EM_ReturnCode)m_EditDictionary.eSaveLexeme(l);
             return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         }
 
@@ -213,6 +216,19 @@ namespace ZalTestApp
             {
                 Path = "";
                 System.Windows.MessageBox.Show("Unable to open dictionary.");
+            }
+
+            return eRet;
+        }
+
+        public EM_ReturnCode OpenEditDictionary(string sPath)
+        {
+            Path = sPath;
+            var eRet = m_EditDictionary.eSetDbPath(Path);
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                Path = "";
+                System.Windows.MessageBox.Show("Unable to open edit dictionary.");
             }
 
             return eRet;
@@ -399,7 +415,8 @@ namespace ZalTestApp
             Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>();
 
             CWordFormManaged wf = null;
-            EM_ReturnCode eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
+            EM_ReturnCode eRet = (EM_ReturnCode)lexeme.eGenerateParadigm();
+            eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
 
             while (EM_ReturnCode.H_NO_ERROR == eRet || EM_ReturnCode.H_FALSE == eRet)
             {

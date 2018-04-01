@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 
 using MainLibManaged;
+using System.Text;
 
 namespace ZalTestApp
 {
@@ -13,6 +14,8 @@ namespace ZalTestApp
         CLexemeManaged m_Lexeme;
         List<string> m_PropertiesChanged;
         HashSet<char> m_CyrillicAlphabet;
+        char[] m_Vowels = { 'а', 'е', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я' };
+        char[] m_sStressMarks = { '/', '\\'};
 
         List<string> m_Errors;
 
@@ -51,6 +54,7 @@ namespace ZalTestApp
         {
             get
             {
+                Helpers.ExtractStressMarks(ref m_sSourceForm);
                 return m_sSourceForm;
             }
             set
@@ -58,6 +62,7 @@ namespace ZalTestApp
                 if (value != m_sSourceForm)
                 {
                     m_sSourceForm = value;
+//                    Helpers.RestoreStressMarks(ref m_sSourceForm);
                 }
                 OnPropertyChanged("SourceForm");
             }
@@ -452,8 +457,9 @@ namespace ZalTestApp
         {
             m_Lexeme = lexeme;
             m_PropertiesChanged = new List<string>();
+            m_sSourceForm = "";
 
-            String sAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+            String sAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя\u0300\u0301";
             m_CyrillicAlphabet = new HashSet<char>(sAlphabet.ToCharArray());
 
             m_Errors = new List<string>();
@@ -524,10 +530,11 @@ namespace ZalTestApp
             }
             else
             {
-                OffLoadData();
+                OffloadData();
                 var eErrCode = m_Lexeme.eCheckLexemeProperties();
                 if (EM_ReturnCode.H_NO_ERROR == eErrCode)
                 {
+                    ((Window)view).DialogResult = true;
                     ((Window)view).Close();
                 }
             }
@@ -556,7 +563,7 @@ namespace ZalTestApp
 
         public bool bVerifyData()
         {
-            bool bRet = true;
+//            bool bRet = true;
 
             // Headword: only required part is source form
             if (null == m_sSourceForm || m_sSourceForm.Length < 1)
@@ -627,7 +634,7 @@ namespace ZalTestApp
                 case EM_MainSymbol.MS_END:
                     break;
                 default:
-                    m_Errors.Add("Непознан основной символ.");
+                    m_Errors.Add("Неопознан основной символ.");
                     break;
 //                    return false;
             }
@@ -635,7 +642,7 @@ namespace ZalTestApp
             return !bErrors();
         }
 
-        public void OffLoadData()
+        public void OffloadData()
         {
             bool bRet = true;
             bool bValue = true;
@@ -686,7 +693,9 @@ namespace ZalTestApp
                         }
                         else
                         {
-                            m_Lexeme.SetSourceForm(m_sSourceForm);
+                            string sTmp = m_sSourceForm;
+                            Helpers.RestoreStressMarks(ref sTmp);
+                            m_Lexeme.SetSourceForm(sTmp);
                         }
                         break;
                     }
@@ -1334,7 +1343,7 @@ namespace ZalTestApp
         #region Event_Handlers
 
         public void lexeme_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
+        {        
             m_PropertiesChanged.Add(e.PropertyName);
         }
 

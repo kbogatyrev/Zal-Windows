@@ -156,7 +156,6 @@
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
         </ComboBox>
 
-
         <TextBox Text="Знак минус" Margin="678,30,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <ComboBox Text="{Binding Path=MinusSymbol}" HorizontalAlignment="Left" Margin="805,30,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="Да" IsEnabled="True" />

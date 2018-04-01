@@ -1,5 +1,7 @@
 ﻿using MainLibManaged;
 using System.Collections.Generic;
+using System.Text;
+using System.Windows;
 
 namespace ZalTestApp
 {
@@ -248,6 +250,7 @@ namespace ZalTestApp
 
         }    //  MarkStress()
 
+        // "/", "\" --> diacritics
         public static void ExtractStressMarks(ref string sWord)
         {
             char chrStressMark = '\x301';
@@ -282,6 +285,27 @@ namespace ZalTestApp
                     iPos += 2;
                 }
                 iPos = sWord.IndexOf('\\', iPos);
+            }
+        }
+
+        // Diacritics --> "/", "\"
+        public static void RestoreStressMarks(ref string sWord)
+        {
+            char chrStressMark = '\x301';
+            char chrSecondaryStressMark = '\x300';
+            char[] arrStressMarks = { chrStressMark, chrSecondaryStressMark };
+
+            int iPos = 0;
+            iPos = sWord.IndexOfAny(arrStressMarks, iPos);
+            while (iPos > 0 && iPos < sWord.Length - 1)
+            {
+                StringBuilder sb = new StringBuilder(sWord);
+                char chrDiacritic = (chrStressMark == sb[iPos]) ? '/' : '\\';
+                sb[iPos] = sb[iPos-1];
+                sb[iPos-1] = chrDiacritic;
+                sWord = sb.ToString();
+
+                iPos = sWord.IndexOfAny(arrStressMarks, iPos+1);
             }
         }
 

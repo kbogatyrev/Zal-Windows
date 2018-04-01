@@ -213,6 +213,20 @@ namespace ZalTestApp
             }
         }
 
+        private bool m_bEditDbOpen;
+        public bool EditDbOpen
+        {
+            get
+            {
+                return m_bEditDbOpen;
+            }
+            set
+            {
+                m_bEditDbOpen = value;
+                OnPropertyChanged("EditDbOpen");
+            }
+        }
+
         #endregion
 
         #region ICommand
@@ -266,6 +280,19 @@ namespace ZalTestApp
             set
             {
                 m_OpenDictionaryCommand = value;
+            }
+        }
+
+        private ICommand m_OpenEditDictionaryCommand;
+        public ICommand OpenEditDictionaryCommand
+        {
+            get
+            {
+                return m_OpenEditDictionaryCommand;
+            }
+            set
+            {
+                m_OpenEditDictionaryCommand = value;
             }
         }
 
@@ -341,6 +368,7 @@ namespace ZalTestApp
             BackButtonCommand = new RelayCommand(new Action<object>(GoBack));
             ForwardButtonCommand = new RelayCommand(new Action<object>(GoForward));
             OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
+            OpenEditDictionaryCommand = new RelayCommand(new Action<object>(OpenEditDictionary));
             SearchByInitialFormCommand = new RelayCommand(new Action<object>(SearchByInitialForm));
             NewLexemeCommand = new RelayCommand(new Action<object>(NewLexeme));
             ShowRegressionPageCommand = new RelayCommand(new Action<object>(ShowRegression));
@@ -356,6 +384,7 @@ namespace ZalTestApp
 //            m_CurrentViewModel = m_BreadCrumbs.AddLast(m_LexemeGridViewModel.Page);
 
             m_bDbOpen = false;
+            m_bEditDbOpen = false;
         }
 
         public void GoBack(object obj)
@@ -428,6 +457,27 @@ namespace ZalTestApp
             if (EM_ReturnCode.H_NO_ERROR == eRet)
             {
                 DbOpen = true;
+            }
+        }
+
+        public void OpenEditDictionary(object obj)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "All files (*.*)|*.*|SQLite 3 files (*.db3)|*.db3";
+            openFileDialog.FilterIndex = 2;
+            openFileDialog.RestoreDirectory = true;
+
+            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+            if (true == openFileDialog.ShowDialog())
+            {
+                eRet = m_MainModel.OpenEditDictionary(openFileDialog.FileName);
+            }
+
+            if (EM_ReturnCode.H_NO_ERROR == eRet)
+            {
+                EditDbOpen = true;
             }
         }
 
@@ -533,7 +583,15 @@ namespace ZalTestApp
                 return;
             }
 
-            m_MainModel.bSaveLexeme(l);
+            bRet = m_MainModel.bSaveLexeme(l);
+            if (bRet)
+            {
+                MessageBox.Show("Лексема сохранена.");
+            }
+            else
+            {
+                MessageBox.Show("Не удалось сохранить лексему.");
+            }
         }
 
         void ShowParticiple(CLexemeManaged lexeme, EM_Subparadigm sp, ViewModelBase parent)
