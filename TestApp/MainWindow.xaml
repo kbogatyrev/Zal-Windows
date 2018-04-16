@@ -74,9 +74,9 @@
 
     <DockPanel Name="HomeView">
         <Menu Style="{DynamicResource Menu}" DockPanel.Dock="Top">
-            <MenuItem Header="_Файл">
-                <MenuItem Header="_Открыть словарь" Command="{Binding OpenDictionaryCommand}"/>
-                <MenuItem Header="Открыть словарь для правки" Command="{Binding OpenEditDictionaryCommand}"/>
+            <MenuItem Header="_Файл" IsEnabled="False">
+                <MenuItem Header="_Открыть словарь" Command="{Binding OpenDictionaryCommand}" IsEnabled="False"/>
+                <MenuItem Header="Открыть словарь для правки" Command="{Binding OpenEditDictionaryCommand}" IsEnabled="False"/>
             </MenuItem>
             <MenuItem Header="_Синтез" Command="{Binding SearchByInitialFormCommand}" IsEnabled="{Binding DbOpen}" />
             <MenuItem Header="_Анализ" IsEnabled="False"/>
@@ -87,7 +87,7 @@
             </MenuItem>
             <MenuItem Header="_Редактирование" IsEnabled="{Binding EditDbOpen}"  >
                 <MenuItem Header="_Создать новую статью" Command="{Binding NewLexemeCommand}"/>
-                <MenuItem Header="_Редактировать статью" />
+<!--                <MenuItem Header="_Редактировать статью" Command="{Binding EditLexemeCommand}"/>  -->
             </MenuItem>
 
         <!--            
