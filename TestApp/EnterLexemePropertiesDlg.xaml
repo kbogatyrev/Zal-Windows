@@ -8,6 +8,7 @@
     mc:Ignorable="d"
     Title="{Binding Path=DlgTitle}" Width="1000" Height="600"  MaxWidth="1000" MinHeight="600" MinWidth="1000" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
+
     <Grid Margin="0, 0, 0, 0" >
         <TextBox Text="Исходная форма" Margin="33,135,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <TextBox Text="{Binding Path=SourceForm}" Margin="158,135,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
@@ -141,10 +142,10 @@
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
         </ComboBox>
         <TextBox Text="Беглая гласная" Margin="356,275,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="Звезда"/>
-        <ComboBox Text="{Binding Path=FleetingVowel}" HorizontalAlignment="Left" Margin="480,275,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
-            <ComboBoxItem Content="Да" IsEnabled="True" />
-            <ComboBoxItem Content="Нет" IsEnabled="True"/>
-        </ComboBox>
+        <ComboBox Text="{Binding Path=FleetingVowel}" SelectedItem="{Binding Path=FleetingVowel}" ItemsSource="{Binding YesNoValues}" HorizontalAlignment="Left" Margin="480,275,0,0" VerticalAlignment="Top" Width="160" Height="28"/>
+<!--        <ComboBoxItem Content="Да" IsEnabled="True" />  -->
+<!--        <ComboBoxItem Content="Нет" IsEnabled="True"/>  -->
+
         <TextBox Text="Помета ё" Margin="356,310,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <ComboBox Text="{Binding Path=YoAlternation}" HorizontalAlignment="Left" Margin="480,310,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="Да" IsEnabled="True" />

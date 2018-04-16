@@ -322,6 +322,19 @@ namespace ZalTestApp
             }
         }
 
+        private ICommand m_EditLexemeCommand;
+        public ICommand EditLexemeCommand
+        {
+            get
+            {
+                return m_EditLexemeCommand;
+            }
+            set
+            {
+                m_EditLexemeCommand = value;
+            }
+        }
+
         private ICommand m_ShowRegressionPageCommand;
         public ICommand ShowRegressionPageCommand
         {
@@ -367,24 +380,34 @@ namespace ZalTestApp
             m_Pages = new ObservableCollection<ViewPage>();
             BackButtonCommand = new RelayCommand(new Action<object>(GoBack));
             ForwardButtonCommand = new RelayCommand(new Action<object>(GoForward));
-            OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
-            OpenEditDictionaryCommand = new RelayCommand(new Action<object>(OpenEditDictionary));
+//            OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
+//            OpenEditDictionaryCommand = new RelayCommand(new Action<object>(OpenEditDictionary));
             SearchByInitialFormCommand = new RelayCommand(new Action<object>(SearchByInitialForm));
             NewLexemeCommand = new RelayCommand(new Action<object>(NewLexeme));
+            EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
             ShowRegressionPageCommand = new RelayCommand(new Action<object>(ShowRegression));
             ImportRegressionDataCommand = new RelayCommand(new Action<object>(ImportRegressionData));
             ExportRegressionDataCommand = new RelayCommand(new Action<object>(ExportRegressionData));
 
+            m_bDbOpen = false;
+            m_bEditDbOpen = false;
+
             m_MainModel = new MainModel();
-            m_MainModel.Path = "";
+            if (!m_MainModel.Initialized)
+            {
+                MessageBox.Show("Unable to initialize the database.");
+                return;
+            }
+
+            m_bDbOpen = true;
+            m_bEditDbOpen = true;
+
             m_BreadCrumbs = new LinkedList<ViewModelBase>();
 //            m_LexemeGridViewModel = new ViewPage ("парадигмы", new LexemeGridViewModel());
 //            m_Pages.Add(m_LexemeGridViewModel);
 //            m_iSelectedIndex = 0;
 //            m_CurrentViewModel = m_BreadCrumbs.AddLast(m_LexemeGridViewModel.Page);
 
-            m_bDbOpen = false;
-            m_bEditDbOpen = false;
         }
 
         public void GoBack(object obj)
@@ -439,47 +462,47 @@ namespace ZalTestApp
             UpdateView();
         }
 
-        public void OpenDictionary(object obj)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+        //public void OpenDictionary(object obj)
+        //{
+        //    OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            openFileDialog.InitialDirectory = "c:\\";
-            openFileDialog.Filter = "All files (*.*)|*.*|SQLite 3 files (*.db3)|*.db3";
-            openFileDialog.FilterIndex = 2;
-            openFileDialog.RestoreDirectory = true;
+        //    openFileDialog.InitialDirectory = "c:\\";
+        //    openFileDialog.Filter = "All files (*.*)|*.*|SQLite 3 files (*.db3)|*.db3";
+        //    openFileDialog.FilterIndex = 2;
+        //    openFileDialog.RestoreDirectory = true;
 
-            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
-            if (true == openFileDialog.ShowDialog())
-            {
-                eRet = m_MainModel.OpenDictionary(openFileDialog.FileName);
-            }
+        //    EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+        //    if (true == openFileDialog.ShowDialog())
+        //    {
+        //        eRet = m_MainModel.OpenDictionary(openFileDialog.FileName);
+        //    }
 
-            if (EM_ReturnCode.H_NO_ERROR == eRet)
-            {
-                DbOpen = true;
-            }
-        }
+        //    if (EM_ReturnCode.H_NO_ERROR == eRet)
+        //    {
+        //        DbOpen = true;
+        //    }
+        //}
 
-        public void OpenEditDictionary(object obj)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+        //public void OpenEditDictionary(object obj)
+        //{
+        //    OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            openFileDialog.InitialDirectory = "c:\\";
-            openFileDialog.Filter = "All files (*.*)|*.*|SQLite 3 files (*.db3)|*.db3";
-            openFileDialog.FilterIndex = 2;
-            openFileDialog.RestoreDirectory = true;
+        //    openFileDialog.InitialDirectory = "c:\\";
+        //    openFileDialog.Filter = "All files (*.*)|*.*|SQLite 3 files (*.db3)|*.db3";
+        //    openFileDialog.FilterIndex = 2;
+        //    openFileDialog.RestoreDirectory = true;
 
-            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
-            if (true == openFileDialog.ShowDialog())
-            {
-                eRet = m_MainModel.OpenEditDictionary(openFileDialog.FileName);
-            }
+        //    EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+        //    if (true == openFileDialog.ShowDialog())
+        //    {
+        //        eRet = m_MainModel.OpenEditDictionary(openFileDialog.FileName);
+        //    }
 
-            if (EM_ReturnCode.H_NO_ERROR == eRet)
-            {
-                EditDbOpen = true;
-            }
-        }
+        //    if (EM_ReturnCode.H_NO_ERROR == eRet)
+        //    {
+        //        EditDbOpen = true;
+        //    }
+        //}
 
         public void SearchByInitialForm(object obj)
         {
@@ -530,7 +553,8 @@ namespace ZalTestApp
                 }
 
                 LexemeViewModel lexemeViewModel = new LexemeViewModel(lexeme);
-//                lvm.RemoveLexemeEvent += new LexemeViewModel.RemoveLexemeHandler(RemoveLexeme);
+                //                lvm.RemoveLexemeEvent += new LexemeViewModel.RemoveLexemeHandler(RemoveLexeme);
+                lexemeViewModel.EditLexemeEvent += new LexemeViewModel.EditLexemeHandler(EditLexeme);
                 m_CurrentLexeme = lexemeViewModel;
                 ViewModelBase paradigmViewModel = null;
 
@@ -573,7 +597,7 @@ namespace ZalTestApp
                 return;
             }
 
-            EnterLexemePropertiesViewModel elpModel = new EnterLexemePropertiesViewModel(l);
+            EnterLexemePropertiesViewModel elpModel = new EnterLexemePropertiesViewModel(l, true);
             EnterLexemePropertiesDlg dlg = new EnterLexemePropertiesDlg(elpModel);
             dlg.Owner = Application.Current.MainWindow;
 
@@ -584,6 +608,37 @@ namespace ZalTestApp
             }
 
             bRet = m_MainModel.bSaveLexeme(l);
+            if (bRet)
+            {
+                MessageBox.Show("Лексема сохранена.");
+            }
+            else
+            {
+                MessageBox.Show("Не удалось сохранить лексему.");
+            }
+        }
+
+        void EditLexeme(object obj)
+        {
+            CLexemeManaged sourceLexeme = (CLexemeManaged)obj;
+            CLexemeManaged editLexeme = null;
+            bool bRet = m_MainModel.bEditLexeme(sourceLexeme, ref editLexeme);
+            if (!bRet)
+            {
+                return;
+            }
+
+            EnterLexemePropertiesViewModel elpModel = new EnterLexemePropertiesViewModel(editLexeme, false);
+            EnterLexemePropertiesDlg dlg = new EnterLexemePropertiesDlg(elpModel);
+            dlg.Owner = Application.Current.MainWindow;
+
+            bool? bnRet = dlg.ShowDialog();
+            if (bnRet != true)
+            {
+                return;
+            }
+
+            bRet = m_MainModel.bSaveLexeme(editLexeme);
             if (bRet)
             {
                 MessageBox.Show("Лексема сохранена.");

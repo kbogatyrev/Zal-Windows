@@ -4,31 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZalTestApp"
-        mc:Ignorable="d">
+        mc:Ignorable="d" d:DesignWidth="409.234" d:DesignHeight="529.147">
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,60,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="369" Height="450" Grid.Column="0" >
-            <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" >
-                <Grid Margin="0,0,0,0" VerticalAlignment="Top">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <ItemsControl ItemsSource="{Binding LexemeDetails}" Grid.IsSharedSizeScope="True" Height="400">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="200" SharedSizeGroup="one" />
-                                        <ColumnDefinition Width="Auto" SharedSizeGroup="two" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{StaticResource DataField}"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveParadigmCommand}" />
-                </Grid>
-            </Border>
-        </ScrollViewer>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,60,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="379" Height="459" Grid.Column="0" >
+        <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" >
+            <Grid Margin="0,0,0,0" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ItemsControl ItemsSource="{Binding LexemeDetails}" Grid.IsSharedSizeScope="True" Height="400" Margin="0,0,-0.222,0" VerticalAlignment="Top">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200" SharedSizeGroup="one" />
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="two" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left"/>
+                                <TextBlock Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{StaticResource DataField}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveParadigmCommand}" Margin="27,0,181,0" VerticalAlignment="Top" Width="Auto" />
+                <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Редактировать" Command="{Binding EditLexemeCommand}" Margin="192,0,29,0" VerticalAlignment="Top" Width="Auto" />
+            </Grid>
+        </Border>
+    </ScrollViewer>
 </UserControl>

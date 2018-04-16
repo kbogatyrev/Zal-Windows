@@ -52,6 +52,19 @@ namespace ZalTestApp
         #endregion
 
         #region Properties
+        bool m_bInitialized;
+        public bool Initialized
+        {
+            get
+            {
+                return m_bInitialized;
+            }
+            set
+            {
+                m_bInitialized = value;
+            }
+        }
+
         string m_sPath;
         public string Path
         {
@@ -114,14 +127,32 @@ namespace ZalTestApp
 
         public MainModel()
         {
-            // TODO: error checking...
             m_Dictionary = new CDictionaryManaged();
+            var eRet = m_Dictionary.eSetDbPath("ZalData.db3");
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                System.Windows.MessageBox.Show("Error: Main dictionary was not initialized.");
+                m_Dictionary = null;
+                return;
+            }
+
+            m_EditDictionary = new CDictionaryManaged();
+            eRet = m_EditDictionary.eSetDbPath("ZalEdit.db3");
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                System.Windows.MessageBox.Show("Error: Edit dictionary was not initialized.");
+                m_EditDictionary = null;
+                return;
+            }
+
             m_Dictionary.eGetVerifier(ref m_Verifier);
+
             m_Lexemes = new Dictionary<string, Dictionary<string, List<string>>>();
             m_LexemeHashToLexeme = new Dictionary<string, CLexemeManaged>();
             m_StoredLexemes = new Dictionary<string, string>();
 
-            m_EditDictionary = new CDictionaryManaged();
+            m_bInitialized = true;
+
         }
 
         public bool bCreateLexeme(ref CLexemeManaged l)
@@ -132,8 +163,27 @@ namespace ZalTestApp
                 return false;
             }
 
-            l = m_EditDictionary.CreateLexeme();
+            l = m_EditDictionary.CreateLexemeForEdit();
             if (l != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool bEditLexeme(CLexemeManaged source, ref CLexemeManaged copy)
+        {
+            if (null == m_Dictionary)
+            {
+                System.Windows.MessageBox.Show("Dictionary was not initialized.");
+                return false;
+            }
+
+            copy = m_EditDictionary.CopyLexemeForEdit(source);
+            if (copy != null)
             {
                 return true;
             }
@@ -208,6 +258,7 @@ namespace ZalTestApp
             m_Lexemes.Clear();
         }
 
+/*
         public EM_ReturnCode OpenDictionary(string sPath)
         {
             Path = sPath;
@@ -233,6 +284,7 @@ namespace ZalTestApp
 
             return eRet;
         }
+*/
 
         public void SearchByInitialForm(string str)
         {

@@ -63,6 +63,9 @@ namespace ZalTestApp
         public delegate void RemoveLexemeHandler(LexemeViewModel lvm);
         public event RemoveLexemeHandler RemoveLexemeEvent;
 
+        public delegate void EditLexemeHandler(CLexemeManaged l);
+        public event EditLexemeHandler EditLexemeEvent;
+
         #region ICommand
         private ICommand m_ShowParadigmCommand;
         public ICommand ShowParadigmCommand
@@ -102,6 +105,19 @@ namespace ZalTestApp
                 m_RemoveLexemeCommand = value;
             }
         }
+
+        private ICommand m_EditLexemeCommand;
+        public ICommand EditLexemeCommand
+        {
+            get
+            {
+                return m_EditLexemeCommand;
+            }
+            set
+            {
+                m_EditLexemeCommand = value;
+            }
+        }
         #endregion
 
         public LexemeViewModel()
@@ -110,6 +126,7 @@ namespace ZalTestApp
             ShowParadigmCommand = new RelayCommand(new Action<object>(ShowParadigm));
             SaveParadigmCommand = new RelayCommand(new Action<object>(SaveParadigm));
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
+            EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
         }
 
         public LexemeViewModel(CLexemeManaged l)
@@ -118,6 +135,7 @@ namespace ZalTestApp
             ShowParadigmCommand = new RelayCommand(new Action<object>(ShowParadigm));
             SaveParadigmCommand = new RelayCommand(new Action<object>(SaveParadigm));
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
+            EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
 
             LexemeDetails = new ObservableCollection<LexemeProperty>();
 
@@ -382,6 +400,10 @@ namespace ZalTestApp
             RemoveLexemeEvent?.Invoke(this);
         }
 
+        private void EditLexeme(object arg)
+        {
+            EditLexemeEvent?.Invoke(this.m_Lexeme);
+        }
     }   //  public class LexemeViewModel 
 
 }   //  namespace ZalTestApp

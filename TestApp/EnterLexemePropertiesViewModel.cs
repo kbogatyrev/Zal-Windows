@@ -6,6 +6,7 @@ using System.Windows.Input;
 
 using MainLibManaged;
 using System.Text;
+using System.Collections.ObjectModel;
 
 namespace ZalTestApp
 {
@@ -62,7 +63,6 @@ namespace ZalTestApp
                 if (value != m_sSourceForm)
                 {
                     m_sSourceForm = value;
-//                    Helpers.RestoreStressMarks(ref m_sSourceForm);
                 }
                 OnPropertyChanged("SourceForm");
             }
@@ -290,7 +290,7 @@ namespace ZalTestApp
         }
 
         private string m_sMinusSymbol;
-        public string Minus
+        public string MinusSymbol
         {
             get
             {
@@ -425,6 +425,23 @@ namespace ZalTestApp
             }
         }
 
+        private ObservableCollection<string> m_YesNoValues;
+        public ObservableCollection<string> YesNoValues
+        {
+            get
+            {
+                return m_YesNoValues;
+            }
+            set
+            {
+                if (value != m_YesNoValues)
+                {
+                    m_YesNoValues = value;
+                }
+                OnPropertyChanged("YesNoValues");
+            }
+        }
+
         private ICommand m_OKCommand;
         public ICommand OKCommand
         {
@@ -453,7 +470,7 @@ namespace ZalTestApp
 
         #endregion
 
-        public EnterLexemePropertiesViewModel(CLexemeManaged lexeme)
+        public EnterLexemePropertiesViewModel(CLexemeManaged lexeme, bool bIsNew)
         {
             m_Lexeme = lexeme;
             m_PropertiesChanged = new List<string>();
@@ -490,6 +507,14 @@ namespace ZalTestApp
                 { "POS_NULL", E_POS.POS_NULL },
                 { "POS_COUNT", E_POS.POS_COUNT }
             };
+
+            YesNoValues = new ObservableCollection<string>() { "Да", "Нет" };
+
+            if (!bIsNew)
+            {
+                LoadData();
+            }
+
         }       //  EnterLexemePropertiesViewModel()
 
         public bool bErrors()
@@ -540,7 +565,7 @@ namespace ZalTestApp
             }
         }
 
-        public bool bSetYesNoValue(string sPropertyName, string sValue, ref bool bResult)
+        public bool bGetYesNoValue(string sPropertyName, string sValue, ref bool bResult)
         {
             string sYesValue = "Да";
             string sNoValue = "Нет";
@@ -642,6 +667,596 @@ namespace ZalTestApp
             return !bErrors();
         }
 
+        public void LoadData()
+        {
+            FleetingVowel = m_Lexeme.bHasFleetingVowel() ? m_YesNoValues[0] : m_YesNoValues[1];
+            YoAlternation = m_Lexeme.bHasYoAlternation() ? m_YesNoValues[0] : m_YesNoValues[1];
+            OAlternation = m_Lexeme.bHasOAlternation() ? m_YesNoValues[0] : m_YesNoValues[1];
+            SourceForm = m_Lexeme.sSourceForm();
+            HeadwordComment = m_Lexeme.sHeadwordComment();
+            Variant = m_Lexeme.sHeadwordVariant();
+            //            HeadwordVariantComment = m_Lexeme.sHeadwordVariantComment();
+            Usage = m_Lexeme.sUsage();
+            MainSymbol = m_Lexeme.sMainSymbol();
+            Index = m_Lexeme.iType().ToString();
+           
+
+            /*
+
+
+            /*
+            case "SetPluralOf":
+            {
+                if (null == m_sPluralOf || m_sm_sPluralOf.Length < 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Lexeme.SetPluralOf(m_sPluralOf);
+                }
+                break;
+            }
+            */
+
+            /*
+            case "SetPluralOf":
+            {
+                if (null == m_sPluralOf || m_sPluralOf.Length < 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Lexeme.SetPluralOf(m_sPluralOf);
+                }
+                break;
+            }
+            */
+            /*
+        case "SeeRef":
+        {
+            if (null == m_sSeeRef || m_sSeeRef.Length < 1)
+            {
+                continue;
+            }
+            else
+            {
+                m_Lexeme.SetSeeRef(m_sSeeRef);
+            }
+            break;
+        }
+
+        case "BackRef":
+        {
+            if (null == m_sBackRef || m_sBackRef.Length < 1)
+            {
+                continue;
+            }
+            else
+            {
+                m_Lexeme.SetBackRef(m_sSeeRef);
+            }
+            break;
+        }
+
+        case "IsUnstressed":
+        {
+            bRet = bSetYesNoValue("IsUnstressed", m_sIsUnstressed, ref bValue);
+            if (bRet)
+            {
+                m_Lexeme.SetIsUnstressed(bValue);
+            }                    
+            break;
+        }
+
+        case "IsVariant":
+        {
+            bRet = bSetYesNoValue("IsVariant", m_sIsVariant, ref bValue);
+            if (bRet)
+            {
+                m_Lexeme.SetIsVariant(bValue);
+            }
+            break;
+        }
+              */
+            /*
+        case "IsPluralOf":
+        {
+            bRet = bSetYesNoValue("IsPluralOf", m_sIsPluralOf, ref bValue);
+            if (bRet)
+            {
+                m_Lexeme.SetIsPluralOf(bValue);
+            }
+            break;
+        }
+            */
+            /*
+        case "Transitive":
+        {
+            bRet = bSetYesNoValue("Transitive", m_sTransitive, ref bValue);
+            if (bRet)
+            {
+                m_Lexeme.SetTransitive(bValue);
+            }
+            break;
+        }
+        */
+
+            //    virtual void SetIsReflexive(ET_Reflexive eValue)
+            //    virtual void SetMainSymbolPluralOf(const CEString& sValue)
+
+            /*
+case "AltMainSymbol":
+{
+    if (null == m_sAltMainSymbol || m_sAltMainSymbol.Length < 1)
+    {
+        continue;
+    }
+    else
+    {
+        m_Lexeme.SetAltMainSymbol(m_sAltMainSymbol);
+    }
+    break;
+}
+            */
+
+            //                virtual void SetAspect(ET_Aspect eValue)
+            //    virtual void SetInflectionType(const CEString& sValue)
+            //    virtual void SetPartOfSpeech(ET_PartOfSpeech eValue)
+            //    virtual void SetComment(const CEString& sValue)
+            //    virtual void SetAltMainSymbolComment(const CEString& sValue)
+            //    virtual void SetAltInflectionComment(const CEString& sValue)
+            /*
+                                case "AltMainSymbol":
+                                    {
+                                        if (null == m_sVerbStemAlternation || m_sVerbStemAlternation.Length < 1)
+                                        {
+                                            continue;
+                                        }
+                                        else
+                                        {
+                                            m_Lexeme.SetVerbStemAlternation(m_sVerbStemAlternation);
+                                        }
+                                        break;
+                                    }
+
+                                case "Index":
+                                    {
+                                        int iType = 0;
+                                        if (Int32.TryParse(m_sIndex, out iType))
+                                        {
+                                            m_Lexeme.SetType(iType);
+                                        }
+                                        break;
+                                    }
+            */
+            /*
+            case "PartPastPassZhd":
+            {
+                bRet = bSetYesNoValue("PartPastPassZhd", m_sPartPastPassZhd, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetPartPastPassZhd(bValue);
+                }
+                break;
+            }
+            */
+
+            /*
+            case "Section":
+            {
+                if (m_iSection < 1 || m_iSection> 18)
+                {
+                    MessageBox.Show("Unexpected value for m_iSection property" + m_iSection, "Error");
+                    continue;
+                }
+
+                    m_Lexeme.SetSection(m_iSection);
+                break;
+            }
+            */
+            /*
+        case "NoComparative":
+        {
+            bRet = bSetYesNoValue("NoComparative", m_sNoComparative, ref bValue);
+            if (bRet)
+            {
+                m_Lexeme.SetNoComparative(bValue);
+            }
+            break;
+        }
+            */
+
+            /*
+        case "AssumedForms":
+        {
+            bRet = bSetYesNoValue("AssumedForms", m_sAssumedForms, ref bValue);
+            if (bRet)
+            {
+                m_Lexeme.SetAssumedForms(bValue);
+            }
+            break;
+        }
+            */
+            /*
+        case "SecondGenitive":
+        {
+            bRet = bSetYesNoValue("SecondGenitive", m_sSecondGenitive, ref bValue);
+            if (bRet)
+            {
+                m_Lexeme.SetSecondGenitive(bValue);
+            }
+            break;
+        }
+        */
+            /*
+        case "SecondLocative":
+        {
+            bRet = bSetYesNoValue("SecondLocative", m_sSecondLocative, ref bValue);
+            if (bRet)
+            {
+                m_Lexeme.SetSecondLocative(bValue);
+            }
+            break;
+        }
+                */
+            /*
+        case "SecondLocativeOptional":
+        {
+            bRet = bSetYesNoValue("SecondLocativeOptional", m_sSecondLocativeOptional, ref bValue);
+            if (bRet)
+            {
+                m_Lexeme.SetSecondLocativeOptional(bValue);
+            }
+            break;
+        }
+                    */
+
+            /*
+            case "Loc2Preposition":
+            {
+                if (null == m_sLoc2Preposition || m_sLoc2Preposition.Length < 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Lexeme.SetLoc2Preposition(m_sLoc2Preposition);
+                }
+                break;
+            }
+                */
+
+            /*
+            case "HasAspectPair":
+            {
+                bRet = bSetYesNoValue("HasAspectPair", m_sHasAspectPair, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetHasAspectPair(bValue);
+                }
+                break;
+            }
+                */
+            /*
+            case "AspectPairType":
+            {
+                if (m_iAspectPair < 1 || m_iAspectPair > 18)
+                {
+                    MessageBox.Show("Unexpected value for m_iAspectPair property" + m_iAspectPair, "Error");
+                    continue;
+                }
+
+                m_Lexeme.SetAltAspectPairType(m_iAspectPair);
+                break;
+            }
+            */
+            /*
+            case "AspectPairData":
+            {
+                if (null == m_sAspectPairData || m_sAspectPairData.Length < 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Lexeme.SetAspectPairData(m_sAspectPairData);
+                }
+                break;
+            }
+            */
+
+            /*
+            case "AltAspectPairComment":
+            {
+                if (null == m_sAltAspectPairComment || m_sAltAspectPairComment.Length < 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Lexeme.SetAltAspectPairComment(m_sAltAspectPairComment);
+                }
+                break;
+            }
+            */
+
+            /*
+            case "QuestionableForms":
+            {
+                if (null == m_sQuestionableForms || m_sQuestionableForms.Length < 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Lexeme.SetQuestionableForms(m_sQuestionableForms);
+                }
+                break;
+            }
+                */
+
+            /*
+            case "HasIrregularVariants":
+            {
+                bRet = bSetYesNoValue("HasIrregularVariants", m_sHasIrregularVariants, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetHasIrregularVariants(bValue);
+                }
+                break;
+            }
+                */
+
+            /*
+            case "HasDeficiencies":
+            {
+                bRet = bSetYesNoValue("HasDeficiencies", m_sHasDeficiencies, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetHasDeficiencies(bValue);
+                }
+            }
+                */
+
+            /*
+            case "RestrictedForms":
+            {
+                if (null == m_sRestrictedForms || m_sRestrictedForms.Length < 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Lexeme.SetQuestionableForms(m_sRestrictedForms);
+                }
+                break;
+            }
+                */
+
+            /*
+            case "Contexts":
+            {
+                if (null == m_sContexts || m_sContexts.Length < 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Lexeme.SetQuestionableForms(m_sContexts);
+                }
+                break;
+            }
+                */
+
+            /*
+            case "TrailingComment":
+            {
+                if (null == m_sTrailingComment || m_sTrailingComment.Length < 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Lexeme.SetQuestionableForms(m_sTrailingComment);
+                }
+                break;
+            }
+                */
+
+            /*
+            case "TrailingComment":
+            {
+                if (null == m_sTrailingComment || m_sTrailingComment.Length < 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Lexeme.SetQuestionableForms(m_sTrailingComment);
+                }
+                break;
+            }
+                */
+            /*
+            case "AspectPairType":
+            {
+                if (m_iInflectionId < 1 || m_iInflectionId > 16)
+                {
+                    MessageBox.Show("Unexpected value for m_iInflectionId property" + m_iInflectionId, "Error");
+                    continue;
+                }
+
+                m_Lexeme.SetInflectionId(m_iInflectionId);
+                break;
+            }
+            */
+            /*
+            case "PrimaryInflectionGroup":
+            {
+                bRet = bSetYesNoValue("PrimaryInflectionGroup", m_sPrimaryInflectionGroup, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetPrimaryInflectionGroup(bValue);
+                }
+            }
+            */
+            /*
+            case "Type":
+            {
+                if (m_iType < 1 || m_iType > 16)
+                {
+                    MessageBox.Show("Unexpected value for m_iType property" + m_iType, "Error");
+                    continue;
+                }
+
+                m_Lexeme.SetType(m_iType);
+                break;
+            }
+            */
+            /*
+            case "StressType1":
+                {
+                    m_Lexeme.SetAccentType1(Helpers.eStringToAccentType(m_sStressType1));
+                    break;
+                }
+
+            case "StressType2":
+                {
+                    m_Lexeme.SetAccentType1(Helpers.eStringToAccentType(m_sStressType2));
+                    break;
+                }
+                */
+            /*
+            case "ShortFormsRestricted":
+            {
+                bRet = bSetYesNoValue("ShortFormsRestricted", m_sShortFormsRestricted, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetShortFormsRestricted(bValue);
+                }
+            }
+                    */
+            /*
+            case "PastParticipleRestricted":
+            {
+                bool bValue = false;
+                if ("Да" == m_sPastParticipleRestricted)
+                {
+                    bValue = true;
+                }
+                else if ("Нет" == m_sPastParticipleRestricted)
+                {
+                    bValue = false;
+                }
+                else
+                {
+                    MessageBox.Show("Unexpected value for m_sPastParticipleRestricted property" + m_sPastParticipleRestricted, "Error");
+                    continue;
+                }
+                m_Lexeme.SetPastParticipleRestricted(bValue);
+
+                break;
+            }
+            */
+            /*
+            case "NoLongForms":
+            {
+                bRet = bSetYesNoValue("NoLongForms", m_sNoLongForms, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetNoLongForms(bValue);
+                }
+            }
+            */
+            /*
+        case "ShortFormsIncomplete":
+        {
+            bRet = bSetYesNoValue("ShortFormsIncomplete", m_sShortFormsIncomplete, ref bValue);
+            if (bRet)
+            {
+                m_Lexeme.SetShortFormsIncomplete(bValue);
+            }
+        }
+        */
+            /*
+            case "NoPastParticiple":
+            {
+                bRet = bSetYesNoValue("NoPastParticiple", m_sNoPastParticiple, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetNoPastParticiple(bValue);
+                }
+            }
+                    */
+            /*
+            case "NoPastParticiple":
+            {
+                bRet = bSetYesNoValue("NoPastParticiple", m_sNoPastParticiple, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetNoPastParticiple(bValue);
+                }
+            }
+            */
+            /*
+            case "StemAugment":
+            {
+                bRet = bSetYesNoValue("StemAugment", m_sStemAugment, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetStemAugment(bValue);
+                }
+            }
+
+
+            case "1SgStem":
+            {
+                if (null == m_s1SgStem || m_s1SgStem.Length < 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Lexeme.Set1SgStem(m_s1SgStem);
+                }
+                break;
+            }
+
+            case "3SgStem":
+            {
+                if (null == m_s3SgStem || m_s3SgStem.Length < 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Lexeme.Set3SgStem(m_s3SgStem);
+                }
+                break;
+            }
+            case "Infinitive":
+            {
+                if (null == m_sInfinitive || m_sInfinitive.Length< 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Lexeme.SetInfinitive(m_sInfinitive);
+                }
+                break;
+            }
+            */
+            /*
+            default:
+                MessageBox.Show("Internal error: unable to offload data.");
+                break;
+                */
+            //}
+        }
+
         public void OffloadData()
         {
             bool bRet = true;
@@ -656,7 +1271,7 @@ namespace ZalTestApp
 
                     case "FleetingVowel":
                     {
-                        bRet = bSetYesNoValue("FleetingVowel", m_sFleetingVowel, ref bValue);
+                        bRet = bGetYesNoValue("FleetingVowel", m_sFleetingVowel, ref bValue);
                         if (bRet)
                         {
                             m_Lexeme.SetHasFleetingVowel(bValue);
@@ -666,7 +1281,7 @@ namespace ZalTestApp
 
                     case "HasYoAlternation":
                     {
-                        bRet = bSetYesNoValue("YoAlternation", m_sYoAlternation, ref bValue);
+                        bRet = bGetYesNoValue("YoAlternation", m_sYoAlternation, ref bValue);
                         if (bRet)
                         {
                             m_Lexeme.SetHasYoAlternation(bValue);
@@ -676,7 +1291,7 @@ namespace ZalTestApp
 
                     case "HasOAlternation":
                     {
-                        bRet = bSetYesNoValue("OAlternation", m_sOAlternation, ref bValue);
+                        bRet = bGetYesNoValue("OAlternation", m_sOAlternation, ref bValue);
                         if (bRet)
                         {
                             m_Lexeme.SetHasOAlternation(bValue);
@@ -813,7 +1428,7 @@ namespace ZalTestApp
 
                 case "IsUnstressed":
                 {
-                    bRet = bSetYesNoValue("IsUnstressed", m_sIsUnstressed, ref bValue);
+                    bRet = bGetYesNoValue("IsUnstressed", m_sIsUnstressed, ref bValue);
                     if (bRet)
                     {
                         m_Lexeme.SetIsUnstressed(bValue);
@@ -823,7 +1438,7 @@ namespace ZalTestApp
 
                 case "IsVariant":
                 {
-                    bRet = bSetYesNoValue("IsVariant", m_sIsVariant, ref bValue);
+                    bRet = bGetYesNoValue("IsVariant", m_sIsVariant, ref bValue);
                     if (bRet)
                     {
                         m_Lexeme.SetIsVariant(bValue);
@@ -848,7 +1463,7 @@ namespace ZalTestApp
                     /*
                 case "IsPluralOf":
                 {
-                    bRet = bSetYesNoValue("IsPluralOf", m_sIsPluralOf, ref bValue);
+                    bRet = bGetYesNoValue("IsPluralOf", m_sIsPluralOf, ref bValue);
                     if (bRet)
                     {
                         m_Lexeme.SetIsPluralOf(bValue);
@@ -859,7 +1474,7 @@ namespace ZalTestApp
                     /*
                 case "Transitive":
                 {
-                    bRet = bSetYesNoValue("Transitive", m_sTransitive, ref bValue);
+                    bRet = bGetYesNoValue("Transitive", m_sTransitive, ref bValue);
                     if (bRet)
                     {
                         m_Lexeme.SetTransitive(bValue);
@@ -918,7 +1533,7 @@ namespace ZalTestApp
                     /*
                     case "PartPastPassZhd":
                     {
-                        bRet = bSetYesNoValue("PartPastPassZhd", m_sPartPastPassZhd, ref bValue);
+                        bRet = bGetYesNoValue("PartPastPassZhd", m_sPartPastPassZhd, ref bValue);
                         if (bRet)
                         {
                             m_Lexeme.SetPartPastPassZhd(bValue);
@@ -943,7 +1558,7 @@ namespace ZalTestApp
                     /*
                 case "NoComparative":
                 {
-                    bRet = bSetYesNoValue("NoComparative", m_sNoComparative, ref bValue);
+                    bRet = bGetYesNoValue("NoComparative", m_sNoComparative, ref bValue);
                     if (bRet)
                     {
                         m_Lexeme.SetNoComparative(bValue);
@@ -955,7 +1570,7 @@ namespace ZalTestApp
                     /*
                 case "AssumedForms":
                 {
-                    bRet = bSetYesNoValue("AssumedForms", m_sAssumedForms, ref bValue);
+                    bRet = bGetYesNoValue("AssumedForms", m_sAssumedForms, ref bValue);
                     if (bRet)
                     {
                         m_Lexeme.SetAssumedForms(bValue);
@@ -966,7 +1581,7 @@ namespace ZalTestApp
                     /*
                 case "SecondGenitive":
                 {
-                    bRet = bSetYesNoValue("SecondGenitive", m_sSecondGenitive, ref bValue);
+                    bRet = bGetYesNoValue("SecondGenitive", m_sSecondGenitive, ref bValue);
                     if (bRet)
                     {
                         m_Lexeme.SetSecondGenitive(bValue);
@@ -977,7 +1592,7 @@ namespace ZalTestApp
                     /*
                 case "SecondLocative":
                 {
-                    bRet = bSetYesNoValue("SecondLocative", m_sSecondLocative, ref bValue);
+                    bRet = bGetYesNoValue("SecondLocative", m_sSecondLocative, ref bValue);
                     if (bRet)
                     {
                         m_Lexeme.SetSecondLocative(bValue);
@@ -988,7 +1603,7 @@ namespace ZalTestApp
                     /*
                 case "SecondLocativeOptional":
                 {
-                    bRet = bSetYesNoValue("SecondLocativeOptional", m_sSecondLocativeOptional, ref bValue);
+                    bRet = bGetYesNoValue("SecondLocativeOptional", m_sSecondLocativeOptional, ref bValue);
                     if (bRet)
                     {
                         m_Lexeme.SetSecondLocativeOptional(bValue);
@@ -1015,7 +1630,7 @@ namespace ZalTestApp
                     /*
                     case "HasAspectPair":
                     {
-                        bRet = bSetYesNoValue("HasAspectPair", m_sHasAspectPair, ref bValue);
+                        bRet = bGetYesNoValue("HasAspectPair", m_sHasAspectPair, ref bValue);
                         if (bRet)
                         {
                             m_Lexeme.SetHasAspectPair(bValue);
@@ -1084,7 +1699,7 @@ namespace ZalTestApp
                     /*
                     case "HasIrregularVariants":
                     {
-                        bRet = bSetYesNoValue("HasIrregularVariants", m_sHasIrregularVariants, ref bValue);
+                        bRet = bGetYesNoValue("HasIrregularVariants", m_sHasIrregularVariants, ref bValue);
                         if (bRet)
                         {
                             m_Lexeme.SetHasIrregularVariants(bValue);
@@ -1096,7 +1711,7 @@ namespace ZalTestApp
                     /*
                     case "HasDeficiencies":
                     {
-                        bRet = bSetYesNoValue("HasDeficiencies", m_sHasDeficiencies, ref bValue);
+                        bRet = bGetYesNoValue("HasDeficiencies", m_sHasDeficiencies, ref bValue);
                         if (bRet)
                         {
                             m_Lexeme.SetHasDeficiencies(bValue);
@@ -1179,7 +1794,7 @@ namespace ZalTestApp
                     /*
                     case "PrimaryInflectionGroup":
                     {
-                        bRet = bSetYesNoValue("PrimaryInflectionGroup", m_sPrimaryInflectionGroup, ref bValue);
+                        bRet = bGetYesNoValue("PrimaryInflectionGroup", m_sPrimaryInflectionGroup, ref bValue);
                         if (bRet)
                         {
                             m_Lexeme.SetPrimaryInflectionGroup(bValue);
@@ -1215,7 +1830,7 @@ namespace ZalTestApp
                     /*
                     case "ShortFormsRestricted":
                     {
-                        bRet = bSetYesNoValue("ShortFormsRestricted", m_sShortFormsRestricted, ref bValue);
+                        bRet = bGetYesNoValue("ShortFormsRestricted", m_sShortFormsRestricted, ref bValue);
                         if (bRet)
                         {
                             m_Lexeme.SetShortFormsRestricted(bValue);
@@ -1247,7 +1862,7 @@ namespace ZalTestApp
                     /*
                     case "NoLongForms":
                     {
-                        bRet = bSetYesNoValue("NoLongForms", m_sNoLongForms, ref bValue);
+                        bRet = bGetYesNoValue("NoLongForms", m_sNoLongForms, ref bValue);
                         if (bRet)
                         {
                             m_Lexeme.SetNoLongForms(bValue);
@@ -1257,7 +1872,7 @@ namespace ZalTestApp
                     /*
                 case "ShortFormsIncomplete":
                 {
-                    bRet = bSetYesNoValue("ShortFormsIncomplete", m_sShortFormsIncomplete, ref bValue);
+                    bRet = bGetYesNoValue("ShortFormsIncomplete", m_sShortFormsIncomplete, ref bValue);
                     if (bRet)
                     {
                         m_Lexeme.SetShortFormsIncomplete(bValue);
@@ -1267,7 +1882,7 @@ namespace ZalTestApp
                     /*
                     case "NoPastParticiple":
                     {
-                        bRet = bSetYesNoValue("NoPastParticiple", m_sNoPastParticiple, ref bValue);
+                        bRet = bGetYesNoValue("NoPastParticiple", m_sNoPastParticiple, ref bValue);
                         if (bRet)
                         {
                             m_Lexeme.SetNoPastParticiple(bValue);
@@ -1277,7 +1892,7 @@ namespace ZalTestApp
                     /*
                     case "NoPastParticiple":
                     {
-                        bRet = bSetYesNoValue("NoPastParticiple", m_sNoPastParticiple, ref bValue);
+                        bRet = bGetYesNoValue("NoPastParticiple", m_sNoPastParticiple, ref bValue);
                         if (bRet)
                         {
                             m_Lexeme.SetNoPastParticiple(bValue);
@@ -1287,7 +1902,7 @@ namespace ZalTestApp
                     /*
                     case "StemAugment":
                     {
-                        bRet = bSetYesNoValue("StemAugment", m_sStemAugment, ref bValue);
+                        bRet = bGetYesNoValue("StemAugment", m_sStemAugment, ref bValue);
                         if (bRet)
                         {
                             m_Lexeme.SetStemAugment(bValue);
@@ -1334,7 +1949,7 @@ namespace ZalTestApp
                     }
                     */
                     default:
-                        var vvv = 0;
+                        MessageBox.Show("Internal error: unable to offload data.");
                         break;
                 }
             }
