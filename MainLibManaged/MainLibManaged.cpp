@@ -275,7 +275,7 @@ String^ CDictionaryManaged::sGetDbPath()
     return gcnew String(m_pDictionary->sGetDbPath());
 }
 
-CLexemeManaged^ CDictionaryManaged::CreateLexeme()
+CLexemeManaged^ CDictionaryManaged::CreateLexemeForEdit()
 {
     if (NULL == m_pDictionary)
     {
@@ -283,7 +283,7 @@ CLexemeManaged^ CDictionaryManaged::CreateLexeme()
     }
 
     ILexeme * pLexeme = NULL;
-    ET_ReturnCode eRet = m_pDictionary->eCreateLexeme(pLexeme);
+    ET_ReturnCode eRet = m_pDictionary->eCreateLexemeForEdit(pLexeme);
     if (eRet != H_NO_ERROR || NULL == pLexeme)
     {
         throw gcnew Exception(L"Unable to create lexeme.");
@@ -291,6 +291,26 @@ CLexemeManaged^ CDictionaryManaged::CreateLexeme()
 
     CLexemeManaged^ pManaged = gcnew CLexemeManaged();
     pManaged->m_pLexeme = pLexeme;
+
+    return pManaged;
+}
+
+CLexemeManaged^ CDictionaryManaged::CopyLexemeForEdit(CLexemeManaged^ source)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary itf handle is NULL.");
+    }
+
+    ILexeme * pCopy = NULL;
+    ET_ReturnCode eRet = m_pDictionary->eCopyLexemeForEdit(source->m_pLexeme, pCopy);
+    if (eRet != H_NO_ERROR || NULL == pCopy)
+    {
+        throw gcnew Exception(L"Unable to copy lexeme.");
+    }
+
+    CLexemeManaged^ pManaged = gcnew CLexemeManaged();
+    pManaged->m_pLexeme = pCopy;
 
     return pManaged;
 }
@@ -1857,7 +1877,7 @@ void CLexemeManaged::SetFleetingVowel(bool bValue)
     m_pLexeme->SetFleetingVowel(bValue);
 }
 
-bool CLexemeManaged::iStemAugment()
+int CLexemeManaged::iStemAugment()
 {
     if (NULL == m_pLexeme)
     {

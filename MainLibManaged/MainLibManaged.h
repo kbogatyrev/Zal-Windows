@@ -194,7 +194,7 @@ namespace MainLibManaged
         void SetNoPastParticiple(bool);
         bool bFleetingVowel();
         void SetFleetingVowel(bool);
-        bool iStemAugment();
+        int iStemAugment();
         void SetStemAugment(int);
         String^ s1SgStem();
         void Set1SgStem(String^);
@@ -250,7 +250,8 @@ namespace MainLibManaged
 
         EM_ReturnCode eSetDbPath(String^ sDbPath);
         String^ sGetDbPath();
-        CLexemeManaged^ CreateLexeme();
+        CLexemeManaged^ CreateLexemeForEdit();
+        CLexemeManaged^ CopyLexemeForEdit(CLexemeManaged^);
 
         EM_ReturnCode eGetLexemeById(int Id);
         EM_ReturnCode eGetLexemesByHash(String^);
@@ -263,6 +264,7 @@ namespace MainLibManaged
 //        EM_ReturnCode eVerifyLexemeProperties(CLexemeManaged^);
 //        EM_ReturnCode eSourceFormExists(CLexemeManaged^, bool%);
 
+        // Save manually edited lexeme
         EM_ReturnCode eSaveLexeme(CLexemeManaged^);
 
         EM_ReturnCode eGetFirstLexeme(CLexemeManaged^% pLexeme);
@@ -280,7 +282,8 @@ namespace MainLibManaged
         EM_ReturnCode eGetVerifier(CVerifierManaged^%);
         EM_ReturnCode eExportTestData(String^ sPath, DelegateProgress^);
         EM_ReturnCode eImportTestData(String^ sPath, DelegateProgress^);
-    };
+    
+    };      //  CDictionaryManaged
 
     public ref class CGramHasherManaged
     {

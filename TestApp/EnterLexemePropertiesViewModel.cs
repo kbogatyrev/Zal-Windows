@@ -204,6 +204,23 @@ namespace ZalTestApp
             }
         }
 
+        private string m_sSmallCircle;
+        public string SmallCircle
+        {
+            get
+            {
+                return m_sSmallCircle;
+            }
+            set
+            {
+                if (value != m_sSmallCircle)
+                {
+                    m_sSmallCircle = value;
+                }
+                OnPropertyChanged("SmallCircle");
+            }
+        }
+
         private string m_sNumberInCircle;
         public string NumberInCircle
         {
@@ -677,11 +694,59 @@ namespace ZalTestApp
             Variant = m_Lexeme.sHeadwordVariant();
             //            HeadwordVariantComment = m_Lexeme.sHeadwordVariantComment();
             Usage = m_Lexeme.sUsage();
-            MainSymbol = m_Lexeme.sMainSymbol();
+            if (m_Lexeme.sAltMainSymbol().Length > 0)
+            {
+                MainSymbol = m_Lexeme.sMainSymbol() + "//" + m_Lexeme.sAltMainSymbol();
+//                AltMainSymbolComment = m_Lexeme.sAltMainSymbolComment();
+            }
+            else
+            {
+                MainSymbol = m_Lexeme.sMainSymbol();
+            }
             Index = m_Lexeme.iType().ToString();
-           
+            StressType1 = Helpers.sAccenTypeToStressSchema(m_Lexeme.eAccentType1());
+            if (m_Lexeme.eAccentType2() != EM_AccentType.AT_UNDEFINED)
+            {
+                StressType2 = Helpers.sAccenTypeToStressSchema(m_Lexeme.eAccentType2());
+            }
 
-            /*
+            Triangle = m_Lexeme.bHasIrregularForms() ? m_YesNoValues[0] : m_YesNoValues[1];
+
+            if (m_Lexeme.iStemAugment() > 0)
+            {
+                SmallCircle = m_YesNoValues[0];
+            }
+            else
+            {
+                SmallCircle = m_YesNoValues[1];
+            }
+
+            var ePartOfSpeech = m_Lexeme.ePartOfSpeech();
+
+            string sNumbersInCircle = "";
+            for (int iCD = 0; iCD <= 9; ++iCD)
+            {
+                if (m_Lexeme.bHasCommonDeviation(iCD))
+                {
+                    if (sNumbersInCircle.Length > 0)
+                    {
+                        sNumbersInCircle += ", ";
+                    }
+                    if (m_Lexeme.bDeviationOptional(iCD))
+                    {
+                        sNumbersInCircle += "[" + iCD.ToString() + "]";
+                    }
+                    else
+                    {
+                        sNumbersInCircle += iCD.ToString();
+                    }
+                }
+            }
+
+            if (sNumbersInCircle.Length > 0)
+            {
+                m_sNumberInCircle = sNumbersInCircle;
+            }
 
 
             /*
@@ -1899,55 +1964,89 @@ case "AltMainSymbol":
                         }
                     }
                     */
-                    /*
+
                     case "StemAugment":
                     {
-                        bRet = bGetYesNoValue("StemAugment", m_sStemAugment, ref bValue);
+                        bRet = bGetYesNoValue("SmallCircle", m_sSmallCircle, ref bValue);
                         if (bRet)
                         {
-                            m_Lexeme.SetStemAugment(bValue);
+                            if (EM_PartOfSpeech.POS_NOUN == m_Lexeme.ePartOfSpeech())
+                            {
+                                if (1 == m_Lexeme.iInflectionId())
+                                {
+                                    m_Lexeme.SetStemAugment(1);
+                                }
+                                else if (3 == m_Lexeme.iInflectionId())
+                                {
+                                    if (m_Lexeme.sSourceForm().EndsWith("онок") || m_Lexeme.sSourceForm().EndsWith("ёнок"))
+                                    {
+                                        m_Lexeme.SetStemAugment(1);
+                                    }
+                                    else if (m_Lexeme.sSourceForm().EndsWith("оночек") || m_Lexeme.sSourceForm().EndsWith("ёночек"))
+                                    {
+                                        m_Lexeme.SetStemAugment(2);
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Недопустимая исходная форма: ожидается -оно(че)к/-ёно(че)к");
+                                    }
+                                }
+                                else if (8 == m_Lexeme.iInflectionId())
+                                {
+                                    if (m_Lexeme.sSourceForm().EndsWith("мя"))
+                                    {
+                                        m_Lexeme.SetStemAugment(3);
+                                    }
+                                }
+                            }
+                            else if (EM_PartOfSpeech.POS_VERB == m_Lexeme.ePartOfSpeech())
+                            {
+                                m_Lexeme.SetStemAugment(1);
+                            }
                         }
-                    }
-                    
 
-                    case "1SgStem":
-                    {
-                        if (null == m_s1SgStem || m_s1SgStem.Length < 1)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            m_Lexeme.Set1SgStem(m_s1SgStem);
-                        }
                         break;
                     }
 
-                    case "3SgStem":
-                    {
-                        if (null == m_s3SgStem || m_s3SgStem.Length < 1)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            m_Lexeme.Set3SgStem(m_s3SgStem);
-                        }
-                        break;
-                    }
-                    case "Infinitive":
-                    {
-                        if (null == m_sInfinitive || m_sInfinitive.Length< 1)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            m_Lexeme.SetInfinitive(m_sInfinitive);
-                        }
-                        break;
-                    }
-                    */
+                    /*
+                                        case "1SgStem":
+                                        {
+                                            if (null == m_s1SgStem || m_s1SgStem.Length < 1)
+                                            {
+                                                continue;
+                                            }
+                                            else
+                                            {
+                                                m_Lexeme.Set1SgStem(m_s1SgStem);
+                                            }
+                                            break;
+                                        }
+
+                                        case "3SgStem":
+                                        {
+                                            if (null == m_s3SgStem || m_s3SgStem.Length < 1)
+                                            {
+                                                continue;
+                                            }
+                                            else
+                                            {
+                                                m_Lexeme.Set3SgStem(m_s3SgStem);
+                                            }
+                                            break;
+                                        }
+                                        case "Infinitive":
+                                        {
+                                            if (null == m_sInfinitive || m_sInfinitive.Length< 1)
+                                            {
+                                                continue;
+                                            }
+                                            else
+                                            {
+                                                m_Lexeme.SetInfinitive(m_sInfinitive);
+                                            }
+                                            break;
+                                        }
+                                        */
                     default:
                         MessageBox.Show("Internal error: unable to offload data.");
                         break;

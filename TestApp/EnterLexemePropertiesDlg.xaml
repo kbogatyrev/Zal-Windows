@@ -121,7 +121,8 @@
             <ComboBoxItem Content="f''" IsEnabled="True" />
         </ComboBox>
 
-        <TextBox Text="Цифра в кружке" Margin="356,205,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="Цифра в кружке" Margin="356,205,0,0" Style="{StaticResource FormLabel}" ToolTip="Цифра (или цифры, через запятую)" Width="120" />
+<!--        
         <ComboBox Text="{Binding Path=NumberInCircle}" HorizontalAlignment="Left" Margin="481,205,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="" IsEnabled="True" />
             <ComboBoxItem Content="1" IsEnabled="True" />
@@ -135,6 +136,8 @@
             <ComboBoxItem Content="8" IsEnabled="True"/>
             <ComboBoxItem Content="9" IsEnabled="True"/>
         </ComboBox>
+-->
+        <TextBox Text="{Binding Path=NumberInCircle}" Margin="481,205,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
 
         <TextBox Text="Треугольник" Margin="356,240,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <ComboBox Text="{Binding Path=Triangle}" HorizontalAlignment="Left" Margin="480,240,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
