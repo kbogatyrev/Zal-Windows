@@ -161,8 +161,9 @@ namespace ZalTestApp
             EM_ReturnCode eRet = m_Lexeme.eGetSourceFormWithStress(ref sSourceForm, false);
             if (eRet == EM_ReturnCode.H_NO_ERROR)
             {
-                Helpers.ExtractStressMarks(ref sSourceForm);
-                AddProperty("Исходная форма", sSourceForm);
+                string sSourceFormWithAccents = "";
+                Helpers.AssignDiacritics(sSourceForm, ref sSourceFormWithAccents);
+                AddProperty("Исходная форма", sSourceFormWithAccents);
             }
 
             List<int> arrHomonyms = m_Lexeme.arrHomonyms();
@@ -182,11 +183,12 @@ namespace ZalTestApp
 
             if (m_Lexeme.sHeadwordVariant().Length > 0)
             {
-                //                String sVariant = m_Lexeme.sHeadwordVariant();
                 String sVariant = "";
                 eRet = m_Lexeme.eGetSourceFormWithStress(ref sVariant, true);
-                Helpers.ExtractStressMarks(ref sVariant);
-                AddProperty("Вариант", sVariant);
+                string sSourceFormWithAccents = "";
+                Helpers.AssignDiacritics(sVariant, ref sSourceFormWithAccents);
+
+                AddProperty("Вариант", sSourceFormWithAccents);
             }
 
             if (m_Lexeme.sHeadwordComment().Length > 0)
@@ -217,8 +219,9 @@ namespace ZalTestApp
             if (m_Lexeme.sRestrictedForms().Length > 0)
             {
                 string sPhraseo = m_Lexeme.sRestrictedForms();
-                Helpers.ExtractStressMarks(ref sPhraseo);
-                AddProperty("Фразеологизмы", sPhraseo);
+                string sSourceFormWithAccents = "";
+                Helpers.AssignDiacritics(sPhraseo, ref sSourceFormWithAccents);
+                AddProperty("Фразеологизмы", sSourceFormWithAccents);
             }
 
             if (m_Lexeme.bNoComparative())

@@ -251,42 +251,43 @@ namespace ZalTestApp
         }    //  MarkStress()
 
         // "/", "\" --> diacritics
-        public static void ExtractStressMarks(ref string sWord)
+        public static void AssignDiacritics(string sSource, ref string sTarget)
         {
             char chrStressMark = '\x301';
             char chrSecondaryStressMark = '\x300';
             int iPos = 0;
-            iPos = sWord.IndexOf('/', iPos);
-            while (iPos >= 0 && iPos < sWord.Length - 1)
+            sTarget = sSource;
+            iPos = sTarget.IndexOf('/', iPos);
+            while (iPos >= 0 && iPos < sTarget.Length - 1)
             {
-                if (sWord[iPos] != sWord[iPos + 1] && (sWord[iPos + 1] != 'ё'))
+                if (sTarget[iPos] != sTarget[iPos + 1] && (sTarget[iPos + 1] != 'ё'))
                 {
-                    sWord = sWord.Substring(0, iPos) + sWord.Substring(iPos + 1, 1) + chrStressMark.ToString() + sWord.Substring(iPos + 2);
+                    sTarget = sTarget.Substring(0, iPos) + sTarget.Substring(iPos + 1, 1) + chrStressMark.ToString() + sTarget.Substring(iPos + 2);
                 }
-                else if ('ё' == sWord[iPos + 1])
+                else if ('ё' == sTarget[iPos + 1])
                 {
-                    sWord = sWord.Substring(0, iPos) + sWord.Substring(iPos + 1, 1) + sWord.Substring(iPos + 2);
+                    sTarget = sTarget.Substring(0, iPos) + sTarget.Substring(iPos + 1, 1) + sTarget.Substring(iPos + 2);
                 }
                 else
                 {
                     iPos += 2;
                 }
-                iPos = sWord.IndexOf('/', iPos);
+                iPos = sTarget.IndexOf('/', iPos);
             }
-            iPos = sWord.IndexOf('\\', 0);
-            while (iPos >= 0 && iPos < sWord.Length - 1)
+            iPos = sTarget.IndexOf('\\', 0);
+            while (iPos >= 0 && iPos < sTarget.Length - 1)
             {
-                if (sWord[iPos] != sWord[iPos + 1])
+                if (sTarget[iPos] != sTarget[iPos + 1])
                 {
-                    sWord = sWord.Substring(0, iPos) + sWord.Substring(iPos + 1, 1) + chrSecondaryStressMark.ToString() + sWord.Substring(iPos + 2);
+                    sTarget = sTarget.Substring(0, iPos) + sTarget.Substring(iPos + 1, 1) + chrSecondaryStressMark.ToString() + sTarget.Substring(iPos + 2);
                 }
                 else
                 {
                     iPos += 2;
                 }
-                iPos = sWord.IndexOf('\\', iPos);
+                iPos = sTarget.IndexOf('\\', iPos);
             }
-        }
+        }       //  ExtractStressMarks()
 
         // Diacritics --> "/", "\"
         public static void RestoreStressMarks(ref string sWord)

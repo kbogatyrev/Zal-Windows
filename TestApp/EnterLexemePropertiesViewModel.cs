@@ -50,13 +50,29 @@ namespace ZalTestApp
 
         #region Bindings
 
+        private bool m_bPropertiesChanged;
+        public bool PropertiesChanged
+        {
+            get
+            {
+                return m_bPropertiesChanged;
+            }
+            set
+            {
+                if (value != m_bPropertiesChanged)
+                {
+                    m_bPropertiesChanged = value;
+                }
+                OnPropertyChanged("PropertiesChanged");
+            }
+        }
+
         private string m_sSourceForm;
         public string SourceForm
         {
             get
             {
-                Helpers.ExtractStressMarks(ref m_sSourceForm);
-                return m_sSourceForm;
+                return SourceForm;
             }
             set
             {
@@ -65,6 +81,24 @@ namespace ZalTestApp
                     m_sSourceForm = value;
                 }
                 OnPropertyChanged("SourceForm");
+            }
+        }
+
+        public string SourceFormWithAccents
+        {
+            get
+            {
+                string SourceFormWithAccents = "";
+                Helpers.AssignDiacritics(m_sSourceForm, ref SourceFormWithAccents);
+                return SourceFormWithAccents;
+            }
+            set
+            {
+                if (value != m_sSourceForm)
+                {
+                    m_sSourceForm = value;
+                }
+                OnPropertyChanged("SourceFormWithAccents");
             }
         }
 
@@ -492,8 +526,10 @@ namespace ZalTestApp
             m_Lexeme = lexeme;
             m_PropertiesChanged = new List<string>();
             m_sSourceForm = "";
+            m_bPropertiesChanged = false;
 
-            String sAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя\u0300\u0301";
+//            String sAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя\u0300\u0301";
+            String sAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя/\\";
             m_CyrillicAlphabet = new HashSet<char>(sAlphabet.ToCharArray());
 
             m_Errors = new List<string>();
@@ -530,6 +566,8 @@ namespace ZalTestApp
             if (!bIsNew)
             {
                 LoadData();
+                m_PropertiesChanged.Clear();
+                m_bPropertiesChanged = false;
             }
 
         }       //  EnterLexemePropertiesViewModel()
@@ -682,14 +720,22 @@ namespace ZalTestApp
             }
             */
             return !bErrors();
-        }
+
+        }   //  bVerifyData()
 
         public void LoadData()
         {
             FleetingVowel = m_Lexeme.bHasFleetingVowel() ? m_YesNoValues[0] : m_YesNoValues[1];
             YoAlternation = m_Lexeme.bHasYoAlternation() ? m_YesNoValues[0] : m_YesNoValues[1];
             OAlternation = m_Lexeme.bHasOAlternation() ? m_YesNoValues[0] : m_YesNoValues[1];
-            SourceForm = m_Lexeme.sSourceForm();
+            EM_ReturnCode eRet = m_Lexeme.eGetSourceFormWithStress(ref m_sSourceForm, false);
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                MessageBox.Show("Unable to acquire source form.");
+                return;
+            }
+
+            SourceFormWithAccents = m_sSourceForm;
             HeadwordComment = m_Lexeme.sHeadwordComment();
             Variant = m_Lexeme.sHeadwordVariant();
             //            HeadwordVariantComment = m_Lexeme.sHeadwordVariantComment();
@@ -1332,7 +1378,10 @@ case "AltMainSymbol":
                 switch (sProperty)
                 {
                     //case "GraphicStem":
-                    //case "HasIrregularForms":
+                    case "YesNoValues":
+                    {
+                        break;    // remove na fig?
+                    }
 
                     case "FleetingVowel":
                     {
@@ -1435,21 +1484,7 @@ case "AltMainSymbol":
                         break;
                     }
                     */
-
-                    /*
-                    case "SetPluralOf":
-                    {
-                        if (null == m_sPluralOf || m_sPluralOf.Length < 1)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            m_Lexeme.SetPluralOf(m_sPluralOf);
-                        }
-                        break;
-                    }
-                    */
+                    
 
                     case "Usage":
                     {
@@ -1892,6 +1927,21 @@ case "AltMainSymbol":
                         break;
                     }
 
+                    case "NumberInCircle":
+                    {
+                        if (m_sNumberInCircle.Length < 1)
+                        {
+                            MessageBox.Show("Warning: expected number in circle.");                            
+                        }
+                        else
+                        {
+                            var sSource = m_sNumberInCircle.Replace(" ", "");
+                            var numbersInCircle = m_sNumberInCircle.Split(new char[]{ ','});
+                                var koko = 0;
+                        }
+                        break;
+                    }
+
                     /*
                     case "ShortFormsRestricted":
                     {
@@ -2057,7 +2107,17 @@ case "AltMainSymbol":
         #region Event_Handlers
 
         public void lexeme_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {        
+        {
+            if ("YesNoValues" == e.PropertyName)        // Please refactor
+            {
+                return;
+            }
+
+            if (!m_bPropertiesChanged)
+            {
+                PropertiesChanged = true;
+            }
+
             m_PropertiesChanged.Add(e.PropertyName);
         }
 
