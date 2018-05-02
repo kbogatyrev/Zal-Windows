@@ -160,6 +160,8 @@ namespace MainLibManaged
         void SetAltAspectPairComment(String^);
         EM_ReturnCode eGetAspectPair(String^% sAspectPair, int% iStressPos);
         EM_ReturnCode eGetAltAspectPair(String^% sAltAspectPair, int% iAltStressPos);
+        String^ sAspectPairData();
+        void SetAspectPairData(String^);
         String^ sQuestionableForms();
         void SetQuestionableForms(String^);
         bool bHasIrregularVariants();
@@ -204,6 +206,7 @@ namespace MainLibManaged
         void SetInfinitive(String^);
         String^ sInfStem();
         void SetInfStem(String^);
+        EM_ReturnCode eAddCommonDeviation(int iValue, bool bIsOptional);
 
         bool bFindCommonDeviation(int iNum, bool% bIsOptional);
         bool bFindStandardAlternation(String^ sKey, String^% sValue);

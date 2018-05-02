@@ -1537,6 +1537,26 @@ EM_ReturnCode CLexemeManaged::eGetAltAspectPair(String^% sAltAspectPair, int% iA
 
 }       //  eGetAltAspectPair()
 
+String^ CLexemeManaged::sAspectPairData()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return gcnew String(m_pLexeme->sAspectPairData());
+}
+
+void CLexemeManaged::SetAspectPairData(String^ sAspectPairData)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    m_pLexeme->SetAspectPairData(sFromManagedString(sAspectPairData));
+}
+
 String^ CLexemeManaged::sQuestionableForms()
 {
     if (NULL == m_pLexeme)
@@ -1975,6 +1995,17 @@ void CLexemeManaged::SetInfStem(String^ sValue)
     }
 
     m_pLexeme->SetInfStem(sFromManagedString(sValue));
+}
+
+EM_ReturnCode CLexemeManaged::eAddCommonDeviation(int iValue, bool bIsOptional)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pLexeme->eAddCommonDeviation(iValue, bIsOptional);
+    return (EM_ReturnCode)eRet;
 }
 
 bool CLexemeManaged::bFindCommonDeviation(int iNum, bool% bIsOptionalDotNet)
