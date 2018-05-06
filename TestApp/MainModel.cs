@@ -152,7 +152,6 @@ namespace ZalTestApp
             m_StoredLexemes = new Dictionary<string, string>();
 
             m_bInitialized = true;
-
         }
 
         public bool bCreateLexeme(ref CLexemeManaged l)
