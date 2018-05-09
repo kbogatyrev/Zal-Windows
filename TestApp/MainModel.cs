@@ -175,7 +175,7 @@ namespace ZalTestApp
 
         public bool bEditLexeme(CLexemeManaged source, ref CLexemeManaged copy)
         {
-            if (null == m_Dictionary)
+            if (null == m_EditDictionary)
             {
                 System.Windows.MessageBox.Show("Dictionary was not initialized.");
                 return false;
@@ -299,15 +299,45 @@ namespace ZalTestApp
                 return;
             }
 
+            CDictionaryManaged dataSource = null;
             m_Lexemes.Clear();
 
-            var eRet = m_Dictionary.eGetLexemesByInitialForm(str);
+            var eRet = m_EditDictionary.eGetLexemesByInitialForm(str);
+            if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE)
+            {
+                System.Windows.MessageBox.Show("Lexeme not found -- error in edit DB lookup.");
+                return;
+            }
+
+            if (m_EditDictionary.nLexemesFound() > 0)
+            {
+                dataSource = m_EditDictionary;
+            }
+            else
+            {
+                eRet = m_Dictionary.eGetLexemesByInitialForm(str);
+                if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE)
+                {
+                    System.Windows.MessageBox.Show("Lexeme not found -- error in main DB lookup.");
+                    return;
+                }
+
+                if (m_Dictionary.nLexemesFound() > 0)
+                {
+                    dataSource = m_Dictionary;
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Лексема не найдена.");
+                    return;
+                }
+            }
 
             CLexemeManaged lexeme = null;
-            eRet = m_Dictionary.eGetFirstLexeme(ref lexeme);
+            eRet = dataSource.eGetFirstLexeme(ref lexeme);
             if (EM_ReturnCode.H_NO_ERROR != eRet)
             {
-                System.Windows.MessageBox.Show("Lexeme not found.");
+                System.Windows.MessageBox.Show("Error: unable to retrieve lexeme");
                 return;
             }
 
@@ -328,7 +358,7 @@ namespace ZalTestApp
                     }
                 }
 
-                eRet = m_Dictionary.eGetNextLexeme(ref lexeme);
+                eRet = dataSource.eGetNextLexeme(ref lexeme);
 
             } while (EM_ReturnCode.H_NO_ERROR == eRet);
 
