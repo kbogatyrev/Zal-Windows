@@ -245,7 +245,8 @@ namespace MainLibManaged
 
     public ref class CDictionaryManaged
     {
-        Hlib::IDictionary * m_pDictionary;  // we are using some non-itf methods
+        Hlib::IDictionary * m_pDictionary;      // we are using some non-itf methods
+        Hlib::IDictionary * m_pEditDictionary;  // we are using some non-itf methods
 
     public:
         CDictionaryManaged();
@@ -270,6 +271,7 @@ namespace MainLibManaged
         // Save manually edited lexeme
         EM_ReturnCode eSaveLexeme(CLexemeManaged^);
 
+        int nLexemesFound();
         EM_ReturnCode eGetFirstLexeme(CLexemeManaged^% pLexeme);
         EM_ReturnCode eGetNextLexeme(CLexemeManaged^% pLexeme);
 

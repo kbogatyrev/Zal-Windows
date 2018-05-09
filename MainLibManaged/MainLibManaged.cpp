@@ -408,6 +408,16 @@ EM_ReturnCode CDictionaryManaged::eSaveLexeme(CLexemeManaged^ l)
     return (EM_ReturnCode)eRet;
 }
 
+int CDictionaryManaged::nLexemesFound()
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    return m_pDictionary->nLexemesFound();
+}
+
 EM_ReturnCode CDictionaryManaged::eGetFirstLexeme(CLexemeManaged^% lexeme)
 {
     if (NULL == m_pDictionary)
