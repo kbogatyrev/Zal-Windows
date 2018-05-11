@@ -564,6 +564,7 @@ namespace ZalTestApp
                         paradigmViewModel = new NounViewModel(lexeme, m_MainModel);
                         break;
                     case EM_PartOfSpeech.POS_ADJ:
+                    case EM_PartOfSpeech.POS_PRONOUN_ADJ:
                         paradigmViewModel = new AdjViewModel(lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ, m_MainModel);
                         break;
                     case EM_PartOfSpeech.POS_VERB:

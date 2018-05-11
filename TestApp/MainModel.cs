@@ -303,17 +303,17 @@ namespace ZalTestApp
             m_Lexemes.Clear();
 
             var eRet = m_EditDictionary.eGetLexemesByInitialForm(str);
-            if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE)
+            if (eRet != EM_ReturnCode.H_NO_MORE && eRet != EM_ReturnCode.H_FALSE)
             {
                 System.Windows.MessageBox.Show("Lexeme not found -- error in edit DB lookup.");
                 return;
             }
 
-            if (m_EditDictionary.nLexemesFound() > 0)
+            if (EM_ReturnCode.H_NO_MORE == eRet)
             {
                 dataSource = m_EditDictionary;
             }
-            else
+            else if (EM_ReturnCode.H_FALSE == eRet)
             {
                 eRet = m_Dictionary.eGetLexemesByInitialForm(str);
                 if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE)
@@ -331,6 +331,11 @@ namespace ZalTestApp
                     System.Windows.MessageBox.Show("Лексема не найдена.");
                     return;
                 }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Lexeme not found -- unknown error.");
+                return;
             }
 
             CLexemeManaged lexeme = null;
@@ -478,6 +483,7 @@ namespace ZalTestApp
                     return bGenerateNounForms(lexeme);
 
                 case EM_PartOfSpeech.POS_ADJ:
+                case EM_PartOfSpeech.POS_PRONOUN_ADJ:
                     return bGenerateAdjForms(lexeme);
 
                 case EM_PartOfSpeech.POS_VERB:

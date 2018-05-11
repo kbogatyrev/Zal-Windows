@@ -544,106 +544,6 @@ namespace ZalTestApp
 
         #endregion
 
-        #region Bindings_Present_Active_Participle
-        private string m_sPPresA_M_Sg_N;
-        public string PPresA_M_Sg_N
-        {
-            get
-            {
-                return m_sPPresA_M_Sg_N;
-            }
-            set
-            {
-                m_sPPresA_M_Sg_N = value;
-                OnPropertyChanged("PPresA_M_Sg_N");
-            }
-        }
-
-        private string m_sPPresA_M_Sg_A_Anim;
-        public string PPresA_M_Sg_A_Anim
-        {
-            get
-            {
-                return m_sPPresA_M_Sg_A_Anim;
-            }
-            set
-            {
-                m_sPPresA_M_Sg_A_Anim = value;
-                OnPropertyChanged("PPresA_M_Sg_A_Anim");
-            }
-        }
-
-        private string m_sPPresA_M_Sg_A_Inanim;
-        public string PPresA_M_Sg_A_Inanim
-        {
-            get
-            {
-                return m_sPPresA_M_Sg_A_Inanim;
-            }
-            set
-            {
-                m_sPPresA_M_Sg_A_Inanim = value;
-                OnPropertyChanged("PPresA_M_Sg_A_Inanim");
-            }
-        }
-
-        private string m_sPPresA_M_Sg_G;
-        public string PPresA_M_Sg_G
-        {
-            get
-            {
-                return m_sPPresA_M_Sg_G;
-            }
-            set
-            {
-                m_sPPresA_M_Sg_G = value;
-                OnPropertyChanged("PPresA_M_Sg_G");
-            }
-        }
-
-        private string m_sPPresA_M_Sg_P;
-        public string PPresA_M_Sg_P
-        {
-            get
-            {
-                return m_sPPresA_M_Sg_P;
-            }
-            set
-            {
-                m_sPPresA_M_Sg_P = value;
-                OnPropertyChanged("PPresA_M_Sg_P");
-            }
-        }
-
-        private string m_sPPresA_M_Sg_D;
-        public string PPresA_M_Sg_D
-        {
-            get
-            {
-                return m_sPPresA_M_Sg_D;
-            }
-            set
-            {
-                m_sPPresA_M_Sg_D = value;
-                OnPropertyChanged("PPresA_M_Sg_D");
-            }
-        }
-
-        private string m_sPPresA_M_Sg_I;
-        public string PPresA_M_Sg_I
-        {
-            get
-            {
-                return m_sPPresA_M_Sg_I;
-            }
-            set
-            {
-                m_sPPresA_M_Sg_I = value;
-                OnPropertyChanged("PPresA_M_Sg_I");
-            }
-        }
-        #endregion
-
         public AdjViewModel(CLexemeManaged lexeme, EM_Subparadigm eSubparadigm, MainModel m)
         {
             m_Parent = lexeme;
@@ -654,7 +554,7 @@ namespace ZalTestApp
 
             string sLexemeHash = lexeme.sHash();
 
-            if (lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
+            if (lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ || lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ)
             {
                 List<string> forms = null;
                 m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_M_Sg_N", out forms);
@@ -713,18 +613,82 @@ namespace ZalTestApp
                 m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjL_Pl_I", out forms);
                 AdjL_Pl_I = Helpers.sListToCommaSeparatedString(forms);
 
-                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjS_M", out forms);
-                AdjS_M = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjS_F", out forms);
-                AdjS_F = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjS_N", out forms);
-                AdjS_N = Helpers.sListToCommaSeparatedString(forms);
-                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjS_Pl", out forms);
-                AdjS_Pl = Helpers.sListToCommaSeparatedString(forms);
+                if (lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
+                {
+                    m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjS_M", out forms);
+                    AdjS_M = Helpers.sListToCommaSeparatedString(forms);
+                    m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjS_F", out forms);
+                    AdjS_F = Helpers.sListToCommaSeparatedString(forms);
+                    m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjS_N", out forms);
+                    AdjS_N = Helpers.sListToCommaSeparatedString(forms);
+                    m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjS_Pl", out forms);
+                    AdjS_Pl = Helpers.sListToCommaSeparatedString(forms);
 
-                m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjComp", out forms);
-                AdjComp = Helpers.sListToCommaSeparatedString(forms);
+                    m_MainModel.GetFormsByGramHash(sLexemeHash, "AdjComp", out forms);
+                    AdjComp = Helpers.sListToCommaSeparatedString(forms);
+                }
             }
+/*
+            else if (lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ)
+            {
+                List<string> forms = null;
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_M_Sg_N", out forms);
+                AdjL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_M_Sg_A_Anim", out forms);
+                AdjL_M_Sg_A_Anim = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_M_Sg_A_Inanim", out forms);
+                AdjL_M_Sg_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_M_Sg_G", out forms);
+                AdjL_M_Sg_G = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_M_Sg_P", out forms);
+                AdjL_M_Sg_P = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_M_Sg_D", out forms);
+                AdjL_M_Sg_D = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_M_Sg_I", out forms);
+                AdjL_M_Sg_I = Helpers.sListToCommaSeparatedString(forms);
+
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_F_Sg_N", out forms);
+                AdjL_F_Sg_N = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_F_Sg_A", out forms);
+                AdjL_F_Sg_A = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_F_Sg_G", out forms);
+                AdjL_F_Sg_G = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_F_Sg_P", out forms);
+                AdjL_F_Sg_P = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_F_Sg_D", out forms);
+                AdjL_F_Sg_D = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_F_Sg_I", out forms);
+                AdjL_F_Sg_I = Helpers.sListToCommaSeparatedString(forms);
+
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_N_Sg_N", out forms);
+                AdjL_N_Sg_N = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_N_Sg_A", out forms);
+                AdjL_N_Sg_A = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_N_Sg_G", out forms);
+                AdjL_N_Sg_G = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_N_Sg_P", out forms);
+                AdjL_N_Sg_P = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_N_Sg_D", out forms);
+                AdjL_N_Sg_D = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_N_Sg_I", out forms);
+                AdjL_N_Sg_I = Helpers.sListToCommaSeparatedString(forms);
+
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_Pl_N", out forms);
+                AdjL_Pl_N = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_Pl_A_Anim", out forms);
+                AdjL_Pl_A_Anim = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_Pl_A_Inanim", out forms);
+                AdjL_Pl_A_Inanim = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_Pl_G", out forms);
+                AdjL_Pl_G = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_Pl_P", out forms);
+                AdjL_Pl_P = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_Pl_D", out forms);
+                AdjL_Pl_D = Helpers.sListToCommaSeparatedString(forms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, "PronAdj_Pl_I", out forms);
+                AdjL_Pl_I = Helpers.sListToCommaSeparatedString(forms);
+            }
+*/
             else if (lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
             {
                 m_bIsDerived = true;
