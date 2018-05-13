@@ -464,6 +464,7 @@ namespace ZalTestApp
             }
         }
 
+/*
         private string m_sMinusSymbol;
         public string MinusSymbol
         {
@@ -480,6 +481,7 @@ namespace ZalTestApp
                 OnPropertyChanged("MinusSymbol");
             }
         }
+*/
 
         private string m_sXSymbol;
         public string XSymbol
@@ -923,8 +925,8 @@ namespace ZalTestApp
             }
         }
 
-        private ObservableCollection<string> m_YesNoValues;
-        public ObservableCollection<string> YesNoValues
+        private List<string> m_YesNoValues;
+        public List<string> YesNoValues
         {
             get
             {
@@ -1628,7 +1630,7 @@ namespace ZalTestApp
             { "POS_COUNT", E_POS.POS_COUNT }
         };
 
-        YesNoValues = new ObservableCollection<string>() { "Да", "Нет" };
+        YesNoValues = new List<string>() { "Да", "Нет" };
 
         InitChangedPropertyHandlers();
 
