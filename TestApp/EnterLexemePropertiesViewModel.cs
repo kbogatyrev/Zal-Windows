@@ -13,6 +13,9 @@ namespace ZalTestApp
 {
     public class EnterLexemePropertiesViewModel : ViewModelBase
     {
+        public delegate void ShowParadigmForEditHandler(CLexemeManaged l);
+        public event ShowParadigmForEditHandler ShowParadigmForEditEvent;
+
         CLexemeManaged m_Lexeme;
         HashSet<string> m_PropertiesChanged;
         HashSet<char> m_CyrillicAlphabet;
@@ -104,24 +107,6 @@ namespace ZalTestApp
                 OnPropertyChanged("SourceFormWithAccents");
             }
         }
-
-        //public string SourceFormWithAccents
-        //{
-        //    get
-        //    {
-        //        string SourceFormWithAccents = "";
-        //        Helpers.AssignDiacritics(m_sSourceForm, ref SourceFormWithAccents);
-        //        return SourceFormWithAccents;
-        //    }
-        //    set
-        //    {
-        //        if (value != m_sSourceForm)
-        //        {
-        //            m_sSourceForm = value;
-        //        }
-        //        OnPropertyChanged("SourceFormWithAccents");
-        //    }
-        //}
 
         private string m_sVariant;
         public string Variant
@@ -463,25 +448,6 @@ namespace ZalTestApp
                 OnPropertyChanged("OAlternation");
             }
         }
-
-/*
-        private string m_sMinusSymbol;
-        public string MinusSymbol
-        {
-            get
-            {
-                return m_sMinusSymbol;
-            }
-            set
-            {
-                if (value != m_sMinusSymbol)
-                {
-                    m_sMinusSymbol = value;
-                }
-                OnPropertyChanged("MinusSymbol");
-            }
-        }
-*/
 
         private string m_sXSymbol;
         public string XSymbol
@@ -965,6 +931,19 @@ namespace ZalTestApp
             set
             {
                 m_CancelCommand = value;
+            }
+        }
+
+        private ICommand m_EditFormsCommand;
+        public ICommand EditFormsCommand
+        {
+            get
+            {
+                return m_EditFormsCommand;
+            }
+            set
+            {
+                m_EditFormsCommand = value;
             }
         }
 
@@ -1605,6 +1584,7 @@ namespace ZalTestApp
 
         CancelCommand = new RelayCommand(new Action<object>(OnCancel));
         OKCommand = new RelayCommand(new Action<object>(OnOK));
+        EditFormsCommand = new RelayCommand(new Action<object>(OnEditForms));
         PropertyChanged += new PropertyChangedEventHandler(lexeme_PropertyChanged);
 
         m_StringToPos = new Dictionary<string, E_POS>()
@@ -1689,6 +1669,11 @@ namespace ZalTestApp
                     ((Window)view).Close();
                 }
             }
+        }
+
+        public void OnEditForms(object view)
+        {
+            ShowParadigmForEditEvent?.Invoke(this.m_Lexeme);
         }
 
         public bool bGetYesNoValue(string sPropertyName, string sValue, ref bool bResult)

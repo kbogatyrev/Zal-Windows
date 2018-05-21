@@ -151,7 +151,7 @@
         </ComboBox>
 
         <TextBox Text="Знак минус" Margin="678,30,0,0" Style="{StaticResource FormLabel}" Width="120" />
-        <ComboBox Text="{Binding Path=MinusSymbol}" HorizontalAlignment="Left" Margin="805,30,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+        <ComboBox Text="{Binding Path=AssumedForms}" HorizontalAlignment="Left" Margin="805,30,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="Да" IsEnabled="True" />
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
         </ComboBox>
@@ -166,7 +166,7 @@
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
         </ComboBox>
         <TextBox Text="Знак ~" Margin="678,135,0,0" Style="{StaticResource FormLabel}" Width="120" />
-        <ComboBox Text="{Binding Path=TildeSymbol}" HorizontalAlignment="Left" Margin="805,135,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+        <ComboBox Text="{Binding Path=NoComparative}" HorizontalAlignment="Left" Margin="805,135,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="Да" IsEnabled="True" />
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
         </ComboBox>
@@ -230,7 +230,6 @@
 
         <Button Content="Cancel" Style="{DynamicResource BtnLarge}" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=LexemePropertiesWindow}"  HorizontalAlignment="Left" Margin="889,493,0,0" VerticalAlignment="Top" Width="75" />
         <Button Content="OK" Style="{DynamicResource BtnLarge}" Command="{Binding OKCommand}" CommandParameter="{Binding ElementName=LexemePropertiesWindow}" IsEnabled="{Binding Path=PropertiesChanged}" HorizontalAlignment="Left" Margin="806,493,0,0" VerticalAlignment="Top" Width="75"/>
-
     </Grid>
     <!--
     <Window.DataContext>
