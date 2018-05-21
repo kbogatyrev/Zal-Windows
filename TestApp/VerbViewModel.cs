@@ -19,7 +19,6 @@ namespace ZalTestApp
         CLexemeManaged m_Lexeme = null;
         ViewModelBase m_LexemeViewModel;
 
-
         #region ICommand
         private ICommand m_BackCommand;
         public ICommand BackCommand

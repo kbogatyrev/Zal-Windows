@@ -47,19 +47,6 @@ namespace ZalTestApp
             }
         }
 
-        private NounViewModel m_NounViewModel = null;
-        private AdjViewModel m_AdjViewModel = null;
-        private VerbViewModel m_VerbViewModel = null;
-
-        public delegate void ShowNounFormsHandler(CLexemeManaged l);
-        public event ShowNounFormsHandler ShowNounFormsEvent;
-
-        public delegate void ShowAdjFormsHandler(CLexemeManaged l);
-        public event ShowAdjFormsHandler ShowAdjFormsEvent;
-
-        public delegate void ShowVerbFormsHandler(CLexemeManaged l);
-        public event ShowVerbFormsHandler ShowVerbFormsEvent;
-
         public delegate void RemoveLexemeHandler(LexemeViewModel lvm);
         public event RemoveLexemeHandler RemoveLexemeEvent;
 
@@ -123,8 +110,6 @@ namespace ZalTestApp
         public LexemeViewModel()
         {
             m_Lexeme = null;
-            ShowParadigmCommand = new RelayCommand(new Action<object>(ShowParadigm));
-            SaveParadigmCommand = new RelayCommand(new Action<object>(SaveParadigm));
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
         }
@@ -132,8 +117,6 @@ namespace ZalTestApp
         public LexemeViewModel(CLexemeManaged l)
         {
             m_Lexeme = l;
-            ShowParadigmCommand = new RelayCommand(new Action<object>(ShowParadigm));
-            SaveParadigmCommand = new RelayCommand(new Action<object>(SaveParadigm));
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
 
@@ -339,36 +322,6 @@ namespace ZalTestApp
                 }
             }
         }
-
-        private void ShowParadigm(object arg)
-        {
-            if (null == m_Lexeme)
-            {
-                MessageBox.Show("Internal error: lexeme object not initialized.");
-                return;
-            }
-
-            switch (m_Lexeme.ePartOfSpeech())
-            {
-                case EM_PartOfSpeech.POS_NOUN:
-                    ShowNounFormsEvent?.Invoke(m_Lexeme);
-                    break;
-
-                case EM_PartOfSpeech.POS_ADJ:
-                    ShowAdjFormsEvent?.Invoke(m_Lexeme);
-                    break;
-
-                case EM_PartOfSpeech.POS_VERB:
-                    ShowVerbFormsEvent?.Invoke(m_Lexeme);
-                    break;
-
-                default:
-                    MessageBox.Show("Internal error: illegal part of speech value.");
-                    return;
-
-            }   //  switch...
-
-        }   // ShowParadigm()
 
         private void SaveParadigm(object arg)
         {

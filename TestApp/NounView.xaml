@@ -30,6 +30,8 @@
             <TextBox Text="{Binding Path=Noun_Sg_D}" Margin="70,250,0,0" Style="{StaticResource FormText}" />
             <TextBox Text="{Binding Path=Noun_Sg_I}" Margin="70,295,0,0" Style="{StaticResource FormText}" />
 
+            <Button  Margin="235,70,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+
             <TextBox Text="{Binding Path=Noun_Sg_Part}" Margin="70,350,0,0" Style="{StaticResource FormText}" />
             <TextBox Text="{Binding Path=Noun_Sg_L}" Margin="70,395,0,0" Style="{StaticResource FormText}" />
             <CheckBox Content="Факульт." IsChecked="{Binding Path=Is_L2_optional}" HorizontalAlignment="Left" Margin="252,402,0,0" VerticalAlignment="Top" Width="87"/>

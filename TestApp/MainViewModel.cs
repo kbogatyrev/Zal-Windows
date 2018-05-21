@@ -552,35 +552,7 @@ namespace ZalTestApp
                     continue;
                 }
 
-                LexemeViewModel lexemeViewModel = new LexemeViewModel(lexeme);
-                //                lvm.RemoveLexemeEvent += new LexemeViewModel.RemoveLexemeHandler(RemoveLexeme);
-                lexemeViewModel.EditLexemeEvent += new LexemeViewModel.EditLexemeHandler(EditLexeme);
-                m_CurrentLexeme = lexemeViewModel;
-                ViewModelBase paradigmViewModel = null;
-
-                switch (lexeme.ePartOfSpeech())
-                {
-                    case EM_PartOfSpeech.POS_NOUN:
-                        paradigmViewModel = new NounViewModel(lexeme, m_MainModel);
-                        break;
-                    case EM_PartOfSpeech.POS_ADJ:
-                    case EM_PartOfSpeech.POS_PRONOUN_ADJ:
-                        paradigmViewModel = new AdjViewModel(lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ, m_MainModel);
-                        break;
-                    case EM_PartOfSpeech.POS_VERB:
-                        VerbViewModel vvm = new VerbViewModel(lexeme, m_MainModel, lexemeViewModel);
-                        vvm.ShowParticipleFormsEvent += new VerbViewModel.ShowParticipleForms(ShowParticiple);
-                        paradigmViewModel = vvm;
-                        break;
-                    default:
-                        MessageBox.Show("Illegal part of speech value in lexeme descriptor.");
-                        return;
-                }
-
-                m_CurrentViewPage = new ViewPage(lexeme.sSourceForm(), lexemeViewModel, paradigmViewModel);
-                m_Pages.Add(m_CurrentViewPage);
-                m_iCurrentTab = m_Pages.Count - 1;
-//                m_CurrentViewModel = m_BreadCrumbs.AddLast(nvp.Page);
+                ShowParadigm(lexeme);
 
             }       // foreach (ViewPage ...)
 
@@ -630,6 +602,7 @@ namespace ZalTestApp
             }
 
             EnterLexemePropertiesViewModel elpModel = new EnterLexemePropertiesViewModel(editLexeme, false);
+            elpModel.ShowParadigmForEditEvent += ShowParadigm;
             EnterLexemePropertiesDlg dlg = new EnterLexemePropertiesDlg(elpModel);
             dlg.Owner = Application.Current.MainWindow;
 
@@ -648,6 +621,39 @@ namespace ZalTestApp
             {
                 MessageBox.Show("Не удалось сохранить лексему.");
             }
+        }
+
+        void ShowParadigm(CLexemeManaged lexeme)
+        {
+            LexemeViewModel lexemeViewModel = new LexemeViewModel(lexeme);
+            //                lvm.RemoveLexemeEvent += new LexemeViewModel.RemoveLexemeHandler(RemoveLexeme);
+            lexemeViewModel.EditLexemeEvent += new LexemeViewModel.EditLexemeHandler(EditLexeme);
+            m_CurrentLexeme = lexemeViewModel;
+            ViewModelBase paradigmViewModel = null;
+
+            switch (lexeme.ePartOfSpeech())
+            {
+                case EM_PartOfSpeech.POS_NOUN:
+                    paradigmViewModel = new NounViewModel(lexeme, m_MainModel);
+                    break;
+                case EM_PartOfSpeech.POS_ADJ:
+                case EM_PartOfSpeech.POS_PRONOUN_ADJ:
+                    paradigmViewModel = new AdjViewModel(lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ, m_MainModel);
+                    break;
+                case EM_PartOfSpeech.POS_VERB:
+                    VerbViewModel vvm = new VerbViewModel(lexeme, m_MainModel, lexemeViewModel);
+                    vvm.ShowParticipleFormsEvent += new VerbViewModel.ShowParticipleForms(ShowParticiple);
+                    paradigmViewModel = vvm;
+                    break;
+                default:
+                    MessageBox.Show("Illegal part of speech value in lexeme descriptor.");
+                    return;
+            }
+
+            m_CurrentViewPage = new ViewPage(lexeme.sSourceForm(), lexemeViewModel, paradigmViewModel);
+            m_Pages.Add(m_CurrentViewPage);
+            m_iCurrentTab = m_Pages.Count - 1;
+            //                m_CurrentViewModel = m_BreadCrumbs.AddLast(nvp.Page);
         }
 
         void ShowParticiple(CLexemeManaged lexeme, EM_Subparadigm sp, ViewModelBase parent)
