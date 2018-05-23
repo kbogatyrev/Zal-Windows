@@ -190,5 +190,8 @@
   <ItemGroup>
     <Resource Include="edit_btn_normal.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="edit_btn_disabled.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

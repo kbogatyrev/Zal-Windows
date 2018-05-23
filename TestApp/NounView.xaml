@@ -9,7 +9,7 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0"  >
         <Grid Width="597" Height="465">
             <TextBox Text="Sg" Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
-            <TextBox Text="Pl" Margin="445,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
+            <TextBox Text="Pl" Margin="405,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
 
             <!-- Singular -->
             <!-- Case Labels -->
@@ -19,8 +19,8 @@
             <TextBox Text="P" Margin="33,205,0,0" Style="{StaticResource FormLabel}" />
             <TextBox Text="D" Margin="33,250,0,0" Style="{StaticResource FormLabel}" />
             <TextBox Text="I" Margin="33,295,0,0" Style="{StaticResource FormLabel}" />
-            <TextBox Text="G2" Margin="33,350,0,0" Style="{StaticResource FormLabel}" />
-            <TextBox Text="L2" Margin="33,395,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="G2" Margin="33,356,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="L2" Margin="33,401,0,0" Style="{StaticResource FormLabel}" />
 
             <!-- Forms -->
             <TextBox Text="{Binding Path=Noun_Sg_N}" Margin="70,70,0,0" Style="{StaticResource FormText}" />
@@ -30,30 +30,47 @@
             <TextBox Text="{Binding Path=Noun_Sg_D}" Margin="70,250,0,0" Style="{StaticResource FormText}" />
             <TextBox Text="{Binding Path=Noun_Sg_I}" Margin="70,295,0,0" Style="{StaticResource FormText}" />
 
+            <!-- Edit button -->
             <Button  Margin="235,70,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <Button  Margin="235,115,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <Button  Margin="235,160,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <Button  Margin="235,205,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <Button  Margin="235,250,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <Button  Margin="235,295,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <Button  Margin="235,356,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <Button  Margin="235,401,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
-            <TextBox Text="{Binding Path=Noun_Sg_Part}" Margin="70,350,0,0" Style="{StaticResource FormText}" />
-            <TextBox Text="{Binding Path=Noun_Sg_L}" Margin="70,395,0,0" Style="{StaticResource FormText}" />
-            <CheckBox Content="Факульт." IsChecked="{Binding Path=Is_L2_optional}" HorizontalAlignment="Left" Margin="252,402,0,0" VerticalAlignment="Top" Width="87"/>
-            <Label Content="Предлоги:" HorizontalAlignment="Left" Margin="350,396,0,0" VerticalAlignment="Top" Width="66"/>
-            <TextBox Text="{Binding Path=Noun_Sg_L2_Prepositions}" Margin="421,395,0,0" Style="{StaticResource FormText}" Width="63" />
+            <TextBox Text="{Binding Path=Noun_Sg_Part}" Margin="70,356,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Sg_L}" Margin="70,401,0,0" Style="{StaticResource FormText}" />
+            <CheckBox Content="Факульт." IsChecked="{Binding Path=Is_L2_optional}" HorizontalAlignment="Left" Margin="280,409,0,0" VerticalAlignment="Top" Width="87"/>
+            <Label Content="Предлоги:" HorizontalAlignment="Left" Margin="372,402,0,0" VerticalAlignment="Top" Width="66"/>
+            <TextBox Text="{Binding Path=Noun_Sg_L2_Prepositions}" Margin="443,401,0,0" Style="{StaticResource FormText}" Width="63" />
 
             <!-- Plural -->
             <!-- Case Labels -->
-            <TextBox Text="N" Margin="350,70,0,0" Style="{StaticResource FormLabel}" />
-            <TextBox Text="A" Margin="350,115,0,0" Style="{StaticResource FormLabel}" />
-            <TextBox Text="G" Margin="350,160,0,0" Style="{StaticResource FormLabel}" />
-            <TextBox Text="P" Margin="350,205,0,0" Style="{StaticResource FormLabel}" />
-            <TextBox Text="D" Margin="350,250,0,0" Style="{StaticResource FormLabel}" />
-            <TextBox Text="I" Margin="350,295,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="N" Margin="314,70,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="A" Margin="314,115,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="G" Margin="314,160,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="P" Margin="314,205,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="D" Margin="314,250,0,0" Style="{StaticResource FormLabel}" />
+            <TextBox Text="I" Margin="314,295,0,0" Style="{StaticResource FormLabel}" />
 
             <!-- Forms -->
-            <TextBox Text="{Binding Path=Noun_Pl_N}" Margin="387,70,0,0" Style="{StaticResource FormText}" />
-            <TextBox Text="{Binding Path=Noun_Pl_A}" Margin="387,115,0,0" Style="{StaticResource FormText}" />
-            <TextBox Text="{Binding Path=Noun_Pl_G}" Margin="387,160,0,0" Style="{StaticResource FormText}" />
-            <TextBox Text="{Binding Path=Noun_Pl_P}" Margin="387,205,0,0" Style="{StaticResource FormText}" />
-            <TextBox Text="{Binding Path=Noun_Pl_D}" Margin="387,250,0,0" Style="{StaticResource FormText}" />
-            <TextBox Text="{Binding Path=Noun_Pl_I}" Margin="387,295,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Pl_N}" Margin="350,70,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Pl_A}" Margin="350,115,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Pl_G}" Margin="350,160,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Pl_P}" Margin="350,205,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Pl_D}" Margin="350,250,0,0" Style="{StaticResource FormText}" />
+            <TextBox Text="{Binding Path=Noun_Pl_I}" Margin="350,295,0,0" Style="{StaticResource FormText}" />
+
+            <!-- Edit button -->
+            <Button  Margin="514,70,0,0"  Style="{StaticResource BtnEdit}" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <Button  Margin="514,115,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <Button  Margin="514,160,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <Button  Margin="514,205,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <Button  Margin="514,250,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <Button  Margin="514,295,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+
         </Grid>
     </ScrollViewer>
 </UserControl>

@@ -79,21 +79,36 @@
                 <ControlTemplate TargetType="Button">
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
-                            <Image Name="Normal" Source="edit_btn_normal.png" Stretch="None"  Visibility="Visible"/>
-                            <Image Name="MouseOver" Source="edit_btn_hover.png" Stretch='None' Visibility="Hidden"/>
-                            <Image Name="Pressed" Source="edit_btn_hover.png" Stretch='None' Visibility="Hidden"/>
+                            <Image Name="Normal" Source="edit_btn_normal.png" Stretch="None"  />
+                            <Image Name="MouseOver" Source="edit_btn_hover.png" Stretch='None' />
+                            <Image Name="Pressed" Source="edit_btn_hover.png" Stretch='None' />
+                            <Image Name="Disabled" Source="edit_btn_disabled.png" Stretch='None' />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="MouseOver" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="Pressed" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="Disabled" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="True">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="MouseOver" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="Pressed" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="Disabled" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
                             <Setter TargetName="MouseOver" Property="Visibility" Value="Hidden"/>
                             <Setter TargetName="Pressed" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="Disabled" Property="Visibility" Value="Hidden"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
                             <Setter TargetName="MouseOver" Property="Visibility" Value="Visible"/>
                             <Setter TargetName="Pressed" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="Disabled" Property="Visibility" Value="Hidden"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
