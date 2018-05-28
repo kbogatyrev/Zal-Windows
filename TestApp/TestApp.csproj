@@ -68,7 +68,6 @@
     <Compile Include="AdjViewModel.cs" />
     <Compile Include="EnterLexemePropertiesDlg.xaml.cs" />
     <Compile Include="EnterLexemePropertiesViewModel.cs" />
-    <Compile Include="FormTextBoxViewModel.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="EnterDataDlg.xaml.cs">
       <DependentUpon>EnterDataDlg.xaml</DependentUpon>
@@ -92,9 +91,6 @@
     <Compile Include="RegressionGridViewModel.cs" />
     <Compile Include="AdjView.xaml.cs">
       <DependentUpon>AdjView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FormTextBox.xaml.cs">
-      <DependentUpon>FormTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="VerbView.xaml.cs">
       <DependentUpon>VerbView.xaml</DependentUpon>
@@ -145,10 +141,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdjView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="FormTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

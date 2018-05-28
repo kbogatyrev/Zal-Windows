@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Zal Test App" Height="Auto" Width="1100" Margin="0">
+        Title="Zal Test App" Height="Auto" Width="1200" Margin="0">
 
     <Window.DataContext>
         <local:MainViewModel/>
@@ -17,7 +17,7 @@
             <DockPanel LastChildFill="True">
                 <Button DockPanel.Dock="Right" 
                     Command="{Binding DataContext.CloseCommand, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
-                   CommandParameter="{Binding Page}" > 
+                    CommandParameter="{Binding Page}" > 
                     <Button.Template>
                         <ControlTemplate>
                             <Label FontWeight="Bold" Content="X" />

@@ -74,15 +74,17 @@
         <Setter Property="Height" Value="28"/>
         <Setter Property="BorderBrush" Value="Gray"/>
         <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Command" Value="{Binding EditCommand}" />
+        <Setter Property="IsEnabled" Value="{Binding EditEnabled}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
-                            <Image Name="Normal" Source="edit_btn_normal.png" Stretch="None"  />
-                            <Image Name="MouseOver" Source="edit_btn_hover.png" Stretch='None' />
-                            <Image Name="Pressed" Source="edit_btn_hover.png" Stretch='None' />
-                            <Image Name="Disabled" Source="edit_btn_disabled.png" Stretch='None' />
+                            <Image Name="Normal" Source="edit_btn_normal.png" Stretch="Uniform"  />
+                            <Image Name="MouseOver" Source="edit_btn_hover.png" Stretch='Uniform' />
+                            <Image Name="Pressed" Source="edit_btn_hover.png" Stretch='Uniform' />
+                            <Image Name="Disabled" Source="edit_btn_disabled.png" Stretch='Uniform' />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -168,11 +170,28 @@
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Calibri"/>
-        <Setter Property="IsReadOnly" Value="True"/>
         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
         <Setter Property="ScrollViewer.Height" Value="28.0"/>
+
+        <!-- Bound property -->
+        <Setter Property="IsReadOnly" Value="{Binding ReadOnly}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" >
+                        <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsReadOnly" Value="False">
+                            <Setter Property="Foreground" Value="Red"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style TargetType="Menu" x:Key="Menu">

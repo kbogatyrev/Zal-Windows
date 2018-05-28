@@ -15,6 +15,7 @@
             <Grid>
                 <!-- Infinitive -->
                 <TextBox Text="{Binding Path=Infinitive}" Margin="210,20,0,0" Style="{StaticResource FormText}" />
+                <Button Margin="374,20,0,0" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Present tense -->
                 <TextBox Text="Настоящее время" Margin="210,120,0,0" Style="{StaticResource FormLabelWide}" Width="150"/>
@@ -28,6 +29,11 @@
                 <TextBox Text="{Binding Path=Pres_Sg_1}" Margin="65,170,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Path=Pres_Sg_2}" Margin="65,215,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Path=Pres_Sg_3}" Margin="65,260,0,0" Style="{StaticResource FormText}" />
+                
+                <!-- Edit buttons -->
+                <Button  Margin="229,170,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="229,215,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="229,260,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Present tense plural -->
                 <!-- Labels -->
@@ -39,6 +45,11 @@
                 <TextBox Text="{Binding Path=Pres_Pl_1}" Margin="375,170,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Path=Pres_Pl_2}" Margin="375,215,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Path=Pres_Pl_3}" Margin="375,260,0,0" Style="{StaticResource FormText}" />
+
+                <!-- Edit buttons -->
+                <Button  Margin="540,170,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="540,215,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="540,260,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Past tense -->
                 <TextBox Text="Прошедшее время" Margin="210,355,0,0" Style="{StaticResource FormLabelWide}" Width="150"/>
@@ -54,20 +65,31 @@
                 <TextBox Text="{Binding Path=Past_F}" Margin="65,450,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Path=Past_N}" Margin="65,495,0,0" Style="{StaticResource FormText}" />
 
+                <!-- Edit buttons -->
+                <Button  Margin="229,405,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="229,450,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="229,495,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+
                 <!-- Past tense Plural -->
                 <TextBox Text="Pl" Margin="310,405,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="{Binding Path=Past_Pl}" Margin="375,405,0,0" Style="{StaticResource FormText}" />
 
+                <!-- Edit button -->
+                <Button  Margin="540,405,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+
                 <!-- Imperative -->
                 <TextBox Text="Повелительное наклонение" Margin="210,590,0,0" Style="{StaticResource FormLabelWide}" Width="210"/>
 
-                <!-- Label-->
                 <TextBox Text="2 Sg" Margin="0,640,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="{Binding Path=Impv_Sg_2}" Margin="65,640,0,0" Style="{StaticResource FormText}" />
 
                 <!-- Label-->
                 <TextBox Text="2 Pl" Margin="310,640,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="{Binding Path=Impv_Pl_2}" Margin="375,640,0,0" Style="{StaticResource FormText}" />
+
+                <!-- Edit buttons -->
+                <Button  Margin="229,640,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="540,640,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Participles & adverbials -->
                 <TextBox Text="Причастия и деепричастия" Margin="210,730,0,0" Style="{StaticResource FormLabelWide}" Width="200"/>
