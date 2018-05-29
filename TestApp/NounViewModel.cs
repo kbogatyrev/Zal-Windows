@@ -638,8 +638,6 @@ namespace ZalTestApp
 
         public void EditForm(Object obj)
         {
-//            Noun_Sg_N_IsReadOnly = false;
-
             var sPropName = obj as string;
             switch (obj as string)
             {
