@@ -14,8 +14,8 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="100,0,0,0" Padding="0,0,0,30">
             <Grid>
                 <!-- Infinitive -->
-                <TextBox Text="{Binding Path=Infinitive}" Margin="210,20,0,0" Style="{StaticResource FormText}" />
-                <Button Margin="374,20,0,0" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <TextBox Text="{Binding Path=Infinitive}" IsReadOnly="{Binding Infinitive_IsReadOnly}" Margin="210,20,0,0" Style="{StaticResource FormText}" />
+                <Button Margin="374,20,0,0" CommandParameter="Infinitive" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Present tense -->
                 <TextBox Text="Настоящее время" Margin="210,120,0,0" Style="{StaticResource FormLabelWide}" Width="150"/>
@@ -26,14 +26,14 @@
                 <TextBox Text="3 Sg" Margin="0,260,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding Path=Pres_Sg_1}" Margin="65,170,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Pres_Sg_2}" Margin="65,215,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Pres_Sg_3}" Margin="65,260,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Pres_Sg_1}" IsReadOnly="{Binding Pres_Sg_1_IsReadOnly}" Margin="65,170,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Pres_Sg_2}" IsReadOnly="{Binding Pres_Sg_2_IsReadOnly}" Margin="65,215,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Pres_Sg_3}" IsReadOnly="{Binding Pres_Sg_3_IsReadOnly}" Margin="65,260,0,0" Style="{StaticResource FormText}" />
                 
                 <!-- Edit buttons -->
-                <Button  Margin="229,170,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                <Button  Margin="229,215,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                <Button  Margin="229,260,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="229,170,0,0" CommandParameter="Pres_Sg_1" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="229,215,0,0" CommandParameter="Pres_Sg_2" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="229,260,0,0" CommandParameter="Pres_Sg_3" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Present tense plural -->
                 <!-- Labels -->
@@ -42,14 +42,14 @@
                 <TextBox Text="3 Pl" Margin="310,260,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding Path=Pres_Pl_1}" Margin="375,170,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Pres_Pl_2}" Margin="375,215,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Pres_Pl_3}" Margin="375,260,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Pres_Pl_1}" IsReadOnly="{Binding Pres_Pl_1_IsReadOnly}" Margin="375,170,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Pres_Pl_2}" IsReadOnly="{Binding Pres_Pl_2_IsReadOnly}" Margin="375,215,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Pres_Pl_3}" IsReadOnly="{Binding Pres_Pl_3_IsReadOnly}" Margin="375,260,0,0" Style="{StaticResource FormText}" />
 
                 <!-- Edit buttons -->
-                <Button  Margin="540,170,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                <Button  Margin="540,215,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                <Button  Margin="540,260,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button CommandParameter="Pres_Pl_1" Style="{StaticResource BtnEdit}" Margin="540,170,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button CommandParameter="Pres_Pl_2" Style="{StaticResource BtnEdit}" Margin="540,215,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button CommandParameter="Pres_Pl_3" Style="{StaticResource BtnEdit}" Margin="540,260,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Past tense -->
                 <TextBox Text="Прошедшее время" Margin="210,355,0,0" Style="{StaticResource FormLabelWide}" Width="150"/>
@@ -61,35 +61,35 @@
                 <TextBox Text="N Sg" Margin="0,495,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding Path=Past_M}" Margin="65,405,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Past_F}" Margin="65,450,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Past_N}" Margin="65,495,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Past_M}" IsReadOnly="{Binding Past_M_IsReadOnly}" Margin="65,405,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Past_F}" IsReadOnly="{Binding Past_F_IsReadOnly}" Margin="65,450,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Past_N}" IsReadOnly="{Binding Past_N_IsReadOnly}" Margin="65,495,0,0" Style="{StaticResource FormText}" />
 
                 <!-- Edit buttons -->
-                <Button  Margin="229,405,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                <Button  Margin="229,450,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                <Button  Margin="229,495,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button Style="{StaticResource BtnEdit}" CommandParameter="Past_M" Margin="229,405,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button Style="{StaticResource BtnEdit}" CommandParameter="Past_F" Margin="229,450,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button Style="{StaticResource BtnEdit}" CommandParameter="Past_N" Margin="229,495,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Past tense Plural -->
                 <TextBox Text="Pl" Margin="310,405,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="{Binding Path=Past_Pl}" Margin="375,405,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Past_Pl}" IsReadOnly="{Binding Past_Pl_IsReadOnly}" Margin="375,405,0,0" Style="{StaticResource FormText}" />
 
                 <!-- Edit button -->
-                <Button  Margin="540,405,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button CommandParameter="Past_Pl" Style="{StaticResource BtnEdit}" Margin="540,405,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Imperative -->
                 <TextBox Text="Повелительное наклонение" Margin="210,590,0,0" Style="{StaticResource FormLabelWide}" Width="210"/>
 
                 <TextBox Text="2 Sg" Margin="0,640,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="{Binding Path=Impv_Sg_2}" Margin="65,640,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Path=Impv_Sg_2}" IsReadOnly="{Binding Impv_Sg_2_IsReadOnly}" Margin="65,640,0,0" Style="{StaticResource FormText}" />
 
                 <!-- Label-->
                 <TextBox Text="2 Pl" Margin="310,640,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="{Binding Path=Impv_Pl_2}" Margin="375,640,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Path=Impv_Pl_2}" IsReadOnly="{Binding Impv_Pl_2_IsReadOnly}" Margin="375,640,0,0" Style="{StaticResource FormText}" />
 
                 <!-- Edit buttons -->
-                <Button  Margin="229,640,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                <Button  Margin="540,640,0,0"  Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button Margin="229,640,0,0" Style="{StaticResource BtnEdit}" CommandParameter="Impv_Sg_2" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button Margin="540,640,0,0" Style="{StaticResource BtnEdit}" CommandParameter="Impv_Pl_2" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Participles & adverbials -->
                 <TextBox Text="Причастия и деепричастия" Margin="210,730,0,0" Style="{StaticResource FormLabelWide}" Width="200"/>

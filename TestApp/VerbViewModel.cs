@@ -3,6 +3,7 @@ using System.Windows.Input;
 using System.Collections.Generic;
 
 using MainLibManaged;
+using System.Windows;
 
 namespace ZalTestApp
 {
@@ -14,7 +15,6 @@ namespace ZalTestApp
         public delegate void ShowParticipleForms(CLexemeManaged l, EM_Subparadigm sp, ViewModelBase lvm);
         public event ShowParticipleForms ShowParticipleFormsEvent;
 
-        //        VerbModel m_VerbModel = null;
         MainModel m_MainModel = null;
         CLexemeManaged m_Lexeme = null;
         ViewModelBase m_LexemeViewModel;
@@ -30,6 +30,19 @@ namespace ZalTestApp
             set
             {
                 m_BackCommand = value;
+            }
+        }
+
+        private ICommand m_EditCommand;
+        public ICommand EditCommand
+        {
+            get
+            {
+                return m_EditCommand;
+            }
+            set
+            {
+                m_EditCommand = value;
             }
         }
 
@@ -126,6 +139,20 @@ namespace ZalTestApp
             }
         }
 
+        private bool m_bInfinitive_IsReadOnly = true;
+        public bool Infinitive_IsReadOnly
+        {
+            get
+            {
+                return m_bInfinitive_IsReadOnly;
+            }
+            set
+            {
+                m_bInfinitive_IsReadOnly = value;
+                OnPropertyChanged("Infinitive_IsReadOnly");
+            }
+        }
+
         #region Bindings_PresentTense
 
         private string m_sPres_Sg_1;
@@ -139,6 +166,20 @@ namespace ZalTestApp
             {
                 m_sPres_Sg_1 = value;
                 OnPropertyChanged("Pres_Sg_1");
+            }
+        }
+
+        private bool m_bPres_Sg_1_IsReadOnly = true;
+        public bool Pres_Sg_1_IsReadOnly
+        {
+            get
+            {
+                return m_bPres_Sg_1_IsReadOnly;
+            }
+            set
+            {
+                m_bPres_Sg_1_IsReadOnly = value;
+                OnPropertyChanged("Pres_Sg_1_IsReadOnly");
             }
         }
 
@@ -156,6 +197,20 @@ namespace ZalTestApp
             }
         }
 
+        private bool m_bPres_Sg_2_IsReadOnly = true;
+        public bool Pres_Sg_2_IsReadOnly
+        {
+            get
+            {
+                return m_bPres_Sg_2_IsReadOnly;
+            }
+            set
+            {
+                m_bPres_Sg_2_IsReadOnly = value;
+                OnPropertyChanged("Pres_Sg_2_IsReadOnly");
+            }
+        }
+
         private string m_sPres_Sg_3;
         public string Pres_Sg_3
         {
@@ -167,6 +222,20 @@ namespace ZalTestApp
             {
                 m_sPres_Sg_3 = value;
                 OnPropertyChanged("Pres_Sg_3");
+            }
+        }
+
+        private bool m_bPres_Sg_3_IsReadOnly = true;
+        public bool Pres_Sg_3_IsReadOnly
+        {
+            get
+            {
+                return m_bPres_Sg_3_IsReadOnly;
+            }
+            set
+            {
+                m_bPres_Sg_3_IsReadOnly = value;
+                OnPropertyChanged("Pres_Sg_3_IsReadOnly");
             }
         }
 
@@ -184,6 +253,20 @@ namespace ZalTestApp
             }
         }
 
+        private bool m_bPres_Pl_1_IsReadOnly = true;
+        public bool Pres_Pl_1_IsReadOnly
+        {
+            get
+            {
+                return m_bPres_Pl_1_IsReadOnly;
+            }
+            set
+            {
+                m_bPres_Pl_1_IsReadOnly = value;
+                OnPropertyChanged("Pres_Pl_1_IsReadOnly");
+            }
+        }
+
         private string m_sPres_Pl_2;
         public string Pres_Pl_2
         {
@@ -195,6 +278,20 @@ namespace ZalTestApp
             {
                 m_sPres_Pl_2 = value;
                 OnPropertyChanged("Pres_Pl_2");
+            }
+        }
+
+        private bool m_bPres_Pl_2_IsReadOnly = true;
+        public bool Pres_Pl_2_IsReadOnly
+        {
+            get
+            {
+                return m_bPres_Pl_2_IsReadOnly;
+            }
+            set
+            {
+                m_bPres_Pl_2_IsReadOnly = value;
+                OnPropertyChanged("Pres_Pl_2_IsReadOnly");
             }
         }
 
@@ -211,6 +308,21 @@ namespace ZalTestApp
                 OnPropertyChanged("Pres_Pl_3");
             }
         }
+
+        private bool m_bPres_Pl_3_IsReadOnly = true;
+        public bool Pres_Pl_3_IsReadOnly
+        {
+            get
+            {
+                return m_bPres_Pl_3_IsReadOnly;
+            }
+            set
+            {
+                m_bPres_Pl_3_IsReadOnly = value;
+                OnPropertyChanged("Pres_Pl_3_IsReadOnly");
+            }
+        }
+
         #endregion
 
         #region Bindings_PastTense
@@ -228,6 +340,20 @@ namespace ZalTestApp
             }
         }
 
+        private bool m_bPast_M_IsReadOnly = true;
+        public bool Past_M_IsReadOnly
+        {
+            get
+            {
+                return m_bPast_M_IsReadOnly;
+            }
+            set
+            {
+                m_bPast_M_IsReadOnly = value;
+                OnPropertyChanged("Past_M_IsReadOnly");
+            }
+        }
+
         private string m_sPast_F;
         public string Past_F
         {
@@ -239,6 +365,20 @@ namespace ZalTestApp
             {
                 m_sPast_F = value;
                 OnPropertyChanged("Past_F");
+            }
+        }
+
+        private bool m_bPast_F_IsReadOnly = true;
+        public bool Past_F_IsReadOnly
+        {
+            get
+            {
+                return m_bPast_F_IsReadOnly;
+            }
+            set
+            {
+                m_bPast_F_IsReadOnly = value;
+                OnPropertyChanged("Past_F_IsReadOnly");
             }
         }
 
@@ -256,6 +396,20 @@ namespace ZalTestApp
             }
         }
 
+        private bool m_bPast_N_IsReadOnly = true;
+        public bool Past_N_IsReadOnly
+        {
+            get
+            {
+                return m_bPast_N_IsReadOnly;
+            }
+            set
+            {
+                m_bPast_N_IsReadOnly = value;
+                OnPropertyChanged("Past_N_IsReadOnly");
+            }
+        }
+
         private string m_sPast_Pl;
         public string Past_Pl
         {
@@ -267,6 +421,20 @@ namespace ZalTestApp
             {
                 m_sPast_Pl = value;
                 OnPropertyChanged("Past_Pl");
+            }
+        }
+
+        private bool m_bPast_Pl_IsReadOnly = true;
+        public bool Past_Pl_IsReadOnly
+        {
+            get
+            {
+                return m_bPast_Pl_IsReadOnly;
+            }
+            set
+            {
+                m_bPast_Pl_IsReadOnly = value;
+                OnPropertyChanged("Past_Pl_IsReadOnly");
             }
         }
         #endregion
@@ -286,6 +454,20 @@ namespace ZalTestApp
             }
         }
 
+        private bool m_bImpv_Sg_2_IsReadOnly = true;
+        public bool Impv_Sg_2_IsReadOnly
+        {
+            get
+            {
+                return m_bImpv_Sg_2_IsReadOnly;
+            }
+            set
+            {
+                m_bImpv_Sg_2_IsReadOnly = value;
+                OnPropertyChanged("Impv_Sg_2_IsReadOnly");
+            }
+        }
+
         private string m_sImpv_Pl_2;
         public string Impv_Pl_2
         {
@@ -299,9 +481,25 @@ namespace ZalTestApp
                 OnPropertyChanged("Impv_Pl_2");
             }
         }
+
+        private bool m_bImpv_Pl_2_IsReadOnly = true;
+        public bool Impv_Pl_2_IsReadOnly
+        {
+            get
+            {
+                return m_bImpv_Pl_2_IsReadOnly;
+            }
+            set
+            {
+                m_bImpv_Pl_2_IsReadOnly = value;
+                OnPropertyChanged("Impv_Pl_2_IsReadOnly");
+            }
+        }
+
         #endregion
 
         #region Bindings_Non-Finite
+
         private string m_sPPresA_M_Sg_N;
         public string PPresA_M_Sg_N
         {
@@ -313,6 +511,20 @@ namespace ZalTestApp
             {
                 m_sPPresA_M_Sg_N = value;
                 OnPropertyChanged("PPresA_M_Sg_N");
+            }
+        }
+
+        private bool m_bPPresA_M_Sg_N_IsReadOnly = true;
+        public bool PPresA_M_Sg_N_IsReadOnly
+        {
+            get
+            {
+                return m_bPPresA_M_Sg_N_IsReadOnly;
+            }
+            set
+            {
+                m_bPPresA_M_Sg_N_IsReadOnly = value;
+                OnPropertyChanged("PPresA_M_Sg_N_IsReadOnly");
             }
         }
 
@@ -455,6 +667,8 @@ namespace ZalTestApp
             ShowPresPassFormsCommand = new RelayCommand(new Action<object>(ShowPresPassForms));
             ShowPastPassFormsCommand = new RelayCommand(new Action<object>(ShowPastPassForms));
 
+            EditCommand = new RelayCommand(new Action<object>(EditForm));
+
             string sLexemeHash = lexeme.sHash();
 
             List<string> forms = null;
@@ -539,6 +753,55 @@ namespace ZalTestApp
             ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT, m_LexemeViewModel);
         }
 
+        public void EditForm(Object obj)
+        {
+            var sPropName = obj as string;
+            switch (obj as string)
+            {
+                case "Infinitive":
+                    Infinitive_IsReadOnly = !Infinitive_IsReadOnly;
+                    break;
+                case "Pres_Sg_1":
+                    Pres_Sg_1_IsReadOnly = !Pres_Sg_1_IsReadOnly;
+                    break;
+                case "Pres_Sg_2":
+                    Pres_Sg_2_IsReadOnly = !Pres_Sg_2_IsReadOnly;
+                    break;
+                case "Pres_Sg_3":
+                    Pres_Sg_3_IsReadOnly = !Pres_Sg_3_IsReadOnly;
+                    break;
+                case "Pres_Pl_1":
+                    Pres_Pl_1_IsReadOnly = !Pres_Pl_1_IsReadOnly;
+                    break;
+                case "Pres_Pl_2":
+                    Pres_Pl_2_IsReadOnly = !Pres_Pl_2_IsReadOnly;
+                    break;
+                case "Pres_Pl_3":
+                    Pres_Pl_3_IsReadOnly = !Pres_Pl_3_IsReadOnly;
+                    break;
+                case "Past_M":
+                    Past_M_IsReadOnly = !Past_M_IsReadOnly;
+                    break;
+                case "Past_F":
+                    Past_F_IsReadOnly = !Past_F_IsReadOnly;
+                    break;
+                case "Past_N":
+                    Past_N_IsReadOnly = !Past_N_IsReadOnly;
+                    break;
+                case "Past_Pl":
+                    Past_Pl_IsReadOnly = !Past_Pl_IsReadOnly;
+                    break;
+                case "Impv_Sg_2":
+                    Impv_Sg_2_IsReadOnly = !Impv_Sg_2_IsReadOnly;
+                    break;
+                case "Impv_Pl_2":
+                    Impv_Pl_2_IsReadOnly = !Impv_Pl_2_IsReadOnly;
+                    break;
+                default:
+                    MessageBox.Show("Internal error: unknown word form hash.");
+                    break;
+            }       // switch
+        }
     }       //  AdjViewModel 
 
 }       //  namespace ZalTestApp
