@@ -1569,7 +1569,7 @@ namespace ZalTestApp
         }   //  InitChangedPropertyHandlers()
         #endregion
 
-        public EnterLexemePropertiesViewModel(CLexemeManaged lexeme, bool bIsNew)
+    public EnterLexemePropertiesViewModel(CLexemeManaged lexeme, bool bIsNew)
     {
         m_Lexeme = lexeme;
         m_PropertiesChanged = new HashSet<string>();
