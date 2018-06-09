@@ -218,7 +218,7 @@ namespace ZalTestApp
             Dictionary<string, List<string>> paradigm;
             if (!m_Lexemes.TryGetValue(sLexemeHash, out paradigm))
             {
-                System.Windows.MessageBox.Show("Lexeme hash not found.");
+                System.Windows.MessageBox.Show("Internal error: lexeme hash not found.");
                 return false;
             }
             try
@@ -227,7 +227,27 @@ namespace ZalTestApp
             }
             catch (Exception ex)
             {
-//                System.Windows.MessageBox.Show("Gram hash not recognized." + ex.Message);
+//                System.Windows.MessageBox.Show("Internal error: Gram hash not recognized. " + ex.Message);
+                return false;
+            }
+            return true;
+        }
+
+        public bool UpdateFormsByGramHash(string sLexemeHash, string sGramHash, List<string> forms)
+        {
+            Dictionary<string, List<string>> paradigm;
+            if (!m_Lexemes.TryGetValue(sLexemeHash, out paradigm))
+            {
+                System.Windows.MessageBox.Show("Internal error: Lexeme hash not found.");
+                return false;
+            }
+            try
+            {
+                forms = paradigm[sGramHash];
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("Internal error: Gram hash not recognized. " + ex.Message);
                 return false;
             }
             return true;
