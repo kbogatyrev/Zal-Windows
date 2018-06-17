@@ -377,36 +377,43 @@ namespace ZalTestApp
 
         public MainViewModel()
         {
-            m_Pages = new ObservableCollection<ViewPage>();
-            BackButtonCommand = new RelayCommand(new Action<object>(GoBack));
-            ForwardButtonCommand = new RelayCommand(new Action<object>(GoForward));
-//            OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
-//            OpenEditDictionaryCommand = new RelayCommand(new Action<object>(OpenEditDictionary));
-            SearchByInitialFormCommand = new RelayCommand(new Action<object>(SearchByInitialForm));
-            NewLexemeCommand = new RelayCommand(new Action<object>(NewLexeme));
-            EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
-            ShowRegressionPageCommand = new RelayCommand(new Action<object>(ShowRegression));
-            ImportRegressionDataCommand = new RelayCommand(new Action<object>(ImportRegressionData));
-            ExportRegressionDataCommand = new RelayCommand(new Action<object>(ExportRegressionData));
-
-            m_bDbOpen = false;
-            m_bEditDbOpen = false;
-
-            m_MainModel = new MainModel();
-            if (!m_MainModel.Initialized)
+            try
             {
-                MessageBox.Show("Unable to initialize the database.");
-                return;
+                m_Pages = new ObservableCollection<ViewPage>();
+                BackButtonCommand = new RelayCommand(new Action<object>(GoBack));
+                ForwardButtonCommand = new RelayCommand(new Action<object>(GoForward));
+                //            OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
+                //            OpenEditDictionaryCommand = new RelayCommand(new Action<object>(OpenEditDictionary));
+                SearchByInitialFormCommand = new RelayCommand(new Action<object>(SearchByInitialForm));
+                NewLexemeCommand = new RelayCommand(new Action<object>(NewLexeme));
+                EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
+                ShowRegressionPageCommand = new RelayCommand(new Action<object>(ShowRegression));
+                ImportRegressionDataCommand = new RelayCommand(new Action<object>(ImportRegressionData));
+                ExportRegressionDataCommand = new RelayCommand(new Action<object>(ExportRegressionData));
+
+                m_bDbOpen = false;
+                m_bEditDbOpen = false;
+
+                m_MainModel = new MainModel();
+                if (!m_MainModel.Initialized)
+                {
+                    MessageBox.Show("Unable to initialize the database.");
+                    return;
+                }
+
+                m_bDbOpen = true;
+                m_bEditDbOpen = true;
+
+                m_BreadCrumbs = new LinkedList<ViewModelBase>();
+                //            m_LexemeGridViewModel = new ViewPage ("парадигмы", new LexemeGridViewModel());
+                //            m_Pages.Add(m_LexemeGridViewModel);
+                //            m_iSelectedIndex = 0;
+                //            m_CurrentViewModel = m_BreadCrumbs.AddLast(m_LexemeGridViewModel.Page);
             }
-
-            m_bDbOpen = true;
-            m_bEditDbOpen = true;
-
-            m_BreadCrumbs = new LinkedList<ViewModelBase>();
-//            m_LexemeGridViewModel = new ViewPage ("парадигмы", new LexemeGridViewModel());
-//            m_Pages.Add(m_LexemeGridViewModel);
-//            m_iSelectedIndex = 0;
-//            m_CurrentViewModel = m_BreadCrumbs.AddLast(m_LexemeGridViewModel.Page);
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
 
         }
 
@@ -843,13 +850,9 @@ namespace ZalTestApp
             foreach (ViewPage pageView in pagesToRemove)
             {
                 m_Pages.Remove(pageView);
-
-                if (pageView.Page.GetType() == typeof(AdjViewModel))
+                if (pageView.Page.IsDerived)
                 {
-                    if (((AdjViewModel)pageView.Page).IsDerived)
-                    {
-                        continue;
-                    }
+                    continue;
                 }
                 CLexemeManaged l = ((LexemeViewModel)pageView.LexemeInfo).Lexeme;
                 if (l != null)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using MainLibManaged;
 using System.Windows;
+using System.ComponentModel;
 
 namespace ZalTestApp
 {
@@ -18,6 +19,44 @@ namespace ZalTestApp
         MainModel m_MainModel = null;
         CLexemeManaged m_Lexeme = null;
         ViewModelBase m_LexemeViewModel;
+
+        private delegate bool ChangedFormHandler();
+        struct FormDescriptor
+        {
+            public List<string> listForms { get; set; }
+            public bool bCanEdit { get; set; }
+            public ChangedFormHandler handler { get; set; }
+
+            public FormDescriptor(List<string> list, bool b, ChangedFormHandler h)
+            {
+                listForms = list;
+                bCanEdit = b;
+                handler = h;
+            }
+        }
+
+        Dictionary<string, FormDescriptor> m_DictFormStatus = new Dictionary<string, FormDescriptor>()
+        {
+            {  "Infinitive", new FormDescriptor(null, false, null) },
+            {  "Pres_Sg_1", new FormDescriptor(null, false, null) },
+            {  "Pres_Sg_2", new FormDescriptor(null, false, null) },
+            {  "Pres_Sg_3", new FormDescriptor(null, false, null) },
+            {  "Pres_Pl_1", new FormDescriptor(null, false, null) },
+            {  "Pres_Pl_2", new FormDescriptor(null, false, null) },
+            {  "Pres_Pl_3", new FormDescriptor(null, false, null) },
+            {  "Past_M", new FormDescriptor(null, false, null) },
+            {  "Past_F", new FormDescriptor(null, false, null) },
+            {  "Past_N", new FormDescriptor(null, false, null) },
+            {  "Past_Pl", new FormDescriptor(null, false, null) },
+            {  "Impv_Sg_2", new FormDescriptor(null, false, null) },
+            {  "Impv_Pl_2", new FormDescriptor(null, false, null) },
+            {  "PPresA_M_Sg_N", new FormDescriptor(null, false, null) },
+            {  "VAdvPres", new FormDescriptor(null, false, null) },
+            {  "PPastA_M_Sg_N", new FormDescriptor(null, false, null) },
+            {  "VAdvPast", new FormDescriptor(null, false, null) },
+            {  "PPresPL_M_Sg_N", new FormDescriptor(null, false, null) },
+            {  "PPastPL_M_Sg_N", new FormDescriptor(null, false, null) }
+        };
 
         #region ICommand
         private ICommand m_BackCommand;
@@ -125,200 +164,228 @@ namespace ZalTestApp
             }
         }
 
-        private string m_sInfinitive;
         public string Infinitive
         {
             get
             {
-                return m_sInfinitive;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Infinitive"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sInfinitive = value;
+                var fd = m_DictFormStatus["Infinitive"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["Infinitive"] = fd;
                 OnPropertyChanged("Infinitive");
             }
         }
 
-        private bool m_bInfinitive_IsReadOnly = true;
         public bool Infinitive_IsReadOnly
         {
             get
             {
-                return m_bInfinitive_IsReadOnly;
+                return !m_DictFormStatus["Infinitive"].bCanEdit;
             }
             set
             {
-                m_bInfinitive_IsReadOnly = value;
+                var fd = m_DictFormStatus["Infinitive"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["Infinitive"] = fd;
                 OnPropertyChanged("Infinitive_IsReadOnly");
             }
         }
 
         #region Bindings_PresentTense
 
-        private string m_sPres_Sg_1;
         public string Pres_Sg_1
         {
             get
             {
-                return m_sPres_Sg_1;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Pres_Sg_1"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPres_Sg_1 = value;
+                var fd = m_DictFormStatus["Pres_Sg_1"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["Pres_Sg_1"] = fd;
                 OnPropertyChanged("Pres_Sg_1");
             }
         }
 
-        private bool m_bPres_Sg_1_IsReadOnly = true;
         public bool Pres_Sg_1_IsReadOnly
         {
             get
             {
-                return m_bPres_Sg_1_IsReadOnly;
+                return !m_DictFormStatus["Pres_Sg_1"].bCanEdit;
             }
             set
             {
-                m_bPres_Sg_1_IsReadOnly = value;
+                var fd = m_DictFormStatus["Pres_Sg_1"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["Pres_Sg_1"] = fd;
                 OnPropertyChanged("Pres_Sg_1_IsReadOnly");
             }
         }
 
-        private string m_sPres_Sg_2;
         public string Pres_Sg_2
         {
             get
             {
-                return m_sPres_Sg_2;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Pres_Sg_2"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPres_Sg_2 = value;
+                var fd = m_DictFormStatus["Pres_Sg_2"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["Pres_Sg_2"] = fd;
                 OnPropertyChanged("Pres_Sg_2");
             }
         }
 
-        private bool m_bPres_Sg_2_IsReadOnly = true;
         public bool Pres_Sg_2_IsReadOnly
         {
             get
             {
-                return m_bPres_Sg_2_IsReadOnly;
+                return !m_DictFormStatus["Pres_Sg_2"].bCanEdit;
             }
             set
             {
-                m_bPres_Sg_2_IsReadOnly = value;
+                var fd = m_DictFormStatus["Pres_Sg_2"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["Pres_Sg_2"] = fd;
                 OnPropertyChanged("Pres_Sg_2_IsReadOnly");
             }
         }
 
-        private string m_sPres_Sg_3;
         public string Pres_Sg_3
         {
             get
             {
-                return m_sPres_Sg_3;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Pres_Sg_3"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPres_Sg_3 = value;
+                var fd = m_DictFormStatus["Pres_Sg_3"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["Pres_Sg_3"] = fd;
                 OnPropertyChanged("Pres_Sg_3");
             }
         }
 
-        private bool m_bPres_Sg_3_IsReadOnly = true;
         public bool Pres_Sg_3_IsReadOnly
         {
             get
             {
-                return m_bPres_Sg_3_IsReadOnly;
+                return !m_DictFormStatus["Pres_Sg_3"].bCanEdit;
             }
             set
             {
-                m_bPres_Sg_3_IsReadOnly = value;
+                var fd = m_DictFormStatus["Pres_Sg_3"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["Pres_Sg_3"] = fd;
                 OnPropertyChanged("Pres_Sg_3_IsReadOnly");
             }
         }
 
-        private string m_sPres_Pl_1;
         public string Pres_Pl_1
         {
             get
             {
-                return m_sPres_Pl_1;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Pres_Pl_1"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPres_Pl_1 = value;
+                var fd = m_DictFormStatus["Pres_Pl_1"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["Pres_Pl_1"] = fd;
                 OnPropertyChanged("Pres_Pl_1");
             }
         }
 
-        private bool m_bPres_Pl_1_IsReadOnly = true;
         public bool Pres_Pl_1_IsReadOnly
         {
             get
             {
-                return m_bPres_Pl_1_IsReadOnly;
+                return !m_DictFormStatus["Pres_Pl_1"].bCanEdit;
             }
             set
             {
-                m_bPres_Pl_1_IsReadOnly = value;
+                var fd = m_DictFormStatus["Pres_Pl_1"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["Pres_Pl_1"] = fd;
                 OnPropertyChanged("Pres_Pl_1_IsReadOnly");
             }
         }
 
-        private string m_sPres_Pl_2;
         public string Pres_Pl_2
         {
             get
             {
-                return m_sPres_Pl_2;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Pres_Pl_2"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPres_Pl_2 = value;
+                var fd = m_DictFormStatus["Pres_Pl_2"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["Pres_Pl_2"] = fd;
                 OnPropertyChanged("Pres_Pl_2");
             }
         }
 
-        private bool m_bPres_Pl_2_IsReadOnly = true;
         public bool Pres_Pl_2_IsReadOnly
         {
             get
             {
-                return m_bPres_Pl_2_IsReadOnly;
+                return !m_DictFormStatus["Pres_Pl_2"].bCanEdit;
             }
             set
             {
-                m_bPres_Pl_2_IsReadOnly = value;
+                var fd = m_DictFormStatus["Pres_Pl_2"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["Pres_Pl_2"] = fd;
                 OnPropertyChanged("Pres_Pl_2_IsReadOnly");
             }
         }
 
-        private string m_sPres_Pl_3;
         public string Pres_Pl_3
         {
             get
             {
-                return m_sPres_Pl_3;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Pres_Pl_3"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPres_Pl_3 = value;
+                var fd = m_DictFormStatus["Pres_Pl_3"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["Pres_Pl_3"] = fd;
                 OnPropertyChanged("Pres_Pl_3");
             }
         }
 
-        private bool m_bPres_Pl_3_IsReadOnly = true;
         public bool Pres_Pl_3_IsReadOnly
         {
             get
             {
-                return m_bPres_Pl_3_IsReadOnly;
+                return !m_DictFormStatus["Pres_Pl_3"].bCanEdit;
             }
             set
             {
-                m_bPres_Pl_3_IsReadOnly = value;
+                var fd = m_DictFormStatus["Pres_Pl_3"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["Pres_Pl_3"] = fd;
                 OnPropertyChanged("Pres_Pl_3_IsReadOnly");
             }
         }
@@ -326,172 +393,196 @@ namespace ZalTestApp
         #endregion
 
         #region Bindings_PastTense
-        private string m_sPast_M;
         public string Past_M
         {
             get
             {
-                return m_sPast_M;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Past_M"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPast_M = value;
+                var fd = m_DictFormStatus["Past_M"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["Past_M"] = fd;
                 OnPropertyChanged("Past_M");
             }
         }
 
-        private bool m_bPast_M_IsReadOnly = true;
         public bool Past_M_IsReadOnly
         {
             get
             {
-                return m_bPast_M_IsReadOnly;
+                return !m_DictFormStatus["Past_M"].bCanEdit;
             }
             set
             {
-                m_bPast_M_IsReadOnly = value;
+                var fd = m_DictFormStatus["Past_M"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["Past_M"] = fd;
                 OnPropertyChanged("Past_M_IsReadOnly");
             }
         }
 
-        private string m_sPast_F;
         public string Past_F
         {
             get
             {
-                return m_sPast_F;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Past_F"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPast_F = value;
+                var fd = m_DictFormStatus["Past_F"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["Past_F"] = fd;
                 OnPropertyChanged("Past_F");
             }
         }
 
-        private bool m_bPast_F_IsReadOnly = true;
         public bool Past_F_IsReadOnly
         {
             get
             {
-                return m_bPast_F_IsReadOnly;
+                return !m_DictFormStatus["Past_F"].bCanEdit;
             }
             set
             {
-                m_bPast_F_IsReadOnly = value;
+                var fd = m_DictFormStatus["Past_F"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["Past_F"] = fd;
                 OnPropertyChanged("Past_F_IsReadOnly");
             }
         }
 
-        private string m_sPast_N;
         public string Past_N
         {
             get
             {
-                return m_sPast_N;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Past_N"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPast_N = value;
+                var fd = m_DictFormStatus["Past_N"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["Past_N"] = fd;
                 OnPropertyChanged("Past_N");
             }
         }
 
-        private bool m_bPast_N_IsReadOnly = true;
         public bool Past_N_IsReadOnly
         {
             get
             {
-                return m_bPast_N_IsReadOnly;
+                return !m_DictFormStatus["Past_N"].bCanEdit;
             }
             set
             {
-                m_bPast_N_IsReadOnly = value;
+                var fd = m_DictFormStatus["Past_N"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["Past_N"] = fd;
                 OnPropertyChanged("Past_N_IsReadOnly");
             }
         }
 
-        private string m_sPast_Pl;
         public string Past_Pl
         {
             get
             {
-                return m_sPast_Pl;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Past_Pl"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPast_Pl = value;
+                var fd = m_DictFormStatus["Past_Pl"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["Past_Pl"] = fd;
                 OnPropertyChanged("Past_Pl");
             }
         }
 
-        private bool m_bPast_Pl_IsReadOnly = true;
         public bool Past_Pl_IsReadOnly
         {
             get
             {
-                return m_bPast_Pl_IsReadOnly;
+                return !m_DictFormStatus["Past_Pl"].bCanEdit;
             }
             set
             {
-                m_bPast_Pl_IsReadOnly = value;
-                OnPropertyChanged("Past_Pl_IsReadOnly");
+                var fd = m_DictFormStatus["Past_N"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["Past_N"] = fd;
+                OnPropertyChanged("Past_N_IsReadOnly");
             }
         }
         #endregion
 
         #region Bindings_Imperative
-        private string m_sImpv_Sg_2;
         public string Impv_Sg_2
         {
             get
             {
-                return m_sImpv_Sg_2;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Impv_Sg_2"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sImpv_Sg_2 = value;
+                var fd = m_DictFormStatus["Impv_Sg_2"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["Impv_Sg_2"] = fd;
                 OnPropertyChanged("Impv_Sg_2");
             }
         }
 
-        private bool m_bImpv_Sg_2_IsReadOnly = true;
         public bool Impv_Sg_2_IsReadOnly
         {
             get
             {
-                return m_bImpv_Sg_2_IsReadOnly;
+                return !m_DictFormStatus["Impv_Sg_2"].bCanEdit;
             }
             set
             {
-                m_bImpv_Sg_2_IsReadOnly = value;
+                var fd = m_DictFormStatus["Impv_Sg_2"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["Impv_Sg_2"] = fd;
                 OnPropertyChanged("Impv_Sg_2_IsReadOnly");
             }
         }
 
-        private string m_sImpv_Pl_2;
         public string Impv_Pl_2
         {
             get
             {
-                return m_sImpv_Pl_2;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Impv_Pl_2"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sImpv_Pl_2 = value;
+                var fd = m_DictFormStatus["Impv_Pl_2"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["Impv_Pl_2"] = fd;
                 OnPropertyChanged("Impv_Pl_2");
             }
         }
 
-        private bool m_bImpv_Pl_2_IsReadOnly = true;
         public bool Impv_Pl_2_IsReadOnly
         {
             get
             {
-                return m_bImpv_Pl_2_IsReadOnly;
+                return !m_DictFormStatus["Impv_Pl_2"].bCanEdit;
             }
             set
             {
-                m_bImpv_Pl_2_IsReadOnly = value;
+                var fd = m_DictFormStatus["Impv_Pl_2"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["Impv_Pl_2"] = fd;
                 OnPropertyChanged("Impv_Pl_2_IsReadOnly");
             }
         }
@@ -500,30 +591,34 @@ namespace ZalTestApp
 
         #region Bindings_Non-Finite
 
-        private string m_sPPresA_M_Sg_N;
         public string PPresA_M_Sg_N
         {
             get
             {
-                return m_sPPresA_M_Sg_N;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPresA_M_Sg_N"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPPresA_M_Sg_N = value;
+                var fd = m_DictFormStatus["PPresA_M_Sg_N"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["PPresA_M_Sg_N"] = fd;
                 OnPropertyChanged("PPresA_M_Sg_N");
             }
         }
 
-        private bool m_bPPresA_M_Sg_N_IsReadOnly = true;
         public bool PPresA_M_Sg_N_IsReadOnly
         {
             get
             {
-                return m_bPPresA_M_Sg_N_IsReadOnly;
+                return !m_DictFormStatus["PPresA_M_Sg_N"].bCanEdit;
             }
             set
             {
-                m_bPPresA_M_Sg_N_IsReadOnly = value;
+                var fd = m_DictFormStatus["PPresA_M_Sg_N"];
+                fd.bCanEdit = !value;
+                m_DictFormStatus["PPresA_M_Sg_N"] = fd;
                 OnPropertyChanged("PPresA_M_Sg_N_IsReadOnly");
             }
         }
@@ -542,16 +637,19 @@ namespace ZalTestApp
             }
         }
 
-        private string m_sPPastA_M_Sg_N;
         public string PPastA_M_Sg_N
         {
             get
             {
-                return m_sPPastA_M_Sg_N;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPastA_M_Sg_N"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPPastA_M_Sg_N = value;
+                var fd = m_DictFormStatus["PPastA_M_Sg_N"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["PPastA_M_Sg_N"] = fd;
                 OnPropertyChanged("PPastA_M_Sg_N");
             }
         }
@@ -570,16 +668,19 @@ namespace ZalTestApp
             }
         }
 
-        private string m_sPPresPL_M_Sg_N;
         public string PPresPL_M_Sg_N
         {
             get
             {
-                return m_sPPresPL_M_Sg_N;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPresPL_M_Sg_N"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPPresPL_M_Sg_N = value;
+                var fd = m_DictFormStatus["PPresPL_M_Sg_N"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["PPresPL_M_Sg_N"] = fd;
                 OnPropertyChanged("PPresPL_M_Sg_N");
             }
         }
@@ -598,16 +699,19 @@ namespace ZalTestApp
             }
         }
 
-        private string m_sPPastPL_M_Sg_N;
         public string PPastPL_M_Sg_N
         {
             get
             {
-                return m_sPPastPL_M_Sg_N;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPastPL_M_Sg_N"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sPPastPL_M_Sg_N = value;
+                var fd = m_DictFormStatus["PPastPL_M_Sg_N"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["PPastPL_M_Sg_N"] = fd;
                 OnPropertyChanged("PPastPL_M_Sg_N");
             }
         }
@@ -626,34 +730,107 @@ namespace ZalTestApp
             }
         }
 
-        private string m_sVAdvPres;
         public string VAdvPres
         {
             get
             {
-                return m_sVAdvPres;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["VAdvPres"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sVAdvPres = value;
+                var fd = m_DictFormStatus["VAdvPres"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["VAdvPres"] = fd;
                 OnPropertyChanged("VAdvPres");
             }
         }
 
-        private string m_sVAdvPast;
         public string VAdvPast
         {
             get
             {
-                return m_sVAdvPast;
+                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["VAdvPast"].listForms);
+                Helpers.AssignDiacritics(text, ref text);
+                return text;
             }
             set
             {
-                m_sVAdvPast = value;
+                var fd = m_DictFormStatus["VAdvPast"];
+                fd.listForms = Helpers.CommaSeparatedStringToList(value);
+                m_DictFormStatus["VAdvPast"] = fd;
                 OnPropertyChanged("VAdvPast");
             }
         }
         #endregion
+
+        private bool m_bEditEnabled = false;
+        public bool EditEnabled
+        {
+            get
+            {
+                return m_bEditEnabled;
+            }
+            set
+            {
+                m_bEditEnabled = value;
+                OnPropertyChanged("EditEnabled");
+            }
+        }
+
+        private void InitFormHandlers(CLexemeManaged lexeme)
+        {
+            string sLexemeHash = lexeme.sHash();
+            List<string> hashes = new List<string>(m_DictFormStatus.Keys);
+
+            foreach (var hash in hashes)
+            {
+                FormDescriptor fd = m_DictFormStatus[hash];
+                List<string> listForms = null;
+                m_MainModel.GetFormsByGramHash(sLexemeHash, hash, out listForms);
+                fd.listForms = listForms;
+                fd.handler = () =>
+                {
+                    if (!fd.bCanEdit)
+                    {
+                        return true;
+                    }
+
+                    var sFormString = Helpers.sListToCommaSeparatedString(fd.listForms);
+                    Helpers.AssignDiacritics(sFormString, ref sFormString);
+
+                    OnPropertyChanged(hash);
+                    return true;
+                };
+
+                m_DictFormStatus[hash] = fd;
+            }
+
+            try
+            {
+                var PPresA_M_Sg_N = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPresA_M_Sg_N"].listForms);
+                PPresAExists = PPresA_M_Sg_N.Length > 0;
+
+                var PPastA_M_Sg_N = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPastA_M_Sg_N"].listForms);
+                PPastAExists = PPastA_M_Sg_N.Length > 0;
+
+                var PPresPL_M_Sg_N = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPresPL_M_Sg_N"].listForms);
+                PPresPExists = PPresPL_M_Sg_N.Length > 0;
+
+                var PPastPL_M_Sg_N = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPastPL_M_Sg_N"].listForms);
+                PPresPExists = PPastPL_M_Sg_N.Length > 0;
+            }
+            catch (Exception ex)
+            {
+                var msg = "Internal error: unable to retrieve participial form: ";
+                msg += ex.Message;
+                MessageBox.Show(msg);
+            }
+
+            return;
+
+        }   //  InitFormHandlers()
 
         public VerbViewModel(CLexemeManaged lexeme, MainModel m, ViewModelBase lvm)
         {
@@ -669,61 +846,11 @@ namespace ZalTestApp
 
             EditCommand = new RelayCommand(new Action<object>(EditForm));
 
-            string sLexemeHash = lexeme.sHash();
+            InitFormHandlers(lexeme);
 
-            List<string> forms = null;
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "Infinitive", out forms);
-            Infinitive = Helpers.sListToCommaSeparatedString(forms);
+            PropertyChanged += verbViewModel_PropertyChanged;
 
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "Pres_Sg_1", out forms);
-            Pres_Sg_1 = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "Pres_Sg_2", out forms);
-            Pres_Sg_2 = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "Pres_Sg_3", out forms);
-            Pres_Sg_3 = Helpers.sListToCommaSeparatedString(forms);
-
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "Pres_Pl_1", out forms);
-            Pres_Pl_1 = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "Pres_Pl_2", out forms);
-            Pres_Pl_2 = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "Pres_Pl_3", out forms);
-            Pres_Pl_3 = Helpers.sListToCommaSeparatedString(forms);
-
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "Past_M", out forms);
-            Past_M = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "Past_F", out forms);
-            Past_F = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "Past_N", out forms);
-            Past_N = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "Past_Pl", out forms);
-            Past_Pl = Helpers.sListToCommaSeparatedString(forms);
-
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "Impv_Sg_2", out forms);
-            Impv_Sg_2 = Helpers.sListToCommaSeparatedString(forms);
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "Impv_Pl_2", out forms);
-            Impv_Pl_2 = Helpers.sListToCommaSeparatedString(forms);
-
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresA_M_Sg_N", out forms);
-            PPresA_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-            PPresAExists = m_sPPresA_M_Sg_N.Length > 0;
-
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "VAdvPres", out forms);
-            VAdvPres = Helpers.sListToCommaSeparatedString(forms);
-
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastA_M_Sg_N", out forms);
-            PPastA_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-            PPastAExists = m_sPPastA_M_Sg_N.Length > 0;
-
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "VAdvPast", out forms);
-            VAdvPast = Helpers.sListToCommaSeparatedString(forms);
-
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "PPresPL_M_Sg_N", out forms);
-            PPresPL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-            PPresPExists = m_sPPresPL_M_Sg_N.Length > 0;
-
-            m_MainModel.GetFormsByGramHash(sLexemeHash, "PPastPL_M_Sg_N", out forms);
-            PPastPL_M_Sg_N = Helpers.sListToCommaSeparatedString(forms);
-            PPastPExists = m_sPPastPL_M_Sg_N.Length > 0;
+            EditEnabled = true;
         }
 
         public void GoBack(Object obj)
@@ -756,52 +883,50 @@ namespace ZalTestApp
         public void EditForm(Object obj)
         {
             var sPropName = obj as string;
-            switch (obj as string)
+
+            try
             {
-                case "Infinitive":
-                    Infinitive_IsReadOnly = !Infinitive_IsReadOnly;
-                    break;
-                case "Pres_Sg_1":
-                    Pres_Sg_1_IsReadOnly = !Pres_Sg_1_IsReadOnly;
-                    break;
-                case "Pres_Sg_2":
-                    Pres_Sg_2_IsReadOnly = !Pres_Sg_2_IsReadOnly;
-                    break;
-                case "Pres_Sg_3":
-                    Pres_Sg_3_IsReadOnly = !Pres_Sg_3_IsReadOnly;
-                    break;
-                case "Pres_Pl_1":
-                    Pres_Pl_1_IsReadOnly = !Pres_Pl_1_IsReadOnly;
-                    break;
-                case "Pres_Pl_2":
-                    Pres_Pl_2_IsReadOnly = !Pres_Pl_2_IsReadOnly;
-                    break;
-                case "Pres_Pl_3":
-                    Pres_Pl_3_IsReadOnly = !Pres_Pl_3_IsReadOnly;
-                    break;
-                case "Past_M":
-                    Past_M_IsReadOnly = !Past_M_IsReadOnly;
-                    break;
-                case "Past_F":
-                    Past_F_IsReadOnly = !Past_F_IsReadOnly;
-                    break;
-                case "Past_N":
-                    Past_N_IsReadOnly = !Past_N_IsReadOnly;
-                    break;
-                case "Past_Pl":
-                    Past_Pl_IsReadOnly = !Past_Pl_IsReadOnly;
-                    break;
-                case "Impv_Sg_2":
-                    Impv_Sg_2_IsReadOnly = !Impv_Sg_2_IsReadOnly;
-                    break;
-                case "Impv_Pl_2":
-                    Impv_Pl_2_IsReadOnly = !Impv_Pl_2_IsReadOnly;
-                    break;
-                default:
-                    MessageBox.Show("Internal error: unknown word form hash.");
-                    break;
-            }       // switch
+                var fd = m_DictFormStatus[sPropName];
+                fd.bCanEdit = !fd.bCanEdit;
+                m_DictFormStatus[sPropName] = fd;
+                sPropName += "_IsReadOnly";
+                OnPropertyChanged(sPropName);
+            }
+            catch (Exception ex)
+            {
+                var msg = "Internal error: unable to invoke word form change handler: ";
+                msg += ex.Message;
+                MessageBox.Show(msg);
+            }
         }
-    }       //  AdjViewModel 
+
+        public void verbViewModel_PropertyChanged(object sender, PropertyChangedEventArgs arg)
+        {
+            var sFormHash = arg.PropertyName.ToString();
+            if (null == sFormHash || 0 == sFormHash.Length)
+            {
+                return;
+            }
+            if (!m_DictFormStatus.ContainsKey(sFormHash))
+            {
+                return;
+            }
+
+            try
+            {
+                ChangedFormHandler handler = null;
+                FormDescriptor fd = m_DictFormStatus[sFormHash];
+                handler = fd.handler;
+                var ret = handler();
+            }
+            catch (Exception ex)
+            {
+                var msg = "Internal error: unable to invoke word form change handler: ";
+                msg += ex.Message;
+                MessageBox.Show(msg);
+            }
+        }
+
+    }       //  VerbViewModel 
 
 }       //  namespace ZalTestApp

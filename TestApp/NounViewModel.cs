@@ -331,7 +331,7 @@ namespace ZalTestApp
                 var fd = m_DictFormStatus["Noun_Sg_Part"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Sg_Part"] = fd;
-                OnPropertyChanged("Noun_Sg_Part");
+                OnPropertyChanged("Noun_Sg_Part_IsReadOnly");
             }
         }
 
@@ -664,8 +664,6 @@ namespace ZalTestApp
         #endregion
 
         #region Property_Delegates
-
-//        private Dictionary<string, ChangedFormHandler> m_ChangedFormHandlers = new Dictionary<string, ChangedFormHandler>();
 
         private void InitFormHandlers(CLexemeManaged lexeme)
         {

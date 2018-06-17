@@ -1,7 +1,7 @@
 ﻿using MainLibManaged;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Windows;
 
 namespace ZalTestApp
 {
@@ -327,6 +327,11 @@ namespace ZalTestApp
                 sOut += sForm;
             }
             return sOut;
+        }
+
+        public static List<string> CommaSeparatedStringToList(string str)
+        {
+            return str.Split(',').Select(sValue => sValue.Trim()).ToList<string>();
         }
     }       //  public static class Helpers
 }       //  namespace ZalTestApp

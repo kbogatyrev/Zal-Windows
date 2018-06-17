@@ -34,6 +34,20 @@ namespace ZalTestApp
             }
         }
 
+        bool m_bIsDerived = false;
+        public bool IsDerived
+        {
+            get
+            {
+                return m_bIsDerived;
+            }
+
+            set
+            {
+                m_bIsDerived = value;
+            }
+        }
+
         /// <summary>
         /// Raised when a property on this object has a new value.
         /// </summary>
