@@ -95,25 +95,25 @@
                 <TextBox Text="Причастия и деепричастия" Margin="210,730,0,0" Style="{StaticResource FormLabelWide}" Width="200"/>
 
                 <TextBox Text="Действ. наст. вр." Width="155" Margin="0,780,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="{Binding Path=PPresA_M_Sg_N}" Margin="160,780,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Path=PPresA_M_Sg_N}" IsReadOnly='True' Margin="160,780,0,0" Style="{StaticResource FormText}" />
                 <Button Content="Показать формы" Margin="400,780,0,0" Command="{Binding ShowPresActFormsCommand }" IsEnabled="{Binding Path=PPresAExists}" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                 <TextBox Text="Деепр. наст. вр." Width="155" Margin="0,825,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="{Binding Path=VAdvPres}" Margin="160,825,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Path=VAdvPres}" IsReadOnly='True' Margin="160,825,0,0" Style="{StaticResource FormText}" />
 
                 <TextBox Text="Действ. прош. вр." Width="155" Margin="0,870,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="{Binding Path=PPastA_M_Sg_N}" Margin="160,870,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Path=PPastA_M_Sg_N}" IsReadOnly='True' Margin="160,870,0,0" Style="{StaticResource FormText}" />
                 <Button Content="Показать формы" Margin="400,870,0,0" Command="{Binding ShowPastActFormsCommand }" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                 <TextBox Text="Деепр. прош вр." Width="155" Margin="0,915,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="{Binding Path=VAdvPast}" Margin="160,915,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Path=VAdvPast}" IsReadOnly='True' Margin="160,915,0,0" Style="{StaticResource FormText}" />
 
                 <TextBox Text="Страд. наст. вр." Width="155" Margin="0,960,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="{Binding Path=PPresPL_M_Sg_N}" Margin="160,960,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Path=PPresPL_M_Sg_N}" IsReadOnly='True' Margin="160,960,0,0" Style="{StaticResource FormText}" />
                 <Button Content="Показать формы" Margin="400,960,0,0" Command="{Binding ShowPresPassFormsCommand }" IsEnabled="{Binding Path=PPresPExists}" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                 <TextBox Text="Страд. прош. вр." Width="155" Margin="0,1005,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="{Binding Path=PPastPL_M_Sg_N}" Margin="160,1005,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Path=PPastPL_M_Sg_N}" IsReadOnly='True' Margin="160,1005,0,0" Style="{StaticResource FormText}" />
                 <Button Content="Показать формы" Margin="400,1005,0,0" Command="{Binding ShowPastPassFormsCommand }" IsEnabled="{Binding Path=PPastPExists}" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Grid>
         </ScrollViewer>
