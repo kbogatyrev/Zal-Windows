@@ -52,6 +52,8 @@ namespace MainLibManaged
 
         String^ sGramHash();
         EM_ReturnCode eInitFromHash(String^ sHash);
+
+        EM_ReturnCode eSaveIrregularForm();
     };
 
     public ref class CLexemeManaged
@@ -246,7 +248,6 @@ namespace MainLibManaged
     public ref class CDictionaryManaged
     {
         Hlib::IDictionary * m_pDictionary;      // we are using some non-itf methods
-        Hlib::IDictionary * m_pEditDictionary;  // we are using some non-itf methods
 
     public:
         CDictionaryManaged();

@@ -243,6 +243,16 @@ EM_ReturnCode CWordFormManaged::eInitFromHash(String^ sHash)
     return (EM_ReturnCode)m_pWordForm->eInitFromHash(sFromManagedString(sHash));
 }
 
+EM_ReturnCode CWordFormManaged::eSaveIrregularForm()
+{
+    if (NULL == m_pWordForm)
+    {
+        throw gcnew Exception(L"WordForm object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pWordForm->eSaveIrregularForm();
+}
+
 CDictionaryManaged::CDictionaryManaged()
 {
     Hlib::IDictionary * pD = NULL;
@@ -2114,7 +2124,7 @@ EM_ReturnCode CLexemeManaged::eWordFormFromHash(String^ sHash, int iAt, CWordFor
 
     return (EM_ReturnCode)eRet;
 }
- 
+
 bool CLexemeManaged::bHasIrregularForm(String^ sGramHash)
 {
     if (NULL == m_pLexeme)
