@@ -11,7 +11,7 @@ namespace ZalTestApp
     public class MainModel : INotifyPropertyChanged
     {
         private CDictionaryManaged m_Dictionary = null;
-        private CDictionaryManaged m_EditDictionary = null;
+//        private CDictionaryManaged m_EditDictionary = null;
 
         private CVerifierManaged m_Verifier = null; 
         public CVerifierManaged Verifier()
@@ -136,14 +136,14 @@ namespace ZalTestApp
                 return;
             }
 
-            m_EditDictionary = new CDictionaryManaged();
-            eRet = m_EditDictionary.eSetDbPath("ZalEdit.db3");
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
-            {
-                System.Windows.MessageBox.Show("Error: Edit dictionary was not initialized.");
-                m_EditDictionary = null;
-                return;
-            }
+            //m_EditDictionary = new CDictionaryManaged();
+            //eRet = m_EditDictionary.eSetDbPath("ZalEdit.db3");
+            //if (eRet != EM_ReturnCode.H_NO_ERROR)
+            //{
+            //    System.Windows.MessageBox.Show("Error: Edit dictionary was not initialized.");
+            //    m_EditDictionary = null;
+            //    return;
+            //}
 
             m_Dictionary.eGetVerifier(ref m_Verifier);
 
@@ -162,7 +162,7 @@ namespace ZalTestApp
                 return false;
             }
 
-            l = m_EditDictionary.CreateLexemeForEdit();
+            l = m_Dictionary.CreateLexemeForEdit();
             if (l != null)
             {
                 return true;
@@ -175,13 +175,13 @@ namespace ZalTestApp
 
         public bool bEditLexeme(CLexemeManaged source, ref CLexemeManaged copy)
         {
-            if (null == m_EditDictionary)
+            if (null == m_Dictionary)
             {
                 System.Windows.MessageBox.Show("Dictionary was not initialized.");
                 return false;
             }
 
-            copy = m_EditDictionary.CopyLexemeForEdit(source);
+            copy = m_Dictionary.CopyLexemeForEdit(source);
             if (copy != null)
             {
                 return true;
@@ -194,13 +194,13 @@ namespace ZalTestApp
 
         public bool bSaveLexeme(CLexemeManaged l)
         {
-            if (null == m_EditDictionary)
+            if (null == m_Dictionary)
             {
-                System.Windows.MessageBox.Show("Edit dictionary was not initialized.");
+                System.Windows.MessageBox.Show("Dictionary was not initialized.");
                 return false;
             }
 
-            EM_ReturnCode eRet = (EM_ReturnCode)m_EditDictionary.eSaveLexeme(l);
+            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveLexeme(l);
             return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         }
 
@@ -319,47 +319,23 @@ namespace ZalTestApp
                 return;
             }
 
-            CDictionaryManaged dataSource = null;
             m_Lexemes.Clear();
 
-            var eRet = m_EditDictionary.eGetLexemesByInitialForm(str);
+            var eRet = m_Dictionary.eGetLexemesByInitialForm(str);
             if (eRet != EM_ReturnCode.H_NO_MORE && eRet != EM_ReturnCode.H_FALSE)
             {
-                System.Windows.MessageBox.Show("Lexeme not found -- error in edit DB lookup.");
+                System.Windows.MessageBox.Show("Lexeme not found -- error in DB lookup.");
                 return;
             }
 
-            if (EM_ReturnCode.H_NO_MORE == eRet)
+            if (EM_ReturnCode.H_FALSE == eRet)
             {
-                dataSource = m_EditDictionary;
-            }
-            else if (EM_ReturnCode.H_FALSE == eRet)
-            {
-                eRet = m_Dictionary.eGetLexemesByInitialForm(str);
-                if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE)
-                {
-                    System.Windows.MessageBox.Show("Lexeme not found -- error in main DB lookup.");
-                    return;
-                }
-
-                if (m_Dictionary.nLexemesFound() > 0)
-                {
-                    dataSource = m_Dictionary;
-                }
-                else
-                {
-                    System.Windows.MessageBox.Show("Лексема не найдена.");
-                    return;
-                }
-            }
-            else
-            {
-                System.Windows.MessageBox.Show("Lexeme not found -- unknown error.");
+                System.Windows.MessageBox.Show("Лексема не найдена.");
                 return;
             }
 
             CLexemeManaged lexeme = null;
-            eRet = dataSource.eGetFirstLexeme(ref lexeme);
+            eRet = m_Dictionary.eGetFirstLexeme(ref lexeme);
             if (EM_ReturnCode.H_NO_ERROR != eRet)
             {
                 System.Windows.MessageBox.Show("Error: unable to retrieve lexeme");
@@ -383,7 +359,7 @@ namespace ZalTestApp
                     }
                 }
 
-                eRet = dataSource.eGetNextLexeme(ref lexeme);
+                eRet = m_Dictionary.eGetNextLexeme(ref lexeme);
 
             } while (EM_ReturnCode.H_NO_ERROR == eRet);
 
