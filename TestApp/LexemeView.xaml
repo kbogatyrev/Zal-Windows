@@ -27,8 +27,8 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveParadigmCommand}" Margin="27,0,181,0" VerticalAlignment="Top" Width="Auto" />
-                <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Редактировать" Command="{Binding EditLexemeCommand}" Margin="192,0,29,0" VerticalAlignment="Top" Width="Auto" />
+                <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Проверено" Command="{Binding SaveRegressionCommand}" Margin="183,0,25.333,0" VerticalAlignment="Top" Width="Auto" />
+                <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Редактировать" Command="{Binding EditLexemeCommand}" Margin="29,0,192.333,0" VerticalAlignment="Top" Width="Auto" />
             </Grid>
         </Border>
     </ScrollViewer>

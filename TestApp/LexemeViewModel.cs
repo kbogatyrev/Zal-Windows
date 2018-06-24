@@ -67,16 +67,16 @@ namespace ZalTestApp
             }
         }
 
-        private ICommand m_SaveParadigmCommand;
-        public ICommand SaveParadigmCommand
+        private ICommand m_SaveRegressionCommand;
+        public ICommand SaveRegressionCommand
         {
             get
             {
-                return m_SaveParadigmCommand;
+                return m_SaveRegressionCommand;
             }
             set
             {
-                m_SaveParadigmCommand = value;
+                m_SaveRegressionCommand = value;
             }
         }
 
@@ -323,7 +323,7 @@ namespace ZalTestApp
             }
         }
 
-        private void SaveParadigm(object arg)
+        private void SaveRegression(object arg)
         {
             try
             {
@@ -349,7 +349,7 @@ namespace ZalTestApp
                 MessageBox.Show(sMsg, "Zal Error");
                 return;
             }
-        }   // SaveParadigm()
+        }  
 
         private void RemoveLexeme(object arg)
         {
