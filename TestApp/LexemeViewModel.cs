@@ -321,7 +321,7 @@ namespace ZalTestApp
                     }
                 }
             }
-        }
+        }       //  CollectLexemeProperties()
 
         private void SaveRegression(object arg)
         {
