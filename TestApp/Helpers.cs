@@ -215,6 +215,35 @@ namespace ZalTestApp
             }
         }
 
+        public static void StressMarksToPosList(string sWord, out string sOutWord, out Dictionary<int, EM_StressType> dictPositions)
+        {
+            dictPositions = new Dictionary<int, EM_StressType>();
+            sOutWord = "";
+            int iRemoved = 0;
+
+            for (int iPos = 0; iPos < sWord.Length; ++iPos)
+            {
+                char chr = sWord[iPos];
+                if ('\x300' == chr)
+                {
+                    dictPositions[iPos-(iRemoved++)-1] = EM_StressType.STRESS_SECONDARY;
+                }
+                else if ('\x301' == chr)
+                {
+                    dictPositions[iPos-(iRemoved++)-1] = EM_StressType.STRESS_PRIMARY;
+                }
+                else if ('ё' == chr)
+                {
+                    dictPositions[iPos-iRemoved] = EM_StressType.STRESS_PRIMARY;
+                    sOutWord += chr;
+                }
+                else
+                {
+                    sOutWord += chr;
+                }
+            }
+        }
+
         public static void MarkStress(ref string sWordForm, CWordFormManaged wf)
         {
             int iPos = -1;
