@@ -82,7 +82,9 @@ namespace MainLibManaged
         EM_ReturnCode eInitFromHash(String^ sHash);
 
         EM_ReturnCode eSaveIrregularForm();
-    };
+        EM_ReturnCode eSetIrregularStressPositions(Dictionary<int, EM_StressType>^ dictPositions);
+
+    };      //  public ref class CWordFormManaged
 
     public ref class CLexemeManaged
     {

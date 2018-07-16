@@ -383,6 +383,24 @@ EM_ReturnCode CWordFormManaged::eSaveIrregularForm()
     return (EM_ReturnCode)m_pWordForm->eSaveIrregularForm();
 }
 
+EM_ReturnCode CWordFormManaged::eSetIrregularStressPositions(Dictionary<int, EM_StressType>^ dictPositions)
+{
+    if (NULL == m_pWordForm)
+    {
+        throw gcnew Exception(L"WordForm object is NULL.");
+    }
+
+    map<int, ET_StressType> mapPositions;
+    for each (KeyValuePair<int, EM_StressType> pairPosition in dictPositions)
+    {
+        mapPositions[pairPosition.Key] = (ET_StressType)pairPosition.Value;
+    }
+
+    auto eRet = m_pWordForm->eSaveIrregularStress(mapPositions);
+
+    return (EM_ReturnCode)eRet;
+}
+
 CDictionaryManaged::CDictionaryManaged()
 {
     Hlib::IDictionary * pD = NULL;
