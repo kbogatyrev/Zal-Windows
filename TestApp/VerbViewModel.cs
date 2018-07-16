@@ -784,11 +784,11 @@ namespace ZalTestApp
             string sLexemeHash = lexeme.sHash();
             List<string> hashes = new List<string>(m_DictFormStatus.Keys);
 
-            foreach (var hash in hashes)
+            foreach (var formHash in hashes)
             {
-                FormDescriptor fd = m_DictFormStatus[hash];
+                FormDescriptor fd = m_DictFormStatus[formHash];
                 List<string> listForms = null;
-                m_MainModel.GetFormsByGramHash(sLexemeHash, hash, out listForms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, formHash, out listForms);
                 fd.listForms = listForms;
                 fd.handler = () =>
                 {
@@ -800,11 +800,11 @@ namespace ZalTestApp
                     var sFormString = Helpers.sListToCommaSeparatedString(fd.listForms);
                     Helpers.AssignDiacritics(sFormString, ref sFormString);
 
-                    OnPropertyChanged(hash);
+                    OnPropertyChanged(formHash);
                     return true;
                 };
 
-                m_DictFormStatus[hash] = fd;
+                m_DictFormStatus[formHash] = fd;
             }
 
             try
