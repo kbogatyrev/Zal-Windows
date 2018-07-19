@@ -16,6 +16,7 @@ namespace ZalTestApp
         MainModel m_MainModel = null;
 
         private delegate bool ChangedFormHandler();
+
         struct FormDescriptor
         {
             public List<string> listForms { get; set; }
@@ -29,6 +30,9 @@ namespace ZalTestApp
                 handler = h;
             }
         }
+
+        Dictionary<string, FormDescriptor> m_DictFormStatus;
+        Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
 
         List<string> m_listPropNamesAdj = new List<string>()
         {
@@ -82,7 +86,6 @@ namespace ZalTestApp
             "PPastPS_M", "PPastPS_F", "PPastPS_N", "PPastPS_Pl"
         };
 
-        Dictionary <string, FormDescriptor> m_DictFormStatus;
         #region ICommand
         private ICommand m_BackCommand;
         public ICommand BackCommand
@@ -110,19 +113,32 @@ namespace ZalTestApp
             }
         }
 
+        private ICommand m_SaveFormsCommand;
+        public ICommand SaveFormsCommand
+        {
+            get
+            {
+                return m_SaveFormsCommand;
+            }
+            set
+            {
+                m_SaveFormsCommand = value;
+            }
+        }
+
         #endregion
 
-        private CLexemeManaged m_Parent;
+        private CLexemeManaged m_Lexeme;
         public CLexemeManaged Parent
         {
             get
             {
-                return m_Parent;
+                return m_Lexeme;
             }
 
             set
             {
-                m_Parent = value;
+                m_Lexeme = value;
             }
         }
 
@@ -1266,7 +1282,7 @@ namespace ZalTestApp
 
         private void InitFormDictionary()
         {
-            string sLexemeHash = m_Parent.sHash();
+            string sLexemeHash = m_Lexeme.sHash();
 
             List<string> listGramHashes = null;
             GetGramHashes(ref listGramHashes);
@@ -1297,11 +1313,24 @@ namespace ZalTestApp
                 }
 
                 fd.listForms = listForms;
+                fd.handler = () =>
+                {
+                    FormDescriptor fd1 = m_DictFormStatus[sHash];
+                    if (!fd1.bCanEdit)
+                    {
+                        return true;
+                    }
+
+                    var sFormString1 = Helpers.sListToCommaSeparatedString(fd1.listForms);
+                    Helpers.AssignDiacritics(sFormString1, ref sFormString1);
+                    //                    OnPropertyChanged(hash);
+                    return true;
+                };
 
                 var sFormString = Helpers.sListToCommaSeparatedString(fd.listForms);
                 Helpers.AssignDiacritics(sFormString, ref sFormString);
 
-                string sParadigmHash = null;
+                string sParadigmHash = null;    // use standard adj gram hashes regardless of part of speech
                 try
                 {
                     sParadigmHash = m_listPropNamesAdj[keyIdx];
@@ -1310,10 +1339,13 @@ namespace ZalTestApp
                 {
                     string sMsg = "Unable to find paradigm hash string; illegal hash value: ";
                     sMsg += sHash;
+                    sMsg += "; ";
+                    sMsg += ex.Message;
                     MessageBox.Show(sMsg);
                 }
 
                 m_DictFormStatus.Add(sParadigmHash, fd);
+                m_DictOriginalForms.Add(sParadigmHash, fd.listForms);
             }
         }       //  private void InitFormDictionary()
 
@@ -1321,11 +1353,12 @@ namespace ZalTestApp
 
         public AdjViewModel(CLexemeManaged lexeme, EM_Subparadigm eSubparadigm, MainModel m)
         {
-            m_Parent = lexeme;
+            m_Lexeme = lexeme;
             m_MainModel = m;
 
             BackCommand = new RelayCommand(new Action<object>(GoBack));
             EditCommand = new RelayCommand(new Action<object>(EditForm));
+            SaveFormsCommand = new RelayCommand(new Action<object>(SaveForms));
 
             m_eSubparadigm = eSubparadigm;
             IsDerived = false;
@@ -1366,6 +1399,77 @@ namespace ZalTestApp
             }
         }
 
+        public void SaveForms(Object obj)
+        {
+            foreach (KeyValuePair<string, List<string>> entry in m_DictOriginalForms)
+            {
+                List<string> originalForms = entry.Value;
+                FormDescriptor formDescriptor;
+                if (m_DictFormStatus.TryGetValue(entry.Key, out formDescriptor))
+                {
+                    List<string> changedForms = formDescriptor.listForms;
+                    if (changedForms != originalForms)
+                    {
+                        foreach (string sForm in changedForms)
+                        {
+                            var idx = changedForms.IndexOf(sForm);
+                            if (idx < 0)
+                            {
+                                var msg = "Internal error: form index out of range";
+                                MessageBox.Show(msg);
+                                return;
+                            }
+
+                            CWordFormManaged wf = null;
+                            var eRet = m_Lexeme.eWordFormFromHash(entry.Key, changedForms.IndexOf(sForm), ref wf);
+                            if (eRet != EM_ReturnCode.H_NO_ERROR)
+                            {
+                                var msg = "Internal error: unable to create wordform object";
+                                MessageBox.Show(msg);
+                                return;
+                            }
+
+                            string sOutForm = "";
+                            Dictionary<int, EM_StressType> dictStressPos;
+                            Helpers.StressMarksToPosList(sForm, out sOutForm, out dictStressPos);
+                            wf.SetWordForm(sOutForm);
+                            eRet = wf.eSetIrregularStressPositions(dictStressPos);
+                            if (eRet != EM_ReturnCode.H_NO_ERROR)
+                            {
+                                var msg = "Internal error: unable to save stress positions";
+                                MessageBox.Show(msg);
+                                return;
+                            }
+                            eRet = wf.eSaveIrregularForm();
+                            if (eRet != EM_ReturnCode.H_NO_ERROR)
+                            {
+                                var msg = "Internal error: unable to save wordform object";
+                                MessageBox.Show(msg);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }       // foreach ...
+
+            foreach (string sKey in m_DictFormStatus.Keys)
+            {
+                List<string> originalForms;
+                if (m_DictOriginalForms.TryGetValue(sKey, out originalForms))
+                {
+                    FormDescriptor formDescriptor;
+                    if (m_DictFormStatus.TryGetValue(sKey, out formDescriptor))
+                    {
+                        List<string> changedForms = formDescriptor.listForms;
+                        if (changedForms != originalForms)
+                        {
+                            m_DictOriginalForms[sKey] = changedForms;
+                        }
+                    }
+                }
+            }           // foreach
+        }       //  SaveForms()
+
         public void adjViewModel_PropertyChanged(object sender, PropertyChangedEventArgs arg)
         {
             var sFormHash = arg.PropertyName.ToString();
@@ -1401,16 +1505,16 @@ namespace ZalTestApp
 
             IsDerived = false;
 
-            if (m_Parent.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
+            if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
             {
                 listKeys = m_listPropNamesAdj;
             }
 
-            if (m_Parent.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ)
+            if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ)
             {
                 listKeys = m_listPropNamesPronAdj;
             }
-            else if (m_Parent.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
+            else if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
             {
                 IsDerived = true;
 

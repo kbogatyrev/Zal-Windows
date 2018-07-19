@@ -34,7 +34,7 @@ namespace ZalTestApp
         }
 
         Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
-
+ 
         Dictionary<string, FormDescriptor> m_DictFormStatus = new Dictionary<string, FormDescriptor>()
         {
             {  "Noun_Sg_N", new FormDescriptor(null, false, null) },
@@ -686,15 +686,15 @@ namespace ZalTestApp
             string sLexemeHash = lexeme.sHash();
             List<string> hashes = new List<string>(m_DictFormStatus.Keys);
 
-            foreach (var hash in hashes)
+            foreach (var sHash in hashes)
             {
-                FormDescriptor fd = m_DictFormStatus[hash];
+                FormDescriptor fd = m_DictFormStatus[sHash];
                 List<string> listForms = null;
-                m_MainModel.GetFormsByGramHash(sLexemeHash, hash, out listForms);
+                m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
                 fd.listForms = listForms;
                 fd.handler = () =>
                 {
-                    FormDescriptor fd1 = m_DictFormStatus[hash];
+                    FormDescriptor fd1 = m_DictFormStatus[sHash];
                     if (!fd1.bCanEdit)
                     {
                         return true;
@@ -706,8 +706,8 @@ namespace ZalTestApp
                     return true;
                 };
 
-                m_DictFormStatus[hash] = fd;
-                m_DictOriginalForms[hash] = listForms;
+                m_DictFormStatus[sHash] = fd;
+                m_DictOriginalForms[sHash] = listForms;
             }
 
             return;

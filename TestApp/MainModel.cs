@@ -11,7 +11,6 @@ namespace ZalTestApp
     public class MainModel : INotifyPropertyChanged
     {
         private CDictionaryManaged m_Dictionary = null;
-//        private CDictionaryManaged m_EditDictionary = null;
 
         private CVerifierManaged m_Verifier = null; 
         public CVerifierManaged Verifier()
@@ -40,7 +39,8 @@ namespace ZalTestApp
             return m_StoredLexemes.GetEnumerator();
         }
 
-        #region INotifyPropertyChanged Members
+        //public Dictionary<string, List<string>> m_ChangedForms = new Dictionary<string, List<string>>();       // gram hash --> current form
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
@@ -49,7 +49,6 @@ namespace ZalTestApp
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        #endregion
 
         #region Properties
         bool m_bInitialized;
@@ -499,6 +498,12 @@ namespace ZalTestApp
 
             CWordFormManaged wf = null;
             EM_ReturnCode eRet = (EM_ReturnCode)lexeme.eGenerateParadigm();
+//            if (eRet != EM_ReturnCode.H_NO_ERROR)
+//            {
+//                System.Windows.MessageBox.Show("Error: unable to genetrate paradigm.");
+//                return false;
+//            }
+
             eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
 
             while (EM_ReturnCode.H_NO_ERROR == eRet || EM_ReturnCode.H_FALSE == eRet)
