@@ -35,6 +35,8 @@ namespace ZalTestApp
             }
         }
 
+        Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
+
         Dictionary<string, FormDescriptor> m_DictFormStatus = new Dictionary<string, FormDescriptor>()
         {
             {  "Infinitive", new FormDescriptor(null, false, null) },
@@ -82,6 +84,19 @@ namespace ZalTestApp
             set
             {
                 m_EditCommand = value;
+            }
+        }
+
+        private ICommand m_SaveFormsCommand;
+        public ICommand SaveFormsCommand
+        {
+            get
+            {
+                return m_SaveFormsCommand;
+            }
+            set
+            {
+                m_SaveFormsCommand = value;
             }
         }
 
@@ -203,11 +218,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Pres_Sg_1"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Pres_Sg_1"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["Pres_Sg_1"] = fd;
@@ -235,11 +250,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Pres_Sg_2"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Pres_Sg_2"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["Pres_Sg_2"] = fd;
@@ -267,11 +282,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Pres_Sg_3"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Pres_Sg_3"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["Pres_Sg_3"] = fd;
@@ -299,11 +314,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Pres_Pl_1"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Pres_Pl_1"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["Pres_Pl_1"] = fd;
@@ -331,11 +346,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Pres_Pl_2"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Pres_Pl_2"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["Pres_Pl_2"] = fd;
@@ -363,11 +378,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Pres_Pl_3"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Pres_Pl_3"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["Pres_Pl_3"] = fd;
@@ -398,11 +413,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Past_M"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Past_M"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["Past_M"] = fd;
@@ -430,11 +445,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Past_F"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Past_F"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["Past_F"] = fd;
@@ -462,11 +477,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Past_N"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Past_N"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["Past_N"] = fd;
@@ -494,11 +509,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Past_Pl"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Past_Pl"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["Past_Pl"] = fd;
@@ -528,11 +543,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Impv_Sg_2"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Impv_Sg_2"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["Impv_Sg_2"] = fd;
@@ -560,11 +575,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Impv_Pl_2"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Impv_Pl_2"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["Impv_Pl_2"] = fd;
@@ -596,11 +611,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPresA_M_Sg_N"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["PPresA_M_Sg_N"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["PPresA_M_Sg_N"] = fd;
@@ -642,11 +657,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPastA_M_Sg_N"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["PPastA_M_Sg_N"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["PPastA_M_Sg_N"] = fd;
@@ -673,11 +688,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPresPL_M_Sg_N"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["PPresPL_M_Sg_N"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["PPresPL_M_Sg_N"] = fd;
@@ -704,11 +719,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPastPL_M_Sg_N"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["PPastPL_M_Sg_N"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["PPastPL_M_Sg_N"] = fd;
@@ -735,11 +750,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["VAdvPres"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["VAdvPres"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["VAdvPres"] = fd;
@@ -752,11 +767,11 @@ namespace ZalTestApp
             get
             {
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["VAdvPast"].listForms);
-                Helpers.AssignDiacritics(text, ref text);
                 return text;
             }
             set
             {
+                Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["VAdvPast"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
                 m_DictFormStatus["VAdvPast"] = fd;
@@ -805,6 +820,7 @@ namespace ZalTestApp
                 };
 
                 m_DictFormStatus[formHash] = fd;
+                m_DictOriginalForms[formHash] = listForms;
             }
 
             try
@@ -845,6 +861,7 @@ namespace ZalTestApp
             ShowPastPassFormsCommand = new RelayCommand(new Action<object>(ShowPastPassForms));
 
             EditCommand = new RelayCommand(new Action<object>(EditForm));
+            SaveFormsCommand = new RelayCommand(new Action<object>(SaveForms));
 
             InitFormHandlers(lexeme);
 
@@ -899,6 +916,78 @@ namespace ZalTestApp
                 MessageBox.Show(msg);
             }
         }
+
+        public void SaveForms(Object obj)
+        {
+            foreach (KeyValuePair<string, List<string>> entry in m_DictOriginalForms)
+            {
+                List<string> originalForms = entry.Value;
+                FormDescriptor formDescriptor;
+                if (m_DictFormStatus.TryGetValue(entry.Key, out formDescriptor))
+                {
+                    List<string> changedForms = formDescriptor.listForms;
+                    if (changedForms != originalForms)
+                    {
+                        foreach (string sForm in changedForms)
+                        {
+                            var idx = changedForms.IndexOf(sForm);
+                            if (idx < 0)
+                            {
+                                var msg = "Internal error: form index out of range";
+                                MessageBox.Show(msg);
+                                return;
+                            }
+
+                            CWordFormManaged wf = null;
+                            var eRet = m_Lexeme.eWordFormFromHash(entry.Key, changedForms.IndexOf(sForm), ref wf);
+                            if (eRet != EM_ReturnCode.H_NO_ERROR)
+                            {
+                                var msg = "Internal error: unable to create wordform object";
+                                MessageBox.Show(msg);
+                                return;
+                            }
+
+                            string sOutForm = "";
+                            Dictionary<int, EM_StressType> dictStressPos;
+                            Helpers.StressMarksToPosList(sForm, out sOutForm, out dictStressPos);
+                            wf.SetWordForm(sOutForm);
+                            eRet = wf.eSetIrregularStressPositions(dictStressPos);
+                            if (eRet != EM_ReturnCode.H_NO_ERROR)
+                            {
+                                var msg = "Internal error: unable to save stress positions";
+                                MessageBox.Show(msg);
+                                return;
+                            }
+                            eRet = wf.eSaveIrregularForm();
+                            if (eRet != EM_ReturnCode.H_NO_ERROR)
+                            {
+                                var msg = "Internal error: unable to save wordform object";
+                                MessageBox.Show(msg);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }       // foreach ...
+
+            foreach (string sKey in m_DictFormStatus.Keys)
+            {
+                List<string> originalForms;
+                if (m_DictOriginalForms.TryGetValue(sKey, out originalForms))
+                {
+                    FormDescriptor formDescriptor;
+                    if (m_DictFormStatus.TryGetValue(sKey, out formDescriptor))
+                    {
+                        List<string> changedForms = formDescriptor.listForms;
+                        if (changedForms != originalForms)
+                        {
+                            m_DictOriginalForms[sKey] = changedForms;
+                        }
+                    }
+                }
+            }           // foreach
+
+        }       //  SaveForms()
 
         public void verbViewModel_PropertyChanged(object sender, PropertyChangedEventArgs arg)
         {
