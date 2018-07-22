@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Zal Test App" Height="Auto" Width="1200" Margin="0">
+        Title="Zal Test App" Height="Auto" Width="1300" Margin="0">
 
     <Window.DataContext>
         <local:MainViewModel/>
