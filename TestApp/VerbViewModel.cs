@@ -919,6 +919,8 @@ namespace ZalTestApp
 
         public void SaveForms(Object obj)
         {
+            bool bSaved = false;
+ 
             foreach (KeyValuePair<string, List<string>> entry in m_DictOriginalForms)
             {
                 List<string> originalForms = entry.Value;
@@ -965,6 +967,8 @@ namespace ZalTestApp
                                 MessageBox.Show(msg);
                                 return;
                             }
+
+                            bSaved = true;
                         }
                     }
                 }
@@ -986,6 +990,8 @@ namespace ZalTestApp
                     }
                 }
             }           // foreach
+
+            MessageBox.Show("Формы сохранены.");
 
         }       //  SaveForms()
 

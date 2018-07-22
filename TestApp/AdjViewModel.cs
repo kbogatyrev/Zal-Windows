@@ -1468,6 +1468,9 @@ namespace ZalTestApp
                     }
                 }
             }           // foreach
+
+            MessageBox.Show("Формы сохранены.");
+
         }       //  SaveForms()
 
         public void adjViewModel_PropertyChanged(object sender, PropertyChangedEventArgs arg)

@@ -827,7 +827,9 @@ namespace ZalTestApp
                     }
                 }
             }           // foreach
- 
+
+            MessageBox.Show("Формы сохранены.");
+
         }       //  SaveForms()
 
         public void nounViewModel_PropertyChanged(object sender, PropertyChangedEventArgs arg)
