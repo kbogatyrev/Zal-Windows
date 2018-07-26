@@ -641,6 +641,8 @@ namespace ZalTestApp
             switch (lexeme.ePartOfSpeech())
             {
                 case EM_PartOfSpeech.POS_NOUN:
+                case EM_PartOfSpeech.POS_PRONOUN:
+                case EM_PartOfSpeech.POS_NUM:
                     paradigmViewModel = new NounViewModel(lexeme, m_MainModel);
                     break;
                 case EM_PartOfSpeech.POS_ADJ:
