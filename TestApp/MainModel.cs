@@ -475,7 +475,9 @@ namespace ZalTestApp
             switch (lexeme.ePartOfSpeech())
             {
                 case EM_PartOfSpeech.POS_NOUN:
-                    return bGenerateNounForms(lexeme);
+                case EM_PartOfSpeech.POS_PRONOUN:
+                case EM_PartOfSpeech.POS_NUM:
+                    return bGenerateNominalForms(lexeme);
 
                 case EM_PartOfSpeech.POS_ADJ:
                 case EM_PartOfSpeech.POS_PRONOUN_ADJ:
@@ -492,7 +494,7 @@ namespace ZalTestApp
             //return true;
         }
  
-        private bool bGenerateNounForms(CLexemeManaged lexeme)
+        private bool bGenerateNominalForms(CLexemeManaged lexeme)
         {
             Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>();
 
@@ -510,7 +512,28 @@ namespace ZalTestApp
             {
                 try
                 {
-                    string sKey = "Noun_" + Helpers.sNumberToString(wf.eNumber());
+                    string sKey = "";
+                    switch (lexeme.ePartOfSpeech())
+                    {
+                        case EM_PartOfSpeech.POS_NOUN:
+                            sKey = "Noun";
+                            break;
+
+                        case EM_PartOfSpeech.POS_PRONOUN:
+                            sKey = "Pronoun";
+                            break;
+
+                        case EM_PartOfSpeech.POS_NUM:
+                            sKey = "Numeral";
+                            break;
+
+                        default:
+                            System.Windows.MessageBox.Show("Part of speech not handled.");
+                            return false;
+                    }
+
+                    sKey += "_";
+                    sKey += Helpers.sNumberToString(wf.eNumber());
                     sKey += "_";
                     sKey += Helpers.sCaseToString(wf.eCase());
 
@@ -544,7 +567,7 @@ namespace ZalTestApp
 
             return true;
 
-        }   //  bGenerateNounForms()
+        }   //  bGenerateNominalForms()
 
         private bool bGenerateAdjForms(CLexemeManaged lexeme)
         {
