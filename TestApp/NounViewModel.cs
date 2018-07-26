@@ -33,9 +33,30 @@ namespace ZalTestApp
             }
         }
 
+        List<string> m_listPropNamesNoun = new List<string>()
+        {
+            "Noun_Sg_N", "Noun_Sg_A", "Noun_Sg_G", "Noun_Sg_P", "Noun_Sg_D", "Noun_Sg_L",
+            "Noun_Sg_I", "Noun_Sg_Part", "Noun_Pl_N", "Noun_Pl_A", "Noun_Pl_G", "Noun_Pl_P",
+            "Noun_Pl_D", "Noun_Pl_L", "Noun_Pl_I"
+        };
+
+        List<string> m_listPropNamesPronoun = new List<string>()
+        {
+            "Pronoun_Sg_N", "Pronoun_Sg_A", "Pronoun_Sg_G", "Pronoun_Sg_P", "Pronoun_Sg_D", "Pronoun_Sg_L",
+            "Pronoun_Sg_I", "Pronoun_Sg_Part", "Pronoun_Pl_N", "Pronoun_Pl_A", "Pronoun_Pl_G", "Pronoun_Pl_P",
+            "Pronoun_Pl_D", "Pronoun_Pl_L", "Pronoun_Pl_I"
+        };
+
+        List<string> m_listPropNamesNumeral = new List<string>()
+        {
+            "Numeral_Sg_N", "Numeral_Sg_A", "Numeral_Sg_G", "Numeral_Sg_P", "Numeral_Sg_D", "Numeral_Sg_L",
+            "Numeral_Sg_I", "Numeral_Sg_Part", "Numeral_Pl_N", "Numeral_Pl_A", "Numeral_Pl_G", "Numeral_Pl_P",
+            "Numeral_Pl_D", "Numeral_Pl_L", "Numeral_Pl_I"
+        };
+
         Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
- 
-        Dictionary<string, FormDescriptor> m_DictFormStatus = new Dictionary<string, FormDescriptor>()
+        Dictionary<string, FormDescriptor> m_DictFormStatus = new Dictionary<string, FormDescriptor>();
+/*
         {
             {  "Noun_Sg_N", new FormDescriptor(null, false, null) },
             {  "Noun_Sg_A", new FormDescriptor(null, false, null) },
@@ -53,6 +74,7 @@ namespace ZalTestApp
             {  "Noun_Pl_L", new FormDescriptor(null, false, null) },
             {  "Noun_Pl_I", new FormDescriptor(null, false, null) }
         };
+*/
 
         #region ICommand
 
@@ -681,36 +703,71 @@ namespace ZalTestApp
 
         #region Property_Delegates
 
-        private void InitFormHandlers(CLexemeManaged lexeme)
+        private bool InitFormHandlers(CLexemeManaged lexeme)
         {
-            string sLexemeHash = lexeme.sHash();
-            List<string> hashes = new List<string>(m_DictFormStatus.Keys);
-
-            foreach (var sHash in hashes)
+            try
             {
-                FormDescriptor fd = m_DictFormStatus[sHash];
-                List<string> listForms = null;
-                m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
-                fd.listForms = listForms;
-                fd.handler = () =>
+                string sLexemeHash = lexeme.sHash();
+                List<string> listKeys = null;
+
+                switch (lexeme.ePartOfSpeech())
                 {
-                    FormDescriptor fd1 = m_DictFormStatus[sHash];
-                    if (!fd1.bCanEdit)
+                    case EM_PartOfSpeech.POS_NOUN:
+                        listKeys = m_listPropNamesNoun;
+                        break;
+
+                    case EM_PartOfSpeech.POS_PRONOUN:
+                        listKeys = m_listPropNamesPronoun;
+                        break;
+
+                    case EM_PartOfSpeech.POS_NUM:
+                        listKeys = m_listPropNamesNumeral;
+                        break;
+
+                    default:
+                        MessageBox.Show("Illegal part of speech value.");
+                        return false;
+                }
+
+                if (null == listKeys)
+                {
+                    MessageBox.Show("Internal error: unable to determine gram hashes.");
+                }
+
+                foreach (var sHash in listKeys)
+                {
+                    //  FormDescriptor fd = m_DictFormStatus[sHash];
+                    FormDescriptor fd = new FormDescriptor(null, false, null);
+                    List<string> listForms = null;
+                    m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
+                    fd.listForms = listForms;
+                    fd.handler = () =>
                     {
-                        return true;
-                    }
+                        FormDescriptor fd1 = m_DictFormStatus[sHash];
+                        if (!fd1.bCanEdit)
+                        {
+                            return true;
+                        }
 
-                    var sFormString = Helpers.sListToCommaSeparatedString(fd1.listForms);
-                    Helpers.AssignDiacritics(sFormString, ref sFormString);
-//                    OnPropertyChanged(hash);
+                        var sFormString = Helpers.sListToCommaSeparatedString(fd1.listForms);
+                        Helpers.AssignDiacritics(sFormString, ref sFormString);
+                    //                    OnPropertyChanged(hash);
                     return true;
-                };
+                    };
 
-                m_DictFormStatus[sHash] = fd;
-                m_DictOriginalForms[sHash] = listForms;
+                    m_DictFormStatus[sHash] = fd;
+                    m_DictOriginalForms[sHash] = listForms;
+                }
+            }
+            catch (Exception ex)
+            {
+                var msg = "Internal error: unable to initiate form handlers: ";
+                msg += ex.Message;
+                MessageBox.Show(msg);
+                return false;
             }
 
-            return;
+            return true;
 
         }   //  InitFormHandlers()
 
