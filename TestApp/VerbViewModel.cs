@@ -799,28 +799,38 @@ namespace ZalTestApp
             string sLexemeHash = lexeme.sHash();
             List<string> hashes = new List<string>(m_DictFormStatus.Keys);
 
-            foreach (var formHash in hashes)
+            try
             {
-                FormDescriptor fd = m_DictFormStatus[formHash];
-                List<string> listForms = null;
-                m_MainModel.GetFormsByGramHash(sLexemeHash, formHash, out listForms);
-                fd.listForms = listForms;
-                fd.handler = () =>
+                foreach (var formHash in hashes)
                 {
-                    if (!fd.bCanEdit)
+                    FormDescriptor fd = m_DictFormStatus[formHash];
+                    List<string> listForms = null;
+                    m_MainModel.GetFormsByGramHash(sLexemeHash, formHash, out listForms);
+                    fd.listForms = listForms;
+                    fd.handler = () =>
                     {
+                        if (!fd.bCanEdit)
+                        {
+                            return true;
+                        }
+
+                        var sFormString = Helpers.sListToCommaSeparatedString(fd.listForms);
+                        Helpers.AssignDiacritics(sFormString, ref sFormString);
+
+                        OnPropertyChanged(formHash);
                         return true;
-                    }
+                    };
 
-                    var sFormString = Helpers.sListToCommaSeparatedString(fd.listForms);
-                    Helpers.AssignDiacritics(sFormString, ref sFormString);
-
-                    OnPropertyChanged(formHash);
-                    return true;
-                };
-
-                m_DictFormStatus[formHash] = fd;
-                m_DictOriginalForms[formHash] = listForms;
+                    m_DictFormStatus[formHash] = fd;
+                    m_DictOriginalForms[formHash] = listForms;
+                }
+            }
+            catch (Exception ex)
+            {
+                var msg = "Internal error: unable to initiate form handlers: ";
+                msg += ex.Message;
+                MessageBox.Show(msg);
+                return;
             }
 
             try
