@@ -1549,7 +1549,7 @@ namespace ZalTestApp
 
             if (null == listKeys)
             {
-                MessageBox.Show("Internal error: unable to determine gram hash.");
+                MessageBox.Show("Internal error: unable to determine gram hashes.");
             }
         }       //  GetGramHashes()
 
