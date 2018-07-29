@@ -496,10 +496,12 @@ namespace ZalTestApp
  
         private bool bGenerateNominalForms(CLexemeManaged lexeme)
         {
+            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+
             Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>();
 
             CWordFormManaged wf = null;
-            EM_ReturnCode eRet = (EM_ReturnCode)lexeme.eGenerateParadigm();
+//            EM_ReturnCode eRet = (EM_ReturnCode)lexeme.eGenerateParadigm();
 //            if (eRet != EM_ReturnCode.H_NO_ERROR)
 //            {
 //                System.Windows.MessageBox.Show("Error: unable to genetrate paradigm.");
@@ -548,7 +550,7 @@ namespace ZalTestApp
                 }
                 catch(Exception ex)
                 {
-                    return false;
+//                    return false;
                 }
 
                 eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
@@ -571,11 +573,13 @@ namespace ZalTestApp
 
         private bool bGenerateAdjForms(CLexemeManaged lexeme)
         {
-            EM_ReturnCode eRet = lexeme.eGenerateParadigm();
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
-            {
-                return false;
-            }
+            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+
+ //           EM_ReturnCode eRet = lexeme.eGenerateParadigm();
+//            if (eRet != EM_ReturnCode.H_NO_ERROR)
+//            {
+//                return false;
+//            }
 
             Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>();
 
@@ -588,6 +592,17 @@ namespace ZalTestApp
                 if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_LONG_ADJ)
                 {
                     sKey = "AdjL_";
+                    if (wf.eNumber() == EM_Number.NUM_SG)
+                    {
+                        sKey += Helpers.sGenderToString(wf.eGender()) + "_";
+                    }
+
+                    sKey += Helpers.sNumberToString(wf.eNumber()) + "_"
+                        + Helpers.sCaseToString(wf.eCase());
+                }
+                else if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ)
+                {
+                    sKey = "PronAdj_";
                     if (wf.eNumber() == EM_Number.NUM_SG)
                     {
                         sKey += Helpers.sGenderToString(wf.eGender()) + "_";
@@ -637,7 +652,8 @@ namespace ZalTestApp
             m_Lexemes[sHash] = paradigm;
             m_LexemeHashToLexeme[sHash] = lexeme;
 
-            HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ);
+//            HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ);
+            HandleAccusatives(lexeme, wf.eSubparadigm());
 
             return true;
 
@@ -657,6 +673,10 @@ namespace ZalTestApp
             {
                 case EM_Subparadigm.SUBPARADIGM_LONG_ADJ:
                     sPrefix = "AdjL_";
+                    break;
+
+                case EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ:
+                    sPrefix = "PronAdj_";
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:

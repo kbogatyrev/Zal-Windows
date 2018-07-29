@@ -1294,16 +1294,6 @@ namespace ZalTestApp
 
             foreach (string sHash in listGramHashes)
             {
-                var keyIdx = listGramHashes.IndexOf(sHash);
-                if (keyIdx < 0)
-                {
-                    string sMsg = "Unable to find gram hash key; illegal hash value: ";
-                    sMsg += sHash;
-                    MessageBox.Show(sMsg);
-                    continue;
-                }
-
-                var sKey = listGramHashes[keyIdx];
                 FormDescriptor fd = new FormDescriptor(null, false, null);
                 List<string> listForms = null;
                 var bRet = m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
@@ -1329,6 +1319,15 @@ namespace ZalTestApp
 
                 var sFormString = Helpers.sListToCommaSeparatedString(fd.listForms);
                 Helpers.AssignDiacritics(sFormString, ref sFormString);
+
+                var keyIdx = listGramHashes.IndexOf(sHash);
+                if (keyIdx < 0)
+                {
+                    string sMsg = "Unable to find gram hash key; illegal hash value: ";
+                    sMsg += sHash;
+                    MessageBox.Show(sMsg);
+                    continue;
+                }
 
                 string sParadigmHash = null;    // use standard adj gram hashes regardless of part of speech
                 try

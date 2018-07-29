@@ -56,25 +56,6 @@ namespace ZalTestApp
 
         Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
         Dictionary<string, FormDescriptor> m_DictFormStatus = new Dictionary<string, FormDescriptor>();
-/*
-        {
-            {  "Noun_Sg_N", new FormDescriptor(null, false, null) },
-            {  "Noun_Sg_A", new FormDescriptor(null, false, null) },
-            {  "Noun_Sg_G", new FormDescriptor(null, false, null) },
-            {  "Noun_Sg_P", new FormDescriptor(null, false, null) },
-            {  "Noun_Sg_D", new FormDescriptor(null, false, null) },
-            {  "Noun_Sg_L", new FormDescriptor(null, false, null) },
-            {  "Noun_Sg_I", new FormDescriptor(null, false, null) },
-            {  "Noun_Sg_Part", new FormDescriptor(null, false, null) },
-            {  "Noun_Pl_N", new FormDescriptor(null, false, null) },
-            {  "Noun_Pl_A", new FormDescriptor(null, false, null) },
-            {  "Noun_Pl_G", new FormDescriptor(null, false, null) },
-            {  "Noun_Pl_P", new FormDescriptor(null, false, null) },
-            {  "Noun_Pl_D", new FormDescriptor(null, false, null) },
-            {  "Noun_Pl_L", new FormDescriptor(null, false, null) },
-            {  "Noun_Pl_I", new FormDescriptor(null, false, null) }
-        };
-*/
 
         #region ICommand
 
@@ -119,7 +100,7 @@ namespace ZalTestApp
 
         #endregion
 
-        #region Bindings
+        #region Bindings_Nouns
 
         private bool m_bReadOnly;
         public bool ReadOnly
