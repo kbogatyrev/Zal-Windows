@@ -588,6 +588,11 @@ namespace ZalTestApp
 
             while (EM_ReturnCode.H_NO_ERROR == eRet)
             {
+                if (null == wf)
+                {
+                    continue;
+                }
+
                 string sKey = "";
                 if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_LONG_ADJ)
                 {
@@ -652,8 +657,24 @@ namespace ZalTestApp
             m_Lexemes[sHash] = paradigm;
             m_LexemeHashToLexeme[sHash] = lexeme;
 
-//            HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ);
-            HandleAccusatives(lexeme, wf.eSubparadigm());
+            EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+            if (EM_PartOfSpeech.POS_ADJ == lexeme.ePartOfSpeech())
+            {
+                if ("мс" == lexeme.sInflectionType())
+                {
+                    eSp = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
+                }
+                else
+                {
+                    eSp = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;
+                }
+            }
+            else if (EM_PartOfSpeech.POS_PRONOUN_ADJ == lexeme.ePartOfSpeech())
+            {
+                eSp = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
+            }
+
+            HandleAccusatives(lexeme, eSp);
 
             return true;
 

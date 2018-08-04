@@ -176,8 +176,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_N"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_N"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_N"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -193,7 +200,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_M_Sg_N"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_N"))
+                {
+                    return !m_DictFormStatus["AdjL_M_Sg_N"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -208,8 +222,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_A_Anim"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_A_Anim"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_A_Anim"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -225,7 +246,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_M_Sg_A_Anim"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_A_Anim"))
+                {
+                    return !m_DictFormStatus["AdjL_M_Sg_A_Anim"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -240,8 +268,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_A_Inanim"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_A_Inanim"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_A_Inanim"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -257,7 +292,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_M_Sg_A_Inanim"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_A_Inanim"))
+                {
+                    return !m_DictFormStatus["AdjL_M_Sg_A_Inanim"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -272,8 +314,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_G"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_G"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_G"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -289,7 +338,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_M_Sg_G"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_G"))
+                {
+                    return !m_DictFormStatus["AdjL_M_Sg_G"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -304,8 +360,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_P"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_P"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_P"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -321,7 +384,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_M_Sg_P"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_P"))
+                {
+                    return !m_DictFormStatus["AdjL_M_Sg_P"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -336,8 +406,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_D"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_D"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_D"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -353,7 +430,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_M_Sg_D"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_D"))
+                {
+                    return !m_DictFormStatus["AdjL_M_Sg_D"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -368,8 +452,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_I"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_I"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_I"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -385,7 +476,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_M_Sg_I"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_I"))
+                {
+                    return !m_DictFormStatus["AdjL_M_Sg_I"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -404,8 +502,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_N"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_N"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_N"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -421,7 +526,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_F_Sg_N"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_N"))
+                {
+                    return !m_DictFormStatus["AdjL_F_Sg_N"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -436,8 +548,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_A"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_N"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_N"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -453,7 +572,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_F_Sg_A"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_A"))
+                {
+                    return !m_DictFormStatus["AdjL_F_Sg_A"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -468,8 +594,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_G"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_G"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_G"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -485,7 +618,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_F_Sg_G"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_G"))
+                {
+                    return !m_DictFormStatus["AdjL_F_Sg_G"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -500,8 +640,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_P"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_P"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_P"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -517,7 +664,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_F_Sg_P"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_P"))
+                {
+                    return !m_DictFormStatus["AdjL_F_Sg_P"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -532,8 +686,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_D"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_D"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_D"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -549,7 +710,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_F_Sg_D"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_D"))
+                {
+                    return !m_DictFormStatus["AdjL_F_Sg_D"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -564,8 +732,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_I"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_D"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_D"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -581,7 +756,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_F_Sg_I"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_I"))
+                {
+                    return !m_DictFormStatus["AdjL_F_Sg_I"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -600,8 +782,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_N"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_N"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_N"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -617,7 +806,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_N_Sg_N"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_N"))
+                {
+                    return !m_DictFormStatus["AdjL_N_Sg_N"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -632,8 +828,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_A"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_A"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_A"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -649,7 +852,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_N_Sg_A"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_A"))
+                {
+                    return !m_DictFormStatus["AdjL_N_Sg_A"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -664,8 +874,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_G"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_G"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_G"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -681,7 +898,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_N_Sg_G"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_G"))
+                {
+                    return !m_DictFormStatus["AdjL_N_Sg_G"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -696,8 +920,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_P"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_P"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_P"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return ""
+;                }
             }
             set
             {
@@ -713,7 +944,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_N_Sg_P"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_P"))
+                {
+                    return !m_DictFormStatus["AdjL_N_Sg_P"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -728,8 +966,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_D"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_D"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_D"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -745,7 +990,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_N_Sg_D"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_D"))
+                {
+                    return !m_DictFormStatus["AdjL_N_Sg_D"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -760,8 +1012,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_I"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_I"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_I"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -777,7 +1036,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_N_Sg_I"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_I"))
+                {
+                    return !m_DictFormStatus["AdjL_N_Sg_I"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -796,8 +1062,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_N"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_N"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_N"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -813,7 +1086,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_Pl_N"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_N"))
+                {
+                    return !m_DictFormStatus["AdjL_Pl_N"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -828,8 +1108,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_A_Anim"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_A_Anim"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_A_Anim"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -845,7 +1132,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_Pl_A_Anim"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_A_Anim"))
+                {
+                    return !m_DictFormStatus["AdjL_Pl_A_Anim"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -860,8 +1154,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_A_Inanim"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_A_Inanim"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_A_Inanim"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -877,7 +1178,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_Pl_A_Inanim"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_A_Inanim"))
+                {
+                    return !m_DictFormStatus["AdjL_Pl_A_Inanim"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -892,8 +1200,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_G"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_G"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_G"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -909,7 +1224,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_Pl_G"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_G"))
+                {
+                    return !m_DictFormStatus["AdjL_Pl_G"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -924,8 +1246,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_P"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_P"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_P"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -941,7 +1270,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_Pl_P"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_P"))
+                {
+                    return !m_DictFormStatus["AdjL_Pl_P"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -956,8 +1292,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_D"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_D"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_D"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -973,7 +1316,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_Pl_D"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_D"))
+                {
+                    return !m_DictFormStatus["AdjL_Pl_D"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -988,8 +1338,15 @@ namespace ZalTestApp
         {
             get
             {
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_I"].listForms);
-                return text;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_I"))
+                {
+                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_I"].listForms);
+                    return text;
+                }
+                else
+                {
+                    return "";
+                }
             }
             set
             {
@@ -1005,7 +1362,14 @@ namespace ZalTestApp
         {
             get
             {
-                return !m_DictFormStatus["AdjL_Pl_I"].bCanEdit;
+                if (m_DictFormStatus.ContainsKey("AdjL_Pl_I"))
+                {
+                    return !m_DictFormStatus["AdjL_Pl_I"].bCanEdit;
+                }
+                else
+                {
+                    return false;
+                }
             }
             set
             {
@@ -1509,7 +1873,14 @@ namespace ZalTestApp
 
             if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
             {
-                listKeys = m_listPropNamesAdj;
+                if ("мс" == m_Lexeme.sInflectionType())
+                {
+                    listKeys = m_listPropNamesPronAdj;
+                }
+                else
+                {
+                    listKeys = m_listPropNamesAdj;
+                }
             }
 
             if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ)
