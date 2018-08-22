@@ -2273,6 +2273,21 @@ EM_ReturnCode CLexemeManaged::eWordFormFromHash(String^ sHash, int iAt, CWordFor
     return (EM_ReturnCode)eRet;
 }
 
+EM_ReturnCode CLexemeManaged::eCreateWordForm(CWordFormManaged ^% pWf)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    IWordForm * pIwf = NULL;
+    ET_ReturnCode eRet = m_pLexeme->eCreateWordForm(pIwf);
+
+    pWf = gcnew CWordFormManaged(pIwf);
+
+    return (EM_ReturnCode)eRet;
+}
+
 bool CLexemeManaged::bHasIrregularForm(String^ sGramHash)
 {
     if (NULL == m_pLexeme)
@@ -2348,7 +2363,7 @@ EM_ReturnCode CLexemeManaged::eGetFirstIrregularForm(String^ sHash, CWordFormMan
         if (pWf)
         {
             wf = gcnew CWordFormManaged(pWf);
-            wf = gcnew CWordFormManaged(pWf);
+//            wf = gcnew CWordFormManaged(pWf);
         }
     }
 
