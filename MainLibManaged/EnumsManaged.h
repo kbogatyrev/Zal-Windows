@@ -121,13 +121,14 @@
         NUM_COUNT
     };
 
-    public enum class EM_Subparadigm
+    public enum class EM_Subparadigm    // Must be aligned with ET_Subparadigm, Enums.h
     {
         SUBPARADIGM_UNDEFINED,
         SUBPARADIGM_NOUN,
         SUBPARADIGM_LONG_ADJ,
         SUBPARADIGM_SHORT_ADJ,
         SUBPARADIGM_COMPARATIVE,
+        SUBPARADIGM_PRONOUN,
         SUBPARADIGM_PRONOUN_ADJ,
         SUBPARADIGM_INFINITIVE,
         SUBPARADIGM_PRESENT_TENSE,
