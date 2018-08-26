@@ -1668,8 +1668,8 @@ namespace ZalTestApp
 
                 fd.listForms = listForms;
                 fd.handler = () =>
-                {
-                    FormDescriptor fd1 = m_DictFormStatus[sHash];
+                {                    
+                    FormDescriptor fd1 = m_DictFormStatus[sFormHashToDisplayHash(sHash)];
                     if (!fd1.bCanEdit)
                     {
                         return true;
@@ -1922,6 +1922,69 @@ namespace ZalTestApp
                 MessageBox.Show("Internal error: unable to determine gram hashes.");
             }
         }       //  GetGramHashes()
+
+        private string sFormHashToDisplayHash(string sFormHash)
+        {
+            int iKeyIdx = -1;
+            try
+            {
+                if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
+                {
+                    if ("мс" == m_Lexeme.sInflectionType())
+                    {
+                        iKeyIdx = m_listPropNamesPronAdj.IndexOf(sFormHash);
+                    }
+                    else
+                    {
+                        iKeyIdx = m_listPropNamesAdj.IndexOf(sFormHash);
+                    }
+                }
+
+                if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ)
+                {
+                    iKeyIdx = m_listPropNamesPronAdj.IndexOf(sFormHash);
+                }
+                else if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
+                {
+                    IsDerived = true;
+
+                    switch (m_eSubparadigm)
+                    {
+                        case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
+                            iKeyIdx = m_listPropNamesPartPresAct.IndexOf(sFormHash);
+                            break;
+
+                        case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
+                            iKeyIdx = m_listPropNamesPartPastAct.IndexOf(sFormHash);
+                            break;
+
+                        case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
+                        case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
+                            iKeyIdx = m_listPropNamesPartPresPass.IndexOf(sFormHash);
+                            break;
+
+                        case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
+                        case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
+                            iKeyIdx = m_listPropNamesPartPastPass.IndexOf(sFormHash);
+                            break;
+
+                        default:
+                            MessageBox.Show("Illegal subparadigm.");
+                            break;
+                    }
+                }
+
+                return m_listPropNamesAdj[iKeyIdx];
+            }
+            catch (Exception ex)
+            {
+                string sMsg = "Unable to find form hash. ";
+                sMsg += ex.Message;
+                MessageBox.Show(sMsg);
+            }
+
+            return "";
+        }
 
         #endregion
 

@@ -134,11 +134,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_N"))
+                {
+                    return "";
+                }
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Sg_N"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_N"))
+                {
+                    return;
+                }
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Sg_N"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -151,10 +159,18 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_N"))
+                {
+                    return false;
+                }
                 return !m_DictFormStatus["Noun_Sg_N"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_N"))
+                {
+                    return;
+                }
                 var fd = m_DictFormStatus["Noun_Sg_N"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Sg_N"] = fd;
@@ -166,11 +182,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_A"))
+                {
+                    return "";
+                }
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Sg_A"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_A"))
+                {
+                    return;
+                }
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Sg_A"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -183,10 +207,18 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_A"))
+                {
+                    return false;
+                }
                 return !m_DictFormStatus["Noun_Sg_A"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_A"))
+                {
+                    return;
+                }
                 var fd = m_DictFormStatus["Noun_Sg_A"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Sg_A"] = fd;
@@ -198,11 +230,20 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_G"))
+                {
+                    return "";
+                }
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Sg_G"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_G"))
+                {
+                    return;
+                }
+
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Sg_G"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -215,10 +256,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_G"))
+                {
+                    return false;
+                }
                 return !m_DictFormStatus["Noun_Sg_G"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_G"))
+                {
+                    return;
+                }
+
                 var fd = m_DictFormStatus["Noun_Sg_G"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Sg_G"] = fd;
@@ -230,11 +280,21 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_P"))
+                {
+                    return "";
+                }
+
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Sg_P"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_P"))
+                {
+                    return;
+                }
+
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Sg_P"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -247,10 +307,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_P"))
+                {
+                    return false;
+                }
                 return !m_DictFormStatus["Noun_Sg_P"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_P"))
+                {
+                    return;
+                }
+
                 var fd = m_DictFormStatus["Noun_Sg_P"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Sg_P"] = fd;
@@ -262,11 +331,21 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_D"))
+                {
+                    return "";
+                }
+
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Sg_D"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_D"))
+                {
+                    return;
+                }
+
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Sg_D"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -279,10 +358,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_D"))
+                {
+                    return false;
+                }
                 return !m_DictFormStatus["Noun_Sg_D"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_D"))
+                {
+                    return;
+                }
+
                 var fd = m_DictFormStatus["Noun_Sg_D"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Sg_D"] = fd;
@@ -294,11 +382,21 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_I"))
+                {
+                    return "";
+                }
+
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Sg_I"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_I"))
+                {
+                    return;
+                }
+
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Sg_I"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -311,10 +409,20 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_I"))
+                {
+                    return false;
+                }
+
                 return !m_DictFormStatus["Noun_Sg_I"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_I"))
+                {
+                    return;
+                }
+
                 var fd = m_DictFormStatus["Noun_Sg_I"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Sg_I"] = fd;
@@ -326,11 +434,21 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_Part"))
+                {
+                    return "";
+                }
+
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Sg_Part"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_Part"))
+                {
+                    return;
+                }
+
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Sg_Part"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -343,10 +461,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_Part"))
+                {
+                    return false;
+                }
                 return !m_DictFormStatus["Noun_Sg_Part"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_Part"))
+                {
+                    return;
+                }
+
                 var fd = m_DictFormStatus["Noun_Sg_Part"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Sg_Part"] = fd;
@@ -358,11 +485,21 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_L"))
+                {
+                    return "";
+                }
+
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Sg_L"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_L"))
+                {
+                    return;
+                }
+
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Sg_L"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -375,10 +512,20 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_L"))
+                {
+                    return false;
+                }
+
                 return !m_DictFormStatus["Noun_Sg_L"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Sg_L"))
+                {
+                    return;
+                }
+
                 var fd = m_DictFormStatus["Noun_Sg_L"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Sg_L"] = fd;
@@ -446,11 +593,21 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_N"))
+                {
+                    return "";
+                }
+
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Pl_N"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_N"))
+                {
+                    return;
+                }
+
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Pl_N"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -463,11 +620,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_N"))
+                {
+                    return false;
+                }
                 return !m_DictFormStatus["Noun_Pl_N"].bCanEdit;
             }
             set
             {
-                var fd = m_DictFormStatus["Noun_Pl_N"];
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_N"))
+                {
+
+                }
+                    var fd = m_DictFormStatus["Noun_Pl_N"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Pl_N"] = fd;
                 OnPropertyChanged("Noun_Pl_N_IsReadOnly");
@@ -478,11 +643,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_A"))
+                {
+                    return "";
+                }
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Pl_A"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_A"))
+                {
+                    return;
+                }
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Pl_A"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -495,10 +668,18 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_A"))
+                {
+                    return false;
+                }
                 return !m_DictFormStatus["Noun_Pl_A"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_A"))
+                {
+                    return;
+                }
                 var fd = m_DictFormStatus["Noun_Pl_A"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Pl_A"] = fd;
@@ -510,11 +691,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_G"))
+                {
+                    return "";
+                }
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Pl_G"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_G"))
+                {
+                    return;
+                }
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Pl_G"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -527,10 +716,18 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_G"))
+                {
+                    return false;
+                }
                 return !m_DictFormStatus["Noun_Pl_G"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_G"))
+                {
+                    return;
+                }
                 var fd = m_DictFormStatus["Noun_Pl_G"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Pl_G"] = fd;
@@ -542,11 +739,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_P"))
+                {
+                    return "";
+                }
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Pl_P"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_P"))
+                {
+                    return;
+                }
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Pl_P"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -559,10 +764,18 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_P"))
+                {
+                    return false;
+                }
                 return !m_DictFormStatus["Noun_Pl_P"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_P"))
+                {
+                    return;
+                }
                 var fd = m_DictFormStatus["Noun_Pl_P"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Pl_P"] = fd;
@@ -574,11 +787,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_D"))
+                {
+                    return "";
+                }
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Pl_D"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_D"))
+                {
+                    return;
+                }
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Pl_D"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -591,10 +812,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_D"))
+                {
+                    return false;
+                }
+
                 return !m_DictFormStatus["Noun_Pl_D"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_D"))
+                {
+                    return;
+                }
                 var fd = m_DictFormStatus["Noun_Pl_D"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Pl_D"] = fd;
@@ -606,11 +836,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_I"))
+                {
+                    return "";
+                }
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Pl_I"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_I"))
+                {
+                    return;
+                }
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Pl_I"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -623,10 +861,18 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_I"))
+                {
+                    return false;
+                }
                 return !m_DictFormStatus["Noun_Pl_I"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_I"))
+                {
+                    return;
+                }
                 var fd = m_DictFormStatus["Noun_Pl_I"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Pl_I"] = fd;
@@ -638,11 +884,19 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_L"))
+                {
+                    return "";
+                }
                 var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["Noun_Pl_L"].listForms);
                 return text;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_L"))
+                {
+                    return;
+                }
                 Helpers.AssignDiacritics(value, ref value);
                 var fd = m_DictFormStatus["Noun_Pl_L"];
                 fd.listForms = Helpers.CommaSeparatedStringToList(value);
@@ -655,10 +909,18 @@ namespace ZalTestApp
         {
             get
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_L"))
+                {
+                    return false;
+                }
                 return !m_DictFormStatus["Noun_Pl_L"].bCanEdit;
             }
             set
             {
+                if (!m_DictFormStatus.ContainsKey("Noun_Pl_L"))
+                {
+                    return;
+                }
                 var fd = m_DictFormStatus["Noun_Pl_L"];
                 fd.bCanEdit = !value;
                 m_DictFormStatus["Noun_Pl_L"] = fd;
@@ -684,14 +946,14 @@ namespace ZalTestApp
 
         #region Property_Delegates
 
-        private bool InitFormHandlers(CLexemeManaged lexeme)
+        private bool InitFormHandlers()
         {
             try
             {
-                string sLexemeHash = lexeme.sHash();
+                string sLexemeHash = m_Lexeme.sHash();
                 List<string> listKeys = null;
 
-                switch (lexeme.ePartOfSpeech())
+                switch (m_Lexeme.ePartOfSpeech())
                 {
                     case EM_PartOfSpeech.POS_NOUN:
                         listKeys = m_listPropNamesNoun;
@@ -724,7 +986,7 @@ namespace ZalTestApp
                     fd.listForms = listForms;
                     fd.handler = () =>
                     {
-                        FormDescriptor fd1 = m_DictFormStatus[sHash];
+                        FormDescriptor fd1 = m_DictFormStatus[sFormHashToDisplayHash(sHash)];
                         if (!fd1.bCanEdit)
                         {
                             return true;
@@ -736,8 +998,8 @@ namespace ZalTestApp
                     return true;
                     };
 
-                    m_DictFormStatus[sHash] = fd;
-                    m_DictOriginalForms[sHash] = listForms;
+                    m_DictFormStatus[sFormHashToDisplayHash(sHash)] = fd;
+                    m_DictOriginalForms[sFormHashToDisplayHash(sHash)] = listForms;
                 }
             }
             catch (Exception ex)
@@ -762,13 +1024,14 @@ namespace ZalTestApp
 
             m_MainModel = m;
 
-            InitFormHandlers(lexeme);
+            m_Lexeme = lexeme;
+
+            InitFormHandlers();
 
             PropertyChanged += nounViewModel_PropertyChanged;
 
             EditEnabled = true;
 
-            m_Lexeme = lexeme;
         }
 
         public void GoBack(Object obj)
@@ -800,6 +1063,8 @@ namespace ZalTestApp
         {
             foreach (KeyValuePair<string, List<string>> entry in m_DictOriginalForms)
             {
+                EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+
                 List<string> originalForms = entry.Value;
                 FormDescriptor formDescriptor;
                 if (m_DictFormStatus.TryGetValue(entry.Key, out formDescriptor))
@@ -817,13 +1082,72 @@ namespace ZalTestApp
                                 return;
                             }
 
+//                            string sFormHash = sDisplayHashToFormHash(entry.Key);
+//                            if (sFormHash.Length < 1)
+//                            {
+//                                continue;
+//                            }
+
                             CWordFormManaged wf = null;
-                            var eRet = m_Lexeme.eWordFormFromHash(entry.Key, changedForms.IndexOf(sForm), ref wf);
-                            if (eRet != EM_ReturnCode.H_NO_ERROR)
+                            if (null == originalForms)
                             {
-                                var msg = "Internal error: unable to create wordform object";
-                                MessageBox.Show(msg);
-                                return;
+                                eRet = m_Lexeme.eCreateWordForm(ref wf);
+                                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                                {
+                                    MessageBox.Show("Unable to create a word form.");
+                                    continue;
+                                }
+
+                                wf.SetPos(m_Lexeme.ePartOfSpeech());
+
+                                EM_Number eNumber = EM_Number.NUM_UNDEFINED;
+                                eRet = Helpers.eGramHashToNumber(entry.Key, ref eNumber);
+                                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                                {
+                                    wf.SetNumber(eNumber);
+                                }
+
+                                EM_Case eCase = EM_Case.CASE_UNDEFINED;
+                                EM_Animacy eAnimacy = EM_Animacy.ANIM_UNDEFINED;
+                                eRet = Helpers.eGramHashToCase(entry.Key, ref eCase, ref eAnimacy);
+                                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                                {
+                                    wf.SetCase(eCase);
+                                    wf.SetAnimacy(eAnimacy);
+                                }
+
+                                EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+
+                                switch (m_Lexeme.ePartOfSpeech())
+                                {
+                                    case EM_PartOfSpeech.POS_NOUN:
+                                        eSp = EM_Subparadigm.SUBPARADIGM_NOUN;
+                                        break;
+
+                                    case EM_PartOfSpeech.POS_PRONOUN:
+                                        eSp = EM_Subparadigm.SUBPARADIGM_PRONOUN;
+                                        break;
+
+                                    case EM_PartOfSpeech.POS_NUM:
+                                        eSp = EM_Subparadigm.SUBPARADIGM_NUMERAL;
+                                        break;
+
+                                    default:
+                                        MessageBox.Show("Illegal part of speech value.");
+                                        continue;
+                                }
+
+                                wf.SetSubparadigm(eSp);
+                            }
+                            else
+                            {
+                                eRet = m_Lexeme.eWordFormFromHash(entry.Key, changedForms.IndexOf(sForm), ref wf);
+                                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                                {
+                                    var msg = "Internal error: unable to create wordform object";
+                                    MessageBox.Show(msg);
+                                    return;
+                                }
                             }
 
                             string sOutForm = "";
@@ -897,5 +1221,97 @@ namespace ZalTestApp
                 MessageBox.Show(msg);
             }
         }
+
+        private string sFormHashToDisplayHash(string sFormHash)
+        {
+            int iKeyIdx = -1;
+
+            try
+            {
+                switch (m_Lexeme.ePartOfSpeech())
+                {
+                    case EM_PartOfSpeech.POS_NOUN:
+                        iKeyIdx = m_listPropNamesNoun.IndexOf(sFormHash);
+                        break;
+
+                    case EM_PartOfSpeech.POS_PRONOUN:
+                        iKeyIdx = m_listPropNamesPronoun.IndexOf(sFormHash);
+                        break;
+
+                    case EM_PartOfSpeech.POS_NUM:
+                        iKeyIdx = m_listPropNamesNumeral.IndexOf(sFormHash);
+                        break;
+
+                    default:
+                        string sMsg = "Part of speech :";
+                        sMsg += m_Lexeme.ePartOfSpeech();
+                        sMsg += " was not recognized. ";
+                        MessageBox.Show(sMsg);
+                        return "";
+                }
+
+                return m_listPropNamesNoun[iKeyIdx];
+            }
+            catch (Exception ex)
+            {
+                string sMsg = "Exception while retrieving form hash: ";
+                sMsg += ex.Message;
+                MessageBox.Show(sMsg);
+                return "";
+            }
+
+            return "";
+
+        }       //  sFormHashToDisplayHash()
+
+        private string sDisplayHashToFormHash(string sDisplayHash)
+        {
+            int iKeyIdx = m_listPropNamesNoun.IndexOf(sDisplayHash);
+            if (iKeyIdx < 0)
+            {
+                string sMsg = $"Display hash {iKeyIdx} not recognized.";
+                MessageBox.Show(sMsg);
+                return "";
+            }
+
+            string sFormHash = "";
+            try
+            {
+                switch (m_Lexeme.ePartOfSpeech())
+                {
+                    case EM_PartOfSpeech.POS_NOUN:
+                        sFormHash = m_listPropNamesNoun[iKeyIdx];
+                        break;
+
+                    case EM_PartOfSpeech.POS_PRONOUN:
+                        sFormHash = m_listPropNamesPronoun[iKeyIdx];
+                        break;
+
+                    case EM_PartOfSpeech.POS_NUM:
+                        sFormHash = m_listPropNamesNumeral[iKeyIdx];
+                        break;
+
+                    default:
+                        string sMsg = "Part of speech :";
+                        sMsg += m_Lexeme.ePartOfSpeech();
+                        sMsg += " was not recognized. ";
+                        MessageBox.Show(sMsg);
+                        return "";
+                }
+
+                return sFormHash;
+            }
+            catch (Exception ex)
+            {
+                string sMsg = "Exception while retrieving form hash: ";
+                sMsg += ex.Message;
+                MessageBox.Show(sMsg);
+                return "";
+            }
+
+            return "";
+
+        }       //  sDisplayHashToFormHash()
+
     }       //  public class NounViewModel ...
 }

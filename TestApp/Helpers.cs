@@ -134,6 +134,33 @@ namespace ZalTestApp
             }
         }      //  CaseToString()
 
+        public static EM_Case eStringToCase(string sCase)
+        {
+            switch (sCase)
+            {
+                case "N":
+                    return EM_Case.CASE_NOM;
+                case "A":
+                    return EM_Case.CASE_ACC;
+                case "G":
+                    return EM_Case.CASE_GEN;
+                case "L":
+                    return EM_Case.CASE_LOC;
+                case "D":
+                    return EM_Case.CASE_DAT;
+                case "I":
+                    return EM_Case.CASE_INST;
+                case "P":
+                    return EM_Case.CASE_PREP;
+                case "Part":
+                    return EM_Case.CASE_PART;
+                case "Num":
+                    return EM_Case.CASE_NUM;
+                default:
+                    return EM_Case.CASE_UNDEFINED;
+            }
+        }
+
         public static string sNumberToString(EM_Number eNumber)
         {
             switch (eNumber)
@@ -145,6 +172,19 @@ namespace ZalTestApp
                 case EM_Number.NUM_UNDEFINED:
                 default:
                     return "Undefined";
+            }
+        }
+
+        public static EM_Number eStringToNumber(string sNumber)
+        {
+            switch (sNumber)
+            {
+                case "Sg":
+                    return EM_Number.NUM_SG;
+                case "Pl":
+                    return EM_Number.NUM_PL;
+                default:
+                    return EM_Number.NUM_UNDEFINED;
             }
         }
 
@@ -164,6 +204,21 @@ namespace ZalTestApp
             }
         }
 
+        public static EM_Gender eStringToGender(string sGender)
+        {
+            switch (sGender)
+            {
+                case "M":
+                    return EM_Gender.GENDER_M;
+                case "F":
+                    return EM_Gender.GENDER_F;
+                case "N":
+                    return EM_Gender.GENDER_N;
+                default:
+                    return EM_Gender.GENDER_UNDEFINED;
+            }
+        }
+
         public static string sPersonToString(EM_Person ePerson)
         {
             switch (ePerson)
@@ -179,6 +234,650 @@ namespace ZalTestApp
                     return "Undefined";
             }
         }
+
+        public static EM_Person eStringToPerson(string sPerson)
+        {
+            switch (sPerson)
+            {
+                case "1":
+                    return EM_Person.PERSON_1;
+                case "2":
+                    return EM_Person.PERSON_2;
+                case "3":
+                    return EM_Person.PERSON_3;
+                default:
+                    return EM_Person.PERSON_UNDEFINED;
+            }
+        }
+
+        public static EM_ReturnCode eGramHashToSubparadigm(string sHash, ref EM_PartOfSpeech ePartOfSpeech, ref EM_Subparadigm eSubParadigm)
+        {
+            ePartOfSpeech = EM_PartOfSpeech.POS_UNDEFINED;
+            eSubParadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+
+            string[] arrTokens = sHash.Split('_');
+            if (arrTokens.Length < 1)
+            {
+                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+            }
+
+            string sSubparadigm = arrTokens[0];
+            switch (sSubparadigm)
+            {
+                case "Noun":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_NOUN;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_NOUN;
+                    break;
+
+                case "Pronoun":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_PRONOUN;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PRONOUN;
+                    break;
+
+                case "AdjL":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_ADJ;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;
+                    break;
+
+                case "PronAdj":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_PRONOUN_ADJ;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
+                    break;
+
+                case "PPresA":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT;
+                    break;
+
+                case "PPastA":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT;
+                    break;
+
+                case "PPresPL":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG;
+                    break;
+
+                case "PPastPL":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG;
+                    break;
+
+                case "Infinitive":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_INFINITIVE;
+                    break;
+
+                case "Pres":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE;
+                    break;
+
+                case "Past":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PAST_TENSE;
+                    break;
+
+                case "Impv":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_IMPERATIVE;
+                    break;
+
+                case "VAdvPres":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT;
+                    break;
+
+                case "VAdvPast":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST;
+                    break;
+
+                default:
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+
+            }       //  switch (sSubparadigm)
+
+            return EM_ReturnCode.H_NO_ERROR;
+
+        }       //  eGramHashToSubparadigm()
+
+        public static EM_ReturnCode eGramHashToGender(string sHash, ref EM_Gender eGender)
+        {
+            EM_PartOfSpeech ePartOfSpeech = EM_PartOfSpeech.POS_UNDEFINED;
+            EM_Subparadigm eSubParadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+            eGender = EM_Gender.GENDER_UNDEFINED;
+
+            EM_ReturnCode eRet = Helpers.eGramHashToSubparadigm(sHash, ref ePartOfSpeech, ref eSubParadigm);
+
+            string[] arrTokens = sHash.Split('_');
+            if (arrTokens.Length < 4)
+            {
+                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+            }
+
+            if (EM_Subparadigm.SUBPARADIGM_LONG_ADJ != eSubParadigm &&
+                EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ != eSubParadigm &&
+                EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT != eSubParadigm &&
+                EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT != eSubParadigm &&
+                EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG != eSubParadigm &&
+                EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG != eSubParadigm)
+            {
+                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+            }
+
+            string sGender = arrTokens[1];
+            switch (sGender)
+            {
+                case "M":
+                    eGender = EM_Gender.GENDER_M;
+                    break;
+
+                case "N":
+                    eGender = EM_Gender.GENDER_N;
+                    break;
+
+                case "F":
+                    eGender = EM_Gender.GENDER_F;
+                    break;
+
+                default:
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+            }
+
+            return EM_ReturnCode.H_NO_ERROR;
+
+        }       //  eGramHashToGender()
+
+
+        public static EM_ReturnCode eGramHashToNumber(string sHash, ref EM_Number eNumber)
+        {
+            EM_PartOfSpeech ePartOfSpeech = EM_PartOfSpeech.POS_UNDEFINED;
+            EM_Subparadigm eSubParadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+            eNumber = EM_Number.NUM_UNDEFINED;
+
+            EM_ReturnCode eRet = Helpers.eGramHashToSubparadigm(sHash, ref ePartOfSpeech, ref eSubParadigm);
+
+            string[] arrTokens = sHash.Split('_');
+
+            string sNumber = "";
+
+            switch (eSubParadigm)
+            {
+                case EM_Subparadigm.SUBPARADIGM_NOUN:
+                case EM_Subparadigm.SUBPARADIGM_PRONOUN:
+                    if (arrTokens.Length < 2)
+                    {
+                        return EM_ReturnCode.H_NO_ERROR;
+                    }
+                    sNumber = arrTokens[1];
+                    break;
+
+                case EM_Subparadigm.SUBPARADIGM_LONG_ADJ:
+                case EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ:
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
+                    if (arrTokens.Length < 3)
+                    {
+                        return EM_ReturnCode.H_NO_ERROR;
+                    }
+                    sNumber = arrTokens[2];
+                    break;
+
+                case EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE:
+                    if (arrTokens.Length < 2)
+                    {
+                        return EM_ReturnCode.H_NO_ERROR;
+                    }
+                    sNumber = arrTokens[1];
+                    break;
+
+                default:
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+
+            }       //  switch (eSubparadigm)
+
+            if (sNumber.Length > 0)
+            {
+                switch (sNumber)
+                {
+                    case "Sg":
+                        eNumber = EM_Number.NUM_SG;
+                        break;
+
+                    case "Pl":
+                        eNumber = EM_Number.NUM_PL;
+                        break;
+
+                    default:
+                        return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+            }
+
+            return EM_ReturnCode.H_ERROR_UNEXPECTED;
+
+        }   //  eGramHashToNumber()
+
+        public static EM_ReturnCode eGramHashToCase(string sHash, ref EM_Case eCase, ref EM_Animacy eAnimacy)
+        {
+            EM_PartOfSpeech ePartOfSpeech = EM_PartOfSpeech.POS_UNDEFINED;
+            EM_Subparadigm eSubParadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+
+            eCase = EM_Case.CASE_UNDEFINED;
+            eAnimacy = EM_Animacy.ANIM_UNDEFINED;
+
+            EM_ReturnCode eRet = Helpers.eGramHashToSubparadigm(sHash, ref ePartOfSpeech, ref eSubParadigm);
+
+            string[] arrTokens = sHash.Split('_');
+
+            string sCase = "";
+
+            bool bAdjParadigm = false;
+
+            switch (eSubParadigm)
+            {
+                case EM_Subparadigm.SUBPARADIGM_NOUN:
+                case EM_Subparadigm.SUBPARADIGM_PRONOUN:
+                    if (arrTokens.Length < 3)
+                    {
+                        return EM_ReturnCode.H_NO_ERROR;
+                    }
+                    sCase = arrTokens[2];
+                    break;
+
+                case EM_Subparadigm.SUBPARADIGM_LONG_ADJ:
+                case EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ:
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
+                    bAdjParadigm = true;
+
+                    if (arrTokens.Length < 4)
+                    {
+                        return EM_ReturnCode.H_NO_ERROR;
+                    }
+                    sCase = arrTokens[3];
+                    break;
+
+                default:
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+
+            }       //  switch (eSubparadigm)
+
+            if (sCase.Length <= 0)
+            {
+                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+            }
+
+            switch (sCase)
+            {
+                case "N":
+                    eCase = EM_Case.CASE_NOM;
+                    break;
+                case "A":
+                    eCase = EM_Case.CASE_ACC;
+                    if (bAdjParadigm)
+                    {
+                        if (arrTokens.Length >= 5)
+                        {
+                            string sAnimacy = arrTokens[4];
+                            if ("Anim" == sAnimacy)
+                            {
+                                eAnimacy = EM_Animacy.ANIM_YES;
+                            }
+                            if ("Inanim" == sAnimacy)
+                            {
+                                eAnimacy = EM_Animacy.ANIM_YES;
+                            }
+                            else
+                            {
+                                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                            }
+                        }
+                    }
+                    break;
+                case "G":
+                    eCase = EM_Case.CASE_GEN;
+                    break;
+                case "L":
+                    eCase = EM_Case.CASE_LOC;
+                    break;
+                case "D":
+                    eCase = EM_Case.CASE_DAT;
+                    break;
+                case "I":
+                    eCase = EM_Case.CASE_INST;
+                    break;
+                case "P":
+                    eCase = EM_Case.CASE_PREP;
+                    break;
+                case "Part":
+                    eCase = EM_Case.CASE_PART;
+                    break;
+                case "Num":
+                    eCase = EM_Case.CASE_NUM;
+                    break;
+                default:
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+
+            }       //  switch (sCase)
+
+            return EM_ReturnCode.H_ERROR_UNEXPECTED;
+
+        }   //  eGramHashToCase()
+
+        public static EM_ReturnCode eParseGramHash(string sHash, ref EM_PartOfSpeech ePartOfSpeech, ref EM_Subparadigm eSubParadigm,
+            ref EM_Number eNumber, ref EM_Gender eGender, ref EM_Case eCase, ref EM_Person ePerson, ref EM_Animacy eAnimacy)
+        {
+            ePartOfSpeech = EM_PartOfSpeech.POS_UNDEFINED;
+            eSubParadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+            eNumber = EM_Number.NUM_UNDEFINED;
+            eGender = EM_Gender.GENDER_UNDEFINED;
+            eCase = EM_Case.CASE_UNDEFINED;
+            ePerson = EM_Person.PERSON_UNDEFINED;
+
+            string[] arrTokens = sHash.Split('_');
+            if (arrTokens.Length < 1)
+            {
+                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+            }
+
+            bool bAdjParadigm = false;
+
+            string sSubparadigm = arrTokens[0];
+            switch (sSubparadigm)
+            {
+                case "Noun":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_NOUN;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_NOUN;
+                    break;
+
+                case "Pronoun":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_PRONOUN;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PRONOUN;
+                    break;
+
+                case "AdjL":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_ADJ;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;
+                    break;
+
+                case "PronAdj":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_PRONOUN_ADJ;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
+                    break;
+
+                case "PPresA":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT;
+                    break;
+
+                case "PPastA":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT;
+                    break;
+
+                case "PPresPL":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG;
+                    break;
+
+                case "PPastPL":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG;
+                    break;
+
+                case "Infinitive":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_INFINITIVE;
+                    break;
+
+                case "Pres":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE;
+                    break;
+
+                case "Past":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PAST_TENSE;
+                    break;
+
+                case "Impv":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_IMPERATIVE;
+                    break;
+
+                case "VAdvPres":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT;
+                    break;
+
+                case "VAdvPast":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST;
+                    break;
+
+                default:
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+
+            }       //  switch (sSubparadigm)
+
+            if (arrTokens.Length < 2)
+            {
+                return EM_ReturnCode.H_NO_ERROR;
+            }
+
+            if (EM_Subparadigm.SUBPARADIGM_LONG_ADJ == eSubParadigm ||
+                EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ == eSubParadigm ||
+                EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT == eSubParadigm ||
+                EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT == eSubParadigm ||
+                EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG == eSubParadigm ||
+                EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG == eSubParadigm)
+            {
+                bAdjParadigm = true;
+            }
+
+            //
+            // Gender
+            //
+            if (bAdjParadigm)
+            {
+                if (arrTokens.Length < 2)
+                {
+                    return EM_ReturnCode.H_NO_ERROR;
+                }
+
+                string sGender = arrTokens[1];
+                switch (sGender)
+                {
+                    case "M":
+                        eGender = EM_Gender.GENDER_M;
+                        break;
+
+                    case "N":
+                        eGender = EM_Gender.GENDER_N;
+                        break;
+
+                    case "F":
+                        eGender = EM_Gender.GENDER_F;
+                        break;
+
+                    default:
+                        return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+
+                if (arrTokens.Length < 3)
+                {
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+            }
+
+            //
+            // Number
+            //
+            string sNumber = "";
+            if (EM_Subparadigm.SUBPARADIGM_NOUN == eSubParadigm ||
+                EM_Subparadigm.SUBPARADIGM_PRONOUN == eSubParadigm)
+            {
+                if (arrTokens.Length < 2)
+                {
+                    return EM_ReturnCode.H_NO_ERROR;
+                }
+                sNumber = arrTokens[1];
+            }
+            else if (bAdjParadigm)
+            {
+                if (arrTokens.Length < 3)
+                {
+                    return EM_ReturnCode.H_NO_ERROR;
+                }
+                sNumber = arrTokens[2];
+            }
+            else if (EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE == eSubParadigm)
+            {
+                if (arrTokens.Length < 2)
+                {
+                    return EM_ReturnCode.H_NO_ERROR;
+                }
+                sNumber = arrTokens[1];
+            }
+
+            if (sNumber.Length > 0)
+            {
+                switch (sNumber)
+                {
+                    case "Sg":
+                        eNumber = EM_Number.NUM_SG;
+                        break;
+
+                    case "Pl":
+                        eNumber = EM_Number.NUM_PL;
+                        break;
+
+                    default:
+                        return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+            }
+
+            //
+            // Case
+            //
+            string sCase = "";
+            if (EM_Subparadigm.SUBPARADIGM_NOUN == eSubParadigm ||
+                EM_Subparadigm.SUBPARADIGM_PRONOUN == eSubParadigm)
+            {
+                if (arrTokens.Length < 3)
+                {
+                    return EM_ReturnCode.H_NO_ERROR;
+                }
+                sCase = arrTokens[2];
+            }
+            else if (bAdjParadigm)
+            {
+                if (arrTokens.Length < 4)
+                {
+                    return EM_ReturnCode.H_NO_ERROR;
+                }
+                sCase = arrTokens[3];
+            }
+
+            if (sCase.Length > 0)
+            {
+                switch (sCase)
+                {
+
+                    case "N":
+                        eCase = EM_Case.CASE_NOM;
+                        break;
+                    case "A":
+                        eCase = EM_Case.CASE_ACC;
+                        break;
+                    case "G":
+                        eCase = EM_Case.CASE_GEN;
+                        break;
+                    case "L":
+                        eCase = EM_Case.CASE_LOC;
+                        break;
+                    case "D":
+                        eCase = EM_Case.CASE_DAT;
+                        break;
+                    case "I":
+                        eCase = EM_Case.CASE_INST;
+                        break;
+                    case "P":
+                        eCase = EM_Case.CASE_PREP;
+                        break;
+                    case "Part":
+                        eCase = EM_Case.CASE_PART;
+                        break;
+                    case "Num":
+                        eCase = EM_Case.CASE_NUM;
+                        break;
+                    default:
+                        return EM_ReturnCode.H_ERROR_UNEXPECTED;
+
+                }
+            }       //  if (sCase.Length > 0)
+
+            //
+            // Animacy
+            //
+            eAnimacy = EM_Animacy.ANIM_UNDEFINED;
+            if (bAdjParadigm)
+            {
+                if (EM_Case.CASE_ACC == eCase)
+                {
+                    if (arrTokens.Length >= 5)
+                    {
+                        string sAnimacy = arrTokens[4];
+                        if ("Anim" == sAnimacy)
+                        {
+                            eAnimacy = EM_Animacy.ANIM_YES;
+                        }
+                        if ("Inanim" == sAnimacy)
+                        {
+                            eAnimacy = EM_Animacy.ANIM_YES;
+                        }
+                        else
+                        {
+                            return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                        }
+                    }
+                }
+            }
+
+            ePerson = EM_Person.PERSON_UNDEFINED;
+            if (EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE == eSubParadigm)
+            {
+                if (arrTokens.Length < 3)
+                {
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+
+                string sPerson = arrTokens[2];
+                switch (sPerson)
+                {
+                    case "1":
+                        ePerson = EM_Person.PERSON_1;
+                        break;
+                    case "2":
+                        ePerson = EM_Person.PERSON_2;
+                        break;
+                    case "3":
+                        ePerson = EM_Person.PERSON_3;
+                        break;
+                    default:
+                        return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+            }
+
+            return EM_ReturnCode.H_NO_ERROR;
+
+        }       //  eParseGramHash()
 
         public static EM_AccentType eStringToAccentType(string sAccentType)
         {
@@ -364,4 +1063,3 @@ namespace ZalTestApp
         }
     }       //  public static class Helpers
 }       //  namespace ZalTestApp
-
