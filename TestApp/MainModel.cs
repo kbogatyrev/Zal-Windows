@@ -127,7 +127,8 @@ namespace ZalTestApp
         public MainModel()
         {
             m_Dictionary = new CDictionaryManaged();
-            var eRet = m_Dictionary.eSetDbPath("ZalData.db3");
+            string sPath = Environment.GetFolderPath( Environment.SpecialFolder.CommonApplicationData) + @"\Zal\ZalData.db3";
+            var eRet = m_Dictionary.eSetDbPath(sPath);
             if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
                 System.Windows.MessageBox.Show("Error: Main dictionary was not initialized.");
