@@ -3,8 +3,10 @@
 <?define S_BUILD_DIR = "..\TestApp\bin\Release" ?>
 <?define S_DATA_DIR = "..\ZalData" ?>
 
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Zalizniak's (NEW) Grammatical Dictionary of Russian" Language="1033" Version="4.0.0.0" Manufacturer="Xiao Gogo Software and Baked Goods" UpgradeCode="DD5CB95E-6F3B-4684-8746-33800F1E9D82">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+  xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+  <Product Id="*" Name="Zalizniak's (NEW) Grammatical Dictionary of Russian" Language="1033" Version="4.0.5.6" Manufacturer="Xiao Gogo Software and Baked Goods" UpgradeCode="DD5CB95E-6F3B-4684-8746-33800F1E9D82">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x86" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -16,7 +18,9 @@
 
     <Feature Id="ProductFeature" Title="Zal2" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="ProductData" />
       <ComponentRef Id="ApplicationShortcutStartMenu" />
+      <ComponentRef Id="ProgramDataFolder_Permission" />
     </Feature>
 	</Product>
 
@@ -26,6 +30,9 @@
 				<Directory Id="INSTALLFOLDER" Name="Zal2" />
         <Directory Id="ProgramMenuFolder">
           <Directory Id="ZalShortcutsDir" Name="Zal2" />
+        </Directory>
+        <Directory Id="CommonAppDataFolder">
+          <Directory Id="ProgramDataFolder" Name="Zal" />
         </Directory>
       </Directory>
     </Directory>
@@ -37,6 +44,14 @@
         <RegistryValue Root="HKCU" Key="Software\Gogo\Zal2" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
     </DirectoryRef>
+
+    <DirectoryRef Id="ProgramDataFolder">
+      <Component Id="ProgramDataFolder_Permission" Guid="{700F9D16-9A06-46E7-A201-32E10B1675BD}">
+        <CreateFolder>
+          <util:PermissionEx User="Users" GenericAll="yes"/>
+        </CreateFolder>
+      </Component>
+    </DirectoryRef>
   </Fragment>
 
   <Fragment>
@@ -44,23 +59,15 @@
       <Component Guid="*" Id="Zal2_exe">
         <File Id="Zal2_exe" KeyPath="yes" Source="$(var.S_BUILD_DIR)\TestApp.exe" />
       </Component>
-<!--      
-      <Component Guid="*" Id="MainLib_dll">
-        <File Id="MainLib_dll" KeyPath="yes" Source="$(var.S_BUILD_DIR)\ZalMainLib.dll" />
-      </Component>
--->
       <Component Guid="*" Id="MainLibManaged_dll">
           <File Id="MainLibManaged_dll" KeyPath="yes" Source="$(var.S_BUILD_DIR)\ZalMainLibManaged.dll" />
-      </Component>
-  
+      </Component>  
+    </ComponentGroup>
+
+    <ComponentGroup Id="ProductData" Directory="ProgramDataFolder">
       <Component Guid="*" Id="Zal_data_db3">
         <File Id="Zal_data_db3" KeyPath="yes" Source="$(var.S_DATA_DIR)\ZalData.db3" />
       </Component>
-
-      <Component Guid="*" Id="Zal_edit_db3">
-        <File Id="Zal_edit_db3" KeyPath="yes" Source="$(var.S_DATA_DIR)\ZalEdit.db3" />
-      </Component>
-
     </ComponentGroup>
-	</Fragment>
+  </Fragment>
 </Wix>
