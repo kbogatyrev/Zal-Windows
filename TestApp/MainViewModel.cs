@@ -916,7 +916,11 @@ namespace ZalTestApp
             try
             {
                 MainLibManaged.DelegateProgress progress = new MainLibManaged.DelegateProgress(UpdateProgress);
-                m_Caller.ImportRegressionData(m_sPath, progress);
+                EM_ReturnCode eRet = m_Caller.ImportRegressionData(m_sPath, progress);
+                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                {
+                    MessageBox.Show("Unable to load test data", "Error");
+                }
             }
             catch (Exception ex)
             {
@@ -925,7 +929,6 @@ namespace ZalTestApp
                 sMsg += "\n";
                 //                sMsg += err.LastError;
                 MessageBox.Show(sMsg, "Error");
-                m_ProgressDialog.Close();
                 return;
             }
 
