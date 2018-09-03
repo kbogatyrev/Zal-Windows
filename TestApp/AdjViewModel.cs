@@ -40,7 +40,7 @@ namespace ZalTestApp
             "AdjL_M_Sg_I", "AdjL_F_Sg_N", "AdjL_F_Sg_A", "AdjL_F_Sg_G", "AdjL_F_Sg_P", "AdjL_F_Sg_D", "AdjL_F_Sg_I",
             "AdjL_N_Sg_N", "AdjL_N_Sg_A", "AdjL_N_Sg_G", "AdjL_N_Sg_P", "AdjL_N_Sg_D", "AdjL_N_Sg_I", "AdjL_Pl_N",
             "AdjL_Pl_A_Inanim", "AdjL_Pl_A_Anim", "AdjL_Pl_G", "AdjL_Pl_P", "AdjL_Pl_D", "AdjL_Pl_I",
-            "AdjS_M", "AdjS_F", "AdjS_N", "AdjS_Pl"
+            "AdjS_M", "AdjS_F", "AdjS_N", "AdjS_Pl", "AdjComp"
         };
 
         List<string> m_listPropNamesPronAdj = new List<string>()
