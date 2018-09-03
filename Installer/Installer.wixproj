@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <ProductVersion>3.9</ProductVersion>
     <ProjectGuid>28d25f75-a6fc-4995-accc-c153750bf4d5</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
@@ -20,6 +20,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <CompilerAdditionalOptions>-arch x64</CompilerAdditionalOptions>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Product.wxs" />

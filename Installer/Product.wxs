@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?define S_BUILD_DIR = "..\TestApp\bin\Release" ?>
+<?define bitness = "(64 bit)" ?>
+<?define Win64 = "yes" ?>
+
+<?define S_WPF_BUILD_DIR = "..\TestApp\bin\Release" ?>
+<?define S_CPP_BUILD_DIR = "..\x64\Release" ?>
 <?define S_DATA_DIR = "..\ZalData" ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
   xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
-  <Product Id="*" Name="Zalizniak's (NEW) Grammatical Dictionary of Russian" Language="1033" Version="4.0.5.6" Manufacturer="Xiao Gogo Software and Baked Goods" UpgradeCode="DD5CB95E-6F3B-4684-8746-33800F1E9D82">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x86" />
+  <Product Id="*" Name="Zalizniak's (NEW) Grammatical Dictionary of Russian" Language="1033" Version="4.0.6.11" Manufacturer="Xiao Gogo Software and Baked Goods" UpgradeCode="DD5CB95E-6F3B-4684-8746-33800F1E9D82">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 
@@ -26,7 +30,7 @@
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
+			<Directory Id="ProgramFiles64Folder">
 				<Directory Id="INSTALLFOLDER" Name="Zal2" />
         <Directory Id="ProgramMenuFolder">
           <Directory Id="ZalShortcutsDir" Name="Zal2" />
@@ -57,10 +61,10 @@
   <Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
       <Component Guid="*" Id="Zal2_exe">
-        <File Id="Zal2_exe" KeyPath="yes" Source="$(var.S_BUILD_DIR)\TestApp.exe" />
+        <File Id="Zal2_exe" KeyPath="yes" Source="$(var.S_WPF_BUILD_DIR)\TestApp.exe" />
       </Component>
       <Component Guid="*" Id="MainLibManaged_dll">
-          <File Id="MainLibManaged_dll" KeyPath="yes" Source="$(var.S_BUILD_DIR)\ZalMainLibManaged.dll" />
+          <File Id="MainLibManaged_dll" KeyPath="yes" Source="$(var.S_CPP_BUILD_DIR)\ZalMainLibManaged.dll" />
       </Component>  
     </ComponentGroup>
 
