@@ -8,9 +8,45 @@ using System.Threading;
 //using System.ComponentModel;
 
 using MainLibManaged;
+using System.Windows.Data;
+using System.Globalization;
 
 namespace ZalTestApp
 {
+    public enum EMark { None, IsIrregular, IsEdited };
+
+    public class StyleConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var sAssemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+            string uri = sAssemblyName + ";component/Skins.xaml";
+            ResourceDictionary resourceDictionary =
+                (ResourceDictionary)Application.LoadComponent(new System.Uri(uri, System.UriKind.Relative));
+
+            if (EMark.None == (EMark)value)
+            {
+                return resourceDictionary["NoMark"] as Style;
+            }
+            else if (EMark.IsIrregular == (EMark)value)
+            {
+                return resourceDictionary["IrregularFormMark"] as Style;
+            }
+            else if (EMark.IsEdited == (EMark)value)
+            {
+                return resourceDictionary["EditedFormMark"] as Style;
+            }
+            else
+            {
+                return resourceDictionary["NoMark"] as Style;
+            }
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class ViewPage
     {
         public ViewPage(string sHeader, ViewModelBase lexeme, ViewModelBase page)

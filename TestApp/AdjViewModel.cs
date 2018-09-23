@@ -15,21 +15,7 @@ namespace ZalTestApp
 
         MainModel m_MainModel = null;
 
-        private delegate bool ChangedFormHandler();
-
-        struct FormDescriptor
-        {
-            public List<string> listForms { get; set; }
-            public bool bCanEdit { get; set; }
-            public ChangedFormHandler handler { get; set; }
-
-            public FormDescriptor(List<string> list, bool b, ChangedFormHandler h)
-            {
-                listForms = list;
-                bCanEdit = b;
-                handler = h;
-            }
-        }
+//        private delegate bool ChangedFormHandler();
 
         Dictionary<string, FormDescriptor> m_DictFormStatus;
         Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
@@ -170,328 +156,158 @@ namespace ZalTestApp
             }
         }
 
+        private bool m_bWasTouched = false;
+        public bool WasTouched
+        {
+            get
+            {
+                return m_bWasTouched;
+            }
+            set
+            {
+                m_bWasTouched = value;
+                OnPropertyChanged("WasTouched");
+            }
+        }
+
+        string GetForms(string sFormHash)
+        {
+            if (!m_DictFormStatus.ContainsKey(sFormHash))
+            {
+                return "";
+            }
+
+            var descriptor = m_DictFormStatus[sFormHash];
+            var text = Helpers.sListToCommaSeparatedString(descriptor.listForms);
+            if (m_MainModel.bIsIrregular(m_Lexeme.sHash(), sFormHash))
+            {
+                descriptor.IsIrregular = true;
+            }
+            else
+            {
+                descriptor.IsIrregular = false;
+            }
+
+            return text;
+        }
+
+        EMark GetFormStatus(string sFormHash)
+        {
+            string sLexemeHash = m_Lexeme.sHash();
+            if (m_MainModel.bIsEdited(sLexemeHash, sFormHash))
+            {
+                return EMark.IsEdited;
+            }
+            else if (m_MainModel.bIsIrregular(sLexemeHash, sFormHash))
+            {
+                return EMark.IsIrregular;
+            }
+            return EMark.None;
+        }
+
+        void SetForms(string sHash, string sForms)
+        {
+            if (!m_DictFormStatus.ContainsKey(sHash))
+            {
+                return;
+            }
+            Helpers.AssignDiacritics(sForms, ref sForms);
+            var fd = m_DictFormStatus[sHash];
+            fd.listForms = Helpers.CommaSeparatedStringToList(sForms);
+            m_DictFormStatus[sHash] = fd;
+        }
+
         #region Bindings_Long_Masculine_Sg
 
         public string AdjL_M_Sg_N
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_N"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_N"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_M_Sg_N"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_M_Sg_N"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_N");
-            }
+            get { return GetForms("AdjL_M_Sg_N"); }
+            set { SetForms("AdjL_M_Sg_N", value); }
         }
 
-        public bool AdjL_M_Sg_N_IsReadOnly
+        private EMark m_eAdjL_M_Sg_N_Marks = EMark.None;
+        public EMark AdjL_M_Sg_N_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_N"))
-                {
-                    return !m_DictFormStatus["AdjL_M_Sg_N"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_M_Sg_N"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_M_Sg_N"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_N_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_M_Sg_N"); }
+            set { m_eAdjL_M_Sg_N_Marks = value; OnPropertyChanged("AdjL_M_Sg_N_Marks"); }
         }
 
         public string AdjL_M_Sg_A_Anim
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_A_Anim"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_A_Anim"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_M_Sg_A_Anim"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_M_Sg_A_Anim"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_A_Anim");
-            }
+            get { return GetForms("AdjL_M_Sg_A_Anim"); }
+            set { SetForms("AdjL_M_Sg_A_Anim", value); }
         }
 
-        public bool AdjL_M_Sg_A_Anim_IsReadOnly
+        private EMark m_eAdjL_M_Sg_A_Anim_Marks = EMark.None;
+        public EMark AdjL_M_Sg_A_Anim_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_A_Anim"))
-                {
-                    return !m_DictFormStatus["AdjL_M_Sg_A_Anim"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_M_Sg_A_Anim"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_M_Sg_A_Anim"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_A_Anim_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_M_Sg_A_Anim"); }
+            set { m_eAdjL_M_Sg_A_Anim_Marks = value; OnPropertyChanged("AdjL_M_Sg_A_Anim_Marks"); }
         }
 
         public string AdjL_M_Sg_A_Inanim
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_A_Inanim"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_A_Inanim"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_M_Sg_A_Inanim"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_M_Sg_A_Inanim"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_A_Inanim");
-            }
+            get { return GetForms("AdjL_M_Sg_A_Inanim"); }
+            set { SetForms("AdjL_M_Sg_A_Inanim", value); }
         }
 
-        public bool AdjL_M_Sg_A_Inanim_IsReadOnly
+        private EMark m_eAdjL_M_Sg_A_Inanim_Marks = EMark.None;
+        public EMark AdjL_M_Sg_A_Inanim_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_A_Inanim"))
-                {
-                    return !m_DictFormStatus["AdjL_M_Sg_A_Inanim"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_M_Sg_A_Inanim"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_M_Sg_A_Inanim"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_A_Inanim_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_M_Sg_A_Inanim"); }
+            set { m_eAdjL_M_Sg_A_Inanim_Marks = value; OnPropertyChanged("AdjL_M_Sg_A_Inanim_Marks"); }
         }
 
         public string AdjL_M_Sg_G
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_G"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_G"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_M_Sg_G"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_M_Sg_G"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_G");
-            }
+            get { return GetForms("AdjL_M_Sg_G"); }
+            set { SetForms("AdjL_M_Sg_G", value); }
         }
 
-        public bool AdjL_M_Sg_G_IsReadOnly
+        private EMark m_eAdjL_M_Sg_G_Marks = EMark.None;
+        public EMark AdjL_M_Sg_G_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_G"))
-                {
-                    return !m_DictFormStatus["AdjL_M_Sg_G"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_M_Sg_G"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_M_Sg_G"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_G_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_M_Sg_G"); }
+            set { m_eAdjL_M_Sg_G_Marks = value; OnPropertyChanged("AdjL_M_Sg_G_Marks"); }
         }
 
         public string AdjL_M_Sg_P
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_P"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_P"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_M_Sg_P"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_M_Sg_P"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_P");
-            }
+            get { return GetForms("AdjL_M_Sg_P"); }
+            set { SetForms("AdjL_M_Sg_P", value); }
         }
 
-        public bool AdjL_M_Sg_P_IsReadOnly
+        private EMark m_eAdjL_M_Sg_P_Marks = EMark.None;
+        public EMark AdjL_M_Sg_P_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_P"))
-                {
-                    return !m_DictFormStatus["AdjL_M_Sg_P"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_M_Sg_P"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_M_Sg_P"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_P_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_M_Sg_P"); }
+            set { m_eAdjL_M_Sg_G_Marks = value; OnPropertyChanged("AdjL_M_Sg_P_Marks"); }
         }
 
         public string AdjL_M_Sg_D
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_D"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_D"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_M_Sg_D"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_M_Sg_D"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_D");
-            }
+            get { return GetForms("AdjL_M_Sg_D"); }
+            set { SetForms("AdjL_M_Sg_D", value); }
         }
 
-        public bool AdjL_M_Sg_D_IsReadOnly
+        private EMark m_eAdjL_M_Sg_D_Marks = EMark.None;
+        public EMark AdjL_M_Sg_D_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_D"))
-                {
-                    return !m_DictFormStatus["AdjL_M_Sg_D"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_M_Sg_D"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_M_Sg_D"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_D_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_M_Sg_D"); }
+            set { m_eAdjL_M_Sg_D_Marks = value; OnPropertyChanged("AdjL_M_Sg_D_Marks"); }
         }
 
         public string AdjL_M_Sg_I
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_I"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_M_Sg_I"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_M_Sg_I"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_M_Sg_I"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_I");
-            }
+            get { return GetForms("AdjL_M_Sg_I"); }
+            set { SetForms("AdjL_M_Sg_I", value); }
         }
 
-        public bool AdjL_M_Sg_I_IsReadOnly
+        private EMark m_eAdjL_M_Sg_I_Marks = EMark.None;
+        public EMark AdjL_M_Sg_I_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_M_Sg_I"))
-                {
-                    return !m_DictFormStatus["AdjL_M_Sg_I"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_M_Sg_I"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_M_Sg_I"] = fd;
-                OnPropertyChanged("AdjL_M_Sg_I_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_M_Sg_I"); }
+            set { m_eAdjL_M_Sg_I_Marks = value; OnPropertyChanged("AdjL_M_Sg_I_Marks"); }
         }
 
         #endregion
@@ -500,278 +316,80 @@ namespace ZalTestApp
 
         public string AdjL_F_Sg_N
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_N"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_N"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_F_Sg_N"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_F_Sg_N"] = fd;
-                OnPropertyChanged("AdjL_F_Sg_N");
-            }
+            get { return GetForms("AdjL_F_Sg_N"); }
+            set { SetForms("AdjL_F_Sg_N", value); }
         }
 
-        public bool AdjL_F_Sg_N_IsReadOnly
+        private EMark m_eAdjL_F_Sg_N_Marks = EMark.None;
+        public EMark AdjL_F_Sg_N_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_N"))
-                {
-                    return !m_DictFormStatus["AdjL_F_Sg_N"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_F_Sg_N"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_F_Sg_N"] = fd;
-                OnPropertyChanged("AdjL_F_Sg_N_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_F_Sg_N"); }
+            set { m_eAdjL_F_Sg_N_Marks = value; OnPropertyChanged("AdjL_F_Sg_N_Marks"); }
         }
 
         public string AdjL_F_Sg_A
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_N"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_N"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_F_Sg_A"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_F_Sg_A"] = fd;
-                OnPropertyChanged("AdjL_F_Sg_A");
-            }
+            get { return GetForms("AdjL_F_Sg_A"); }
+            set { SetForms("AdjL_F_Sg_A", value); }
         }
 
-        public bool AdjL_F_Sg_A_IsReadOnly
+        private EMark m_eAdjL_F_Sg_A_Marks = EMark.None;
+        public EMark AdjL_F_Sg_A_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_A"))
-                {
-                    return !m_DictFormStatus["AdjL_F_Sg_A"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_F_Sg_A"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_F_Sg_A"] = fd;
-                OnPropertyChanged("AdjL_F_Sg_A_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_F_Sg_A"); }
+            set { m_eAdjL_F_Sg_A_Marks = value; OnPropertyChanged("AdjL_F_Sg_A_Marks"); }
         }
 
         public string AdjL_F_Sg_G
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_G"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_G"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_F_Sg_G"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_F_Sg_G"] = fd;
-                OnPropertyChanged("AdjL_F_Sg_G");
-            }
+            get { return GetForms("AdjL_F_Sg_G"); }
+            set { SetForms("AdjL_F_Sg_G", value); }
         }
 
-        public bool AdjL_F_Sg_G_IsReadOnly
+        private EMark m_eAdjL_F_Sg_G_Marks = EMark.None;
+        public EMark AdjL_F_Sg_G_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_G"))
-                {
-                    return !m_DictFormStatus["AdjL_F_Sg_G"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_F_Sg_G"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_F_Sg_G"] = fd;
-                OnPropertyChanged("AdjL_F_Sg_G_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_F_Sg_G"); }
+            set { m_eAdjL_F_Sg_G_Marks = value; OnPropertyChanged("AdjL_F_Sg_G_Marks"); }
         }
 
         public string AdjL_F_Sg_P
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_P"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_P"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_F_Sg_P"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_F_Sg_P"] = fd;
-                OnPropertyChanged("AdjL_F_Sg_P");
-            }
+            get { return GetForms("AdjL_F_Sg_P"); }
+            set { SetForms("AdjL_F_Sg_P", value); }
         }
 
-        public bool AdjL_F_Sg_P_IsReadOnly
+        private EMark m_eAdjL_F_Sg_P_Marks = EMark.None;
+        public EMark AdjL_F_Sg_P_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_P"))
-                {
-                    return !m_DictFormStatus["AdjL_F_Sg_P"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_F_Sg_P"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_F_Sg_P"] = fd;
-                OnPropertyChanged("AdjL_F_Sg_P_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_F_Sg_P"); }
+            set { m_eAdjL_F_Sg_P_Marks = value; OnPropertyChanged("AdjL_F_Sg_P_Marks"); }
         }
 
         public string AdjL_F_Sg_D
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_D"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_D"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_F_Sg_D"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_F_Sg_D"] = fd;
-                OnPropertyChanged("AdjL_F_Sg_D");
-            }
+            get { return GetForms("AdjL_F_Sg_D"); }
+            set { SetForms("AdjL_F_Sg_D", value); }
         }
 
-        public bool AdjL_F_Sg_D_IsReadOnly
+        private EMark m_eAdjL_F_Sg_D_Marks = EMark.None;
+        public EMark AdjL_F_Sg_D_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_D"))
-                {
-                    return !m_DictFormStatus["AdjL_F_Sg_D"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_F_Sg_D"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_F_Sg_D"] = fd;
-                OnPropertyChanged("AdjL_F_Sg_D_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_F_Sg_D"); }
+            set { m_eAdjL_F_Sg_D_Marks = value; OnPropertyChanged("AdjL_F_Sg_D_Marks"); }
         }
 
         public string AdjL_F_Sg_I
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_D"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_F_Sg_D"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_F_Sg_I"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_F_Sg_I"] = fd;
-                OnPropertyChanged("AdjL_F_Sg_I");
-            }
+            get { return GetForms("AdjL_F_Sg_I"); }
+            set { SetForms("AdjL_F_Sg_I", value); }
         }
 
-        public bool AdjL_F_Sg_I_IsReadOnly
+        private EMark m_eAdjL_F_Sg_I_Marks = EMark.None;
+        public EMark AdjL_F_Sg_I_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_F_Sg_I"))
-                {
-                    return !m_DictFormStatus["AdjL_F_Sg_I"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_F_Sg_I"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_F_Sg_I"] = fd;
-                OnPropertyChanged("AdjL_F_Sg_I_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_F_Sg_I"); }
+            set { m_eAdjL_F_Sg_I_Marks = value; OnPropertyChanged("AdjL_F_Sg_I_Marks"); }
         }
 
         #endregion
@@ -780,278 +398,80 @@ namespace ZalTestApp
 
         public string AdjL_N_Sg_N
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_N"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_N"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_N_Sg_N"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_N_Sg_N"] = fd;
-                OnPropertyChanged("AdjL_N_Sg_N");
-            }
+            get { return GetForms("AdjL_N_Sg_N"); }
+            set { SetForms("AdjL_N_Sg_N", value); }
         }
 
-        public bool AdjL_N_Sg_N_IsReadOnly
+        private EMark m_eAdjL_N_Sg_N_Marks = EMark.None;
+        public EMark AdjL_N_Sg_N_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_N"))
-                {
-                    return !m_DictFormStatus["AdjL_N_Sg_N"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_N_Sg_N"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_N_Sg_N"] = fd;
-                OnPropertyChanged("AdjL_N_Sg_N_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_N_Sg_N"); }
+            set { m_eAdjL_N_Sg_N_Marks = value; OnPropertyChanged("AdjL_N_Sg_N_Marks"); }
         }
 
         public string AdjL_N_Sg_A
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_A"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_A"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_N_Sg_A"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_N_Sg_A"] = fd;
-                OnPropertyChanged("AdjL_N_Sg_A");
-            }
+            get { return GetForms("AdjL_N_Sg_A"); }
+            set { SetForms("AdjL_N_Sg_A", value); }
         }
 
-        public bool AdjL_N_Sg_A_IsReadOnly
+        private EMark m_eAdjL_N_Sg_A_Marks = EMark.None;
+        public EMark AdjL_N_Sg_A_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_A"))
-                {
-                    return !m_DictFormStatus["AdjL_N_Sg_A"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_N_Sg_A"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_N_Sg_A"] = fd;
-                OnPropertyChanged("AdjL_N_Sg_A_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_N_Sg_A"); }
+            set { m_eAdjL_N_Sg_A_Marks = value; OnPropertyChanged("AdjL_N_Sg_A_Marks"); }
         }
 
         public string AdjL_N_Sg_G
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_G"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_G"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_N_Sg_G"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_N_Sg_G"] = fd;
-                OnPropertyChanged("AdjL_N_Sg_G");
-            }
+            get { return GetForms("AdjL_N_Sg_G"); }
+            set { SetForms("AdjL_N_Sg_G", value); }
         }
 
-        public bool AdjL_N_Sg_G_IsReadOnly
+        private EMark m_eAdjL_N_Sg_G_Marks = EMark.None;
+        public EMark AdjL_N_Sg_G_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_G"))
-                {
-                    return !m_DictFormStatus["AdjL_N_Sg_G"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_N_Sg_G"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_N_Sg_G"] = fd;
-                OnPropertyChanged("AdjL_N_Sg_G_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_N_Sg_G"); }
+            set { m_eAdjL_N_Sg_G_Marks = value; OnPropertyChanged("AdjL_N_Sg_G_Marks"); }
         }
 
         public string AdjL_N_Sg_P
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_P"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_P"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return ""
-;                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_N_Sg_P"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_N_Sg_P"] = fd;
-                OnPropertyChanged("AdjL_N_Sg_P");
-            }
+            get { return GetForms("AdjL_N_Sg_P"); }
+            set { SetForms("AdjL_N_Sg_P", value); }
         }
 
-        public bool AdjL_N_Sg_P_IsReadOnly
+        private EMark m_eAdjL_N_Sg_P_Marks = EMark.None;
+        public EMark AdjL_N_Sg_P_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_P"))
-                {
-                    return !m_DictFormStatus["AdjL_N_Sg_P"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_N_Sg_P"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_N_Sg_P"] = fd;
-                OnPropertyChanged("AdjL_N_Sg_P_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_N_Sg_P"); }
+            set { m_eAdjL_N_Sg_P_Marks = value; OnPropertyChanged("AdjL_N_Sg_P_Marks"); }
         }
 
         public string AdjL_N_Sg_D
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_D"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_D"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_N_Sg_D"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_N_Sg_D"] = fd;
-                OnPropertyChanged("AdjL_N_Sg_D");
-            }
+            get { return GetForms("AdjL_N_Sg_D"); }
+            set { SetForms("AdjL_N_Sg_D", value); }
         }
 
-        public bool AdjL_N_Sg_D_IsReadOnly
+        private EMark m_eAdjL_N_Sg_D_Marks = EMark.None;
+        public EMark AdjL_N_Sg_D_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_D"))
-                {
-                    return !m_DictFormStatus["AdjL_N_Sg_D"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_N_Sg_D"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_N_Sg_D"] = fd;
-                OnPropertyChanged("AdjL_N_Sg_D_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_N_Sg_D"); }
+            set { m_eAdjL_N_Sg_D_Marks = value; OnPropertyChanged("AdjL_N_Sg_D_Marks"); }
         }
 
         public string AdjL_N_Sg_I
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_I"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_N_Sg_I"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_N_Sg_I"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_N_Sg_I"] = fd;
-                OnPropertyChanged("AdjL_N_Sg_I");
-            }
+            get { return GetForms("AdjL_N_Sg_I"); }
+            set { SetForms("AdjL_N_Sg_I", value); }
         }
 
-        public bool AdjL_N_Sg_I_IsReadOnly
+        private EMark m_eAdjL_N_Sg_I_Marks = EMark.None;
+        public EMark AdjL_N_Sg_I_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_N_Sg_I"))
-                {
-                    return !m_DictFormStatus["AdjL_N_Sg_I"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_N_Sg_I"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_N_Sg_I"] = fd;
-                OnPropertyChanged("AdjL_N_Sg_I_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_N_Sg_I"); }
+            set { m_eAdjL_N_Sg_I_Marks = value; OnPropertyChanged("AdjL_N_Sg_I_Marks"); }
         }
 
         #endregion
@@ -1060,324 +480,93 @@ namespace ZalTestApp
 
         public string AdjL_Pl_N
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_N"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_N"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_Pl_N"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_Pl_N"] = fd;
-                OnPropertyChanged("AdjL_Pl_N");
-            }
+            get { return GetForms("AdjL_Pl_N"); }
+            set { SetForms("AdjL_Pl_N", value); }
         }
 
-        public bool AdjL_Pl_N_IsReadOnly
+        private EMark m_eAdjL_Pl_N_Marks = EMark.None;
+        public EMark AdjL_Pl_N_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_N"))
-                {
-                    return !m_DictFormStatus["AdjL_Pl_N"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_Pl_N"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_Pl_N"] = fd;
-                OnPropertyChanged("AdjL_Pl_N_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_Pl_N"); }
+            set { m_eAdjL_Pl_N_Marks = value; OnPropertyChanged("AdjL_Pl_N_Marks"); }
         }
 
         public string AdjL_Pl_A_Anim
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_A_Anim"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_A_Anim"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_Pl_A_Anim"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_Pl_A_Anim"] = fd;
-                OnPropertyChanged("AdjL_Pl_A_Anim");
-            }
+            get { return GetForms("AdjL_Pl_A_Anim"); }
+            set { SetForms("AdjL_Pl_A_Anim", value); }
         }
 
-        public bool AdjL_Pl_A_Anim_IsReadOnly
+        private EMark m_eAdjL_Pl_A_Anim_Marks = EMark.None;
+        public EMark AdjL_Pl_A_Anim_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_A_Anim"))
-                {
-                    return !m_DictFormStatus["AdjL_Pl_A_Anim"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_Pl_A_Anim"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_Pl_A_Anim"] = fd;
-                OnPropertyChanged("AdjL_Pl_A_Anim_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_Pl_A_Anim"); }
+            set { m_eAdjL_Pl_A_Anim_Marks = value; OnPropertyChanged("AdjL_Pl_A_Anim_Marks"); }
         }
 
         public string AdjL_Pl_A_Inanim
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_A_Inanim"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_A_Inanim"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_Pl_A_Inanim"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_Pl_A_Inanim"] = fd;
-                OnPropertyChanged("AdjL_Pl_A_Inanim");
-            }
+            get { return GetForms("AdjL_Pl_A_Inanim"); }
+            set { SetForms("AdjL_Pl_A_Inanim", value); }
         }
 
-        public bool AdjL_Pl_A_Inanim_IsReadOnly
+        private EMark m_eAdjL_Pl_A_Inanim_Marks = EMark.None;
+        public EMark AdjL_Pl_A_Inanim_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_A_Inanim"))
-                {
-                    return !m_DictFormStatus["AdjL_Pl_A_Inanim"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_Pl_A_Inanim"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_Pl_A_Inanim"] = fd;
-                OnPropertyChanged("AdjL_Pl_A_Inanim_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_Pl_A_Inanim"); }
+            set { m_eAdjL_Pl_A_Inanim_Marks = value; OnPropertyChanged("AdjL_Pl_A_Inanim_Marks"); }
         }
 
         public string AdjL_Pl_G
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_G"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_G"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_Pl_G"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_Pl_G"] = fd;
-                OnPropertyChanged("AdjL_Pl_G");
-            }
+            get { return GetForms("AdjL_Pl_G"); }
+            set { SetForms("AdjL_Pl_G", value); }
         }
 
-        public bool AdjL_Pl_G_IsReadOnly
+        private EMark m_eAdjL_Pl_G_Marks = EMark.None;
+        public EMark AdjL_Pl_G_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_G"))
-                {
-                    return !m_DictFormStatus["AdjL_Pl_G"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_Pl_G"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_Pl_G"] = fd;
-                OnPropertyChanged("AdjL_Pl_G_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_Pl_G"); }
+            set { m_eAdjL_Pl_G_Marks = value; OnPropertyChanged("AdjL_Pl_G_Marks"); }
         }
 
         public string AdjL_Pl_P
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_P"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_P"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_Pl_P"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_Pl_P"] = fd;
-                OnPropertyChanged("AdjL_Pl_P");
-            }
+            get { return GetForms("AdjL_Pl_P"); }
+            set { SetForms("AdjL_Pl_P", value); }
         }
 
-        public bool AdjL_Pl_P_IsReadOnly
+        private EMark m_eAdjL_Pl_P_Marks = EMark.None;
+        public EMark AdjL_Pl_P_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_P"))
-                {
-                    return !m_DictFormStatus["AdjL_Pl_P"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_Pl_P"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_Pl_P"] = fd;
-                OnPropertyChanged("AdjL_Pl_P_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_Pl_P"); }
+            set { m_eAdjL_Pl_P_Marks = value; OnPropertyChanged("AdjL_Pl_P_Marks"); }
         }
 
         public string AdjL_Pl_D
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_D"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_D"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_Pl_D"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_Pl_D"] = fd;
-                OnPropertyChanged("AdjL_Pl_D");
-            }
+            get { return GetForms("AdjL_Pl_D"); }
+            set { SetForms("AdjL_Pl_D", value); }
         }
 
-        public bool AdjL_Pl_D_IsReadOnly
+        private EMark m_eAdjL_Pl_D_Marks = EMark.None;
+        public EMark AdjL_Pl_D_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_D"))
-                {
-                    return !m_DictFormStatus["AdjL_Pl_D"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_Pl_D"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_Pl_D"] = fd;
-                OnPropertyChanged("AdjL_Pl_D_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_Pl_D"); }
+            set { m_eAdjL_Pl_D_Marks = value; OnPropertyChanged("AdjL_Pl_D_Marks"); }
         }
 
         public string AdjL_Pl_I
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_I"))
-                {
-                    var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjL_Pl_I"].listForms);
-                    return text;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjL_Pl_I"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjL_Pl_I"] = fd;
-                OnPropertyChanged("AdjL_Pl_I");
-            }
+            get { return GetForms("AdjL_Pl_I"); }
+            set { SetForms("AdjL_Pl_I", value); }
         }
 
-        public bool AdjL_Pl_I_IsReadOnly
+        private EMark m_eAdjL_Pl_I_Marks = EMark.None;
+        public EMark AdjL_Pl_I_Marks
         {
-            get
-            {
-                if (m_DictFormStatus.ContainsKey("AdjL_Pl_I"))
-                {
-                    return !m_DictFormStatus["AdjL_Pl_I"].bCanEdit;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            set
-            {
-                var fd = m_DictFormStatus["AdjL_Pl_I"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjL_Pl_I"] = fd;
-                OnPropertyChanged("AdjL_Pl_I_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjL_Pl_I"); }
+            set { m_eAdjL_Pl_I_Marks = value; OnPropertyChanged("AdjL_Pl_I_Marks"); }
         }
 
         #endregion
@@ -1386,192 +575,54 @@ namespace ZalTestApp
 
         public string AdjS_M
         {
-            get
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_M"))
-                {
-                    return "";
-                }
-
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjS_M"].listForms);
-                return text;
-            }
-            set
-            {
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjS_M"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjS_M"] = fd;
-                OnPropertyChanged("AdjS_M");
-            }
+            get { return GetForms("AdjS_M"); }
+            set { SetForms("AdjS_M", value); }
         }
 
-        public bool AdjS_M_IsReadOnly
+        private EMark m_eAdjS_M_Marks = EMark.None;
+        public EMark AdjS_M_Marks
         {
-            get
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_M"))
-                {
-                    return true;
-                }
-                return !m_DictFormStatus["AdjS_M"].bCanEdit;
-            }
-            set
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_M"))
-                {
-                    return;
-                }
-
-                var fd = m_DictFormStatus["AdjS_M"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjS_M"] = fd;
-                OnPropertyChanged("AdjS_M_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjS_M"); }
+            set { m_eAdjS_M_Marks = value; OnPropertyChanged("AdjS_M_Marks"); }
         }
 
         public string AdjS_F
         {
-            get
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_F"))
-                {
-                    return "";
-                }
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjS_F"].listForms);
-                return text;
-            }
-            set
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_F"))
-                {
-                    return;
-                }
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjS_F"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjS_F"] = fd;
-                OnPropertyChanged("AdjS_F");
-            }
+            get { return GetForms("AdjS_F"); }
+            set { SetForms("AdjS_F", value); }
         }
 
-        public bool AdjS_F_IsReadOnly
+        private EMark m_eAdjS_F_Marks = EMark.None;
+        public EMark AdjS_F_Marks
         {
-            get
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_F"))
-                {
-                    return true;
-                }
-                return !m_DictFormStatus["AdjS_F"].bCanEdit;
-            }
-            set
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_F"))
-                {
-                    return;
-                }
-                var fd = m_DictFormStatus["AdjS_F"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjS_F"] = fd;
-                OnPropertyChanged("AdjS_F_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjS_F"); }
+            set { m_eAdjS_F_Marks = value; OnPropertyChanged("AdjS_F_Marks"); }
         }
 
         public string AdjS_N
         {
-            get
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_N"))
-                {
-                    return "";
-                }
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjS_N"].listForms);
-                return text;
-            }
-            set
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_N"))
-                {
-                    return;
-                }
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjS_N"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjS_N"] = fd;
-                OnPropertyChanged("AdjS_N");
-            }
+            get { return GetForms("AdjS_N"); }
+            set { SetForms("AdjS_N", value); }
         }
 
-        public bool AdjS_N_IsReadOnly
+        private EMark m_eAdjN_F_Marks = EMark.None;
+        public EMark AdjN_F_Marks
         {
-            get
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_N"))
-                {
-                    return true;
-                }
-                return !m_DictFormStatus["AdjS_N"].bCanEdit;
-            }
-            set
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_N"))
-                {
-                    return;
-                }
-                var fd = m_DictFormStatus["AdjS_N"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjS_N"] = fd;
-                OnPropertyChanged("AdjS_N_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjN_F"); }
+            set { m_eAdjN_F_Marks = value; OnPropertyChanged("AdjN_F_Marks"); }
         }
 
         public string AdjS_Pl
         {
-            get
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_Pl"))
-                {
-                    return "";
-                }
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjS_Pl"].listForms);
-                return text;
-            }
-            set
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_Pl"))
-                {
-                    return;
-                }
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjS_Pl"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjS_Pl"] = fd;
-                OnPropertyChanged("AdjS_Pl");
-            }
+            get { return GetForms("AdjS_Pl"); }
+            set { SetForms("AdjS_Pl", value); }
         }
 
-        public bool AdjS_Pl_IsReadOnly
+        private EMark m_eAdjS_Pl_Marks = EMark.None;
+        public EMark AdjS_Pl_Marks
         {
-            get
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_Pl"))
-                {
-                    return true;
-                }
-                return !m_DictFormStatus["AdjS_Pl"].bCanEdit;
-            }
-            set
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjS_Pl"))
-                {
-                    return;
-                }
-                var fd = m_DictFormStatus["AdjS_Pl"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjS_Pl"] = fd;
-                OnPropertyChanged("AdjS_Pl_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjS_Pl"); }
+            set { m_eAdjN_F_Marks = value; OnPropertyChanged("AdjS_Pl_Marks"); }
         }
 
         #endregion
@@ -1580,50 +631,15 @@ namespace ZalTestApp
 
         public string AdjComp
         {
-            get
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjComp"))
-                {
-                    return "";
-                }
-                var text = Helpers.sListToCommaSeparatedString(m_DictFormStatus["AdjComp"].listForms);
-                return text;
-            }
-            set
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjComp"))
-                {
-                    return;
-                }
-                Helpers.AssignDiacritics(value, ref value);
-                var fd = m_DictFormStatus["AdjComp"];
-                fd.listForms = Helpers.CommaSeparatedStringToList(value);
-                m_DictFormStatus["AdjComp"] = fd;
-                OnPropertyChanged("AdjComp");
-            }
+            get { return GetForms("AdjComp"); }
+            set { SetForms("AdjComp", value); }
         }
 
-        public bool AdjComp_IsReadOnly
+        private EMark m_eAdjComp_Marks = EMark.None;
+        public EMark AdjComp_Marks
         {
-            get
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjComp"))
-                {
-                    return true;
-                }
-                return !m_DictFormStatus["AdjComp"].bCanEdit;
-            }
-            set
-            {
-                if (!m_DictFormStatus.ContainsKey("AdjComp"))
-                {
-                    return;
-                }
-                var fd = m_DictFormStatus["AdjComp"];
-                fd.bCanEdit = !value;
-                m_DictFormStatus["AdjComp"] = fd;
-                OnPropertyChanged("AdjComp_IsReadOnly");
-            }
+            get { return GetFormStatus("AdjComp"); }
+            set { m_eAdjComp_Marks = value; OnPropertyChanged("AdjComp_Marks"); }
         }
 
         private bool m_bEditEnabled = false;
@@ -1658,7 +674,7 @@ namespace ZalTestApp
 
             foreach (string sHash in listGramHashes)
             {
-                FormDescriptor fd = new FormDescriptor(null, false, null);
+                FormDescriptor fd = new FormDescriptor(null, false, false, null);
                 List<string> listForms = null;
                 var bRet = m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
                 if (!bRet)
@@ -1668,13 +684,8 @@ namespace ZalTestApp
 
                 fd.listForms = listForms;
                 fd.handler = () =>
-                {                    
+                {
                     FormDescriptor fd1 = m_DictFormStatus[sFormHashToDisplayHash(sHash)];
-                    if (!fd1.bCanEdit)
-                    {
-                        return true;
-                    }
-
                     var sFormString1 = Helpers.sListToCommaSeparatedString(fd1.listForms);
                     Helpers.AssignDiacritics(sFormString1, ref sFormString1);
                     //                    OnPropertyChanged(hash);
@@ -1720,7 +731,7 @@ namespace ZalTestApp
             m_MainModel = m;
 
             BackCommand = new RelayCommand(new Action<object>(GoBack));
-            EditCommand = new RelayCommand(new Action<object>(EditForm));
+//            EditCommand = new RelayCommand(new Action<object>(EditForm));
             SaveFormsCommand = new RelayCommand(new Action<object>(SaveForms));
 
             m_eSubparadigm = eSubparadigm;
@@ -1740,26 +751,6 @@ namespace ZalTestApp
         public void GoBack(Object obj)
         {
             BackButtonEvent?.Invoke();
-        }
-
-        public void EditForm(Object obj)
-        {
-            var sPropName = obj as string;
-
-            try
-            {
-                var fd = m_DictFormStatus[sPropName];
-                fd.bCanEdit = !fd.bCanEdit;
-                m_DictFormStatus[sPropName] = fd;
-                sPropName += "_IsReadOnly";
-                OnPropertyChanged(sPropName);
-            }
-            catch (Exception ex)
-            {
-                var msg = "Internal error: unable to invoke word form change handler: ";
-                msg += ex.Message;
-                MessageBox.Show(msg);
-            }
         }
 
         public void SaveForms(Object obj)

@@ -681,6 +681,90 @@ namespace ZalTestApp
 
         }   //  GenerateAdjForms()
 
+        public bool bLeadComment(string sLexemeHash, string sFormHash, ref string sComment)
+        {
+            CLexemeManaged lexeme;
+            if (!m_LexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            {
+                System.Windows.MessageBox.Show("Unable to find lexeme.");
+                return false;
+            }
+
+            CWordFormManaged wf = null;
+            EM_ReturnCode eRet = lexeme.eWordFormFromHash(sFormHash, 0, ref wf);    // no need to check for all
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                System.Windows.MessageBox.Show("Unable to check word form edit status.");
+                return false;
+            }
+
+            sComment = wf.sLeadComment();
+
+            return true;
+        }
+
+        public bool bTrailingComment(string sLexemeHash, string sFormHash, ref string sComment)
+        {
+            CLexemeManaged lexeme;
+            if (!m_LexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            {
+                System.Windows.MessageBox.Show("Unable to find lexeme.");
+                return false;
+            }
+
+            CWordFormManaged wf = null;
+            EM_ReturnCode eRet = lexeme.eWordFormFromHash(sFormHash, 0, ref wf);    // no need to check for all
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                System.Windows.MessageBox.Show("Unable to check word form edit status.");
+                return false;
+            }
+
+            sComment = wf.sTrailingComment();
+
+            return true;
+        }
+
+        public bool bIsIrregular(string sLexemeHash, string sFormHash)
+        {
+            CLexemeManaged lexeme;
+            if (!m_LexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            {
+                System.Windows.MessageBox.Show("Unable to find lexeme.");
+                return false;
+            }
+
+            CWordFormManaged wf = null;
+            EM_ReturnCode eRet = lexeme.eWordFormFromHash(sFormHash, 0, ref wf);    // no need to check for all
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+//                System.Windows.MessageBox.Show("Unable to check word form edit status.");
+                return false;
+            }
+
+            return wf.bIrregular();
+        }
+
+        public bool bIsEdited(string sLexemeHash, string sFormHash)
+        {
+            CLexemeManaged lexeme;
+            if (!m_LexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            {
+                System.Windows.MessageBox.Show("Unable to find lexeme.");
+                return false;
+            }
+
+            CWordFormManaged wf = null;
+            EM_ReturnCode eRet = lexeme.eWordFormFromHash(sFormHash, 0, ref wf);    // no need to check for all
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+//                System.Windows.MessageBox.Show("Unable to check word form edit status.");
+                return false;
+            }
+
+            return wf.bIsEdited();
+        }
+
         private void HandleAccusatives(CLexemeManaged lexeme, EM_Subparadigm eSubparadigm)
         {
             Dictionary<string, List<string>> paradigm;

@@ -8,11 +8,11 @@
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="757*"/>
+            <ColumnDefinition Width="128*"/>
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0" Grid.Column="0" Grid.ColumnSpan="1">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0" Grid.Column="0">
             <Grid>
                 <!-- Masculine -->
                 <!-- Singular -->
@@ -28,64 +28,64 @@
                 <TextBox Text="I" Margin="0,340,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding AdjL_M_Sg_N}" IsReadOnly="{Binding AdjL_M_Sg_N_IsReadOnly}" Margin="64,70,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_M_Sg_A_Inanim}" IsReadOnly="{Binding AdjL_M_Sg_A_Inanim_IsReadOnly}" Margin="64,115,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_M_Sg_A_Anim}" IsReadOnly="{Binding AdjL_M_Sg_A_Anim_IsReadOnly}" Margin="64,160,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_M_Sg_G}" IsReadOnly="{Binding AdjL_M_Sg_G_IsReadOnly}" Margin="64,205,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_M_Sg_P}" IsReadOnly="{Binding AdjL_M_Sg_P_IsReadOnly}" Margin="64,250,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_M_Sg_D}" IsReadOnly="{Binding AdjL_M_Sg_D_IsReadOnly}" Margin="64,295,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_M_Sg_I}" IsReadOnly="{Binding AdjL_M_Sg_I_IsReadOnly}" Margin="64,340,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_M_Sg_N}" Margin="64,70,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_M_Sg_A_Inanim}" Margin="64,115,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_M_Sg_A_Anim}" Margin="64,160,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_M_Sg_G}" Margin="64,205,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_M_Sg_P}" Margin="64,250,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_M_Sg_D}" Margin="64,295,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_M_Sg_I}" Margin="64,340,0,0" Style="{StaticResource FormText}" />
 
-                <!-- Edit buttons -->
-                <Button  Margin="228,70,0,0" CommandParameter="AdjL_M_Sg_N" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="228,115,0,0" CommandParameter="AdjL_M_Sg_A_Inanim" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="228,160,0,0" CommandParameter="AdjL_M_Sg_A_Anim" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="228,205,0,0" CommandParameter="AdjL_M_Sg_G" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="228,250,0,0" CommandParameter="AdjL_M_Sg_P" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="228,295,0,0" CommandParameter="AdjL_M_Sg_D" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="228,340,0,0" CommandParameter="AdjL_M_Sg_I" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <!-- Triangle image -->
+                <Image HorizontalAlignment="Left" Margin="227,77,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="227,122,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_A_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="227,172,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_A_Anim_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="227,212,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_G_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="227,257,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_P_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="227,302,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_D_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="227,347,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_I_Marks, Converter={StaticResource StyleConverter}}" />
 
                 <!-- Feminine -->
                 <!-- Singular -->
-                <TextBox Text="F Sg" Margin="324,20,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="F Sg" Margin="348,20,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Case Labels -->
 
                 <!-- Forms -->
-                <TextBox Text="{Binding AdjL_F_Sg_N}" IsReadOnly="{Binding AdjL_F_Sg_N_IsReadOnly}" Margin="266,70,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_F_Sg_A}" IsReadOnly="{Binding AdjL_F_Sg_A_IsReadOnly}" Margin="266,115,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_F_Sg_G}" IsReadOnly="{Binding AdjL_F_Sg_G_IsReadOnly}" Margin="266,205,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_F_Sg_P}" IsReadOnly="{Binding AdjL_F_Sg_P_IsReadOnly}" Margin="266,250,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_F_Sg_D}" IsReadOnly="{Binding AdjL_F_Sg_D_IsReadOnly}" Margin="266,295,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_F_Sg_I}" IsReadOnly="{Binding AdjL_F_Sg_I_IsReadOnly}" Margin="266,340,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_F_Sg_N}" IsReadOnly="{Binding AdjL_F_Sg_N_IsReadOnly}" Margin="290,70,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_F_Sg_A}" IsReadOnly="{Binding AdjL_F_Sg_A_IsReadOnly}" Margin="290,115,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_F_Sg_G}" IsReadOnly="{Binding AdjL_F_Sg_G_IsReadOnly}" Margin="290,205,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_F_Sg_P}" IsReadOnly="{Binding AdjL_F_Sg_P_IsReadOnly}" Margin="290,250,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_F_Sg_D}" IsReadOnly="{Binding AdjL_F_Sg_D_IsReadOnly}" Margin="290,295,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_F_Sg_I}" IsReadOnly="{Binding AdjL_F_Sg_I_IsReadOnly}" Margin="290,340,0,0" Style="{StaticResource FormText}" />
 
-                <!-- Edit buttons -->
-                <Button  Margin="430,70,0,0" CommandParameter="AdjL_F_Sg_N" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="430,115,0,0" CommandParameter="AdjL_F_Sg_A" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="430,205,0,0" CommandParameter="AdjL_F_Sg_G" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="430,250,0,0" CommandParameter="AdjL_F_Sg_P" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="430,295,0,0" CommandParameter="AdjL_F_Sg_D" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="430,340,0,0" CommandParameter="AdjL_F_Sg_I" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <!-- Triangle image -->
+                <Image HorizontalAlignment="Left" Margin="453,77,0,0" VerticalAlignment="Top" Style="{Binding AdjL_F_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="453,122,0,0" VerticalAlignment="Top" Style="{Binding AdjL_F_Sg_A_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="453,212,0,0" VerticalAlignment="Top" Style="{Binding AdjL_F_Sg_G_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="453,257,0,0" VerticalAlignment="Top" Style="{Binding AdjL_F_Sg_P_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="453,302,0,0" VerticalAlignment="Top" Style="{Binding AdjL_F_Sg_D_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="453,347,0,0" VerticalAlignment="Top" Style="{Binding AdjL_F_Sg_I_Marks, Converter={StaticResource StyleConverter}}" />
 
                 <!-- Neuter -->
                 <!-- Singular -->
-                <TextBox Text="N Sg" Margin="528,20,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="N Sg" Margin="583,20,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding AdjL_N_Sg_N}" IsReadOnly="{Binding AdjL_N_Sg_N_IsReadOnly}" Margin="468,70,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_N_Sg_A}" IsReadOnly="{Binding AdjL_N_Sg_A_IsReadOnly}" Margin="468,115,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_N_Sg_G}" IsReadOnly="{Binding AdjL_N_Sg_G_IsReadOnly}" Margin="468,205,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_N_Sg_P}" IsReadOnly="{Binding AdjL_N_Sg_P_IsReadOnly}" Margin="468,250,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_N_Sg_D}" IsReadOnly="{Binding AdjL_N_Sg_D_IsReadOnly}" Margin="468,295,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_N_Sg_I}" IsReadOnly="{Binding AdjL_N_Sg_I_IsReadOnly}" Margin="468,340,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_N_Sg_N}" IsReadOnly="{Binding AdjL_N_Sg_N_IsReadOnly}" Margin="523,70,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_N_Sg_A}" IsReadOnly="{Binding AdjL_N_Sg_A_IsReadOnly}" Margin="523,115,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_N_Sg_G}" IsReadOnly="{Binding AdjL_N_Sg_G_IsReadOnly}" Margin="523,205,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_N_Sg_P}" IsReadOnly="{Binding AdjL_N_Sg_P_IsReadOnly}" Margin="523,250,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_N_Sg_D}" IsReadOnly="{Binding AdjL_N_Sg_D_IsReadOnly}" Margin="523,295,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_N_Sg_I}" IsReadOnly="{Binding AdjL_N_Sg_I_IsReadOnly}" Margin="523,340,0,0" Style="{StaticResource FormText}" />
 
-                <!-- Edit buttons -->
-                <Button  Margin="632,70,0,0" CommandParameter="AdjL_N_Sg_N" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="632,115,0,0" CommandParameter="AdjL_N_Sg_A" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="632,205,0,0" CommandParameter="AdjL_N_Sg_G" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="632,250,0,0" CommandParameter="AdjL_N_Sg_P" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="632,295,0,0" CommandParameter="AdjL_N_Sg_D" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="632,340,0,0" CommandParameter="AdjL_N_Sg_I" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <!-- Triangle image -->
+                <Image HorizontalAlignment="Left" Margin="686,77,0,0" VerticalAlignment="Top" Style="{Binding AdjL_N_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="686,122,0,0" VerticalAlignment="Top" Style="{Binding AdjL_N_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="686,212,0,0" VerticalAlignment="Top" Style="{Binding AdjL_N_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="686,257,0,0" VerticalAlignment="Top" Style="{Binding AdjL_N_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="686,302,0,0" VerticalAlignment="Top" Style="{Binding AdjL_N_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="686,347,0,0" VerticalAlignment="Top" Style="{Binding AdjL_N_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
 
                 <!-- Plural -->
                 <TextBox Text="Pl" Margin="100,430,0,0" Style="{StaticResource FormLabelWide}" />
@@ -100,50 +100,59 @@
                 <TextBox Text="I" Margin="0,750,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding AdjL_Pl_N}" IsReadOnly="{Binding AdjL_Pl_N_IsReadOnly}" Margin="65,480,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_Pl_A_Inanim}" IsReadOnly="{Binding AdjL_Pl_A_Inanim_IsReadOnly}" Margin="65,525,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_Pl_A_Anim}" IsReadOnly="{Binding AdjL_Pl_A_Anim_IsReadOnly}" Margin="65,570,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_Pl_G}" IsReadOnly="{Binding AdjL_Pl_G_IsReadOnly}" Margin="65,615,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_Pl_P}" IsReadOnly="{Binding AdjL_Pl_P_IsReadOnly}" Margin="65,660,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_Pl_D}" IsReadOnly="{Binding AdjL_Pl_D_IsReadOnly}" Margin="65,705,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_Pl_I}" IsReadOnly="{Binding AdjL_Pl_I_IsReadOnly}" Margin="65,750,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_Pl_N}" Margin="65,480,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_Pl_A_Inanim}" Margin="65,525,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_Pl_A_Anim}" Margin="65,570,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_Pl_G}" Margin="65,615,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_Pl_P}" Margin="65,660,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_Pl_D}" Margin="65,705,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjL_Pl_I}" Margin="65,750,0,0" Style="{StaticResource FormText}" />
 
-                <!-- Edit buttons -->
-                <Button  Margin="228,480,0,0" CommandParameter="AdjL_Pl_N" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="228,525,0,0" CommandParameter="AdjL_Pl_A_Inanim" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="228,570,0,0" CommandParameter="AdjL_Pl_A_Anim" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="228,615,0,0" CommandParameter="AdjL_Pl_G" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="228,660,0,0" CommandParameter="AdjL_Pl_P" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="228,705,0,0" CommandParameter="AdjL_Pl_D" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="228,750,0,0" CommandParameter="AdjL_Pl_I" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <!-- Triangle image -->
+                <Image HorizontalAlignment="Left" Margin="228,487,0,0" VerticalAlignment="Top" Style="{Binding AdjL_Pl_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="228,532,0,0" VerticalAlignment="Top" Style="{Binding AdjL_Pl_A_Inanim_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="228,577,0,0" VerticalAlignment="Top" Style="{Binding AdjL_Pl_A_Anim_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="228,622,0,0" VerticalAlignment="Top" Style="{Binding AdjL_Pl_G_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="228,667,0,0" VerticalAlignment="Top" Style="{Binding AdjL_Pl_P_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="228,712,0,0" VerticalAlignment="Top" Style="{Binding AdjL_Pl_D_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="228,757,0,0" VerticalAlignment="Top" Style="{Binding AdjL_Pl_I_Marks, Converter={StaticResource StyleConverter}}" />
 
                 <!-- Short -->
-                <TextBox Text="Краткие формы" Margin="423,430,0,0" Style="{StaticResource FormLabelWide}" Width="121" />
+                <TextBox Text="Краткие формы" Margin="470,430,0,0" Style="{StaticResource FormLabelWide}" Width="121" />
 
                 <!-- Labels -->
-                <TextBox Text="M Sg" Margin="339,480,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="F Sg" Margin="339,525,0,0" Style="{StaticResource FormLabelWide}" RenderTransformOrigin="0.18,0.529" />
-                <TextBox Text="N Sg" Margin="339,570,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="Pl" Margin="339,615,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="M Sg" Margin="386,480,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="F Sg" Margin="386,525,0,0" Style="{StaticResource FormLabelWide}" RenderTransformOrigin="0.18,0.529" />
+                <TextBox Text="N Sg" Margin="386,570,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Pl" Margin="386,615,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding AdjS_M}" IsReadOnly="{Binding AdjS_M_IsReadOnly}" Margin="407,480,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjS_F}" IsReadOnly="{Binding AdjS_F_IsReadOnly}" Margin="407,525,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjS_N}" IsReadOnly="{Binding AdjS_N_IsReadOnly}" Margin="407,570,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjS_Pl}" IsReadOnly="{Binding AdjS_Pl_IsReadOnly}" Margin="407,615,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjS_M}" Margin="454,480,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjS_F}" Margin="454,525,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjS_N}" Margin="454,570,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding AdjS_Pl}" Margin="454,615,0,0" Style="{StaticResource FormText}" />
 
-                <!-- Edit buttons -->
-                <Button  Margin="571,480,0,0" CommandParameter="AdjS_M" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="571,525,0,0" CommandParameter="AdjS_F" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="571,570,0,0" CommandParameter="AdjS_N" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <Button  Margin="571,615,0,0" CommandParameter="AdjS_Pl" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <!-- Triangle image -->
+                <Image HorizontalAlignment="Left" Margin="617,487,0,0" VerticalAlignment="Top" Style="{Binding AdjS_M_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="617,532,0,0" VerticalAlignment="Top" Style="{Binding AdjS_F_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="617,577,0,0" VerticalAlignment="Top" Style="{Binding AdjS_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="617,622,0,0" VerticalAlignment="Top" Style="{Binding AdjS_Pl_Marks, Converter={StaticResource StyleConverter}}" />
 
                 <!-- Comparative -->
-                <TextBox Text="Сравн." Margin="457,681,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="{Binding AdjComp}" IsReadOnly="{Binding AdjComp_IsReadOnly}" Margin="407,718,0,0" Style="{StaticResource FormText}" />
-                <Button  Margin="571,718,0,0" CommandParameter="AdjComp" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <TextBox Text="Сравн." Margin="504,681,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="{Binding AdjComp}" Margin="454,718,0,0" Style="{StaticResource FormText}" />
+                <Image HorizontalAlignment="Left" Margin="617,725,0,0" VerticalAlignment="Top" Style="{Binding AdjComp_Marks, Converter={StaticResource StyleConverter}}" />
             </Grid>
         </ScrollViewer>
-        <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveFormsCommand}" Grid.Column="1" />
+        <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveFormsCommand}" Margin="11.667,340,8.333,406.889" Height="Auto" Width="Auto" RenderTransformOrigin="0.5,0.5" Grid.Column="1" >
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.447"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.437"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
     </Grid>
 </UserControl>

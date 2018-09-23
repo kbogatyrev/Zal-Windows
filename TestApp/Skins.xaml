@@ -108,7 +108,7 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
-                            <Setter TargetName="MouseOver" Property="Visibility" Value="Visible"/>
+                               <Setter TargetName="MouseOver" Property="Visibility" Value="Visible"/>
                             <Setter TargetName="Pressed" Property="Visibility" Value="Hidden"/>
                             <Setter TargetName="Disabled" Property="Visibility" Value="Hidden"/>
                         </Trigger>
@@ -120,7 +120,7 @@
             <Trigger Property="IsMouseOver"  Value="True">
                 <Setter Property="Background" Value="LightBlue" />
             </Trigger>
-        </Style.Triggers>        
+        </Style.Triggers>
     </Style>
 
     <Style TargetType="TextBox" x:Key="FormLabel">
@@ -161,7 +161,7 @@
         <Setter Property="Height" Value="28"/>
         <Setter Property="Width" Value="160"/>
         <Setter Property="BorderBrush" Value="Black"/>
-        <Setter Property="Foreground" Value="Navy"/>
+        <Setter Property="Foreground" Value="Navy"/> 
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -174,10 +174,20 @@
         <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
         <Setter Property="ScrollViewer.Height" Value="28.0"/>
+        <Setter Property="IsReadOnly" Value="False"/>
 
-        <!-- Bound property -->
-        <Setter Property="IsReadOnly" Value="{Binding ReadOnly}"/>
+<!--        
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=WasTouched}" Value="True">
+                <Setter Property="Foreground" Value="Red"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=WasTouched}" Value="False">
+                <Setter Property="Foreground" Value="DarkBlue"/>
+            </DataTrigger>
+        </Style.Triggers>
+-->        
 
+        <!--
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
@@ -185,13 +195,36 @@
                         <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsReadOnly" Value="False">
+                        <DataTrigger Binding="{Binding Path=WasTouched}" Value="True">
                             <Setter Property="Foreground" Value="Red"/>
-                        </Trigger>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=WasTouched}" Value="False">
+                            <Setter Property="Foreground" Value="DarkBlue"/>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+-->        
+    </Style>
+
+   <local:StyleConverter x:Key="StyleConverter"/>  
+
+    <Style TargetType="Image" x:Key="IrregularFormMark">
+        <Setter Property="Height" Value="15"/>
+        <Setter Property="Width" Value="15"/>
+        <Setter Property="Source" Value="black_triangle.png"/>
+    </Style>
+
+    <Style TargetType="Image" x:Key="EditedFormMark">
+        <Setter Property="Height" Value="15"/>
+        <Setter Property="Width" Value="15"/>
+        <Setter Property="Source" Value="red_triangle.png"/>
+    </Style>
+
+    <Style TargetType="Image" x:Key="NoMark">
+        <Setter Property="Height" Value="0"/>
+        <Setter Property="Width" Value="0"/>
     </Style>
 
     <Style TargetType="Menu" x:Key="Menu">
@@ -230,4 +263,3 @@
     </Style>
     
 </ResourceDictionary>
-    

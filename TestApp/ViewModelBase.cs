@@ -7,6 +7,7 @@
 */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -82,6 +83,26 @@ namespace ZalTestApp
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        ////////////////////////////////////////////////////////
+
+        public delegate bool ChangedFormHandler();
+        public struct FormDescriptor
+        {
+            public List<string> listForms { get; set; }
+            //            public bool bCanEdit { get; set; }
+            public ChangedFormHandler handler { get; set; }
+            public bool IsIrregular { get; set; }
+            public bool IsEdited { get; set; }
+
+            public FormDescriptor(List<string> list, bool bIrregular, bool bEdited, ChangedFormHandler h)
+            {
+                listForms = list;
+                IsIrregular = bIrregular;
+                IsEdited = bEdited;
+                handler = h;
+            }
+        }
     }
 
     public class RelayCommand : ICommand
@@ -110,4 +131,5 @@ namespace ZalTestApp
         }
         #endregion
     }
+
 }
