@@ -315,6 +315,66 @@ void CWordFormManaged::SetIrregular(bool bIrregular)
     m_pWordForm->SetIrregular(bIrregular);
 }
 
+String^ CWordFormManaged::sLeadComment()
+{
+    if (NULL == m_pWordForm)
+    {
+        throw gcnew Exception(L"WordForm object is NULL.");
+    }
+
+    return gcnew String(m_pWordForm->sLeadComment());
+}
+
+void CWordFormManaged::SetLeadComment(String^ sLeadComment)
+{
+    if (NULL == m_pWordForm)
+    {
+        throw gcnew Exception(L"WordForm object is NULL.");
+    }
+
+    m_pWordForm->SetLeadComment(sFromManagedString(sLeadComment));
+}
+
+String^ CWordFormManaged::sTrailingComment()
+{
+    if (NULL == m_pWordForm)
+    {
+        throw gcnew Exception(L"WordForm object is NULL.");
+    }
+
+    return gcnew String(m_pWordForm->sTrailingComment());
+}
+
+void CWordFormManaged::SetTrailingComment(String^ sTrailingComment)
+{
+    if (NULL == m_pWordForm)
+    {
+        throw gcnew Exception(L"WordForm object is NULL.");
+    }
+
+    m_pWordForm->SetLeadComment(sFromManagedString(sTrailingComment));
+}
+
+bool CWordFormManaged::bIsEdited()
+{
+    if (NULL == m_pWordForm)
+    {
+        throw gcnew Exception(L"WordForm object is NULL.");
+    }
+
+    return m_pWordForm->bIsEdited();
+}
+
+void CWordFormManaged::SetIsEdited(bool bIsEdited)
+{
+    if (NULL == m_pWordForm)
+    {
+        throw gcnew Exception(L"WordForm object is NULL.");
+    }
+
+    return m_pWordForm->SetIsEdited(bIsEdited);
+}
+
 EM_ReturnCode CWordFormManaged::eGetFirstStressPos(int% iPos, EM_StressType% eType)
 {
     if (NULL == m_pWordForm)
