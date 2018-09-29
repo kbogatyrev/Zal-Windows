@@ -45,6 +45,11 @@ CLexemeManaged^ CWordFormManaged::Lexeme()
     return gcnew CLexemeManaged(m_pWordForm->pLexeme());
 }
 
+IWordForm * CWordFormManaged::pGetUnmanagedItf()
+{
+    return m_pWordForm;
+}
+
 String^ CWordFormManaged::sWordForm()
 {
     if (NULL == m_pWordForm)
@@ -2348,6 +2353,17 @@ EM_ReturnCode CLexemeManaged::eCreateWordForm(CWordFormManaged ^% pWf)
     return (EM_ReturnCode)eRet;
 }
 
+EM_ReturnCode CLexemeManaged::eRemoveWordForm(String^ sHash, int iAt)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pLexeme->eRemoveWordForm(sFromManagedString(sHash), iAt);
+    return (EM_ReturnCode)eRet;
+}
+
 bool CLexemeManaged::bHasIrregularForm(String^ sGramHash)
 {
     if (NULL == m_pLexeme)
@@ -2621,6 +2637,27 @@ EM_ReturnCode CLexemeManaged::eCheckLexemeProperties() // for manual input/editi
     }
 
     return (EM_ReturnCode)m_pLexeme->eCheckLexemeProperties();
+}
+
+EM_ReturnCode CLexemeManaged::eDeleteIrregularForm(String^ sFormHash)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pLexeme->eDeleteIrregularForm(sFromManagedString(sFormHash));
+}
+
+EM_ReturnCode CLexemeManaged::eSaveIrregularForm(String^ sFormHash, CWordFormManaged^% wf)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    IWordForm * pwf = wf->pGetUnmanagedItf();
+    return (EM_ReturnCode)m_pLexeme->eSaveIrregularForm(sFromManagedString(sFormHash), pwf);
 }
 
 EM_ReturnCode CLexemeManaged::eGetErrorMsg(String^% sErrorMsg)

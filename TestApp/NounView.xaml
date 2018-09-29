@@ -36,11 +36,11 @@
                 <TextBox Text="{Binding Noun_Sg_D}" Margin="70,250,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Noun_Sg_I}" Margin="70,295,0,0" Style="{StaticResource FormText}" />
 
-                <TextBox Text="{Binding Noun_Sg_Part}" IsReadOnly="{Binding Noun_Sg_Part_IsReadOnly}" Margin="70,356,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Noun_Sg_L}" IsReadOnly="{Binding Noun_Sg_L_IsReadOnly}" Margin="70,401,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Noun_Sg_Part}" Margin="70,356,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Noun_Sg_L}" Margin="70,401,0,0" Style="{StaticResource FormText}" />
                 <CheckBox Content="Факульт." IsChecked="{Binding Path=Is_L2_optional}" HorizontalAlignment="Left" Margin="280,409,0,0" VerticalAlignment="Top" Width="87"/>
                 <Label Content="Предлоги:" HorizontalAlignment="Left" Margin="372,402,0,0" VerticalAlignment="Top" Width="66"/>
-                <TextBox Text="{Binding Path=Noun_Sg_L2_Prepositions}" IsReadOnly="{Binding Noun_Sg_L_IsReadOnly}" Margin="443,401,0,0" Style="{StaticResource FormText}" Width="63" />
+                <TextBox Text="{Binding Path=Noun_Sg_L2_Prepositions}" Margin="443,401,0,0" Style="{StaticResource FormText}" Width="63" />
 
                 <!-- Triangle image -->
                 <Image HorizontalAlignment="Left" Margin="233,77,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />

@@ -34,6 +34,8 @@ namespace MainLibManaged
 
         CLexemeManaged^ Lexeme();
 
+        IWordForm * pGetUnmanagedItf();
+
         String^ sWordForm();
         void SetWordForm(String^);
 
@@ -256,6 +258,7 @@ namespace MainLibManaged
         String^ sHash();
         EM_ReturnCode eWordFormFromHash(String^ sHash, int iAt, CWordFormManaged^% Wf);
         EM_ReturnCode eCreateWordForm(CWordFormManaged^% wf);
+        EM_ReturnCode eRemoveWordForm(String^ sHash, int iAt);
         bool bHasIrregularForm(String^ sGramHash);
         bool bNoRegularForms(String^ sGramHash);
         EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% wf);
@@ -278,6 +281,8 @@ namespace MainLibManaged
 //        EM_ReturnCode eBuildAspectPair();
         EM_ReturnCode eSaveTestData();
         EM_ReturnCode eCheckLexemeProperties(); // for manual input/editing
+        EM_ReturnCode eDeleteIrregularForm(String^ sFormHash);
+        EM_ReturnCode eSaveIrregularForm(String^ sFormHash, CWordFormManaged^%);
         EM_ReturnCode eGetErrorMsg(String^% sErrorMsg);
 
     protected:
