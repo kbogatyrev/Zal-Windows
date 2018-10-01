@@ -8,8 +8,8 @@
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="757*"/>
-            <ColumnDefinition Width="128*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0" Grid.Column="0">
@@ -144,15 +144,6 @@
                 <Image HorizontalAlignment="Left" Margin="617,725,0,0" VerticalAlignment="Top" Style="{Binding AdjComp_Marks, Converter={StaticResource StyleConverter}}" />
             </Grid>
         </ScrollViewer>
-        <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveFormsCommand}" Margin="11.667,340,8.333,406.889" Height="Auto" Width="Auto" RenderTransformOrigin="0.5,0.5" Grid.Column="1" >
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="0.447"/>
-                    <RotateTransform/>
-                    <TranslateTransform X="0.437"/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
+        <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveFormsCommand}" Margin="5,424,0,0" Grid.Column="1" />
     </Grid>
 </UserControl>

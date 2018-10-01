@@ -542,7 +542,7 @@ namespace ZalTestApp
             EM_Case eCase = EM_Case.CASE_UNDEFINED;
             EM_Animacy eAnimacy = EM_Animacy.ANIM_UNDEFINED;
             eRet = Helpers.eGramHashToCase(sGramHash, ref eCase, ref eAnimacy);
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            if (eRet == EM_ReturnCode.H_NO_ERROR)
             {
                 wf.SetCase(eCase);
                 wf.SetAnimacy(eAnimacy);

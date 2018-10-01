@@ -279,6 +279,16 @@ namespace ZalTestApp
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;
                     break;
 
+                case "AdjComp":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_ADJ;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_COMPARATIVE;
+                    break;
+
+                case "AdjS":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_ADJ;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_SHORT_ADJ;
+                    break;
+
                 case "PronAdj":
                     ePartOfSpeech = EM_PartOfSpeech.POS_PRONOUN_ADJ;
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
@@ -737,7 +747,8 @@ namespace ZalTestApp
                 }
                 sNumber = arrTokens[2];
             }
-            else if (EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE == eSubParadigm)
+            else if (EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE == eSubParadigm ||
+                     EM_Subparadigm.SUBPARADIGM_IMPERATIVE == eSubParadigm)
             {
                 if (arrTokens.Length < 2)
                 {
@@ -851,7 +862,8 @@ namespace ZalTestApp
             }
 
             ePerson = EM_Person.PERSON_UNDEFINED;
-            if (EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE == eSubParadigm)
+            if (EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE == eSubParadigm || 
+                EM_Subparadigm.SUBPARADIGM_IMPERATIVE == eSubParadigm)
             {
                 if (arrTokens.Length < 3)
                 {
@@ -869,6 +881,33 @@ namespace ZalTestApp
                         break;
                     case "3":
                         ePerson = EM_Person.PERSON_3;
+                        break;
+                    default:
+                        return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+            }
+
+            if (EM_Subparadigm.SUBPARADIGM_PAST_TENSE == eSubParadigm)
+            {
+                if (arrTokens.Length < 2)
+                {
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+
+                eNumber = EM_Number.NUM_SG;
+                switch (arrTokens[1])
+                {
+                    case "M":
+                        eGender = EM_Gender.GENDER_M;
+                        break;
+                    case "F":
+                        eGender = EM_Gender.GENDER_F;
+                        break;
+                    case "N":
+                        eGender = EM_Gender.GENDER_N;
+                        break;
+                    case "Pl":
+                        eNumber = EM_Number.NUM_PL;
                         break;
                     default:
                         return EM_ReturnCode.H_ERROR_UNEXPECTED;

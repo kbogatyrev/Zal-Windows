@@ -753,58 +753,107 @@ namespace ZalTestApp
             BackButtonEvent?.Invoke();
         }
 
+        private EM_ReturnCode CreateIrregularWordForm(string sForm, string sGramHash, ref CWordFormManaged wf)
+        {
+            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+
+            eRet = m_Lexeme.eCreateWordForm(ref wf);
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                MessageBox.Show("Unable to create a word form.");
+                return eRet;
+            }
+
+//            wf.SetPos(m_Lexeme.ePartOfSpeech());
+
+            EM_Number eNumber = EM_Number.NUM_UNDEFINED;
+            eRet = Helpers.eGramHashToNumber(sGramHash, ref eNumber);
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                wf.SetNumber(eNumber);
+            }
+
+            EM_Gender eGender = EM_Gender.GENDER_UNDEFINED;
+            eRet = Helpers.eGramHashToGender(sGramHash, ref eGender);
+            wf.SetGender(eGender);
+
+            EM_Case eCase = EM_Case.CASE_UNDEFINED;
+            EM_Animacy eAnimacy = EM_Animacy.ANIM_UNDEFINED;
+            eRet = Helpers.eGramHashToCase(sGramHash, ref eCase, ref eAnimacy);
+            wf.SetCase(eCase);
+            wf.SetAnimacy(eAnimacy);
+
+            EM_PartOfSpeech ePos = EM_PartOfSpeech.POS_UNDEFINED;
+            ePos = EM_PartOfSpeech.POS_ADJ;
+            wf.SetPos(ePos);
+            EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+            eRet = Helpers.eGramHashToSubparadigm(sGramHash, ref ePos, ref eSp);
+            wf.SetSubparadigm(eSp);
+
+            string sOutForm = "";
+            Dictionary<int, EM_StressType> dictStressPos;
+            Helpers.StressMarksToPosList(sForm, out sOutForm, out dictStressPos);
+            wf.SetWordForm(sOutForm);
+            eRet = wf.eSetIrregularStressPositions(dictStressPos);
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                var msg = "Internal error: unable to save stress positions";
+                MessageBox.Show(msg);
+                return eRet;
+            }
+
+            return EM_ReturnCode.H_NO_ERROR;
+
+        }       //  CreateIrregularWordForm()
+
         public void SaveForms(Object obj)
         {
+            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+
             foreach (KeyValuePair<string, List<string>> entry in m_DictOriginalForms)
             {
                 List<string> originalForms = entry.Value;
                 FormDescriptor formDescriptor;
-                if (m_DictFormStatus.TryGetValue(entry.Key, out formDescriptor))
+                if (!m_DictFormStatus.TryGetValue(entry.Key, out formDescriptor))
                 {
-                    List<string> changedForms = formDescriptor.listForms;
-                    if (changedForms != originalForms)
-                    {
-                        foreach (string sForm in changedForms)
-                        {
-                            var idx = changedForms.IndexOf(sForm);
-                            if (idx < 0)
-                            {
-                                var msg = "Internal error: form index out of range";
-                                MessageBox.Show(msg);
-                                return;
-                            }
-
-                            CWordFormManaged wf = null;
-                            var eRet = m_Lexeme.eWordFormFromHash(entry.Key, changedForms.IndexOf(sForm), ref wf);
-                            if (eRet != EM_ReturnCode.H_NO_ERROR)
-                            {
-                                var msg = "Internal error: unable to create wordform object";
-                                MessageBox.Show(msg);
-                                return;
-                            }
-
-                            string sOutForm = "";
-                            Dictionary<int, EM_StressType> dictStressPos;
-                            Helpers.StressMarksToPosList(sForm, out sOutForm, out dictStressPos);
-                            wf.SetWordForm(sOutForm);
-                            eRet = wf.eSetIrregularStressPositions(dictStressPos);
-                            if (eRet != EM_ReturnCode.H_NO_ERROR)
-                            {
-                                var msg = "Internal error: unable to save stress positions";
-                                MessageBox.Show(msg);
-                                return;
-                            }
-                            eRet = wf.eSaveIrregularForm();
-                            if (eRet != EM_ReturnCode.H_NO_ERROR)
-                            {
-                                var msg = "Internal error: unable to save wordform object";
-                                MessageBox.Show(msg);
-                                return;
-                            }
-                        }
-                    }
+                    continue;
                 }
-            }       // foreach ...
+
+                List<string> changedForms = formDescriptor.listForms;
+                if (changedForms == originalForms)
+                {
+                    continue;
+                }
+
+                // Purge all irregular forms with this gram hash from the DB
+                eRet = m_Lexeme.eDeleteIrregularForm(entry.Key);
+                if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_FALSE)
+                {
+                    var msg = "Internal error: unable to save wordform object";
+                    MessageBox.Show(msg);
+                    continue;
+                }
+
+                CWordFormManaged wf = null;
+                foreach (string sForm in changedForms)
+                {
+                    eRet = CreateIrregularWordForm(sForm, entry.Key, ref wf);
+                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    {
+                        var msg = "Internal error: unable to create word form object.";
+                        MessageBox.Show(msg);
+                        return;
+                    }
+
+                    eRet = m_Lexeme.eSaveIrregularForm(wf.sGramHash(), ref wf);
+                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    {
+                        var msg = "Internal error: unable to save word form.";
+                        MessageBox.Show(msg);
+                        return;
+                    }
+                }       // foreach()
+            }
 
             foreach (string sKey in m_DictFormStatus.Keys)
             {

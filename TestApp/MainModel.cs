@@ -865,6 +865,12 @@ namespace ZalTestApp
 
             CWordFormManaged wf = null;
             var eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
+            if (eRet != EM_ReturnCode.H_NO_ERROR || null == wf)
+            {
+                System.Windows.MessageBox.Show("Unable to load a word form.");
+                return false;
+            }
+
             do
             {
                 string sKey = "";
@@ -995,6 +1001,11 @@ namespace ZalTestApp
                 }
 
                 eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
+                if ((eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE) || null == wf)
+                {
+                    System.Windows.MessageBox.Show("Unable to load a word form.");
+                    return false;
+                }
 
             } while (EM_ReturnCode.H_NO_ERROR == eRet);
 
