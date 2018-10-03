@@ -361,23 +361,34 @@ namespace ZalTestApp
 
             EM_ReturnCode eRet = Helpers.eGramHashToSubparadigm(sHash, ref ePartOfSpeech, ref eSubParadigm);
 
+            string sGender = "";
+
             string[] arrTokens = sHash.Split('_');
-            if (arrTokens.Length < 4)
+
+            if (EM_Subparadigm.SUBPARADIGM_LONG_ADJ == eSubParadigm &&
+                EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ == eSubParadigm &&
+                EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT == eSubParadigm &&
+                EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT == eSubParadigm &&
+                EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG == eSubParadigm &&
+                EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG == eSubParadigm)
             {
-                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                if (arrTokens.Length < 4)
+                {
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+
+                sGender = arrTokens[1];
             }
 
-            if (EM_Subparadigm.SUBPARADIGM_LONG_ADJ != eSubParadigm &&
-                EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ != eSubParadigm &&
-                EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT != eSubParadigm &&
-                EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT != eSubParadigm &&
-                EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG != eSubParadigm &&
-                EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG != eSubParadigm)
+            if (EM_Subparadigm.SUBPARADIGM_SHORT_ADJ == eSubParadigm)
             {
-                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                if (arrTokens.Length < 2)
+                {
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+                sGender = arrTokens[1];
             }
 
-            string sGender = arrTokens[1];
             switch (sGender)
             {
                 case "M":
@@ -399,7 +410,6 @@ namespace ZalTestApp
             return EM_ReturnCode.H_NO_ERROR;
 
         }       //  eGramHashToGender()
-
 
         public static EM_ReturnCode eGramHashToNumber(string sHash, ref EM_Number eNumber)
         {
@@ -576,7 +586,7 @@ namespace ZalTestApp
 
             }       //  switch (sCase)
 
-            return EM_ReturnCode.H_ERROR_UNEXPECTED;
+            return EM_ReturnCode.H_NO_ERROR;
 
         }   //  eGramHashToCase()
 

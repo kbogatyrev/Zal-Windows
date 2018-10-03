@@ -610,7 +610,7 @@ namespace ZalTestApp
                 PPresPExists = PPresPL_M_Sg_N.Length > 0;
 
                 var PPastPL_M_Sg_N = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPastPL_M_Sg_N"].listForms);
-                PPresPExists = PPastPL_M_Sg_N.Length > 0;
+                PPastPExists = PPastPL_M_Sg_N.Length > 0;
             }
             catch (Exception ex)
             {

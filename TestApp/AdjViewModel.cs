@@ -68,8 +68,7 @@ namespace ZalTestApp
             "PPastPL_M_Sg_D", "PPastPL_M_Sg_I", "PPastPL_F_Sg_N", "PPastPL_F_Sg_A", "PPastPL_F_Sg_G", "PPastPL_F_Sg_P",
             "PPastPL_F_Sg_D", "PPastPL_F_Sg_I", "PPastPL_N_Sg_N", "PPastPL_N_Sg_A", "PPastPL_N_Sg_G", "PPastPL_N_Sg_P",
             "PPastPL_N_Sg_D", "PPastPL_N_Sg_I", "PPastPL_Pl_N", "PPastPL_Pl_A_Anim", "PPastPL_Pl_A_Inanim", "PPastPL_Pl_G",
-            "PPastPL_Pl_P", "PPastPL_Pl_D", "PPastPL_Pl_I", "PPastPS_M", "PPastPS_F", "PPastPS_N", "PPastPS_Pl",
-            "PPastPS_M", "PPastPS_F", "PPastPS_N", "PPastPS_Pl"
+            "PPastPL_Pl_P", "PPastPL_Pl_D", "PPastPL_Pl_I", "PPastPS_M", "PPastPS_F", "PPastPS_N", "PPastPS_Pl"
         };
 
         #region ICommand
@@ -768,7 +767,7 @@ namespace ZalTestApp
 
             EM_Number eNumber = EM_Number.NUM_UNDEFINED;
             eRet = Helpers.eGramHashToNumber(sGramHash, ref eNumber);
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            if (EM_ReturnCode.H_NO_ERROR == eRet)
             {
                 wf.SetNumber(eNumber);
             }
