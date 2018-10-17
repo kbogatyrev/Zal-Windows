@@ -18,10 +18,17 @@ namespace ZalTestApp
             return m_Verifier;
         }
 
-        private Dictionary<string, Dictionary<string, List<string>>> m_Lexemes; // lexeme hash to (gram hash --> forms)
+        private Dictionary<string, Dictionary<string, List<string>>> m_Lexemes;  // lexeme hash to (gram hash --> forms)
         public IEnumerator GetEnumerator()
         {
             return m_Lexemes.Keys.GetEnumerator();
+        }
+
+        private Dictionary<string, Dictionary<string, List<Tuple<string, string>>>> m_FormComments;  
+                        // ^-- lex. hash       ^-- gram hash     ^-- leading comment, trailing comment))
+        public IEnumerator GetFormCommentsEnumerator()
+        {
+            return m_FormComments.Keys.GetEnumerator();
         }
 
         private Dictionary<string, CLexemeManaged> m_LexemeHashToLexeme;
@@ -148,6 +155,7 @@ namespace ZalTestApp
             m_Dictionary.eGetVerifier(ref m_Verifier);
 
             m_Lexemes = new Dictionary<string, Dictionary<string, List<string>>>();
+            m_FormComments = new Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>();
             m_LexemeHashToLexeme = new Dictionary<string, CLexemeManaged>();
             m_StoredLexemes = new Dictionary<string, string>();
 
@@ -230,6 +238,20 @@ namespace ZalTestApp
 //                System.Windows.MessageBox.Show("Internal error: Gram hash not recognized. " + ex.Message);
                 return false;
             }
+
+            return true;
+        }
+
+        public bool GetFormComments(string sLexemeHash, string sGramHash, out List<Tuple<string, string>> comments)
+        {
+            comments = null;
+
+            Dictionary<string, List<Tuple<string, string>>> c = null;
+            if (m_FormComments.TryGetValue(sLexemeHash, out c))
+            {
+                c.TryGetValue(sGramHash, out comments);
+            }
+
             return true;
         }
 
@@ -500,6 +522,7 @@ namespace ZalTestApp
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
 
             Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>();
+            Dictionary<string, List<Tuple<string, string>>> comments = null;
 
             CWordFormManaged wf = null;
 //            EM_ReturnCode eRet = (EM_ReturnCode)lexeme.eGenerateParadigm();
@@ -543,10 +566,24 @@ namespace ZalTestApp
                     string sWordForm = wf.sWordForm();
                     Helpers.MarkStress(ref sWordForm, wf);
 
+                    if (wf.bIrregular())
+                    {
+                        if (null == comments)
+                        {
+                            comments = new Dictionary<string, List<Tuple<string, string>>>();
+                        }
+                        if (!comments.ContainsKey(sKey))
+                        {
+                            comments[sKey] = new List<Tuple<string, string>>();
+                        }
+                        comments[sKey].Add(new Tuple<string, string>(wf.sLeadComment(), wf.sTrailingComment()));
+                    }
+
                     if (!paradigm.ContainsKey(sKey))
                     {
                         paradigm[sKey] = new List<string>();
                     }
+
                     paradigm[sKey].Add(sWordForm);
                 }
                 catch(Exception ex)
@@ -567,6 +604,7 @@ namespace ZalTestApp
             string sHash = lexeme.sHash();
             m_Lexemes[sHash] = paradigm;
             m_LexemeHashToLexeme[sHash] = lexeme;
+            m_FormComments[sHash] = comments;
 
             return true;
 

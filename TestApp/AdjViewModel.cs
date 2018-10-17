@@ -673,7 +673,7 @@ namespace ZalTestApp
 
             foreach (string sHash in listGramHashes)
             {
-                FormDescriptor fd = new FormDescriptor(null, false, false, null);
+                FormDescriptor fd = new FormDescriptor(null, null, false, false, null);
                 List<string> listForms = null;
                 var bRet = m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
                 if (!bRet)

@@ -90,14 +90,16 @@ namespace ZalTestApp
         public struct FormDescriptor
         {
             public List<string> listForms { get; set; }
+            public List<Tuple<string, string>> listComments { get; set; }   // leading / trailing comments, irregular form only
             //            public bool bCanEdit { get; set; }
             public ChangedFormHandler handler { get; set; }
             public bool IsIrregular { get; set; }
             public bool IsEdited { get; set; }
 
-            public FormDescriptor(List<string> list, bool bIrregular, bool bEdited, ChangedFormHandler h)
+            public FormDescriptor(List<string> forms, List<Tuple<string, string>> comments, bool bIrregular, bool bEdited, ChangedFormHandler h)
             {
-                listForms = list;
+                listForms = forms;
+                listComments = comments;
                 IsIrregular = bIrregular;
                 IsEdited = bEdited;
                 handler = h;

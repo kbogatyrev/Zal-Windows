@@ -1,7 +1,10 @@
 ﻿using MainLibManaged;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace ZalTestApp
 {
@@ -1106,9 +1109,71 @@ namespace ZalTestApp
             return sOut;
         }
 
+        public static string sListToCommaSeparatedString(List<string> forms, List<Tuple<string, string>> comments)
+        {
+            string sOut = "";
+            if (null == forms)
+            {
+                return sOut;
+            }
+
+            for (int iAt = 0; iAt < forms.Count; ++iAt)
+            {
+                if (sOut.Length > 0)
+                {
+                    sOut += ", ";
+                }
+
+                if (comments[iAt].Item1.Length > 0)
+                {
+                    sOut += String.Format("({0}) ", comments[iAt].Item1);
+                }
+                sOut += forms[iAt];
+                if (comments[iAt].Item2.Length > 0)
+                {
+                    sOut += String.Format(" ({0})", comments[iAt].Item2);
+                }
+            }
+            return sOut;
+        }
+
         public static List<string> CommaSeparatedStringToList(string str)
         {
             return str.Split(',').Select(sValue => sValue.Trim()).ToList<string>();
         }
-    }       //  public static class Helpers
+
+        public static bool CommaSeparatedStringToList(string str, out List<string> listForms, out List<Tuple<string, string>> listComments)
+        {
+            listForms = new List<string>();
+            listComments = new List<Tuple<string, string>>();
+
+            Regex regex = new Regex(@"^(?:\(([^\)]+)\))?([^\(]+)(?:\(([^\)]+)?\))?");
+
+            List<string> listSegments = str.Split(',').Select(sValue => sValue.Trim()).ToList<string>();
+            foreach (var sSegment in listSegments)
+            {
+                Match m = regex.Match(sSegment);
+                if (m.Groups.Count != 4)
+                {
+                    return false;
+                }
+
+                string sForm = m.Groups[2].ToString().Trim();
+                if (sForm.Length < 1)
+                {
+                    return false;
+                }
+
+                string sLeftComment = m.Groups[1].ToString().Trim();
+                string sRightComment = m.Groups[3].ToString().Trim();
+                listForms.Add(sForm);
+                listComments.Add(new Tuple<string, string>(sLeftComment, sRightComment));
+                int kiki = 0;
+            }
+
+            return true;
+        }
+
+
+    }       //  public static class HelpersC:\git-repos\Zal-Windows\TestApp\packages.config
 }       //  namespace ZalTestApp

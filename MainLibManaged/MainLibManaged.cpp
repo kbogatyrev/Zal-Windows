@@ -357,7 +357,7 @@ void CWordFormManaged::SetTrailingComment(String^ sTrailingComment)
         throw gcnew Exception(L"WordForm object is NULL.");
     }
 
-    m_pWordForm->SetLeadComment(sFromManagedString(sTrailingComment));
+    m_pWordForm->SetTrailingComment(sFromManagedString(sTrailingComment));
 }
 
 bool CWordFormManaged::bIsEdited()

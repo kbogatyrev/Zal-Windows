@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:ZalTestApp">
+                    xmlns:local="clr-namespace:ZalTestApp"
+                    x:Class="TestApp.CustomResources"
+                    x:ClassModifier="public">
 
     <Style TargetType="TabControl" x:Key="TabControl">
         <Setter Property="FontFamily" Value="Calibry" />
@@ -157,6 +159,11 @@
         <Setter Property="IsReadOnly" Value="True"/>
     </Style>
 
+<!--    
+    <ContextMenu x:Key="FormTextBoxContextMenu" Background="White">
+        <MenuItem Command="{Binding EditFormCommentCommand}" Header="Комментарий" />
+    </ContextMenu>
+-->
     <Style TargetType="TextBox" x:Key="FormText">
         <Setter Property="Height" Value="28"/>
         <Setter Property="Width" Value="160"/>
@@ -175,6 +182,8 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
         <Setter Property="ScrollViewer.Height" Value="28.0"/>
         <Setter Property="IsReadOnly" Value="False"/>
+<!-- Custom context menu currently not used-->        
+<!--        <Setter Property="ContextMenu" Value="{StaticResource FormTextBoxContextMenu}" />  -->
 
 <!--        
         <Style.Triggers>
@@ -187,10 +196,7 @@
         </Style.Triggers>
 -->        
 
-        <!--
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="TextBox">
+<!--
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" >
                         <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
                     </Border>
@@ -205,7 +211,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
--->        
+-->
     </Style>
 
    <local:StyleConverter x:Key="StyleConverter"/>  
