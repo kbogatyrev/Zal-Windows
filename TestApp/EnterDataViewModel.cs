@@ -8,6 +8,25 @@ namespace ZalTestApp
     {
         public Action CloseWindowAction { get; set; }
 
+        public enum EType { LexemeSearch, CommentEntry };
+
+        private EType m_eType = EType.LexemeSearch;
+        public EType Type
+        {
+            get
+            {
+                return m_eType;
+            }
+            set
+            {
+                if (value != m_eType)
+                {
+                    m_eType = value;
+                }
+                OnPropertyChanged("Type");
+            }
+        }
+
         private string m_sData = null;
         public string DataString
         {
@@ -38,7 +57,7 @@ namespace ZalTestApp
                 {
                     m_sDlgTitle = value;
                 }
-                OnPropertyChanged("m_sDlgTitle");
+                OnPropertyChanged("DlgTitle");
             }
         }
 
