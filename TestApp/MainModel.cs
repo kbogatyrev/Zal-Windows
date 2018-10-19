@@ -375,9 +375,14 @@ namespace ZalTestApp
 //                        return;
                     }
 
-                    if (!bArrangeParadigm(lexeme))
+                    if (lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NOUN || lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN ||
+                        lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NUM || lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ ||
+                        lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ || lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
                     {
-//                        System.Windows.MessageBox.Show("Unable to generate forms.");
+                        if (!bArrangeParadigm(lexeme))
+                        {
+                            System.Windows.MessageBox.Show("Unable to generate forms.");
+                        }
                     }
                 }
 
@@ -621,6 +626,7 @@ namespace ZalTestApp
 //            }
 
             Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>();
+            Dictionary<string, List<Tuple<string, string>>> comments = null;
 
             CWordFormManaged wf = null;
             eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
@@ -676,6 +682,19 @@ namespace ZalTestApp
                     sKey = "AdjComp";
                 }
 
+                if (wf.bIrregular())
+                {
+                    if (null == comments)
+                    {
+                        comments = new Dictionary<string, List<Tuple<string, string>>>();
+                    }
+                    if (!comments.ContainsKey(sKey))
+                    {
+                        comments[sKey] = new List<Tuple<string, string>>();
+                    }
+                    comments[sKey].Add(new Tuple<string, string>(wf.sLeadComment(), wf.sTrailingComment()));
+                }
+
                 if (sKey != null)
                 {
                     string sWordForm = wf.sWordForm();
@@ -695,6 +714,7 @@ namespace ZalTestApp
             string sHash = lexeme.sHash();
             m_Lexemes[sHash] = paradigm;
             m_LexemeHashToLexeme[sHash] = lexeme;
+            m_FormComments[sHash] = comments;
 
             EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
             if (EM_PartOfSpeech.POS_ADJ == lexeme.ePartOfSpeech())
@@ -718,6 +738,181 @@ namespace ZalTestApp
             return true;
 
         }   //  GenerateAdjForms()
+
+        private bool bGenerateVerbForms(CLexemeManaged lexeme)
+        {
+            Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>();
+
+            CWordFormManaged wf = null;
+            var eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
+            if (eRet != EM_ReturnCode.H_NO_ERROR || null == wf)
+            {
+                System.Windows.MessageBox.Show("Unable to load a word form.");
+                return false;
+            }
+
+            do
+            {
+                string sKey = "";
+                switch (wf.eSubparadigm())
+                {
+                    case EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE:
+                        sKey = "Pres_" + Helpers.sNumberToString(wf.eNumber()) + "_" +
+                            Helpers.sPersonToString(wf.ePerson());
+                        break;
+
+                    case EM_Subparadigm.SUBPARADIGM_PAST_TENSE:
+                        sKey = "Past_";
+                        if (EM_Number.NUM_SG == wf.eNumber())
+                        {
+                            sKey += Helpers.sGenderToString(wf.eGender());
+                        }
+                        else if (EM_Number.NUM_PL == wf.eNumber())
+                        {
+                            sKey += Helpers.sNumberToString(wf.eNumber());
+                        }
+                        else
+                        {
+                            // TODO: error handling
+                        }
+                        break;
+
+                    case EM_Subparadigm.SUBPARADIGM_INFINITIVE:
+                        sKey = "Infinitive";
+                        break;
+
+                    case EM_Subparadigm.SUBPARADIGM_IMPERATIVE:
+                        sKey = "Impv_";
+                        sKey += Helpers.sNumberToString(wf.eNumber()) + "_" +
+                            Helpers.sPersonToString(wf.ePerson());
+                        break;
+
+                    case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
+                        sKey = "PPresA_";
+                        if (EM_Number.NUM_SG == wf.eNumber())
+                        {
+                            sKey += Helpers.sGenderToString(wf.eGender()) + "_";
+                        }
+                        sKey += Helpers.sNumberToString(wf.eNumber()) + "_" +
+                            Helpers.sCaseToString(wf.eCase());
+                        break;
+
+                    case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
+                        sKey = "PPastA_";
+                        if (EM_Number.NUM_SG == wf.eNumber())
+                        {
+                            sKey += Helpers.sGenderToString(wf.eGender()) + "_";
+                        }
+                        sKey += Helpers.sNumberToString(wf.eNumber()) + "_" +
+                            Helpers.sCaseToString(wf.eCase());
+                        break;
+
+                    case EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT:
+                        sKey = "VAdvPres";
+                        break;
+
+                    case EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST:
+                        sKey = "VAdvPast";
+                        break;
+
+                    case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
+                        sKey = "PPresPL_";
+                        if (EM_Number.NUM_SG == wf.eNumber())
+                        {
+                            sKey += Helpers.sGenderToString(wf.eGender()) + "_";
+                        }
+                        sKey += Helpers.sNumberToString(wf.eNumber()) + "_" +
+                            Helpers.sCaseToString(wf.eCase());
+                        break;
+
+                    case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
+                        sKey = "PPresPS_";
+                        if (wf.eNumber() == EM_Number.NUM_SG)
+                        {
+                            sKey += Helpers.sGenderToString(wf.eGender());
+                        }
+                        else if (wf.eNumber() == EM_Number.NUM_PL)
+                        {
+                            sKey += Helpers.sNumberToString(wf.eNumber());
+                        }
+                        else
+                        {
+                            System.Windows.MessageBox.Show("Error: illegal number value.");
+                        }
+                        break;
+
+                    case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
+                        sKey = "PPastPL_";
+                        if (EM_Number.NUM_SG == wf.eNumber())
+                        {
+                            sKey += Helpers.sGenderToString(wf.eGender()) + "_";
+                        }
+                        sKey += Helpers.sNumberToString(wf.eNumber()) + "_" +
+                            Helpers.sCaseToString(wf.eCase());
+                        break;
+
+                    case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
+                        sKey = "PPastPS_";
+                        if (wf.eNumber() == EM_Number.NUM_SG)
+                        {
+                            sKey += Helpers.sGenderToString(wf.eGender());
+                        }
+                        else if (wf.eNumber() == EM_Number.NUM_PL)
+                        {
+                            sKey += Helpers.sNumberToString(wf.eNumber());
+                        }
+                        else
+                        {
+                            System.Windows.MessageBox.Show("Error: illegal number value.");
+                        }
+                        break;
+
+                }   // switch...
+
+                if (sKey.Length > 0)
+                {
+                    var sWordForm = wf.sWordForm();
+                    Helpers.MarkStress(ref sWordForm, wf);
+                    if (!paradigm.ContainsKey(sKey))
+                    {
+                        paradigm[sKey] = new List<string>();
+                    }
+                    paradigm[sKey].Add(sWordForm);
+                }
+
+                eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
+                if ((eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE) || null == wf)
+                {
+                    System.Windows.MessageBox.Show("Unable to load a word form.");
+                    return false;
+                }
+
+            } while (EM_ReturnCode.H_NO_ERROR == eRet);
+
+            string sHash = lexeme.sHash();
+            m_Lexemes[sHash] = paradigm;
+            m_LexemeHashToLexeme[sHash] = lexeme;
+
+            if (paradigm.ContainsKey("PPresA_M_Sg_N"))
+            {
+                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT);
+            }
+            if (paradigm.ContainsKey("PPastA_M_Sg_N"))
+            {
+                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT);
+            }
+            if (paradigm.ContainsKey("PPresPL_M_Sg_N"))
+            {
+                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG);
+            }
+            if (paradigm.ContainsKey("PPastPL_M_Sg_N"))
+            {
+                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG);
+            }
+
+            return true;
+
+        }   //  GenerateVerbForms()
 
         public bool bLeadComment(string sLexemeHash, string sFormHash, ref string sComment)
         {
@@ -897,180 +1092,6 @@ namespace ZalTestApp
             }
         }       //  HandleAccusatives()
 
-        private bool bGenerateVerbForms(CLexemeManaged lexeme)
-        {
-            Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>();
-
-            CWordFormManaged wf = null;
-            var eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
-            if (eRet != EM_ReturnCode.H_NO_ERROR || null == wf)
-            {
-                System.Windows.MessageBox.Show("Unable to load a word form.");
-                return false;
-            }
-
-            do
-            {
-                string sKey = "";
-                switch (wf.eSubparadigm())
-                {
-                    case EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE:
-                        sKey = "Pres_" + Helpers.sNumberToString(wf.eNumber()) + "_" +
-                            Helpers.sPersonToString(wf.ePerson());
-                        break;
-
-                    case EM_Subparadigm.SUBPARADIGM_PAST_TENSE:
-                        sKey = "Past_";
-                        if (EM_Number.NUM_SG == wf.eNumber())
-                        {
-                            sKey += Helpers.sGenderToString(wf.eGender());
-                        }
-                        else if (EM_Number.NUM_PL == wf.eNumber())
-                        {
-                            sKey += Helpers.sNumberToString(wf.eNumber());
-                        }
-                        else
-                        {
-                            // TODO: error handling
-                        }
-                        break;
-
-                    case EM_Subparadigm.SUBPARADIGM_INFINITIVE:
-                        sKey = "Infinitive";
-                        break;
-
-                    case EM_Subparadigm.SUBPARADIGM_IMPERATIVE:
-                        sKey = "Impv_";
-                        sKey += Helpers.sNumberToString(wf.eNumber()) + "_" +
-                            Helpers.sPersonToString(wf.ePerson());
-                        break;
-
-                    case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
-                        sKey = "PPresA_";
-                        if (EM_Number.NUM_SG == wf.eNumber())
-                        {
-                            sKey += Helpers.sGenderToString(wf.eGender()) + "_";
-                        }
-                        sKey += Helpers.sNumberToString(wf.eNumber()) + "_" +
-                            Helpers.sCaseToString(wf.eCase());
-                        break;
-
-                    case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
-                        sKey = "PPastA_";
-                        if (EM_Number.NUM_SG == wf.eNumber())
-                        {
-                            sKey += Helpers.sGenderToString(wf.eGender()) + "_";
-                        }
-                        sKey += Helpers.sNumberToString(wf.eNumber()) + "_" +
-                            Helpers.sCaseToString(wf.eCase());
-                        break;
-
-                    case EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT:
-                        sKey = "VAdvPres";
-                        break;
-
-                    case EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST:
-                        sKey = "VAdvPast";
-                        break;
-
-                    case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
-                        sKey = "PPresPL_";
-                        if (EM_Number.NUM_SG == wf.eNumber())
-                        {
-                            sKey += Helpers.sGenderToString(wf.eGender()) + "_";
-                        }
-                        sKey += Helpers.sNumberToString(wf.eNumber()) + "_" +
-                            Helpers.sCaseToString(wf.eCase());
-                        break;
-
-                    case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
-                        sKey = "PPresPS_";
-                        if (wf.eNumber() == EM_Number.NUM_SG)
-                        {
-                            sKey += Helpers.sGenderToString(wf.eGender());
-                        }
-                        else if (wf.eNumber() == EM_Number.NUM_PL)
-                        {
-                            sKey += Helpers.sNumberToString(wf.eNumber());
-                        }
-                        else
-                        {
-                            System.Windows.MessageBox.Show("Error: illegal number value.");
-                        }
-                        break;
-
-                    case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
-                        sKey = "PPastPL_";
-                        if (EM_Number.NUM_SG == wf.eNumber())
-                        {
-                            sKey += Helpers.sGenderToString(wf.eGender()) + "_";
-                        }
-                        sKey += Helpers.sNumberToString(wf.eNumber()) + "_" +
-                            Helpers.sCaseToString(wf.eCase());
-                        break;
-
-                    case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
-                        sKey = "PPastPS_";
-                        if (wf.eNumber() == EM_Number.NUM_SG)
-                        {
-                            sKey += Helpers.sGenderToString(wf.eGender());
-                        }
-                        else if (wf.eNumber() == EM_Number.NUM_PL)
-                        {
-                            sKey += Helpers.sNumberToString(wf.eNumber());
-                        }
-                        else
-                        {
-                            System.Windows.MessageBox.Show("Error: illegal number value.");
-                        }
-                        break;
-
-                }   // switch...
-
-                if (sKey.Length > 0)
-                {
-                    var sWordForm = wf.sWordForm();
-                    Helpers.MarkStress(ref sWordForm, wf);
-                    if (!paradigm.ContainsKey(sKey))
-                    {
-                        paradigm[sKey] = new List<string>();
-                    }
-                    paradigm[sKey].Add(sWordForm);
-                }
-
-                eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
-                if ((eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE) || null == wf)
-                {
-                    System.Windows.MessageBox.Show("Unable to load a word form.");
-                    return false;
-                }
-
-            } while (EM_ReturnCode.H_NO_ERROR == eRet);
-
-            string sHash = lexeme.sHash();
-            m_Lexemes[sHash] = paradigm;
-            m_LexemeHashToLexeme[sHash] = lexeme;
-
-            if (paradigm.ContainsKey("PPresA_M_Sg_N"))
-            {
-                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT);
-            }
-            if (paradigm.ContainsKey("PPastA_M_Sg_N"))
-            {
-                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT);
-            }
-            if (paradigm.ContainsKey("PPresPL_M_Sg_N"))
-            {
-                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG);
-            }
-            if (paradigm.ContainsKey("PPastPL_M_Sg_N"))
-            {
-                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG);
-            }
-
-            return true;
-
-        }   //  GenerateVerbForms()
         #endregion
 
         public bool bGetFormByGramHash(CLexemeManaged l, string sHash, out List<string> forms)

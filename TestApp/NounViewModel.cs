@@ -401,7 +401,7 @@ namespace ZalTestApp
         private EMark m_eNoun_Pl_G_Marks = EMark.None;
         public EMark Noun_Pl_G_Marks
         {
-            get { return GetFormStatus("Noun_Pl_A"); }
+            get { return GetFormStatus("Noun_Pl_G"); }
             set { m_eNoun_Pl_G_Marks = value; OnPropertyChanged("Noun_Pl_G_Marks"); }
         }
 

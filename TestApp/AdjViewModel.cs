@@ -177,7 +177,6 @@ namespace ZalTestApp
             }
 
             var descriptor = m_DictFormStatus[sFormHash];
-            var text = Helpers.sListToCommaSeparatedString(descriptor.listForms);
             if (m_MainModel.bIsIrregular(m_Lexeme.sHash(), sFormHash))
             {
                 descriptor.IsIrregular = true;
@@ -187,7 +186,17 @@ namespace ZalTestApp
                 descriptor.IsIrregular = false;
             }
 
-            return text;
+            string sText = null;
+            if (null == descriptor.listComments)
+            {
+                sText = Helpers.sListToCommaSeparatedString(descriptor.listForms);
+            }
+            else
+            {
+                sText = Helpers.sListToCommaSeparatedString(descriptor.listForms, descriptor.listComments);
+            }
+
+            return sText;
         }
 
         EMark GetFormStatus(string sFormHash)
@@ -604,11 +613,11 @@ namespace ZalTestApp
             set { SetForms("AdjS_N", value); }
         }
 
-        private EMark m_eAdjN_F_Marks = EMark.None;
-        public EMark AdjN_F_Marks
+        private EMark m_eAdjS_N_Marks = EMark.None;
+        public EMark AdjS_N_Marks
         {
-            get { return GetFormStatus("AdjN_F"); }
-            set { m_eAdjN_F_Marks = value; OnPropertyChanged("AdjN_F_Marks"); }
+            get { return GetFormStatus("AdjS_N"); }
+            set { m_eAdjS_N_Marks = value; OnPropertyChanged("AdjS_N_Marks"); }
         }
 
         public string AdjS_Pl
@@ -621,7 +630,7 @@ namespace ZalTestApp
         public EMark AdjS_Pl_Marks
         {
             get { return GetFormStatus("AdjS_Pl"); }
-            set { m_eAdjN_F_Marks = value; OnPropertyChanged("AdjS_Pl_Marks"); }
+            set { m_eAdjS_Pl_Marks = value; OnPropertyChanged("AdjS_Pl_Marks"); }
         }
 
         #endregion
@@ -675,13 +684,25 @@ namespace ZalTestApp
             {
                 FormDescriptor fd = new FormDescriptor(null, null, false, false, null);
                 List<string> listForms = null;
-                var bRet = m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
+                bool bRet = m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
                 if (!bRet)
                 {
                     continue;
                 }
 
                 fd.listForms = listForms;
+
+                if (m_MainModel.bIsIrregular(sLexemeHash, sHash))
+                {
+                    List<Tuple<string, string>> listComments;
+                    bRet = m_MainModel.GetFormComments(sLexemeHash, sHash, out listComments);
+                    if (!bRet || listComments.Count != listForms.Count)
+                    {
+                        MessageBox.Show("Internal error: unable to retrieve form comments.");
+                    }
+                    fd.listComments = listComments;
+                }
+
                 fd.handler = () =>
                 {
                     FormDescriptor fd1 = m_DictFormStatus[sFormHashToDisplayHash(sHash)];
@@ -824,6 +845,18 @@ namespace ZalTestApp
                     continue;
                 }
 
+                List<Tuple<string, string>> listComments = null;
+                if (formDescriptor.listComments != null)
+                {
+                    if (formDescriptor.listComments.Count != changedForms.Count)
+                    {
+                        MessageBox.Show("Internal error: mismatch between form and comment lists.");
+                        continue;
+                    }
+
+                    listComments = formDescriptor.listComments;
+                }
+
                 // Purge all irregular forms with this gram hash from the DB
                 eRet = m_Lexeme.eDeleteIrregularForm(entry.Key);
                 if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_FALSE)
@@ -834,20 +867,51 @@ namespace ZalTestApp
                 }
 
                 CWordFormManaged wf = null;
-                foreach (string sForm in changedForms)
+                for (int iAt = 0; iAt < changedForms.Count; ++iAt)
                 {
-                    eRet = CreateIrregularWordForm(sForm, entry.Key, ref wf);
-                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    try
                     {
-                        var msg = "Internal error: unable to create word form object.";
-                        MessageBox.Show(msg);
-                        return;
-                    }
+                        string sForm = changedForms[iAt];
+                        eRet = CreateIrregularWordForm(sForm, entry.Key, ref wf);
+                        if (eRet != EM_ReturnCode.H_NO_ERROR)
+                        {
+                            var msg = "Internal error: unable to create word form object.";
+                            MessageBox.Show(msg);
+                            return;
+                        }
 
-                    eRet = m_Lexeme.eSaveIrregularForm(wf.sGramHash(), ref wf);
-                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                        if (formDescriptor.listComments != null)
+                        {
+                            if (formDescriptor.listComments.Count != changedForms.Count)
+                            {
+                                MessageBox.Show("Internal error: mismatch between form and comment lists.");
+                                continue;
+                            }
+
+                            string sLeftComment = listComments[iAt].Item1;
+                            string sRightComment = listComments[iAt].Item2;
+                            if (sLeftComment.Length > 0)
+                            {
+                                wf.SetLeadComment(sLeftComment);
+                            }
+
+                            if (sRightComment.Length > 0)
+                            {
+                                wf.SetTrailingComment(sRightComment);
+                            }
+                        }
+
+                        eRet = m_Lexeme.eSaveIrregularForm(wf.sGramHash(), ref wf);
+                        if (eRet != EM_ReturnCode.H_NO_ERROR)
+                        {
+                            var msg = "Internal error: unable to save word form.";
+                            MessageBox.Show(msg);
+                            return;
+                        }
+                    }
+                    catch (Exception ex)
                     {
-                        var msg = "Internal error: unable to save word form.";
+                        var msg = string.Format("Exception: {0}.", ex.Message);
                         MessageBox.Show(msg);
                         return;
                     }
