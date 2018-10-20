@@ -742,6 +742,7 @@ namespace ZalTestApp
         private bool bGenerateVerbForms(CLexemeManaged lexeme)
         {
             Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>();
+            Dictionary<string, List<Tuple<string, string>>> comments = null;
 
             CWordFormManaged wf = null;
             var eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
@@ -880,6 +881,19 @@ namespace ZalTestApp
                     paradigm[sKey].Add(sWordForm);
                 }
 
+                if (wf.bIrregular())
+                {
+                    if (null == comments)
+                    {
+                        comments = new Dictionary<string, List<Tuple<string, string>>>();
+                    }
+                    if (!comments.ContainsKey(sKey))
+                    {
+                        comments[sKey] = new List<Tuple<string, string>>();
+                    }
+                    comments[sKey].Add(new Tuple<string, string>(wf.sLeadComment(), wf.sTrailingComment()));
+                }
+
                 eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
                 if ((eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE) || null == wf)
                 {
@@ -892,6 +906,7 @@ namespace ZalTestApp
             string sHash = lexeme.sHash();
             m_Lexemes[sHash] = paradigm;
             m_LexemeHashToLexeme[sHash] = lexeme;
+            m_FormComments[sHash] = comments;
 
             if (paradigm.ContainsKey("PPresA_M_Sg_N"))
             {

@@ -163,7 +163,6 @@ namespace ZalTestApp
             }
 
             var descriptor = m_DictFormStatus[sFormHash];
-            var text = Helpers.sListToCommaSeparatedString(descriptor.listForms);
             if (m_MainModel.bIsIrregular(m_Lexeme.sHash(), sFormHash))
             {
                 descriptor.IsIrregular = true;
@@ -173,7 +172,17 @@ namespace ZalTestApp
                 descriptor.IsIrregular = false;
             }
 
-            return text;
+            string sText = null;
+            if (null == descriptor.listComments)
+            {
+                sText = Helpers.sListToCommaSeparatedString(descriptor.listForms);
+            }
+            else
+            {
+                sText = Helpers.sListToCommaSeparatedString(descriptor.listForms, descriptor.listComments);
+            }
+
+            return sText;
         }
 
         EMark GetFormStatus(string sFormHash)
@@ -198,7 +207,12 @@ namespace ZalTestApp
             }
             Helpers.AssignDiacritics(sForms, ref sForms);
             var fd = m_DictFormStatus[sHash];
-            fd.listForms = Helpers.CommaSeparatedStringToList(sForms);
+            List<string> l = new List<string>();
+            List<Tuple<string, string>> c = new List<Tuple<string, string>>();
+            //            fd.listForms = Helpers.CommaSeparatedStringToList(sForms);
+            Helpers.CommaSeparatedStringToList(sForms, out l, out c);
+            fd.listForms = l;
+            fd.listComments = c;
             m_DictFormStatus[sHash] = fd;
         }
 
@@ -572,6 +586,18 @@ namespace ZalTestApp
                     List<string> listForms = null;
                     m_MainModel.GetFormsByGramHash(sLexemeHash, formHash, out listForms);
                     fd.listForms = listForms;
+
+                    if (m_MainModel.bIsIrregular(sLexemeHash, formHash))
+                    {
+                        List<Tuple<string, string>> listComments;
+                        bool bRet = m_MainModel.GetFormComments(sLexemeHash, formHash, out listComments);
+                        if (!bRet || listComments.Count != listForms.Count)
+                        {
+                            MessageBox.Show("Internal error: unable to retrieve from comments.");
+                        }
+                        fd.listComments = listComments;
+                    }
+
                     fd.handler = () =>
                     {
 //                        if (!fd.bCanEdit)
