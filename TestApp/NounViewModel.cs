@@ -63,6 +63,7 @@ namespace ZalTestApp
         };
 
         Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
+        Dictionary<string, List<Tuple<string, string>>> m_DictOriginalComments = new Dictionary<string, List<Tuple<string,string>>>();
         Dictionary<string, FormDescriptor> m_DictFormStatus = new Dictionary<string, FormDescriptor>();
 
         #region ICommand
@@ -153,6 +154,7 @@ namespace ZalTestApp
 
         string GetForms(string sFormHash)
         {
+//            string sFormHash = sDisplayHashToFormHash(sDisplayHash);
             if (!m_DictFormStatus.ContainsKey(sFormHash))
             {
                 return "";
@@ -182,8 +184,9 @@ namespace ZalTestApp
             return sText;
         }
 
-        EMark GetFormStatus(string sFormHash)
+        EMark GetFormStatus(string sDisplayHash)
         {
+            string sFormHash = sDisplayHashToFormHash(sDisplayHash);
             string sLexemeHash = m_Lexeme.sHash();
             if (m_MainModel.bIsEdited(sLexemeHash, sFormHash))
             {
@@ -482,9 +485,9 @@ namespace ZalTestApp
                     m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
                     fd.listForms = listForms;
 
+                    List<Tuple<string, string>> listComments = null;
                     if (m_MainModel.bIsIrregular(sLexemeHash, sHash))
                     {
-                        List<Tuple<string, string>> listComments;
                         bool bRet = m_MainModel.GetFormComments(sLexemeHash, sHash, out listComments);
                         if (!bRet || listComments.Count != listForms.Count)
                         {
@@ -509,6 +512,7 @@ namespace ZalTestApp
 
                     m_DictFormStatus[sFormHashToDisplayHash(sHash)] = fd;
                     m_DictOriginalForms[sFormHashToDisplayHash(sHash)] = listForms;
+                    m_DictOriginalComments[sFormHashToDisplayHash(sHash)] = listComments;
                 }
             }
             catch (Exception ex)
@@ -674,8 +678,13 @@ namespace ZalTestApp
                     continue;
                 }
 
+
+                List<Tuple<string, string>> originalComments = null;
+                m_DictOriginalComments.TryGetValue(entry.Key, out originalComments);
+
                 List<string> changedForms = formDescriptor.listForms;
-                if (changedForms == originalForms)
+                List<Tuple<string, string>> changedComments = formDescriptor.listComments;
+                if (changedForms == originalForms && changedComments == originalComments)
                 {
                     continue;
                 }
@@ -693,7 +702,8 @@ namespace ZalTestApp
                 }
 
                 // Purge all irregular forms with this gram hash from the DB
-                eRet = m_Lexeme.eDeleteIrregularForm(entry.Key);
+                string sGramHash = sDisplayHashToFormHash(entry.Key);
+                eRet = m_Lexeme.eDeleteIrregularForm(sGramHash);
                 if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_FALSE)
                 {
                     var msg = "Internal error: unable to save wordform object";
@@ -707,12 +717,21 @@ namespace ZalTestApp
                     try
                     {
                         string sForm = changedForms[iAt];
-                        eRet = CreateIrregularWordForm(entry.Key, sForm, ref wf);
+                        eRet = CreateIrregularWordForm(sGramHash, sForm, ref wf);
                         if (eRet != EM_ReturnCode.H_NO_ERROR)
                         {
                             var msg = "Internal error: unable to create word form object.";
                             MessageBox.Show(msg);
                             return;
+                        }
+
+                        if (iAt > 0)
+                        {
+                            wf.SetIsVariant(true);
+                        }
+                        else
+                        {
+                            wf.SetIsVariant(false);
                         }
 
                         if (formDescriptor.listComments != null)

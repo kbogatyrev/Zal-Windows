@@ -1168,7 +1168,6 @@ namespace ZalTestApp
                 string sRightComment = m.Groups[3].ToString().Trim();
                 listForms.Add(sForm);
                 listComments.Add(new Tuple<string, string>(sLeftComment, sRightComment));
-                int kiki = 0;
             }
 
             return true;
