@@ -86,6 +86,9 @@ namespace MainLibManaged
         bool bIsEdited();
         void SetIsEdited(bool bIsEdited);
 
+        bool bIsVariant();
+        void SetIsVariant(bool bIsVariant);
+
         EM_ReturnCode eGetFirstStressPos(int% iPos, EM_StressType% eType);
         EM_ReturnCode eGetNextStressPos(int% iPos, EM_StressType% eType);
 

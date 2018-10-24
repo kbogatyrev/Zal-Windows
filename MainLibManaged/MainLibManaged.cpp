@@ -380,6 +380,26 @@ void CWordFormManaged::SetIsEdited(bool bIsEdited)
     return m_pWordForm->SetIsEdited(bIsEdited);
 }
 
+bool CWordFormManaged::bIsVariant()
+{
+    if (NULL == m_pWordForm)
+    {
+        throw gcnew Exception(L"WordForm object is NULL.");
+    }
+
+    return m_pWordForm->bIsVariant();
+}
+
+void CWordFormManaged::SetIsVariant(bool bIsVariant)
+{
+    if (NULL == m_pWordForm)
+    {
+        throw gcnew Exception(L"WordForm object is NULL.");
+    }
+
+    return m_pWordForm->SetIsVariant(bIsVariant);
+}
+
 EM_ReturnCode CWordFormManaged::eGetFirstStressPos(int% iPos, EM_StressType% eType)
 {
     if (NULL == m_pWordForm)
