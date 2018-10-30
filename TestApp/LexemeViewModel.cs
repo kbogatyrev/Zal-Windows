@@ -254,7 +254,7 @@ namespace ZalTestApp
 
             if (m_Lexeme.bNoLongForms())
             {
-                AddProperty("Нет прич. прошю страд.", "");
+                AddProperty("Нет прич. прош. страд.", "");
             }
 
             AddProperty("Графическая основа", m_Lexeme.sGraphicStem());
