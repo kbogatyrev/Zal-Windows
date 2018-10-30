@@ -207,7 +207,6 @@ namespace ZalTestApp
             }
             Helpers.AssignDiacritics(sForms, ref sForms);
             var fd = m_DictFormStatus[sHash];
-            fd.listForms = Helpers.CommaSeparatedStringToList(sForms);
             List<string> l = new List<string>();
             List<Tuple<string, string>> c = new List<Tuple<string, string>>();
             Helpers.CommaSeparatedStringToList(sForms, out l, out c);
@@ -677,7 +676,6 @@ namespace ZalTestApp
                 {
                     continue;
                 }
-
 
                 List<Tuple<string, string>> originalComments = null;
                 m_DictOriginalComments.TryGetValue(entry.Key, out originalComments);
