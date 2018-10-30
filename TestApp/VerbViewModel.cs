@@ -38,7 +38,7 @@ namespace ZalTestApp
 */
 
         Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
-
+        Dictionary<string, List<Tuple<string, string>>> m_DictOriginalComments = new Dictionary<string, List<Tuple<string, string>>>();
         Dictionary<string, FormDescriptor> m_DictFormStatus = new Dictionary<string, FormDescriptor>()
         {
             {  "Infinitive", new FormDescriptor(null, null, false, false, null) },
@@ -209,7 +209,6 @@ namespace ZalTestApp
             var fd = m_DictFormStatus[sHash];
             List<string> l = new List<string>();
             List<Tuple<string, string>> c = new List<Tuple<string, string>>();
-            //            fd.listForms = Helpers.CommaSeparatedStringToList(sForms);
             Helpers.CommaSeparatedStringToList(sForms, out l, out c);
             fd.listForms = l;
             fd.listComments = c;
@@ -587,9 +586,9 @@ namespace ZalTestApp
                     m_MainModel.GetFormsByGramHash(sLexemeHash, formHash, out listForms);
                     fd.listForms = listForms;
 
+                    List<Tuple<string, string>> listComments = null;
                     if (m_MainModel.bIsIrregular(sLexemeHash, formHash))
                     {
-                        List<Tuple<string, string>> listComments;
                         bool bRet = m_MainModel.GetFormComments(sLexemeHash, formHash, out listComments);
                         if (!bRet || listComments.Count != listForms.Count)
                         {
@@ -614,6 +613,7 @@ namespace ZalTestApp
 
                     m_DictFormStatus[formHash] = fd;
                     m_DictOriginalForms[formHash] = listForms;
+                    m_DictOriginalComments[formHash] = listComments;
                 }
             }
             catch (Exception ex)
@@ -783,10 +783,26 @@ namespace ZalTestApp
                     continue;
                 }
 
+                List<Tuple<string, string>> originalComments = null;
+                m_DictOriginalComments.TryGetValue(entry.Key, out originalComments);
+
                 List<string> changedForms = formDescriptor.listForms;
-                if (changedForms == originalForms)
+                List<Tuple<string, string>> changedComments = formDescriptor.listComments;
+                if (changedForms == originalForms && changedComments == originalComments)
                 {
                     continue;
+                }
+
+                List<Tuple<string, string>> listComments = null;
+                if (formDescriptor.listComments != null)
+                {
+                    if (formDescriptor.listComments.Count != changedForms.Count)
+                    {
+                        MessageBox.Show("Internal error: mismatch between form and comment lists.");
+                        continue;
+                    }
+
+                    listComments = formDescriptor.listComments;
                 }
 
                 // Purge all irregular forms with this gram hash from the DB
@@ -799,24 +815,65 @@ namespace ZalTestApp
                 }
 
                 CWordFormManaged wf = null;
-                foreach (string sForm in changedForms)
+                for (int iAt = 0; iAt < changedForms.Count; ++iAt)
                 {
-                    eRet = CreateIrregularWordForm(sForm, entry.Key, ref wf);
-                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    try
                     {
-                        var msg = "Internal error: unable to create word form object.";
+                        string sForm = changedForms[iAt];
+                        eRet = CreateIrregularWordForm(sForm, entry.Key, ref wf);
+                        if (eRet != EM_ReturnCode.H_NO_ERROR)
+                        {
+                            var msg = "Internal error: unable to create word form object.";
+                            MessageBox.Show(msg);
+                            return;
+                        }
+
+                        if (iAt > 0)
+                        {
+                            wf.SetIsVariant(true);
+                        }
+                        else
+                        {
+                            wf.SetIsVariant(false);
+                        }
+
+                        if (formDescriptor.listComments != null)
+                        {
+                            if (formDescriptor.listComments.Count != changedForms.Count)
+                            {
+                                MessageBox.Show("Internal error: mismatch between form and comment lists.");
+                                continue;
+                            }
+
+                            string sLeftComment = listComments[iAt].Item1;
+                            string sRightComment = listComments[iAt].Item2;
+                            if (sLeftComment.Length > 0)
+                            {
+                                wf.SetLeadComment(sLeftComment);
+                            }
+
+                            if (sRightComment.Length > 0)
+                            {
+                                wf.SetTrailingComment(sRightComment);
+                            }
+                        }
+
+                        eRet = m_Lexeme.eSaveIrregularForm(wf.sGramHash(), ref wf);
+                        if (eRet != EM_ReturnCode.H_NO_ERROR)
+                        {
+                            var msg = "Internal error: unable to save word form.";
+                            MessageBox.Show(msg);
+                            return;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        var msg = string.Format("Exception: {0}.", ex.Message);
                         MessageBox.Show(msg);
                         return;
                     }
 
-                    eRet = m_Lexeme.eSaveIrregularForm(wf.sGramHash(), ref wf);
-                    if (eRet != EM_ReturnCode.H_NO_ERROR)
-                    {
-                        var msg = "Internal error: unable to save word form.";
-                        MessageBox.Show(msg);
-                        return;
-                    }
-                }       // foreach()
+                }
             }       // foreach ...
 
             foreach (string sKey in m_DictFormStatus.Keys)
