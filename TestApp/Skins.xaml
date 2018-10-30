@@ -27,6 +27,7 @@
         <Setter Property="Margin" Value="7,3,3,3"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
 
     <Style TargetType="Button" x:Key="BtnLarge">
