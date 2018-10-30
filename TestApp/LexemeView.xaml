@@ -18,11 +18,11 @@
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="200" SharedSizeGroup="one" />
+                                    <ColumnDefinition Width="170" SharedSizeGroup="one" />
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="two" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left"/>
-                                <TextBlock Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{StaticResource DataField}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{StaticResource DataField}" MaxWidth="170"/>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
