@@ -1024,7 +1024,7 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("HeadwordComment", () =>
             {
-                if (null == m_sHeadwordComment || m_sHeadwordComment.Length < 1)
+                if (null == m_sHeadwordComment)
                 {
                     return true;
                 }
@@ -1034,7 +1034,7 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("Variant", () =>
             {
-                if (null == m_sVariant || m_sVariant.Length < 1)
+                if (null == m_sVariant)
                 {
                     return true;
                 }
@@ -1065,7 +1065,7 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("SetPluralOf", () =>
             {
-                if (null == m_sPluralOf || m_sPluralOf.Length < 1)
+                if (null == m_sPluralOf)
                 {
                     return true;
                 }
@@ -1075,7 +1075,7 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("Usage", () =>
             {
-                if (null == m_sUsage || m_sUsage.Length < 1)
+                if (null == m_sUsage)
                 {
                     return true;
                 }
@@ -1085,7 +1085,7 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("SeeRef", () =>
             {
-                if (null == m_sSeeRef || m_sSeeRef.Length < 1)
+                if (null == m_sSeeRef)
                 {
                     return true;
                 }
@@ -1095,7 +1095,7 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("BackRef", () =>
             {
-                if (null == m_sBackRef || m_sBackRef.Length < 1)
+                if (null == m_sBackRef)
                 {
                     return true;
                 }
@@ -1127,7 +1127,7 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("MainSymbol", () =>
             {
-                if (null == m_sMainSymbol || m_sMainSymbol.Length < 1)
+                if (null == m_sMainSymbol)
                 {
                     return true;
                 }
@@ -1152,7 +1152,7 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("AltMainSymbol", () =>
             {
-                if (null == m_sAltMainSymbol || m_sAltMainSymbol.Length < 1)
+                if (null == m_sAltMainSymbol)
                 {
                     return true;
                 }
@@ -1256,7 +1256,7 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("Loc2Preposition", () =>
             {
-                if (null == m_sLoc2Preposition || m_sLoc2Preposition.Length < 1)
+                if (null == m_sLoc2Preposition)
                 {
                     return true;
                 }
@@ -1289,7 +1289,7 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("AspectPairData", () =>
             {
-                if (null == m_sAspectPairData || m_sAspectPairData.Length < 1)
+                if (null == m_sAspectPairData)
                 {
                     return true;
                 }
@@ -1299,7 +1299,7 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("AltAspectPairComment", () =>
             {
-                if (null == m_sAltAspectPairComment || m_sAltAspectPairComment.Length < 1)
+                if (null == m_sAltAspectPairComment)
                 {
                     return true;
                 }
@@ -1309,7 +1309,7 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("QuestionableForms", () =>
             {
-                if (null == m_sQuestionableForms || m_sQuestionableForms.Length < 1)
+                if (null == m_sQuestionableForms)
                 {
                     return true;
                 }
@@ -1352,17 +1352,17 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("RestrictedContexts", () =>
             {
-                if (null == m_sRestrictedContexts || m_sRestrictedContexts.Length < 1)
+                if (null == m_sRestrictedContexts)
                 {
                     return true;
                 }
-                m_Lexeme.SetQuestionableForms(m_sRestrictedContexts);
+                m_Lexeme.SetRestrictedForms(m_sRestrictedContexts);
                 return true;
             });
 
             m_ChangedPropertiesHandlers.Add("Contexts", () =>
             {
-                if (null == m_sContexts || m_sContexts.Length < 1)
+                if (null == m_sContexts)
                 {
                     return true;
                 }
@@ -1372,11 +1372,11 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("TrailingComment", () =>
             {
-            if (null == m_sTrailingComment || m_sTrailingComment.Length < 1)
+            if (null == m_sTrailingComment)
             {
                 return true;
             }
-            m_Lexeme.SetQuestionableForms(m_sTrailingComment);
+            m_Lexeme.SetTrailingComment(m_sTrailingComment);
             return true;
             });
 
