@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="0" Margin="0" Grid.ColumnSpan="1"  >
-            <Grid Width="597" Height="465">
+            <Grid Width="650" Height="465">
                 <TextBox Text="Sg" Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
                 <TextBox Text="Pl" Margin="405,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
 

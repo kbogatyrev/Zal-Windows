@@ -1173,6 +1173,22 @@ namespace ZalTestApp
             return true;
         }
 
+        public static bool Swap<T>(IList<T> list, int indexA, int indexB)
+        {
+            try
+            {
+                T tmp = list[indexA];
+                list[indexA] = list[indexB];
+                list[indexB] = tmp;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("Internal error: exception during list item swap. " + ex.Message);
+                return false;
+            }
+
+            return true;
+        }
 
     }       //  public static class HelpersC:\git-repos\Zal-Windows\TestApp\packages.config
 }       //  namespace ZalTestApp

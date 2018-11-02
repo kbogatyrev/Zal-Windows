@@ -24,8 +24,9 @@ namespace ZalTestApp
             return m_Lexemes.Keys.GetEnumerator();
         }
 
-        private Dictionary<string, Dictionary<string, List<Tuple<string, string>>>> m_FormComments;  
-                        // ^-- lex. hash       ^-- gram hash     ^-- leading comment, trailing comment))
+        private Dictionary<string, Dictionary<string, List<Tuple<string, string>>>> m_FormComments;
+        // ^-- lex. hash       ^-- gram hash     ^-- leading comment, trailing comment))
+
         public IEnumerator GetFormCommentsEnumerator()
         {
             return m_FormComments.Keys.GetEnumerator();
@@ -619,14 +620,8 @@ namespace ZalTestApp
         {
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
 
- //           EM_ReturnCode eRet = lexeme.eGenerateParadigm();
-//            if (eRet != EM_ReturnCode.H_NO_ERROR)
-//            {
-//                return false;
-//            }
-
-            Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>();
-            Dictionary<string, List<Tuple<string, string>>> comments = null;
+            Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>(); // hash -> form
+            Dictionary<string, List<Tuple<string, string>>> comments = null;    // hash -> left comment, right comment
 
             CWordFormManaged wf = null;
             eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
@@ -1011,6 +1006,26 @@ namespace ZalTestApp
             }
 
             return wf.bIsEdited();
+        }
+
+        public bool bIsVariant(string sLexemeHash, string sFormHash)
+        {
+            CLexemeManaged lexeme;
+            if (!m_LexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            {
+                System.Windows.MessageBox.Show("Unable to find lexeme.");
+                return false;
+            }
+
+            CWordFormManaged wf = null;
+            EM_ReturnCode eRet = lexeme.eWordFormFromHash(sFormHash, 0, ref wf);    // no need to check for all
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                //                System.Windows.MessageBox.Show("Unable to check word form edit status.");
+                return false;
+            }
+
+            return wf.bIsVariant();
         }
 
         private void HandleAccusatives(CLexemeManaged lexeme, EM_Subparadigm eSubparadigm)

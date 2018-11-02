@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ZalTestApp"
-             mc:Ignorable="d" Width="885.333">
+             mc:Ignorable="d" Width="925">
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions>
@@ -141,7 +141,7 @@
                 <!-- Comparative -->
                 <TextBox Text="Сравн." Margin="504,681,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="{Binding AdjComp}" Margin="454,718,0,0" Style="{StaticResource FormText}" />
-                <Image HorizontalAlignment="Left" Margin="617,725,0,0" VerticalAlignment="Top" Style="{Binding AdjComp_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="627,725,0,0" VerticalAlignment="Top" Style="{Binding AdjComp_Marks, Converter={StaticResource StyleConverter}}" />
             </Grid>
         </ScrollViewer>
         <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveFormsCommand}" Margin="5,424,0,0" Grid.Column="1" />

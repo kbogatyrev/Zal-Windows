@@ -161,8 +161,9 @@ namespace ZalTestApp
             }
 
             var descriptor = m_DictFormStatus[sFormHash];
+            string sLexemeHash = m_Lexeme.sHash();
 
-            if (m_MainModel.bIsIrregular(m_Lexeme.sHash(), sFormHash))
+            if (m_MainModel.bIsIrregular(sLexemeHash, sFormHash))
             {
                 descriptor.IsIrregular = true;
             }
@@ -478,7 +479,7 @@ namespace ZalTestApp
                 }
 
                 foreach (var sHash in listKeys)
-                {
+                {                    
                     FormDescriptor fd = new FormDescriptor(null, null, false, false, null);
                     List<string> listForms = null;
                     m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
@@ -506,7 +507,7 @@ namespace ZalTestApp
                         var sFormString = Helpers.sListToCommaSeparatedString(fd1.listForms);
                         Helpers.AssignDiacritics(sFormString, ref sFormString);
                     //                    OnPropertyChanged(hash);
-                    return true;
+                        return true;
                     };
 
                     m_DictFormStatus[sFormHashToDisplayHash(sHash)] = fd;
