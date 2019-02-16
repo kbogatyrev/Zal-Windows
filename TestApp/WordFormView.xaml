@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="ZalTestApp.WordFormView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZalTestApp"
+        mc:Ignorable="d" d:DesignWidth="409.234" d:DesignHeight="529.147">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,60,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="379" Height="500" Grid.Column="0" >
+        <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" >
+            <Grid Margin="0,0,0,0" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" MinHeight="400"/>
+                    <RowDefinition Height="0*"/>
+                </Grid.RowDefinitions>
+                <ItemsControl ItemsSource="{Binding WordFormDetails}" Grid.IsSharedSizeScope="True" Height="400" Margin="0,0,0,0" VerticalAlignment="Top">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="170" SharedSizeGroup="one" />
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="two" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding WordFormPropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left"/>
+                                <TextBlock Grid.Column="1" Text="{Binding WordFormPropertyValue}" Style="{StaticResource DataField}" MaxWidth="170"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Border>
+    </ScrollViewer>
+</UserControl>
