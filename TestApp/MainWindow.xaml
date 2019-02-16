@@ -70,6 +70,10 @@
             <local:RegressionGridView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type local:WordFormViewModel}" >
+            <local:WordFormView />
+        </DataTemplate>
+
     </Window.Resources>
 
     <DockPanel Name="HomeView">
@@ -79,8 +83,11 @@
                 <MenuItem Header="Открыть словарь для правки" Command="{Binding OpenEditDictionaryCommand}" IsEnabled="False"/>
             </MenuItem>
             <MenuItem Header="_Синтез" Command="{Binding SearchByInitialFormCommand}" IsEnabled="{Binding DbOpen}" />
-            <MenuItem Header="_Анализ" IsEnabled="False"/>
-            <MenuItem Header="_Регрессия" IsEnabled="{Binding DbOpen}" >
+            <MenuItem Header="_Анализ" IsEnabled="True">
+                <MenuItem Header="_Запустить генератор словоформ" Command="{Binding GenerateAllFormsCommand}" IsEnabled="False"/>
+                <MenuItem Header="_Разбор словоформы" Command="{Binding AnalyzeCommand}" IsEnabled="True"/>
+            </MenuItem>
+            <MenuItem Header="Ре_грессия" IsEnabled="{Binding DbOpen}" >
                 <MenuItem Header="_Экспорт" Command="{Binding ExportRegressionDataCommand}"/>
                 <MenuItem Header="_Импорт" Command="{Binding ImportRegressionDataCommand}"/>
                 <MenuItem Header="_Тест" Command="{Binding ShowRegressionPageCommand}"/>
