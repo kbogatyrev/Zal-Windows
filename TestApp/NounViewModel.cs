@@ -639,7 +639,7 @@ namespace ZalTestApp
                     break;
 
                 case EM_PartOfSpeech.POS_NUM:
-                    eSp = EM_Subparadigm.SUBPARADIGM_NUMERAL;
+                    eSp = EM_Subparadigm.SUBPARADIGM_NUM;
                     break;
 
                 default:

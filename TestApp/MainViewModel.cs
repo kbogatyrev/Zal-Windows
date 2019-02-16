@@ -345,6 +345,32 @@ namespace ZalTestApp
             }
         }
 
+        private ICommand m_GenerateAllFormsCommand;
+        public ICommand GenerateAllFormsCommand
+        {
+            get
+            {
+                return m_GenerateAllFormsCommand;
+            }
+            set
+            {
+                m_GenerateAllFormsCommand = value;
+            }
+        }
+
+        private ICommand m_AnalyzeCommand;
+        public ICommand AnalyzeCommand
+        {
+            get
+            {
+                return m_AnalyzeCommand;
+            }
+            set
+            {
+                m_AnalyzeCommand = value;
+            }
+        }
+
         private ICommand m_NewLexemeCommand;
         public ICommand NewLexemeCommand
         {
@@ -421,6 +447,8 @@ namespace ZalTestApp
                 //            OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
                 //            OpenEditDictionaryCommand = new RelayCommand(new Action<object>(OpenEditDictionary));
                 SearchByInitialFormCommand = new RelayCommand(new Action<object>(SearchByInitialForm));
+                GenerateAllFormsCommand = new RelayCommand(new Action<object>(GenerateAllForms));
+                AnalyzeCommand = new RelayCommand(new Action<object>(Analyze));
                 NewLexemeCommand = new RelayCommand(new Action<object>(NewLexeme));
                 EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
                 ShowRegressionPageCommand = new RelayCommand(new Action<object>(ShowRegression));
@@ -604,6 +632,47 @@ namespace ZalTestApp
 
         }   // SearchByInitialForm()
 
+        public void GenerateAllForms(object obj)
+        {
+            m_MainModel.GenerateAllForms();
+
+        }   // GenerateAllForms()
+
+        public void Analyze(object obj)
+        {
+            EnterDataDlg edd = new EnterDataDlg();
+            edd.Owner = Application.Current.MainWindow;
+            bool? bnRet = edd.ShowDialog();
+            if (bnRet != true)
+            {
+                return;
+            }
+
+            EnterDataViewModel eddvm = (EnterDataViewModel)edd.DataContext;
+            m_MainModel.Analyze(eddvm.DataString);
+
+            if (m_MainModel.NParses < 1)
+            {
+                return;
+            }
+
+            IEnumerator<string> parseEnumerator = (IEnumerator<string>)m_MainModel.GetParseEnumerator();
+
+            while (parseEnumerator.MoveNext())
+            {
+                string sGramHash = (string)parseEnumerator.Current;
+                List<CWordFormManaged> listWf = m_MainModel.WordFormsFromHash(sGramHash);
+                foreach (CWordFormManaged wf in listWf)
+                {
+                    ShowParsedForm(wf);
+                }
+            }
+
+            //            m_CurrentViewModel = m_BreadCrumbs.AddAfter(m_CurrentViewModel, m_LexemeGridViewModel);
+            UpdateView();
+
+        }   // Analyze()
+
         void NewLexeme(object obj)
         {
             CLexemeManaged l = null;
@@ -683,6 +752,7 @@ namespace ZalTestApp
                     break;
                 case EM_PartOfSpeech.POS_ADJ:
                 case EM_PartOfSpeech.POS_PRONOUN_ADJ:
+                case EM_PartOfSpeech.POS_NUM_ADJ:
                     paradigmViewModel = new AdjViewModel(lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ, m_MainModel);
                     break;
                 case EM_PartOfSpeech.POS_VERB:
@@ -700,6 +770,18 @@ namespace ZalTestApp
             m_iCurrentTab = m_Pages.Count - 1;
             //                m_CurrentViewModel = m_BreadCrumbs.AddLast(nvp.Page);
         }
+
+        void ShowParsedForm(CWordFormManaged wf)
+        {
+            ViewModelBase wordFormViewModel = new WordFormViewModel(wf); 
+//            LexemeViewModel lexemeViewModel = new LexemeViewModel(wf.Lexeme());
+//            m_CurrentViewPage = new ViewPage(wf.sWordForm(), lexemeViewModel, paradigmViewModel);
+            m_CurrentViewPage = new ViewPage(wf.sWordForm(), null, wordFormViewModel);
+            m_Pages.Add(m_CurrentViewPage);
+            m_iCurrentTab = m_Pages.Count - 1;
+            //                m_CurrentViewModel = m_BreadCrumbs.AddLast(nvp.Page);
+        }
+
 
         void ShowParticiple(CLexemeManaged lexeme, EM_Subparadigm sp, ViewModelBase parent)
         {

@@ -11,6 +11,7 @@ namespace ZalTestApp
     public class MainModel : INotifyPropertyChanged
     {
         private CDictionaryManaged m_Dictionary = null;
+        private CParserManaged m_Parser = null;
 
         private CVerifierManaged m_Verifier = null; 
         public CVerifierManaged Verifier()
@@ -45,6 +46,20 @@ namespace ZalTestApp
         public IEnumerator GetStoredLexemesEnumerator()
         {
             return m_StoredLexemes.GetEnumerator();
+        }
+
+        private Dictionary<string, List<CWordFormManaged>> m_Parses; 
+        public IEnumerator GetParseEnumerator()
+        {
+            return m_Parses.Keys.GetEnumerator();
+        }
+
+        public List<CWordFormManaged> WordFormsFromHash(string sHash)
+        {
+            List<CWordFormManaged> listWf = null;
+            m_Parses.TryGetValue(sHash, out listWf);
+
+            return listWf;
         }
 
         //public Dictionary<string, List<string>> m_ChangedForms = new Dictionary<string, List<string>>();       // gram hash --> current form
@@ -130,6 +145,14 @@ namespace ZalTestApp
                 return m_Lexemes.Count;
             }
         }
+
+        public int NParses
+        {
+            get
+            {
+                return m_Parses.Count;
+            }
+        }
         #endregion
 
         public MainModel()
@@ -154,11 +177,13 @@ namespace ZalTestApp
             //}
 
             m_Dictionary.eGetVerifier(ref m_Verifier);
+            m_Dictionary.eGetParser(ref m_Parser);
 
             m_Lexemes = new Dictionary<string, Dictionary<string, List<string>>>();
             m_FormComments = new Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>();
             m_LexemeHashToLexeme = new Dictionary<string, CLexemeManaged>();
             m_StoredLexemes = new Dictionary<string, string>();
+            m_Parses = new Dictionary<string, List<CWordFormManaged>>();
 
             m_bInitialized = true;
         }
@@ -378,7 +403,8 @@ namespace ZalTestApp
 
                     if (lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NOUN || lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN ||
                         lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NUM || lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ ||
-                        lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ || lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
+                        lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ || lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NUM_ADJ || 
+                        lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
                     {
                         if (!bArrangeParadigm(lexeme))
                         {
@@ -397,6 +423,71 @@ namespace ZalTestApp
                 return;
             }
         }       //  SearchByInitialForm()
+
+        public bool GenerateAllForms()
+        {
+            if (null == m_Dictionary)
+            {
+                System.Windows.MessageBox.Show("Dictionary was not initialized.");
+                return false;
+            }
+
+            var eRet = m_Dictionary.eGenerateAllForms();
+            if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE && eRet != EM_ReturnCode.H_FALSE)
+            {
+                System.Windows.MessageBox.Show("Form generation failed.");
+                return false;
+            }
+
+            return true;
+
+        }       //  GenerateAllForms()
+
+        public bool Analyze(string sForm)
+        {
+            if (null == m_Parser)
+            {
+                System.Windows.MessageBox.Show("Parser was not initialized.");
+                return false;
+            }
+
+            m_Parses.Clear();
+
+            var eRet = m_Parser.eAnalyze(sForm);
+            if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE && eRet != EM_ReturnCode.H_FALSE)
+            {
+                System.Windows.MessageBox.Show("Form analysis failed.");
+                return false;
+            }
+
+            CWordFormManaged wordFormData = null;
+            eRet = m_Parser.eGetFirstWordForm(ref wordFormData);
+            while (EM_ReturnCode.H_NO_ERROR == eRet)
+            {
+                string sKey = wordFormData.sGramHash();
+                if (sKey.Length > 0)
+                {
+                    List<CWordFormManaged> listWf;
+                    if (!m_Parses.TryGetValue(sKey, out listWf))
+                    {
+                        listWf = new List<CWordFormManaged>();
+                        m_Parses.Add(sKey, listWf);
+                    }
+
+                    listWf.Add(wordFormData);
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Empty gram hash.");
+//                    return false;
+                }
+
+                eRet = m_Parser.eGetNextWordForm(ref wordFormData);
+            }
+
+            return true;
+
+        }       //  Analyze()
 
         #region Regression
         public bool GetStoredLexemeData()
@@ -510,6 +601,7 @@ namespace ZalTestApp
 
                 case EM_PartOfSpeech.POS_ADJ:
                 case EM_PartOfSpeech.POS_PRONOUN_ADJ:
+                case EM_PartOfSpeech.POS_NUM_ADJ:
                     return bGenerateAdjForms(lexeme);
 
                 case EM_PartOfSpeech.POS_VERB:
@@ -656,6 +748,17 @@ namespace ZalTestApp
                     sKey += Helpers.sNumberToString(wf.eNumber()) + "_"
                         + Helpers.sCaseToString(wf.eCase());
                 }
+                else if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_NUM_ADJ)
+                {
+                    sKey = "NumAdj_";
+                    if (wf.eNumber() == EM_Number.NUM_SG)
+                    {
+                        sKey += Helpers.sGenderToString(wf.eGender()) + "_";
+                    }
+
+                    sKey += Helpers.sNumberToString(wf.eNumber()) + "_"
+                        + Helpers.sCaseToString(wf.eCase());
+                }
                 else if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_SHORT_ADJ)
                 {
                     sKey = "AdjS_";
@@ -726,6 +829,10 @@ namespace ZalTestApp
             else if (EM_PartOfSpeech.POS_PRONOUN_ADJ == lexeme.ePartOfSpeech())
             {
                 eSp = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
+            }
+            else if (EM_PartOfSpeech.POS_NUM_ADJ == lexeme.ePartOfSpeech())
+            {
+                eSp = EM_Subparadigm.SUBPARADIGM_NUM_ADJ;
             }
 
             HandleAccusatives(lexeme, eSp);
@@ -1046,6 +1153,10 @@ namespace ZalTestApp
 
                 case EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ:
                     sPrefix = "PronAdj_";
+                    break;
+
+                case EM_Subparadigm.SUBPARADIGM_NUM_ADJ:
+                    sPrefix = "NumAdj_";
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
