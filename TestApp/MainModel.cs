@@ -62,6 +62,15 @@ namespace ZalTestApp
             return listWf;
         }
 
+        private Dictionary<CWordFormManaged, CLexemeManaged> m_WordformToLexeme;
+        public CLexemeManaged GetLexemeFromWordform(CWordFormManaged wordform)
+        {
+            CLexemeManaged l = null;
+            m_WordformToLexeme.TryGetValue(wordform, out l);
+
+            return l;
+        }
+
         //public Dictionary<string, List<string>> m_ChangedForms = new Dictionary<string, List<string>>();       // gram hash --> current form
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -184,6 +193,7 @@ namespace ZalTestApp
             m_LexemeHashToLexeme = new Dictionary<string, CLexemeManaged>();
             m_StoredLexemes = new Dictionary<string, string>();
             m_Parses = new Dictionary<string, List<CWordFormManaged>>();
+            m_WordformToLexeme = new Dictionary<CWordFormManaged, CLexemeManaged>();
 
             m_bInitialized = true;
         }
@@ -481,6 +491,18 @@ namespace ZalTestApp
                     System.Windows.MessageBox.Show("Empty gram hash.");
 //                    return false;
                 }
+
+                CLexemeManaged lexeme = null;
+                eRet = m_Dictionary.eGetLexemeById(wordFormData.llLexemeId(), ref lexeme);
+                if (EM_ReturnCode.H_NO_ERROR == eRet || EM_ReturnCode.H_NO_MORE == eRet)
+                {
+                    m_WordformToLexeme.Add(wordFormData, lexeme);
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Unable to find lexeme.");
+                }
+
 
                 eRet = m_Parser.eGetNextWordForm(ref wordFormData);
             }

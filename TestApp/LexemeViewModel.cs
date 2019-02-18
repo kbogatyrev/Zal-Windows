@@ -47,6 +47,23 @@ namespace ZalTestApp
             }
         }
 
+        private bool m_bReadOnly;
+        public bool ReadOnly
+        {
+            get
+            {
+                return m_bReadOnly;
+            }
+        }
+
+        public bool CanEdit
+        {
+            get
+            {
+                return !m_bReadOnly;
+            }
+        }
+
         public delegate void RemoveLexemeHandler(LexemeViewModel lvm);
         public event RemoveLexemeHandler RemoveLexemeEvent;
 
@@ -110,6 +127,7 @@ namespace ZalTestApp
         public LexemeViewModel()
         {
             m_Lexeme = null;
+            m_bReadOnly = false;
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
         }
@@ -117,6 +135,19 @@ namespace ZalTestApp
         public LexemeViewModel(CLexemeManaged l)
         {
             m_Lexeme = l;
+            m_bReadOnly = false;
+            RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
+            EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
+
+            LexemeDetails = new ObservableCollection<LexemeProperty>();
+
+            CollectLexemeProperties();
+        }
+
+        public LexemeViewModel(CLexemeManaged l, bool bReadOnly)
+        {
+            m_Lexeme = l;
+            m_bReadOnly = bReadOnly;
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
 

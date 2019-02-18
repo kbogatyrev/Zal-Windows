@@ -6,6 +6,10 @@
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d" d:DesignWidth="409.234" d:DesignHeight="529.147">
 
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+    </UserControl.Resources>
+
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,60,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="379" Height="459" Grid.Column="0" >
         <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" >
             <Grid Margin="0,0,0,0" VerticalAlignment="Top">
@@ -27,8 +31,8 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Проверено" Command="{Binding SaveRegressionCommand}" Margin="183,0,25.333,0" VerticalAlignment="Top" Width="Auto" />
-                <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Редактировать" Command="{Binding EditLexemeCommand}" Margin="29,0,192.333,0" VerticalAlignment="Top" Width="Auto" />
+                <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Проверено" Command="{Binding SaveRegressionCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="183,0,25.333,0" VerticalAlignment="Top" Width="Auto" />
+                <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Редактировать" Command="{Binding EditLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="29,0,192.333,0" VerticalAlignment="Top" Width="Auto" />
             </Grid>
         </Border>
     </ScrollViewer>

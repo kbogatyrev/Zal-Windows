@@ -773,15 +773,22 @@ namespace ZalTestApp
 
         void ShowParsedForm(CWordFormManaged wf)
         {
-            ViewModelBase wordFormViewModel = new WordFormViewModel(wf); 
-//            LexemeViewModel lexemeViewModel = new LexemeViewModel(wf.Lexeme());
-//            m_CurrentViewPage = new ViewPage(wf.sWordForm(), lexemeViewModel, paradigmViewModel);
-            m_CurrentViewPage = new ViewPage(wf.sWordForm(), null, wordFormViewModel);
+            ViewModelBase wordFormViewModel = new WordFormViewModel(wf);
+
+            CLexemeManaged lexeme = m_MainModel.GetLexemeFromWordform(wf);
+            if (null == lexeme)
+            {
+                System.Windows.MessageBox.Show("Unable to find lexeme.");
+                return;
+            }
+
+            bool bReadOnly = true;
+            LexemeViewModel lexemeViewModel = new LexemeViewModel(lexeme, bReadOnly);
+            m_CurrentViewPage = new ViewPage(wf.sWordForm(), lexemeViewModel, wordFormViewModel);
             m_Pages.Add(m_CurrentViewPage);
             m_iCurrentTab = m_Pages.Count - 1;
             //                m_CurrentViewModel = m_BreadCrumbs.AddLast(nvp.Page);
         }
-
 
         void ShowParticiple(CLexemeManaged lexeme, EM_Subparadigm sp, ViewModelBase parent)
         {
