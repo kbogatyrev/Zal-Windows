@@ -558,14 +558,23 @@ CLexemeManaged^ CDictionaryManaged::CopyLexemeForEdit(CLexemeManaged^ source)
     return pManaged;
 }
 
-EM_ReturnCode CDictionaryManaged::eGetLexemeById(int iId)
+EM_ReturnCode CDictionaryManaged::eGetLexemeById(long long llId, CLexemeManaged^% lexeme)
 {
     if (NULL == m_pDictionary)
     {
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    return (EM_ReturnCode)m_pDictionary->eGetLexemeById(iId);
+    ILexeme * pLexeme = NULL;
+    ET_ReturnCode eRet = m_pDictionary->eGetLexemeById(llId, pLexeme);
+    if (H_NO_ERROR == eRet || H_NO_MORE == eRet)
+    {
+        if (pLexeme)
+        {
+            lexeme = gcnew CLexemeManaged(pLexeme);
+        }
+    }
+    return (EM_ReturnCode)eRet;
 }
 
 EM_ReturnCode CDictionaryManaged::eGetLexemesByHash(String^ sHash)

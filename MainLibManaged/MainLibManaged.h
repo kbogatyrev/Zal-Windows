@@ -306,7 +306,7 @@ namespace MainLibManaged
         CLexemeManaged^ CreateLexemeForEdit();
         CLexemeManaged^ CopyLexemeForEdit(CLexemeManaged^);
 
-        EM_ReturnCode eGetLexemeById(int Id);
+        EM_ReturnCode eGetLexemeById(long long Id, CLexemeManaged^% pLexeme);
         EM_ReturnCode eGetLexemesByHash(String^);
         EM_ReturnCode eGetLexemesByGraphicStem(String^);
         EM_ReturnCode eGetLexemesByInitialForm(String^);
