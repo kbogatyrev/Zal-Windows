@@ -78,14 +78,15 @@
 
     <DockPanel Name="HomeView">
         <Menu Style="{DynamicResource Menu}" DockPanel.Dock="Top">
-            <MenuItem Header="_Файл" IsEnabled="False">
-                <MenuItem Header="_Открыть словарь" Command="{Binding OpenDictionaryCommand}" IsEnabled="False"/>
+            <MenuItem Header="_Файл" IsEnabled="True">
+                <MenuItem Header="_Открыть словарь" Command="{Binding OpenDictionaryCommand}" IsEnabled="True"/>
                 <MenuItem Header="Открыть словарь для правки" Command="{Binding OpenEditDictionaryCommand}" IsEnabled="False"/>
             </MenuItem>
             <MenuItem Header="_Синтез" Command="{Binding SearchByInitialFormCommand}" IsEnabled="{Binding DbOpen}" />
             <MenuItem Header="_Анализ" IsEnabled="True">
                 <MenuItem Header="_Запустить генератор словоформ" Command="{Binding GenerateAllFormsCommand}" IsEnabled="False"/>
-                <MenuItem Header="_Разбор словоформы" Command="{Binding AnalyzeCommand}" IsEnabled="True"/>
+                <MenuItem Header="_Разбор словоформы" Command="{Binding ParseWordCommand}" IsEnabled="True"/>
+                <MenuItem Header="_Разбор текста" Command="{Binding ParseTextCommand}" IsEnabled="True"/>
             </MenuItem>
             <MenuItem Header="Ре_грессия" IsEnabled="{Binding DbOpen}" >
                 <MenuItem Header="_Экспорт" Command="{Binding ExportRegressionDataCommand}"/>

@@ -335,7 +335,7 @@ namespace ZalTestApp
             m_Lexemes.Clear();
         }
 
-/*
+
         public EM_ReturnCode OpenDictionary(string sPath)
         {
             Path = sPath;
@@ -349,6 +349,7 @@ namespace ZalTestApp
             return eRet;
         }
 
+/*
         public EM_ReturnCode OpenEditDictionary(string sPath)
         {
             Path = sPath;
@@ -453,7 +454,7 @@ namespace ZalTestApp
 
         }       //  GenerateAllForms()
 
-        public bool Analyze(string sForm)
+        public bool ParseWord(string sForm)
         {
             if (null == m_Parser)
             {
@@ -509,7 +510,7 @@ namespace ZalTestApp
 
             return true;
 
-        }       //  Analyze()
+        }       //  ParseWord()
 
         #region Regression
         public bool GetStoredLexemeData()

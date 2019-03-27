@@ -88,7 +88,14 @@ namespace ZalTestApp
         {
             get
             {
-                return "Lexeme";
+                if (m_LexemeInfo != null)
+                {
+                    return "Lexeme";
+                }
+                else
+                {
+                    return "Generic";
+                }
             }
         }
     }
@@ -358,16 +365,16 @@ namespace ZalTestApp
             }
         }
 
-        private ICommand m_AnalyzeCommand;
-        public ICommand AnalyzeCommand
+        private ICommand m_ParseWordCommand;
+        public ICommand ParseWordCommand
         {
             get
             {
-                return m_AnalyzeCommand;
+                return m_ParseWordCommand;
             }
             set
             {
-                m_AnalyzeCommand = value;
+                m_ParseWordCommand = value;
             }
         }
 
@@ -444,11 +451,11 @@ namespace ZalTestApp
                 m_Pages = new ObservableCollection<ViewPage>();
                 BackButtonCommand = new RelayCommand(new Action<object>(GoBack));
                 ForwardButtonCommand = new RelayCommand(new Action<object>(GoForward));
-                //            OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
+                OpenDictionaryCommand = new RelayCommand(new Action<object>(OpenDictionary));
                 //            OpenEditDictionaryCommand = new RelayCommand(new Action<object>(OpenEditDictionary));
                 SearchByInitialFormCommand = new RelayCommand(new Action<object>(SearchByInitialForm));
                 GenerateAllFormsCommand = new RelayCommand(new Action<object>(GenerateAllForms));
-                AnalyzeCommand = new RelayCommand(new Action<object>(Analyze));
+                ParseWordCommand = new RelayCommand(new Action<object>(ParseWord));
                 NewLexemeCommand = new RelayCommand(new Action<object>(NewLexeme));
                 EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
                 ShowRegressionPageCommand = new RelayCommand(new Action<object>(ShowRegression));
@@ -533,26 +540,26 @@ namespace ZalTestApp
             UpdateView();
         }
 
-        //public void OpenDictionary(object obj)
-        //{
-        //    OpenFileDialog openFileDialog = new OpenFileDialog();
+        public void OpenDictionary(object obj)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
 
-        //    openFileDialog.InitialDirectory = "c:\\";
-        //    openFileDialog.Filter = "All files (*.*)|*.*|SQLite 3 files (*.db3)|*.db3";
-        //    openFileDialog.FilterIndex = 2;
-        //    openFileDialog.RestoreDirectory = true;
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "All files (*.*)|*.*|SQLite 3 files (*.db3)|*.db3";
+            openFileDialog.FilterIndex = 2;
+            openFileDialog.RestoreDirectory = true;
 
-        //    EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
-        //    if (true == openFileDialog.ShowDialog())
-        //    {
-        //        eRet = m_MainModel.OpenDictionary(openFileDialog.FileName);
-        //    }
+            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+            if (true == openFileDialog.ShowDialog())
+            {
+                eRet = m_MainModel.OpenDictionary(openFileDialog.FileName);
+            }
 
-        //    if (EM_ReturnCode.H_NO_ERROR == eRet)
-        //    {
-        //        DbOpen = true;
-        //    }
-        //}
+            if (EM_ReturnCode.H_NO_ERROR == eRet)
+            {
+                DbOpen = true;
+            }
+        }
 
         //public void OpenEditDictionary(object obj)
         //{
@@ -638,7 +645,7 @@ namespace ZalTestApp
 
         }   // GenerateAllForms()
 
-        public void Analyze(object obj)
+        public void ParseWord(object obj)
         {
             EnterDataDlg edd = new EnterDataDlg();
             edd.Owner = Application.Current.MainWindow;
@@ -649,7 +656,7 @@ namespace ZalTestApp
             }
 
             EnterDataViewModel eddvm = (EnterDataViewModel)edd.DataContext;
-            m_MainModel.Analyze(eddvm.DataString);
+            m_MainModel.ParseWord(eddvm.DataString);
 
             if (m_MainModel.NParses < 1)
             {
@@ -671,7 +678,42 @@ namespace ZalTestApp
             //            m_CurrentViewModel = m_BreadCrumbs.AddAfter(m_CurrentViewModel, m_LexemeGridViewModel);
             UpdateView();
 
-        }   // Analyze()
+        }   // ParseWord()
+
+        public void ParseText(object obj)
+        {
+            EnterDataDlg edd = new EnterDataDlg();
+            edd.Owner = Application.Current.MainWindow;
+            bool? bnRet = edd.ShowDialog();
+            if (bnRet != true)
+            {
+                return;
+            }
+
+            EnterDataViewModel eddvm = (EnterDataViewModel)edd.DataContext;
+            m_MainModel.ParseWord(eddvm.DataString);
+
+            if (m_MainModel.NParses < 1)
+            {
+                return;
+            }
+
+            IEnumerator<string> parseEnumerator = (IEnumerator<string>)m_MainModel.GetParseEnumerator();
+
+            while (parseEnumerator.MoveNext())
+            {
+                string sGramHash = (string)parseEnumerator.Current;
+                List<CWordFormManaged> listWf = m_MainModel.WordFormsFromHash(sGramHash);
+                foreach (CWordFormManaged wf in listWf)
+                {
+                    ShowParsedForm(wf);
+                }
+            }
+
+            //            m_CurrentViewModel = m_BreadCrumbs.AddAfter(m_CurrentViewModel, m_LexemeGridViewModel);
+            UpdateView();
+
+        }   // ParseText()
 
         void NewLexeme(object obj)
         {
