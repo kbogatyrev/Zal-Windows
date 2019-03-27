@@ -130,14 +130,16 @@ namespace ZalTestApp
             m_bReadOnly = false;
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
+            SaveRegressionCommand = new RelayCommand(new Action<object>(SaveRegression));
         }
 
-        public LexemeViewModel(CLexemeManaged l)
+    public LexemeViewModel(CLexemeManaged l)
         {
             m_Lexeme = l;
             m_bReadOnly = false;
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
+            SaveRegressionCommand = new RelayCommand(new Action<object>(SaveRegression));
 
             LexemeDetails = new ObservableCollection<LexemeProperty>();
 
@@ -150,6 +152,7 @@ namespace ZalTestApp
             m_bReadOnly = bReadOnly;
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
+            SaveRegressionCommand = new RelayCommand(new Action<object>(SaveRegression));
 
             LexemeDetails = new ObservableCollection<LexemeProperty>();
 
