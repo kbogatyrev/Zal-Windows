@@ -10,7 +10,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
   xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
-  <Product Id="*" Name="Zalizniak's (NEW) Grammatical Dictionary of Russian" Language="1033" Version="4.0.6.11" Manufacturer="Xiao Gogo Software and Baked Goods" UpgradeCode="DD5CB95E-6F3B-4684-8746-33800F1E9D82">
+  <Product Id="*" Name="Zalizniak's (NEW) Grammatical Dictionary of Russian" Language="1033" Version="4.1.1.18" Manufacturer="Xiao Gogo Software and Baked Goods" UpgradeCode="DD5CB95E-6F3B-4684-8746-33800F1E9D82">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -22,7 +22,7 @@
 
     <Feature Id="ProductFeature" Title="Zal2" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
-      <ComponentGroupRef Id="ProductData" />
+<!--      <ComponentGroupRef Id="ProductData" />        -->
       <ComponentRef Id="ApplicationShortcutStartMenu" />
       <ComponentRef Id="ProgramDataFolder_Permission" />
     </Feature>
@@ -68,10 +68,12 @@
       </Component>  
     </ComponentGroup>
 
+<!--
     <ComponentGroup Id="ProductData" Directory="ProgramDataFolder">
       <Component Guid="*" Id="Zal_data_db3">
         <File Id="Zal_data_db3" KeyPath="yes" Source="$(var.S_DATA_DIR)\ZalData.db3" />
       </Component>
     </ComponentGroup>
+-->    
   </Fragment>
 </Wix>
