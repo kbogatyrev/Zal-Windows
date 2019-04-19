@@ -648,14 +648,86 @@ EM_ReturnCode CDictionaryManaged::eCountLexemes(Int64% iLexemes)
 //EM_ReturnCode eSourceFormExists(CLexemeManaged^, bool%);
 
 
-EM_ReturnCode CDictionaryManaged::eSaveLexeme(CLexemeManaged^ l)
+//EM_ReturnCode CDictionaryManaged::eSaveLexeme(CLexemeManaged^ l)
+//{
+//    if (NULL == m_pDictionary)
+//    {
+//        throw gcnew Exception(L"Dictionary object is NULL.");
+//    }
+//
+//    ET_ReturnCode eRet = m_pDictionary->eSaveLexeme(l->m_pLexeme);
+//
+//    return (EM_ReturnCode)eRet;
+//}
+
+EM_ReturnCode CDictionaryManaged::eSaveHeadword(CLexemeManaged^ l)
 {
     if (NULL == m_pDictionary)
     {
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    ET_ReturnCode eRet = m_pDictionary->eSaveLexeme(l->m_pLexeme);
+    ET_ReturnCode eRet = m_pDictionary->eSaveHeadword(l->m_pLexeme);
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CDictionaryManaged::eSaveAspectPairInfo(CLexemeManaged^ l)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pDictionary->eSaveAspectPairInfo(l->m_pLexeme);
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CDictionaryManaged::eSaveLoc2Info(CLexemeManaged^ l)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pDictionary->eSaveLoc2Info(l->m_pLexeme);
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CDictionaryManaged::eSaveDescriptorInfo(CLexemeManaged^ l)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pDictionary->eSaveDescriptorInfo(l->m_pLexeme);
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CDictionaryManaged::eSaveInflectionInfo(CLexemeManaged^ l)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pDictionary->eSaveInflectionInfo(l->m_pLexeme);
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CDictionaryManaged::eSaveCommonDeviation(CLexemeManaged^ l)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pDictionary->eSaveCommonDeviation(l->m_pLexeme);
 
     return (EM_ReturnCode)eRet;
 }

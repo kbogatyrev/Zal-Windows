@@ -317,8 +317,15 @@ namespace MainLibManaged
 //        EM_ReturnCode eVerifyLexemeProperties(CLexemeManaged^);
 //        EM_ReturnCode eSourceFormExists(CLexemeManaged^, bool%);
 
-        // Save manually edited lexeme
-        EM_ReturnCode eSaveLexeme(CLexemeManaged^);
+        // Save manually edited entries
+        EM_ReturnCode eSaveHeadword(CLexemeManaged^);
+        EM_ReturnCode eSaveAspectPairInfo(CLexemeManaged^);
+        EM_ReturnCode eSaveLoc2Info(CLexemeManaged^);
+        EM_ReturnCode eSaveDescriptorInfo(CLexemeManaged^);
+        EM_ReturnCode eSaveCommonDeviation(CLexemeManaged^);
+        EM_ReturnCode eSaveInflectionInfo(CLexemeManaged^);
+
+//        EM_ReturnCode eSaveLexeme(CLexemeManaged^);
 
         int nLexemesFound();
         EM_ReturnCode eGetFirstLexeme(CLexemeManaged^% pLexeme);
