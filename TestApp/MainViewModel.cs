@@ -10,6 +10,7 @@ using System.Threading;
 using MainLibManaged;
 using System.Windows.Data;
 using System.Globalization;
+using ZalTestApp.Properties;
 
 namespace ZalTestApp
 {
@@ -734,15 +735,15 @@ namespace ZalTestApp
                 return;
             }
 
-            bRet = m_MainModel.bSaveLexeme(l);
-            if (bRet)
-            {
-                MessageBox.Show("Лексема сохранена.");
-            }
-            else
-            {
-                MessageBox.Show("Не удалось сохранить лексему.");
-            }
+//            bRet = m_MainModel.bSaveLexeme(l);
+//            if (bRet)
+//            {
+//                MessageBox.Show("Лексема сохранена.");
+//            }
+//            else
+//            {
+//                MessageBox.Show("Не удалось сохранить лексему.");
+//            }
         }
 
         void EditLexeme(object obj)
@@ -766,16 +767,71 @@ namespace ZalTestApp
                 return;
             }
 
-            bRet = m_MainModel.bSaveLexeme(editLexeme);
-            if (bRet)
+            if (elpModel.HeadwordChanged)
             {
-                MessageBox.Show("Лексема сохранена.");
+                bRet = m_MainModel.bSaveHeadword(editLexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить заглавную форму.");
+                }
             }
-            else
+
+            if (elpModel.AspectPairChanged)
             {
-                MessageBox.Show("Не удалось сохранить лексему.");
+                bRet = m_MainModel.bSaveAspectPairInfo(editLexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить информацию о видовой паре.");
+                }
             }
-        }
+
+            if (elpModel.Loc2Changed)
+            {
+                bRet = m_MainModel.bSaveLoc2Info(editLexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить информацию о втором предложном.");
+                }
+            }
+
+            if (elpModel.CommonDeviationChanged)
+            {
+                bRet = m_MainModel.bSaveCommonDeviation(editLexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить информацию о стандартных отклонениях.");
+                }
+            }
+
+            if (elpModel.InflectionGroupChanged)
+            {
+                bRet = m_MainModel.bSaveInflectionInfo(editLexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить лексему.");
+                }
+            }
+
+            if (elpModel.DescriptorChanged)
+            {
+                bRet = m_MainModel.bSaveDescriptorInfo(editLexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить лексему.");
+                }
+            }
+
+//            bRet = m_MainModel.bSaveLexeme(editLexeme);
+//            if (bRet)
+//            {
+//                MessageBox.Show("Лексема сохранена.");
+//            }
+//            else
+//            {
+//                MessageBox.Show("Не удалось сохранить лексему.");
+//            }
+
+        }       //  EditLexeme()
 
         void ShowParadigm(CLexemeManaged lexeme)
         {

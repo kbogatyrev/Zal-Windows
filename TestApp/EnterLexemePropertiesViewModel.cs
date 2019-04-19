@@ -8,6 +8,7 @@ using MainLibManaged;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using System.Collections.Specialized;
 
 namespace ZalTestApp
 {
@@ -18,6 +19,17 @@ namespace ZalTestApp
 
         CLexemeManaged m_Lexeme;
         HashSet<string> m_PropertiesChanged;
+        string[] HeadwordProperties = { "SourceFormWithAccents", "Variant", "HeadwordComment", "IsPluralOf", "PluralOf", "SeeRef", "BackRef",
+                                        "IsUnstressed", "IsVariant", "Usage" };
+        string[] DescriptorProperties = { "AltMainSymbol", "MainSymbol", "Triangle", "FleetingVowel", "YoAlternation", "OAlternation", "TildeSymbol",
+                                          "SecondGenitive", "HasAspectPair", "HasIrregularForms", "HasDeficiencies", "RestrictedContexts", "Contexts",
+                                          "TrailingComment", "VerbStemAlternation", "PartPastPassZhd", "Section", "NoComparative", "AssumedForms" };
+        string[] InflectionProperties = { "Index", "StressType1", "StressType2", "SmallCircle", "FleetingVowel", "XSymbol", "FramedXSymbol", "IsPrimaryInflectionGroup" };
+        string[] CommonDeviationProperties = { "NumberInCircle" };
+        string[] AspectPairProperties = { "AspectPairType", "AspectPairData", "AltAspectPairComment" };
+        string[] Gen2Properties = { "Gen2", "SecondGenitive" };
+        string[] Loc2Properties = { "Loc2", "Loc2Preposition" };
+
         HashSet<char> m_CyrillicAlphabet;
         char[] m_Vowels = { 'а', 'е', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я' };
         char[] m_sStressMarks = { '/', '\\' };
@@ -513,7 +525,7 @@ namespace ZalTestApp
                 {
                     m_sGen2 = value;
                 }
-                OnPropertyChanged("Gen2");
+                OnPropertyChanged("SecondGenitive");
             }
         }
 
@@ -530,7 +542,7 @@ namespace ZalTestApp
                 {
                     m_sLoc2 = value;
                 }
-                OnPropertyChanged("Loc2");
+                OnPropertyChanged("SecondLocative");
             }
         }
 
@@ -944,6 +956,98 @@ namespace ZalTestApp
             set
             {
                 m_EditFormsCommand = value;
+            }
+        }
+
+        // Other...
+        public bool m_bHeadwordChanged = false;
+        public bool HeadwordChanged
+        {
+            get
+            {
+                return m_bHeadwordChanged;
+            }
+            set
+            {
+                m_bHeadwordChanged = value;
+            }
+        }
+
+        public bool m_bDescriptorChanged = false;
+        public bool DescriptorChanged
+        {
+            get
+            {
+                return m_bDescriptorChanged;
+            }
+            set
+            {
+                m_bDescriptorChanged = value;
+            }
+        }
+
+        public bool m_bInflectionGroupChanged = false;
+        public bool InflectionGroupChanged
+        {
+            get
+            {
+                return m_bInflectionGroupChanged;
+            }
+            set
+            {
+                m_bInflectionGroupChanged = value;
+            }
+        }
+
+        public bool m_bCommonDeviationChanged = false;
+        public bool CommonDeviationChanged
+        {
+            get
+            {
+                return m_bCommonDeviationChanged;
+            }
+            set
+            {
+                m_bCommonDeviationChanged = value;
+            }
+        }
+
+        public bool m_bGen2Changed = false;
+        public bool Gen2Changed
+        {
+            get
+            {
+                return m_bGen2Changed;
+            }
+            set
+            {
+                m_bGen2Changed = value;
+            }
+        }
+
+        public bool m_bLoc2Changed = false;
+        public bool Loc2Changed
+        {
+            get
+            {
+                return m_bLoc2Changed;
+            }
+            set
+            {
+                m_bLoc2Changed = value;
+            }
+        }
+
+        public bool m_bAspectPairChanged = false;
+        public bool AspectPairChanged
+        {
+            get
+            {
+                return m_bAspectPairChanged;
+            }
+            set
+            {
+                m_bAspectPairChanged = value;
             }
         }
 
@@ -1391,6 +1495,16 @@ namespace ZalTestApp
                 return bRet;
             });
 
+            m_ChangedPropertiesHandlers.Add("VerbStemAlternation", () =>
+            {
+                if (null == m_sVerbStemAlternation)
+                {
+                    return true;
+                }
+                m_Lexeme.SetVerbStemAlternation(m_sVerbStemAlternation);
+                return true;
+            });
+
             m_ChangedPropertiesHandlers.Add("StressType1", () =>
             {
                 m_Lexeme.SetAccentType1(Helpers.eStringToAccentType(m_sStressType1));
@@ -1520,6 +1634,39 @@ namespace ZalTestApp
                 return bRet;
             });
 
+            m_ChangedPropertiesHandlers.Add("TildeSymbol", () =>
+            {
+                bool bValue = false;
+                bool bRet = bGetYesNoValue("NoComparative", m_sTildeSymbol, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetNoComparative(bValue);
+                }
+                return bRet;
+            });
+
+            m_ChangedPropertiesHandlers.Add("Gen2", () =>
+            {
+                bool bValue = false;
+                bool bRet = bGetYesNoValue("Gen2", m_sGen2, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetSecondGenitive(bValue);
+                }
+                return bRet;
+            });
+
+            m_ChangedPropertiesHandlers.Add("Loc2", () =>
+            {
+                bool bValue = false;
+                bool bRet = bGetYesNoValue("Loc2", m_sLoc2, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetSecondLocative(bValue);
+                }
+                return bRet;
+            });
+
             m_ChangedPropertiesHandlers.Add("StemAugment", () =>
             {
                 bool bValue = false;
@@ -1576,7 +1723,17 @@ namespace ZalTestApp
         m_sSourceForm = "";
         m_bPropertiesChanged = false;
 
-//            String sAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя\u0300\u0301";
+//////
+        m_bHeadwordChanged = false;        
+        m_bDescriptorChanged = false;
+        m_bInflectionGroupChanged = false;
+        m_bCommonDeviationChanged = false;
+        m_bGen2Changed = false;
+        m_bLoc2Changed = false;
+        m_bAspectPairChanged = false;
+        
+
+            //            String sAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя\u0300\u0301";
         String sAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя/\\";
         m_CyrillicAlphabet = new HashSet<char>(sAlphabet.ToCharArray());
 
@@ -1618,7 +1775,14 @@ namespace ZalTestApp
         {
             LoadData();
             m_PropertiesChanged.Clear();
-            m_bPropertiesChanged = false;
+            PropertiesChanged = false;
+            HeadwordChanged = false;
+            DescriptorChanged = false;
+            InflectionGroupChanged = false;
+            CommonDeviationChanged = false;
+            Gen2Changed = false;
+            Loc2Changed = false;
+            AspectPairChanged = false;
         }
 
     }       //  EnterLexemePropertiesViewModel()
@@ -1666,8 +1830,13 @@ namespace ZalTestApp
                 if (EM_ReturnCode.H_NO_ERROR == eErrCode)
                 {
                     ((Window)view).DialogResult = true;
-                    ((Window)view).Close();
                 }
+                else
+                {
+                    ((Window)view).DialogResult = false;
+                    MessageBox.Show("Ошибка в параметрах лексемы.");
+                }
+                ((Window)view).Close();
             }
         }
 
@@ -1859,7 +2028,7 @@ namespace ZalTestApp
         public void OffloadData()
         {
             bool bRet = true;
-            bool bValue = true;
+//            bool bValue = true;
 
             foreach (string sProperty in m_PropertiesChanged)
             {
@@ -1891,6 +2060,41 @@ namespace ZalTestApp
             }
 
             m_PropertiesChanged.Add(e.PropertyName);
+            if (Array.Exists(HeadwordProperties, sPropertyName => sPropertyName == e.PropertyName))
+            {
+                HeadwordChanged = true;
+            }
+
+            if (Array.Exists(DescriptorProperties, sPropertyName => sPropertyName == e.PropertyName))
+            {
+                DescriptorChanged = true;
+            }
+
+            if (Array.Exists(InflectionProperties, sPropertyName => sPropertyName == e.PropertyName))
+            {
+                InflectionGroupChanged = true;
+            }
+
+            if (Array.Exists(CommonDeviationProperties, sPropertyName => sPropertyName == e.PropertyName))
+            {
+                CommonDeviationChanged = true;
+            }
+
+            if (Array.Exists(AspectPairProperties, sPropertyName => sPropertyName == e.PropertyName))
+            {
+                AspectPairChanged = true;
+            }
+
+            if (Array.Exists(Gen2Properties, sPropertyName => sPropertyName == e.PropertyName))
+            {
+                Gen2Changed = true;
+            }
+
+            if (Array.Exists(Loc2Properties, sPropertyName => sPropertyName == e.PropertyName))
+            {
+                Loc2Changed = true;
+            }
+
         }
 
         #endregion

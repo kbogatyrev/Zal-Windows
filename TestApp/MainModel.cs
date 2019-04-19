@@ -236,7 +236,7 @@ namespace ZalTestApp
             }
         }
 
-        public bool bSaveLexeme(CLexemeManaged l)
+        public bool bSaveHeadword(CLexemeManaged l)
         {
             if (null == m_Dictionary)
             {
@@ -244,9 +244,81 @@ namespace ZalTestApp
                 return false;
             }
 
-            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveLexeme(l);
+            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveHeadword(l);
             return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         }
+
+        public bool bSaveAspectPairInfo(CLexemeManaged l)
+        {
+            if (null == m_Dictionary)
+            {
+                System.Windows.MessageBox.Show("Dictionary was not initialized.");
+                return false;
+            }
+
+            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveAspectPairInfo(l);
+            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+        }
+
+        public bool bSaveLoc2Info(CLexemeManaged l)
+        {
+            if (null == m_Dictionary)
+            {
+                System.Windows.MessageBox.Show("Dictionary was not initialized.");
+                return false;
+            }
+
+            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveLoc2Info(l);
+            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+        }
+
+        public bool bSaveCommonDeviation(CLexemeManaged l)
+        {
+            if (null == m_Dictionary)
+            {
+                System.Windows.MessageBox.Show("Dictionary was not initialized.");
+                return false;
+            }
+
+            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveCommonDeviation(l);
+            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+        }
+
+        public bool bSaveInflectionInfo(CLexemeManaged l)
+        {
+            if (null == m_Dictionary)
+            {
+                System.Windows.MessageBox.Show("Dictionary was not initialized.");
+                return false;
+            }
+
+            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveInflectionInfo(l);
+            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+        }
+
+        public bool bSaveDescriptorInfo(CLexemeManaged l)
+        {
+            if (null == m_Dictionary)
+            {
+                System.Windows.MessageBox.Show("Dictionary was not initialized.");
+                return false;
+            }
+
+            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveDescriptorInfo(l);
+            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+        }
+
+        //        public bool bSaveLexeme(CLexemeManaged l)
+        //        {
+        //            if (null == m_Dictionary)
+        //            {
+        //                System.Windows.MessageBox.Show("Dictionary was not initialized.");
+        //                return false;
+        //            }
+        //
+        //            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveLexeme(l);
+        //            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+        //        }
 
         public bool GetFormsByGramHash(string sLexemeHash, string sGramHash, out List<string> forms)
         {
@@ -687,6 +759,14 @@ namespace ZalTestApp
                     string sWordForm = wf.sWordForm();
                     Helpers.MarkStress(ref sWordForm, wf);
 
+                    if (lexeme.bAssumedForms())
+                    {
+                        if (lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NOUN && wf.eNumber() == EM_Number.NUM_PL)
+                        {
+                            sWordForm = "*" + sWordForm;
+                        }
+                    }
+
                     if (wf.bIrregular())
                     {
                         if (null == comments)
@@ -820,6 +900,14 @@ namespace ZalTestApp
                 {
                     string sWordForm = wf.sWordForm();
                     Helpers.MarkStress(ref sWordForm, wf);
+
+                    if (lexeme.bAssumedForms() &&  lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ &&
+                        wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_SHORT_ADJ &&
+                        wf.eGender() == EM_Gender.GENDER_M)
+                    {
+                        sWordForm = "*" + sWordForm;
+                    }
+
 
                     if (!paradigm.ContainsKey(sKey))
                     {
