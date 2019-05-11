@@ -1438,7 +1438,7 @@ namespace ZalTestApp
                 bool bRet = bGetYesNoValue("HasIrregularVariants", m_sHasIrregularVariants, ref bValue);
                 if (bRet)
                 {
-                m_Lexeme.SetHasIrregularVariants(bValue);
+                    m_Lexeme.SetHasIrregularVariants(bValue);
                 }
                 return bRet;
             });
