@@ -71,7 +71,19 @@ namespace ZalTestApp
             return l;
         }
 
-        //public Dictionary<string, List<string>> m_ChangedForms = new Dictionary<string, List<string>>();       // gram hash --> current form
+        private Dictionary<int, List<CWordFormManaged>> m_WordPosToParses;
+        public IEnumerator GetTextParseEnumerator()
+        {
+            return m_WordPosToParses.Keys.GetEnumerator();
+        }
+
+        public List<CWordFormManaged> WordFormsFromWordPos(int iPos)
+        {
+            List<CWordFormManaged> listWf = null;
+            m_WordPosToParses.TryGetValue(iPos, out listWf);
+
+            return listWf;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
@@ -186,7 +198,7 @@ namespace ZalTestApp
             //}
 
             m_Dictionary.eGetVerifier(ref m_Verifier);
-            m_Dictionary.eGetParser(ref m_Parser);
+//            m_Dictionary.eGetParser(ref m_Parser);
 
             m_Lexemes = new Dictionary<string, Dictionary<string, List<string>>>();
             m_FormComments = new Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>();
@@ -194,6 +206,7 @@ namespace ZalTestApp
             m_StoredLexemes = new Dictionary<string, string>();
             m_Parses = new Dictionary<string, List<CWordFormManaged>>();
             m_WordformToLexeme = new Dictionary<CWordFormManaged, CLexemeManaged>();
+            m_WordPosToParses = new Dictionary<int, List<CWordFormManaged>>();
 
             m_bInitialized = true;
         }
@@ -418,6 +431,16 @@ namespace ZalTestApp
                 System.Windows.MessageBox.Show("Unable to open dictionary.");
             }
 
+            if (m_Parser != null)       // need to renew to avoid crash
+            {
+                m_Parser = null;
+                m_Dictionary.eGetParser(ref m_Parser);
+                if (null == m_Parser)
+                {
+                    System.Windows.MessageBox.Show("Parser was not initialized.");
+                }
+            }
+
             return eRet;
         }
 
@@ -528,6 +551,12 @@ namespace ZalTestApp
 
         public bool ParseWord(string sForm)
         {
+            if (null == m_Dictionary)
+            {
+                System.Windows.MessageBox.Show("Dictionary was not initialized.");
+                return false;
+            }
+            m_Dictionary.eGetParser(ref m_Parser);
             if (null == m_Parser)
             {
                 System.Windows.MessageBox.Show("Parser was not initialized.");
@@ -583,6 +612,55 @@ namespace ZalTestApp
             return true;
 
         }       //  ParseWord()
+
+        public bool ParseText(string sText)
+        {
+            if (null == m_Parser)
+            {
+                System.Windows.MessageBox.Show("Parser was not initialized.");
+                return false;
+            }
+
+            try
+            {
+                List<string> Words = new List<string>();
+                Words.AddRange(sText.Split(' '));
+
+                for (int iAt = 0; iAt < Words.Count; ++iAt)
+                {
+                    string sWord = Words[iAt].ToLower();
+                    sWord = Helpers.sStripPunctuation(sWord);
+
+                    var eRet = m_Parser.eAnalyze(sWord);
+                    if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE && eRet != EM_ReturnCode.H_FALSE)
+                    {
+                        continue;
+                    }
+
+                    var Parses = new List<CWordFormManaged>();
+                    CWordFormManaged wordFormData = null;
+                    eRet = m_Parser.eGetFirstWordForm(ref wordFormData);
+                    while (EM_ReturnCode.H_NO_ERROR == eRet)
+                    {
+                        Parses.Add(wordFormData);
+                        eRet = m_Parser.eGetNextWordForm(ref wordFormData);
+                    }
+                    //if (Parses.Count > 0)
+                    //{
+                        m_WordPosToParses[iAt] = Parses;
+                    //}
+
+                }
+            }
+            catch (Exception ex)
+            {
+                //                System.Windows.MessageBox.Show("Internal error: Gram hash not recognized. " + ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }       //  ParseText()
 
         #region Regression
         public bool GetStoredLexemeData()
