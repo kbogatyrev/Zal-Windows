@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 using MainLibManaged;
 using System.Collections.Generic;
@@ -133,7 +134,7 @@ namespace ZalTestApp
             SaveRegressionCommand = new RelayCommand(new Action<object>(SaveRegression));
         }
 
-    public LexemeViewModel(CLexemeManaged l)
+        public LexemeViewModel(CLexemeManaged l)
         {
             m_Lexeme = l;
             m_bReadOnly = false;
