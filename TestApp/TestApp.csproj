@@ -94,6 +94,10 @@
     <Compile Include="AdjView.xaml.cs">
       <DependentUpon>AdjView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TextParserView.xaml.cs">
+      <DependentUpon>TextParserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TextParserViewModel.cs" />
     <Compile Include="VerbView.xaml.cs">
       <DependentUpon>VerbView.xaml</DependentUpon>
     </Compile>
@@ -145,6 +149,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdjView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextParserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
