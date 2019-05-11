@@ -325,8 +325,6 @@ namespace MainLibManaged
         EM_ReturnCode eSaveCommonDeviation(CLexemeManaged^);
         EM_ReturnCode eSaveInflectionInfo(CLexemeManaged^);
 
-//        EM_ReturnCode eSaveLexeme(CLexemeManaged^);
-
         int nLexemesFound();
         EM_ReturnCode eGetFirstLexeme(CLexemeManaged^% pLexeme);
         EM_ReturnCode eGetNextLexeme(CLexemeManaged^% pLexeme);
