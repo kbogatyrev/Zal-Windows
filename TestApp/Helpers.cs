@@ -1190,5 +1190,19 @@ namespace ZalTestApp
             return true;
         }
 
+        public static string sStripPunctuation(string sWord)
+        {
+            var stripped = new StringBuilder();
+            foreach (char chr in sWord)
+            {
+                if (!char.IsPunctuation(chr))
+                {
+                    stripped.Append(chr);
+                }
+            }
+
+            return stripped.ToString();
+        }
+
     }       //  public static class HelpersC:\git-repos\Zal-Windows\TestApp\packages.config
 }       //  namespace ZalTestApp
