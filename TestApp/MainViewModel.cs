@@ -379,6 +379,19 @@ namespace ZalTestApp
             }
         }
 
+        private ICommand m_CreateTextParserCommand;
+        public ICommand CreateTextParserCommand
+        {
+            get
+            {
+                return m_CreateTextParserCommand;
+            }
+            set
+            {
+                m_CreateTextParserCommand = value;
+            }
+        }
+
         private ICommand m_NewLexemeCommand;
         public ICommand NewLexemeCommand
         {
@@ -457,6 +470,7 @@ namespace ZalTestApp
                 SearchByInitialFormCommand = new RelayCommand(new Action<object>(SearchByInitialForm));
                 GenerateAllFormsCommand = new RelayCommand(new Action<object>(GenerateAllForms));
                 ParseWordCommand = new RelayCommand(new Action<object>(ParseWord));
+                CreateTextParserCommand = new RelayCommand(new Action<object>(CreateTextParser));
                 NewLexemeCommand = new RelayCommand(new Action<object>(NewLexeme));
                 EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
                 ShowRegressionPageCommand = new RelayCommand(new Action<object>(ShowRegression));
@@ -665,7 +679,6 @@ namespace ZalTestApp
             }
 
             IEnumerator<string> parseEnumerator = (IEnumerator<string>)m_MainModel.GetParseEnumerator();
-
             while (parseEnumerator.MoveNext())
             {
                 string sGramHash = (string)parseEnumerator.Current;
@@ -681,40 +694,15 @@ namespace ZalTestApp
 
         }   // ParseWord()
 
-        public void ParseText(object obj)
+        public void CreateTextParser(object obj)
         {
-            EnterDataDlg edd = new EnterDataDlg();
-            edd.Owner = Application.Current.MainWindow;
-            bool? bnRet = edd.ShowDialog();
-            if (bnRet != true)
-            {
-                return;
-            }
+            m_CurrentLexeme = null;
+            TextParserViewModel parser = new TextParserViewModel(m_MainModel);
+            m_CurrentViewPage = new ViewPage("Text", null, parser);
+            m_Pages.Add(m_CurrentViewPage);
+            m_iCurrentTab = m_Pages.Count - 1;
 
-            EnterDataViewModel eddvm = (EnterDataViewModel)edd.DataContext;
-            m_MainModel.ParseWord(eddvm.DataString);
-
-            if (m_MainModel.NParses < 1)
-            {
-                return;
-            }
-
-            IEnumerator<string> parseEnumerator = (IEnumerator<string>)m_MainModel.GetParseEnumerator();
-
-            while (parseEnumerator.MoveNext())
-            {
-                string sGramHash = (string)parseEnumerator.Current;
-                List<CWordFormManaged> listWf = m_MainModel.WordFormsFromHash(sGramHash);
-                foreach (CWordFormManaged wf in listWf)
-                {
-                    ShowParsedForm(wf);
-                }
-            }
-
-            //            m_CurrentViewModel = m_BreadCrumbs.AddAfter(m_CurrentViewModel, m_LexemeGridViewModel);
-            UpdateView();
-
-        }   // ParseText()
+        }   // CreateTextParser()
 
         void NewLexeme(object obj)
         {
@@ -1079,10 +1067,14 @@ namespace ZalTestApp
                 {
                     continue;
                 }
-                CLexemeManaged l = ((LexemeViewModel)pageView.LexemeInfo).Lexeme;
-                if (l != null)
+
+                if (pageView.LexemeInfo != null)
                 {
-                    m_MainModel.RemoveLexeme(l);
+                    CLexemeManaged l = ((LexemeViewModel)pageView.LexemeInfo).Lexeme;
+                    if (l != null)
+                    {
+                        m_MainModel.RemoveLexeme(l);
+                    }
                 }
             }
 

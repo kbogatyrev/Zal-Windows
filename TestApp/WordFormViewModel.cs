@@ -127,6 +127,7 @@ namespace ZalTestApp
 
             int iStressPos = -1;
             EM_StressType eStressType = EM_StressType.STRESS_TYPE_UNDEFINED;
+            int iRightShift = 0;
 
             EM_ReturnCode eRet = m_WordForm.eGetFirstStressPos(ref iStressPos, ref eStressType);
             if (EM_ReturnCode.H_NO_ERROR == eRet && iStressPos < sWordForm.Length)
@@ -135,6 +136,7 @@ namespace ZalTestApp
                 sWfWithAccents += eStressType == EM_StressType.STRESS_PRIMARY ? "/" : @"\";
                 sWfWithAccents += sWordForm.Substring(iStressPos);
                 Helpers.AssignDiacritics(sWfWithAccents, ref sWordForm);
+                ++iRightShift;
             }
             else
             {
@@ -150,10 +152,11 @@ namespace ZalTestApp
                 eRet = m_WordForm.eGetNextStressPos(ref iStressPos, ref eStressType);
                 if (EM_ReturnCode.H_NO_ERROR == eRet && iStressPos < sWordForm.Length)
                 {
-                    string sWfWithAccents = sWordForm.Substring(0, iStressPos);
+                    string sWfWithAccents = sWordForm.Substring(0, iStressPos+iRightShift);
                     sWfWithAccents += eStressType == EM_StressType.STRESS_PRIMARY ? "/" : @"\";
-                    sWfWithAccents += sWordForm.Substring(iStressPos);
+                    sWfWithAccents += sWordForm.Substring(iStressPos+iRightShift);
                     Helpers.AssignDiacritics(sWfWithAccents, ref sWordForm);
+                    ++iRightShift;
                 }
                 else
                 {
