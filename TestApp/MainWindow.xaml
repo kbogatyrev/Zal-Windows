@@ -90,7 +90,7 @@
             <MenuItem Header="_Анализ" IsEnabled="True">
                 <MenuItem Header="_Запустить генератор словоформ" Command="{Binding GenerateAllFormsCommand}" IsEnabled="False"/>
                 <MenuItem Header="_Разбор словоформы" Command="{Binding ParseWordCommand}" IsEnabled="True"/>
-                <MenuItem Header="_Разбор текста" Command="{Binding CreateTextParserCommand}" IsEnabled="False"/>
+                <MenuItem Header="_Разбор текста" Command="{Binding CreateTextParserCommand}" IsEnabled="True"/>
             </MenuItem>
             <MenuItem Header="Ре_грессия" IsEnabled="{Binding DbOpen}" >
                 <MenuItem Header="_Экспорт" Command="{Binding ExportRegressionDataCommand}"/>

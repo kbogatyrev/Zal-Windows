@@ -565,7 +565,7 @@ namespace ZalTestApp
 
             m_Parses.Clear();
 
-            var eRet = m_Parser.eAnalyze(sForm);
+            var eRet = m_Parser.eParseWord(sForm);
             if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE && eRet != EM_ReturnCode.H_FALSE)
             {
                 System.Windows.MessageBox.Show("Form analysis failed.");
@@ -605,7 +605,6 @@ namespace ZalTestApp
                     System.Windows.MessageBox.Show("Unable to find lexeme.");
                 }
 
-
                 eRet = m_Parser.eGetNextWordForm(ref wordFormData);
             }
 
@@ -631,7 +630,7 @@ namespace ZalTestApp
                     string sWord = Words[iAt].ToLower();
                     sWord = Helpers.sStripPunctuation(sWord);
 
-                    var eRet = m_Parser.eAnalyze(sWord);
+                    var eRet = m_Parser.eParseWord(sWord);
                     if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE && eRet != EM_ReturnCode.H_FALSE)
                     {
                         continue;
