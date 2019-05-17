@@ -215,7 +215,21 @@
 -->
     </Style>
 
-   <local:StyleConverter x:Key="StyleConverter"/>  
+    <Style TargetType="TextBox" x:Key="Text">
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="Foreground" Value="Navy"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+        <Setter Property="IsReadOnly" Value="False"/>
+    </Style>
+
+    <local:StyleConverter x:Key="StyleConverter"/>  
 
     <Style TargetType="Image" x:Key="IrregularFormMark">
         <Setter Property="Height" Value="15"/>
