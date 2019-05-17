@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="ZalTestApp.TextParserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZalTestApp"
+             mc:Ignorable="d" >
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+    </UserControl.Resources>
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="550" Margin="-20,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border BorderBrush="Black" BorderThickness="0" Grid.Row="0"  Grid.Column="0" Margin="20,10,0,10" >
+            <ScrollViewer HorizontalAlignment="Stretch" Margin="20,0,0,0" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"  >
+                <TextBox Text="{Binding TextMetadata}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </ScrollViewer>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="0" Grid.Row="1" Grid.Column="0" Margin="20,10,0,50" Grid.ColumnSpan="1" >
+            <ScrollViewer HorizontalAlignment="Stretch" Margin="20,0,0,0" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="Auto"  >
+                <TextBox Text="{Binding DisplayText}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </ScrollViewer>
+        </Border>
+        <Button Style="{DynamicResource BtnLarge}" Content="Открыть" Command="{Binding OpenFileCommand}"  IsEnabled="{Binding EnableOpenFileBtn}" Visibility="Visible" Margin="-25,170,18.111,0" VerticalAlignment="Top" Width="100" Grid.Row="1" RenderTransformOrigin="0.754,0.188" Grid.Column="1"/>
+        <Button Style="{DynamicResource BtnLarge}" Content="Разбор" Command="{Binding ParseTextCommand}" IsEnabled="{Binding ReadyToParse}" HorizontalAlignment="Right" Visibility="Visible" Margin="726,-20,106,0" VerticalAlignment="Top" Width="100" Grid.Row="2" Grid.Column="0" />
+        <Button Style="{DynamicResource BtnLarge}" Content="Отмена" Command="{Binding CancelCommand}"  IsEnabled="True" Visibility="Visible" HorizontalAlignment="Right" Margin="831,-20,1,0" VerticalAlignment="Top" Width="100" Grid.Row="2" Grid.Column="0" />
+    </Grid>
+</UserControl>
