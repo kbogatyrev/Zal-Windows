@@ -627,7 +627,11 @@ namespace ZalTestApp
                 foreach (ViewPage page in m_Pages)
                 {
                     LexemeViewModel knownLvm = (LexemeViewModel)page.LexemeInfo;
-                    if (knownLvm.Lexeme == null)
+                    if (null == knownLvm)
+                    {
+                        continue;
+                    }
+                    if (null == knownLvm.Lexeme)
                     {
                         continue;
                     }
@@ -698,7 +702,7 @@ namespace ZalTestApp
         {
             m_CurrentLexeme = null;
             TextParserViewModel parser = new TextParserViewModel(m_MainModel);
-            m_CurrentViewPage = new ViewPage("Text", null, parser);
+            m_CurrentViewPage = new ViewPage("Текст", null, parser);
             m_Pages.Add(m_CurrentViewPage);
             m_iCurrentTab = m_Pages.Count - 1;
 
