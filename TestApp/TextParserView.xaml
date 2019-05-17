@@ -24,12 +24,12 @@
 
         <Border BorderBrush="Black" BorderThickness="0" Grid.Row="0"  Grid.Column="0" Margin="20,10,0,10" >
             <ScrollViewer HorizontalAlignment="Stretch" Margin="20,0,0,0" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"  >
-                <TextBox Text="{Binding TextMetadata}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                <TextBox Name="MetaData" Text="{Binding MetaData}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="10,10,10,10" Style="{StaticResource Text}" />
             </ScrollViewer>
         </Border>
         <Border BorderBrush="Black" BorderThickness="0" Grid.Row="1" Grid.Column="0" Margin="20,10,0,50" Grid.ColumnSpan="1" >
             <ScrollViewer HorizontalAlignment="Stretch" Margin="20,0,0,0" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="Auto"  >
-                <TextBox Text="{Binding DisplayText}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                <TextBox Name="DisplayText" Text="{Binding DisplayText }"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="10,10,10,10" Style="{StaticResource Text}" />
             </ScrollViewer>
         </Border>
         <Button Style="{DynamicResource BtnLarge}" Content="Открыть" Command="{Binding OpenFileCommand}"  IsEnabled="{Binding EnableOpenFileBtn}" Visibility="Visible" Margin="-25,170,18.111,0" VerticalAlignment="Top" Width="100" Grid.Row="1" RenderTransformOrigin="0.754,0.188" Grid.Column="1"/>

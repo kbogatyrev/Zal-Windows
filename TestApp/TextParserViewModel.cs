@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using MainLibManaged;
 using System.Windows;
 using System.ComponentModel;
+using Microsoft.Win32;
+using System.IO;
+using System.Text;
 
 namespace ZalTestApp
 {
     public class TextParserViewModel : ViewModelBase
     {
-        public delegate void BackButtonHandler();
-        public event BackButtonHandler BackButtonEvent;
-
         MainModel m_MainModel = null;
         string m_sSourceText;
 
@@ -55,18 +55,18 @@ namespace ZalTestApp
             }
         }
 
-        string m_sMetaData;
+        string m_sMetaData = "Введите краткое описание текста, напр.: Барков И.С. Девичья игрушка. Детгиз, М. 1949.";
         public string MetaData
         {
             get { return m_sMetaData; }
             set { m_sMetaData = value; }
         }
 
-        string m_sDisplayText;
+        string m_sDisplayText = "Введите, скопируйте, или откройте текст для разбора.";
         public string DisplayText
         {
             get { return m_sDisplayText; }
-            set { m_sDisplayText = value; }
+            set { m_sDisplayText = value; OnPropertyChanged("DisplayText");  }
         }
 
         string m_sParsedText;
@@ -102,6 +102,27 @@ namespace ZalTestApp
 
         public void OpenFile(Object obj)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "All files (*.*)|*.*|Text files (*.txt)|*.txt";
+            openFileDialog.FilterIndex = 2;
+            openFileDialog.RestoreDirectory = true;
+
+            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+            if (true == openFileDialog.ShowDialog())
+            {
+                var fileStream = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+                {
+                    DisplayText = streamReader.ReadToEnd();
+                }
+            }
+
+            if (EM_ReturnCode.H_NO_ERROR == eRet)
+            {
+//                DbOpen = true;
+            }
         }
 
         public void ParseText(Object obj)
