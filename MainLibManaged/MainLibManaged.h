@@ -329,7 +329,7 @@ namespace MainLibManaged
         EM_ReturnCode eGetFirstLexeme(CLexemeManaged^% pLexeme);
         EM_ReturnCode eGetNextLexeme(CLexemeManaged^% pLexeme);
 
-//        EM_ReturnCode eAnalyze(String^ sText);
+//        EM_ReturnCode eParseWord(String^ sText);
 
 //        EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% pWordFrom);
 //        EM_ReturnCode eGetNextWordForm(CWordFormManaged^% pWordForm);
@@ -372,7 +372,8 @@ namespace MainLibManaged
         CParserManaged(IParser *);
         ~CParserManaged();
 
-        EM_ReturnCode eAnalyze(String^ sText);
+        EM_ReturnCode eParseWord(String^ sWord);
+        EM_ReturnCode eParseText(String^ sName, String^ sMetaData, String^ sText);
         EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% pWordFrom);
         EM_ReturnCode eGetNextWordForm(CWordFormManaged^% pWordFrom);
     };

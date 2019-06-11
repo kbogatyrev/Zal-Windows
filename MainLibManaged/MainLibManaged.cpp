@@ -2943,14 +2943,24 @@ CParserManaged::~CParserManaged()
 //    this->!CParserManaged();
 }
 
-EM_ReturnCode CParserManaged::eAnalyze(String^ sForm)
+EM_ReturnCode CParserManaged::eParseWord(String^ sForm)
 {
     if (NULL == m_pParser)
     {
         throw gcnew Exception(L"Parser object is NULL.");
     }
 
-    return (EM_ReturnCode)m_pParser->eAnalyze(sFromManagedString(sForm));
+    return (EM_ReturnCode)m_pParser->eParseWord(sFromManagedString(sForm));
+}
+
+EM_ReturnCode CParserManaged::eParseText(String^ sName, String^ sMetaData, String^ sText)
+{
+    if (NULL == m_pParser)
+    {
+        throw gcnew Exception(L"Parser object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pParser->eParseText(sFromManagedString(sName), sFromManagedString(sMetaData), sFromManagedString(sText));
 }
 
 EM_ReturnCode CParserManaged::eGetFirstWordForm(CWordFormManaged^% pManagedWordFrom)
