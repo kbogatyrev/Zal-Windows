@@ -14,7 +14,9 @@ namespace ZalTestApp
     public class TextParserViewModel : ViewModelBase
     {
         MainModel m_MainModel = null;
+        string m_sTextName;
         string m_sSourceText;
+        string m_sSourceMetadata;
 
         private ICommand m_OpenFileCommand;
         public ICommand OpenFileCommand
@@ -55,11 +57,18 @@ namespace ZalTestApp
             }
         }
 
-        string m_sMetaData = "Введите краткое описание текста, напр.: Барков И.С. Девичья игрушка. Детгиз, М. 1949.";
-        public string MetaData
+        string m_sDisplayTextName = "Введите рабочее название текста (слово или сокращение без пробелов), напр. \"Некрасов_дедушка_1-2\".";
+        public string DisplayTextName
         {
-            get { return m_sMetaData; }
-            set { m_sMetaData = value; }
+            get { return m_sDisplayTextName; }
+            set { m_sDisplayTextName = value; }
+        }
+        
+        string m_sDisplayMetaData = "Введите краткое описание текста, напр.: Барков И.С. Девичья игрушка. Детгиз, М. 1949.";
+        public string DisplayMetaData
+        {
+            get { return m_sDisplayMetaData; }
+            set { m_sDisplayMetaData = value; }
         }
 
         string m_sDisplayText = "Введите, скопируйте, или откройте текст для разбора.";
@@ -128,7 +137,8 @@ namespace ZalTestApp
         public void ParseText(Object obj)
         {
             m_sSourceText = DisplayText;
-            m_MainModel.ParseText(m_sSourceText);
+            m_sSourceMetadata = DisplayMetaData;
+            m_MainModel.ParseText(m_sDisplayTextName, m_s m_sSourceText, m_sSourceMetadata);
             IEnumerator<int> parseEnumerator = (IEnumerator<int>)m_MainModel.GetTextParseEnumerator();
             while (parseEnumerator.MoveNext())
             {

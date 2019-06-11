@@ -420,7 +420,6 @@ namespace ZalTestApp
             m_Lexemes.Clear();
         }
 
-
         public EM_ReturnCode OpenDictionary(string sPath)
         {
             Path = sPath;
@@ -612,44 +611,25 @@ namespace ZalTestApp
 
         }       //  ParseWord()
 
-        public bool ParseText(string sText)
+        public bool ParseText(string sTextName, string sMetaData, string sText)
         {
             if (null == m_Parser)
             {
-                System.Windows.MessageBox.Show("Parser was not initialized.");
-                return false;
+                //                System.Windows.MessageBox.Show("Parser was not initialized.");
+                //                return false;
+                m_Dictionary.eGetParser(ref m_Parser);
+                if (null == m_Parser)
+                {
+                    System.Windows.MessageBox.Show("Parser was not initialized.");
+                    return false;
+                }
+
+                m_Parser.eParseText(sTextName, sMetaData, sText);
             }
 
             try
             {
-                List<string> Words = new List<string>();
-                Words.AddRange(sText.Split(' '));
-
-                for (int iAt = 0; iAt < Words.Count; ++iAt)
-                {
-                    string sWord = Words[iAt].ToLower();
-                    sWord = Helpers.sStripPunctuation(sWord);
-
-                    var eRet = m_Parser.eParseWord(sWord);
-                    if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE && eRet != EM_ReturnCode.H_FALSE)
-                    {
-                        continue;
-                    }
-
-                    var Parses = new List<CWordFormManaged>();
-                    CWordFormManaged wordFormData = null;
-                    eRet = m_Parser.eGetFirstWordForm(ref wordFormData);
-                    while (EM_ReturnCode.H_NO_ERROR == eRet)
-                    {
-                        Parses.Add(wordFormData);
-                        eRet = m_Parser.eGetNextWordForm(ref wordFormData);
-                    }
-                    //if (Parses.Count > 0)
-                    //{
-                        m_WordPosToParses[iAt] = Parses;
-                    //}
-
-                }
+                
             }
             catch (Exception ex)
             {
