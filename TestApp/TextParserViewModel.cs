@@ -138,7 +138,7 @@ namespace ZalTestApp
         {
             m_sSourceText = DisplayText;
             m_sSourceMetadata = DisplayMetaData;
-            m_MainModel.ParseText(m_sDisplayTextName, m_s m_sSourceText, m_sSourceMetadata);
+            m_MainModel.ParseText(m_sDisplayTextName, m_sSourceMetadata, m_sSourceText);
             IEnumerator<int> parseEnumerator = (IEnumerator<int>)m_MainModel.GetTextParseEnumerator();
             while (parseEnumerator.MoveNext())
             {
