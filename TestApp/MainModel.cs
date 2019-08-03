@@ -12,8 +12,9 @@ namespace ZalTestApp
     {
         private CDictionaryManaged m_Dictionary = null;
         private CParserManaged m_Parser = null;
+        private CAnalyticsManaged m_Analytics = null;
 
-        private CVerifierManaged m_Verifier = null; 
+        private CVerifierManaged m_Verifier = null;
         public CVerifierManaged Verifier()
         {
             return m_Verifier;
@@ -48,7 +49,7 @@ namespace ZalTestApp
             return m_StoredLexemes.GetEnumerator();
         }
 
-        private Dictionary<string, List<CWordFormManaged>> m_Parses; 
+        private Dictionary<string, List<CWordFormManaged>> m_Parses;
         public IEnumerator GetParseEnumerator()
         {
             return m_Parses.Keys.GetEnumerator();
@@ -150,15 +151,15 @@ namespace ZalTestApp
             }
         }
 
-//        public CDictionaryManaged m_Dictionary = new CDictionaryManaged();
-//        public CDictionaryManaged Engine
-//        {
-//            get
-//            {
-//                return m_Dictionary;
-//            }
-//        }
- 
+        //        public CDictionaryManaged m_Dictionary = new CDictionaryManaged();
+        //        public CDictionaryManaged Engine
+        //        {
+        //            get
+        //            {
+        //                return m_Dictionary;
+        //            }
+        //        }
+
         public int NLexemes
         {
             get
@@ -179,7 +180,7 @@ namespace ZalTestApp
         public MainModel()
         {
             m_Dictionary = new CDictionaryManaged();
-            string sPath = Environment.GetFolderPath( Environment.SpecialFolder.CommonApplicationData) + @"\Zal\ZalData.db3";
+            string sPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\Zal\ZalData.db3";
             var eRet = m_Dictionary.eSetDbPath(sPath);
             if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
@@ -198,7 +199,7 @@ namespace ZalTestApp
             //}
 
             m_Dictionary.eGetVerifier(ref m_Verifier);
-//            m_Dictionary.eGetParser(ref m_Parser);
+            //            m_Dictionary.eGetParser(ref m_Parser);
 
             m_Lexemes = new Dictionary<string, Dictionary<string, List<string>>>();
             m_FormComments = new Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>();
@@ -356,7 +357,7 @@ namespace ZalTestApp
             }
             catch (Exception ex)
             {
-//                System.Windows.MessageBox.Show("Internal error: Gram hash not recognized. " + ex.Message);
+                //                System.Windows.MessageBox.Show("Internal error: Gram hash not recognized. " + ex.Message);
                 return false;
             }
 
@@ -430,6 +431,8 @@ namespace ZalTestApp
                 System.Windows.MessageBox.Show("Unable to open dictionary.");
             }
 
+
+            // TODO:refactor & cleanup
             if (m_Parser != null)       // need to renew to avoid crash
             {
                 m_Parser = null;
@@ -438,6 +441,12 @@ namespace ZalTestApp
                 {
                     System.Windows.MessageBox.Show("Parser was not initialized.");
                 }
+            }
+
+            m_Dictionary.eGetAnalytics(ref m_Analytics);
+            if (null == m_Analytics)
+            {
+                System.Windows.MessageBox.Show("Analytics module was not initialized.");
             }
 
             return eRet;
@@ -613,18 +622,18 @@ namespace ZalTestApp
 
         public bool ParseText(string sTextName, string sMetaData, string sText)
         {
-            if (null == m_Parser)
+            if (null == m_Analytics)
             {
                 //                System.Windows.MessageBox.Show("Parser was not initialized.");
                 //                return false;
-                m_Dictionary.eGetParser(ref m_Parser);
-                if (null == m_Parser)
+                m_Dictionary.eGetAnalytics(ref m_Analytics);
+                if (null == m_Analytics)
                 {
-                    System.Windows.MessageBox.Show("Parser was not initialized.");
+                    System.Windows.MessageBox.Show("Analytics module was not initialized.");
                     return false;
                 }
 
-                m_Parser.eParseText(sTextName, sMetaData, sText);
+                m_Analytics.eParseText(sTextName, sMetaData, sText);
             }
 
             try
