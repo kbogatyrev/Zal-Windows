@@ -52,8 +52,8 @@ namespace ZalTestApp
             POS_ADV,
             POS_COMPAR,
             POS_PREDIC,
-            POS_PREP,
-            POS_CONJ,
+            POS_PREPOSITION,
+            POS_CONJUNCTION,
             POS_PARTICLE,
             POS_INTERJ,     // вводн.
             POS_PARENTH,    // межд.
@@ -1758,8 +1758,8 @@ namespace ZalTestApp
             { "Наречие", E_POS.POS_ADV },
             { "POS_COMPAR", E_POS.POS_COMPAR },
             { "POS_PREDIC", E_POS.POS_PREDIC },
-            { "Предлог", E_POS.POS_PREP },
-            { "Союз", E_POS.POS_CONJ },
+            { "Предлог", E_POS.POS_PREPOSITION },
+            { "Союз", E_POS.POS_CONJUNCTION },
             { "Частица", E_POS.POS_PARTICLE },
             { "POS_INTERJ", E_POS.POS_INTERJ },
             { "POS_PARENTH", E_POS.POS_PARENTH },
