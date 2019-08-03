@@ -828,6 +828,30 @@ EM_ReturnCode CDictionaryManaged::eGetParser(CParserManaged^% pParserManaged)
     return (EM_ReturnCode)eRet;
 }
 
+EM_ReturnCode CDictionaryManaged::eGetAnalytics(CAnalyticsManaged^% pAnalyticsManaged)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    IAnalytics* pAnalytics = NULL;
+    ET_ReturnCode eRet = m_pDictionary->eGetAnalytics(pAnalytics);
+    if (H_NO_ERROR == eRet)
+    {
+        if (pAnalytics)
+        {
+            pAnalyticsManaged = gcnew CAnalyticsManaged(pAnalytics);
+        }
+        else
+        {
+            return EM_ReturnCode::H_ERROR_UNEXPECTED;
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
 EM_ReturnCode CDictionaryManaged::eGetVerifier(CVerifierManaged^% verifier)
 {
     if (NULL == m_pDictionary)
@@ -2953,6 +2977,7 @@ EM_ReturnCode CParserManaged::eParseWord(String^ sForm)
     return (EM_ReturnCode)m_pParser->eParseWord(sFromManagedString(sForm));
 }
 
+/*
 EM_ReturnCode CParserManaged::eParseText(String^ sName, String^ sMetaData, String^ sText)
 {
     if (NULL == m_pParser)
@@ -2962,6 +2987,7 @@ EM_ReturnCode CParserManaged::eParseText(String^ sName, String^ sMetaData, Strin
 
     return (EM_ReturnCode)m_pParser->eParseText(sFromManagedString(sName), sFromManagedString(sMetaData), sFromManagedString(sText));
 }
+*/
 
 EM_ReturnCode CParserManaged::eGetFirstWordForm(CWordFormManaged^% pManagedWordFrom)
 {
@@ -3006,6 +3032,30 @@ EM_ReturnCode CParserManaged::eGetNextWordForm(CWordFormManaged^% pManagedWordFr
 
     return (EM_ReturnCode)eRet;
 }
+
+
+//
+//      CAnalyticsManaged
+
+CAnalyticsManaged::CAnalyticsManaged(IAnalytics* pAnalytics) : m_pAnalytics(pAnalytics)
+{}
+
+CAnalyticsManaged::~CAnalyticsManaged()
+{
+    delete m_pAnalytics;
+}
+
+EM_ReturnCode CAnalyticsManaged::eParseText(String^ sName, String^ sMetaData, String^ sText)
+{
+    if (NULL == m_pAnalytics)
+    {
+        throw gcnew Exception(L"Analytics object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pAnalytics->eParseText(sFromManagedString(sName), sFromManagedString(sMetaData), sFromManagedString(sText));
+}
+
+/////////
 
 CVerifierManaged::CVerifierManaged(IVerifier * pVerifier) : m_pVerifier(pVerifier)
 {}

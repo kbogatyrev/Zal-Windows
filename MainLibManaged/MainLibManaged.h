@@ -7,6 +7,7 @@
 #include "IWordForm.h"
 #include "Gramhasher.h"
 #include "IParser.h"
+#include "IAnalytics.h"
 #include "IVerifier.h"
 #include "IAspectPair.h"
 #include "..\Hlib-Windows\SqliteWrapper.h"
@@ -22,6 +23,7 @@ namespace MainLibManaged
 
     ref class CLexemeManaged;
     ref class CParserManaged;
+    ref class CAnalyticsManaged;
     ref class CVerifierManaged;
 
     public ref class CWordFormManaged
@@ -338,6 +340,7 @@ namespace MainLibManaged
         EM_ReturnCode Clear(CLexemeManaged^ pLexeme);
 
         EM_ReturnCode eGetParser(CParserManaged^%); 
+        EM_ReturnCode eGetAnalytics(CAnalyticsManaged^%);
         EM_ReturnCode eGetVerifier(CVerifierManaged^%);
         EM_ReturnCode eExportTestData(String^ sPath, DelegateProgress^);
         EM_ReturnCode eImportTestData(String^ sPath, DelegateProgress^);
@@ -373,9 +376,19 @@ namespace MainLibManaged
         ~CParserManaged();
 
         EM_ReturnCode eParseWord(String^ sWord);
-        EM_ReturnCode eParseText(String^ sName, String^ sMetaData, String^ sText);
         EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% pWordFrom);
         EM_ReturnCode eGetNextWordForm(CWordFormManaged^% pWordFrom);
+    };
+
+    public ref class CAnalyticsManaged
+    {
+        Hlib::IAnalytics* m_pAnalytics;
+
+    public:
+        CAnalyticsManaged(IAnalytics*);
+        ~CAnalyticsManaged();
+
+        EM_ReturnCode eParseText(String^ sName, String^ sMetaData, String^ sText);
     };
 
     public ref class CVerifierManaged
