@@ -16,6 +16,7 @@ namespace ZalTestApp
             this.DataContext = clvm;
         }
 
+/*
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
@@ -30,5 +31,6 @@ namespace ZalTestApp
             DialogResult = true;
             this.Close();
         }
+*/
     }
 }
