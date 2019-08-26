@@ -73,9 +73,9 @@
         <DataTemplate DataType="{x:Type local:WordFormViewModel}" >
             <local:WordFormView />
         </DataTemplate>
-
-        <DataTemplate DataType="{x:Type local:TextParserViewModel}" >
-            <local:TextParserView />
+        
+        <DataTemplate DataType="{x:Type local:ParsedTextViewModel}" >
+            <local:ParsedTextView />
         </DataTemplate>
 
     </Window.Resources>

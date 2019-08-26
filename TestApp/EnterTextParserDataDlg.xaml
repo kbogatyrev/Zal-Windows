@@ -29,7 +29,7 @@
         </Border>
         <Border BorderBrush="Black" BorderThickness="0" Grid.Row="3" Grid.Column="0" Margin="10,10,10,10" Grid.ColumnSpan="1" />
         <Button Style="{DynamicResource BtnLarge}" Content="Файл" Command="{Binding OpenFileCommand}" CommandParameter="{Binding ElementName=EnterTextParserDataWindow}" IsEnabled="{Binding EnableOpenFileBtn}" Visibility="Visible" Margin="0,0,-230,0" VerticalAlignment="Top" Width="100" Grid.Row="3" />
-        <Button Style="{DynamicResource BtnLarge}" Content="Разбор" Command="{Binding ParseTextCommand}" IsEnabled="{Binding ReadyToParse}" Visibility="Visible" Margin="0,0,-450,0" VerticalAlignment="Top" Width="100" Grid.Row="3" />
-        <Button Style="{DynamicResource BtnLarge}" Content="Отмена" Command="{Binding CancelCommand}" IsEnabled="True" Visibility="Visible" Margin="0,0,-670,0" VerticalAlignment="Top" Width="100" Grid.Row="3"  />
+        <Button Style="{DynamicResource BtnLarge}" Content="Разбор" Command="{Binding ParseTextCommand}" CommandParameter="{Binding ElementName=EnterTextParserDataWindow}" IsEnabled="{Binding ReadyToParse}" Visibility="Visible" Margin="0,0,-450,0" VerticalAlignment="Top" Width="100" Grid.Row="3" />
+        <Button Style="{DynamicResource BtnLarge}" Content="Отмена" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=EnterTextParserDataWindow}" IsEnabled="True" Visibility="Visible" Margin="0,0,-670,0" VerticalAlignment="Top" Width="100" Grid.Row="3"  />
     </Grid>
 </Window>

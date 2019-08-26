@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SQLite;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -85,6 +86,38 @@ namespace ZalTestApp
 
             return listWf;
         }
+
+        public class TactGroup 
+        {
+            public int iFirstWordPosition;
+            public string sSource;     // TODO: add members
+        }
+
+        //  Must be sortable so derived from IComparer
+        class TactGroupComparer : IComparer<TactGroup>
+        {
+            int IComparer<TactGroup>.Compare(TactGroup left, TactGroup right)
+            {
+                int iLeft = left.iFirstWordPosition;
+                int iRight = right.iFirstWordPosition;
+
+                if (iLeft == iRight)
+                {
+                    return 0;
+                }
+                if (iLeft < iRight)
+                {
+                    return -1;
+                }
+                return 1;
+            }
+
+        }
+
+        Dictionary<int, List<TactGroup>> m_LineToTactGroup = new Dictionary<int, List<TactGroup>>();
+
+        // TODO: turn this into property
+        public string ParsedText { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
@@ -632,17 +665,86 @@ namespace ZalTestApp
                     System.Windows.MessageBox.Show("Analytics module was not initialized.");
                     return false;
                 }
-
-                m_Analytics.eParseText(sTextName, sMetaData, sText);
             }
 
+            int lTextDbId = 0;
+            m_Analytics.eParseText(sTextName, sMetaData, sText, ref lTextDbId);
+
+            Dictionary<int, long> lineNumToLineId = new Dictionary<int, long>();
+
             try
-            {
-                
+            { 
+                var dbConnection = new SQLiteConnection("Data Source=C:\\programdata\\zal\\zaldata.db3;Version=3;");
+                dbConnection.Open();
+
+                if (dbConnection.State != System.Data.ConnectionState.Open)
+                {
+                    System.Windows.MessageBox.Show("Unable to access database.");
+                    return false;
+                }
+
+                var sLineQuery = "SELECT id, line_number FROM lines_in_text WHERE text_id=";
+                sLineQuery += lTextDbId.ToString();
+                sLineQuery += " ORDER BY line_number;";
+
+                SQLiteCommand cmdLine = new SQLiteCommand(sLineQuery, dbConnection);
+                SQLiteDataReader lineReader = cmdLine.ExecuteReader();
+
+                while (lineReader.Read())
+                {
+                    long lLineId = lineReader.GetInt64(0);
+                    int iLineNum = lineReader.GetInt32(1);
+                    lineNumToLineId[iLineNum] = lLineId;
+                }
+
+                m_LineToTactGroup.Clear();
+
+                foreach (int iLine in lineNumToLineId.Keys)
+                {
+                    var bGotLineId = lineNumToLineId.TryGetValue(iLine, out long lLineId);
+                    if (!bGotLineId)
+                    {
+                        string sMsg = String.Format("Unable to find line ID for line number {0}", iLine.ToString());
+                        System.Windows.MessageBox.Show(sMsg);
+                        continue;
+                    }
+
+                    List<TactGroup> listTactGroupsForThisLine = new List<TactGroup>();
+
+                    var sTactGroupQuery = "SELECT first_word_position, source FROM tact_group WHERE line_id = ";
+                    sTactGroupQuery += lLineId.ToString();
+
+                    SQLiteCommand cmdTg = new SQLiteCommand(sTactGroupQuery, dbConnection);
+                    SQLiteDataReader tgReader = cmdTg.ExecuteReader();
+
+                    while (tgReader.Read())
+                    {
+                        TactGroup tg = new TactGroup();
+                        tg.iFirstWordPosition = tgReader.GetInt32(0);
+                        tg.sSource = tgReader.GetString(1);
+                        listTactGroupsForThisLine.Add(tg);
+                    }
+
+                    listTactGroupsForThisLine.Sort((IComparer<TactGroup>)new TactGroupComparer());
+                    m_LineToTactGroup.Add(iLine, listTactGroupsForThisLine);
+
+                }
+
+                string sParsedText = "";
+                foreach (var iLine in m_LineToTactGroup.Keys)
+                {
+                    foreach (var tg in m_LineToTactGroup[iLine])
+                    {
+                        sParsedText += tg.sSource + " ";
+                    }
+                    sParsedText += "\r\n";
+                }
+
+                ParsedText = sParsedText;
             }
             catch (Exception ex)
             {
-                //                System.Windows.MessageBox.Show("Internal error: Gram hash not recognized. " + ex.Message);
+                string sMsg = String.Format("Exception reading tact group data: {0}", ex.Message);
                 return false;
             }
 

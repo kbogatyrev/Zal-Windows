@@ -134,11 +134,13 @@ namespace ZalTestApp
             }
         }
 
-        public void ParseText(Object obj)
+        public void ParseText(Object view)
         {
             m_sSourceText = DisplayText;
             m_sSourceMetadata = DisplayMetaData;
-            m_MainModel.ParseText(m_sDisplayTextName, m_sSourceMetadata, m_sSourceText);
+            var bRet = m_MainModel.ParseText(m_sDisplayTextName, m_sSourceMetadata, m_sSourceText);
+
+/*
             IEnumerator<int> parseEnumerator = (IEnumerator<int>)m_MainModel.GetTextParseEnumerator();
             while (parseEnumerator.MoveNext())
             {
@@ -152,10 +154,21 @@ namespace ZalTestApp
             }
 
             DisplayText = m_sParsedText;
+*/
 
             m_bReadyToParse = false;
 
-            OnPropertyChanged("DisplayText");
+            //            OnPropertyChanged("DisplayText");
+
+            if (!bRet)
+            {
+                string sMsg = "Сбой при разборе текста.";
+                MessageBox.Show(sMsg);
+            }
+
+            ((Window)view).DialogResult = true;
+            ((Window)view).Close();
+
         }
 
         public void Cancel(Object obj)
