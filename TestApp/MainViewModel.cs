@@ -121,7 +121,14 @@ namespace ZalTestApp
         {
             get
             {
-                return m_CurrentViewModel.Value;
+                if (m_CurrentViewModel != null)
+                {
+                    return m_CurrentViewModel.Value;
+                }
+                else
+                {
+                    return null;
+                }
             }
 
 //            set
@@ -168,7 +175,7 @@ namespace ZalTestApp
                 }
                 else
                 {
-                    MessageBox.Show("Internal error: current page is null.");
+//                    MessageBox.Show("Internal error: current page is null.");
                     return "";
                 }
             }
@@ -178,7 +185,14 @@ namespace ZalTestApp
         {
             get
             {
-                return m_CurrentViewPage.LexemeInfo;
+                if (m_CurrentViewPage != null)
+                {
+                    return m_CurrentViewPage.LexemeInfo;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -700,8 +714,18 @@ namespace ZalTestApp
 
         public void CreateTextParser(object obj)
         {
+            EnterTextParserDataDlgViewModel etpModel = new EnterTextParserDataDlgViewModel(m_MainModel);
+            EnterTextParserDataDlg dlg = new EnterTextParserDataDlg(etpModel);
+            dlg.Owner = Application.Current.MainWindow;
+
+            bool? bnRet = dlg.ShowDialog();
+            if (bnRet != true)
+            {
+                return;
+            }
+
             m_CurrentLexeme = null;
-            TextParserViewModel parser = new TextParserViewModel(m_MainModel);
+            ParsedTextViewModel parser = new ParsedTextViewModel(m_MainModel);
             m_CurrentViewPage = new ViewPage("Текст", null, parser);
             m_Pages.Add(m_CurrentViewPage);
             m_iCurrentTab = m_Pages.Count - 1;
