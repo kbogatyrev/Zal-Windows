@@ -2977,18 +2977,6 @@ EM_ReturnCode CParserManaged::eParseWord(String^ sForm)
     return (EM_ReturnCode)m_pParser->eParseWord(sFromManagedString(sForm));
 }
 
-/*
-EM_ReturnCode CParserManaged::eParseText(String^ sName, String^ sMetaData, String^ sText)
-{
-    if (NULL == m_pParser)
-    {
-        throw gcnew Exception(L"Parser object is NULL.");
-    }
-
-    return (EM_ReturnCode)m_pParser->eParseText(sFromManagedString(sName), sFromManagedString(sMetaData), sFromManagedString(sText));
-}
-*/
-
 EM_ReturnCode CParserManaged::eGetFirstWordForm(CWordFormManaged^% pManagedWordFrom)
 {
     if (NULL == m_pParser)
@@ -3045,14 +3033,18 @@ CAnalyticsManaged::~CAnalyticsManaged()
     delete m_pAnalytics;
 }
 
-EM_ReturnCode CAnalyticsManaged::eParseText(String^ sName, String^ sMetaData, String^ sText)
+EM_ReturnCode CAnalyticsManaged::eParseText(String^ sName, String^ sMetaData, String^ sText, long% lParsedTextId)
 {
     if (NULL == m_pAnalytics)
     {
         throw gcnew Exception(L"Analytics object is NULL.");
     }
 
-    return (EM_ReturnCode)m_pAnalytics->eParseText(sFromManagedString(sName), sFromManagedString(sMetaData), sFromManagedString(sText));
+    long long llId = 0;
+    auto eRet = (EM_ReturnCode)m_pAnalytics->eParseText(sFromManagedString(sName), sFromManagedString(sMetaData), sFromManagedString(sText), llId);
+    lParsedTextId = llId;
+
+    return eRet;
 }
 
 /////////
