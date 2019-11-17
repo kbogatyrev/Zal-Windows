@@ -257,7 +257,7 @@ void CWordFormManaged::SetReflexive(EM_Reflexive eReflexive)
         throw gcnew Exception(L"WordForm object is NULL.");
     }
 
-    m_pWordForm->SetReflexive((ET_Reflexive)eReflexive);
+    m_pWordForm->SetReflexive((ET_Reflexivity)eReflexive);
 }
 
 EM_Aspect CWordFormManaged::eAspect()
@@ -1387,7 +1387,7 @@ void CLexemeManaged::SetIsReflexive(EM_Reflexive eValue)
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    m_pLexeme->SetIsReflexive((ET_Reflexive)eValue);
+    m_pLexeme->SetIsReflexive((ET_Reflexivity)eValue);
 }
 
 String^ CLexemeManaged::sMainSymbolPluralOf()
@@ -2895,7 +2895,7 @@ void CGramHasherManaged::SetReflexivity(EM_Reflexive eRefl)
         throw gcnew Exception(L"Gram hasher object is NULL.");
     }
 
-    m_pHasher->m_eReflexive = (ET_Reflexive)eRefl;
+    m_pHasher->m_eReflexivity = (ET_Reflexivity)eRefl;
 }
 
 void CGramHasherManaged::SetAspect(EM_Aspect eAspect)
@@ -3033,7 +3033,7 @@ CAnalyticsManaged::~CAnalyticsManaged()
     delete m_pAnalytics;
 }
 
-EM_ReturnCode CAnalyticsManaged::eParseText(String^ sName, String^ sMetaData, String^ sText, long% lParsedTextId)
+EM_ReturnCode CAnalyticsManaged::eParseText(String^ sName, String^ sMetaData, String^ sText, long long% lParsedTextId)
 {
     if (NULL == m_pAnalytics)
     {

@@ -388,7 +388,7 @@ namespace MainLibManaged
         CAnalyticsManaged(IAnalytics*);
         ~CAnalyticsManaged();
 
-        EM_ReturnCode eParseText(String^ sName, String^ sMetaData, String^ sText, long% lParseTextId);
+        EM_ReturnCode eParseText(String^ sName, String^ sMetaData, String^ sText, long long% lParseTextId);
     };
 
     public ref class CVerifierManaged
