@@ -667,7 +667,7 @@ namespace ZalTestApp
                 }
             }
 
-            int lTextDbId = 0;
+            long lTextDbId = 0;
             m_Analytics.eParseText(sTextName, sMetaData, sText, ref lTextDbId);
 
             Dictionary<int, long> lineNumToLineId = new Dictionary<int, long>();
