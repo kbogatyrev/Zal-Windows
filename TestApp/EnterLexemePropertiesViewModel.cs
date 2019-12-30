@@ -1860,7 +1860,7 @@ namespace ZalTestApp
             }
             else
             {
-                MessageBox.Show(String.Format("Unexpected value for {1} property", sPropertyName), "Error");
+                MessageBox.Show(String.Format("Unexpected value for {0} property", sPropertyName), "Error");
                 return false;
             }
             return true;
@@ -1868,8 +1868,6 @@ namespace ZalTestApp
 
         public bool bVerifyData()
         {
-//            bool bRet = true;
-
             // Headword: only required part is source form
             if (null == m_sSourceForm || m_sSourceForm.Length < 1)
             {
