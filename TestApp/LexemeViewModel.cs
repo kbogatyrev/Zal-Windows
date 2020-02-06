@@ -292,6 +292,16 @@ namespace ZalTestApp
                 AddProperty("Нет прич. прош. страд.", "");
             }
 
+            if (m_Lexeme.bNoLongForms())
+            {
+                AddProperty("Нет прич. прош. страд.", "");
+            }
+
+            if (m_Lexeme.iStemAugment() > 0)
+            {
+                AddProperty("Цифра в кружочке", m_Lexeme.iStemAugment().ToString());
+            }
+
             AddProperty("Графическая основа", m_Lexeme.sGraphicStem());
 
             string sMainSymbol = m_Lexeme.sMainSymbol();

@@ -631,7 +631,7 @@ namespace ZalTestApp
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Empty gram hash.");
+//                    System.Windows.MessageBox.Show("Empty gram hash.");
 //                    return false;
                 }
 
@@ -1359,7 +1359,7 @@ namespace ZalTestApp
             CLexemeManaged lexeme;
             if (!m_LexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
             {
-                System.Windows.MessageBox.Show("Unable to find lexeme.");
+//                System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return false;
             }
 
@@ -1379,7 +1379,7 @@ namespace ZalTestApp
             CLexemeManaged lexeme;
             if (!m_LexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
             {
-                System.Windows.MessageBox.Show("Unable to find lexeme.");
+//                System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return false;
             }
 
