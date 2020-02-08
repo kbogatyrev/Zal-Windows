@@ -682,13 +682,14 @@ namespace ZalTestApp
         {
             EnterDataDlg edd = new EnterDataDlg();
             edd.Owner = Application.Current.MainWindow;
+            EnterDataViewModel eddvm = (EnterDataViewModel)edd.DataContext;
+            eddvm.DlgTitle = "Словоформа";
             bool? bnRet = edd.ShowDialog();
             if (bnRet != true)
             {
                 return;
             }
 
-            EnterDataViewModel eddvm = (EnterDataViewModel)edd.DataContext;
             m_MainModel.ParseWord(eddvm.DataString);
 
             if (m_MainModel.NParses < 1)
