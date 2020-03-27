@@ -24,6 +24,19 @@ CEString sFromManagedString(String^ sSource)
     return cestrResult;
 }
 
+const CEString sFromManagedString(const String^ sSource)
+{
+    // This conversion requires an instance of marshal_context class
+    //marshal_context^ mc = gcnew marshal_context();
+    //CEString cestrResult(mc->marshal_as<const wchar_t *>(sSource));
+
+
+    // Pin memory so GC can't move it while native function is called
+    pin_ptr<const wchar_t> pSource = PtrToStringChars(sSource);
+    CEString cestrResult(pSource);
+    return cestrResult;
+}
+
 extern "C"
 {
     ET_ReturnCode GetDictionary(Hlib::IDictionary *&);        // the only external function defined in MainLib
@@ -2783,6 +2796,37 @@ EM_ReturnCode CLexemeManaged::eSaveIrregularForm(String^ sFormHash, CWordFormMan
 
     IWordForm * pwf = wf->pGetUnmanagedItf();
     return (EM_ReturnCode)m_pLexeme->eSaveIrregularForm(sFromManagedString(sFormHash), pwf);
+}
+
+EM_ReturnCode CLexemeManaged::eMakeGraphicStem()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    auto eRet = m_pLexeme->eMakeGraphicStem();
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CLexemeManaged::eMakeGraphicStem(const String^ sSource, String^% sGraphicStem)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    CEString sGs;
+    auto eRet = m_pLexeme->eMakeGraphicStem(sFromManagedString(sSource), sGs);
+    if (eRet != H_NO_ERROR)
+    {
+        return (EM_ReturnCode)eRet;
+    }
+
+    sGraphicStem = gcnew String(sGs);
+
+    return (EM_ReturnCode)eRet;
 }
 
 EM_ReturnCode CLexemeManaged::eGetErrorMsg(String^% sErrorMsg)

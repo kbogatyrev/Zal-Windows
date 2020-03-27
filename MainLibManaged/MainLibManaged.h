@@ -288,6 +288,9 @@ namespace MainLibManaged
         EM_ReturnCode eCheckLexemeProperties(); // for manual input/editing
         EM_ReturnCode eDeleteIrregularForm(String^ sFormHash);
         EM_ReturnCode eSaveIrregularForm(String^ sFormHash, CWordFormManaged^%);
+        EM_ReturnCode eMakeGraphicStem();
+        EM_ReturnCode eMakeGraphicStem(const String^ sSource, String^% sGraphicStem);
+
         EM_ReturnCode eGetErrorMsg(String^% sErrorMsg);
 
     protected:
