@@ -95,6 +95,8 @@ namespace ZalTestApp
                 if (value != m_sSourceForm)
                 {
                     m_sSourceForm = value;
+                    m_Lexeme.eMakeGraphicStem();
+                    GraphicStem = m_Lexeme.sGraphicStem();
                 }
                 OnPropertyChanged("SourceForm");
             }
@@ -114,7 +116,12 @@ namespace ZalTestApp
                 Helpers.RestoreStressMarks(ref sNewSourceForm);
                 if (sNewSourceForm != m_sSourceForm)
                 {
-                    m_sSourceForm = sNewSourceForm;
+                    SourceForm = sNewSourceForm;
+                    var sTmp = sNewSourceForm.Replace(@"\", "");
+                    sTmp = sTmp.Replace("/", "");
+                    string sGs = "";
+                    m_Lexeme.eMakeGraphicStem(sTmp, ref sGs);
+                    GraphicStem = sGs;
                 }
                 OnPropertyChanged("SourceFormWithAccents");
             }
@@ -253,6 +260,24 @@ namespace ZalTestApp
                     m_sIsVariant = value;
                 }
                 OnPropertyChanged("IsVariant");
+            }
+        }
+
+        private string m_sGraphicStem;
+        public string GraphicStem
+        {
+            get
+            {
+                return m_sGraphicStem;
+            }
+
+            set
+            {
+                if (value != m_sGraphicStem)
+                {
+                    m_sGraphicStem = value;
+                }
+                OnPropertyChanged("GraphicStem");
             }
         }
 
@@ -1072,10 +1097,10 @@ namespace ZalTestApp
                 return bRet;
             });
 
-            m_ChangedPropertiesHandlers.Add("HasYoAlternation", () =>
+            m_ChangedPropertiesHandlers.Add("YoAlternation", () =>
             {
                 bool bValue = false;
-                bool bRet = bGetYesNoValue("HasYoAlternation", m_sYoAlternation, ref bValue);
+                bool bRet = bGetYesNoValue("YoAlternation", m_sYoAlternation, ref bValue);
                 if (bRet)
                 {
                     m_Lexeme.SetHasYoAlternation(bValue);
@@ -1083,10 +1108,10 @@ namespace ZalTestApp
                 return bRet;
             });
 
-            m_ChangedPropertiesHandlers.Add("HasOAlternation", () =>
+            m_ChangedPropertiesHandlers.Add("OAlternation", () =>
             {
                 bool bValue = false;
-                bool bRet = bGetYesNoValue("HasOAlternation", m_sOAlternation, ref bValue);
+                bool bRet = bGetYesNoValue("OAlternation", m_sOAlternation, ref bValue);
                 if (bRet)
                 {
                     m_Lexeme.SetHasOAlternation(bValue);
@@ -1968,6 +1993,8 @@ namespace ZalTestApp
 
             //    virtual void SetIsReflexive(ET_Reflexive eValue)
             //    virtual void SetMainSymbolPluralOf(const CEString& sValue)
+
+            m_sGraphicStem = m_Lexeme.sGraphicStem();
 
             m_sAltMainSymbol = m_Lexeme.sAltMainSymbol();
 

@@ -13,17 +13,20 @@
         <TextBox Text="Исходная форма" Margin="33,135,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <TextBox Text="{Binding Path=SourceFormWithAccents}" Margin="158,135,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
 
-        <TextBox Text="Вариант" Margin="33,170,0,0" Style="{StaticResource FormLabel}" Width="120" />
-        <TextBox Text="{Binding Path=Variant}" Margin="158,170,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
+        <TextBox Text="Граф. основа" Margin="33,170,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="{Binding Path=GraphicStem}" Margin="158,170,0,0" Style="{StaticResource FormText}" IsReadOnly="True" Background="LightGray" />
 
-        <TextBox Text="Комментарий" Margin="33,205,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="Курсивный текст ПЕРЕД основной грамматической пометой, напр.: (без удар.) "/>
-        <TextBox Text="{Binding Path=HeadwordComment}" Margin="158,205,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
+        <TextBox Text="Вариант" Margin="33,205,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="{Binding Path=Variant}" Margin="158,205,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
 
-        <TextBox Text="Фразеологизмы" Margin="33,240,0,0" Style="{StaticResource FormLabel}" Width="120" />
-        <TextBox Text="{Binding Path=RestrictedContexts}" Margin="158,240,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
+        <TextBox Text="Комментарий" Margin="33,240,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="Курсивный текст ПЕРЕД основной грамматической пометой, напр.: (без удар.) "/>
+        <TextBox Text="{Binding Path=HeadwordComment}" Margin="158,240,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
 
-        <TextBox Text="Примеры употр." Margin="33,275,0,0" Style="{StaticResource FormLabel}" Width="120" />
-        <TextBox Text="{Binding Path=Usage}" Margin="158,275,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
+        <TextBox Text="Фразеологизмы" Margin="33,275,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="{Binding Path=RestrictedContexts}" Margin="158,275,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
+
+        <TextBox Text="Примеры употр." Margin="33,310,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <TextBox Text="{Binding Path=Usage}" Margin="158,310,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
 
         <!-- DESCRIPTOR -->
         <TextBox Text="Основной символ" Margin="356,30,0,0" Style="{StaticResource FormLabel}" Width="120" />
