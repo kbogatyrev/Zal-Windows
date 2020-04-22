@@ -1124,12 +1124,12 @@ namespace ZalTestApp
                     sOut += ", ";
                 }
 
-                if (comments[iAt].Item1.Length > 0)
+                if (iAt < comments.Count && comments[iAt].Item1.Length > 0)
                 {
                     sOut += String.Format("({0}) ", comments[iAt].Item1);
                 }
                 sOut += forms[iAt];
-                if (comments[iAt].Item2.Length > 0)
+                if (iAt < comments.Count && comments[iAt].Item2.Length > 0)
                 {
                     sOut += String.Format(" ({0})", comments[iAt].Item2);
                 }

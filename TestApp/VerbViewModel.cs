@@ -590,9 +590,10 @@ namespace ZalTestApp
                     if (m_MainModel.bIsIrregular(sLexemeHash, formHash))
                     {
                         bool bRet = m_MainModel.GetFormComments(sLexemeHash, formHash, out listComments);
-                        if (!bRet || listComments.Count != listForms.Count)
+//                        if (!bRet || listComments.Count != listForms.Count)
+                        if (!bRet)
                         {
-                            MessageBox.Show("Internal error: unable to retrieve from comments.");
+                                MessageBox.Show("Internal error: unable to retrieve form comments.");
                         }
                         fd.listComments = listComments;
                     }

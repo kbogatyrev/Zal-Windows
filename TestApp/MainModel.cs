@@ -28,7 +28,7 @@ namespace ZalTestApp
         }
 
         private Dictionary<string, Dictionary<string, List<Tuple<string, string>>>> m_FormComments;
-        // ^-- lex. hash       ^-- gram hash     ^-- leading comment, trailing comment))
+        //                           ^-- lex. hash       ^-- gram hash     ^-- leading comment, trailing comment))
 
         public IEnumerator GetFormCommentsEnumerator()
         {
