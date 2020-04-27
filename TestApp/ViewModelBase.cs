@@ -95,6 +95,7 @@ namespace ZalTestApp
             public ChangedFormHandler handler { get; set; }
             public bool IsIrregular { get; set; }
             public bool IsEdited { get; set; }
+            public int iCurrentFormNumber { get; set; }     // 0 unless we have more than 1 form per gramm hash
 
             public FormDescriptor(List<string> forms, List<Tuple<string, string>> comments, bool bIrregular, bool bEdited, ChangedFormHandler h)
             {
@@ -103,6 +104,7 @@ namespace ZalTestApp
                 IsIrregular = bIrregular;
                 IsEdited = bEdited;
                 handler = h;
+                iCurrentFormNumber = 0;
             }
         }
     }

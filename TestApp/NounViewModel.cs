@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using System.Collections.Generic;
+using System.Reflection;
 
 using MainLibManaged;
 using System.Windows;
@@ -65,6 +66,7 @@ namespace ZalTestApp
         Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
         Dictionary<string, List<Tuple<string, string>>> m_DictOriginalComments = new Dictionary<string, List<Tuple<string,string>>>();
         Dictionary<string, FormDescriptor> m_DictFormStatus = new Dictionary<string, FormDescriptor>();
+        Dictionary<string, bool> m_DictMultipleForms = new Dictionary<string, bool>();
 
         #region ICommand
 
@@ -120,6 +122,32 @@ namespace ZalTestApp
             }
         }
 
+        private ICommand m_FormScrollUpCommand;
+        public ICommand FormScrollUpCommand
+        {
+            get
+            {
+                return m_FormScrollUpCommand;
+            }
+            set
+            {
+                m_FormScrollUpCommand = value;
+            }
+        }
+
+        private ICommand m_FormScrollDownCommand;
+        public ICommand FormScrollDownCommand
+        {
+            get
+            {
+                return m_FormScrollDownCommand;
+            }
+            set
+            {
+                m_FormScrollDownCommand = value;
+            }
+        }
+
         #endregion
 
         #region Bindings_Nouns
@@ -152,7 +180,7 @@ namespace ZalTestApp
             }
         }
 
-        string GetForms(string sFormHash)
+        string GetForm(string sFormHash)
         {
 //            string sFormHash = sDisplayHashToFormHash(sDisplayHash);
             if (!m_DictFormStatus.ContainsKey(sFormHash))
@@ -172,14 +200,34 @@ namespace ZalTestApp
                 descriptor.IsIrregular = false;
             }
 
-            string sText = null;
-            if (null == descriptor.listComments)
+            string sText = "";
+            if (descriptor.listForms != null)
             {
-                sText = Helpers.sListToCommaSeparatedString(descriptor.listForms);
+                var at = descriptor.iCurrentFormNumber;
+                if (at < 0 || at >= descriptor.listForms.Count)
+                {
+                    MessageBox.Show("Internal error: current form index out of range.");
+                    return "";
+                }
+
+                if (null == descriptor.listComments)
+                {
+                    //                sText = Helpers.sListToCommaSeparatedString(descriptor.listForms);
+                    sText = descriptor.listForms[at];
+                }
+                else
+                {
+                    sText = descriptor.listForms[at] + " " + descriptor.listComments[at];
+                }
+            }
+
+            if (null == descriptor.listForms)
+            {
+                m_DictMultipleForms[sFormHash] = false;
             }
             else
-            { 
-                sText = Helpers.sListToCommaSeparatedString(descriptor.listForms, descriptor.listComments);
+            {
+                m_DictMultipleForms[sFormHash] = descriptor.listForms.Count > 1 ? true : false;
             }
 
             return sText;
@@ -200,68 +248,91 @@ namespace ZalTestApp
             return EMark.None;
         }
 
-        void SetForms(string sHash, string sForms)
+        void SetForm(string sHash, string sForm)
         {
             if (!m_DictFormStatus.ContainsKey(sHash))
             {
                 return;
             }
-            Helpers.AssignDiacritics(sForms, ref sForms);
-            var fd = m_DictFormStatus[sHash];
+
+            Helpers.AssignDiacritics(sForm, ref sForm);
+
+            var descriptor = m_DictFormStatus[sHash];
+            var at = descriptor.iCurrentFormNumber;
+            if (at < 0 || at >= descriptor.listForms.Count)
+            {
+                MessageBox.Show("Internal error: current form index out of range.");
+                return;
+            }
+
+            string sText = "";
+            if (null == descriptor.listComments)
+            {
+                sText = descriptor.listForms[at];
+            }
+            else
+            {
+                sText = descriptor.listForms[at] + " " + descriptor.listComments[at];
+            }
+
+            m_DictFormStatus[sHash].listForms[at] = sForm;
+
+/*
             List<string> l = new List<string>();
             List<Tuple<string, string>> c = new List<Tuple<string, string>>();
-            Helpers.CommaSeparatedStringToList(sForms, out l, out c);
+//            Helpers.CommaSeparatedStringToList(sForms, out l, out c);
             fd.listForms = l;
             fd.listComments = c;
             m_DictFormStatus[sHash] = fd;
+*/
         }
 
         public string Noun_Sg_N
         {
-            get { return GetForms("Noun_Sg_N"); }
-            set { SetForms("Noun_Sg_N", value); }
+            get { return GetForm("Noun_Sg_N"); }
+            set { SetForm("Noun_Sg_N", value); }
         }
 
         public string Noun_Sg_A
         {
-            get { return GetForms("Noun_Sg_A"); }
-            set { SetForms("Noun_Sg_A", value); }
+            get { return GetForm("Noun_Sg_A"); }
+            set { SetForm("Noun_Sg_A", value); }
         }
 
         public string Noun_Sg_G
         {
-            get { return GetForms("Noun_Sg_G"); }
-            set { SetForms("Noun_Sg_G", value); }
+            get { return GetForm("Noun_Sg_G"); }
+            set { SetForm("Noun_Sg_G", value); }
         }
 
         public string Noun_Sg_P
         {
-            get { return GetForms("Noun_Sg_P"); }
-            set { SetForms("Noun_Sg_P", value); }
+            get { return GetForm("Noun_Sg_P"); }
+            set { SetForm("Noun_Sg_P", value); }
         }
 
         public string Noun_Sg_D
         {
-            get { return GetForms("Noun_Sg_D"); }
-            set { SetForms("Noun_Sg_D", value); }
+            get { return GetForm("Noun_Sg_D"); }
+            set { SetForm("Noun_Sg_D", value); }
         }
 
         public string Noun_Sg_I
         {
-            get { return GetForms("Noun_Sg_I"); }
-            set { SetForms("Noun_Sg_I", value); }
+            get { return GetForm("Noun_Sg_I"); }
+            set { SetForm("Noun_Sg_I", value); }
         }
 
         public string Noun_Sg_Part
         {
-            get { return GetForms("Noun_Sg_Part"); }
-            set { SetForms("Noun_Sg_Part", value); }
+            get { return GetForm("Noun_Sg_Part"); }
+            set { SetForm("Noun_Sg_Part", value); }
         }
 
         public string Noun_Sg_L
         {
-            get { return GetForms("Noun_Sg_L"); }
-            set { SetForms("Noun_Sg_L", value); }
+            get { return GetForm("Noun_Sg_L"); }
+            set { SetForm("Noun_Sg_L", value); }
         }
 
         private bool m_bIs_L2_optional = false;
@@ -291,44 +362,44 @@ namespace ZalTestApp
 
         public string Noun_Pl_N
         {
-            get { return GetForms("Noun_Pl_N"); }
-            set { SetForms("Noun_Pl_N", value); }
+            get { return GetForm("Noun_Pl_N"); }
+            set { SetForm("Noun_Pl_N", value); }
         }
 
         public string Noun_Pl_A
         {
-            get { return GetForms("Noun_Pl_A"); }
-            set { SetForms("Noun_Pl_A", value); }
+            get { return GetForm("Noun_Pl_A"); }
+            set { SetForm("Noun_Pl_A", value); }
         }
 
         public string Noun_Pl_G
         {
-            get { return GetForms("Noun_Pl_G"); }
-            set { SetForms("Noun_Pl_G", value); }
+            get { return GetForm("Noun_Pl_G"); }
+            set { SetForm("Noun_Pl_G", value); }
         }
 
         public string Noun_Pl_P
         {
-            get { return GetForms("Noun_Pl_P"); }
-            set { SetForms("Noun_Pl_P", value); }
+            get { return GetForm("Noun_Pl_P"); }
+            set { SetForm("Noun_Pl_P", value); }
         }
 
         public string Noun_Pl_D
         {
-            get { return GetForms("Noun_Pl_D"); }
-            set { SetForms("Noun_Pl_D", value); }
+            get { return GetForm("Noun_Pl_D"); }
+            set { SetForm("Noun_Pl_D", value); }
         }
 
         public string Noun_Pl_I
         {
-            get { return GetForms("Noun_Pl_I"); }
-            set { SetForms("Noun_Pl_I", value); }
+            get { return GetForm("Noun_Pl_I"); }
+            set { SetForm("Noun_Pl_I", value); }
         }
 
         public string Noun_Pl_L
         {
-            get { return GetForms("Noun_Pl_L"); }
-            set { SetForms("Noun_Pl_L", value); }
+            get { return GetForm("Noun_Pl_L"); }
+            set { SetForm("Noun_Pl_L", value); }
         }
 
         private EMark m_eNoun_Sg_N_Marks = EMark.None;
@@ -443,6 +514,16 @@ namespace ZalTestApp
             set { m_sFormComment = value; OnPropertyChanged("FormComment"); }
         }
 
+        public bool Noun_Sg_N_HasMultipleForms
+        {
+            get { bool bMult = false;  m_DictMultipleForms.TryGetValue("Noun_Sg_N", out bMult); return bMult; }
+        }
+
+        public bool Noun_Sg_I_HasMultipleForms
+        {
+            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_I", out bMult); return bMult; }
+        }
+
         #endregion
 
         #region Property_Delegates
@@ -491,7 +572,7 @@ namespace ZalTestApp
                         bool bRet = m_MainModel.GetFormComments(sLexemeHash, sHash, out listComments);
                         if (!bRet || listComments.Count != listForms.Count)
                         {
-                            MessageBox.Show("Internal error: unable to retrieve from comments.");
+                            MessageBox.Show("Internal error: unable to retrieve form comments.");
                         }
                         fd.listComments = listComments;
                     }
@@ -535,6 +616,8 @@ namespace ZalTestApp
             EditCommand = new RelayCommand(new Action<object>(EditForm));
             EditFormCommentCommand = new RelayCommand(new Action<object>(EditFormComment));
             SaveFormsCommand = new RelayCommand(new Action<object>(SaveForms));
+            FormScrollUpCommand = new RelayCommand(new Action<object>(FormScrollUp));
+            FormScrollDownCommand = new RelayCommand(new Action<object>(FormScrollDown));
 
             m_MainModel = m;
 
@@ -792,6 +875,36 @@ namespace ZalTestApp
             MessageBox.Show("Формы сохранены.");
 
         }       //  SaveForms()
+
+        public void FormScrollUp(Object obj)
+        {
+            string sGramHash = obj as string;
+            FormDescriptor fd;
+            if (m_DictFormStatus.TryGetValue(sGramHash, out fd))
+            {
+                if (fd.iCurrentFormNumber > 0)
+                {
+                    --fd.iCurrentFormNumber;
+                    m_DictFormStatus[sGramHash] = fd;
+                    OnPropertyChanged(sGramHash);
+                }
+            }
+        }
+
+        public void FormScrollDown(Object obj)
+        {
+            string sGramHash = obj as string;
+            FormDescriptor fd;
+            if (m_DictFormStatus.TryGetValue(sGramHash, out fd))
+            {
+                if (fd.iCurrentFormNumber < fd.listForms.Count - 1)
+                {
+                    ++fd.iCurrentFormNumber;
+                    m_DictFormStatus[sGramHash] = fd;
+                    OnPropertyChanged(sGramHash);
+                }
+            }
+        }
 
         public void nounViewModel_PropertyChanged(object sender, PropertyChangedEventArgs arg)
         {

@@ -4,6 +4,8 @@
                     x:Class="TestApp.CustomResources"
                     x:ClassModifier="public">
 
+    <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+
     <Style TargetType="TabControl" x:Key="TabControl">
         <Setter Property="FontFamily" Value="Calibry" />
         <Setter Property="FontSize" Value="14" />
@@ -111,7 +113,7 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
-                               <Setter TargetName="MouseOver" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="MouseOver" Property="Visibility" Value="Visible"/>
                             <Setter TargetName="Pressed" Property="Visibility" Value="Hidden"/>
                             <Setter TargetName="Disabled" Property="Visibility" Value="Hidden"/>
                         </Trigger>
@@ -124,6 +126,82 @@
                 <Setter Property="Background" Value="LightBlue" />
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" x:Key="BtnFormScrollerUp">
+        <Setter Property="Width" Value="10"/>
+        <Setter Property="Height" Value="12"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Image Name="Normal" Source="small_triangle_up.png" Stretch="Uniform"  />
+                            <Image Name="MouseOver" Source="small_triangle_up_hover.png" Stretch="Uniform"  />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="MouseOver" Property="Visibility" Value="Hidden"/>
+<!--                            <Setter TargetName="Pressed" Property="Visibility" Value="Hidden"/>             -->
+<!--                             <Setter TargetName="Disabled" Property="Visibility" Value="Visible"/>          -->
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="True">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="MouseOver" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="MouseOver" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="MouseOver" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="BtnFormScrollerDown">
+        <Setter Property="Width" Value="10"/>
+        <Setter Property="Height" Value="12"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Image Name="Normal" Source="small_triangle_down.png" Stretch="Uniform"  />
+                            <Image Name="MouseOver" Source="small_triangle_down_hover.png" Stretch="Uniform"  />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="MouseOver" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="True">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="MouseOver" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="MouseOver" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="MouseOver" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style TargetType="TextBox" x:Key="FormLabel">
@@ -229,7 +307,7 @@
         <Setter Property="IsReadOnly" Value="False"/>
     </Style>
 
-    <local:StyleConverter x:Key="StyleConverter"/>  
+    <local:StyleConverter x:Key="StyleConverter"/>
 
     <Style TargetType="Image" x:Key="IrregularFormMark">
         <Setter Property="Height" Value="15"/>

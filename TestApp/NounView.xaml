@@ -29,7 +29,8 @@
                 <TextBox Text="L2" Margin="33,401,0,0" Style="{StaticResource FormLabel}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding Noun_Sg_N}" Margin="70,70,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Noun_Sg_N}" Margin="70,70,0,0" Style="{StaticResource FormText}" /> 
+<!--                <ListBox ItemsSource="{Binding Noun_Sg_N}" Margin="70,70,0,0" Style="{StaticResource FormText2}"/>  -->
                 <TextBox Text="{Binding Noun_Sg_A}" Margin="70,115,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Noun_Sg_G}" Margin="70,160,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Noun_Sg_P}" Margin="70,205,0,0" Style="{StaticResource FormText}" />
@@ -51,9 +52,17 @@
                 <Image HorizontalAlignment="Left" Margin="233,302,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_I_Marks, Converter={StaticResource StyleConverter}}" />
                 <Image HorizontalAlignment="Left" Margin="233,257,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_Part_Marks, Converter={StaticResource StyleConverter}}" />
                 <Image HorizontalAlignment="Left" Margin="233,302,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_L_Marks, Converter={StaticResource StyleConverter}}" />
+                
+                
+                <!-- Scroll buttons for multiple forms; not shown when only one fporm is available -->
+                <Button Margin="218,74,0,0" CommandParameter="Noun_Sg_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Noun_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,82,0,0" CommandParameter="Noun_Sg_N" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Noun_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="218,299,0,0" CommandParameter="Noun_Sg_I" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Noun_Sg_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,307,0,0" CommandParameter="Noun_Sg_I" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Noun_Sg_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
 
                 <!-- Edit button -->
-<!--                
+                <!--                
                 <Button  Margin="252,70,0,0" CommandParameter="Noun_Sg_N" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                 <Button  Margin="252,115,0,0" CommandParameter="Noun_Sg_A" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                 <Button  Margin="252,160,0,0" CommandParameter="Noun_Sg_G" Style="{StaticResource BtnEdit}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
