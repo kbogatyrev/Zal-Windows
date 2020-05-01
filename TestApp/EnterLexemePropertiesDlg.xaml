@@ -179,13 +179,13 @@
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
         </ComboBox>
         <TextBox Text="Помета П2" Margin="678,205,0,0" Style="{StaticResource FormLabel}" Width="120" />
-        <ComboBox Text="{Binding Path=Loc2}" HorizontalAlignment="Left" Margin="805,205,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+        <ComboBox Text="{Binding Path=P2}" HorizontalAlignment="Left" Margin="805,205,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="Да" IsEnabled="True" />
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
             <ComboBoxItem Content="Факульт." IsEnabled="True" />
         </ComboBox>
         <TextBox Text="Предлог при П2" Margin="678,240,0,0" Style="{StaticResource FormLabel}" Width="120" />
-        <ComboBox Text="{Binding Path=Loc2Preposition}" HorizontalAlignment="Left" Margin="805,240,0,0" VerticalAlignment="Top" Width="160" Height="28">
+        <ComboBox Text="{Binding Path=P2Preposition}" HorizontalAlignment="Left" Margin="805,240,0,0" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="в" IsEnabled="True" />
             <ComboBoxItem Content="во" IsEnabled="True"/>
             <ComboBoxItem Content="на" IsEnabled="True" />

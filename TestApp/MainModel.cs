@@ -307,7 +307,7 @@ namespace ZalTestApp
             return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         }
 
-        public bool bSaveLoc2Info(CLexemeManaged l)
+        public bool bSaveP2Info(CLexemeManaged l)
         {
             if (null == m_Dictionary)
             {
@@ -315,7 +315,7 @@ namespace ZalTestApp
                 return false;
             }
 
-            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveLoc2Info(l);
+            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveP2Info(l);
             return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         }
 
@@ -430,14 +430,14 @@ namespace ZalTestApp
             return true;
         }
 
-        public bool IsL2Optonal(CLexemeManaged lexeme)
+        public bool IsP2Optonal(CLexemeManaged lexeme)
         {
-            return lexeme.bSecondLocativeOptional();
+            return lexeme.bSecondPrepositionalOptional();
         }
 
-        public string sGetL2Prepositions(CLexemeManaged lexeme)
+        public string sGetP2Prepositions(CLexemeManaged lexeme)
         {
-            return lexeme.sLoc2Preposition();
+            return lexeme.sP2Preposition();
         }
 
         public void RemoveLexeme(CLexemeManaged l)

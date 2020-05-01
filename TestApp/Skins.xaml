@@ -142,12 +142,11 @@
                             <Image Name="MouseOver" Source="small_triangle_up_hover.png" Stretch="Uniform"  />
                         </Grid>
                     </Border>
+<!--
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
                             <Setter TargetName="MouseOver" Property="Visibility" Value="Hidden"/>
-<!--                            <Setter TargetName="Pressed" Property="Visibility" Value="Hidden"/>             -->
-<!--                             <Setter TargetName="Disabled" Property="Visibility" Value="Visible"/>          -->
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="True">
                             <Setter TargetName="Normal" Property="Visibility" Value="Visible"/>
@@ -162,6 +161,7 @@
                             <Setter TargetName="MouseOver" Property="Visibility" Value="Visible"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
+-->                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -181,6 +181,7 @@
                             <Image Name="MouseOver" Source="small_triangle_down_hover.png" Stretch="Uniform"  />
                         </Grid>
                     </Border>
+<!--                    
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
@@ -199,6 +200,7 @@
                             <Setter TargetName="MouseOver" Property="Visibility" Value="Visible"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
+-->
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -308,6 +310,7 @@
     </Style>
 
     <local:StyleConverter x:Key="StyleConverter"/>
+    <local:ScrollStatusConverter x:Key="ScrollStatusConverter"/>
 
     <Style TargetType="Image" x:Key="IrregularFormMark">
         <Setter Property="Height" Value="15"/>

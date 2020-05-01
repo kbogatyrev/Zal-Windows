@@ -28,7 +28,7 @@ namespace ZalTestApp
         string[] CommonDeviationProperties = { "NumberInCircle" };
         string[] AspectPairProperties = { "AspectPairType", "AspectPairData", "AltAspectPairComment" };
         string[] Gen2Properties = { "Gen2", "SecondGenitive" };
-        string[] Loc2Properties = { "Loc2", "Loc2Preposition" };
+        string[] P2Properties = { "P2", "P2Preposition" };
 
         HashSet<char> m_CyrillicAlphabet;
         char[] m_Vowels = { 'а', 'е', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я' };
@@ -554,37 +554,37 @@ namespace ZalTestApp
             }
         }
 
-        private string m_sLoc2;
-        public string Loc2
+        private string m_sP2;
+        public string P2
         {
             get
             {
-                return m_sLoc2;
+                return m_sP2;
             }
             set
             {
-                if (value != m_sLoc2)
+                if (value != m_sP2)
                 {
-                    m_sLoc2 = value;
+                    m_sP2 = value;
                 }
-                OnPropertyChanged("SecondLocative");
+                OnPropertyChanged("SecondPrepositional");
             }
         }
 
-        private string m_sLoc2Preposition;
-        public string Loc2Preposition
+        private string m_sP2Preposition;
+        public string P2Preposition
         {
             get
             {
-                return m_sLoc2Preposition;
+                return m_sP2Preposition;
             }
             set
             {
-                if (value != m_sLoc2Preposition)
+                if (value != m_sP2Preposition)
                 {
-                    m_sLoc2Preposition = value;
+                    m_sP2Preposition = value;
                 }
-                OnPropertyChanged("Loc2Preposition");
+                OnPropertyChanged("P2Preposition");
             }
         }
 
@@ -894,37 +894,37 @@ namespace ZalTestApp
             }
         }
 
-        private string m_sSecondLocative;
-        public string SecondLocative
+        private string m_sSecondPrepositional;
+        public string SecondPrepositional
         {
             get
             {
-                return m_sSecondLocative;
+                return m_sSecondPrepositional;
             }
             set
             {
-                if (value != m_sSecondLocative)
+                if (value != m_sSecondPrepositional)
                 {
-                    m_sSecondLocative = value;
+                    m_sSecondPrepositional = value;
                 }
-                OnPropertyChanged("SecondLocative");
+                OnPropertyChanged("SecondPrepositional");
             }
         }
 
-        private string m_sSecondLocativeOptional;
-        public string SecondLocativeOptional
+        private string m_sSecondPrepositionalOptional;
+        public string SecondPrepositionalOptional
         {
             get
             {
-                return m_sSecondLocativeOptional;
+                return m_sSecondPrepositionalOptional;
             }
             set
             {
-                if (value != m_sSecondLocativeOptional)
+                if (value != m_sSecondPrepositionalOptional)
                 {
-                    m_sSecondLocativeOptional = value;
+                    m_sSecondPrepositionalOptional = value;
                 }
-                OnPropertyChanged("SecondLocativeOptional");
+                OnPropertyChanged("SecondPrepositionalOptional");
             }
         }
 
@@ -1050,16 +1050,16 @@ namespace ZalTestApp
             }
         }
 
-        public bool m_bLoc2Changed = false;
-        public bool Loc2Changed
+        public bool m_bP2Changed = false;
+        public bool P2Changed
         {
             get
             {
-                return m_bLoc2Changed;
+                return m_bP2Changed;
             }
             set
             {
-                m_bLoc2Changed = value;
+                m_bP2Changed = value;
             }
         }
 
@@ -1364,32 +1364,32 @@ namespace ZalTestApp
             m_ChangedPropertiesHandlers.Add("SecondLocative", () =>
             {
                 bool bValue = false;
-                bool bRet = bGetYesNoValue("SecondLocative", m_sSecondLocative, ref bValue);
+                bool bRet = bGetYesNoValue("SecondLocative", m_sSecondPrepositional, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetSecondLocative(bValue);
+                    m_Lexeme.SetSecondPrepositional(bValue);
                 }
                 return bRet;
             });
 
-            m_ChangedPropertiesHandlers.Add("SecondLocativeOptional", () =>
+            m_ChangedPropertiesHandlers.Add("SecondPrepositionalOptional", () =>
             {
                 bool bValue = false;
-                bool bRet = bGetYesNoValue("SecondLocativeOptional", m_sSecondLocativeOptional, ref bValue);
+                bool bRet = bGetYesNoValue("SecondPrepositionalOptional", m_sSecondPrepositionalOptional, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetSecondLocativeOptional(bValue);
+                    m_Lexeme.SetSecondPrepositionalOptional(bValue);
                 }
                 return bRet;
             });
 
-            m_ChangedPropertiesHandlers.Add("Loc2Preposition", () =>
+            m_ChangedPropertiesHandlers.Add("P2Preposition", () =>
             {
-                if (null == m_sLoc2Preposition)
+                if (null == m_sP2Preposition)
                 {
                     return true;
                 }
-                m_Lexeme.SetLoc2Preposition(m_sLoc2Preposition);
+                m_Lexeme.SetP2Preposition(m_sP2Preposition);
                 return true;
             });
 
@@ -1681,13 +1681,13 @@ namespace ZalTestApp
                 return bRet;
             });
 
-            m_ChangedPropertiesHandlers.Add("Loc2", () =>
+            m_ChangedPropertiesHandlers.Add("P2", () =>
             {
                 bool bValue = false;
-                bool bRet = bGetYesNoValue("Loc2", m_sLoc2, ref bValue);
+                bool bRet = bGetYesNoValue("P2", m_sP2, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetSecondLocative(bValue);
+                    m_Lexeme.SetSecondPrepositional(bValue);
                 }
                 return bRet;
             });
@@ -1754,7 +1754,7 @@ namespace ZalTestApp
         m_bInflectionGroupChanged = false;
         m_bCommonDeviationChanged = false;
         m_bGen2Changed = false;
-        m_bLoc2Changed = false;
+        m_bP2Changed = false;
         m_bAspectPairChanged = false;
         
 
@@ -1806,7 +1806,7 @@ namespace ZalTestApp
             InflectionGroupChanged = false;
             CommonDeviationChanged = false;
             Gen2Changed = false;
-            Loc2Changed = false;
+            P2Changed = false;
             AspectPairChanged = false;
         }
 
@@ -2022,9 +2022,9 @@ namespace ZalTestApp
             NoComparative = m_Lexeme.bNoComparative() ? m_YesNoValues[0] : m_YesNoValues[1];
             AssumedForms = m_Lexeme.bAssumedForms() ? m_YesNoValues[0] : m_YesNoValues[1];
             SecondGenitive = m_Lexeme.bSecondGenitive() ? m_YesNoValues[0] : m_YesNoValues[1];
-            SecondLocative = m_Lexeme.bSecondLocative() ? m_YesNoValues[0] : m_YesNoValues[1];
-            SecondLocativeOptional = m_Lexeme.bSecondLocativeOptional() ? m_YesNoValues[0] : m_YesNoValues[1];
-            Loc2Preposition = m_Lexeme.sLoc2Preposition();
+            SecondPrepositional = m_Lexeme.bSecondPrepositional() ? m_YesNoValues[0] : m_YesNoValues[1];
+            SecondPrepositionalOptional = m_Lexeme.bSecondPrepositionalOptional() ? m_YesNoValues[0] : m_YesNoValues[1];
+            P2Preposition = m_Lexeme.sP2Preposition();
             HasAspectPair = m_Lexeme.bHasAspectPair() ? m_YesNoValues[0] : m_YesNoValues[1];
             AspectPairType = m_Lexeme.iAspectPairType();
             AspectPairData = m_Lexeme.sAspectPairData();
@@ -2115,9 +2115,9 @@ namespace ZalTestApp
                 Gen2Changed = true;
             }
 
-            if (Array.Exists(Loc2Properties, sPropertyName => sPropertyName == e.PropertyName))
+            if (Array.Exists(P2Properties, sPropertyName => sPropertyName == e.PropertyName))
             {
-                Loc2Changed = true;
+                P2Changed = true;
             }
 
         }

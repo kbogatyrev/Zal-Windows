@@ -16,7 +16,7 @@ namespace ZalTestApp
 {
     public enum EMark { None, IsIrregular, IsEdited };
 
-    public class StyleConverter : IValueConverter
+    public sealed class StyleConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -43,6 +43,28 @@ namespace ZalTestApp
             }
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    [ValueConversion(typeof(bool), typeof(Visibility))]
+    public sealed class ScrollStatusConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var sAssemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+            string uri = sAssemblyName + ";component/Skins.xaml";
+            ResourceDictionary resourceDictionary =
+                (ResourceDictionary)Application.LoadComponent(new System.Uri(uri, System.UriKind.Relative));
+
+            if (!(value is bool))
+                return null;
+            return (bool)value ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType,
+            object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
@@ -802,9 +824,9 @@ namespace ZalTestApp
                 }
             }
 
-            if (elpModel.Loc2Changed)
+            if (elpModel.P2Changed)
             {
-                bRet = m_MainModel.bSaveLoc2Info(editLexeme);
+                bRet = m_MainModel.bSaveP2Info(editLexeme);
                 if (!bRet)
                 {
                     MessageBox.Show("Не удалось сохранить информацию о втором предложном.");

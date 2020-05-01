@@ -120,7 +120,7 @@ namespace ZalTestApp
                 case EM_Case.CASE_GEN:
                     return "G";
                 case EM_Case.CASE_LOC:
-                    return "L";
+                    return "P2";
                 case EM_Case.CASE_DAT:
                     return "D";
                 case EM_Case.CASE_INST:
@@ -147,7 +147,7 @@ namespace ZalTestApp
                     return EM_Case.CASE_ACC;
                 case "G":
                     return EM_Case.CASE_GEN;
-                case "L":
+                case "P2":
                     return EM_Case.CASE_LOC;
                 case "D":
                     return EM_Case.CASE_DAT;

@@ -44,21 +44,21 @@ namespace ZalTestApp
 
         List<string> m_listPropNamesNoun = new List<string>()
         {
-            "Noun_Sg_N", "Noun_Sg_A", "Noun_Sg_G", "Noun_Sg_P", "Noun_Sg_D", "Noun_Sg_L",
+            "Noun_Sg_N", "Noun_Sg_A", "Noun_Sg_G", "Noun_Sg_P", "Noun_Sg_D", "Noun_Sg_P2",
             "Noun_Sg_I", "Noun_Sg_Part", "Noun_Pl_N", "Noun_Pl_A", "Noun_Pl_G", "Noun_Pl_P",
             "Noun_Pl_D", "Noun_Pl_L", "Noun_Pl_I"
         };
 
         List<string> m_listPropNamesPronoun = new List<string>()
         {
-            "Pronoun_Sg_N", "Pronoun_Sg_A", "Pronoun_Sg_G", "Pronoun_Sg_P", "Pronoun_Sg_D", "Pronoun_Sg_L",
+            "Pronoun_Sg_N", "Pronoun_Sg_A", "Pronoun_Sg_G", "Pronoun_Sg_P", "Pronoun_Sg_D", "Pronoun_Sg_P2",
             "Pronoun_Sg_I", "Pronoun_Sg_Part", "Pronoun_Pl_N", "Pronoun_Pl_A", "Pronoun_Pl_G", "Pronoun_Pl_P",
             "Pronoun_Pl_D", "Pronoun_Pl_L", "Pronoun_Pl_I"
         };
 
         List<string> m_listPropNamesNumeral = new List<string>()
         {
-            "Numeral_Sg_N", "Numeral_Sg_A", "Numeral_Sg_G", "Numeral_Sg_P", "Numeral_Sg_D", "Numeral_Sg_L",
+            "Numeral_Sg_N", "Numeral_Sg_A", "Numeral_Sg_G", "Numeral_Sg_P", "Numeral_Sg_D", "Numeral_Sg_P2",
             "Numeral_Sg_I", "Numeral_Sg_Part", "Numeral_Pl_N", "Numeral_Pl_A", "Numeral_Pl_G", "Numeral_Pl_P",
             "Numeral_Pl_D", "Numeral_Pl_L", "Numeral_Pl_I"
         };
@@ -329,34 +329,34 @@ namespace ZalTestApp
             set { SetForm("Noun_Sg_Part", value); }
         }
 
-        public string Noun_Sg_L
+        public string Noun_Sg_P2
         {
-            get { return GetForm("Noun_Sg_L"); }
-            set { SetForm("Noun_Sg_L", value); }
+            get { return GetForm("Noun_Sg_P2"); }
+            set { SetForm("Noun_Sg_P2", value); }
         }
 
-        private bool m_bIs_L2_optional = false;
-        public bool Is_L2_optional
+        private bool m_bIs_P2_optional = false;
+        public bool Is_P2_optional
         {
-            get { return m_bIs_L2_optional; }
+            get { return m_bIs_P2_optional; }
             set
             {
-                m_bIs_L2_optional = value;
-                OnPropertyChanged("Is_L2_optional");
+                m_bIs_P2_optional = value;
+                OnPropertyChanged("Is_P2_optional");
             }
         }
 
-        private string m_sNoun_Sg_L2_Prepositions;
-        public string Noun_Sg_L2_Prepositions
+        private string m_sNoun_Sg_P2_Prepositions;
+        public string Noun_Sg_P2_Prepositions
         {
             get
             {
-                return m_sNoun_Sg_L2_Prepositions;
+                return m_sNoun_Sg_P2_Prepositions;
             }
             set
             {
-                m_sNoun_Sg_L2_Prepositions = value;
-                OnPropertyChanged("Noun_Sg_L2_Prepositions");
+                m_sNoun_Sg_P2_Prepositions = value;
+                OnPropertyChanged("Noun_Sg_P2_Prepositions");
             }
         }
 
@@ -437,11 +437,11 @@ namespace ZalTestApp
             set { m_eNoun_Sg_D_Marks = value; OnPropertyChanged("Noun_Sg_D_Marks"); }
         }
 
-        private EMark m_eNoun_Sg_L_Marks = EMark.None;
-        public EMark Noun_Sg_L_Marks
+        private EMark m_eNoun_Sg_P2_Marks = EMark.None;
+        public EMark Noun_Sg_P2_Marks
         {
-            get { return GetFormStatus("Noun_Sg_L"); }
-            set { m_eNoun_Sg_L_Marks = value; OnPropertyChanged("Noun_Sg_L_Marks"); }
+            get { return GetFormStatus("Noun_Sg_P2"); }
+            set { m_eNoun_Sg_P2_Marks = value; OnPropertyChanged("Noun_Sg_P2_Marks"); }
         }
 
         private EMark m_eNoun_Sg_I_Marks = EMark.None;
@@ -519,9 +519,69 @@ namespace ZalTestApp
             get { bool bMult = false;  m_DictMultipleForms.TryGetValue("Noun_Sg_N", out bMult); return bMult; }
         }
 
+        public bool Noun_Sg_A_HasMultipleForms
+        {
+            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_A", out bMult); return bMult; }
+        }
+
+        public bool Noun_Sg_G_HasMultipleForms
+        {
+            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_G", out bMult); return bMult; }
+        }
+
+        public bool Noun_Sg_P_HasMultipleForms
+        {
+            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_P", out bMult); return bMult; }
+        }
+
+        public bool Noun_Sg_D_HasMultipleForms
+        {
+            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_D", out bMult); return bMult; }
+        }
+
         public bool Noun_Sg_I_HasMultipleForms
         {
             get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_I", out bMult); return bMult; }
+        }
+
+        public bool Noun_Sg_Part_HasMultipleForms
+        {
+            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_Part", out bMult); return bMult; }
+        }
+
+        public bool Noun_Sg_P2_HasMultipleForms
+        {
+            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_P2", out bMult); return bMult; }
+        }
+
+        public bool Noun_Pl_N_HasMultipleForms
+        {
+            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Pl_N", out bMult); return bMult; }
+        }
+
+        public bool Noun_Pl_A_HasMultipleForms
+        {
+            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Pl_A", out bMult); return bMult; }
+        }
+
+        public bool Noun_Pl_G_HasMultipleForms
+        {
+            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Pl_G", out bMult); return bMult; }
+        }
+
+        public bool Noun_Pl_P_HasMultipleForms
+        {
+            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Pl_P", out bMult); return bMult; }
+        }
+
+        public bool Noun_Pl_D_HasMultipleForms
+        {
+            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Pl_D", out bMult); return bMult; }
+        }
+
+        public bool Noun_Pl_I_HasMultipleForms
+        {
+            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Pl_I", out bMult); return bMult; }
         }
 
         #endregion
