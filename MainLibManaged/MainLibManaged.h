@@ -191,12 +191,12 @@ namespace MainLibManaged
 //        void SetHasOAlternation(bool);
         bool bSecondGenitive();
         void SetSecondGenitive(bool);
-        bool bSecondLocative();
-        void SetSecondLocative(bool);
-        bool bSecondLocativeOptional();
-        void SetSecondLocativeOptional(bool);
-        String^ sLoc2Preposition();
-        void SetLoc2Preposition(String^);
+        bool bSecondPrepositional();
+        void SetSecondPrepositional(bool);
+        bool bSecondPrepositionalOptional();
+        void SetSecondPrepositionalOptional(bool);
+        String^ sP2Preposition();
+        void SetP2Preposition(String^);
         bool bHasAspectPair();
         void SetHasAspectPair(bool);
         bool bHasAltAspectPair();
@@ -325,7 +325,7 @@ namespace MainLibManaged
         // Save manually edited entries
         EM_ReturnCode eSaveHeadword(CLexemeManaged^);
         EM_ReturnCode eSaveAspectPairInfo(CLexemeManaged^);
-        EM_ReturnCode eSaveLoc2Info(CLexemeManaged^);
+        EM_ReturnCode eSaveP2Info(CLexemeManaged^);
         EM_ReturnCode eSaveDescriptorInfo(CLexemeManaged^);
         EM_ReturnCode eSaveCommonDeviation(CLexemeManaged^);
         EM_ReturnCode eSaveInflectionInfo(CLexemeManaged^);

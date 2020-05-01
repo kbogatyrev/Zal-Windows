@@ -697,14 +697,14 @@ EM_ReturnCode CDictionaryManaged::eSaveAspectPairInfo(CLexemeManaged^ l)
     return (EM_ReturnCode)eRet;
 }
 
-EM_ReturnCode CDictionaryManaged::eSaveLoc2Info(CLexemeManaged^ l)
+EM_ReturnCode CDictionaryManaged::eSaveP2Info(CLexemeManaged^ l)
 {
     if (NULL == m_pDictionary)
     {
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    ET_ReturnCode eRet = m_pDictionary->eSaveLoc2Info(l->m_pLexeme);
+    ET_ReturnCode eRet = m_pDictionary->eSaveP2Info(l->m_pLexeme);
 
     return (EM_ReturnCode)eRet;
 }
@@ -1713,64 +1713,64 @@ void CLexemeManaged::SetSecondGenitive(bool bValue)
     m_pLexeme->SetSecondGenitive(bValue);
 }
  
-bool CLexemeManaged::bSecondLocative()
+bool CLexemeManaged::bSecondPrepositional()
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->bSecondLocative();
+    return m_pLexeme->bSecondPrepositional();
 }
 
-void CLexemeManaged::SetSecondLocative(bool bValue)
+void CLexemeManaged::SetSecondPrepositional(bool bValue)
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    m_pLexeme->SetSecondLocative(bValue);
+    m_pLexeme->SetSecondPrepositional(bValue);
 }
 
-bool CLexemeManaged::bSecondLocativeOptional()
+bool CLexemeManaged::bSecondPrepositionalOptional()
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->bSecondLocativeOptional();
-}
- 
-void CLexemeManaged::SetSecondLocativeOptional(bool bValue)
-{
-    if (NULL == m_pLexeme)
-    {
-        throw gcnew Exception(L"Lexeme object is NULL.");
-    }
-
-    m_pLexeme->SetSecondLocativeOptional(bValue);
-}
-
-String^ CLexemeManaged::sLoc2Preposition()
-{
-    if (NULL == m_pLexeme)
-    {
-        throw gcnew Exception(L"Lexeme object is NULL.");
-    }
-
-    return gcnew String(m_pLexeme->sLoc2Preposition());
+    return m_pLexeme->bSecondPrepositionalOptional();
 }
  
-void CLexemeManaged::SetLoc2Preposition(String^ sValue)
+void CLexemeManaged::SetSecondPrepositionalOptional(bool bValue)
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    m_pLexeme->SetLoc2Preposition(sFromManagedString(sValue));
+    m_pLexeme->SetSecondPrepositionalOptional(bValue);
+}
+
+String^ CLexemeManaged::sP2Preposition()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return gcnew String(m_pLexeme->sP2Preposition());
+}
+ 
+void CLexemeManaged::SetP2Preposition(String^ sValue)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    m_pLexeme->SetP2Preposition(sFromManagedString(sValue));
 }
 
 bool CLexemeManaged::bHasAspectPair()
