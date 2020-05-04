@@ -1332,6 +1332,7 @@ namespace ZalTestApp
             return true;
         }
 
+        /*
         public bool bTrailingComment(string sLexemeHash, string sFormHash, ref string sComment)
         {
             CLexemeManaged lexeme;
@@ -1353,6 +1354,7 @@ namespace ZalTestApp
 
             return true;
         }
+        */
 
         public bool bIsIrregular(string sLexemeHash, string sFormHash)
         {

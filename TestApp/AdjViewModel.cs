@@ -694,7 +694,8 @@ namespace ZalTestApp
 
             foreach (string sHash in listGramHashes)
             {
-                FormDescriptor fd = new FormDescriptor(null, null, false, false, null);
+//                FormDescriptor fd = new FormDescriptor(null, null, false, false, null);
+                FormDescriptor fd = new FormDescriptor(null, null, false, false);
                 List<string> listForms = null;
                 bool bRet = m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
                 if (!bRet)
@@ -715,14 +716,14 @@ namespace ZalTestApp
                     fd.listComments = listComments;
                 }
 
-                fd.handler = () =>
-                {
-                    FormDescriptor fd1 = m_DictFormStatus[sFormHashToDisplayHash(sHash)];
-                    var sFormString1 = Helpers.sListToCommaSeparatedString(fd1.listForms);
-                    Helpers.AssignDiacritics(sFormString1, ref sFormString1);
+//                fd.handler = () =>
+//                {
+//                    FormDescriptor fd1 = m_DictFormStatus[sFormHashToDisplayHash(sHash)];
+//                    var sFormString1 = Helpers.sListToCommaSeparatedString(fd1.listForms);
+//                    Helpers.AssignDiacritics(sFormString1, ref sFormString1);
                     //                    OnPropertyChanged(hash);
-                    return true;
-                };
+//                    return true;
+//                };
 
                 var sFormString = Helpers.sListToCommaSeparatedString(fd.listForms);
                 Helpers.AssignDiacritics(sFormString, ref sFormString);
@@ -965,10 +966,10 @@ namespace ZalTestApp
 
             try
             {
-                ChangedFormHandler handler = null;
+//                ChangedFormHandler handler = null;
                 FormDescriptor fd = m_DictFormStatus[sFormHash];
-                handler = fd.handler;
-                var ret = handler();
+//                handler = fd.handler;
+//                var ret = handler();
             }
             catch (Exception ex)
             {

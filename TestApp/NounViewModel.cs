@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Windows.Input;
 using System.Collections.Generic;
-using System.Reflection;
 
 using MainLibManaged;
 using System.Windows;
 using System.ComponentModel;
-using System.Windows.Data;
-using System.Globalization;
-using System.Linq;
 
 namespace ZalTestApp
 {
@@ -621,7 +617,8 @@ namespace ZalTestApp
 
                 foreach (var sHash in listKeys)
                 {                    
-                    FormDescriptor fd = new FormDescriptor(null, null, false, false, null);
+                    FormDescriptor fd = new FormDescriptor(null, null, false, false);
+//                    FormDescriptor fd = new FormDescriptor(null, null, false, false, null);
                     List<string> listForms = null;
                     m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
                     fd.listForms = listForms;
@@ -636,7 +633,7 @@ namespace ZalTestApp
                         }
                         fd.listComments = listComments;
                     }
-
+/*
                     fd.handler = () =>
                     {
                         FormDescriptor fd1 = m_DictFormStatus[sFormHashToDisplayHash(sHash)];
@@ -650,7 +647,7 @@ namespace ZalTestApp
                     //                    OnPropertyChanged(hash);
                         return true;
                     };
-
+*/
                     m_DictFormStatus[sFormHashToDisplayHash(sHash)] = fd;
                     m_DictOriginalForms[sFormHashToDisplayHash(sHash)] = listForms;
                     m_DictOriginalComments[sFormHashToDisplayHash(sHash)] = listComments;
@@ -981,10 +978,10 @@ namespace ZalTestApp
 
             try
             {
-                ChangedFormHandler handler = null;
+//                ChangedFormHandler handler = null;
                 FormDescriptor fd = m_DictFormStatus[sFormHash];
-                handler = fd.handler;
-                var ret = handler();
+//                handler = fd.handler;
+//                var ret = handler();
             }
             catch (Exception ex)
             {

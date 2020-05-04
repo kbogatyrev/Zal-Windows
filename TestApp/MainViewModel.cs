@@ -506,7 +506,7 @@ namespace ZalTestApp
                 SearchByInitialFormCommand = new RelayCommand(new Action<object>(SearchByInitialForm));
                 GenerateAllFormsCommand = new RelayCommand(new Action<object>(GenerateAllForms));
                 ParseWordCommand = new RelayCommand(new Action<object>(ParseWord));
-                CreateTextParserCommand = new RelayCommand(new Action<object>(CreateTextParser));
+//                CreateTextParserCommand = new RelayCommand(new Action<object>(CreateTextParser));
                 NewLexemeCommand = new RelayCommand(new Action<object>(NewLexeme));
                 EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
                 ShowRegressionPageCommand = new RelayCommand(new Action<object>(ShowRegression));
@@ -716,6 +716,7 @@ namespace ZalTestApp
 
             if (m_MainModel.NParses < 1)
             {
+                MessageBox.Show("Словоформа не найдена."); 
                 return;
             }
 
@@ -735,6 +736,7 @@ namespace ZalTestApp
 
         }   // ParseWord()
 
+/*
         public void CreateTextParser(object obj)
         {
             EnterTextParserDataDlgViewModel etpModel = new EnterTextParserDataDlgViewModel(m_MainModel);
@@ -754,6 +756,7 @@ namespace ZalTestApp
             m_iCurrentTab = m_Pages.Count - 1;
 
         }   // CreateTextParser()
+*/
 
         void NewLexeme(object obj)
         {

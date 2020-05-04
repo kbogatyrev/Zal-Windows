@@ -41,6 +41,7 @@ namespace ZalTestApp
         Dictionary<string, List<Tuple<string, string>>> m_DictOriginalComments = new Dictionary<string, List<Tuple<string, string>>>();
         Dictionary<string, FormDescriptor> m_DictFormStatus = new Dictionary<string, FormDescriptor>()
         {
+/*
             {  "Infinitive", new FormDescriptor(null, null, false, false, null) },
             {  "Pres_Sg_1", new FormDescriptor(null, null, false, false, null) },
             {  "Pres_Sg_2", new FormDescriptor(null, null, false, false, null) },
@@ -60,6 +61,26 @@ namespace ZalTestApp
             {  "VAdvPast", new FormDescriptor(null, null, false, false, null) },
             {  "PPresPL_M_Sg_N", new FormDescriptor(null, null, false, false, null) },
             {  "PPastPL_M_Sg_N", new FormDescriptor(null, null, false, false, null) },
+*/
+            {  "Infinitive", new FormDescriptor(null, null, false, false) },
+            {  "Pres_Sg_1", new FormDescriptor(null, null, false, false) },
+            {  "Pres_Sg_2", new FormDescriptor(null, null, false, false) },
+            {  "Pres_Sg_3", new FormDescriptor(null, null, false, false) },
+            {  "Pres_Pl_1", new FormDescriptor(null, null, false, false) },
+            {  "Pres_Pl_2", new FormDescriptor(null, null, false, false) },
+            {  "Pres_Pl_3", new FormDescriptor(null, null, false, false) },
+            {  "Past_M", new FormDescriptor(null, null, false, false) },
+            {  "Past_F", new FormDescriptor(null, null, false, false) },
+            {  "Past_N", new FormDescriptor(null, null, false, false) },
+            {  "Past_Pl", new FormDescriptor(null, null, false, false) },
+            {  "Impv_Sg_2", new FormDescriptor(null, null, false, false) },
+            {  "Impv_Pl_2", new FormDescriptor(null, null, false, false) },
+            {  "PPresA_M_Sg_N", new FormDescriptor(null, null, false, false) },
+            {  "VAdvPres", new FormDescriptor(null, null, false, false) },
+            {  "PPastA_M_Sg_N", new FormDescriptor(null, null, false, false) },
+            {  "VAdvPast", new FormDescriptor(null, null, false, false) },
+            {  "PPresPL_M_Sg_N", new FormDescriptor(null, null, false, false) },
+            {  "PPastPL_M_Sg_N", new FormDescriptor(null, null, false, false) },
         };
 
         #region ICommand
@@ -598,19 +619,19 @@ namespace ZalTestApp
                         fd.listComments = listComments;
                     }
 
-                    fd.handler = () =>
-                    {
+//                    fd.handler = () =>
+//                    {
 //                        if (!fd.bCanEdit)
 //                        {
 //                            return true;
 //                        }
 
-                        var sFormString = Helpers.sListToCommaSeparatedString(fd.listForms);
-                        Helpers.AssignDiacritics(sFormString, ref sFormString);
+//                        var sFormString = Helpers.sListToCommaSeparatedString(fd.listForms);
+//                        Helpers.AssignDiacritics(sFormString, ref sFormString);
 
-                        OnPropertyChanged(formHash);
-                        return true;
-                    };
+//                        OnPropertyChanged(formHash);
+//                        return true;
+//                    };
 
                     m_DictFormStatus[formHash] = fd;
                     m_DictOriginalForms[formHash] = listForms;
@@ -912,10 +933,10 @@ namespace ZalTestApp
 
             try
             {
-                ChangedFormHandler handler = null;
+//                ChangedFormHandler handler = null;
                 FormDescriptor fd = m_DictFormStatus[sFormHash];
-                handler = fd.handler;
-                var ret = handler();
+//                handler = fd.handler;
+//                var ret = handler();
             }
             catch (Exception ex)
             {

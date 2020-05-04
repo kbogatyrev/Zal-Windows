@@ -86,24 +86,25 @@ namespace ZalTestApp
 
         ////////////////////////////////////////////////////////
 
-        public delegate bool ChangedFormHandler();
+//       public delegate bool ChangedFormHandler();
         public struct FormDescriptor
         {
             public List<string> listForms { get; set; }
             public List<Tuple<string, string>> listComments { get; set; }   // leading / trailing comments, irregular form only
             //            public bool bCanEdit { get; set; }
-            public ChangedFormHandler handler { get; set; }
+//            public ChangedFormHandler handler { get; set; }
             public bool IsIrregular { get; set; }
             public bool IsEdited { get; set; }
             public int iCurrentFormNumber { get; set; }     // 0 unless we have more than 1 form per gramm hash
 
-            public FormDescriptor(List<string> forms, List<Tuple<string, string>> comments, bool bIrregular, bool bEdited, ChangedFormHandler h)
+//            public FormDescriptor(List<string> forms, List<Tuple<string, string>> comments, bool bIrregular, bool bEdited, ChangedFormHandler h)
+            public FormDescriptor(List<string> forms, List<Tuple<string, string>> comments, bool bIrregular, bool bEdited)
             {
                 listForms = forms;
                 listComments = comments;
                 IsIrregular = bIrregular;
                 IsEdited = bEdited;
-                handler = h;
+//                handler = h;
                 iCurrentFormNumber = 0;
             }
         }
