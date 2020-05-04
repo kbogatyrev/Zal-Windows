@@ -119,10 +119,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AdjViewModel.cs" />
-    <Compile Include="ParsedTextView.xaml.cs">
-      <DependentUpon>ParsedTextView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ParsedTextViewModel.cs" />
     <Compile Include="Skins.xaml.cs" />
     <Compile Include="EnterLexemePropertiesDlg.xaml.cs" />
     <Compile Include="EnterLexemePropertiesViewModel.cs" />
@@ -189,10 +185,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NounView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ParsedTextView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
