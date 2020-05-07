@@ -85,28 +85,60 @@ namespace ZalTestApp
         }
 
         ////////////////////////////////////////////////////////
+        /*
+        //       public delegate bool ChangedFormHandler();
+                public struct FormDescriptor
+                {
+                    public List<string> listForms { get; set; }
+                    public List<Tuple<string, string>> listComments { get; set; }   // leading / trailing comments, irregular form only
+                    //            public bool bCanEdit { get; set; }
+        //            public ChangedFormHandler handler { get; set; }
+                    public bool IsIrregular { get; set; }
+                    public bool IsEdited { get; set; }
+                    public int iCurrentFormNumber { get; set; }     // 0 unless we have more than 1 form per gramm hash
 
-//       public delegate bool ChangedFormHandler();
-        public struct FormDescriptor
+        //            public FormDescriptor(List<string> forms, List<Tuple<string, string>> comments, bool bIrregular, bool bEdited, ChangedFormHandler h)
+                    public FormDescriptor(List<string> forms, List<Tuple<string, string>> comments, bool bIrregular, bool bEdited)
+                    {
+                        listForms = forms;
+                        listComments = comments;
+                        IsIrregular = bIrregular;
+                        IsEdited = bEdited;
+        //                handler = h;
+                        iCurrentFormNumber = 0;
+                    }
+                }
+        */
+    }
+
+    public class FormDescriptor
+    {
+        public string sFormText;
+        public string sComment;                            // leading / trailing comments, irregular form only
+        public bool HasTrailingComment;
+        public bool IsIrregular;
+        public bool IsEdited;
+
+        public FormDescriptor()
         {
-            public List<string> listForms { get; set; }
-            public List<Tuple<string, string>> listComments { get; set; }   // leading / trailing comments, irregular form only
-            //            public bool bCanEdit { get; set; }
-//            public ChangedFormHandler handler { get; set; }
-            public bool IsIrregular { get; set; }
-            public bool IsEdited { get; set; }
-            public int iCurrentFormNumber { get; set; }     // 0 unless we have more than 1 form per gramm hash
+            sFormText = "";
+            sComment = "";
+            HasTrailingComment = false;
+            IsIrregular = false;
+            IsEdited = false;
+        }
+    }
 
-//            public FormDescriptor(List<string> forms, List<Tuple<string, string>> comments, bool bIrregular, bool bEdited, ChangedFormHandler h)
-            public FormDescriptor(List<string> forms, List<Tuple<string, string>> comments, bool bIrregular, bool bEdited)
-            {
-                listForms = forms;
-                listComments = comments;
-                IsIrregular = bIrregular;
-                IsEdited = bEdited;
-//                handler = h;
-                iCurrentFormNumber = 0;
-            }
+    // List of forms for given gram hash + sequential number of currently displayed form
+    public class FormsForGramHash
+    {
+        public List<FormDescriptor> listForms;
+        public int iCurrentForm;
+
+        public FormsForGramHash()
+        {
+            listForms = new List<FormDescriptor>();
+            iCurrentForm = -1;
         }
     }
 
@@ -117,11 +149,12 @@ namespace ZalTestApp
         {
             m_Action = action;
         }
-        #region ICommand Members
+
         public bool CanExecute(object parameter)
         {
             return true;
         }
+
         public event EventHandler CanExecuteChanged;
         public void Execute(object parameter)
         {
@@ -134,7 +167,6 @@ namespace ZalTestApp
                 m_Action("");
             }
         }
-        #endregion
     }
 
 }

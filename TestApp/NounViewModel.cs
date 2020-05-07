@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Windows.Input;
 using System.Collections.Generic;
 
@@ -59,10 +60,8 @@ namespace ZalTestApp
             "Numeral_Pl_D", "Numeral_Pl_L", "Numeral_Pl_I"
         };
 
-        Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
-        Dictionary<string, List<Tuple<string, string>>> m_DictOriginalComments = new Dictionary<string, List<Tuple<string,string>>>();
-        Dictionary<string, FormDescriptor> m_DictFormStatus = new Dictionary<string, FormDescriptor>();
-        Dictionary<string, bool> m_DictMultipleForms = new Dictionary<string, bool>();
+        Dictionary<string, FormsForGramHash> m_DictFormStatus = new Dictionary<string, FormsForGramHash>();
+//                  ^-- gram hash  --> list of possibly multiple forms for that hash
 
         #region ICommand
 
@@ -146,7 +145,7 @@ namespace ZalTestApp
 
         #endregion
 
-        #region Bindings_Nouns
+        #region AccessorsAndMutators
 
         private string m_sSourceForm;
         public string SourceForm
@@ -176,72 +175,26 @@ namespace ZalTestApp
             }
         }
 
-        string GetForm(string sFormHash)
+        string GetForm(string sHash)
         {
-//            string sFormHash = sDisplayHashToFormHash(sDisplayHash);
+            string sFormHash = sDisplayHashToFormHash(sHash);
             if (!m_DictFormStatus.ContainsKey(sFormHash))
             {
                 return "";
             }
 
-            var descriptor = m_DictFormStatus[sFormHash];
-            string sLexemeHash = m_Lexeme.sHash();
-
-            if (m_MainModel.bIsIrregular(sLexemeHash, sFormHash))
+            var formsForHash = m_DictFormStatus[sFormHash];
+            int iAt = formsForHash.iCurrentForm;
+            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
             {
-                descriptor.IsIrregular = true;
-            }
-            else
-            {
-                descriptor.IsIrregular = false;
+                MessageBox.Show("Internal error: Illegal form index.");
+                return "Error";
             }
 
-            string sText = "";
-            if (descriptor.listForms != null)
-            {
-                var at = descriptor.iCurrentFormNumber;
-                if (at < 0 || at >= descriptor.listForms.Count)
-                {
-                    MessageBox.Show("Internal error: current form index out of range.");
-                    return "";
-                }
+            return formsForHash.listForms[iAt].sFormText;
 
-                if (null == descriptor.listComments)
-                {
-                    //                sText = Helpers.sListToCommaSeparatedString(descriptor.listForms);
-                    sText = descriptor.listForms[at];
-                }
-                else
-                {
-                    sText = descriptor.listForms[at] + " " + descriptor.listComments[at];
-                }
-            }
+//  TODO: comment
 
-            if (null == descriptor.listForms)
-            {
-                m_DictMultipleForms[sFormHash] = false;
-            }
-            else
-            {
-                m_DictMultipleForms[sFormHash] = descriptor.listForms.Count > 1 ? true : false;
-            }
-
-            return sText;
-        }
-
-        EMark GetFormStatus(string sDisplayHash)
-        {
-            string sFormHash = sDisplayHashToFormHash(sDisplayHash);
-            string sLexemeHash = m_Lexeme.sHash();
-            if (m_MainModel.bIsEdited(sLexemeHash, sFormHash))
-            {
-                return EMark.IsEdited;
-            }
-            else if (m_MainModel.bIsIrregular(sLexemeHash, sFormHash))
-            {
-                return EMark.IsIrregular;
-            }
-            return EMark.None;
         }
 
         void SetForm(string sHash, string sForm)
@@ -253,35 +206,46 @@ namespace ZalTestApp
 
             Helpers.AssignDiacritics(sForm, ref sForm);
 
-            var descriptor = m_DictFormStatus[sHash];
-            var at = descriptor.iCurrentFormNumber;
-            if (at < 0 || at >= descriptor.listForms.Count)
+            var formsForHash = m_DictFormStatus[sHash];
+            int iAt = formsForHash.iCurrentForm;
+            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
             {
-                MessageBox.Show("Internal error: current form index out of range.");
+                MessageBox.Show("Internal error: Illegal form index.");
                 return;
             }
 
-            string sText = "";
-            if (null == descriptor.listComments)
-            {
-                sText = descriptor.listForms[at];
-            }
-            else
-            {
-                sText = descriptor.listForms[at] + " " + descriptor.listComments[at];
-            }
+            formsForHash.listForms[iAt].sFormText = sForm;
 
-            m_DictFormStatus[sHash].listForms[at] = sForm;
-
-/*
-            List<string> l = new List<string>();
-            List<Tuple<string, string>> c = new List<Tuple<string, string>>();
-//            Helpers.CommaSeparatedStringToList(sForms, out l, out c);
-            fd.listForms = l;
-            fd.listComments = c;
-            m_DictFormStatus[sHash] = fd;
-*/
         }
+
+        EMark GetFormStatus(string sDisplayHash)
+        {
+            string sFormHash = sDisplayHashToFormHash(sDisplayHash);
+            string sLexemeHash = m_Lexeme.sHash();
+            var formsForHash = m_DictFormStatus[sFormHash];
+            int iAt = formsForHash.iCurrentForm;
+            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
+            {
+                MessageBox.Show("Internal error: Illegal form index.");
+                return EMark.None;
+            }
+
+            if (formsForHash.listForms[iAt].IsEdited)
+            {
+                return EMark.IsEdited;
+            }
+            else if (formsForHash.listForms[iAt].IsIrregular)
+            {
+                return EMark.IsIrregular;
+            }
+
+            return EMark.None;
+
+        }
+
+        #endregion
+
+        #region Bindings_Nouns
 
         public string Noun_Sg_N
         {
@@ -512,72 +476,72 @@ namespace ZalTestApp
 
         public bool Noun_Sg_N_HasMultipleForms
         {
-            get { bool bMult = false;  m_DictMultipleForms.TryGetValue("Noun_Sg_N", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_N", out f); return f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_A_HasMultipleForms
         {
-            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_A", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_A", out f); return f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_G_HasMultipleForms
         {
-            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_G", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_G", out f); return f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_P_HasMultipleForms
         {
-            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_P", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_P", out f); return f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_D_HasMultipleForms
         {
-            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_D", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_D", out f); return f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_I_HasMultipleForms
         {
-            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_I", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_I", out f); return f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_Part_HasMultipleForms
         {
-            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_Part", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_Part", out f); return f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_P2_HasMultipleForms
         {
-            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Sg_P2", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_P2", out f); return f.listForms.Count > 1; }
         }
 
         public bool Noun_Pl_N_HasMultipleForms
         {
-            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Pl_N", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_N", out f); return f.listForms.Count > 1; }
         }
 
         public bool Noun_Pl_A_HasMultipleForms
         {
-            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Pl_A", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_A", out f); return f.listForms.Count > 1; }
         }
 
         public bool Noun_Pl_G_HasMultipleForms
         {
-            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Pl_G", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_G", out f); return f.listForms.Count > 1; }
         }
 
         public bool Noun_Pl_P_HasMultipleForms
         {
-            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Pl_P", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_P", out f); return f.listForms.Count > 1; }
         }
 
         public bool Noun_Pl_D_HasMultipleForms
         {
-            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Pl_D", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_D", out f); return f.listForms.Count > 1; }
         }
 
         public bool Noun_Pl_I_HasMultipleForms
         {
-            get { bool bMult = false; m_DictMultipleForms.TryGetValue("Noun_Pl_I", out bMult); return bMult; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_I", out f); return f.listForms.Count > 1; }
         }
 
         #endregion
@@ -615,42 +579,30 @@ namespace ZalTestApp
                     MessageBox.Show("Internal error: unable to determine gram hashes.");
                 }
 
+
                 foreach (var sHash in listKeys)
-                {                    
-                    FormDescriptor fd = new FormDescriptor(null, null, false, false);
-//                    FormDescriptor fd = new FormDescriptor(null, null, false, false, null);
+                {
+                    FormsForGramHash formsPerHash = new FormsForGramHash();
                     List<string> listForms = null;
                     m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
-                    fd.listForms = listForms;
-
-                    List<Tuple<string, string>> listComments = null;
-                    if (m_MainModel.bIsIrregular(sLexemeHash, sHash))
+                    foreach (string sForm in listForms)
                     {
-                        bool bRet = m_MainModel.GetFormComments(sLexemeHash, sHash, out listComments);
-                        if (!bRet || listComments.Count != listForms.Count)
+                        FormDescriptor fd = new FormDescriptor();
+                        fd.sFormText = sForm;
+                        if (m_MainModel.bIsIrregular(sLexemeHash, sHash))
                         {
-                            MessageBox.Show("Internal error: unable to retrieve form comments.");
+                            fd.IsIrregular = true;
                         }
-                        fd.listComments = listComments;
-                    }
-/*
-                    fd.handler = () =>
-                    {
-                        FormDescriptor fd1 = m_DictFormStatus[sFormHashToDisplayHash(sHash)];
-//                        if (!fd1.bCanEdit)
-//                        {
-//                            return true;
-//                        }
+                        else
+                        {
+                            fd.IsIrregular = false;
+                        }
 
-                        var sFormString = Helpers.sListToCommaSeparatedString(fd1.listForms);
-                        Helpers.AssignDiacritics(sFormString, ref sFormString);
-                    //                    OnPropertyChanged(hash);
-                        return true;
-                    };
-*/
-                    m_DictFormStatus[sFormHashToDisplayHash(sHash)] = fd;
-                    m_DictOriginalForms[sFormHashToDisplayHash(sHash)] = listForms;
-                    m_DictOriginalComments[sFormHashToDisplayHash(sHash)] = listComments;
+                        formsPerHash.listForms.Add(fd);
+                    }
+
+                    m_DictFormStatus[sHash] = formsPerHash;
+
                 }
             }
             catch (Exception ex)
@@ -810,35 +762,13 @@ namespace ZalTestApp
         {
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
 
-            foreach (KeyValuePair<string, List<string>> entry in m_DictOriginalForms)
+            foreach (KeyValuePair<string, FormsForGramHash> entry in m_DictFormStatus)
             {
-                List<string> originalForms = entry.Value;
-                FormDescriptor formDescriptor;
-                if (!m_DictFormStatus.TryGetValue(entry.Key, out formDescriptor))
+                FormsForGramHash formsPerHash = entry.Value;
+                if (formsPerHash.listForms.Count < 1)
                 {
+                    MessageBox.Show("Internal error: no forms for {0}.", entry.Key);
                     continue;
-                }
-
-                List<Tuple<string, string>> originalComments = null;
-                m_DictOriginalComments.TryGetValue(entry.Key, out originalComments);
-
-                List<string> changedForms = formDescriptor.listForms;
-                List<Tuple<string, string>> changedComments = formDescriptor.listComments;
-                if (changedForms == originalForms && changedComments == originalComments)
-                {
-                    continue;
-                }
-
-                List<Tuple<string, string>> listComments = null;
-                if (formDescriptor.listComments != null)
-                {
-                    if (formDescriptor.listComments.Count != changedForms.Count)
-                    {
-                        MessageBox.Show("Internal error: mismatch between form and comment lists.");
-                        continue;
-                    }
-
-                    listComments = formDescriptor.listComments;
                 }
 
                 // Purge all irregular forms with this gram hash from the DB
@@ -852,55 +782,32 @@ namespace ZalTestApp
                 }
 
                 CWordFormManaged wf = null;
-                for (int iAt = 0; iAt < changedForms.Count; ++iAt)
+                bool isVariant = false;
+                foreach (var descriptor in formsPerHash.listForms)
                 {
                     try
                     {
-                        string sForm = changedForms[iAt];
+                        string sForm = descriptor.sFormText;
                         eRet = CreateIrregularWordForm(sGramHash, sForm, ref wf);
                         if (eRet != EM_ReturnCode.H_NO_ERROR)
                         {
                             var msg = "Internal error: unable to create word form object.";
                             MessageBox.Show(msg);
-                            return;
+                            continue;
                         }
 
-                        if (iAt > 0)
-                        {
-                            wf.SetIsVariant(true);
-                        }
-                        else
-                        {
-                            wf.SetIsVariant(false);
-                        }
+                        wf.SetIsVariant(isVariant);
 
-                        if (formDescriptor.listComments != null)
-                        {
-                            if (formDescriptor.listComments.Count != changedForms.Count)
-                            {
-                                MessageBox.Show("Internal error: mismatch between form and comment lists.");
-                                continue;
-                            }
+                        isVariant = true;       // for subsequent forms if they exist
 
-                            string sLeftComment = listComments[iAt].Item1;
-                            string sRightComment = listComments[iAt].Item2;
-                            if (sLeftComment.Length > 0)
-                            {
-                                wf.SetLeadComment(sLeftComment);
-                            }
-
-                            if (sRightComment.Length > 0)
-                            {
-                                wf.SetTrailingComment(sRightComment);
-                            }
-                        }
+// TODO: comments
 
                         eRet = m_Lexeme.eSaveIrregularForm(wf.sGramHash(), ref wf);
                         if (eRet != EM_ReturnCode.H_NO_ERROR)
                         {
                             var msg = "Internal error: unable to save word form.";
                             MessageBox.Show(msg);
-                            return;
+                            continue;
                         }
                     }
                     catch (Exception ex)
@@ -912,23 +819,6 @@ namespace ZalTestApp
                 }
             }       // for (int iAt = 0...
 
-            foreach (string sKey in m_DictFormStatus.Keys)
-            {
-                List<string> originalForms;
-                if (m_DictOriginalForms.TryGetValue(sKey, out originalForms))
-                {
-                    FormDescriptor formDescriptor;
-                    if (m_DictFormStatus.TryGetValue(sKey, out formDescriptor))
-                    {
-                        List<string> changedForms = formDescriptor.listForms;
-                        if (changedForms != originalForms)
-                        {
-                            m_DictOriginalForms[sKey] = changedForms;
-                        }
-                    }
-                }
-            }           // foreach
-
             MessageBox.Show("Формы сохранены.");
 
         }       //  SaveForms()
@@ -936,13 +826,12 @@ namespace ZalTestApp
         public void FormScrollUp(Object obj)
         {
             string sGramHash = obj as string;
-            FormDescriptor fd;
-            if (m_DictFormStatus.TryGetValue(sGramHash, out fd))
+            FormsForGramHash formsPerHash;
+            if (m_DictFormStatus.TryGetValue(sGramHash, out formsPerHash))
             {
-                if (fd.iCurrentFormNumber > 0)
+                if (formsPerHash.listForms.Count > 1 && formsPerHash.iCurrentForm > 0)
                 {
-                    --fd.iCurrentFormNumber;
-                    m_DictFormStatus[sGramHash] = fd;
+                    --formsPerHash.iCurrentForm;
                     OnPropertyChanged(sGramHash);
                 }
             }
@@ -951,13 +840,12 @@ namespace ZalTestApp
         public void FormScrollDown(Object obj)
         {
             string sGramHash = obj as string;
-            FormDescriptor fd;
-            if (m_DictFormStatus.TryGetValue(sGramHash, out fd))
+            FormsForGramHash formsPerHash;
+            if (m_DictFormStatus.TryGetValue(sGramHash, out formsPerHash))
             {
-                if (fd.iCurrentFormNumber < fd.listForms.Count - 1)
+                if (formsPerHash.listForms.Count > 1 && formsPerHash.iCurrentForm < formsPerHash.listForms.Count - 1)
                 {
-                    ++fd.iCurrentFormNumber;
-                    m_DictFormStatus[sGramHash] = fd;
+                    ++formsPerHash.iCurrentForm;
                     OnPropertyChanged(sGramHash);
                 }
             }
@@ -976,19 +864,19 @@ namespace ZalTestApp
                 return;
             }
 
-            try
-            {
+//            try
+//            {
 //                ChangedFormHandler handler = null;
-                FormDescriptor fd = m_DictFormStatus[sFormHash];
+//                FormDescriptor fd = m_DictFormStatus[sFormHash];
 //                handler = fd.handler;
 //                var ret = handler();
-            }
-            catch (Exception ex)
-            {
-                var msg = "Internal error: unable to invoke word form change handler: ";
-                msg += ex.Message;
-                MessageBox.Show(msg);
-            }
+//            }
+//            catch (Exception ex)
+//            {
+//                var msg = "Internal error: unable to invoke word form change handler: ";
+//                msg += ex.Message;
+//                MessageBox.Show(msg);
+//            }
         }
 
         private string sFormHashToDisplayHash(string sFormHash)
