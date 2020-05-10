@@ -13,13 +13,14 @@ namespace ZalTestApp
         public delegate void BackButtonHandler();
         public event BackButtonHandler BackButtonEvent;
 
-        MainModel m_MainModel = null;
+//        MainModel m_MainModel = null;
 
 //        private delegate bool ChangedFormHandler();
 
-        Dictionary<string, FormDescriptor> m_DictFormStatus;
-        Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
+//        Dictionary<string, FormDescriptor> m_DictFormStatus;
+//        Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
 
+/*
         List<string> m_listPropNamesAdj = new List<string>()
         {
             "AdjL_M_Sg_N", "AdjL_M_Sg_A_Inanim", "AdjL_M_Sg_A_Anim", "AdjL_M_Sg_G", "AdjL_M_Sg_P", "AdjL_M_Sg_D",
@@ -78,6 +79,7 @@ namespace ZalTestApp
             "PPastPL_N_Sg_D", "PPastPL_N_Sg_I", "PPastPL_Pl_N", "PPastPL_Pl_A_Anim", "PPastPL_Pl_A_Inanim", "PPastPL_Pl_G",
             "PPastPL_Pl_P", "PPastPL_Pl_D", "PPastPL_Pl_I", "PPastPS_M", "PPastPS_F", "PPastPS_N", "PPastPS_Pl"
         };
+*/
 
         #region ICommand
         private ICommand m_BackCommand;
@@ -121,7 +123,7 @@ namespace ZalTestApp
 
         #endregion
 
-        private CLexemeManaged m_Lexeme;
+//        private CLexemeManaged m_Lexeme;
         public CLexemeManaged Parent
         {
             get
@@ -177,6 +179,7 @@ namespace ZalTestApp
             }
         }
 
+/*
         string GetForms(string sFormHash)
         {
             if (!m_DictFormStatus.ContainsKey(sFormHash))
@@ -206,7 +209,7 @@ namespace ZalTestApp
 
             return sText;
         }
-
+*/
         EMark GetFormStatus(string sFormHash)
         {
             string sLexemeHash = m_Lexeme.sHash();
@@ -220,7 +223,7 @@ namespace ZalTestApp
             }
             return EMark.None;
         }
-
+/*
         void SetForms(string sHash, string sForms)
         {
             if (!m_DictFormStatus.ContainsKey(sHash))
@@ -236,13 +239,14 @@ namespace ZalTestApp
             fd.listComments = c;
             m_DictFormStatus[sHash] = fd;
         }
+*/
 
         #region Bindings_Long_Masculine_Sg
 
         public string AdjL_M_Sg_N
         {
-            get { return GetForms("AdjL_M_Sg_N"); }
-            set { SetForms("AdjL_M_Sg_N", value); }
+            get { return GetForm("AdjL_M_Sg_N"); }
+            set { SetForm("AdjL_M_Sg_N", value); }
         }
 
         private EMark m_eAdjL_M_Sg_N_Marks = EMark.None;
@@ -254,8 +258,8 @@ namespace ZalTestApp
 
         public string AdjL_M_Sg_A_Anim
         {
-            get { return GetForms("AdjL_M_Sg_A_Anim"); }
-            set { SetForms("AdjL_M_Sg_A_Anim", value); }
+            get { return GetForm("AdjL_M_Sg_A_Anim"); }
+            set { SetForm("AdjL_M_Sg_A_Anim", value); }
         }
 
         private EMark m_eAdjL_M_Sg_A_Anim_Marks = EMark.None;
@@ -267,8 +271,8 @@ namespace ZalTestApp
 
         public string AdjL_M_Sg_A_Inanim
         {
-            get { return GetForms("AdjL_M_Sg_A_Inanim"); }
-            set { SetForms("AdjL_M_Sg_A_Inanim", value); }
+            get { return GetForm("AdjL_M_Sg_A_Inanim"); }
+            set { SetForm("AdjL_M_Sg_A_Inanim", value); }
         }
 
         private EMark m_eAdjL_M_Sg_A_Inanim_Marks = EMark.None;
@@ -280,8 +284,8 @@ namespace ZalTestApp
 
         public string AdjL_M_Sg_G
         {
-            get { return GetForms("AdjL_M_Sg_G"); }
-            set { SetForms("AdjL_M_Sg_G", value); }
+            get { return GetForm("AdjL_M_Sg_G"); }
+            set { SetForm("AdjL_M_Sg_G", value); }
         }
 
         private EMark m_eAdjL_M_Sg_G_Marks = EMark.None;
@@ -293,8 +297,8 @@ namespace ZalTestApp
 
         public string AdjL_M_Sg_P
         {
-            get { return GetForms("AdjL_M_Sg_P"); }
-            set { SetForms("AdjL_M_Sg_P", value); }
+            get { return GetForm("AdjL_M_Sg_P"); }
+            set { SetForm("AdjL_M_Sg_P", value); }
         }
 
         private EMark m_eAdjL_M_Sg_P_Marks = EMark.None;
@@ -306,8 +310,8 @@ namespace ZalTestApp
 
         public string AdjL_M_Sg_D
         {
-            get { return GetForms("AdjL_M_Sg_D"); }
-            set { SetForms("AdjL_M_Sg_D", value); }
+            get { return GetForm("AdjL_M_Sg_D"); }
+            set { SetForm("AdjL_M_Sg_D", value); }
         }
 
         private EMark m_eAdjL_M_Sg_D_Marks = EMark.None;
@@ -319,8 +323,8 @@ namespace ZalTestApp
 
         public string AdjL_M_Sg_I
         {
-            get { return GetForms("AdjL_M_Sg_I"); }
-            set { SetForms("AdjL_M_Sg_I", value); }
+            get { return GetForm("AdjL_M_Sg_I"); }
+            set { SetForm("AdjL_M_Sg_I", value); }
         }
 
         private EMark m_eAdjL_M_Sg_I_Marks = EMark.None;
@@ -336,8 +340,8 @@ namespace ZalTestApp
 
         public string AdjL_F_Sg_N
         {
-            get { return GetForms("AdjL_F_Sg_N"); }
-            set { SetForms("AdjL_F_Sg_N", value); }
+            get { return GetForm("AdjL_F_Sg_N"); }
+            set { SetForm("AdjL_F_Sg_N", value); }
         }
 
         private EMark m_eAdjL_F_Sg_N_Marks = EMark.None;
@@ -349,8 +353,8 @@ namespace ZalTestApp
 
         public string AdjL_F_Sg_A
         {
-            get { return GetForms("AdjL_F_Sg_A"); }
-            set { SetForms("AdjL_F_Sg_A", value); }
+            get { return GetForm("AdjL_F_Sg_A"); }
+            set { SetForm("AdjL_F_Sg_A", value); }
         }
 
         private EMark m_eAdjL_F_Sg_A_Marks = EMark.None;
@@ -362,8 +366,8 @@ namespace ZalTestApp
 
         public string AdjL_F_Sg_G
         {
-            get { return GetForms("AdjL_F_Sg_G"); }
-            set { SetForms("AdjL_F_Sg_G", value); }
+            get { return GetForm("AdjL_F_Sg_G"); }
+            set { SetForm("AdjL_F_Sg_G", value); }
         }
 
         private EMark m_eAdjL_F_Sg_G_Marks = EMark.None;
@@ -375,8 +379,8 @@ namespace ZalTestApp
 
         public string AdjL_F_Sg_P
         {
-            get { return GetForms("AdjL_F_Sg_P"); }
-            set { SetForms("AdjL_F_Sg_P", value); }
+            get { return GetForm("AdjL_F_Sg_P"); }
+            set { SetForm("AdjL_F_Sg_P", value); }
         }
 
         private EMark m_eAdjL_F_Sg_P_Marks = EMark.None;
@@ -388,8 +392,8 @@ namespace ZalTestApp
 
         public string AdjL_F_Sg_D
         {
-            get { return GetForms("AdjL_F_Sg_D"); }
-            set { SetForms("AdjL_F_Sg_D", value); }
+            get { return GetForm("AdjL_F_Sg_D"); }
+            set { SetForm("AdjL_F_Sg_D", value); }
         }
 
         private EMark m_eAdjL_F_Sg_D_Marks = EMark.None;
@@ -401,8 +405,8 @@ namespace ZalTestApp
 
         public string AdjL_F_Sg_I
         {
-            get { return GetForms("AdjL_F_Sg_I"); }
-            set { SetForms("AdjL_F_Sg_I", value); }
+            get { return GetForm("AdjL_F_Sg_I"); }
+            set { SetForm("AdjL_F_Sg_I", value); }
         }
 
         private EMark m_eAdjL_F_Sg_I_Marks = EMark.None;
@@ -418,8 +422,8 @@ namespace ZalTestApp
 
         public string AdjL_N_Sg_N
         {
-            get { return GetForms("AdjL_N_Sg_N"); }
-            set { SetForms("AdjL_N_Sg_N", value); }
+            get { return GetForm("AdjL_N_Sg_N"); }
+            set { SetForm("AdjL_N_Sg_N", value); }
         }
 
         private EMark m_eAdjL_N_Sg_N_Marks = EMark.None;
@@ -431,8 +435,8 @@ namespace ZalTestApp
 
         public string AdjL_N_Sg_A
         {
-            get { return GetForms("AdjL_N_Sg_A"); }
-            set { SetForms("AdjL_N_Sg_A", value); }
+            get { return GetForm("AdjL_N_Sg_A"); }
+            set { SetForm("AdjL_N_Sg_A", value); }
         }
 
         private EMark m_eAdjL_N_Sg_A_Marks = EMark.None;
@@ -444,8 +448,8 @@ namespace ZalTestApp
 
         public string AdjL_N_Sg_G
         {
-            get { return GetForms("AdjL_N_Sg_G"); }
-            set { SetForms("AdjL_N_Sg_G", value); }
+            get { return GetForm("AdjL_N_Sg_G"); }
+            set { SetForm("AdjL_N_Sg_G", value); }
         }
 
         private EMark m_eAdjL_N_Sg_G_Marks = EMark.None;
@@ -457,8 +461,8 @@ namespace ZalTestApp
 
         public string AdjL_N_Sg_P
         {
-            get { return GetForms("AdjL_N_Sg_P"); }
-            set { SetForms("AdjL_N_Sg_P", value); }
+            get { return GetForm("AdjL_N_Sg_P"); }
+            set { SetForm("AdjL_N_Sg_P", value); }
         }
 
         private EMark m_eAdjL_N_Sg_P_Marks = EMark.None;
@@ -470,8 +474,8 @@ namespace ZalTestApp
 
         public string AdjL_N_Sg_D
         {
-            get { return GetForms("AdjL_N_Sg_D"); }
-            set { SetForms("AdjL_N_Sg_D", value); }
+            get { return GetForm("AdjL_N_Sg_D"); }
+            set { SetForm("AdjL_N_Sg_D", value); }
         }
 
         private EMark m_eAdjL_N_Sg_D_Marks = EMark.None;
@@ -483,8 +487,8 @@ namespace ZalTestApp
 
         public string AdjL_N_Sg_I
         {
-            get { return GetForms("AdjL_N_Sg_I"); }
-            set { SetForms("AdjL_N_Sg_I", value); }
+            get { return GetForm("AdjL_N_Sg_I"); }
+            set { SetForm("AdjL_N_Sg_I", value); }
         }
 
         private EMark m_eAdjL_N_Sg_I_Marks = EMark.None;
@@ -500,8 +504,8 @@ namespace ZalTestApp
 
         public string AdjL_Pl_N
         {
-            get { return GetForms("AdjL_Pl_N"); }
-            set { SetForms("AdjL_Pl_N", value); }
+            get { return GetForm("AdjL_Pl_N"); }
+            set { SetForm("AdjL_Pl_N", value); }
         }
 
         private EMark m_eAdjL_Pl_N_Marks = EMark.None;
@@ -513,8 +517,8 @@ namespace ZalTestApp
 
         public string AdjL_Pl_A_Anim
         {
-            get { return GetForms("AdjL_Pl_A_Anim"); }
-            set { SetForms("AdjL_Pl_A_Anim", value); }
+            get { return GetForm("AdjL_Pl_A_Anim"); }
+            set { SetForm("AdjL_Pl_A_Anim", value); }
         }
 
         private EMark m_eAdjL_Pl_A_Anim_Marks = EMark.None;
@@ -526,8 +530,8 @@ namespace ZalTestApp
 
         public string AdjL_Pl_A_Inanim
         {
-            get { return GetForms("AdjL_Pl_A_Inanim"); }
-            set { SetForms("AdjL_Pl_A_Inanim", value); }
+            get { return GetForm("AdjL_Pl_A_Inanim"); }
+            set { SetForm("AdjL_Pl_A_Inanim", value); }
         }
 
         private EMark m_eAdjL_Pl_A_Inanim_Marks = EMark.None;
@@ -539,8 +543,8 @@ namespace ZalTestApp
 
         public string AdjL_Pl_G
         {
-            get { return GetForms("AdjL_Pl_G"); }
-            set { SetForms("AdjL_Pl_G", value); }
+            get { return GetForm("AdjL_Pl_G"); }
+            set { SetForm("AdjL_Pl_G", value); }
         }
 
         private EMark m_eAdjL_Pl_G_Marks = EMark.None;
@@ -552,8 +556,8 @@ namespace ZalTestApp
 
         public string AdjL_Pl_P
         {
-            get { return GetForms("AdjL_Pl_P"); }
-            set { SetForms("AdjL_Pl_P", value); }
+            get { return GetForm("AdjL_Pl_P"); }
+            set { SetForm("AdjL_Pl_P", value); }
         }
 
         private EMark m_eAdjL_Pl_P_Marks = EMark.None;
@@ -565,8 +569,8 @@ namespace ZalTestApp
 
         public string AdjL_Pl_D
         {
-            get { return GetForms("AdjL_Pl_D"); }
-            set { SetForms("AdjL_Pl_D", value); }
+            get { return GetForm("AdjL_Pl_D"); }
+            set { SetForm("AdjL_Pl_D", value); }
         }
 
         private EMark m_eAdjL_Pl_D_Marks = EMark.None;
@@ -578,8 +582,8 @@ namespace ZalTestApp
 
         public string AdjL_Pl_I
         {
-            get { return GetForms("AdjL_Pl_I"); }
-            set { SetForms("AdjL_Pl_I", value); }
+            get { return GetForm("AdjL_Pl_I"); }
+            set { SetForm("AdjL_Pl_I", value); }
         }
 
         private EMark m_eAdjL_Pl_I_Marks = EMark.None;
@@ -595,8 +599,8 @@ namespace ZalTestApp
 
         public string AdjS_M
         {
-            get { return GetForms("AdjS_M"); }
-            set { SetForms("AdjS_M", value); }
+            get { return GetForm("AdjS_M"); }
+            set { SetForm("AdjS_M", value); }
         }
 
         private EMark m_eAdjS_M_Marks = EMark.None;
@@ -608,8 +612,8 @@ namespace ZalTestApp
 
         public string AdjS_F
         {
-            get { return GetForms("AdjS_F"); }
-            set { SetForms("AdjS_F", value); }
+            get { return GetForm("AdjS_F"); }
+            set { SetForm("AdjS_F", value); }
         }
 
         private EMark m_eAdjS_F_Marks = EMark.None;
@@ -621,8 +625,8 @@ namespace ZalTestApp
 
         public string AdjS_N
         {
-            get { return GetForms("AdjS_N"); }
-            set { SetForms("AdjS_N", value); }
+            get { return GetForm("AdjS_N"); }
+            set { SetForm("AdjS_N", value); }
         }
 
         private EMark m_eAdjS_N_Marks = EMark.None;
@@ -634,8 +638,8 @@ namespace ZalTestApp
 
         public string AdjS_Pl
         {
-            get { return GetForms("AdjS_Pl"); }
-            set { SetForms("AdjS_Pl", value); }
+            get { return GetForm("AdjS_Pl"); }
+            set { SetForm("AdjS_Pl", value); }
         }
 
         private EMark m_eAdjS_Pl_Marks = EMark.None;
@@ -651,8 +655,8 @@ namespace ZalTestApp
 
         public string AdjComp
         {
-            get { return GetForms("AdjComp"); }
-            set { SetForms("AdjComp", value); }
+            get { return GetForm("AdjComp"); }
+            set { SetForm("AdjComp", value); }
         }
 
         private EMark m_eAdjComp_Marks = EMark.None;
@@ -676,6 +680,136 @@ namespace ZalTestApp
             }
         }
 
+        public bool AdjL_M_Sg_N_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_N", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_M_Sg_A_Inanim_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_A_Inanim", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_M_Sg_A_Anim_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_A_Anim", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_M_Sg_G_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_G", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_M_Sg_P_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_P", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_M_Sg_D_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_D", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_M_Sg_I_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_I", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_F_Sg_N_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_N", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_F_Sg_A_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_A", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_F_Sg_G_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_G", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_F_Sg_P_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_P", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_F_Sg_D_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_D", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_F_Sg_I_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_I", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_N_Sg_N_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_N", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_N_Sg_A_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_A", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_N_Sg_G_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_G", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_N_Sg_P_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_P", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_N_Sg_D_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_D", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_N_Sg_I_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_I", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_Pl_N_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_N", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_M_Pl_A_Inanim_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Pl_A_Inanim", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_M_Pl_A_Anim_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Pl_A_Anim", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_N_Pl_G_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Pl_G", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_N_Pl_P_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Pl_P", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_N_Pl_D_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Pl_D", out f); return f != null && f.listForms.Count > 1; }
+        }
+
+        public bool AdjL_N_Pl_I_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Pl_I", out f); return f != null && f.listForms.Count > 1; }
+        }
+
         #endregion
 
         #region Data_Acquisition
@@ -694,46 +828,35 @@ namespace ZalTestApp
 
             foreach (string sHash in listGramHashes)
             {
-//                FormDescriptor fd = new FormDescriptor(null, null, false, false, null);
-                FormDescriptor fd = new FormDescriptor(null, null, false, false);
+                FormsForGramHash formsPerHash = new FormsForGramHash();
                 List<string> listForms = null;
-                bool bRet = m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
-                if (!bRet)
+                if (!m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms))
                 {
                     continue;
                 }
 
-                fd.listForms = listForms;
-
-                if (m_MainModel.bIsIrregular(sLexemeHash, sHash))
+                foreach (string sForm in listForms)
                 {
-                    List<Tuple<string, string>> listComments;
-                    bRet = m_MainModel.GetFormComments(sLexemeHash, sHash, out listComments);
-                    if (!bRet || listComments.Count != listForms.Count)
+                    FormDescriptor fd = new FormDescriptor();
+                    fd.sFormText = sForm;
+                    if (m_MainModel.bIsIrregular(sLexemeHash, sHash))
                     {
-                        MessageBox.Show("Internal error: unable to retrieve form comments.");
+                        fd.IsIrregular = true;
                     }
-                    fd.listComments = listComments;
+                    else
+                    {
+                        fd.IsIrregular = false;
+                    }
+
+                    formsPerHash.listForms.Add(fd);
                 }
 
-//                fd.handler = () =>
-//                {
-//                    FormDescriptor fd1 = m_DictFormStatus[sFormHashToDisplayHash(sHash)];
-//                    var sFormString1 = Helpers.sListToCommaSeparatedString(fd1.listForms);
-//                    Helpers.AssignDiacritics(sFormString1, ref sFormString1);
-                    //                    OnPropertyChanged(hash);
-//                    return true;
-//                };
-
-                var sFormString = Helpers.sListToCommaSeparatedString(fd.listForms);
-                Helpers.AssignDiacritics(sFormString, ref sFormString);
+                formsPerHash.iCurrentForm = 0;
 
                 var keyIdx = listGramHashes.IndexOf(sHash);
                 if (keyIdx < 0)
                 {
-                    string sMsg = "Unable to find gram hash key; illegal hash value: ";
-                    sMsg += sHash;
-                    MessageBox.Show(sMsg);
+                    MessageBox.Show(String.Format("Unable to find gram hash key; illegal hash value: ", sHash));
                     continue;
                 }
 
@@ -744,15 +867,11 @@ namespace ZalTestApp
                 }
                 catch (Exception ex)
                 {
-                    string sMsg = "Unable to find paradigm hash string; illegal hash value: ";
-                    sMsg += sHash;
-                    sMsg += "; ";
-                    sMsg += ex.Message;
-                    MessageBox.Show(sMsg);
+                    MessageBox.Show(String.Format("Unable to find paradigm hash string; illegal hash value: {0}", sHash));
+                    continue;
                 }
 
-                m_DictFormStatus.Add(sParadigmHash, fd);
-                m_DictOriginalForms.Add(sParadigmHash, fd.listForms);
+                m_DictFormStatus[sHash] = formsPerHash;
             }
         }       //  private void InitFormDictionary()
 
@@ -770,7 +889,7 @@ namespace ZalTestApp
             m_eSubparadigm = eSubparadigm;
             IsDerived = false;
 
-            m_DictFormStatus = new Dictionary<string, FormDescriptor>();
+            m_DictFormStatus = new Dictionary<string, FormsForGramHash>();
             InitFormDictionary();
 
             PropertyChanged += adjViewModel_PropertyChanged;
@@ -786,6 +905,7 @@ namespace ZalTestApp
             BackButtonEvent?.Invoke();
         }
 
+/*
         private EM_ReturnCode CreateIrregularWordForm(string sForm, string sGramHash, ref CWordFormManaged wf)
         {
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
@@ -838,7 +958,9 @@ namespace ZalTestApp
             return EM_ReturnCode.H_NO_ERROR;
 
         }       //  CreateIrregularWordForm()
+*/
 
+/*
         public void SaveForms(Object obj)
         {
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
@@ -951,6 +1073,7 @@ namespace ZalTestApp
             MessageBox.Show("Формы сохранены.");
 
         }       //  SaveForms()
+*/
 
         public void adjViewModel_PropertyChanged(object sender, PropertyChangedEventArgs arg)
         {
@@ -964,19 +1087,19 @@ namespace ZalTestApp
                 return;
             }
 
-            try
-            {
+//            try
+//            {
 //                ChangedFormHandler handler = null;
-                FormDescriptor fd = m_DictFormStatus[sFormHash];
+//                FormDescriptor fd = m_DictFormStatus[sFormHash];
 //                handler = fd.handler;
 //                var ret = handler();
-            }
-            catch (Exception ex)
-            {
-                var msg = "Internal error: unable to invoke word form change handler: ";
-                msg += ex.Message;
-                MessageBox.Show(msg);
-            }
+//            }
+//            catch (Exception ex)
+//            {
+//                var msg = "Internal error: unable to invoke word form change handler: ";
+//                msg += ex.Message;
+//                MessageBox.Show(msg);
+//            }
         }
 
         #region Helpers
@@ -1043,70 +1166,71 @@ namespace ZalTestApp
             }
         }       //  GetGramHashes()
 
-        private string sFormHashToDisplayHash(string sFormHash)
-        {
-            int iKeyIdx = -1;
-            try
-            {
-                if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
+
+        /*
+                private string sFormHashToDisplayHash(string sFormHash)
                 {
-                    if ("мс" == m_Lexeme.sInflectionType())
+                    int iKeyIdx = -1;
+                    try
                     {
-                        iKeyIdx = m_listPropNamesPronAdj.IndexOf(sFormHash);
+                        if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
+                        {
+                            if ("мс" == m_Lexeme.sInflectionType())
+                            {
+                                iKeyIdx = m_listPropNamesPronAdj.IndexOf(sFormHash);
+                            }
+                            else
+                            {
+                                iKeyIdx = m_listPropNamesAdj.IndexOf(sFormHash);
+                            }
+                        }
+
+                        if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ)
+                        {
+                            iKeyIdx = m_listPropNamesPronAdj.IndexOf(sFormHash);
+                        }
+                        else if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
+                        {
+                            IsDerived = true;
+
+                            switch (m_eSubparadigm)
+                            {
+                                case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
+                                    iKeyIdx = m_listPropNamesPartPresAct.IndexOf(sFormHash);
+                                    break;
+
+                                case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
+                                    iKeyIdx = m_listPropNamesPartPastAct.IndexOf(sFormHash);
+                                    break;
+
+                                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
+                                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
+                                    iKeyIdx = m_listPropNamesPartPresPass.IndexOf(sFormHash);
+                                    break;
+
+                                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
+                                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
+                                    iKeyIdx = m_listPropNamesPartPastPass.IndexOf(sFormHash);
+                                    break;
+
+                                default:
+                                    MessageBox.Show("Illegal subparadigm.");
+                                    break;
+                            }
+                        }
+
+                        return m_listPropNamesAdj[iKeyIdx];
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        iKeyIdx = m_listPropNamesAdj.IndexOf(sFormHash);
+                        string sMsg = "Unable to find form hash. ";
+                        sMsg += ex.Message;
+                        MessageBox.Show(sMsg);
                     }
+
+                    return "";
                 }
-
-                if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ)
-                {
-                    iKeyIdx = m_listPropNamesPronAdj.IndexOf(sFormHash);
-                }
-                else if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
-                {
-                    IsDerived = true;
-
-                    switch (m_eSubparadigm)
-                    {
-                        case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
-                            iKeyIdx = m_listPropNamesPartPresAct.IndexOf(sFormHash);
-                            break;
-
-                        case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
-                            iKeyIdx = m_listPropNamesPartPastAct.IndexOf(sFormHash);
-                            break;
-
-                        case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
-                        case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
-                            iKeyIdx = m_listPropNamesPartPresPass.IndexOf(sFormHash);
-                            break;
-
-                        case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
-                        case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
-                            iKeyIdx = m_listPropNamesPartPastPass.IndexOf(sFormHash);
-                            break;
-
-                        default:
-                            MessageBox.Show("Illegal subparadigm.");
-                            break;
-                    }
-                }
-
-                return m_listPropNamesAdj[iKeyIdx];
-            }
-            catch (Exception ex)
-            {
-                string sMsg = "Unable to find form hash. ";
-                sMsg += ex.Message;
-                MessageBox.Show(sMsg);
-            }
-
-            return "";
-        }
-
-        #endregion
-
+        */
+#endregion
     }       //  public class AdjViewModel ...
 }       //  namespace ZalTestApp
