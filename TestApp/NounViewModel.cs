@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Windows.Input;
 using System.Collections.Generic;
 
@@ -15,53 +14,6 @@ namespace ZalTestApp
         public event BackButtonHandler BackButtonEvent;
 
         public delegate void EditButtonHandler();
-
-        MainModel m_MainModel = null;
-        CLexemeManaged m_Lexeme = null;
-
-/*
-        private delegate bool ChangedFormHandler();
-        struct FormDescriptor
-        {
-            public List<string> listForms { get; set; }
-//            public bool bCanEdit { get; set; }
-            public ChangedFormHandler handler { get; set; }
-            public bool IsIrregular { get; set; }
-            public bool IsEdited { get; set; }
-
-            public FormDescriptor(List<string> list, bool bIrregular, bool bEdited, ChangedFormHandler h)
-            {
-                listForms = list;
-                IsIrregular = bIrregular;
-                IsEdited = bEdited;
-                handler = h;
-            }
-        }
-*/
-
-        List<string> m_listPropNamesNoun = new List<string>()
-        {
-            "Noun_Sg_N", "Noun_Sg_A", "Noun_Sg_G", "Noun_Sg_P", "Noun_Sg_D", "Noun_Sg_P2",
-            "Noun_Sg_I", "Noun_Sg_Part", "Noun_Pl_N", "Noun_Pl_A", "Noun_Pl_G", "Noun_Pl_P",
-            "Noun_Pl_D", "Noun_Pl_L", "Noun_Pl_I"
-        };
-
-        List<string> m_listPropNamesPronoun = new List<string>()
-        {
-            "Pronoun_Sg_N", "Pronoun_Sg_A", "Pronoun_Sg_G", "Pronoun_Sg_P", "Pronoun_Sg_D", "Pronoun_Sg_P2",
-            "Pronoun_Sg_I", "Pronoun_Sg_Part", "Pronoun_Pl_N", "Pronoun_Pl_A", "Pronoun_Pl_G", "Pronoun_Pl_P",
-            "Pronoun_Pl_D", "Pronoun_Pl_L", "Pronoun_Pl_I"
-        };
-
-        List<string> m_listPropNamesNumeral = new List<string>()
-        {
-            "Numeral_Sg_N", "Numeral_Sg_A", "Numeral_Sg_G", "Numeral_Sg_P", "Numeral_Sg_D", "Numeral_Sg_P2",
-            "Numeral_Sg_I", "Numeral_Sg_Part", "Numeral_Pl_N", "Numeral_Pl_A", "Numeral_Pl_G", "Numeral_Pl_P",
-            "Numeral_Pl_D", "Numeral_Pl_L", "Numeral_Pl_I"
-        };
-
-        Dictionary<string, FormsForGramHash> m_DictFormStatus = new Dictionary<string, FormsForGramHash>();
-//                  ^-- gram hash  --> list of possibly multiple forms for that hash
 
         #region ICommand
 
@@ -175,54 +127,16 @@ namespace ZalTestApp
             }
         }
 
-        string GetForm(string sHash)
-        {
-            string sFormHash = sDisplayHashToFormHash(sHash);
-            if (!m_DictFormStatus.ContainsKey(sFormHash))
-            {
-                return "";
-            }
-
-            var formsForHash = m_DictFormStatus[sFormHash];
-            int iAt = formsForHash.iCurrentForm;
-            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
-            {
-                MessageBox.Show("Internal error: Illegal form index.");
-                return "Error";
-            }
-
-            return formsForHash.listForms[iAt].sFormText;
-
-//  TODO: comment
-
-        }
-
-        void SetForm(string sHash, string sForm)
-        {
-            if (!m_DictFormStatus.ContainsKey(sHash))
-            {
-                return;
-            }
-
-            Helpers.AssignDiacritics(sForm, ref sForm);
-
-            var formsForHash = m_DictFormStatus[sHash];
-            int iAt = formsForHash.iCurrentForm;
-            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
-            {
-                MessageBox.Show("Internal error: Illegal form index.");
-                return;
-            }
-
-            formsForHash.listForms[iAt].sFormText = sForm;
-
-        }
-
         EMark GetFormStatus(string sDisplayHash)
         {
             string sFormHash = sDisplayHashToFormHash(sDisplayHash);
             string sLexemeHash = m_Lexeme.sHash();
-            var formsForHash = m_DictFormStatus[sFormHash];
+            FormsForGramHash formsForHash = null;
+            if (!m_DictFormStatus.TryGetValue(sFormHash, out formsForHash))
+            {
+                return EMark.None;
+            }
+
             int iAt = formsForHash.iCurrentForm;
             if (iAt < 0 || iAt >= formsForHash.listForms.Count)
             {
@@ -476,72 +390,72 @@ namespace ZalTestApp
 
         public bool Noun_Sg_N_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_N", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_N", out f); return f != null && f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_A_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_A", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_A", out f); return f != null && f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_G_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_G", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_G", out f); return f != null && f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_P_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_P", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_P", out f); return f != null && f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_D_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_D", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_D", out f); return f != null && f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_I_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_I", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_I", out f); return f != null && f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_Part_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_Part", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_Part", out f); return f != null && f != null && f.listForms.Count > 1; }
         }
 
         public bool Noun_Sg_P2_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_P2", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_P2", out f); return f != null && f.listForms.Count > 1; }
         }
 
         public bool Noun_Pl_N_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_N", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_N", out f); return f != null && f.listForms.Count > 1; }
         }
 
         public bool Noun_Pl_A_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_A", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_A", out f); return f != null && f.listForms.Count > 1; }
         }
 
         public bool Noun_Pl_G_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_G", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_G", out f); return f != null && f.listForms.Count > 1; }
         }
 
         public bool Noun_Pl_P_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_P", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_P", out f); return f != null && f.listForms.Count > 1; }
         }
 
         public bool Noun_Pl_D_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_D", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_D", out f); return f != null && f.listForms.Count > 1; }
         }
 
         public bool Noun_Pl_I_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_I", out f); return f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_I", out f); return f != null && f.listForms.Count > 1; }
         }
 
         #endregion
@@ -584,7 +498,11 @@ namespace ZalTestApp
                 {
                     FormsForGramHash formsPerHash = new FormsForGramHash();
                     List<string> listForms = null;
-                    m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms);
+                    if (!m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms))
+                    {
+                        continue;
+                    }
+
                     foreach (string sForm in listForms)
                     {
                         FormDescriptor fd = new FormDescriptor();
@@ -601,8 +519,12 @@ namespace ZalTestApp
                         formsPerHash.listForms.Add(fd);
                     }
 
-                    m_DictFormStatus[sHash] = formsPerHash;
+                    if (formsPerHash.listForms.Count > 0)
+                    {
+                        formsPerHash.iCurrentForm = 0;
+                    }
 
+                    m_DictFormStatus[sHash] = formsPerHash;
                 }
             }
             catch (Exception ex)
@@ -688,6 +610,7 @@ namespace ZalTestApp
             FormComment = eddvm.DataString;
         }
 
+/*
         private EM_ReturnCode CreateIrregularWordForm(string sGramHash, 
                                                       string sForm, 
                                                       ref CWordFormManaged wf)
@@ -757,6 +680,8 @@ namespace ZalTestApp
             return EM_ReturnCode.H_NO_ERROR;
 
         }       //  CreateIrregularWordForm()
+*/
+/*
 
         public void SaveForms(Object obj)
         {
@@ -822,7 +747,7 @@ namespace ZalTestApp
             MessageBox.Show("Формы сохранены.");
 
         }       //  SaveForms()
-
+*/
         public void FormScrollUp(Object obj)
         {
             string sGramHash = obj as string;
@@ -863,112 +788,6 @@ namespace ZalTestApp
             {
                 return;
             }
-
-//            try
-//            {
-//                ChangedFormHandler handler = null;
-//                FormDescriptor fd = m_DictFormStatus[sFormHash];
-//                handler = fd.handler;
-//                var ret = handler();
-//            }
-//            catch (Exception ex)
-//            {
-//                var msg = "Internal error: unable to invoke word form change handler: ";
-//                msg += ex.Message;
-//                MessageBox.Show(msg);
-//            }
         }
-
-        private string sFormHashToDisplayHash(string sFormHash)
-        {
-            int iKeyIdx = -1;
-
-            try
-            {
-                switch (m_Lexeme.ePartOfSpeech())
-                {
-                    case EM_PartOfSpeech.POS_NOUN:
-                        iKeyIdx = m_listPropNamesNoun.IndexOf(sFormHash);
-                        break;
-
-                    case EM_PartOfSpeech.POS_PRONOUN:
-                        iKeyIdx = m_listPropNamesPronoun.IndexOf(sFormHash);
-                        break;
-
-                    case EM_PartOfSpeech.POS_NUM:
-                        iKeyIdx = m_listPropNamesNumeral.IndexOf(sFormHash);
-                        break;
-
-                    default:
-                        string sMsg = "Part of speech :";
-                        sMsg += m_Lexeme.ePartOfSpeech();
-                        sMsg += " was not recognized. ";
-                        MessageBox.Show(sMsg);
-                        return "";
-                }
-
-                return m_listPropNamesNoun[iKeyIdx];
-            }
-            catch (Exception ex)
-            {
-                string sMsg = "Exception while retrieving form hash: ";
-                sMsg += ex.Message;
-                MessageBox.Show(sMsg);
-                return "";
-            }
-
-            return "";
-
-        }       //  sFormHashToDisplayHash()
-
-        private string sDisplayHashToFormHash(string sDisplayHash)
-        {
-            int iKeyIdx = m_listPropNamesNoun.IndexOf(sDisplayHash);
-            if (iKeyIdx < 0)
-            {
-                string sMsg = $"Display hash {iKeyIdx} not recognized.";
-                MessageBox.Show(sMsg);
-                return "";
-            }
-
-            string sFormHash = "";
-            try
-            {
-                switch (m_Lexeme.ePartOfSpeech())
-                {
-                    case EM_PartOfSpeech.POS_NOUN:
-                        sFormHash = m_listPropNamesNoun[iKeyIdx];
-                        break;
-
-                    case EM_PartOfSpeech.POS_PRONOUN:
-                        sFormHash = m_listPropNamesPronoun[iKeyIdx];
-                        break;
-
-                    case EM_PartOfSpeech.POS_NUM:
-                        sFormHash = m_listPropNamesNumeral[iKeyIdx];
-                        break;
-
-                    default:
-                        string sMsg = "Part of speech :";
-                        sMsg += m_Lexeme.ePartOfSpeech();
-                        sMsg += " was not recognized. ";
-                        MessageBox.Show(sMsg);
-                        return "";
-                }
-
-                return sFormHash;
-            }
-            catch (Exception ex)
-            {
-                string sMsg = "Exception while retrieving form hash: ";
-                sMsg += ex.Message;
-                MessageBox.Show(sMsg);
-                return "";
-            }
-
-            return "";
-
-        }       //  sDisplayHashToFormHash()
-
     }       //  public class NounViewModel ...
 }
