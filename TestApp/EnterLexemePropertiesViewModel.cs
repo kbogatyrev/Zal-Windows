@@ -17,7 +17,6 @@ namespace ZalTestApp
         public delegate void ShowParadigmForEditHandler(CLexemeManaged l);
         public event ShowParadigmForEditHandler ShowParadigmForEditEvent;
 
-        CLexemeManaged m_Lexeme;
         HashSet<string> m_PropertiesChanged;
         string[] HeadwordProperties = { "SourceFormWithAccents", "Variant", "HeadwordComment", "IsPluralOf", "PluralOf", "SeeRef", "BackRef",
                                         "IsUnstressed", "IsVariant", "Usage" };
