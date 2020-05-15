@@ -275,7 +275,6 @@ namespace ZalTestApp
             }
         }
 
-        private MainModel m_MainModel;
 
         #region Properties
 

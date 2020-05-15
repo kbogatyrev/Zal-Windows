@@ -13,8 +13,6 @@ namespace ZalTestApp
 {
     public class RegressionGridViewModel : ViewModelBase
     {
-        MainModel m_MainModel = null;
-
         public delegate void BackButtonHandler();
         public event BackButtonHandler BackButtonEvent;
 

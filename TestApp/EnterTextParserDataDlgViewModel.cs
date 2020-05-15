@@ -13,7 +13,6 @@ namespace ZalTestApp
 {
     public class EnterTextParserDataDlgViewModel : ViewModelBase
     {
-        MainModel m_MainModel = null;
         string m_sTextName;
         string m_sSourceText;
         string m_sSourceMetadata;
