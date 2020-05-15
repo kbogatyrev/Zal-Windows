@@ -39,7 +39,6 @@ namespace ZalTestApp
     {
         public ObservableCollection<LexemeProperty> LexemeDetails { get; private set; }
 
-        private CLexemeManaged m_Lexeme = null;
         public CLexemeManaged Lexeme
         {
             get
