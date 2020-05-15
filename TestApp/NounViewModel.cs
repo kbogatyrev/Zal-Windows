@@ -10,6 +10,8 @@ namespace ZalTestApp
 {
     public class NounViewModel : ViewModelBase
     {
+        private EM_Subparadigm m_eSubparadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+
         public delegate void BackButtonHandler();
         public event BackButtonHandler BackButtonEvent;
 
@@ -30,6 +32,7 @@ namespace ZalTestApp
             }
         }
 
+/*
         private ICommand m_EditCommand;
         public ICommand EditCommand
         {
@@ -42,7 +45,7 @@ namespace ZalTestApp
                 m_EditCommand = value;
             }
         }
-
+*/
         private ICommand m_EditFormCommentCommand;
         public ICommand EditFormCommentCommand
         {
@@ -127,10 +130,56 @@ namespace ZalTestApp
             }
         }
 
+        private string GetForm(string sHash)
+        {
+            //            string sFormHash = sDisplayHashToFormHash(sHash);
+            string sFormHash = sHash;
+            if (!m_DictFormStatus.ContainsKey(sFormHash))
+            {
+                return "";
+            }
+
+            var formsForHash = m_DictFormStatus[sFormHash];
+            int iAt = formsForHash.iCurrentForm;
+            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
+            {
+                MessageBox.Show("Internal error: Illegal form index.");
+                return "Error";
+            }
+
+            return formsForHash.listForms[iAt].sFormText;
+
+            //  TODO: comment
+
+        }
+
+/*
+        private void SetForm(string sHash, string sForm)
+        {
+            if (!m_DictFormStatus.ContainsKey(sHash))
+            {
+                return;
+            }
+
+            Helpers.AssignDiacritics(sForm, ref sForm);
+
+            var formsForHash = m_DictFormStatus[sHash];
+            int iAt = formsForHash.iCurrentForm;
+            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
+            {
+                MessageBox.Show("Internal error: Illegal form index.");
+                return;
+            }
+
+            formsForHash.listForms[iAt].sFormText = sForm;
+
+        }
+*/
+
         EMark GetFormStatus(string sDisplayHash)
         {
-            string sFormHash = sDisplayHashToFormHash(sDisplayHash);
-            string sLexemeHash = m_Lexeme.sHash();
+            string sFormHash = Helpers.sDisplayHashToFormHash(sDisplayHash, m_eSubparadigm);
+//            string sLexemeHash = m_Lexeme.sHash();
             FormsForGramHash formsForHash = null;
             if (!m_DictFormStatus.TryGetValue(sFormHash, out formsForHash))
             {
@@ -472,15 +521,15 @@ namespace ZalTestApp
                 switch (m_Lexeme.ePartOfSpeech())
                 {
                     case EM_PartOfSpeech.POS_NOUN:
-                        listKeys = m_listPropNamesNoun;
+                        listKeys = Helpers.m_listPropNamesNoun;
                         break;
 
                     case EM_PartOfSpeech.POS_PRONOUN:
-                        listKeys = m_listPropNamesPronoun;
+                        listKeys = Helpers.m_listPropNamesPronoun;
                         break;
 
                     case EM_PartOfSpeech.POS_NUM:
-                        listKeys = m_listPropNamesNumeral;
+                        listKeys = Helpers.m_listPropNamesNumeral;
                         break;
 
                     default:
@@ -516,6 +565,25 @@ namespace ZalTestApp
                             fd.IsIrregular = false;
                         }
 
+                        switch (m_Lexeme.ePartOfSpeech())
+                        {
+                            case EM_PartOfSpeech.POS_NOUN:
+                                m_eSubparadigm = EM_Subparadigm.SUBPARADIGM_NOUN;
+                                break;
+
+                            case EM_PartOfSpeech.POS_PRONOUN:
+                                m_eSubparadigm = EM_Subparadigm.SUBPARADIGM_PRONOUN;
+                                break;
+
+                            case EM_PartOfSpeech.POS_NUM:
+                                m_eSubparadigm = EM_Subparadigm.SUBPARADIGM_NUM;
+                                break;
+
+                            default:
+                                MessageBox.Show("Illegal part of speech value.");
+                                return false;
+                        }
+                        
                         formsPerHash.listForms.Add(fd);
                     }
 
@@ -544,7 +612,7 @@ namespace ZalTestApp
         public NounViewModel(CLexemeManaged lexeme, MainModel m)
         {
             BackCommand = new RelayCommand(new Action<object>(GoBack));
-            EditCommand = new RelayCommand(new Action<object>(EditForm));
+//            EditCommand = new RelayCommand(new Action<object>(EditForm));
             EditFormCommentCommand = new RelayCommand(new Action<object>(EditFormComment));
             SaveFormsCommand = new RelayCommand(new Action<object>(SaveForms));
             FormScrollUpCommand = new RelayCommand(new Action<object>(FormScrollUp));
@@ -556,8 +624,7 @@ namespace ZalTestApp
 
             InitFormHandlers();
 
-            PropertyChanged += nounViewModel_PropertyChanged;
-
+//            PropertyChanged += nounViewModel_PropertyChanged;
         }
 
         public void GoBack(Object obj)
@@ -565,6 +632,7 @@ namespace ZalTestApp
             BackButtonEvent?.Invoke();
         }
 
+/*
         public void EditForm(Object obj)
         {
             var sPropName = obj as string;
@@ -584,7 +652,7 @@ namespace ZalTestApp
                 MessageBox.Show(msg);
             }
         }       //  EditForm()
-
+*/
         public void EditFormComment(Object obj)
         {
             // Currently disabled
@@ -610,144 +678,228 @@ namespace ZalTestApp
             FormComment = eddvm.DataString;
         }
 
-/*
-        private EM_ReturnCode CreateIrregularWordForm(string sGramHash, 
-                                                      string sForm, 
-                                                      ref CWordFormManaged wf)
-        {
-            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
-
-            eRet = m_Lexeme.eCreateWordForm(ref wf);
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
-            {
-                MessageBox.Show("Unable to create a word form.");
-                return eRet;
-            }
-
-            wf.SetPos(m_Lexeme.ePartOfSpeech());
-
-            EM_Number eNumber = EM_Number.NUM_UNDEFINED;
-            eRet = Helpers.eGramHashToNumber(sGramHash, ref eNumber);
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
-            {
-                wf.SetNumber(eNumber);
-            }
-
-            EM_Case eCase = EM_Case.CASE_UNDEFINED;
-            EM_Animacy eAnimacy = EM_Animacy.ANIM_UNDEFINED;
-            eRet = Helpers.eGramHashToCase(sGramHash, ref eCase, ref eAnimacy);
-            if (eRet == EM_ReturnCode.H_NO_ERROR)
-            {
-                wf.SetCase(eCase);
-                wf.SetAnimacy(eAnimacy);
-            }
-
-            EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
-
-            switch (m_Lexeme.ePartOfSpeech())
-            {
-                case EM_PartOfSpeech.POS_NOUN:
-                    eSp = EM_Subparadigm.SUBPARADIGM_NOUN;
-                    break;
-
-                case EM_PartOfSpeech.POS_PRONOUN:
-                    eSp = EM_Subparadigm.SUBPARADIGM_PRONOUN;
-                    break;
-
-                case EM_PartOfSpeech.POS_NUM:
-                    eSp = EM_Subparadigm.SUBPARADIGM_NUM;
-                    break;
-
-                default:
-                    MessageBox.Show("Illegal part of speech value.");
-                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
-            }
-
-            wf.SetSubparadigm(eSp);
-
-            string sOutForm = "";
-            Dictionary<int, EM_StressType> dictStressPos;
-            Helpers.StressMarksToPosList(sForm, out sOutForm, out dictStressPos);
-            wf.SetWordForm(sOutForm);
-            eRet = wf.eSetIrregularStressPositions(dictStressPos);
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
-            {
-                var msg = "Internal error: unable to save stress positions";
-                MessageBox.Show(msg);
-                return eRet;
-            }
-
-            return EM_ReturnCode.H_NO_ERROR;
-
-        }       //  CreateIrregularWordForm()
-*/
-/*
-
-        public void SaveForms(Object obj)
-        {
-            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
-
-            foreach (KeyValuePair<string, FormsForGramHash> entry in m_DictFormStatus)
-            {
-                FormsForGramHash formsPerHash = entry.Value;
-                if (formsPerHash.listForms.Count < 1)
+        /*
+                private EM_ReturnCode CreateIrregularWordForm(string sGramHash, 
+                                                              string sForm, 
+                                                              ref CWordFormManaged wf)
                 {
-                    MessageBox.Show("Internal error: no forms for {0}.", entry.Key);
-                    continue;
-                }
+                    EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
 
-                // Purge all irregular forms with this gram hash from the DB
-                string sGramHash = sDisplayHashToFormHash(entry.Key);
-                eRet = m_Lexeme.eDeleteIrregularForm(sGramHash);
-                if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_FALSE)
-                {
-                    var msg = "Internal error: unable to save wordform object";
-                    MessageBox.Show(msg);
-                    continue;
-                }
-
-                CWordFormManaged wf = null;
-                bool isVariant = false;
-                foreach (var descriptor in formsPerHash.listForms)
-                {
-                    try
+                    eRet = m_Lexeme.eCreateWordForm(ref wf);
+                    if (eRet != EM_ReturnCode.H_NO_ERROR)
                     {
-                        string sForm = descriptor.sFormText;
-                        eRet = CreateIrregularWordForm(sGramHash, sForm, ref wf);
-                        if (eRet != EM_ReturnCode.H_NO_ERROR)
-                        {
-                            var msg = "Internal error: unable to create word form object.";
-                            MessageBox.Show(msg);
-                            continue;
-                        }
-
-                        wf.SetIsVariant(isVariant);
-
-                        isVariant = true;       // for subsequent forms if they exist
-
-// TODO: comments
-
-                        eRet = m_Lexeme.eSaveIrregularForm(wf.sGramHash(), ref wf);
-                        if (eRet != EM_ReturnCode.H_NO_ERROR)
-                        {
-                            var msg = "Internal error: unable to save word form.";
-                            MessageBox.Show(msg);
-                            continue;
-                        }
+                        MessageBox.Show("Unable to create a word form.");
+                        return eRet;
                     }
-                    catch (Exception ex)
+
+                    wf.SetPos(m_Lexeme.ePartOfSpeech());
+
+                    EM_Number eNumber = EM_Number.NUM_UNDEFINED;
+                    eRet = Helpers.eGramHashToNumber(sGramHash, ref eNumber);
+                    if (eRet != EM_ReturnCode.H_NO_ERROR)
                     {
-                        var msg = string.Format("Exception: {0}.", ex.Message);
+                        wf.SetNumber(eNumber);
+                    }
+
+                    EM_Case eCase = EM_Case.CASE_UNDEFINED;
+                    EM_Animacy eAnimacy = EM_Animacy.ANIM_UNDEFINED;
+                    eRet = Helpers.eGramHashToCase(sGramHash, ref eCase, ref eAnimacy);
+                    if (eRet == EM_ReturnCode.H_NO_ERROR)
+                    {
+                        wf.SetCase(eCase);
+                        wf.SetAnimacy(eAnimacy);
+                    }
+
+                    EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+
+                    switch (m_Lexeme.ePartOfSpeech())
+                    {
+                        case EM_PartOfSpeech.POS_NOUN:
+                            eSp = EM_Subparadigm.SUBPARADIGM_NOUN;
+                            break;
+
+                        case EM_PartOfSpeech.POS_PRONOUN:
+                            eSp = EM_Subparadigm.SUBPARADIGM_PRONOUN;
+                            break;
+
+                        case EM_PartOfSpeech.POS_NUM:
+                            eSp = EM_Subparadigm.SUBPARADIGM_NUM;
+                            break;
+
+                        default:
+                            MessageBox.Show("Illegal part of speech value.");
+                            return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                    }
+
+                    wf.SetSubparadigm(eSp);
+
+                    string sOutForm = "";
+                    Dictionary<int, EM_StressType> dictStressPos;
+                    Helpers.StressMarksToPosList(sForm, out sOutForm, out dictStressPos);
+                    wf.SetWordForm(sOutForm);
+                    eRet = wf.eSetIrregularStressPositions(dictStressPos);
+                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    {
+                        var msg = "Internal error: unable to save stress positions";
                         MessageBox.Show(msg);
-                        return;
+                        return eRet;
                     }
+
+                    return EM_ReturnCode.H_NO_ERROR;
+
+                }       //  CreateIrregularWordForm()
+        */
+        /*
+
+                public void SaveForms(Object obj)
+                {
+                    EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+
+                    foreach (KeyValuePair<string, FormsForGramHash> entry in m_DictFormStatus)
+                    {
+                        FormsForGramHash formsPerHash = entry.Value;
+                        if (formsPerHash.listForms.Count < 1)
+                        {
+                            MessageBox.Show("Internal error: no forms for {0}.", entry.Key);
+                            continue;
+                        }
+
+                        // Purge all irregular forms with this gram hash from the DB
+                        string sGramHash = sDisplayHashToFormHash(entry.Key);
+                        eRet = m_Lexeme.eDeleteIrregularForm(sGramHash);
+                        if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_FALSE)
+                        {
+                            var msg = "Internal error: unable to save wordform object";
+                            MessageBox.Show(msg);
+                            continue;
+                        }
+
+                        CWordFormManaged wf = null;
+                        bool isVariant = false;
+                        foreach (var descriptor in formsPerHash.listForms)
+                        {
+                            try
+                            {
+                                string sForm = descriptor.sFormText;
+                                eRet = CreateIrregularWordForm(sGramHash, sForm, ref wf);
+                                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                                {
+                                    var msg = "Internal error: unable to create word form object.";
+                                    MessageBox.Show(msg);
+                                    continue;
+                                }
+
+                                wf.SetIsVariant(isVariant);
+
+                                isVariant = true;       // for subsequent forms if they exist
+
+        // TODO: comments
+
+                                eRet = m_Lexeme.eSaveIrregularForm(wf.sGramHash(), ref wf);
+                                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                                {
+                                    var msg = "Internal error: unable to save word form.";
+                                    MessageBox.Show(msg);
+                                    continue;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                var msg = string.Format("Exception: {0}.", ex.Message);
+                                MessageBox.Show(msg);
+                                return;
+                            }
+                        }
+                    }       // for (int iAt = 0...
+
+                    MessageBox.Show("Формы сохранены.");
+
+                }       //  SaveForms()
+        */
+        private string sFormHashToDisplayHash(string sFormHash)
+        {
+            int iKeyIdx = -1;
+
+            try
+            {
+                switch (m_Lexeme.ePartOfSpeech())
+                {
+                    case EM_PartOfSpeech.POS_NOUN:
+                        iKeyIdx = Helpers.m_listPropNamesNoun.IndexOf(sFormHash);
+                        break;
+
+                    case EM_PartOfSpeech.POS_PRONOUN:
+                        iKeyIdx = Helpers.m_listPropNamesPronoun.IndexOf(sFormHash);
+                        break;
+
+                    case EM_PartOfSpeech.POS_NUM:
+                        iKeyIdx = Helpers.m_listPropNamesNumeral.IndexOf(sFormHash);
+                        break;
+
+                    default:
+                        MessageBox.Show(String.Format("Part of speech: {0} was not recognized.", m_Lexeme.ePartOfSpeech()));
+                        return "";
                 }
-            }       // for (int iAt = 0...
 
-            MessageBox.Show("Формы сохранены.");
+                return Helpers.m_listPropNamesNoun[iKeyIdx];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(String.Format("Exception while retrieving form hash: {0}.", sFormHash));
+                return "";
+            }
+        }       //  sFormHashToDisplayHash()
 
-        }       //  SaveForms()
-*/
+/*
+        private string sDisplayHashToFormHash(string sDisplayHash)
+        {
+            int iKeyIdx = m_listPropNamesNoun.IndexOf(sDisplayHash);
+            if (iKeyIdx < 0)
+            {
+                string sMsg = $"Display hash {iKeyIdx} not recognized.";
+                MessageBox.Show(sMsg);
+                return "";
+            }
+
+            string sFormHash = "";
+            try
+            {
+                switch (m_Lexeme.ePartOfSpeech())
+                {
+                    case EM_PartOfSpeech.POS_NOUN:
+                        sFormHash = m_listPropNamesNoun[iKeyIdx];
+                        break;
+
+                    case EM_PartOfSpeech.POS_PRONOUN:
+                        sFormHash = m_listPropNamesPronoun[iKeyIdx];
+                        break;
+
+                    case EM_PartOfSpeech.POS_NUM:
+                        sFormHash = m_listPropNamesNumeral[iKeyIdx];
+                        break;
+
+                    default:
+                        string sMsg = "Part of speech :";
+                        sMsg += m_Lexeme.ePartOfSpeech();
+                        sMsg += " was not recognized. ";
+                        MessageBox.Show(sMsg);
+                        return "";
+                }
+
+                return sFormHash;
+            }
+            catch (Exception ex)
+            {
+                string sMsg = "Exception while retrieving form hash: ";
+                sMsg += ex.Message;
+                MessageBox.Show(sMsg);
+                return "";
+            }
+
+            return "";
+
+        }       //  sDisplayHashToFormHash()
+        
         public void FormScrollUp(Object obj)
         {
             string sGramHash = obj as string;
@@ -789,5 +941,6 @@ namespace ZalTestApp
                 return;
             }
         }
+*/
     }       //  public class NounViewModel ...
 }

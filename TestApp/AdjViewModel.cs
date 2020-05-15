@@ -245,7 +245,7 @@ namespace ZalTestApp
 
         public string AdjL_M_Sg_N
         {
-            get { return GetForm("AdjL_M_Sg_N"); }
+            get { return GetForm("AdjL_M_Sg_N", Subparadigm); }
             set { SetForm("AdjL_M_Sg_N", value); }
         }
 
@@ -258,7 +258,7 @@ namespace ZalTestApp
 
         public string AdjL_M_Sg_A_Anim
         {
-            get { return GetForm("AdjL_M_Sg_A_Anim"); }
+            get { return GetForm("AdjL_M_Sg_A_Anim", Subparadigm); }
             set { SetForm("AdjL_M_Sg_A_Anim", value); }
         }
 
@@ -271,7 +271,7 @@ namespace ZalTestApp
 
         public string AdjL_M_Sg_A_Inanim
         {
-            get { return GetForm("AdjL_M_Sg_A_Inanim"); }
+            get { return GetForm("AdjL_M_Sg_A_Inanim", Subparadigm); }
             set { SetForm("AdjL_M_Sg_A_Inanim", value); }
         }
 
@@ -284,7 +284,7 @@ namespace ZalTestApp
 
         public string AdjL_M_Sg_G
         {
-            get { return GetForm("AdjL_M_Sg_G"); }
+            get { return GetForm("AdjL_M_Sg_G", Subparadigm); }
             set { SetForm("AdjL_M_Sg_G", value); }
         }
 
@@ -297,7 +297,7 @@ namespace ZalTestApp
 
         public string AdjL_M_Sg_P
         {
-            get { return GetForm("AdjL_M_Sg_P"); }
+            get { return GetForm("AdjL_M_Sg_P", Subparadigm); }
             set { SetForm("AdjL_M_Sg_P", value); }
         }
 
@@ -310,7 +310,7 @@ namespace ZalTestApp
 
         public string AdjL_M_Sg_D
         {
-            get { return GetForm("AdjL_M_Sg_D"); }
+            get { return GetForm("AdjL_M_Sg_D", Subparadigm); }
             set { SetForm("AdjL_M_Sg_D", value); }
         }
 
@@ -323,7 +323,7 @@ namespace ZalTestApp
 
         public string AdjL_M_Sg_I
         {
-            get { return GetForm("AdjL_M_Sg_I"); }
+            get { return GetForm("AdjL_M_Sg_I", Subparadigm); }
             set { SetForm("AdjL_M_Sg_I", value); }
         }
 
@@ -340,7 +340,7 @@ namespace ZalTestApp
 
         public string AdjL_F_Sg_N
         {
-            get { return GetForm("AdjL_F_Sg_N"); }
+            get { return GetForm("AdjL_F_Sg_N", Subparadigm); }
             set { SetForm("AdjL_F_Sg_N", value); }
         }
 
@@ -353,7 +353,7 @@ namespace ZalTestApp
 
         public string AdjL_F_Sg_A
         {
-            get { return GetForm("AdjL_F_Sg_A"); }
+            get { return GetForm("AdjL_F_Sg_A", Subparadigm); }
             set { SetForm("AdjL_F_Sg_A", value); }
         }
 
@@ -366,7 +366,7 @@ namespace ZalTestApp
 
         public string AdjL_F_Sg_G
         {
-            get { return GetForm("AdjL_F_Sg_G"); }
+            get { return GetForm("AdjL_F_Sg_G", Subparadigm); }
             set { SetForm("AdjL_F_Sg_G", value); }
         }
 
@@ -379,7 +379,7 @@ namespace ZalTestApp
 
         public string AdjL_F_Sg_P
         {
-            get { return GetForm("AdjL_F_Sg_P"); }
+            get { return GetForm("AdjL_F_Sg_P", Subparadigm); }
             set { SetForm("AdjL_F_Sg_P", value); }
         }
 
@@ -392,7 +392,7 @@ namespace ZalTestApp
 
         public string AdjL_F_Sg_D
         {
-            get { return GetForm("AdjL_F_Sg_D"); }
+            get { return GetForm("AdjL_F_Sg_D", Subparadigm); }
             set { SetForm("AdjL_F_Sg_D", value); }
         }
 
@@ -405,7 +405,7 @@ namespace ZalTestApp
 
         public string AdjL_F_Sg_I
         {
-            get { return GetForm("AdjL_F_Sg_I"); }
+            get { return GetForm("AdjL_F_Sg_I", Subparadigm); }
             set { SetForm("AdjL_F_Sg_I", value); }
         }
 
@@ -422,7 +422,7 @@ namespace ZalTestApp
 
         public string AdjL_N_Sg_N
         {
-            get { return GetForm("AdjL_N_Sg_N"); }
+            get { return GetForm("AdjL_N_Sg_N", Subparadigm); }
             set { SetForm("AdjL_N_Sg_N", value); }
         }
 
@@ -435,7 +435,7 @@ namespace ZalTestApp
 
         public string AdjL_N_Sg_A
         {
-            get { return GetForm("AdjL_N_Sg_A"); }
+            get { return GetForm("AdjL_N_Sg_A", Subparadigm); }
             set { SetForm("AdjL_N_Sg_A", value); }
         }
 
@@ -448,7 +448,7 @@ namespace ZalTestApp
 
         public string AdjL_N_Sg_G
         {
-            get { return GetForm("AdjL_N_Sg_G"); }
+            get { return GetForm("AdjL_N_Sg_G", Subparadigm); }
             set { SetForm("AdjL_N_Sg_G", value); }
         }
 
@@ -461,7 +461,7 @@ namespace ZalTestApp
 
         public string AdjL_N_Sg_P
         {
-            get { return GetForm("AdjL_N_Sg_P"); }
+            get { return GetForm("AdjL_N_Sg_P", Subparadigm); }
             set { SetForm("AdjL_N_Sg_P", value); }
         }
 
@@ -474,7 +474,7 @@ namespace ZalTestApp
 
         public string AdjL_N_Sg_D
         {
-            get { return GetForm("AdjL_N_Sg_D"); }
+            get { return GetForm("AdjL_N_Sg_D", Subparadigm); }
             set { SetForm("AdjL_N_Sg_D", value); }
         }
 
@@ -487,7 +487,7 @@ namespace ZalTestApp
 
         public string AdjL_N_Sg_I
         {
-            get { return GetForm("AdjL_N_Sg_I"); }
+            get { return GetForm("AdjL_N_Sg_I", Subparadigm); }
             set { SetForm("AdjL_N_Sg_I", value); }
         }
 
@@ -504,7 +504,7 @@ namespace ZalTestApp
 
         public string AdjL_Pl_N
         {
-            get { return GetForm("AdjL_Pl_N"); }
+            get { return GetForm("AdjL_Pl_N", Subparadigm); }
             set { SetForm("AdjL_Pl_N", value); }
         }
 
@@ -517,7 +517,7 @@ namespace ZalTestApp
 
         public string AdjL_Pl_A_Anim
         {
-            get { return GetForm("AdjL_Pl_A_Anim"); }
+            get { return GetForm("AdjL_Pl_A_Anim", Subparadigm); }
             set { SetForm("AdjL_Pl_A_Anim", value); }
         }
 
@@ -530,7 +530,7 @@ namespace ZalTestApp
 
         public string AdjL_Pl_A_Inanim
         {
-            get { return GetForm("AdjL_Pl_A_Inanim"); }
+            get { return GetForm("AdjL_Pl_A_Inanim", Subparadigm); }
             set { SetForm("AdjL_Pl_A_Inanim", value); }
         }
 
@@ -543,7 +543,7 @@ namespace ZalTestApp
 
         public string AdjL_Pl_G
         {
-            get { return GetForm("AdjL_Pl_G"); }
+            get { return GetForm("AdjL_Pl_G", Subparadigm); }
             set { SetForm("AdjL_Pl_G", value); }
         }
 
@@ -556,7 +556,7 @@ namespace ZalTestApp
 
         public string AdjL_Pl_P
         {
-            get { return GetForm("AdjL_Pl_P"); }
+            get { return GetForm("AdjL_Pl_P", Subparadigm); }
             set { SetForm("AdjL_Pl_P", value); }
         }
 
@@ -569,7 +569,7 @@ namespace ZalTestApp
 
         public string AdjL_Pl_D
         {
-            get { return GetForm("AdjL_Pl_D"); }
+            get { return GetForm("AdjL_Pl_D", Subparadigm); }
             set { SetForm("AdjL_Pl_D", value); }
         }
 
@@ -582,7 +582,7 @@ namespace ZalTestApp
 
         public string AdjL_Pl_I
         {
-            get { return GetForm("AdjL_Pl_I"); }
+            get { return GetForm("AdjL_Pl_I", Subparadigm); }
             set { SetForm("AdjL_Pl_I", value); }
         }
 
@@ -599,7 +599,7 @@ namespace ZalTestApp
 
         public string AdjS_M
         {
-            get { return GetForm("AdjS_M"); }
+            get { return GetForm("AdjS_M", Subparadigm); }
             set { SetForm("AdjS_M", value); }
         }
 
@@ -612,7 +612,7 @@ namespace ZalTestApp
 
         public string AdjS_F
         {
-            get { return GetForm("AdjS_F"); }
+            get { return GetForm("AdjS_F", Subparadigm); }
             set { SetForm("AdjS_F", value); }
         }
 
@@ -625,7 +625,7 @@ namespace ZalTestApp
 
         public string AdjS_N
         {
-            get { return GetForm("AdjS_N"); }
+            get { return GetForm("AdjS_N", Subparadigm); }
             set { SetForm("AdjS_N", value); }
         }
 
@@ -638,7 +638,7 @@ namespace ZalTestApp
 
         public string AdjS_Pl
         {
-            get { return GetForm("AdjS_Pl"); }
+            get { return GetForm("AdjS_Pl", Subparadigm); }
             set { SetForm("AdjS_Pl", value); }
         }
 
@@ -655,7 +655,7 @@ namespace ZalTestApp
 
         public string AdjComp
         {
-            get { return GetForm("AdjComp"); }
+            get { return GetForm("AdjComp", Subparadigm); }
             set { SetForm("AdjComp", value); }
         }
 
@@ -863,7 +863,7 @@ namespace ZalTestApp
                 string sParadigmHash = null;    // use standard adj gram hashes regardless of part of speech
                 try
                 {
-                    sParadigmHash = m_listPropNamesAdj[keyIdx];
+                    sParadigmHash = Helpers.m_listPropNamesAdj[keyIdx];
                 }
                 catch (Exception ex)
                 {
@@ -1114,21 +1114,21 @@ namespace ZalTestApp
             {
                 if ("мс" == m_Lexeme.sInflectionType())
                 {
-                    listKeys = m_listPropNamesPronAdj;
+                    listKeys = Helpers.m_listPropNamesPronAdj;
                 }
                 else
                 {
-                    listKeys = m_listPropNamesAdj;
+                    listKeys = Helpers.m_listPropNamesAdj;
                 }
             }
 
             if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ)
             {
-                listKeys = m_listPropNamesPronAdj;
+                listKeys = Helpers.m_listPropNamesPronAdj;
             }
             if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NUM_ADJ)
             {
-                listKeys = m_listPropNamesNumAdj;
+                listKeys = Helpers.m_listPropNamesNumAdj;
             }
             else if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
             {
@@ -1137,21 +1137,21 @@ namespace ZalTestApp
                 switch (m_eSubparadigm)
                 {
                     case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
-                        listKeys = m_listPropNamesPartPresAct;
+                        listKeys = Helpers.m_listPropNamesPartPresAct;
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
-                        listKeys = m_listPropNamesPartPastAct;
+                        listKeys = Helpers.m_listPropNamesPartPastAct;
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
                     case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
-                        listKeys = m_listPropNamesPartPresPass;
+                        listKeys = Helpers.m_listPropNamesPartPresPass;
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
                     case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
-                        listKeys = m_listPropNamesPartPastPass;
+                        listKeys = Helpers.m_listPropNamesPartPastPass;
                         break;
 
                     default:
