@@ -13,74 +13,6 @@ namespace ZalTestApp
         public delegate void BackButtonHandler();
         public event BackButtonHandler BackButtonEvent;
 
-//        MainModel m_MainModel = null;
-
-//        private delegate bool ChangedFormHandler();
-
-//        Dictionary<string, FormDescriptor> m_DictFormStatus;
-//        Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
-
-/*
-        List<string> m_listPropNamesAdj = new List<string>()
-        {
-            "AdjL_M_Sg_N", "AdjL_M_Sg_A_Inanim", "AdjL_M_Sg_A_Anim", "AdjL_M_Sg_G", "AdjL_M_Sg_P", "AdjL_M_Sg_D",
-            "AdjL_M_Sg_I", "AdjL_F_Sg_N", "AdjL_F_Sg_A", "AdjL_F_Sg_G", "AdjL_F_Sg_P", "AdjL_F_Sg_D", "AdjL_F_Sg_I",
-            "AdjL_N_Sg_N", "AdjL_N_Sg_A", "AdjL_N_Sg_G", "AdjL_N_Sg_P", "AdjL_N_Sg_D", "AdjL_N_Sg_I", "AdjL_Pl_N",
-            "AdjL_Pl_A_Inanim", "AdjL_Pl_A_Anim", "AdjL_Pl_G", "AdjL_Pl_P", "AdjL_Pl_D", "AdjL_Pl_I",
-            "AdjS_M", "AdjS_F", "AdjS_N", "AdjS_Pl", "AdjComp"
-        };
-
-        List<string> m_listPropNamesPronAdj = new List<string>()
-        {
-            "PronAdj_M_Sg_N", "PronAdj_M_Sg_A_Inanim", "PronAdj_M_Sg_A_Anim", "PronAdj_M_Sg_G", "PronAdj_M_Sg_P", "PronAdj_M_Sg_D",
-            "PronAdj_M_Sg_I", "PronAdj_F_Sg_N", "PronAdj_F_Sg_A", "PronAdj_F_Sg_G", "PronAdj_F_Sg_P", "PronAdj_F_Sg_D", "PronAdj_F_Sg_I",
-            "PronAdj_N_Sg_N", "PronAdj_N_Sg_A", "PronAdj_N_Sg_G", "PronAdj_N_Sg_P", "PronAdj_N_Sg_D", "PronAdj_N_Sg_I", "PronAdj_Pl_N",
-            "PronAdj_Pl_A_Inanim", "PronAdj_Pl_A_Anim",  "PronAdj_Pl_G", "PronAdj_Pl_P", "PronAdj_Pl_D", "PronAdj_Pl_I"
-        };
-
-        List<string> m_listPropNamesNumAdj = new List<string>()
-        {
-            "NumAdj_M_Sg_N", "NumAdj_M_Sg_A_Inanim", "NumAdj_M_Sg_A_Anim", "NumAdj_M_Sg_G", "NumAdj_M_Sg_P", "NumAdj_M_Sg_D",
-            "NumAdj_M_Sg_I", "NumAdj_F_Sg_N", "NumAdj_F_Sg_A", "NumAdj_F_Sg_G", "NumAdj_F_Sg_P", "NumAdj_F_Sg_D", "NumAdj_F_Sg_I",
-            "NumAdj_N_Sg_N", "NumAdj_N_Sg_A", "NumAdj_N_Sg_G", "NumAdj_N_Sg_P", "NumAdj_N_Sg_D", "NumAdj_N_Sg_I", "NumAdj_Pl_N",
-            "NumAdj_Pl_A_Inanim", "NumAdj_Pl_A_Anim",  "NumAdj_Pl_G", "NumAdj_Pl_P", "NumAdj_Pl_D", "NumAdj_Pl_I"
-        };
-
-        List<string> m_listPropNamesPartPresAct = new List<string>()
-        {
-            "PPresA_M_Sg_N", "PPresA_M_Sg_A_Inanim", "PPresA_M_Sg_A_Anim", "PPresA_M_Sg_G", "PPresA_M_Sg_P", "PPresA_M_Sg_D",
-            "PPresA_M_Sg_I", "PPresA_F_Sg_N", "PPresA_F_Sg_A", "PPresA_F_Sg_G", "PPresA_F_Sg_P", "PPresA_F_Sg_D", "PPresA_F_Sg_I",
-            "PPresA_N_Sg_N", "PPresA_N_Sg_A", "PPresA_N_Sg_G", "PPresA_N_Sg_P", "PPresA_N_Sg_D", "PPresA_N_Sg_I", "PPresA_Pl_N",
-            "PPresA_Pl_A_Inanim", "PPresA_Pl_A_Anim", "PPresA_Pl_G", "PPresA_Pl_P", "PPresA_Pl_D", "PPresA_Pl_I"
-        };
-
-        List<string> m_listPropNamesPartPastAct = new List<string>()
-        {
-            "PPastA_M_Sg_N", "PPastA_M_Sg_A_Inanim", "PPastA_M_Sg_A_Anim", "PPastA_M_Sg_G", "PPastA_M_Sg_P", "PPastA_M_Sg_D",
-            "PPastA_M_Sg_I", "PPastA_F_Sg_N", "PPastA_F_Sg_A", "PPastA_F_Sg_G", "PPastA_F_Sg_P", "PPastA_F_Sg_D", "PPastA_F_Sg_I",
-            "PPastA_N_Sg_N", "PPastA_N_Sg_A", "PPastA_N_Sg_G", "PPastA_N_Sg_P", "PPastA_N_Sg_D", "PPastA_N_Sg_I", "PPastA_Pl_N",
-            "PPastA_Pl_A_Anim", "PPastA_Pl_A_Inanim", "PPastA_Pl_G", "PPastA_Pl_P", "PPastA_Pl_D", "PPastA_Pl_I"
-        };
-
-        List<string> m_listPropNamesPartPresPass = new List<string>()
-        {
-            "PPresPL_M_Sg_N", "PPresPL_M_Sg_A_Anim", "PPresPL_M_Sg_A_Inanim", "PPresPL_M_Sg_G", "PPresPL_M_Sg_P",
-            "PPresPL_M_Sg_D", "PPresPL_M_Sg_I", "PPresPL_F_Sg_N", "PPresPL_F_Sg_A", "PPresPL_F_Sg_G", "PPresPL_F_Sg_P",
-            "PPresPL_F_Sg_D", "PPresPL_F_Sg_I", "PPresPL_N_Sg_N", "PPresPL_N_Sg_A", "PPresPL_N_Sg_G", "PPresPL_N_Sg_P",
-            "PPresPL_N_Sg_D", "PPresPL_N_Sg_I", "PPresPL_Pl_N", "PPresPL_Pl_A_Anim", "PPresPL_Pl_A_Inanim", "PPresPL_Pl_G",
-            "PPresPL_Pl_P", "PPresPL_Pl_D", "PPresPL_Pl_I", "PPresPS_M", "PPresPS_F", "PPresPS_N", "PPresPS_Pl"
-        };
-
-        List<string> m_listPropNamesPartPastPass = new List<string>()
-        {
-            "PPastPL_M_Sg_N", "PPastPL_M_Sg_A_Anim", "PPastPL_M_Sg_A_Inanim", "PPastPL_M_Sg_G", "PPastPL_M_Sg_P",
-            "PPastPL_M_Sg_D", "PPastPL_M_Sg_I", "PPastPL_F_Sg_N", "PPastPL_F_Sg_A", "PPastPL_F_Sg_G", "PPastPL_F_Sg_P",
-            "PPastPL_F_Sg_D", "PPastPL_F_Sg_I", "PPastPL_N_Sg_N", "PPastPL_N_Sg_A", "PPastPL_N_Sg_G", "PPastPL_N_Sg_P",
-            "PPastPL_N_Sg_D", "PPastPL_N_Sg_I", "PPastPL_Pl_N", "PPastPL_Pl_A_Anim", "PPastPL_Pl_A_Inanim", "PPastPL_Pl_G",
-            "PPastPL_Pl_P", "PPastPL_Pl_D", "PPastPL_Pl_I", "PPastPS_M", "PPastPS_F", "PPastPS_N", "PPastPS_Pl"
-        };
-*/
-
         #region ICommand
         private ICommand m_BackCommand;
         public ICommand BackCommand
@@ -121,9 +53,35 @@ namespace ZalTestApp
             }
         }
 
+        private ICommand m_FormScrollUpCommand;
+        public ICommand FormScrollUpCommand
+        {
+            get
+            {
+                return m_FormScrollUpCommand;
+            }
+            set
+            {
+                m_FormScrollUpCommand = value;
+            }
+        }
+
+        private ICommand m_FormScrollDownCommand;
+        public ICommand FormScrollDownCommand
+        {
+            get
+            {
+                return m_FormScrollDownCommand;
+            }
+            set
+            {
+                m_FormScrollDownCommand = value;
+            }
+        }
+
         #endregion
 
-//        private CLexemeManaged m_Lexeme;
+        //        private CLexemeManaged m_Lexeme;
         public CLexemeManaged Parent
         {
             get
@@ -780,34 +738,34 @@ namespace ZalTestApp
             get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_N", out f); return f != null && f.listForms.Count > 1; }
         }
 
-        public bool AdjL_M_Pl_A_Inanim_HasMultipleForms
+        public bool AdjL_Pl_A_Inanim_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Pl_A_Inanim", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_A_Inanim", out f); return f != null && f.listForms.Count > 1; }
         }
 
-        public bool AdjL_M_Pl_A_Anim_HasMultipleForms
+        public bool AdjL_Pl_A_Anim_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Pl_A_Anim", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_A_Anim", out f); return f != null && f.listForms.Count > 1; }
         }
 
-        public bool AdjL_N_Pl_G_HasMultipleForms
+        public bool AdjL_Pl_G_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Pl_G", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_G", out f); return f != null && f.listForms.Count > 1; }
         }
 
-        public bool AdjL_N_Pl_P_HasMultipleForms
+        public bool AdjL_Pl_P_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Pl_P", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_P", out f); return f != null && f.listForms.Count > 1; }
         }
 
-        public bool AdjL_N_Pl_D_HasMultipleForms
+        public bool AdjL_Pl_D_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Pl_D", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_D", out f); return f != null && f.listForms.Count > 1; }
         }
 
-        public bool AdjL_N_Pl_I_HasMultipleForms
+        public bool AdjL_Pl_I_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Pl_I", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_I", out f); return f != null && f.listForms.Count > 1; }
         }
 
         #endregion
@@ -885,11 +843,13 @@ namespace ZalTestApp
             BackCommand = new RelayCommand(new Action<object>(GoBack));
 //            EditCommand = new RelayCommand(new Action<object>(EditForm));
             SaveFormsCommand = new RelayCommand(new Action<object>(SaveForms));
+            FormScrollUpCommand = new RelayCommand(new Action<object>(FormScrollUp));
+            FormScrollDownCommand = new RelayCommand(new Action<object>(FormScrollDown));
 
             m_eSubparadigm = eSubparadigm;
             IsDerived = false;
 
-            m_DictFormStatus = new Dictionary<string, FormsForGramHash>();
+//            m_DictFormStatus = new Dictionary<string, FormsForGramHash>();
             InitFormDictionary();
 
             PropertyChanged += adjViewModel_PropertyChanged;
