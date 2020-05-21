@@ -16,8 +16,8 @@ namespace ZalTestApp
         public delegate void ShowParticipleForms(CLexemeManaged l, EM_Subparadigm sp, ViewModelBase lvm);
         public event ShowParticipleForms ShowParticipleFormsEvent;
 
-        MainModel m_MainModel = null;
-        CLexemeManaged m_Lexeme = null;
+//        MainModel m_MainModel = null;
+//        CLexemeManaged m_Lexeme = null;
         ViewModelBase m_LexemeViewModel;
 
 //        private delegate bool ChangedFormHandler();
@@ -37,10 +37,8 @@ namespace ZalTestApp
         }
 */
 
-        Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
-        Dictionary<string, List<Tuple<string, string>>> m_DictOriginalComments = new Dictionary<string, List<Tuple<string, string>>>();
-        Dictionary<string, FormDescriptor> m_DictFormStatus = new Dictionary<string, FormDescriptor>()
-        {
+//        Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
+//        Dictionary<string, List<Tuple<string, string>>> m_DictOriginalComments = new Dictionary<string, List<Tuple<string, string>>>();
 /*
             {  "Infinitive", new FormDescriptor(null, null, false, false, null) },
             {  "Pres_Sg_1", new FormDescriptor(null, null, false, false, null) },
@@ -62,6 +60,7 @@ namespace ZalTestApp
             {  "PPresPL_M_Sg_N", new FormDescriptor(null, null, false, false, null) },
             {  "PPastPL_M_Sg_N", new FormDescriptor(null, null, false, false, null) },
 */
+/*
             {  "Infinitive", new FormDescriptor(null, null, false, false) },
             {  "Pres_Sg_1", new FormDescriptor(null, null, false, false) },
             {  "Pres_Sg_2", new FormDescriptor(null, null, false, false) },
@@ -82,7 +81,7 @@ namespace ZalTestApp
             {  "PPresPL_M_Sg_N", new FormDescriptor(null, null, false, false) },
             {  "PPastPL_M_Sg_N", new FormDescriptor(null, null, false, false) },
         };
-
+*/
         #region ICommand
         private ICommand m_BackCommand;
         public ICommand BackCommand
@@ -174,6 +173,34 @@ namespace ZalTestApp
                 m_ShowPastPassFormsCommand = value;
             }
         }
+
+        private ICommand m_FormScrollUpCommand;
+        public ICommand FormScrollUpCommand
+        {
+            get
+            {
+                return m_FormScrollUpCommand;
+            }
+            set
+            {
+                m_FormScrollUpCommand = value;
+            }
+        }
+
+        private ICommand m_FormScrollDownCommand;
+        public ICommand FormScrollDownCommand
+        {
+            get
+            {
+                return m_FormScrollDownCommand;
+            }
+            set
+            {
+                m_FormScrollDownCommand = value;
+            }
+        }
+
+
         #endregion
 
         string GetForms(string sFormHash)
@@ -183,27 +210,18 @@ namespace ZalTestApp
                 return "";
             }
 
-            var descriptor = m_DictFormStatus[sFormHash];
-            if (m_MainModel.bIsIrregular(m_Lexeme.sHash(), sFormHash))
+            var formsForHash = m_DictFormStatus[sFormHash];
+            int iAt = formsForHash.iCurrentForm;
+            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
             {
-                descriptor.IsIrregular = true;
-            }
-            else
-            {
-                descriptor.IsIrregular = false;
+                MessageBox.Show("Internal error: Illegal form index.");
+                return "Error";
             }
 
-            string sText = null;
-            if (null == descriptor.listComments)
-            {
-                sText = Helpers.sListToCommaSeparatedString(descriptor.listForms);
-            }
-            else
-            {
-                sText = Helpers.sListToCommaSeparatedString(descriptor.listForms, descriptor.listComments);
-            }
+            return formsForHash.listForms[iAt].sFormText;
 
-            return sText;
+            //  TODO: comment
+
         }
 
         EMark GetFormStatus(string sFormHash)
@@ -219,7 +237,7 @@ namespace ZalTestApp
             }
             return EMark.None;
         }
-
+/*
         void SetForms(string sHash, string sForms)
         {
             if (!m_DictFormStatus.ContainsKey(sHash))
@@ -236,6 +254,7 @@ namespace ZalTestApp
             m_DictFormStatus[sHash] = fd;
         }
 
+*/
         public CLexemeManaged Parent
         {
             get
@@ -264,8 +283,8 @@ namespace ZalTestApp
 
         public string Infinitive
         {
-            get { return GetForms("Infinitive"); }
-            set { SetForms("Infinitive", value); }
+            get { return GetForm("Infinitive", EM_Subparadigm.SUBPARADIGM_INFINITIVE); }
+            set { SetForm("Infinitive", value); }
         }
 
         private EMark m_eInfinitive_Marks = EMark.None;
@@ -279,8 +298,8 @@ namespace ZalTestApp
 
         public string Pres_Sg_1
         {
-            get { return GetForms("Pres_Sg_1"); }
-            set { SetForms("Pres_Sg_1", value); }
+            get { return GetForm("Pres_Sg_1", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
+            set { SetForm("Pres_Sg_1", value); }
         }
 
         private EMark m_ePres_Sg_1_Marks = EMark.None;
@@ -292,8 +311,8 @@ namespace ZalTestApp
 
         public string Pres_Sg_2
         {
-            get { return GetForms("Pres_Sg_2"); }
-            set { SetForms("Pres_Sg_2", value); }
+            get { return GetForm("Pres_Sg_2", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
+            set { SetForm("Pres_Sg_2", value); }
         }
 
         private EMark m_ePres_Sg_2_Marks = EMark.None;
@@ -305,8 +324,8 @@ namespace ZalTestApp
 
         public string Pres_Sg_3
         {
-            get { return GetForms("Pres_Sg_3"); }
-            set { SetForms("Pres_Sg_3", value); }
+            get { return GetForm("Pres_Sg_3", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
+            set { SetForm("Pres_Sg_3", value); }
         }
 
         private EMark m_ePres_Sg_3_Marks = EMark.None;
@@ -318,8 +337,8 @@ namespace ZalTestApp
 
         public string Pres_Pl_1
         {
-            get { return GetForms("Pres_Pl_1"); }
-            set { SetForms("Pres_Pl_1", value); }
+            get { return GetForm("Pres_Pl_1", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
+            set { SetForm("Pres_Pl_1", value); }
         }
 
         private EMark m_ePres_Pl_1_Marks = EMark.None;
@@ -331,8 +350,8 @@ namespace ZalTestApp
 
         public string Pres_Pl_2
         {
-            get { return GetForms("Pres_Pl_2"); }
-            set { SetForms("Pres_Pl_2", value); }
+            get { return GetForm("Pres_Pl_2", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
+            set { SetForm("Pres_Pl_2", value); }
         }
 
         private EMark m_ePres_Pl_2_Marks = EMark.None;
@@ -344,8 +363,8 @@ namespace ZalTestApp
 
         public string Pres_Pl_3
         {
-            get { return GetForms("Pres_Pl_3"); }
-            set { SetForms("Pres_Pl_3", value); }
+            get { return GetForm("Pres_Pl_3", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
+            set { SetForm("Pres_Pl_3", value); }
         }
 
         private EMark m_ePres_Pl_3_Marks = EMark.None;
@@ -360,8 +379,8 @@ namespace ZalTestApp
         #region Bindings_PastTense
         public string Past_M
         {
-            get { return GetForms("Past_M"); }
-            set { SetForms("Past_M", value); }
+            get { return GetForm("Past_M", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
+            set { SetForm("Past_M", value); }
         }
 
         private EMark m_ePast_M_Marks = EMark.None;
@@ -373,8 +392,8 @@ namespace ZalTestApp
 
         public string Past_F
         {
-            get { return GetForms("Past_F"); }
-            set { SetForms("Past_F", value); }
+            get { return GetForm("Past_F", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
+            set { SetForm("Past_F", value); }
         }
 
         private EMark m_ePast_F_Marks = EMark.None;
@@ -386,8 +405,8 @@ namespace ZalTestApp
 
         public string Past_N
         {
-            get { return GetForms("Past_N"); }
-            set { SetForms("Past_N", value); }
+            get { return GetForm("Past_N", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
+            set { SetForm("Past_N", value); }
         }
 
         private EMark m_ePast_N_Marks = EMark.None;
@@ -399,8 +418,8 @@ namespace ZalTestApp
 
         public string Past_Pl
         {
-            get { return GetForms("Past_Pl"); }
-            set { SetForms("Past_Pl", value); }
+            get { return GetForm("Past_Pl", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
+            set { SetForm("Past_Pl", value); }
         }
 
         private EMark m_ePast_Pl_Marks = EMark.None;
@@ -415,8 +434,8 @@ namespace ZalTestApp
         #region Bindings_Imperative
         public string Impv_Sg_2
         {
-            get { return GetForms("Impv_Sg_2"); }
-            set { SetForms("Impv_Sg_2", value); }
+            get { return GetForm("Impv_Sg_2", EM_Subparadigm.SUBPARADIGM_IMPERATIVE); }
+            set { SetForm("Impv_Sg_2", value); }
         }
 
         private EMark m_eImpv_Sg_2_Marks = EMark.None;
@@ -428,8 +447,8 @@ namespace ZalTestApp
 
         public string Impv_Pl_2
         {
-            get { return GetForms("Impv_Pl_2"); }
-            set { SetForms("Impv_Pl_2", value); }
+            get { return GetForm("Impv_Pl_2", EM_Subparadigm.SUBPARADIGM_IMPERATIVE); }
+            set { SetForm("Impv_Pl_2", value); }
         }
 
         private EMark m_eImpv_Pl_2_Marks = EMark.None;
@@ -445,8 +464,8 @@ namespace ZalTestApp
 
         public string PPresA_M_Sg_N
         {
-            get { return GetForms("PPresA_M_Sg_N"); }
-            set { SetForms("PPresA_M_Sg_N", value); }
+            get { return GetForm("PPresA_M_Sg_N", EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT); }
+            set { SetForm("PPresA_M_Sg_N", value); }
         }
 
         private EMark m_ePPresA_M_Sg_N_Marks = EMark.None;
@@ -472,8 +491,8 @@ namespace ZalTestApp
 
         public string PPastA_M_Sg_N
         {
-            get { return GetForms("PPastA_M_Sg_N"); }
-            set { SetForms("PPastA_M_Sg_N", value); }
+            get { return GetForm("PPastA_M_Sg_N", EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT); }
+            set { SetForm("PPastA_M_Sg_N", value); }
         }
 
         private EMark m_ePPastA_M_Sg_N_Marks = EMark.None;
@@ -499,8 +518,8 @@ namespace ZalTestApp
 
         public string PPresPL_M_Sg_N
         {
-            get { return GetForms("PPresPL_M_Sg_N"); }
-            set { SetForms("PPresPL_M_Sg_N", value); }
+            get { return GetForm("PPresPL_M_Sg_N", EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG); }
+            set { SetForm("PPresPL_M_Sg_N", value); }
         }
 
         private EMark m_ePPresPL_M_Sg_N_Marks = EMark.None;
@@ -526,8 +545,8 @@ namespace ZalTestApp
 
         public string PPastPL_M_Sg_N
         {
-            get { return GetForms("PPastPL_M_Sg_N"); }
-            set { SetForms("PPastPL_M_Sg_N", value); }
+            get { return GetForm("PPastPL_M_Sg_N", EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG); }
+            set { SetForm("PPastPL_M_Sg_N", value); }
         }
 
         private EMark m_ePPastPL_M_Sg_N_Marks = EMark.None;
@@ -553,8 +572,8 @@ namespace ZalTestApp
 
         public string VAdvPres
         {
-            get { return GetForms("VAdvPres"); }
-            set { SetForms("VAdvPres", value); }
+            get { return GetForm("VAdvPres", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT); }
+            set { SetForm("VAdvPres", value); }
         }
 
         private EMark m_eVAdvPres_Marks = EMark.None;
@@ -566,8 +585,8 @@ namespace ZalTestApp
 
         public string VAdvPast
         {
-            get { return GetForms("VAdvPast"); }
-            set { SetForms("VAdvPast", value); }
+            get { return GetForm("VAdvPast", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST); }
+            set { SetForm("VAdvPast", value); }
         }
 
         private EMark m_eVAdvPast_Marks = EMark.None;
@@ -593,71 +612,71 @@ namespace ZalTestApp
             }
         }
 
-        private void InitFormHandlers(CLexemeManaged lexeme)
+        private void InitFormDictionary(CLexemeManaged lexeme)
         {
-            string sLexemeHash = lexeme.sHash();
-            List<string> hashes = new List<string>(m_DictFormStatus.Keys);
+            string sLexemeHash = m_Lexeme.sHash();
 
-            try
+            List<string> listGramHashes = Helpers.m_listPropNamesVerbMainScreen;
+            foreach (string sHash in listGramHashes)
             {
-                foreach (var formHash in hashes)
+                FormsForGramHash formsPerHash = new FormsForGramHash();
+                List<string> listForms = null;
+                if (!m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms))
                 {
-                    FormDescriptor fd = m_DictFormStatus[formHash];
-                    List<string> listForms = null;
-                    m_MainModel.GetFormsByGramHash(sLexemeHash, formHash, out listForms);
-                    fd.listForms = listForms;
+                    continue;
+                }
 
-                    List<Tuple<string, string>> listComments = null;
-                    if (m_MainModel.bIsIrregular(sLexemeHash, formHash))
+                foreach (string sForm in listForms)
+                {
+                    FormDescriptor fd = new FormDescriptor();
+                    fd.sFormText = sForm;
+                    if (m_MainModel.bIsIrregular(sLexemeHash, sHash))
                     {
-                        bool bRet = m_MainModel.GetFormComments(sLexemeHash, formHash, out listComments);
-//                        if (!bRet || listComments.Count != listForms.Count)
-                        if (!bRet)
-                        {
-                                MessageBox.Show("Internal error: unable to retrieve form comments.");
-                        }
-                        fd.listComments = listComments;
+                        fd.IsIrregular = true;
+                    }
+                    else
+                    {
+                        fd.IsIrregular = false;
                     }
 
-//                    fd.handler = () =>
-//                    {
-//                        if (!fd.bCanEdit)
-//                        {
-//                            return true;
-//                        }
-
-//                        var sFormString = Helpers.sListToCommaSeparatedString(fd.listForms);
-//                        Helpers.AssignDiacritics(sFormString, ref sFormString);
-
-//                        OnPropertyChanged(formHash);
-//                        return true;
-//                    };
-
-                    m_DictFormStatus[formHash] = fd;
-                    m_DictOriginalForms[formHash] = listForms;
-                    m_DictOriginalComments[formHash] = listComments;
+                    formsPerHash.listForms.Add(fd);
                 }
-            }
-            catch (Exception ex)
-            {
-                var msg = "Internal error: unable to initiate form handlers: ";
-                msg += ex.Message;
-                MessageBox.Show(msg);
-                return;
+
+                formsPerHash.iCurrentForm = 0;
+/*
+                var keyIdx = listGramHashes.IndexOf(sHash);
+                if (keyIdx < 0)
+                {
+                    MessageBox.Show(String.Format("Unable to find gram hash key; illegal hash value: ", sHash));
+                    continue;
+                }
+
+                string sParadigmHash = null;    // use standard adj gram hashes regardless of part of speech
+                try
+                {
+                    sParadigmHash = Helpers.m_listPropNamesAdj[keyIdx];
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(String.Format("Unable to find paradigm hash string; illegal hash value: {0}", sHash));
+                    continue;
+                }
+*/
+                m_DictFormStatus[sHash] = formsPerHash;
             }
 
             try
             {
-                var PPresA_M_Sg_N = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPresA_M_Sg_N"].listForms);
+//                var PPresA_M_Sg_N = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPresA_M_Sg_N"].listForms);
                 PPresAExists = PPresA_M_Sg_N.Length > 0;
 
-                var PPastA_M_Sg_N = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPastA_M_Sg_N"].listForms);
+//                var PPastA_M_Sg_N = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPastA_M_Sg_N"].listForms);
                 PPastAExists = PPastA_M_Sg_N.Length > 0;
 
-                var PPresPL_M_Sg_N = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPresPL_M_Sg_N"].listForms);
+//                var PPresPL_M_Sg_N = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPresPL_M_Sg_N"].listForms);
                 PPresPExists = PPresPL_M_Sg_N.Length > 0;
 
-                var PPastPL_M_Sg_N = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPastPL_M_Sg_N"].listForms);
+//                var PPastPL_M_Sg_N = Helpers.sListToCommaSeparatedString(m_DictFormStatus["PPastPL_M_Sg_N"].listForms);
                 PPastPExists = PPastPL_M_Sg_N.Length > 0;
             }
             catch (Exception ex)
@@ -669,7 +688,84 @@ namespace ZalTestApp
 
             return;
 
-        }   //  InitFormHandlers()
+        }   //  InitFormDictionary()
+
+        private void GetGramHashes(ref List<string> listKeys)
+        {
+            listKeys = Helpers.m_listPropNamesVerbMainScreen;
+
+
+            if (null == listKeys)
+            {
+                MessageBox.Show("Internal error: unable to determine gram hashes.");
+            }
+        }       //  GetGramHashes()
+
+
+        /*
+                private string sFormHashToDisplayHash(string sFormHash)
+                {
+                    int iKeyIdx = -1;
+                    try
+                    {
+                        if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
+                        {
+                            if ("мс" == m_Lexeme.sInflectionType())
+                            {
+                                iKeyIdx = m_listPropNamesPronAdj.IndexOf(sFormHash);
+                            }
+                            else
+                            {
+                                iKeyIdx = m_listPropNamesAdj.IndexOf(sFormHash);
+                            }
+                        }
+
+                        if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ)
+                        {
+                            iKeyIdx = m_listPropNamesPronAdj.IndexOf(sFormHash);
+                        }
+                        else if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
+                        {
+                            IsDerived = true;
+
+                            switch (m_eSubparadigm)
+                            {
+                                case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
+                                    iKeyIdx = m_listPropNamesPartPresAct.IndexOf(sFormHash);
+                                    break;
+
+                                case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
+                                    iKeyIdx = m_listPropNamesPartPastAct.IndexOf(sFormHash);
+                                    break;
+
+                                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
+                                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
+                                    iKeyIdx = m_listPropNamesPartPresPass.IndexOf(sFormHash);
+                                    break;
+
+                                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
+                                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
+                                    iKeyIdx = m_listPropNamesPartPastPass.IndexOf(sFormHash);
+                                    break;
+
+                                default:
+                                    MessageBox.Show("Illegal subparadigm.");
+                                    break;
+                            }
+                        }
+
+                        return m_listPropNamesAdj[iKeyIdx];
+                    }
+                    catch (Exception ex)
+                    {
+                        string sMsg = "Unable to find form hash. ";
+                        sMsg += ex.Message;
+                        MessageBox.Show(sMsg);
+                    }
+
+                    return "";
+                }
+        */
 
         public VerbViewModel(CLexemeManaged lexeme, MainModel m, ViewModelBase lvm)
         {
@@ -682,11 +778,13 @@ namespace ZalTestApp
             ShowPastActFormsCommand = new RelayCommand(new Action<object>(ShowPastActForms));
             ShowPresPassFormsCommand = new RelayCommand(new Action<object>(ShowPresPassForms));
             ShowPastPassFormsCommand = new RelayCommand(new Action<object>(ShowPastPassForms));
+            FormScrollUpCommand = new RelayCommand(new Action<object>(FormScrollUp));
+            FormScrollDownCommand = new RelayCommand(new Action<object>(FormScrollDown));
 
             EditCommand = new RelayCommand(new Action<object>(EditForm));
             SaveFormsCommand = new RelayCommand(new Action<object>(SaveForms));
 
-            InitFormHandlers(lexeme);
+            InitFormDictionary(lexeme);
 
             PropertyChanged += verbViewModel_PropertyChanged;
 
@@ -740,6 +838,7 @@ namespace ZalTestApp
             }
         }
 
+/*
         private EM_ReturnCode CreateIrregularWordForm(string sForm, string sGramHash, ref CWordFormManaged wf)
         {
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
@@ -918,6 +1017,7 @@ namespace ZalTestApp
             MessageBox.Show("Формы сохранены.");
 
         }       //  SaveForms()
+*/
 
         public void verbViewModel_PropertyChanged(object sender, PropertyChangedEventArgs arg)
         {
@@ -934,7 +1034,7 @@ namespace ZalTestApp
             try
             {
 //                ChangedFormHandler handler = null;
-                FormDescriptor fd = m_DictFormStatus[sFormHash];
+//                FormDescriptor fd = m_DictFormStatus[sFormHash];
 //                handler = fd.handler;
 //                var ret = handler();
             }
