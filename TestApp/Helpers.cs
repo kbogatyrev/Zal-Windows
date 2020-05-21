@@ -93,6 +93,12 @@ namespace ZalTestApp
             "PPastPL_Pl_P", "PPastPL_Pl_D", "PPastPL_Pl_I", "PPastPS_M", "PPastPS_F", "PPastPS_N", "PPastPS_Pl"
         };
 
+        public static List<string> m_listPropNamesVerbMainScreen = new List<string>()
+        {
+            "Infinitive", "Pres_Sg_1", "Pres_Sg_2", "Pres_Sg_3", "Pres_Pl_1", "Pres_Pl_2", "Pres_Pl_3", 
+            "Past_M", "Past_F", "Past_N", "Past_Pl", "Impv_Sg_2", "Impv_Pl_2", "PPresA_M_Sg_N", "VAdvPres",
+            "PPastA_M_Sg_N", "VAdvPast", "PPresPL_M_Sg_N", "PPastPL_M_Sg_N"
+        };
         #endregion
 
         public static EM_MainSymbol eMainSymbolToEnum(string sMainSymbol)
