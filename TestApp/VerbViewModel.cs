@@ -16,72 +16,8 @@ namespace ZalTestApp
         public delegate void ShowParticipleForms(CLexemeManaged l, EM_Subparadigm sp, ViewModelBase lvm);
         public event ShowParticipleForms ShowParticipleFormsEvent;
 
-//        MainModel m_MainModel = null;
-//        CLexemeManaged m_Lexeme = null;
         ViewModelBase m_LexemeViewModel;
 
-//        private delegate bool ChangedFormHandler();
-/*
-        struct FormDescriptor
-        {
-            public List<string> listForms { get; set; }
-            public bool bCanEdit { get; set; }
-            public ChangedFormHandler handler { get; set; }
-
-            public FormDescriptor(List<string> list, bool b, ChangedFormHandler h)
-            {
-                listForms = list;
-                bCanEdit = b;
-                handler = h;
-            }
-        }
-*/
-
-//        Dictionary<string, List<string>> m_DictOriginalForms = new Dictionary<string, List<string>>();
-//        Dictionary<string, List<Tuple<string, string>>> m_DictOriginalComments = new Dictionary<string, List<Tuple<string, string>>>();
-/*
-            {  "Infinitive", new FormDescriptor(null, null, false, false, null) },
-            {  "Pres_Sg_1", new FormDescriptor(null, null, false, false, null) },
-            {  "Pres_Sg_2", new FormDescriptor(null, null, false, false, null) },
-            {  "Pres_Sg_3", new FormDescriptor(null, null, false, false, null) },
-            {  "Pres_Pl_1", new FormDescriptor(null, null, false, false, null) },
-            {  "Pres_Pl_2", new FormDescriptor(null, null, false, false, null) },
-            {  "Pres_Pl_3", new FormDescriptor(null, null, false, false, null) },
-            {  "Past_M", new FormDescriptor(null, null, false, false, null) },
-            {  "Past_F", new FormDescriptor(null, null, false, false, null) },
-            {  "Past_N", new FormDescriptor(null, null, false, false, null) },
-            {  "Past_Pl", new FormDescriptor(null, null, false, false, null) },
-            {  "Impv_Sg_2", new FormDescriptor(null, null, false, false, null) },
-            {  "Impv_Pl_2", new FormDescriptor(null, null, false, false, null) },
-            {  "PPresA_M_Sg_N", new FormDescriptor(null, null, false, false, null) },
-            {  "VAdvPres", new FormDescriptor(null, null, false, false, null) },
-            {  "PPastA_M_Sg_N", new FormDescriptor(null, null, false, false, null) },
-            {  "VAdvPast", new FormDescriptor(null, null, false, false, null) },
-            {  "PPresPL_M_Sg_N", new FormDescriptor(null, null, false, false, null) },
-            {  "PPastPL_M_Sg_N", new FormDescriptor(null, null, false, false, null) },
-*/
-/*
-            {  "Infinitive", new FormDescriptor(null, null, false, false) },
-            {  "Pres_Sg_1", new FormDescriptor(null, null, false, false) },
-            {  "Pres_Sg_2", new FormDescriptor(null, null, false, false) },
-            {  "Pres_Sg_3", new FormDescriptor(null, null, false, false) },
-            {  "Pres_Pl_1", new FormDescriptor(null, null, false, false) },
-            {  "Pres_Pl_2", new FormDescriptor(null, null, false, false) },
-            {  "Pres_Pl_3", new FormDescriptor(null, null, false, false) },
-            {  "Past_M", new FormDescriptor(null, null, false, false) },
-            {  "Past_F", new FormDescriptor(null, null, false, false) },
-            {  "Past_N", new FormDescriptor(null, null, false, false) },
-            {  "Past_Pl", new FormDescriptor(null, null, false, false) },
-            {  "Impv_Sg_2", new FormDescriptor(null, null, false, false) },
-            {  "Impv_Pl_2", new FormDescriptor(null, null, false, false) },
-            {  "PPresA_M_Sg_N", new FormDescriptor(null, null, false, false) },
-            {  "VAdvPres", new FormDescriptor(null, null, false, false) },
-            {  "PPastA_M_Sg_N", new FormDescriptor(null, null, false, false) },
-            {  "VAdvPast", new FormDescriptor(null, null, false, false) },
-            {  "PPresPL_M_Sg_N", new FormDescriptor(null, null, false, false) },
-            {  "PPastPL_M_Sg_N", new FormDescriptor(null, null, false, false) },
-        };
-*/
         #region ICommand
         private ICommand m_BackCommand;
         public ICommand BackCommand
@@ -199,12 +135,33 @@ namespace ZalTestApp
                 m_FormScrollDownCommand = value;
             }
         }
-
-
         #endregion
 
         string GetForms(string sFormHash)
         {
+            if (!m_DictFormStatus.ContainsKey(sFormHash))
+            {
+                return "";
+            }
+
+            var formsForHash = m_DictFormStatus[sFormHash];
+            int iAt = formsForHash.iCurrentForm;
+            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
+            {
+                MessageBox.Show("Internal error: Illegal form index.");
+                return "Error";
+            }
+
+            return formsForHash.listForms[iAt].sFormText;
+
+            //  TODO: comment
+
+        }
+
+        protected string GetForm(string sDisplayHash, EM_Subparadigm eSubparadigm)
+        {
+            //            string sFormHash = sDisplayHashToFormHash(sDisplayHash, eSubparadigm);
+            string sFormHash = sDisplayHash;
             if (!m_DictFormStatus.ContainsKey(sFormHash))
             {
                 return "";

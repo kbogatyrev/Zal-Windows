@@ -153,33 +153,10 @@ namespace ZalTestApp
 
         }
 
-/*
-        private void SetForm(string sHash, string sForm)
-        {
-            if (!m_DictFormStatus.ContainsKey(sHash))
-            {
-                return;
-            }
-
-            Helpers.AssignDiacritics(sForm, ref sForm);
-
-            var formsForHash = m_DictFormStatus[sHash];
-            int iAt = formsForHash.iCurrentForm;
-            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
-            {
-                MessageBox.Show("Internal error: Illegal form index.");
-                return;
-            }
-
-            formsForHash.listForms[iAt].sFormText = sForm;
-
-        }
-*/
 
         EMark GetFormStatus(string sDisplayHash)
         {
-            string sFormHash = Helpers.sDisplayHashToFormHash(sDisplayHash, m_eSubparadigm);
-//            string sLexemeHash = m_Lexeme.sHash();
+            string sFormHash = sDisplayHashToFormHash(sDisplayHash, m_eSubparadigm);
             FormsForGramHash formsForHash = null;
             if (!m_DictFormStatus.TryGetValue(sFormHash, out formsForHash))
             {

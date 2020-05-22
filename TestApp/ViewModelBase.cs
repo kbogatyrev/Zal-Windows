@@ -57,29 +57,6 @@ namespace ZalTestApp
             }
         }
 
-        protected string GetForm(string sDisplayHash, EM_Subparadigm eSubparadigm)
-        {
-            //            string sFormHash = sDisplayHashToFormHash(sHash);
-            string sFormHash = sDisplayHash;
-            if (!m_DictFormStatus.ContainsKey(sFormHash))
-            {
-                return "";
-            }
-
-            var formsForHash = m_DictFormStatus[sFormHash];
-            int iAt = formsForHash.iCurrentForm;
-            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
-            {
-                MessageBox.Show("Internal error: Illegal form index.");
-                return "Error";
-            }
-
-            return formsForHash.listForms[iAt].sFormText;
-
-            //  TODO: comment
-
-        }
-
         protected void SetForm(string sHash, string sForm)
         {
             if (!m_DictFormStatus.ContainsKey(sHash))
@@ -129,6 +106,119 @@ namespace ZalTestApp
             }
         }
 
+        public static string sDisplayHashToFormHash(string sDisplayHash, EM_Subparadigm eSubparadigm)
+        {
+            EM_PartOfSpeech ePartOfSpeech = Helpers.SubparadigmToPOS(eSubparadigm);
+            if (EM_PartOfSpeech.POS_UNDEFINED == ePartOfSpeech)
+            {
+                MessageBox.Show(String.Format("Unable to determine part of speech for subparadigm {0}", eSubparadigm));
+                return "";
+            }
+
+            List<string> lstDisplayPropNames = null;
+            List<string> lstPropNames = null;
+            string sFormHash = null;
+
+            switch (ePartOfSpeech)
+            {
+                case EM_PartOfSpeech.POS_NOUN:
+                    lstDisplayPropNames = Helpers.m_listPropNamesNoun;
+                    lstPropNames = Helpers.m_listPropNamesNoun;
+                    break;
+
+                case EM_PartOfSpeech.POS_PRONOUN:
+                    lstDisplayPropNames = Helpers.m_listPropNamesNoun;
+                    lstPropNames = Helpers.m_listPropNamesPronoun;
+                    break;
+
+                case EM_PartOfSpeech.POS_NUM:
+                    lstDisplayPropNames = Helpers.m_listPropNamesNoun;
+                    lstPropNames = Helpers.m_listPropNamesNumeral;
+                    break;
+
+                case EM_PartOfSpeech.POS_ADJ:
+                    lstDisplayPropNames = Helpers.m_listPropNamesAdj;
+                    lstPropNames = Helpers.m_listPropNamesAdj;
+                    break;
+
+                case EM_PartOfSpeech.POS_PRONOUN_ADJ:
+                    lstDisplayPropNames = Helpers.m_listPropNamesAdj;
+                    lstPropNames = Helpers.m_listPropNamesPronAdj;
+                    break;
+
+                case EM_PartOfSpeech.POS_NUM_ADJ:
+                    lstDisplayPropNames = Helpers.m_listPropNamesAdj;
+                    lstPropNames = Helpers.m_listPropNamesNumAdj;
+                    break;
+
+                case EM_PartOfSpeech.POS_VERB:
+
+                    switch (eSubparadigm)
+                    {
+                        case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
+                            lstDisplayPropNames = Helpers.m_listPropNamesAdj;
+                            lstPropNames = Helpers.m_listPropNamesPartPresAct;
+                            break;
+
+                        case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
+                            lstDisplayPropNames = Helpers.m_listPropNamesAdj;
+                            lstPropNames = Helpers.m_listPropNamesPartPresPass;
+                            break;
+
+                        case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
+                            lstDisplayPropNames = Helpers.m_listPropNamesAdj;
+                            lstPropNames = Helpers.m_listPropNamesPartPastAct;
+                            break;
+
+                        case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
+                            lstDisplayPropNames = Helpers.m_listPropNamesAdj;
+                            lstPropNames = Helpers.m_listPropNamesPartPastPass;
+                            break;
+
+                        case EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE:
+                        case EM_Subparadigm.SUBPARADIGM_PAST_TENSE:
+                        case EM_Subparadigm.SUBPARADIGM_IMPERATIVE:
+                        case EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT:
+                        case EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST:
+                        case EM_Subparadigm.SUBPARADIGM_ASPECT_PAIR:
+                            sFormHash = sDisplayHash;
+                            break;
+
+                        default:
+                            MessageBox.Show(String.Format("Subparadigm {0} was not recognized.", eSubparadigm.ToString()));
+                            break;
+                    }       //  switch (eSubparadigm)
+
+                    break;
+
+                default:
+                    MessageBox.Show(String.Format("Subparadigm {0} was not recognized.", eSubparadigm.ToString()));
+                    break;
+
+            }       //  switch (ePartOfSpeech)
+
+            if (lstDisplayPropNames.Exists(element => element == sDisplayHash))
+            {
+                int iKeyIdx = lstDisplayPropNames.IndexOf(sDisplayHash);
+                if (iKeyIdx < 0)
+                {
+                    MessageBox.Show(String.Format("Display hash {0} not recognized.", sDisplayHash));
+                    return "";
+                }
+
+                if (iKeyIdx < lstPropNames.Count)
+                {
+                    sFormHash = lstPropNames[iKeyIdx];
+                }
+                else
+                {
+                    return "";
+                }
+            }
+
+            return sFormHash;
+
+        }       //  sDisplayHashToFormHash()
 
         /// <summary>
         /// Raised when a property on this object has a new value.

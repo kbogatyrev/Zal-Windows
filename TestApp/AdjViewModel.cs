@@ -137,37 +137,29 @@ namespace ZalTestApp
             }
         }
 
-/*
-        string GetForms(string sFormHash)
+        private string GetForm(string sDisplayHash, EM_Subparadigm eSubparadigm)
         {
+            string sFormHash = sDisplayHashToFormHash(sDisplayHash, eSubparadigm);
             if (!m_DictFormStatus.ContainsKey(sFormHash))
             {
                 return "";
             }
 
-            var descriptor = m_DictFormStatus[sFormHash];
-            if (m_MainModel.bIsIrregular(m_Lexeme.sHash(), sFormHash))
+            var formsForHash = m_DictFormStatus[sFormHash];
+            int iAt = formsForHash.iCurrentForm;
+            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
             {
-                descriptor.IsIrregular = true;
-            }
-            else
-            {
-                descriptor.IsIrregular = false;
+                MessageBox.Show("Internal error: Illegal form index.");
+                return "Error";
             }
 
-            string sText = null;
-            if (null == descriptor.listComments)
-            {
-                sText = Helpers.sListToCommaSeparatedString(descriptor.listForms);
-            }
-            else
-            {
-                sText = Helpers.sListToCommaSeparatedString(descriptor.listForms, descriptor.listComments);
-            }
+            return formsForHash.listForms[iAt].sFormText;
 
-            return sText;
+            //  TODO: comment
+
         }
-*/
+
+
         EMark GetFormStatus(string sFormHash)
         {
             string sLexemeHash = m_Lexeme.sHash();
@@ -181,23 +173,7 @@ namespace ZalTestApp
             }
             return EMark.None;
         }
-/*
-        void SetForms(string sHash, string sForms)
-        {
-            if (!m_DictFormStatus.ContainsKey(sHash))
-            {
-                return;
-            }
-            Helpers.AssignDiacritics(sForms, ref sForms);
-            var fd = m_DictFormStatus[sHash];
-            List<string> l = new List<string>();
-            List<Tuple<string, string>> c = new List<Tuple<string, string>>();
-            Helpers.CommaSeparatedStringToList(sForms, out l, out c);
-            fd.listForms = l;
-            fd.listComments = c;
-            m_DictFormStatus[sHash] = fd;
-        }
-*/
+
 
         #region Bindings_Long_Masculine_Sg
 
