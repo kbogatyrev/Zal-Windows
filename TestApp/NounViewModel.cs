@@ -32,20 +32,6 @@ namespace ZalTestApp
             }
         }
 
-/*
-        private ICommand m_EditCommand;
-        public ICommand EditCommand
-        {
-            get
-            {
-                return m_EditCommand;
-            }
-            set
-            {
-                m_EditCommand = value;
-            }
-        }
-*/
         private ICommand m_EditFormCommentCommand;
         public ICommand EditFormCommentCommand
         {
@@ -147,12 +133,16 @@ namespace ZalTestApp
                 return "Error";
             }
 
-            return formsForHash.listForms[iAt].sFormText;
+            //            return formsForHash.listForms[iAt].sWordForm();
+
+            string sFormWithStress = formsForHash.listForms[iAt].sWordForm();
+            Helpers.MarkStress(ref sFormWithStress, formsForHash.listForms[iAt]);
 
             //  TODO: comment
 
-        }
+            return sFormWithStress;
 
+        }
 
         EMark GetFormStatus(string sDisplayHash)
         {
@@ -170,17 +160,16 @@ namespace ZalTestApp
                 return EMark.None;
             }
 
-            if (formsForHash.listForms[iAt].IsEdited)
+            if (formsForHash.listForms[iAt].bIsEdited())
             {
                 return EMark.IsEdited;
             }
-            else if (formsForHash.listForms[iAt].IsIrregular)
+            else if (formsForHash.listForms[iAt].bIrregular())
             {
                 return EMark.IsIrregular;
             }
 
             return EMark.None;
-
         }
 
         #endregion
@@ -519,29 +508,17 @@ namespace ZalTestApp
                     MessageBox.Show("Internal error: unable to determine gram hashes.");
                 }
 
-
                 foreach (var sHash in listKeys)
                 {
                     FormsForGramHash formsPerHash = new FormsForGramHash();
-                    List<string> listForms = null;
-                    if (!m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms))
+                    List<CWordFormManaged> lstForms = null;
+                    if (!m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out lstForms))
                     {
                         continue;
                     }
 
-                    foreach (string sForm in listForms)
+                    foreach (var wf in lstForms)
                     {
-                        FormDescriptor fd = new FormDescriptor();
-                        fd.sFormText = sForm;
-                        if (m_MainModel.bIsIrregular(sLexemeHash, sHash))
-                        {
-                            fd.IsIrregular = true;
-                        }
-                        else
-                        {
-                            fd.IsIrregular = false;
-                        }
-
                         switch (m_Lexeme.ePartOfSpeech())
                         {
                             case EM_PartOfSpeech.POS_NOUN:
@@ -561,7 +538,7 @@ namespace ZalTestApp
                                 return false;
                         }
                         
-                        formsPerHash.listForms.Add(fd);
+                        formsPerHash.listForms.Add(wf);
                     }
 
                     if (formsPerHash.listForms.Count > 0)
@@ -589,7 +566,6 @@ namespace ZalTestApp
         public NounViewModel(CLexemeManaged lexeme, MainModel m)
         {
             BackCommand = new RelayCommand(new Action<object>(GoBack));
-//            EditCommand = new RelayCommand(new Action<object>(EditForm));
             EditFormCommentCommand = new RelayCommand(new Action<object>(EditFormComment));
             SaveFormsCommand = new RelayCommand(new Action<object>(SaveForms));
             FormScrollUpCommand = new RelayCommand(new Action<object>(FormScrollUp));
@@ -600,8 +576,6 @@ namespace ZalTestApp
             m_Lexeme = lexeme;
 
             InitFormHandlers();
-
-//            PropertyChanged += nounViewModel_PropertyChanged;
         }
 
         public void GoBack(Object obj)

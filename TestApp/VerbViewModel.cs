@@ -152,7 +152,7 @@ namespace ZalTestApp
                 return "Error";
             }
 
-            return formsForHash.listForms[iAt].sFormText;
+            return formsForHash.listForms[iAt].sWordForm();
 
             //  TODO: comment
 
@@ -175,7 +175,7 @@ namespace ZalTestApp
                 return "Error";
             }
 
-            return formsForHash.listForms[iAt].sFormText;
+            return formsForHash.listForms[iAt].sWordForm();
 
             //  TODO: comment
 
@@ -577,26 +577,15 @@ namespace ZalTestApp
             foreach (string sHash in listGramHashes)
             {
                 FormsForGramHash formsPerHash = new FormsForGramHash();
-                List<string> listForms = null;
-                if (!m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out listForms))
+                List<CWordFormManaged> lstForms = null;
+                if (!m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out lstForms))
                 {
                     continue;
                 }
 
-                foreach (string sForm in listForms)
+                foreach (var wf in lstForms)
                 {
-                    FormDescriptor fd = new FormDescriptor();
-                    fd.sFormText = sForm;
-                    if (m_MainModel.bIsIrregular(sLexemeHash, sHash))
-                    {
-                        fd.IsIrregular = true;
-                    }
-                    else
-                    {
-                        fd.IsIrregular = false;
-                    }
-
-                    formsPerHash.listForms.Add(fd);
+                    formsPerHash.listForms.Add(wf);
                 }
 
                 formsPerHash.iCurrentForm = 0;

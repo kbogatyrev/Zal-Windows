@@ -74,8 +74,7 @@ namespace ZalTestApp
                 return;
             }
 
-            formsForHash.listForms[iAt].sFormText = sForm;
-
+            formsForHash.listForms[iAt].SetWordForm(sForm);
         }
 
         public void FormScrollUp(Object obj)
@@ -419,7 +418,7 @@ namespace ZalTestApp
                 }
         */
     }
-
+/*
     public class FormDescriptor
     {
         public string sFormText;
@@ -439,16 +438,17 @@ namespace ZalTestApp
 //            eSubparadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
         }
     }
+*/
 
     // List of forms for given gram hash + sequential number of currently displayed form
     public class FormsForGramHash
     {
-        public List<FormDescriptor> listForms;
+        public List<CWordFormManaged> listForms;
         public int iCurrentForm;
 
         public FormsForGramHash()
         {
-            listForms = new List<FormDescriptor>();
+            listForms = new List<CWordFormManaged>();
             iCurrentForm = -1;
         }
     }

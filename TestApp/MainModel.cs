@@ -21,70 +21,72 @@ namespace ZalTestApp
             return m_Verifier;
         }
 
-        private Dictionary<string, Dictionary<string, List<string>>> m_Lexemes;  // lexeme hash to (gram hash --> forms)
+        private Dictionary<string, Dictionary<string, List<CWordFormManaged>>> m_dctLexemes;  // lexeme hash to (gram hash --> forms)
         public IEnumerator GetEnumerator()
         {
-            return m_Lexemes.Keys.GetEnumerator();
+            return m_dctLexemes.Keys.GetEnumerator();
         }
 
-        private Dictionary<string, Dictionary<string, List<Tuple<string, string>>>> m_FormComments;
+        private Dictionary<string, Dictionary<string, List<Tuple<string, string>>>> m_dctFormComments;
         //                           ^-- lex. hash       ^-- gram hash     ^-- leading comment, trailing comment))
 
+/*
         public IEnumerator GetFormCommentsEnumerator()
         {
             return m_FormComments.Keys.GetEnumerator();
         }
+*/
 
-        private Dictionary<string, CLexemeManaged> m_LexemeHashToLexeme;
+        private Dictionary<string, CLexemeManaged> m_dctLexemeHashToLexeme;
         public CLexemeManaged LexemeFromHash(string sHash)
         {
             CLexemeManaged lexeme = null;
-            m_LexemeHashToLexeme.TryGetValue(sHash, out lexeme);
+            m_dctLexemeHashToLexeme.TryGetValue(sHash, out lexeme);
 
             return lexeme;
         }
 
-        private Dictionary<string, string> m_StoredLexemes; // hash --> source form
+        private Dictionary<string, string> m_dctStoredLexemes; // hash --> source form
         public IEnumerator GetStoredLexemesEnumerator()
         {
-            return m_StoredLexemes.GetEnumerator();
+            return m_dctStoredLexemes.GetEnumerator();
         }
 
-        private Dictionary<string, List<CWordFormManaged>> m_Parses;
+        private Dictionary<string, List<CWordFormManaged>> m_dctParses;
         public IEnumerator GetParseEnumerator()
         {
-            return m_Parses.Keys.GetEnumerator();
+            return m_dctParses.Keys.GetEnumerator();
         }
 
         public List<CWordFormManaged> WordFormsFromHash(string sHash)
         {
             List<CWordFormManaged> listWf = null;
-            m_Parses.TryGetValue(sHash, out listWf);
+            m_dctParses.TryGetValue(sHash, out listWf);
 
             return listWf;
         }
 
-        private Dictionary<CWordFormManaged, CLexemeManaged> m_WordformToLexeme;
+        private Dictionary<CWordFormManaged, CLexemeManaged> m_dctWordformToLexeme;
         public CLexemeManaged GetLexemeFromWordform(CWordFormManaged wordform)
         {
             CLexemeManaged l = null;
-            m_WordformToLexeme.TryGetValue(wordform, out l);
+            m_dctWordformToLexeme.TryGetValue(wordform, out l);
 
             return l;
         }
 
-        private Dictionary<int, List<CWordFormManaged>> m_WordPosToParses;
+        private Dictionary<int, List<CWordFormManaged>> m_dctWordPosToParses;
         public IEnumerator GetTextParseEnumerator()
         {
-            return m_WordPosToParses.Keys.GetEnumerator();
+            return m_dctWordPosToParses.Keys.GetEnumerator();
         }
 
         public List<CWordFormManaged> WordFormsFromWordPos(int iPos)
         {
-            List<CWordFormManaged> listWf = null;
-            m_WordPosToParses.TryGetValue(iPos, out listWf);
+            List<CWordFormManaged> lstWf = null;
+            m_dctWordPosToParses.TryGetValue(iPos, out lstWf);
 
-            return listWf;
+            return lstWf;
         }
 
         public class TactGroup 
@@ -197,7 +199,7 @@ namespace ZalTestApp
         {
             get
             {
-                return m_Lexemes.Count;
+                return m_dctLexemes.Count;
             }
         }
 
@@ -205,7 +207,7 @@ namespace ZalTestApp
         {
             get
             {
-                return m_Parses.Count;
+                return m_dctParses.Count;
             }
         }
         #endregion
@@ -234,13 +236,13 @@ namespace ZalTestApp
             m_Dictionary.eGetVerifier(ref m_Verifier);
             //            m_Dictionary.eGetParser(ref m_Parser);
 
-            m_Lexemes = new Dictionary<string, Dictionary<string, List<string>>>();
-            m_FormComments = new Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>();
-            m_LexemeHashToLexeme = new Dictionary<string, CLexemeManaged>();
-            m_StoredLexemes = new Dictionary<string, string>();
-            m_Parses = new Dictionary<string, List<CWordFormManaged>>();
-            m_WordformToLexeme = new Dictionary<CWordFormManaged, CLexemeManaged>();
-            m_WordPosToParses = new Dictionary<int, List<CWordFormManaged>>();
+            m_dctLexemes = new Dictionary<string, Dictionary<string, List<CWordFormManaged>>>();
+            m_dctFormComments = new Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>();
+            m_dctLexemeHashToLexeme = new Dictionary<string, CLexemeManaged>();
+            m_dctStoredLexemes = new Dictionary<string, string>();
+            m_dctParses = new Dictionary<string, List<CWordFormManaged>>();
+            m_dctWordformToLexeme = new Dictionary<CWordFormManaged, CLexemeManaged>();
+            m_dctWordPosToParses = new Dictionary<int, List<CWordFormManaged>>();
 
             m_bInitialized = true;
         }
@@ -367,7 +369,7 @@ namespace ZalTestApp
         //            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         //        }
 
-        public bool GetFormsByGramHash(string sLexemeHash, string sGramHash, out List<string> forms)
+        public bool GetFormsByGramHash(string sLexemeHash, string sGramHash, out List<CWordFormManaged> forms)
         {
             forms = null;
 
@@ -378,15 +380,15 @@ namespace ZalTestApp
             //    return false;
             //}
 
-            Dictionary<string, List<string>> paradigm;
-            if (!m_Lexemes.TryGetValue(sLexemeHash, out paradigm))
+            Dictionary<string, List<CWordFormManaged>> dctParadigm;
+            if (!m_dctLexemes.TryGetValue(sLexemeHash, out dctParadigm))
             {
                 System.Windows.MessageBox.Show("Internal error: lexeme hash not found.");
                 return false;
             }
             try
             {
-                forms = paradigm[sGramHash];
+                forms = dctParadigm[sGramHash];
             }
             catch (Exception ex)
             {
@@ -397,6 +399,7 @@ namespace ZalTestApp
             return true;
         }
 
+/*
         public bool GetFormComments(string sLexemeHash, string sGramHash, out List<Tuple<string, string>> comments)
         {
             comments = null;
@@ -409,18 +412,19 @@ namespace ZalTestApp
 
             return true;
         }
+*/
 
-        public bool UpdateFormsByGramHash(string sLexemeHash, string sGramHash, List<string> forms)
+        public bool UpdateFormsByGramHash(string sLexemeHash, string sGramHash, List<CWordFormManaged> lstForms)
         {
-            Dictionary<string, List<string>> paradigm;
-            if (!m_Lexemes.TryGetValue(sLexemeHash, out paradigm))
+            Dictionary<string, List<CWordFormManaged>> dctParadigm;
+            if (!m_dctLexemes.TryGetValue(sLexemeHash, out dctParadigm))
             {
                 System.Windows.MessageBox.Show("Internal error: Lexeme hash not found.");
                 return false;
             }
             try
             {
-                forms = paradigm[sGramHash];
+                lstForms = dctParadigm[sGramHash];
             }
             catch (Exception ex)
             {
@@ -444,14 +448,14 @@ namespace ZalTestApp
         {
             string sLexemeHash = l.sHash();
             m_Dictionary.Clear(l);
-            m_Lexemes.Remove(sLexemeHash);
-            m_LexemeHashToLexeme.Remove(sLexemeHash);
+            m_dctLexemes.Remove(sLexemeHash);
+            m_dctLexemeHashToLexeme.Remove(sLexemeHash);
         }
 
         public void Clear()
         {
             m_Dictionary.Clear();
-            m_Lexemes.Clear();
+            m_dctLexemes.Clear();
         }
 
         public EM_ReturnCode OpenDictionary(string sPath)
@@ -514,7 +518,7 @@ namespace ZalTestApp
                 return;
             }
 
-            m_Lexemes.Clear();
+            m_dctLexemes.Clear();
 
             var eRet = m_Dictionary.eGetLexemesByInitialForm(str);
             if (eRet != EM_ReturnCode.H_NO_MORE && eRet != EM_ReturnCode.H_FALSE)
@@ -539,7 +543,7 @@ namespace ZalTestApp
 
             do
             {
-                if (!m_Lexemes.ContainsKey(lexeme.sHash()))
+                if (!m_dctLexemes.ContainsKey(lexeme.sHash()))
                 {
                     eRet = lexeme.eGenerateParadigm();
                     if (eRet != EM_ReturnCode.H_NO_ERROR)
@@ -604,7 +608,7 @@ namespace ZalTestApp
                 return false;
             }
 
-            m_Parses.Clear();
+            m_dctParses.Clear();
 
             var eRet = m_Parser.eParseWord(sForm);
             if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE && eRet != EM_ReturnCode.H_FALSE)
@@ -621,10 +625,10 @@ namespace ZalTestApp
                 if (sKey.Length > 0)
                 {
                     List<CWordFormManaged> listWf;
-                    if (!m_Parses.TryGetValue(sKey, out listWf))
+                    if (!m_dctParses.TryGetValue(sKey, out listWf))
                     {
                         listWf = new List<CWordFormManaged>();
-                        m_Parses.Add(sKey, listWf);
+                        m_dctParses.Add(sKey, listWf);
                     }
 
                     listWf.Add(wordFormData);
@@ -639,7 +643,7 @@ namespace ZalTestApp
                 eRet = m_Dictionary.eGetLexemeById(wordFormData.llLexemeId(), ref lexeme);
                 if (EM_ReturnCode.H_NO_ERROR == eRet || EM_ReturnCode.H_NO_MORE == eRet)
                 {
-                    m_WordformToLexeme.Add(wordFormData, lexeme);
+                    m_dctWordformToLexeme.Add(wordFormData, lexeme);
                 }
                 else
                 {
@@ -779,7 +783,7 @@ namespace ZalTestApp
             eRet = m_Verifier.eGetFirstLexemeData(ref sLexemeHash, ref sHeadword);
             while (EM_ReturnCode.H_NO_ERROR == eRet)
             {
-                m_StoredLexemes[sLexemeHash] = sHeadword;
+                m_dctStoredLexemes[sLexemeHash] = sHeadword;
                 eRet = m_Verifier.eGetNextLexemeData(ref sLexemeHash, ref sHeadword);
             }
 
@@ -882,8 +886,8 @@ namespace ZalTestApp
         {
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
 
-            Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>();
-            Dictionary<string, List<Tuple<string, string>>> comments = null;
+            Dictionary<string, List<CWordFormManaged>> dctParadigm = new Dictionary<string, List<CWordFormManaged>>();
+//            Dictionary<string, List<Tuple<string, string>>> comments = null;
 
             CWordFormManaged wf = null;
 //            EM_ReturnCode eRet = (EM_ReturnCode)lexeme.eGenerateParadigm();
@@ -934,7 +938,7 @@ namespace ZalTestApp
                             sWordForm = "*" + sWordForm;
                         }
                     }
-
+/*
                     if (wf.bIrregular())
                     {
                         if (null == comments)
@@ -947,13 +951,14 @@ namespace ZalTestApp
                         }
                         comments[sKey].Add(new Tuple<string, string>(wf.sLeadComment(), wf.sTrailingComment()));
                     }
+*/
 
-                    if (!paradigm.ContainsKey(sKey))
+                    if (!dctParadigm.ContainsKey(sKey))
                     {
-                        paradigm[sKey] = new List<string>();
+                        dctParadigm[sKey] = new List<CWordFormManaged>();
                     }
 
-                    paradigm[sKey].Add(sWordForm);
+                    dctParadigm[sKey].Add(wf);
                 }
                 catch(Exception ex)
                 {
@@ -971,9 +976,9 @@ namespace ZalTestApp
             }
 
             string sHash = lexeme.sHash();
-            m_Lexemes[sHash] = paradigm;
-            m_LexemeHashToLexeme[sHash] = lexeme;
-            m_FormComments[sHash] = comments;
+            m_dctLexemes[sHash] = dctParadigm;
+            m_dctLexemeHashToLexeme[sHash] = lexeme;
+//            m_dctFormComments[sHash] = comments;
 
             return true;
 
@@ -983,7 +988,7 @@ namespace ZalTestApp
         {
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
 
-            Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>(); // hash -> form
+            Dictionary<string, List<CWordFormManaged>> dctParadigm = new Dictionary<string, List<CWordFormManaged>>(); // hash -> form
             Dictionary<string, List<Tuple<string, string>>> comments = null;    // hash -> left comment, right comment
 
             CWordFormManaged wf = null;
@@ -1066,22 +1071,12 @@ namespace ZalTestApp
 
                 if (sKey != null)
                 {
-                    string sWordForm = wf.sWordForm();
-                    Helpers.MarkStress(ref sWordForm, wf);
 
-                    if (lexeme.bAssumedForms() &&  lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ &&
-                        wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_SHORT_ADJ &&
-                        wf.eGender() == EM_Gender.GENDER_M)
+                    if (!dctParadigm.ContainsKey(sKey))
                     {
-                        sWordForm = "*" + sWordForm;
+                        dctParadigm[sKey] = new List<CWordFormManaged>();
                     }
-
-
-                    if (!paradigm.ContainsKey(sKey))
-                    {
-                        paradigm[sKey] = new List<string>();
-                    }
-                    paradigm[sKey].Add(sWordForm);
+                    dctParadigm[sKey].Add(wf);
                 }
 
                 eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
@@ -1089,9 +1084,9 @@ namespace ZalTestApp
             }   //  while... 
 
             string sHash = lexeme.sHash();
-            m_Lexemes[sHash] = paradigm;
-            m_LexemeHashToLexeme[sHash] = lexeme;
-            m_FormComments[sHash] = comments;
+            m_dctLexemes[sHash] = dctParadigm;
+            m_dctLexemeHashToLexeme[sHash] = lexeme;
+            m_dctFormComments[sHash] = comments;
 
             EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
             if (EM_PartOfSpeech.POS_ADJ == lexeme.ePartOfSpeech())
@@ -1122,7 +1117,7 @@ namespace ZalTestApp
 
         private bool bGenerateVerbForms(CLexemeManaged lexeme)
         {
-            Dictionary<string, List<string>> paradigm = new Dictionary<string, List<string>>();
+            Dictionary<string, List<CWordFormManaged>> dctParadigm = new Dictionary<string, List<CWordFormManaged>>();
             Dictionary<string, List<Tuple<string, string>>> comments = null;
 
             CWordFormManaged wf = null;
@@ -1255,11 +1250,11 @@ namespace ZalTestApp
                 {
                     var sWordForm = wf.sWordForm();
                     Helpers.MarkStress(ref sWordForm, wf);
-                    if (!paradigm.ContainsKey(sKey))
+                    if (!dctParadigm.ContainsKey(sKey))
                     {
-                        paradigm[sKey] = new List<string>();
+                        dctParadigm[sKey] = new List<CWordFormManaged>();
                     }
-                    paradigm[sKey].Add(sWordForm);
+                    dctParadigm[sKey].Add(wf);
                 }
 
                 if (wf.bIrregular())
@@ -1285,23 +1280,23 @@ namespace ZalTestApp
             } while (EM_ReturnCode.H_NO_ERROR == eRet);
 
             string sHash = lexeme.sHash();
-            m_Lexemes[sHash] = paradigm;
-            m_LexemeHashToLexeme[sHash] = lexeme;
-            m_FormComments[sHash] = comments;
+            m_dctLexemes[sHash] = dctParadigm;
+            m_dctLexemeHashToLexeme[sHash] = lexeme;
+//            m_FormComments[sHash] = comments;
 
-            if (paradigm.ContainsKey("PPresA_M_Sg_N"))
+            if (dctParadigm.ContainsKey("PPresA_M_Sg_N"))
             {
                 HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT);
             }
-            if (paradigm.ContainsKey("PPastA_M_Sg_N"))
+            if (dctParadigm.ContainsKey("PPastA_M_Sg_N"))
             {
                 HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT);
             }
-            if (paradigm.ContainsKey("PPresPL_M_Sg_N"))
+            if (dctParadigm.ContainsKey("PPresPL_M_Sg_N"))
             {
                 HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG);
             }
-            if (paradigm.ContainsKey("PPastPL_M_Sg_N"))
+            if (dctParadigm.ContainsKey("PPastPL_M_Sg_N"))
             {
                 HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG);
             }
@@ -1313,7 +1308,7 @@ namespace ZalTestApp
         public bool bLeadComment(string sLexemeHash, string sFormHash, ref string sComment)
         {
             CLexemeManaged lexeme;
-            if (!m_LexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
             {
                 System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return false;
@@ -1359,7 +1354,7 @@ namespace ZalTestApp
         public bool bIsIrregular(string sLexemeHash, string sFormHash)
         {
             CLexemeManaged lexeme;
-            if (!m_LexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
             {
 //                System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return false;
@@ -1379,7 +1374,7 @@ namespace ZalTestApp
         public bool bIsEdited(string sLexemeHash, string sFormHash)
         {
             CLexemeManaged lexeme;
-            if (!m_LexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
             {
 //                System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return false;
@@ -1399,7 +1394,7 @@ namespace ZalTestApp
         public bool bIsVariant(string sLexemeHash, string sFormHash)
         {
             CLexemeManaged lexeme;
-            if (!m_LexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
             {
                 System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return false;
@@ -1418,8 +1413,8 @@ namespace ZalTestApp
 
         private void HandleAccusatives(CLexemeManaged lexeme, EM_Subparadigm eSubparadigm)
         {
-            Dictionary<string, List<string>> paradigm;
-            if (!m_Lexemes.TryGetValue(lexeme.sHash(), out paradigm))
+            Dictionary<string, List<CWordFormManaged>> dctParadigm;
+            if (!m_dctLexemes.TryGetValue(lexeme.sHash(), out dctParadigm))
             {
                 System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return;
@@ -1464,44 +1459,44 @@ namespace ZalTestApp
 
             try
             {
-                List<string> values = paradigm[sPrefix + "M_Sg_N"];
+                var values = dctParadigm[sPrefix + "M_Sg_N"];
                 foreach (var sForm in values)
                 {
-                    if (!paradigm.ContainsKey(sPrefix + "M_Sg_A_Inanim"))
+                    if (!dctParadigm.ContainsKey(sPrefix + "M_Sg_A_Inanim"))
                     {
-                        paradigm[sPrefix + "M_Sg_A_Inanim"] = new List<string>();
+                        dctParadigm[sPrefix + "M_Sg_A_Inanim"] = new List<CWordFormManaged>();
                     }
-                    paradigm[sPrefix + "M_Sg_A_Inanim"].Add(sForm);
+                    dctParadigm[sPrefix + "M_Sg_A_Inanim"].Add(sForm);
                 }
 
-                values = paradigm[sPrefix + "M_Sg_G"];
+                values = dctParadigm[sPrefix + "M_Sg_G"];
                 foreach (var sForm in values)
                 {
-                    if (!paradigm.ContainsKey(sPrefix + "M_Sg_A_Anim"))
+                    if (!dctParadigm.ContainsKey(sPrefix + "M_Sg_A_Anim"))
                     {
-                        paradigm[sPrefix + "M_Sg_A_Anim"] = new List<string>();
+                        dctParadigm[sPrefix + "M_Sg_A_Anim"] = new List<CWordFormManaged>();
                     }
-                    paradigm[sPrefix + "M_Sg_A_Anim"].Add(sForm);
+                    dctParadigm[sPrefix + "M_Sg_A_Anim"].Add(sForm);
                 }
 
-                values = paradigm[sPrefix + "Pl_N"];
+                values = dctParadigm[sPrefix + "Pl_N"];
                 foreach (var sForm in values)
                 {
-                    if (!paradigm.ContainsKey(sPrefix + "Pl_A_Inanim"))
+                    if (!dctParadigm.ContainsKey(sPrefix + "Pl_A_Inanim"))
                     {
-                        paradigm[sPrefix + "Pl_A_Inanim"] = new List<string>();
+                        dctParadigm[sPrefix + "Pl_A_Inanim"] = new List<CWordFormManaged>();
                     }
-                    paradigm[sPrefix + "Pl_A_Inanim"].Add(sForm);
+                    dctParadigm[sPrefix + "Pl_A_Inanim"].Add(sForm);
                 }
 
-                values = paradigm[sPrefix + "Pl_G"];
+                values = dctParadigm[sPrefix + "Pl_G"];
                 foreach (var sForm in values)
                 {
-                    if (!paradigm.ContainsKey(sPrefix + "Pl_A_Anim"))
+                    if (!dctParadigm.ContainsKey(sPrefix + "Pl_A_Anim"))
                     {
-                        paradigm[sPrefix + "Pl_A_Anim"] = new List<string>();
+                        dctParadigm[sPrefix + "Pl_A_Anim"] = new List<CWordFormManaged>();
                     }
-                    paradigm[sPrefix + "Pl_A_Anim"].Add(sForm);
+                    dctParadigm[sPrefix + "Pl_A_Anim"].Add(sForm);
                 }
             }
             catch (KeyNotFoundException exKey)
@@ -1516,13 +1511,13 @@ namespace ZalTestApp
 
         #endregion
 
-        public bool bGetFormByGramHash(CLexemeManaged l, string sHash, out List<string> forms)
+        public bool bGetFormByGramHash(CLexemeManaged l, string sHash, out List<CWordFormManaged> lstForms)
         {
-            forms = null;
-            Dictionary<string, List<string>> paradigm;
-            if (m_Lexemes.TryGetValue(l.sHash(), out paradigm))
+            lstForms = null;
+            Dictionary<string, List<CWordFormManaged>> dctParadigm;
+            if (m_dctLexemes.TryGetValue(l.sHash(), out dctParadigm))
             {
-                if (paradigm.TryGetValue(sHash, out forms))
+                if (dctParadigm.TryGetValue(sHash, out lstForms))
                 {
                     return true;
                 }
