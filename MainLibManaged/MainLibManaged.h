@@ -41,6 +41,8 @@ namespace MainLibManaged
         String^ sWordForm();
         void SetWordForm(String^);
 
+        long long llWordFormDbId();
+
         String^ sStem();
         void SetStem(String^);
 
@@ -98,7 +100,7 @@ namespace MainLibManaged
         EM_ReturnCode eInitFromHash(String^ sHash);
 
         EM_ReturnCode eSaveIrregularForm();
-        EM_ReturnCode eSetIrregularStressPositions(Dictionary<int, EM_StressType>^ dictPositions);
+//        EM_ReturnCode eSetIrregularStressPositions(Dictionary<int, EM_StressType>^ dictPositions);
 
     };      //  public ref class CWordFormManaged
 

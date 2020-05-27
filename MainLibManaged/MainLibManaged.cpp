@@ -83,6 +83,16 @@ void CWordFormManaged::SetWordForm(String^ sWordForm)
     m_pWordForm->SetWordForm(sFromManagedString(sWordForm));
 }
 
+long long CWordFormManaged::llWordFormDbId()
+{
+    if (NULL == m_pWordForm)
+    {
+        throw gcnew Exception(L"Word form object is NULL.");
+    }
+
+    m_pWordForm->llDbId();
+}
+
 String^ CWordFormManaged::sStem()
 {
     if (NULL == m_pWordForm)
@@ -481,6 +491,7 @@ EM_ReturnCode CWordFormManaged::eSaveIrregularForm()
     return (EM_ReturnCode)m_pWordForm->eSaveIrregularForm();
 }
 
+/*
 EM_ReturnCode CWordFormManaged::eSetIrregularStressPositions(Dictionary<int, EM_StressType>^ dictPositions)
 {
     if (NULL == m_pWordForm)
@@ -498,6 +509,7 @@ EM_ReturnCode CWordFormManaged::eSetIrregularStressPositions(Dictionary<int, EM_
 
     return (EM_ReturnCode)eRet;
 }
+*/
 
 CDictionaryManaged::CDictionaryManaged()
 {
