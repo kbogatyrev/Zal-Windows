@@ -369,17 +369,9 @@ namespace ZalTestApp
         //            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         //        }
 
-        public bool GetFormsByGramHash(string sLexemeHash, string sGramHash, out List<CWordFormManaged> forms)
+        public bool GetFormsByGramHash(string sLexemeHash, string sGramHash, out List<FormDescriptor> forms)
         {
-            forms = null;
-
-            //CLexemeManaged lexeme = null;
-            //if (!m_LexemeHashToLexeme.TryGetValue(lexeme.sHash(), out lexeme))
-            //{
-            //    System.Windows.MessageBox.Show("Lexeme not found.");
-            //    return false;
-            //}
-
+            forms = new List<FormDescriptor>();
             Dictionary<string, List<CWordFormManaged>> dctParadigm;
             if (!m_dctLexemes.TryGetValue(sLexemeHash, out dctParadigm))
             {
@@ -388,7 +380,15 @@ namespace ZalTestApp
             }
             try
             {
-                forms = dctParadigm[sGramHash];
+                foreach (var wfObj in dctParadigm[sGramHash])
+                {
+                    FormDescriptor fd = new FormDescriptor();
+                    fd.WordFormManaged = wfObj;
+//                    string sSwf = wfObj.sWordForm();
+//                    Helpers.MarkStress(ref sSwf, wfObj);
+//                    fd.StressedWordform = sSwf;
+                    forms.Add(fd);
+                }
             }
             catch (Exception ex)
             {

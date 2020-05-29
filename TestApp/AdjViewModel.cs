@@ -147,13 +147,13 @@ namespace ZalTestApp
 
             var formsForHash = m_DictFormStatus[sFormHash];
             int iAt = formsForHash.iCurrentForm;
-            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
+            if (iAt < 0 || iAt >= formsForHash.lstForms.Count)
             {
                 MessageBox.Show("Internal error: Illegal form index.");
                 return "Error";
             }
 
-            return formsForHash.listForms[iAt].sWordForm();
+            return formsForHash.lstForms[iAt].StressedWordform;
 
             //  TODO: comment
 
@@ -616,132 +616,132 @@ namespace ZalTestApp
 
         public bool AdjL_M_Sg_N_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_N", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_M_Sg_A_Inanim_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_A_Inanim", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_A_Inanim", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_M_Sg_A_Anim_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_A_Anim", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_A_Anim", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_M_Sg_G_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_G", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_G", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_M_Sg_P_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_P", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_P", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_M_Sg_D_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_D", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_D", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_M_Sg_I_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_I", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_M_Sg_I", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_F_Sg_N_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_N", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_F_Sg_A_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_A", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_A", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_F_Sg_G_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_G", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_G", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_F_Sg_P_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_P", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_P", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_F_Sg_D_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_D", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_D", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_F_Sg_I_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_I", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_F_Sg_I", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_N_Sg_N_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_N", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_N_Sg_A_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_A", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_A", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_N_Sg_G_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_G", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_G", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_N_Sg_P_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_P", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_P", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_N_Sg_D_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_D", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_D", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_N_Sg_I_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_I", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_N_Sg_I", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_Pl_N_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_N", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_N", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_Pl_A_Inanim_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_A_Inanim", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_A_Inanim", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_Pl_A_Anim_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_A_Anim", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_A_Anim", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_Pl_G_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_G", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_G", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_Pl_P_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_P", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_P", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_Pl_D_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_D", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_D", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool AdjL_Pl_I_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_I", out f); return f != null && f.listForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_I", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         #endregion
@@ -763,13 +763,13 @@ namespace ZalTestApp
             foreach (string sHash in listGramHashes)
             {
                 FormsForGramHash formsPerHash = new FormsForGramHash();
-                List<CWordFormManaged> lstForms = null;
+                List<FormDescriptor> lstForms = null;
                 if (!m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out lstForms))
                 {
                     continue;
                 }
 
-                formsPerHash.listForms = lstForms;
+                formsPerHash.lstForms = lstForms;
                 formsPerHash.iCurrentForm = 0;
 
                 var keyIdx = listGramHashes.IndexOf(sHash);

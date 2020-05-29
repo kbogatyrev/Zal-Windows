@@ -68,13 +68,13 @@ namespace ZalTestApp
 
             var formsForHash = m_DictFormStatus[sHash];
             int iAt = formsForHash.iCurrentForm;
-            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
+            if (iAt < 0 || iAt >= formsForHash.lstForms.Count)
             {
                 MessageBox.Show("Internal error: Illegal form index.");
                 return;
             }
 
-            formsForHash.listForms[iAt].SetWordForm(sForm);
+            formsForHash.lstForms[iAt].WordFormManaged.SetWordForm(sForm);
         }
 
         public void FormScrollUp(Object obj)
@@ -83,7 +83,7 @@ namespace ZalTestApp
             FormsForGramHash formsPerHash;
             if (m_DictFormStatus.TryGetValue(sGramHash, out formsPerHash))
             {
-                if (formsPerHash.listForms.Count > 1 && formsPerHash.iCurrentForm > 0)
+                if (formsPerHash.lstForms.Count > 1 && formsPerHash.iCurrentForm > 0)
                 {
                     --formsPerHash.iCurrentForm;
                     OnPropertyChanged(sGramHash);
@@ -97,7 +97,7 @@ namespace ZalTestApp
             FormsForGramHash formsPerHash;
             if (m_DictFormStatus.TryGetValue(sGramHash, out formsPerHash))
             {
-                if (formsPerHash.listForms.Count > 1 && formsPerHash.iCurrentForm < formsPerHash.listForms.Count - 1)
+                if (formsPerHash.lstForms.Count > 1 && formsPerHash.iCurrentForm < formsPerHash.lstForms.Count - 1)
                 {
                     ++formsPerHash.iCurrentForm;
                     OnPropertyChanged(sGramHash);
@@ -312,10 +312,11 @@ namespace ZalTestApp
             Dictionary<int, EM_StressType> dictStressPos;
             Helpers.StressMarksToPosList(sForm, out sOutForm, out dictStressPos);
             wf.SetWordForm(sOutForm);
-            eRet = wf.eSetIrregularStressPositions(dictStressPos);
+            //            eRet = wf.eSetIrregularStressPositions(dictStressPos);
+            eRet = wf.eSaveIrregularForm();
             if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
-                var msg = "Internal error: unable to save stress positions";
+                var msg = "Internal error: unable to save irregular form.";
                 MessageBox.Show(msg);
                 return eRet;
             }
@@ -331,46 +332,25 @@ namespace ZalTestApp
             foreach (KeyValuePair<string, FormsForGramHash> entry in m_DictFormStatus)
             {
                 FormsForGramHash formsPerHash = entry.Value;
-                if (formsPerHash.listForms.Count < 1)
+                if (formsPerHash.lstForms.Count < 1)
                 {
                     MessageBox.Show("Internal error: no forms for {0}.", entry.Key);
                     continue;
                 }
 
-                continue;
-/*
-                // Purge all irregular forms with this gram hash from the DB
 //                string sGramHash = sDisplayHashToFormHash(entry.Key);
-                eRet = m_Lexeme.eDeleteIrregularForm(sGramHash);
-                if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_FALSE)
-                {
-                    var msg = "Internal error: unable to save wordform object";
-                    MessageBox.Show(msg);
-                    continue;
-                }
 
-                CWordFormManaged wf = null;
                 bool isVariant = false;
-                foreach (var descriptor in formsPerHash.listForms)
+                foreach (var fd in formsPerHash.lstForms)
                 {
                     try
                     {
-                        string sForm = descriptor.sFormText;
-                        eRet = CreateIrregularWordForm(sGramHash, sForm, ref wf);
-                        if (eRet != EM_ReturnCode.H_NO_ERROR)
-                        {
-                            var msg = "Internal error: unable to create word form object.";
-                            MessageBox.Show(msg);
-                            continue;
-                        }
-
-                        wf.SetIsVariant(isVariant);
-
+                        fd.WordFormManaged.SetIsVariant(isVariant);
                         isVariant = true;       // for subsequent forms if they exist
 
                         // TODO: comments
 
-                        eRet = m_Lexeme.eSaveIrregularForm(wf.sGramHash(), ref wf);
+                        eRet = fd.WordFormManaged.eSaveIrregularForm();
                         if (eRet != EM_ReturnCode.H_NO_ERROR)
                         {
                             var msg = "Internal error: unable to save word form.";
@@ -385,7 +365,6 @@ namespace ZalTestApp
                         return;
                     }
                 }
-*/
             }       // foreach()
 //            MessageBox.Show("Формы сохранены.");
 
@@ -418,37 +397,108 @@ namespace ZalTestApp
                 }
         */
     }
-/*
+    /*
+        public class FormDescriptor
+        {
+            public string sFormText;
+            public string sComment;                            // leading / trailing comments, irregular form only
+            public bool HasTrailingComment;
+            public bool IsIrregular;
+            public bool IsEdited;
+    //        public EM_Subparadigm eSubparadigm;
+
+            public FormDescriptor()
+            {
+                sFormText = "";
+                sComment = "";
+                HasTrailingComment = false;
+                IsIrregular = false;
+                IsEdited = false;
+    //            eSubparadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+            }
+        }
+    */
+
     public class FormDescriptor
     {
-        public string sFormText;
-        public string sComment;                            // leading / trailing comments, irregular form only
-        public bool HasTrailingComment;
-        public bool IsIrregular;
-        public bool IsEdited;
-//        public EM_Subparadigm eSubparadigm;
+        private string m_sStressedWordform;
+        public string StressedWordform
+        {
+            get
+            {
+                string sWordformWithStress = m_WordformData.sWordForm();
+                Helpers.MarkStress(ref sWordformWithStress, m_WordformData);
+                return sWordformWithStress;
+            }
+            
+//            set
+//            {
+//                m_sStressedWordform = value;
+//                string sOutWord = "";
+//                Dictionary<int, EM_StressType> dctStressPositions = null;
+//                Helpers.StressMarksToPosList(m_sStressedWordform, out sOutWord, out dctStressPositions);
+//                m_WordformData.SetWordForm(sOutWord);
+//                m_WordformData.eSetStressPositions(dctStressPositions);
+//            }
+        }
+
+        private bool m_bIsUnsaved;
+        public bool IsUnsaved 
+        {
+            get
+            {
+                return m_bIsUnsaved;
+            }
+            set 
+            {
+                m_bIsUnsaved = value;
+            }
+        }
+
+        private CWordFormManaged m_WordformData;
+        public CWordFormManaged WordFormManaged 
+        {
+            get
+            {
+                return m_WordformData;
+            }
+
+            set
+            {
+                m_WordformData = value;
+            }
+        }
 
         public FormDescriptor()
         {
-            sFormText = "";
-            sComment = "";
-            HasTrailingComment = false;
-            IsIrregular = false;
-            IsEdited = false;
-//            eSubparadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+//            m_sStressedWordform = "";
+            m_bIsUnsaved = false;
         }
-    }
-*/
 
+        public bool AddWordformObject(CWordFormManaged wfObj)
+        {
+            if (null == wfObj)
+            {
+                var msg = "Internal error: word form instance is null.";
+                MessageBox.Show(msg);
+                return false;
+            }
+
+            m_WordformData = wfObj;
+
+            return true;
+        }
+    }    
+    
     // List of forms for given gram hash + sequential number of currently displayed form
     public class FormsForGramHash
     {
-        public List<CWordFormManaged> listForms;
+        public List<FormDescriptor> lstForms;
         public int iCurrentForm;
 
         public FormsForGramHash()
         {
-            listForms = new List<CWordFormManaged>();
+            lstForms = new List<FormDescriptor>();
             iCurrentForm = -1;
         }
     }

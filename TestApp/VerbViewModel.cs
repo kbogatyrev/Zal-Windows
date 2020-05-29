@@ -146,13 +146,13 @@ namespace ZalTestApp
 
             var formsForHash = m_DictFormStatus[sFormHash];
             int iAt = formsForHash.iCurrentForm;
-            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
+            if (iAt < 0 || iAt >= formsForHash.lstForms.Count)
             {
                 MessageBox.Show("Internal error: Illegal form index.");
                 return "Error";
             }
 
-            return formsForHash.listForms[iAt].sWordForm();
+            return formsForHash.lstForms[iAt].WordFormManaged.sWordForm();
 
             //  TODO: comment
 
@@ -160,7 +160,6 @@ namespace ZalTestApp
 
         protected string GetForm(string sDisplayHash, EM_Subparadigm eSubparadigm)
         {
-            //            string sFormHash = sDisplayHashToFormHash(sDisplayHash, eSubparadigm);
             string sFormHash = sDisplayHash;
             if (!m_DictFormStatus.ContainsKey(sFormHash))
             {
@@ -169,13 +168,13 @@ namespace ZalTestApp
 
             var formsForHash = m_DictFormStatus[sFormHash];
             int iAt = formsForHash.iCurrentForm;
-            if (iAt < 0 || iAt >= formsForHash.listForms.Count)
+            if (iAt < 0 || iAt >= formsForHash.lstForms.Count)
             {
                 MessageBox.Show("Internal error: Illegal form index.");
                 return "Error";
             }
 
-            return formsForHash.listForms[iAt].sWordForm();
+            return formsForHash.lstForms[iAt].StressedWordform;
 
             //  TODO: comment
 
@@ -577,7 +576,7 @@ namespace ZalTestApp
             foreach (string sHash in listGramHashes)
             {
                 FormsForGramHash formsPerHash = new FormsForGramHash();
-                List<CWordFormManaged> lstForms = null;
+                List<FormDescriptor> lstForms = null;
                 if (!m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out lstForms))
                 {
                     continue;
@@ -585,7 +584,7 @@ namespace ZalTestApp
 
                 foreach (var wf in lstForms)
                 {
-                    formsPerHash.listForms.Add(wf);
+                    formsPerHash.lstForms.Add(wf);
                 }
 
                 formsPerHash.iCurrentForm = 0;
