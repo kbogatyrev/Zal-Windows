@@ -90,7 +90,7 @@ long long CWordFormManaged::llWordFormDbId()
         throw gcnew Exception(L"Word form object is NULL.");
     }
 
-    m_pWordForm->llDbId();
+    return m_pWordForm->llDbId();
 }
 
 String^ CWordFormManaged::sStem()
@@ -460,6 +460,28 @@ EM_ReturnCode CWordFormManaged::eGetNextStressPos(int% iPos, EM_StressType% eTyp
 
     return (EM_ReturnCode)eRet;
 }
+
+EM_ReturnCode CWordFormManaged::eSetStressPositions(Collections::Generic::Dictionary<int, EM_StressType>^ dctStressPositions)
+{
+    if (NULL == m_pWordForm)
+    {
+        throw gcnew Exception(L"WordForm object is NULL.");
+    }
+
+    Collections::Generic::Dictionary<int, EM_StressType>::Enumerator^ enumerator = dctStressPositions->GetEnumerator();
+    map<int, ET_StressType> mapStressPositions;
+    while (enumerator->MoveNext())
+    {
+        int iPos = enumerator->Current.Key;
+        EM_StressType eType = enumerator->Current.Value;
+        mapStressPositions[iPos] = (ET_StressType)eType;
+    }
+
+    ET_ReturnCode eRet = m_pWordForm->eSetStressPositions(mapStressPositions);
+
+    return (EM_ReturnCode)eRet;
+}
+
 
 String^ CWordFormManaged::sGramHash()
 {
