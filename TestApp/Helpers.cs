@@ -10,6 +10,11 @@ namespace ZalTestApp
 {
     public static class Helpers
     {
+        #region CharConstants
+
+        public static char[] arrRusVowels = { 'а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я' };
+
+        #endregion
 
         #region GramHashes
 
@@ -1205,34 +1210,57 @@ namespace ZalTestApp
             }
         }
 
-        public static void StressMarksToPosList(string sWord, out string sOutWord, out Dictionary<int, EM_StressType> dictPositions)
+        public static EM_ReturnCode StressMarksToPosList(string sWord, out string sOutWord, out Dictionary<int, EM_StressType> dictPositions)
         {
             dictPositions = new Dictionary<int, EM_StressType>();
             sOutWord = "";
-            int iRemoved = 0;
 
-            for (int iPos = 0; iPos < sWord.Length; ++iPos)
+            List<int> lstVowelPositions = new List<int>();
+            int iCurrentVowelPos = sWord.IndexOfAny(Helpers.arrRusVowels, 0);
+            while (iCurrentVowelPos > -1)
             {
-                char chr = sWord[iPos];
-                if ('\x300' == chr)
-                {
-                    dictPositions[iPos-(iRemoved++)-1] = EM_StressType.STRESS_SECONDARY;
-                }
-                else if ('\x301' == chr)
-                {
-                    dictPositions[iPos-(iRemoved++)-1] = EM_StressType.STRESS_PRIMARY;
-                }
-                else if ('ё' == chr)
-                {
-                    dictPositions[iPos-iRemoved] = EM_StressType.STRESS_PRIMARY;
-                    sOutWord += chr;
-                }
-                else
-                {
-                    sOutWord += chr;
-                }
+                lstVowelPositions.Add(iCurrentVowelPos);
+                iCurrentVowelPos = sWord.IndexOfAny(Helpers.arrRusVowels, iCurrentVowelPos + 1);
             }
-        }
+
+            int iSyll = 0;
+            foreach (var iVowelPos in lstVowelPositions)
+            {
+                if (iVowelPos >= sWord.Length)
+                {
+                    System.Windows.MessageBox.Show("Illegal vowel position. ");
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+
+                if (iSyll >= lstVowelPositions.Count)
+                {
+                    System.Windows.MessageBox.Show("Illegal syllable position. ");
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+
+                if (iVowelPos < sWord.Length - 1 && '\x300' == sWord[iVowelPos+1])
+                {
+                    dictPositions[iSyll] = EM_StressType.STRESS_SECONDARY;
+                }
+                else if (iVowelPos < sWord.Length - 1 && '\x301' == sWord[iVowelPos+1])
+                {
+                    dictPositions[iSyll] = EM_StressType.STRESS_PRIMARY;
+                }
+                else if ('ё' == sWord[iVowelPos])
+                {
+                    dictPositions[iSyll] = EM_StressType.STRESS_PRIMARY;
+                }
+
+                ++iSyll;
+            }
+
+            sOutWord = sWord;
+            sOutWord = sOutWord.Replace("\x300", string.Empty);
+            sOutWord = sOutWord.Replace("\x301", string.Empty);
+
+            return EM_ReturnCode.H_NO_ERROR;
+
+        }   //  StressMarksToPosList()
 
         public static void MarkStress(ref string sWordForm, CWordFormManaged wf)
         {
