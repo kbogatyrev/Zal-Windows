@@ -104,7 +104,6 @@ namespace ZalTestApp
 
         private string GetForm(string sHash)
         {
-            //            string sFormHash = sDisplayHashToFormHash(sHash);
             string sFormHash = sHash;
             if (!m_DictFormStatus.ContainsKey(sFormHash))
             {
@@ -563,27 +562,6 @@ namespace ZalTestApp
             BackButtonEvent?.Invoke();
         }
 
-/*
-        public void EditForm(Object obj)
-        {
-            var sPropName = obj as string;
-
-            try
-            {
-                var fd = m_DictFormStatus[sPropName];
-//                fd.bCanEdit = !fd.bCanEdit;
-//                m_DictFormStatus[sPropName] = fd;
-//                sPropName += "_IsReadOnly";
-//                OnPropertyChanged(sPropName);
-            }
-            catch (Exception ex)
-            {
-                var msg = "Internal error: unable to invoke word form change handler: ";
-                msg += ex.Message;
-                MessageBox.Show(msg);
-            }
-        }       //  EditForm()
-*/
         public void EditFormComment(Object obj)
         {
             // Currently disabled

@@ -64,7 +64,8 @@ namespace ZalTestApp
                 return;
             }
 
-            Helpers.AssignDiacritics(sForm, ref sForm);
+            string sStressedForm = "";
+            Helpers.AssignDiacritics(sForm, ref sStressedForm);
 
             var formsForHash = m_DictFormStatus[sHash];
             int iAt = formsForHash.iCurrentForm;
@@ -74,7 +75,17 @@ namespace ZalTestApp
                 return;
             }
 
-            formsForHash.lstForms[iAt].WordFormManaged.SetWordForm(sForm);
+            string sFormWithStressRemoved = "";
+            Dictionary<int, EM_StressType> dctStressPositions;
+            Helpers.StressMarksToPosList(sStressedForm, out sFormWithStressRemoved, out dctStressPositions);
+            formsForHash.lstForms[iAt].WordFormManaged.SetWordForm(sFormWithStressRemoved);
+            var eRet = formsForHash.lstForms[iAt].WordFormManaged.eSetStressPositions(dctStressPositions);
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                MessageBox.Show("Unable to modify stress positions.");
+            }
+            formsForHash.lstForms[iAt].IsUnsaved = true;
+            OnPropertyChanged(sHash);
         }
 
         public void FormScrollUp(Object obj)
@@ -343,6 +354,11 @@ namespace ZalTestApp
                 bool isVariant = false;
                 foreach (var fd in formsPerHash.lstForms)
                 {
+                    if (!fd.IsUnsaved)
+                    {
+                        continue;
+                    }
+
                     try
                     {
                         fd.WordFormManaged.SetIsVariant(isVariant);
@@ -357,6 +373,7 @@ namespace ZalTestApp
                             MessageBox.Show(msg);
                             continue;
                         }
+                        fd.IsUnsaved = false;
                     }
                     catch (Exception ex)
                     {
@@ -366,7 +383,15 @@ namespace ZalTestApp
                     }
                 }
             }       // foreach()
-//            MessageBox.Show("Формы сохранены.");
+
+            if (EM_ReturnCode.H_NO_ERROR == eRet)
+            {
+                MessageBox.Show("Формы сохранены.");
+            }
+            else
+            {
+                MessageBox.Show("Ошибки при записи форм в базу данных.");
+            }
 
 
         }       //  SaveForms()
@@ -430,16 +455,11 @@ namespace ZalTestApp
                 Helpers.MarkStress(ref sWordformWithStress, m_WordformData);
                 return sWordformWithStress;
             }
-            
-//            set
-//            {
-//                m_sStressedWordform = value;
-//                string sOutWord = "";
-//                Dictionary<int, EM_StressType> dctStressPositions = null;
-//                Helpers.StressMarksToPosList(m_sStressedWordform, out sOutWord, out dctStressPositions);
-//                m_WordformData.SetWordForm(sOutWord);
-//                m_WordformData.eSetStressPositions(dctStressPositions);
-//            }
+
+//            set 
+//            { 
+//                
+//            }    
         }
 
         private bool m_bIsUnsaved;
