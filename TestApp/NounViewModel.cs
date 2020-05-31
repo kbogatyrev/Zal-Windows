@@ -658,73 +658,7 @@ namespace ZalTestApp
 
                 }       //  CreateIrregularWordForm()
         */
-        /*
 
-                public void SaveForms(Object obj)
-                {
-                    EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
-
-                    foreach (KeyValuePair<string, FormsForGramHash> entry in m_DictFormStatus)
-                    {
-                        FormsForGramHash formsPerHash = entry.Value;
-                        if (formsPerHash.listForms.Count < 1)
-                        {
-                            MessageBox.Show("Internal error: no forms for {0}.", entry.Key);
-                            continue;
-                        }
-
-                        // Purge all irregular forms with this gram hash from the DB
-                        string sGramHash = sDisplayHashToFormHash(entry.Key);
-                        eRet = m_Lexeme.eDeleteIrregularForm(sGramHash);
-                        if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_FALSE)
-                        {
-                            var msg = "Internal error: unable to save wordform object";
-                            MessageBox.Show(msg);
-                            continue;
-                        }
-
-                        CWordFormManaged wf = null;
-                        bool isVariant = false;
-                        foreach (var descriptor in formsPerHash.listForms)
-                        {
-                            try
-                            {
-                                string sForm = descriptor.sFormText;
-                                eRet = CreateIrregularWordForm(sGramHash, sForm, ref wf);
-                                if (eRet != EM_ReturnCode.H_NO_ERROR)
-                                {
-                                    var msg = "Internal error: unable to create word form object.";
-                                    MessageBox.Show(msg);
-                                    continue;
-                                }
-
-                                wf.SetIsVariant(isVariant);
-
-                                isVariant = true;       // for subsequent forms if they exist
-
-        // TODO: comments
-
-                                eRet = m_Lexeme.eSaveIrregularForm(wf.sGramHash(), ref wf);
-                                if (eRet != EM_ReturnCode.H_NO_ERROR)
-                                {
-                                    var msg = "Internal error: unable to save word form.";
-                                    MessageBox.Show(msg);
-                                    continue;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                var msg = string.Format("Exception: {0}.", ex.Message);
-                                MessageBox.Show(msg);
-                                return;
-                            }
-                        }
-                    }       // for (int iAt = 0...
-
-                    MessageBox.Show("Формы сохранены.");
-
-                }       //  SaveForms()
-        */
         private string sFormHashToDisplayHash(string sFormHash)
         {
             int iKeyIdx = -1;
