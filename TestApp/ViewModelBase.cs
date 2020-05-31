@@ -422,27 +422,6 @@ namespace ZalTestApp
                 }
         */
     }
-    /*
-        public class FormDescriptor
-        {
-            public string sFormText;
-            public string sComment;                            // leading / trailing comments, irregular form only
-            public bool HasTrailingComment;
-            public bool IsIrregular;
-            public bool IsEdited;
-    //        public EM_Subparadigm eSubparadigm;
-
-            public FormDescriptor()
-            {
-                sFormText = "";
-                sComment = "";
-                HasTrailingComment = false;
-                IsIrregular = false;
-                IsEdited = false;
-    //            eSubparadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
-            }
-        }
-    */
 
     public class FormDescriptor
     {
@@ -455,11 +434,6 @@ namespace ZalTestApp
                 Helpers.MarkStress(ref sWordformWithStress, m_WordformData);
                 return sWordformWithStress;
             }
-
-//            set 
-//            { 
-//                
-//            }    
         }
 
         private bool m_bIsUnsaved;
