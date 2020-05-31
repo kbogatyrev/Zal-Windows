@@ -39,7 +39,9 @@ namespace MainLibManaged
         IWordForm * pGetUnmanagedItf();
 
         String^ sWordForm();
+
         void SetWordForm(String^);
+        EM_ReturnCode eSetStressPositions(Collections::Generic::Dictionary<int, EM_StressType>^ dctStressPositions);
 
         long long llWordFormDbId();
 
@@ -100,7 +102,6 @@ namespace MainLibManaged
         EM_ReturnCode eInitFromHash(String^ sHash);
 
         EM_ReturnCode eSaveIrregularForm();
-        EM_ReturnCode eSetStressPositions(Collections::Generic::Dictionary<int, EM_StressType>^ dctStressPositions);
 
     };      //  public ref class CWordFormManaged
 
