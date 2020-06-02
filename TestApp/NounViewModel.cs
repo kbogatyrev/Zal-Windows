@@ -32,16 +32,16 @@ namespace ZalTestApp
             }
         }
 
-        private ICommand m_EditFormCommentCommand;
-        public ICommand EditFormCommentCommand
+        private ICommand m_ShowFormCommentCommand;
+        public ICommand ShowFormComment
         {
             get
             {
-                return m_EditFormCommentCommand;
+                return m_ShowFormCommentCommand;
             }
             set
             {
-                m_EditFormCommentCommand = value;
+                m_ShowFormCommentCommand = value;
             }
         }
 
@@ -375,13 +375,6 @@ namespace ZalTestApp
             set { m_eNoun_Pl_I_Marks = value; OnPropertyChanged("Noun_Pl_I_Marks"); }
         }
 
-        private string m_sFormComment;
-        public string FormComment
-        {
-            get { return m_sFormComment; }
-            set { m_sFormComment = value; OnPropertyChanged("FormComment"); }
-        }
-
         public bool Noun_Sg_N_HasMultipleForms
         {
             get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
@@ -450,6 +443,77 @@ namespace ZalTestApp
         public bool Noun_Pl_I_HasMultipleForms
         {
             get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Noun_Pl_I", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        //  Show or hide comment button
+        public bool Noun_Sg_N_HasComments
+        {
+            get { return HasComments("Noun_Sg_N", m_eSubparadigm); }
+        }
+
+        public bool Noun_Sg_A_HasComments
+        {
+            get { return HasComments("Noun_Sg_A", m_eSubparadigm); }
+        }
+
+        public bool Noun_Sg_G_HasComments
+        {
+            get { return HasComments("Noun_Sg_G", m_eSubparadigm); }
+        }
+
+        public bool Noun_Sg_P_HasComments
+        {
+            get { return HasComments("Noun_Sg_P", m_eSubparadigm); }
+        }
+
+        public bool Noun_Sg_D_HasComments
+        {
+            get { return HasComments("Noun_Sg_D", m_eSubparadigm); }
+        }
+
+        public bool Noun_Sg_I_HasComments
+        {
+            get { return HasComments("Noun_Sg_I", m_eSubparadigm); }
+        }
+
+        public bool Noun_Sg_Part_HasComments
+        {
+            get { return HasComments("Noun_Sg_Part", m_eSubparadigm); }
+        }
+
+        public bool Noun_Sg_P2_HasComments
+        {
+            get { return HasComments("Noun_Sg_P2", m_eSubparadigm); }
+        }
+
+        public bool Noun_Pl_N_HasComments
+        {
+            get { return HasComments("Noun_Pl_N", m_eSubparadigm); }
+        }
+
+        public bool Noun_Pl_A_HasComments
+        {
+            get { return HasComments("Noun_Pl_A", m_eSubparadigm); }
+        }
+
+        public bool Noun_Pl_G_HasComments
+        {
+            get { return HasComments("Noun_Pl_G", m_eSubparadigm); }
+        }
+
+        public bool Noun_Pl_P_HasComments
+        {
+            get { return HasComments("Noun_Pl_P", m_eSubparadigm); }
+        }
+
+        public bool Noun_Pl_D_HasComments
+        {
+            get { return HasComments("Noun_Pl_D", m_eSubparadigm); }
+        }
+
+        public bool Noun_Pl_I_HasComments
+        {
+            get { return HasComments("Noun_Pl_I", m_eSubparadigm); }
         }
 
         #endregion
@@ -545,7 +609,7 @@ namespace ZalTestApp
         public NounViewModel(CLexemeManaged lexeme, MainModel m)
         {
             BackCommand = new RelayCommand(new Action<object>(GoBack));
-            EditFormCommentCommand = new RelayCommand(new Action<object>(EditFormComment));
+            ShowFormComment = new RelayCommand(new Action<object>(ShowFormCommentImpl));
             SaveFormsCommand = new RelayCommand(new Action<object>(SaveForms));
             FormScrollUpCommand = new RelayCommand(new Action<object>(FormScrollUp));
             FormScrollDownCommand = new RelayCommand(new Action<object>(FormScrollDown));
@@ -562,29 +626,41 @@ namespace ZalTestApp
             BackButtonEvent?.Invoke();
         }
 
-        public void EditFormComment(Object obj)
+        public void ShowFormCommentImpl(Object obj)
         {
-            // Currently disabled
-            // TODO
-            return;
-
-            //            string sComment = obj as string;
-            string sComment = FormComment;
-
-            EnterDataDlg edd = new EnterDataDlg();
-            edd.Owner = Application.Current.MainWindow;
-
-            EnterDataViewModel eddvm = (EnterDataViewModel)edd.DataContext;
-            eddvm.Type = EnterDataViewModel.EType.CommentEntry;
-            eddvm.DlgTitle = "Коммент";
-            eddvm.DataString = sComment;
-            bool? bnRet = edd.ShowDialog();
-            if (bnRet != true)
+            Comments wndComments = new Comments();
+            wndComments.Owner = Application.Current.MainWindow;
+            var sDisplayHash = obj as string;
+            string sFormHash = sDisplayHashToFormHash(sDisplayHash, m_eSubparadigm);
+            var formsForHash = m_DictFormStatus[sFormHash];
+            if (formsForHash.iCurrentForm < 0 || formsForHash.iCurrentForm >= formsForHash.lstForms.Count)
             {
+                MessageBox.Show("Internal error: Illegal form index.");
                 return;
             }
 
-            FormComment = eddvm.DataString;
+            var wf = formsForHash.lstForms[formsForHash.iCurrentForm].WordFormManaged;
+            var sLeftComment = wf.sLeadComment();
+            var sRightComment = wf.sTrailingComment();
+
+            if (sLeftComment != String.Empty)
+            {
+                wndComments.TextBlock.Text = sLeftComment;
+            }
+
+            if (sRightComment != String.Empty)
+            {
+                wndComments.TextBlock.Text += "; " + sRightComment;
+            }
+            else
+            {
+                wndComments.TextBlock.Text = sLeftComment;
+            }
+
+            wndComments.ShowDialog();
+
+            return;
+
         }
 
         /*
