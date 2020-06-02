@@ -887,18 +887,9 @@ namespace ZalTestApp
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
 
             Dictionary<string, List<CWordFormManaged>> dctParadigm = new Dictionary<string, List<CWordFormManaged>>();
-//            Dictionary<string, List<Tuple<string, string>>> comments = null;
 
             CWordFormManaged wf = null;
-//            EM_ReturnCode eRet = (EM_ReturnCode)lexeme.eGenerateParadigm();
-//            if (eRet != EM_ReturnCode.H_NO_ERROR)
-//            {
-//                System.Windows.MessageBox.Show("Error: unable to genetrate paradigm.");
-//                return false;
-//            }
-
             eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
-
             while (EM_ReturnCode.H_NO_ERROR == eRet || EM_ReturnCode.H_FALSE == eRet)
             {
                 try
@@ -938,20 +929,6 @@ namespace ZalTestApp
                             sWordForm = "*" + sWordForm;
                         }
                     }
-/*
-                    if (wf.bIrregular())
-                    {
-                        if (null == comments)
-                        {
-                            comments = new Dictionary<string, List<Tuple<string, string>>>();
-                        }
-                        if (!comments.ContainsKey(sKey))
-                        {
-                            comments[sKey] = new List<Tuple<string, string>>();
-                        }
-                        comments[sKey].Add(new Tuple<string, string>(wf.sLeadComment(), wf.sTrailingComment()));
-                    }
-*/
 
                     if (!dctParadigm.ContainsKey(sKey))
                     {
@@ -978,7 +955,6 @@ namespace ZalTestApp
             string sHash = lexeme.sHash();
             m_dctLexemes[sHash] = dctParadigm;
             m_dctLexemeHashToLexeme[sHash] = lexeme;
-//            m_dctFormComments[sHash] = comments;
 
             return true;
 
