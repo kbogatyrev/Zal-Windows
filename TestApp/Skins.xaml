@@ -32,6 +32,18 @@
         <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
 
+    <Style TargetType="TextBlock" x:Key="Comment">
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+        <Setter Property="Foreground" Value="Navy"/>
+        <Setter Property="Margin" Value="7,3,3,3"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
     <Style TargetType="Button" x:Key="BtnLarge">
         <Setter Property="Background" Value="#eee"/>
         <Setter Property="FontFamily" Value="Calibri"/>
@@ -118,6 +130,37 @@
                             <Setter TargetName="Disabled" Property="Visibility" Value="Hidden"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver"  Value="True">
+                <Setter Property="Background" Value="LightBlue" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" x:Key="BtnComment">
+        <Setter Property="Background" Value="#eee"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="Navy"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Command" Value="{Binding ShowFormComment}" />
+<!--        <Setter Property="IsEnabled" Value="{Binding EditEnabled}" />   -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Image Name="Normal" Source="comment_btn.png" Stretch="Uniform"  />
+                        </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -310,7 +353,6 @@
     </Style>
 
     <local:StyleConverter x:Key="StyleConverter"/>
-    <local:ScrollStatusConverter x:Key="ScrollStatusConverter"/>
 
     <Style TargetType="Image" x:Key="IrregularFormMark">
         <Setter Property="Height" Value="15"/>
