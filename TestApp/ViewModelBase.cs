@@ -230,6 +230,33 @@ namespace ZalTestApp
 
         }       //  sDisplayHashToFormHash()
 
+        public bool HasComments(string sDisplayHash, EM_Subparadigm eSubparadigm)
+        {
+            string sFormHash = sDisplayHashToFormHash(sDisplayHash, eSubparadigm);
+            FormsForGramHash formsForHash = null;
+            if (!m_DictFormStatus.TryGetValue(sFormHash, out formsForHash))
+            {
+                return false;
+            }
+
+            int iAt = formsForHash.iCurrentForm;
+            if (iAt < 0 || iAt >= formsForHash.lstForms.Count)
+            {
+                MessageBox.Show("Internal error: Illegal form index.");
+                return false;
+            }
+
+            string sLeadComment = formsForHash.lstForms[iAt].WordFormManaged.sLeadComment();
+            string sTrailingComment = formsForHash.lstForms[iAt].WordFormManaged.sTrailingComment();
+
+            if (0 == sLeadComment.Length && 0 == sTrailingComment.Length)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// Raised when a property on this object has a new value.
         /// </summary>
