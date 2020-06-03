@@ -27,6 +27,19 @@ namespace ZalTestApp
             }
         }
 
+        private ICommand m_ShowFormCommentCommand;
+        public ICommand ShowFormComment
+        {
+            get
+            {
+                return m_ShowFormCommentCommand;
+            }
+            set
+            {
+                m_ShowFormCommentCommand = value;
+            }
+        }
+
         private ICommand m_EditCommand;
         public ICommand EditCommand
         {
@@ -159,7 +172,6 @@ namespace ZalTestApp
 
         }
 
-
         EMark GetFormStatus(string sFormHash)
         {
             string sLexemeHash = m_Lexeme.sHash();
@@ -190,6 +202,11 @@ namespace ZalTestApp
             set { m_eAdjL_M_Sg_N_Marks = value; OnPropertyChanged("AdjL_M_Sg_N_Marks"); }
         }
 
+        public bool AdjL_M_Sg_N_HasComments
+        {
+            get { return HasComments("AdjL_M_Sg_N", m_eSubparadigm); }
+        }
+
         public string AdjL_M_Sg_A_Anim
         {
             get { return GetForm("AdjL_M_Sg_A_Anim", Subparadigm); }
@@ -201,6 +218,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjL_M_Sg_A_Anim"); }
             set { m_eAdjL_M_Sg_A_Anim_Marks = value; OnPropertyChanged("AdjL_M_Sg_A_Anim_Marks"); }
+        }
+
+        public bool AdjL_M_Sg_A_Anim_HasComments
+        {
+            get { return HasComments("AdjL_M_Sg_A_Anim", m_eSubparadigm); }
         }
 
         public string AdjL_M_Sg_A_Inanim
@@ -216,6 +238,11 @@ namespace ZalTestApp
             set { m_eAdjL_M_Sg_A_Inanim_Marks = value; OnPropertyChanged("AdjL_M_Sg_A_Inanim_Marks"); }
         }
 
+        public bool AdjL_M_Sg_A_Inanim_HasComments
+        {
+            get { return HasComments("AdjL_M_Sg_A_Inanim", m_eSubparadigm); }
+        }
+
         public string AdjL_M_Sg_G
         {
             get { return GetForm("AdjL_M_Sg_G", Subparadigm); }
@@ -227,6 +254,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjL_M_Sg_G"); }
             set { m_eAdjL_M_Sg_G_Marks = value; OnPropertyChanged("AdjL_M_Sg_G_Marks"); }
+        }
+
+        public bool AdjL_M_Sg_G_HasComments
+        {
+            get { return HasComments("AdjL_M_Sg_G", m_eSubparadigm); }
         }
 
         public string AdjL_M_Sg_P
@@ -242,6 +274,11 @@ namespace ZalTestApp
             set { m_eAdjL_M_Sg_G_Marks = value; OnPropertyChanged("AdjL_M_Sg_P_Marks"); }
         }
 
+        public bool AdjL_M_Sg_P_HasComments
+        {
+            get { return HasComments("AdjL_M_Sg_P", m_eSubparadigm); }
+        }
+
         public string AdjL_M_Sg_D
         {
             get { return GetForm("AdjL_M_Sg_D", Subparadigm); }
@@ -255,6 +292,11 @@ namespace ZalTestApp
             set { m_eAdjL_M_Sg_D_Marks = value; OnPropertyChanged("AdjL_M_Sg_D_Marks"); }
         }
 
+        public bool AdjL_M_Sg_D_HasComments
+        {
+            get { return HasComments("AdjL_M_Sg_D", m_eSubparadigm); }
+        }
+
         public string AdjL_M_Sg_I
         {
             get { return GetForm("AdjL_M_Sg_I", Subparadigm); }
@@ -266,6 +308,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjL_M_Sg_I"); }
             set { m_eAdjL_M_Sg_I_Marks = value; OnPropertyChanged("AdjL_M_Sg_I_Marks"); }
+        }
+
+        public bool AdjL_M_Sg_I_HasComments
+        {
+            get { return HasComments("AdjL_M_Sg_I", m_eSubparadigm); }
         }
 
         #endregion
@@ -285,6 +332,11 @@ namespace ZalTestApp
             set { m_eAdjL_F_Sg_N_Marks = value; OnPropertyChanged("AdjL_F_Sg_N_Marks"); }
         }
 
+        public bool AdjL_F_Sg_N_HasComments
+        {
+            get { return HasComments("AdjL_F_Sg_N", m_eSubparadigm); }
+        }
+
         public string AdjL_F_Sg_A
         {
             get { return GetForm("AdjL_F_Sg_A", Subparadigm); }
@@ -296,6 +348,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjL_F_Sg_A"); }
             set { m_eAdjL_F_Sg_A_Marks = value; OnPropertyChanged("AdjL_F_Sg_A_Marks"); }
+        }
+
+        public bool AdjL_F_Sg_A_HasComments
+        {
+            get { return HasComments("AdjL_F_Sg_A", m_eSubparadigm); }
         }
 
         public string AdjL_F_Sg_G
@@ -311,6 +368,11 @@ namespace ZalTestApp
             set { m_eAdjL_F_Sg_G_Marks = value; OnPropertyChanged("AdjL_F_Sg_G_Marks"); }
         }
 
+        public bool AdjL_F_Sg_G_HasComments
+        {
+            get { return HasComments("AdjL_F_Sg_G", m_eSubparadigm); }
+        }
+
         public string AdjL_F_Sg_P
         {
             get { return GetForm("AdjL_F_Sg_P", Subparadigm); }
@@ -322,6 +384,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjL_F_Sg_P"); }
             set { m_eAdjL_F_Sg_P_Marks = value; OnPropertyChanged("AdjL_F_Sg_P_Marks"); }
+        }
+
+        public bool AdjL_F_Sg_P_HasComments
+        {
+            get { return HasComments("AdjL_F_Sg_P", m_eSubparadigm); }
         }
 
         public string AdjL_F_Sg_D
@@ -337,6 +404,11 @@ namespace ZalTestApp
             set { m_eAdjL_F_Sg_D_Marks = value; OnPropertyChanged("AdjL_F_Sg_D_Marks"); }
         }
 
+        public bool AdjL_F_Sg_D_HasComments
+        {
+            get { return HasComments("AdjL_F_Sg_D", m_eSubparadigm); }
+        }
+
         public string AdjL_F_Sg_I
         {
             get { return GetForm("AdjL_F_Sg_I", Subparadigm); }
@@ -348,6 +420,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjL_F_Sg_I"); }
             set { m_eAdjL_F_Sg_I_Marks = value; OnPropertyChanged("AdjL_F_Sg_I_Marks"); }
+        }
+
+        public bool AdjL_F_Sg_I_HasComments
+        {
+            get { return HasComments("AdjL_F_Sg_I", m_eSubparadigm); }
         }
 
         #endregion
@@ -367,6 +444,11 @@ namespace ZalTestApp
             set { m_eAdjL_N_Sg_N_Marks = value; OnPropertyChanged("AdjL_N_Sg_N_Marks"); }
         }
 
+        public bool AdjL_N_Sg_N_HasComments
+        {
+            get { return HasComments("AdjL_N_Sg_N", m_eSubparadigm); }
+        }
+
         public string AdjL_N_Sg_A
         {
             get { return GetForm("AdjL_N_Sg_A", Subparadigm); }
@@ -378,6 +460,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjL_N_Sg_A"); }
             set { m_eAdjL_N_Sg_A_Marks = value; OnPropertyChanged("AdjL_N_Sg_A_Marks"); }
+        }
+
+        public bool AdjL_N_Sg_A_HasComments
+        {
+            get { return HasComments("AdjL_N_Sg_A", m_eSubparadigm); }
         }
 
         public string AdjL_N_Sg_G
@@ -393,6 +480,11 @@ namespace ZalTestApp
             set { m_eAdjL_N_Sg_G_Marks = value; OnPropertyChanged("AdjL_N_Sg_G_Marks"); }
         }
 
+        public bool AdjL_N_Sg_G_HasComments
+        {
+            get { return HasComments("AdjL_N_Sg_G", m_eSubparadigm); }
+        }
+
         public string AdjL_N_Sg_P
         {
             get { return GetForm("AdjL_N_Sg_P", Subparadigm); }
@@ -404,6 +496,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjL_N_Sg_P"); }
             set { m_eAdjL_N_Sg_P_Marks = value; OnPropertyChanged("AdjL_N_Sg_P_Marks"); }
+        }
+
+        public bool AdjL_N_Sg_P_HasComments
+        {
+            get { return HasComments("AdjL_N_Sg_P", m_eSubparadigm); }
         }
 
         public string AdjL_N_Sg_D
@@ -419,6 +516,11 @@ namespace ZalTestApp
             set { m_eAdjL_N_Sg_D_Marks = value; OnPropertyChanged("AdjL_N_Sg_D_Marks"); }
         }
 
+        public bool AdjL_N_Sg_D_HasComments
+        {
+            get { return HasComments("AdjL_N_Sg_D", m_eSubparadigm); }
+        }
+
         public string AdjL_N_Sg_I
         {
             get { return GetForm("AdjL_N_Sg_I", Subparadigm); }
@@ -430,6 +532,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjL_N_Sg_I"); }
             set { m_eAdjL_N_Sg_I_Marks = value; OnPropertyChanged("AdjL_N_Sg_I_Marks"); }
+        }
+
+        public bool AdjL_N_Sg_I_HasComments
+        {
+            get { return HasComments("AdjL_N_Sg_I", m_eSubparadigm); }
         }
 
         #endregion
@@ -449,6 +556,11 @@ namespace ZalTestApp
             set { m_eAdjL_Pl_N_Marks = value; OnPropertyChanged("AdjL_Pl_N_Marks"); }
         }
 
+        public bool AdjL_Pl_N_HasComments
+        {
+            get { return HasComments("AdjL_Pl_N", m_eSubparadigm); }
+        }
+
         public string AdjL_Pl_A_Anim
         {
             get { return GetForm("AdjL_Pl_A_Anim", Subparadigm); }
@@ -460,6 +572,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjL_Pl_A_Anim"); }
             set { m_eAdjL_Pl_A_Anim_Marks = value; OnPropertyChanged("AdjL_Pl_A_Anim_Marks"); }
+        }
+
+        public bool AdjL_Pl_A_Anim_HasComments
+        {
+            get { return HasComments("AdjL_Pl_A_Anim", m_eSubparadigm); }
         }
 
         public string AdjL_Pl_A_Inanim
@@ -475,6 +592,11 @@ namespace ZalTestApp
             set { m_eAdjL_Pl_A_Inanim_Marks = value; OnPropertyChanged("AdjL_Pl_A_Inanim_Marks"); }
         }
 
+        public bool AdjL_Pl_A_Inanim_HasComments
+        {
+            get { return HasComments("AdjL_Pl_A_Inanim", m_eSubparadigm); }
+        }
+
         public string AdjL_Pl_G
         {
             get { return GetForm("AdjL_Pl_G", Subparadigm); }
@@ -486,6 +608,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjL_Pl_G"); }
             set { m_eAdjL_Pl_G_Marks = value; OnPropertyChanged("AdjL_Pl_G_Marks"); }
+        }
+
+        public bool AdjL_Pl_G_HasComments
+        {
+            get { return HasComments("AdjL_Pl_G", m_eSubparadigm); }
         }
 
         public string AdjL_Pl_P
@@ -501,6 +628,11 @@ namespace ZalTestApp
             set { m_eAdjL_Pl_P_Marks = value; OnPropertyChanged("AdjL_Pl_P_Marks"); }
         }
 
+        public bool AdjL_Pl_P_HasComments
+        {
+            get { return HasComments("AdjL_Pl_P", m_eSubparadigm); }
+        }
+
         public string AdjL_Pl_D
         {
             get { return GetForm("AdjL_Pl_D", Subparadigm); }
@@ -514,6 +646,11 @@ namespace ZalTestApp
             set { m_eAdjL_Pl_D_Marks = value; OnPropertyChanged("AdjL_Pl_D_Marks"); }
         }
 
+        public bool AdjL_Pl_D_HasComments
+        {
+            get { return HasComments("AdjL_Pl_D", m_eSubparadigm); }
+        }
+
         public string AdjL_Pl_I
         {
             get { return GetForm("AdjL_Pl_I", Subparadigm); }
@@ -525,6 +662,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjL_Pl_I"); }
             set { m_eAdjL_Pl_I_Marks = value; OnPropertyChanged("AdjL_Pl_I_Marks"); }
+        }
+
+        public bool AdjL_Pl_I_HasComments
+        {
+            get { return HasComments("AdjL_Pl_I", m_eSubparadigm); }
         }
 
         #endregion
@@ -544,6 +686,11 @@ namespace ZalTestApp
             set { m_eAdjS_M_Marks = value; OnPropertyChanged("AdjS_M_Marks"); }
         }
 
+        public bool AdjS_M_HasComments
+        {
+            get { return HasComments("AdjS_M", m_eSubparadigm); }
+        }
+
         public string AdjS_F
         {
             get { return GetForm("AdjS_F", Subparadigm); }
@@ -555,6 +702,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjS_F"); }
             set { m_eAdjS_F_Marks = value; OnPropertyChanged("AdjS_F_Marks"); }
+        }
+
+        public bool AdjS_F_HasComments
+        {
+            get { return HasComments("AdjS_F", m_eSubparadigm); }
         }
 
         public string AdjS_N
@@ -570,6 +722,11 @@ namespace ZalTestApp
             set { m_eAdjS_N_Marks = value; OnPropertyChanged("AdjS_N_Marks"); }
         }
 
+        public bool AdjS_N_HasComments
+        {
+            get { return HasComments("AdjS_N", m_eSubparadigm); }
+        }
+
         public string AdjS_Pl
         {
             get { return GetForm("AdjS_Pl", Subparadigm); }
@@ -581,6 +738,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjS_Pl"); }
             set { m_eAdjS_Pl_Marks = value; OnPropertyChanged("AdjS_Pl_Marks"); }
+        }
+
+        public bool AdjS_Pl_HasComments
+        {
+            get { return HasComments("AdjS_Pl", m_eSubparadigm); }
         }
 
         #endregion
@@ -744,6 +906,31 @@ namespace ZalTestApp
             get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjL_Pl_I", out f); return f != null && f.lstForms.Count > 1; }
         }
 
+        public bool AdjS_M_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjS_M", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool AdjS_F_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjS_F", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool AdjS_N_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjS_N", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool AdjS_Pl_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjS_Pl", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool AdjComp_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjComp", out f); return f != null && f.lstForms.Count > 1; }
+        }
+        
         #endregion
 
         #region Data_Acquisition
@@ -802,7 +989,8 @@ namespace ZalTestApp
             m_MainModel = m;
 
             BackCommand = new RelayCommand(new Action<object>(GoBack));
-//            EditCommand = new RelayCommand(new Action<object>(EditForm));
+            ShowFormComment = new RelayCommand(new Action<object>(ShowFormCommentImpl));
+            //            EditCommand = new RelayCommand(new Action<object>(EditForm));
             SaveFormsCommand = new RelayCommand(new Action<object>(SaveForms));
             FormScrollUpCommand = new RelayCommand(new Action<object>(FormScrollUp));
             FormScrollDownCommand = new RelayCommand(new Action<object>(FormScrollDown));
@@ -820,6 +1008,42 @@ namespace ZalTestApp
 //            string sLexemeHash = lexeme.sHash();
 
         }       //  AdjViewModel()
+
+        public void ShowFormCommentImpl(Object obj)
+        {
+            Comments wndComments = new Comments();
+            wndComments.Owner = Application.Current.MainWindow;
+            var sDisplayHash = obj as string;
+            string sFormHash = sDisplayHashToFormHash(sDisplayHash, m_eSubparadigm);
+            var formsForHash = m_DictFormStatus[sFormHash];
+            if (formsForHash.iCurrentForm < 0 || formsForHash.iCurrentForm >= formsForHash.lstForms.Count)
+            {
+                MessageBox.Show("Internal error: Illegal form index.");
+                return;
+            }
+
+            var wf = formsForHash.lstForms[formsForHash.iCurrentForm].WordFormManaged;
+            var sLeftComment = wf.sLeadComment();
+            var sRightComment = wf.sTrailingComment();
+
+            if (sLeftComment != String.Empty)
+            {
+                wndComments.TextBlock.Text = sLeftComment;
+            }
+
+            if (sRightComment != String.Empty)
+            {
+                wndComments.TextBlock.Text += "; " + sRightComment;
+            }
+            else
+            {
+                wndComments.TextBlock.Text = sLeftComment;
+            }
+
+            wndComments.ShowDialog();
+
+            return;
+        }
 
         public void GoBack(Object obj)
         {
