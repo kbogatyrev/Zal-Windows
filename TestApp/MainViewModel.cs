@@ -48,27 +48,6 @@ namespace ZalTestApp
         }
     }
 
-    [ValueConversion(typeof(bool), typeof(Visibility))]
-    public sealed class ScrollStatusConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var sAssemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-            string uri = sAssemblyName + ";component/Skins.xaml";
-            ResourceDictionary resourceDictionary =
-                (ResourceDictionary)Application.LoadComponent(new System.Uri(uri, System.UriKind.Relative));
-
-            if (!(value is bool))
-                return null;
-            return (bool)value ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        public object ConvertBack(object value, Type targetType,
-            object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
 
     public class ViewPage
     {
