@@ -30,11 +30,24 @@
                 <TextBox Text="{Binding Pres_Sg_1}" Margin="65,170,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Pres_Sg_2}" Margin="65,215,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Pres_Sg_3}" Margin="65,260,0,0" Style="{StaticResource FormText}" />
-                
+
+                <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
+                <Button Margin="212,174,0,0" CommandParameter="Pres_Sg_1" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Pres_Sg_1_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="212,182,0,0" CommandParameter="Pres_Sg_1" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Pres_Sg_1_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="212,219,0,0" CommandParameter="Pres_Sg_1" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Pres_Sg_1_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="212,227,0,0" CommandParameter="Pres_Sg_1" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Pres_Sg_1_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="212,264,0,0" CommandParameter="Pres_Sg_1" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Pres_Sg_1_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="212,272,0,0" CommandParameter="Pres_Sg_1" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Pres_Sg_1_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
                 <!-- Triangle image -->
                 <Image HorizontalAlignment="Left" Margin="228,175,0,0" VerticalAlignment="Top" Style="{Binding Pres_Sg_1_Marks, Converter={StaticResource StyleConverter}}" />
                 <Image HorizontalAlignment="Left" Margin="228,220,0,0" VerticalAlignment="Top" Style="{Binding Pres_Sg_2_Marks, Converter={StaticResource StyleConverter}}" />
                 <Image HorizontalAlignment="Left" Margin="228,265,0,0" VerticalAlignment="Top" Style="{Binding Pres_Sg_3_Marks, Converter={StaticResource StyleConverter}}" />
+
+                <!-- Comments -->
+                <Button  Margin="246,170,0,0" CommandParameter="Noun_Sg_N" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Noun_Sg_N_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="246,215,0,0" CommandParameter="Noun_Sg_A" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Noun_Sg_A_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="246,260,0,0" CommandParameter="Noun_Sg_G" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Noun_Sg_G_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Present tense plural -->
                 <!-- Labels -->
@@ -47,9 +60,23 @@
                 <TextBox Text="{Binding Pres_Pl_2}" Margin="375,215,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Pres_Pl_3}" Margin="375,260,0,0" Style="{StaticResource FormText}" />
 
+                <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
+                <Button Margin="523,174,0,0" CommandParameter="Pres_Sg_1" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Pres_Sg_1_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="523,182,0,0" CommandParameter="Pres_Sg_1" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Pres_Sg_1_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="523,219,0,0" CommandParameter="Pres_Sg_2" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Pres_Sg_2_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="523,227,0,0" CommandParameter="Pres_Sg_2" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Pres_Sg_2_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="523,264,0,0" CommandParameter="Pres_Sg_3" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Pres_Sg_3_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="523,272,0,0" CommandParameter="Pres_Sg_3" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Pres_Sg_3_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <!-- Triangle image -->
                 <Image HorizontalAlignment="Left" Margin="538,175,0,0" VerticalAlignment="Top" Style="{Binding Pres_Pl_1_Marks, Converter={StaticResource StyleConverter}}" />
                 <Image HorizontalAlignment="Left" Margin="538,220,0,0" VerticalAlignment="Top" Style="{Binding Pres_Pl_2_Marks, Converter={StaticResource StyleConverter}}" />
                 <Image HorizontalAlignment="Left" Margin="538,265,0,0" VerticalAlignment="Top" Style="{Binding Pres_Pl_3_Marks, Converter={StaticResource StyleConverter}}" />
+
+                <!-- Comments -->
+                <Button  Margin="556,170,0,0" CommandParameter="Pres_Sg_1" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Pres_Sg_1_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="556,215,0,0" CommandParameter="Pres_Sg_2" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Pres_Sg_2_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="556,260,0,0" CommandParameter="Pres_Sg_3" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Pres_Sg_3_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Past tense -->
                 <TextBox Text="Прошедшее время" Margin="210,355,0,0" Style="{StaticResource FormLabelWide}" Width="150"/>
@@ -65,55 +92,95 @@
                 <TextBox Text="{Binding Past_F}" Margin="65,450,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Past_N}" Margin="65,495,0,0" Style="{StaticResource FormText}" />
 
+                <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
+                <Button Margin="212,409,0,0" CommandParameter="Past_M" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Past_M_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="212,417,0,0" CommandParameter="Past_M" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Past_M_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="212,454,0,0" CommandParameter="Past_F" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Past_F_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="212,462,0,0" CommandParameter="Past_F" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Past_F_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="212,499,0,0" CommandParameter="Past_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Past_F_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="212,507,0,0" CommandParameter="Past_N" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Past_F_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <!-- Triangle image -->
                 <Image HorizontalAlignment="Left" Margin="228,410,0,0" VerticalAlignment="Top" Style="{Binding Past_M_Marks, Converter={StaticResource StyleConverter}}" />
                 <Image HorizontalAlignment="Left" Margin="228,455,0,0" VerticalAlignment="Top" Style="{Binding Past_F_Marks, Converter={StaticResource StyleConverter}}" />
                 <Image HorizontalAlignment="Left" Margin="228,500,0,0" VerticalAlignment="Top" Style="{Binding Past_N_Marks, Converter={StaticResource StyleConverter}}" />
 
+                <!-- Comments -->
+                <Button  Margin="246,405,0,0" CommandParameter="Past_M" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Past_M_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="246,450,0,0" CommandParameter="Past_F" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Past_F_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="246,495,0,0" CommandParameter="Past_N" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Past_N_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+
                 <!-- Past tense Plural -->
                 <TextBox Text="Pl" Margin="310,405,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="{Binding Past_Pl}" Margin="375,405,0,0" Style="{StaticResource FormText}" />
+                <Button Margin="523,409,0,0" CommandParameter="Past_Pl" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Past_Pl_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="523,417,0,0" CommandParameter="Past_Pl" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Past_Pl_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Image HorizontalAlignment="Left" Margin="538,410,0,0" VerticalAlignment="Top" Style="{Binding Past_Pl_Marks, Converter={StaticResource StyleConverter}}" />
+                <Button  Margin="556,405,0,0" CommandParameter="Past_Pl" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Past_Pl_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Imperative -->
                 <TextBox Text="Повелительное наклонение" Margin="210,590,0,0" Style="{StaticResource FormLabelWide}" Width="210"/>
                 <TextBox Text="2 Sg" Margin="0,640,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="{Binding Path=Impv_Sg_2}" Margin="65,640,0,0" Style="{StaticResource FormText}" />
+                <Button Margin="212,644,0,0" CommandParameter="Impv_Sg_2" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Impv_Sg_2_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="212,653,0,0" CommandParameter="Impv_Sg_2" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Impv_Sg_2_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Image HorizontalAlignment="Left" Margin="228,645,0,0" VerticalAlignment="Top" Style="{Binding Impv_Sg_2_Marks, Converter={StaticResource StyleConverter}}" />
+                <Button  Margin="246,640,0,0" CommandParameter="Impv_Sg_2" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Impv_Sg_2_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
-                <!-- Label-->
                 <TextBox Text="2 Pl" Margin="310,640,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="{Binding Path=Impv_Pl_2}" Margin="375,640,0,0" Style="{StaticResource FormText}" />
+                <Button Margin="523,644,0,0" CommandParameter="Impv_Pl_2" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Impv_Pl_2_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="523,653,0,0" CommandParameter="Impv_Pl_2" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Impv_Pl_2_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Image HorizontalAlignment="Left" Margin="538,410,0,0" VerticalAlignment="Top" Style="{Binding Impv_Pl_2_Marks, Converter={StaticResource StyleConverter}}" />
+                <Button  Margin="553,640,0,0" CommandParameter="Impv_Sg_2" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Impv_Sg_2_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Participles & adverbials -->
                 <TextBox Text="Причастия и деепричастия" Margin="210,730,0,0" Style="{StaticResource FormLabelWide}" Width="200"/>
 
                 <TextBox Text="Действ. наст. вр." Width="155" Margin="0,780,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="{Binding Path=PPresA_M_Sg_N}" Margin="160,780,0,0" Style="{StaticResource FormText}" />
-                <Image HorizontalAlignment="Left" Margin="563,785,0,0" VerticalAlignment="Top" Style="{Binding PPresA_M_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Button Margin="308,783,0,0" CommandParameter="PPresA_M_Sg_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding PPresA_M_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="308,793,0,0" CommandParameter="PPresA_M_Sg_N" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding PPresA_M_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Image HorizontalAlignment="Left" Margin="323,785,0,0" VerticalAlignment="Top" Style="{Binding PPresA_M_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Button  Margin="340,781,0,0" CommandParameter="PPresA_M_Sg_N" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding PPresA_M_Sg_N_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                 <Button Content="Показать формы" Margin="400,780,0,0" Command="{Binding ShowPresActFormsCommand }" IsEnabled="{Binding Path=PPresAExists}" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                 <TextBox Text="Деепр. наст. вр." Width="155" Margin="0,825,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="{Binding Path=VAdvPres}" Margin="160,825,0,0" Style="{StaticResource FormText}" />
+                <Button Margin="308,829,0,0" CommandParameter="VAdvPres" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding VAdvPres_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="308,838,0,0" CommandParameter="VAdvPres" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding VAdvPres_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Image HorizontalAlignment="Left" Margin="323,830,0,0" VerticalAlignment="Top" Style="{Binding VAdvPres_Marks, Converter={StaticResource StyleConverter}}" />
+                <Button Margin="341,825,0,0" CommandParameter="VAdvPres" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding VAdvPres_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <TextBox Text="Действ. прош. вр." Width="155" Margin="0,870,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="{Binding Path=PPastA_M_Sg_N}" Margin="160,870,0,0" Style="{StaticResource FormText}" />
+                <Button Margin="308,873,0,0" CommandParameter="VAdvPres" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding VAdvPres_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="308,883,0,0" CommandParameter="VAdvPres" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding VAdvPres_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Image HorizontalAlignment="Left" Margin="323,875,0,0" VerticalAlignment="Top" Style="{Binding PPastA_M_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Button Margin="341,869,0,0" CommandParameter="VAdvPres" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding VAdvPres_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                 <Button Content="Показать формы" Margin="400,870,0,0" Command="{Binding ShowPastActFormsCommand }" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                 <TextBox Text="Деепр. прош вр." Width="155" Margin="0,915,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="{Binding Path=VAdvPast}" Margin="160,915,0,0" Style="{StaticResource FormText}" />
+                <Button Margin="308,918,0,0" CommandParameter="VAdvPast" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding VAdvPres_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="308,928,0,0" CommandParameter="VAdvPast" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding VAdvPres_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Image HorizontalAlignment="Left" Margin="323,920,0,0" VerticalAlignment="Top" Style="{Binding VAdvPast_Marks, Converter={StaticResource StyleConverter}}" />
+                <Button Margin="341,915,0,0" CommandParameter="VAdvPres" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding VAdvPast_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <TextBox Text="Страд. наст. вр." Width="155" Margin="0,960,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="{Binding Path=PPresPL_M_Sg_N}" Margin="160,960,0,0" Style="{StaticResource FormText}" />
+                <Button Margin="308,963,0,0" CommandParameter="PPresPL_M_Sg_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding PPresPL_M_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="308,973,0,0" CommandParameter="PPresPL_M_Sg_N" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding PPresPL_M_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Image HorizontalAlignment="Left" Margin="323,965,0,0" VerticalAlignment="Top" Style="{Binding PPresPL_M_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Button Margin="341,960,0,0" CommandParameter="VAdvPres" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding VAdvPast_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                 <Button Content="Показать формы" Margin="400,960,0,0" Command="{Binding ShowPresPassFormsCommand }" IsEnabled="{Binding Path=PPresPExists}" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                 <TextBox Text="Страд. прош. вр." Width="155" Margin="0,1005,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="{Binding Path=PPastPL_M_Sg_N}" Margin="160,1005,0,0" Style="{StaticResource FormText}" />
+                <Button Margin="308,1008,0,0" CommandParameter="PPastPL_M_Sg_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding PPastPL_M_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="308,1018,0,0" CommandParameter="PPastPL_M_Sg_N" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding PPresPL_M_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Image HorizontalAlignment="Left" Margin="323,1010,0,0" VerticalAlignment="Top" Style="{Binding PPastPL_M_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
+                <Button Margin="341,1005,0,0" CommandParameter="PPastPL_M_Sg_N" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding PPastPL_M_Sg_N_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                 <Button Content="Показать формы" Margin="400,1005,0,0" Command="{Binding ShowPastPassFormsCommand }" IsEnabled="{Binding Path=PPastPExists}" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Grid>
         </ScrollViewer>
