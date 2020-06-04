@@ -250,6 +250,16 @@ namespace ZalTestApp
             set { m_eInfinitive_Marks = value; OnPropertyChanged("Infinitive_Marks"); }
         }
 
+        public bool Infinitive_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Infinitive", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Infinitive_HasComments
+        {
+            get { return HasComments("Infinitive", EM_Subparadigm.SUBPARADIGM_INFINITIVE); }
+        }
+
         #region Bindings_PresentTense
 
         public string Pres_Sg_1
@@ -265,6 +275,16 @@ namespace ZalTestApp
             set { m_ePres_Sg_1_Marks = value; OnPropertyChanged("Pres_Sg_1_Marks"); }
         }
 
+        public bool Pres_Sg_1_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePres_Sg_1", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Pres_Sg_1_HasComments
+        {
+            get { return HasComments("Pres_Sg_1", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
+        }
+
         public string Pres_Sg_2
         {
             get { return GetForm("Pres_Sg_2", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
@@ -276,6 +296,16 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("Pres_Sg_2"); }
             set { m_ePres_Sg_2_Marks = value; OnPropertyChanged("Pres_Sg_2_Marks"); }
+        }
+
+        public bool Pres_Sg_2_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePres_Sg_2", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Pres_Sg_2_HasComments
+        {
+            get { return HasComments("Pres_Sg_2", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
         }
 
         public string Pres_Sg_3
@@ -291,6 +321,16 @@ namespace ZalTestApp
             set { m_ePres_Sg_3_Marks = value; OnPropertyChanged("Pres_Sg_3_Marks"); }
         }
 
+        public bool Pres_Sg_3_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePres_Sg_3", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Pres_Sg_3_HasComments
+        {
+            get { return HasComments("Pres_Sg_3", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
+        }
+
         public string Pres_Pl_1
         {
             get { return GetForm("Pres_Pl_1", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
@@ -302,6 +342,16 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("Pres_Pl_1"); }
             set { m_ePres_Pl_1_Marks = value; OnPropertyChanged("Pres_Pl_1_Marks"); }
+        }
+
+        public bool Pres_Pl_1_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePres_Pl_1", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Pres_Pl_1_HasComments
+        {
+            get { return HasComments("Pres_Pl_1", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
         }
 
         public string Pres_Pl_2
@@ -317,6 +367,16 @@ namespace ZalTestApp
             set { m_ePres_Pl_2_Marks = value; OnPropertyChanged("Pres_Pl_2_Marks"); }
         }
 
+        public bool Pres_Pl_2_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePres_Pl_2", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Pres_Pl_2_HasComments
+        {
+            get { return HasComments("Pres_Pl_2", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
+        }
+
         public string Pres_Pl_3
         {
             get { return GetForm("Pres_Pl_3", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
@@ -330,9 +390,20 @@ namespace ZalTestApp
             set { m_ePres_Pl_3_Marks = value; OnPropertyChanged("Pres_Pl_3_Marks"); }
         }
 
+        public bool Pres_Pl_3_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePres_Pl_3", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Pres_Pl_3_HasComments
+        {
+            get { return HasComments("Pres_Pl_3", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
+        }
+
         #endregion
 
         #region Bindings_PastTense
+
         public string Past_M
         {
             get { return GetForm("Past_M", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
@@ -344,6 +415,16 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("Past_M"); }
             set { m_ePast_M_Marks = value; OnPropertyChanged("Past_M_Marks"); }
+        }
+
+        public bool Past_M_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePast_M", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Past_M_HasComments
+        {
+            get { return HasComments("Past_M", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
         }
 
         public string Past_F
@@ -359,6 +440,16 @@ namespace ZalTestApp
             set { m_ePast_F_Marks = value; OnPropertyChanged("Past_F_Marks"); }
         }
 
+        public bool Past_F_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePast_F", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Past_F_HasComments
+        {
+            get { return HasComments("Past_F", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
+        }
+
         public string Past_N
         {
             get { return GetForm("Past_N", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
@@ -372,6 +463,16 @@ namespace ZalTestApp
             set { m_ePast_N_Marks = value; OnPropertyChanged("Past_N_Marks"); }
         }
 
+        public bool Past_N_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePast_N", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Past_N_HasComments
+        {
+            get { return HasComments("Past_N", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
+        }
+
         public string Past_Pl
         {
             get { return GetForm("Past_Pl", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
@@ -383,6 +484,16 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("Past_Pl"); }
             set { m_ePast_Pl_Marks = value; OnPropertyChanged("Past_Pl_Marks"); }
+        }
+
+        public bool Past_Pl_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePast_Pl", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Past_Pl_HasComments
+        {
+            get { return HasComments("Past_Pl", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
         }
 
         #endregion
@@ -401,6 +512,16 @@ namespace ZalTestApp
             set { m_eImpv_Sg_2_Marks = value; OnPropertyChanged("Impv_Sg_2_Marks"); }
         }
 
+        public bool Impv_Sg_2_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_eImpv_Sg_2", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Impv_Sg_2_HasComments
+        {
+            get { return HasComments("Impv_Sg_2", EM_Subparadigm.SUBPARADIGM_IMPERATIVE); }
+        }
+
         public string Impv_Pl_2
         {
             get { return GetForm("Impv_Pl_2", EM_Subparadigm.SUBPARADIGM_IMPERATIVE); }
@@ -412,6 +533,16 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("Impv_Pl_2"); }
             set { m_eImpv_Pl_2_Marks = value; OnPropertyChanged("Impv_Pl_2_Marks"); }
+        }
+
+        public bool Impv_Pl_2_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_eImpv_Pl_2", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Impv_Pl_2_HasComments
+        {
+            get { return HasComments("Impv_Pl_2", EM_Subparadigm.SUBPARADIGM_IMPERATIVE); }
         }
 
         #endregion
@@ -429,6 +560,16 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("PPresA_M_Sg_N"); }
             set { m_ePPresA_M_Sg_N_Marks = value; OnPropertyChanged("PPresA_M_Sg_N_Marks"); }
+        }
+
+        public bool PPresA_M_Sg_N_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePPresA_M_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool PPresA_M_Sg_N_HasComments
+        {
+            get { return HasComments("PPresA_M_Sg_N", EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT); }
         }
 
         private bool m_bPPresAExists;
@@ -458,6 +599,16 @@ namespace ZalTestApp
             set { m_ePPastA_M_Sg_N_Marks = value; OnPropertyChanged("PPastA_M_Sg_N_Marks"); }
         }
 
+        public bool PPastA_M_Sg_N_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePPastA_M_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool PPastA_M_Sg_N_HasComments
+        {
+            get { return HasComments("PPastA_M_Sg_N", EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT); }
+        }
+
         private bool m_bPPastAExists;
         public bool PPastAExists
         {
@@ -483,6 +634,16 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("PPresPL_M_Sg_N"); }
             set { m_ePPresPL_M_Sg_N_Marks = value; OnPropertyChanged("PPresPL_M_Sg_N_Marks"); }
+        }
+
+        public bool PPresPL_M_Sg_N_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePPresPL_M_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool PPresPL_M_Sg_N_HasComments
+        {
+            get { return HasComments("PPresPL_M_Sg_N", EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG); }
         }
 
         private bool m_bPPresPExists;
@@ -512,6 +673,16 @@ namespace ZalTestApp
             set { m_ePPastPL_M_Sg_N_Marks = value; OnPropertyChanged("PPastPL_M_Sg_N_Marks"); }
         }
 
+        public bool PPastPL_M_Sg_N_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePPastPL_M_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool PPastPL_M_Sg_N_HasComments
+        {
+            get { return HasComments("PPastPL_M_Sg_N", EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG); }
+        }
+
         private bool m_bPPastPExists;
         public bool PPastPExists
         {
@@ -539,6 +710,16 @@ namespace ZalTestApp
             set { m_eVAdvPres_Marks = value; OnPropertyChanged("VAdvPres_Marks"); }
         }
 
+        public bool VAdvPres_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_eVAdvPres", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool VAdvPres_HasComments
+        {
+            get { return HasComments("VAdvPres", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT); }
+        }
+
         public string VAdvPast
         {
             get { return GetForm("VAdvPast", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST); }
@@ -550,6 +731,16 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("VAdvPast"); }
             set { m_eVAdvPast_Marks = value; OnPropertyChanged("VAdvPast_Marks"); }
+        }
+
+        public bool VAdvPast_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_eVAdvPast", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool VAdvPast_HasComments
+        {
+            get { return HasComments("VAdvPast", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST); }
         }
 
         #endregion
