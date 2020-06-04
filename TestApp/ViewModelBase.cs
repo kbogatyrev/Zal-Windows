@@ -165,24 +165,54 @@ namespace ZalTestApp
 
                     switch (eSubparadigm)
                     {
+                        // If form hash points to a participle then form hash == display hash
+                        // this only happens on initial verb forms page
                         case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
-                            lstDisplayPropNames = Helpers.m_listPropNamesAdj;
-                            lstPropNames = Helpers.m_listPropNamesPartPresAct;
+                            if ("PPresA_M_Sg_N" == sDisplayHash)
+                            {
+                                sFormHash = sDisplayHash;
+                            }
+                            else
+                            {
+                                lstDisplayPropNames = Helpers.m_listPropNamesAdj;
+                                lstPropNames = Helpers.m_listPropNamesPartPresAct;
+                            }
                             break;
 
                         case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
-                            lstDisplayPropNames = Helpers.m_listPropNamesAdj;
-                            lstPropNames = Helpers.m_listPropNamesPartPresPass;
+                            if ("PPresPL_M_Sg_N" == sDisplayHash)
+                            {
+                                sFormHash = sDisplayHash;
+                            }
+                            else
+                            {
+                                lstDisplayPropNames = Helpers.m_listPropNamesAdj;
+                                lstPropNames = Helpers.m_listPropNamesPartPresPass;
+                            }
                             break;
 
                         case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
-                            lstDisplayPropNames = Helpers.m_listPropNamesAdj;
-                            lstPropNames = Helpers.m_listPropNamesPartPastAct;
+                            if ("PPastA_M_Sg_N" == sDisplayHash)
+                            {
+                                sFormHash = sDisplayHash;
+                            }
+                            else
+                            {
+                                lstDisplayPropNames = Helpers.m_listPropNamesAdj;
+                                lstPropNames = Helpers.m_listPropNamesPartPastAct;
+                            }
                             break;
 
                         case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
-                            lstDisplayPropNames = Helpers.m_listPropNamesAdj;
-                            lstPropNames = Helpers.m_listPropNamesPartPastPass;
+                            if ("PPastPL_M_Sg_N" == sDisplayHash)
+                            {
+                                sFormHash = sDisplayHash;
+                            }
+                            else
+                            {
+                                lstDisplayPropNames = Helpers.m_listPropNamesAdj;
+                                lstPropNames = Helpers.m_listPropNamesPartPastPass;
+                            }
                             break;
 
                         case EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE:
@@ -207,7 +237,7 @@ namespace ZalTestApp
 
             }       //  switch (ePartOfSpeech)
 
-            if (lstDisplayPropNames.Exists(element => element == sDisplayHash))
+            if (lstDisplayPropNames != null && lstDisplayPropNames.Exists(element => element == sDisplayHash))
             {
                 int iKeyIdx = lstDisplayPropNames.IndexOf(sDisplayHash);
                 if (iKeyIdx < 0)
