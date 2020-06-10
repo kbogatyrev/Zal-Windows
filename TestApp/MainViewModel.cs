@@ -878,6 +878,16 @@ namespace ZalTestApp
                     vvm.ShowParticipleFormsEvent += new VerbViewModel.ShowParticipleForms(ShowParticiple);
                     paradigmViewModel = vvm;
                     break;
+                case EM_PartOfSpeech.POS_ADV:
+                case EM_PartOfSpeech.POS_INTERJ:
+                case EM_PartOfSpeech.POS_PARTICLE:
+                case EM_PartOfSpeech.POS_CONJUNCTION:
+                case EM_PartOfSpeech.POS_PREDIC:
+                case EM_PartOfSpeech.POS_PREPOSITION:
+                case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
+                    paradigmViewModel = new ViewModelBase();
+                    break;
+
                 default:
                     MessageBox.Show("Illegal part of speech value in lexeme descriptor.");
                     return;

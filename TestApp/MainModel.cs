@@ -552,15 +552,9 @@ namespace ZalTestApp
 //                        return;
                     }
 
-                    if (lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NOUN || lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN ||
-                        lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NUM || lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ ||
-                        lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ || lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NUM_ADJ || 
-                        lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
+                    if (!bArrangeParadigm(lexeme))
                     {
-                        if (!bArrangeParadigm(lexeme))
-                        {
-                            System.Windows.MessageBox.Show("Unable to generate forms.");
-                        }
+                        System.Windows.MessageBox.Show("Unable to generate forms.");
                     }
                 }
 
@@ -873,6 +867,15 @@ namespace ZalTestApp
 
                 case EM_PartOfSpeech.POS_VERB:
                     return bGenerateVerbForms(lexeme);
+
+                case EM_PartOfSpeech.POS_CONJUNCTION:
+                case EM_PartOfSpeech.POS_INTERJ:
+                case EM_PartOfSpeech.POS_PARTICLE:
+                case EM_PartOfSpeech.POS_PREDIC:
+                case EM_PartOfSpeech.POS_PREPOSITION:
+                case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
+                case EM_PartOfSpeech.POS_ADV:
+                    return bGetUninflectedForm(lexeme);
 
                 default:
                     System.Windows.MessageBox.Show("Part of speech not handled.");
@@ -1280,6 +1283,28 @@ namespace ZalTestApp
             return true;
 
         }   //  GenerateVerbForms()
+
+        public bool bGetUninflectedForm(CLexemeManaged lexeme)
+        {
+            CWordFormManaged wf = null;
+            var eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
+            if (eRet != EM_ReturnCode.H_NO_ERROR || null == wf)
+            {
+                System.Windows.MessageBox.Show("Unable to load a word form.");
+                return false;
+            }
+
+            Dictionary<string, List<CWordFormManaged>> dctParadigm = new Dictionary<string, List<CWordFormManaged>>();
+            var sKey = wf.sGramHash();
+            dctParadigm[sKey] = new List<CWordFormManaged>();
+            dctParadigm[sKey].Add(wf);
+            string sLexHash = lexeme.sHash();
+            m_dctLexemes[sLexHash] = dctParadigm;
+            m_dctLexemeHashToLexeme[sLexHash] = lexeme;
+
+            return true;
+
+        }       //  bGetUninflectedForm()
 
         public bool bLeadComment(string sLexemeHash, string sFormHash, ref string sComment)
         {

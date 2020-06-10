@@ -20,7 +20,7 @@ namespace ZalTestApp
     /// Base class for all ViewModel classes in the application. Provides support for 
     /// property changes notification. Original implementation by Josh Smith.
     /// </summary>
-    public abstract class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged
     {
         protected MainModel m_MainModel = null;
         protected CLexemeManaged m_Lexeme = null;
