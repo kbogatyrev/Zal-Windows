@@ -109,6 +109,7 @@ namespace MainLibManaged
     {
     public:
         ILexeme * m_pLexeme;
+        String^ m_sStoredLexemeHash;
 
         CLexemeManaged();
         CLexemeManaged(ILexeme *);
@@ -264,6 +265,7 @@ namespace MainLibManaged
         EM_ReturnCode eGetStemStressPositions(String^ sStem, List<int>% listPositions);
         EM_ReturnCode eGetAlternatingPreverb(String^ sVerbForm, String^% sPreverb, bool% bVoicing);
         String^ sHash();
+        String^ sStoredHash();
         EM_ReturnCode eWordFormFromHash(String^ sHash, int iAt, CWordFormManaged^% Wf);
         EM_ReturnCode eCreateWordForm(CWordFormManaged^% wf);
         EM_ReturnCode eRemoveWordForm(String^ sHash, int iAt);

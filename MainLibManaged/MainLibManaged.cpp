@@ -601,6 +601,7 @@ CLexemeManaged^ CDictionaryManaged::CopyLexemeForEdit(CLexemeManaged^ source)
 
     CLexemeManaged^ pManaged = gcnew CLexemeManaged();
     pManaged->m_pLexeme = pCopy;
+    pManaged->m_sStoredLexemeHash = gcnew String(pCopy->sHash());
 
     return pManaged;
 }
@@ -956,18 +957,25 @@ EM_ReturnCode CDictionaryManaged::eImportTestData(String^ sPath, DelegateProgres
 // Managed wrapper for Lexeme class
 //
 CLexemeManaged::CLexemeManaged()
-{}
+{
+    m_sStoredLexemeHash = "";
+}
 
 CLexemeManaged::CLexemeManaged(String^ sGramHash)
-{}
+{
+    m_sStoredLexemeHash = "";
+}
 
 CLexemeManaged::CLexemeManaged(ILexeme * pLexeme) : m_pLexeme(pLexeme)
-{}
+{
+    m_sStoredLexemeHash = gcnew String(m_pLexeme->sHash());
+}
 
 CLexemeManaged::~CLexemeManaged()
 {
     delete m_pLexeme;
     m_pLexeme = NULL;
+    m_sStoredLexemeHash = "";
 }
 
 /*
@@ -2490,6 +2498,16 @@ String^ CLexemeManaged::sHash()
     return gcnew String(m_pLexeme->sHash());
 }
  
+String^ CLexemeManaged::sStoredHash()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return m_sStoredLexemeHash;
+}
+
 EM_ReturnCode CLexemeManaged::eWordFormFromHash(String^ sHash, int iAt, CWordFormManaged^% wf)
 {
     if (NULL == m_pLexeme)
