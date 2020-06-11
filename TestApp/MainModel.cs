@@ -4,8 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SQLite;
-using System.Windows;
-using System.Windows.Forms;
 
 namespace ZalTestApp
 {
@@ -29,13 +27,6 @@ namespace ZalTestApp
 
         private Dictionary<string, Dictionary<string, List<Tuple<string, string>>>> m_dctFormComments;
         //                           ^-- lex. hash       ^-- gram hash     ^-- leading comment, trailing comment))
-
-/*
-        public IEnumerator GetFormCommentsEnumerator()
-        {
-            return m_FormComments.Keys.GetEnumerator();
-        }
-*/
 
         private Dictionary<string, CLexemeManaged> m_dctLexemeHashToLexeme;
         public CLexemeManaged LexemeFromHash(string sHash)
@@ -353,21 +344,37 @@ namespace ZalTestApp
                 return false;
             }
 
+            var sOldLexHash = l.sStoredHash();
             EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveDescriptorInfo(l);
+            var sNewLexHash = l.sHash();
+
+            var sDbPath = m_Dictionary.sGetDbPath();
+            var dbConnection = new SQLiteConnection("Data Source = " + sDbPath + ";Version=3;");
+            dbConnection.Open();
+            if (dbConnection.State != System.Data.ConnectionState.Open)
+            {
+                System.Windows.MessageBox.Show("Unable to access database.");
+                return false;
+            }
+
+            SQLiteCommand insertCmd = new SQLiteCommand("INSERT INTO lexeme_hashes_changed (old_hash, new_hash) VALUES (@old_hash, @new_hash)", dbConnection);
+            insertCmd.Parameters.AddWithValue("@old_hash", sOldLexHash);
+            insertCmd.Parameters.AddWithValue("@new_hash", sNewLexHash);
+
+            try
+            {
+                insertCmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                string sMsg = String.Format("Exception reading tact group data: {0}", ex.Message);
+                return false;
+            }
+
+            dbConnection.Close();
+
             return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         }
-
-        //        public bool bSaveLexeme(CLexemeManaged l)
-        //        {
-        //            if (null == m_Dictionary)
-        //            {
-        //                System.Windows.MessageBox.Show("Dictionary was not initialized.");
-        //                return false;
-        //            }
-        //
-        //            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveLexeme(l);
-        //            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
-        //        }
 
         public bool GetFormsByGramHash(string sLexemeHash, string sGramHash, out List<FormDescriptor> forms)
         {
@@ -398,21 +405,6 @@ namespace ZalTestApp
 
             return true;
         }
-
-/*
-        public bool GetFormComments(string sLexemeHash, string sGramHash, out List<Tuple<string, string>> comments)
-        {
-            comments = null;
-
-            Dictionary<string, List<Tuple<string, string>>> c = null;
-            if (m_FormComments.TryGetValue(sLexemeHash, out c))
-            {
-                c.TryGetValue(sGramHash, out comments);
-            }
-
-            return true;
-        }
-*/
 
         public bool UpdateFormsByGramHash(string sLexemeHash, string sGramHash, List<CWordFormManaged> lstForms)
         {
@@ -488,21 +480,6 @@ namespace ZalTestApp
 
             return eRet;
         }
-
-/*
-        public EM_ReturnCode OpenEditDictionary(string sPath)
-        {
-            Path = sPath;
-            var eRet = m_EditDictionary.eSetDbPath(Path);
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
-            {
-                Path = "";
-                System.Windows.MessageBox.Show("Unable to open edit dictionary.");
-            }
-
-            return eRet;
-        }
-*/
 
         public void SearchByInitialForm(string str)
         {
@@ -651,6 +628,7 @@ namespace ZalTestApp
 
         }       //  ParseWord()
 
+/*
         public bool ParseText(string sTextName, string sMetaData, string sText)
         {
             if (null == m_Analytics)
@@ -749,6 +727,7 @@ namespace ZalTestApp
             return true;
 
         }       //  ParseText()
+*/
 
         #region Regression
         public bool GetStoredLexemeData()

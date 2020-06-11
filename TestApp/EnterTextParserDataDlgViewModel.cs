@@ -102,7 +102,7 @@ namespace ZalTestApp
         {
             m_MainModel = m;
             OpenFileCommand = new RelayCommand(new Action<object>(OpenFile));
-            ParseTextCommand = new RelayCommand(new Action<object>(ParseText));
+//            ParseTextCommand = new RelayCommand(new Action<object>(ParseText));
             CancelCommand = new RelayCommand(new Action<object>(Cancel));
             m_sParsedText = "";
             m_bReadyToParse = true;
@@ -133,13 +133,13 @@ namespace ZalTestApp
             }
         }
 
+/*
         public void ParseText(Object view)
         {
             m_sSourceText = DisplayText;
             m_sSourceMetadata = DisplayMetaData;
             var bRet = m_MainModel.ParseText(m_sDisplayTextName, m_sSourceMetadata, m_sSourceText);
 
-/*
             IEnumerator<int> parseEnumerator = (IEnumerator<int>)m_MainModel.GetTextParseEnumerator();
             while (parseEnumerator.MoveNext())
             {
@@ -153,7 +153,6 @@ namespace ZalTestApp
             }
 
             DisplayText = m_sParsedText;
-*/
 
             m_bReadyToParse = false;
 
@@ -169,6 +168,7 @@ namespace ZalTestApp
             ((Window)view).Close();
 
         }
+*/
 
         public void Cancel(Object obj)
         {
