@@ -589,7 +589,8 @@ namespace ZalTestApp
                         formsPerHash.iCurrentForm = 0;
                     }
 
-                    m_DictFormStatus[sHash] = formsPerHash;
+                    var sDisplayHash = sFormHashToDisplayHash(sHash);
+                    m_DictFormStatus[sDisplayHash] = formsPerHash;
                 }
             }
             catch (Exception ex)
