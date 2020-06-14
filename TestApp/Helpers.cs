@@ -1162,7 +1162,13 @@ namespace ZalTestApp
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_NUM:
+                    ePartOfSpeech = EM_PartOfSpeech.POS_NUM;
+                    break;
+
                 case EM_Subparadigm.SUBPARADIGM_NUM_ADJ:
+                    ePartOfSpeech = EM_PartOfSpeech.POS_NUM_ADJ;
+                    break;
+
                 case EM_Subparadigm.SUBPARADIGM_ASPECT_PAIR:
 
                 case EM_Subparadigm.SUBPARADIGM_UNDEFINED:
