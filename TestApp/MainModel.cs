@@ -832,7 +832,8 @@ namespace ZalTestApp
         #region FormGeneration
         private bool bArrangeParadigm(CLexemeManaged lexeme)
         {
-            switch (lexeme.ePartOfSpeech())
+            EM_PartOfSpeech ePos = lexeme.ePartOfSpeech();
+            switch (ePos)
             {
                 case EM_PartOfSpeech.POS_NOUN:
                 case EM_PartOfSpeech.POS_PRONOUN:
