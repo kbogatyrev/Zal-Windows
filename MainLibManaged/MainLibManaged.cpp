@@ -2270,24 +2270,24 @@ void CLexemeManaged::SetShortFormsIncomplete(bool bValue)
     m_pLexeme->SetShortFormsIncomplete(bValue);
 }
 
-bool CLexemeManaged::bNoPastParticiple()
+bool CLexemeManaged::bNoPassivePastParticiple()
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->bNoPastParticiple();
+    return m_pLexeme->bNoPassivePastParticiple();
 }
  
-void CLexemeManaged::SetNoPastParticiple(bool bValue)
+void CLexemeManaged::SetNoPassivePastParticiple(bool bValue)
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    m_pLexeme->SetNoPastParticiple(bValue);
+    m_pLexeme->SetNoPassivePastParticiple(bValue);
 }
 
 bool CLexemeManaged::bFleetingVowel()
@@ -2552,6 +2552,28 @@ EM_ReturnCode CLexemeManaged::eRemoveWordForm(String^ sHash, int iAt)
 
     ET_ReturnCode eRet = m_pLexeme->eRemoveWordForm(sFromManagedString(sHash), iAt);
     return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CLexemeManaged::eRemoveWordForms(String^ sHash)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pLexeme->eRemoveWordForms(sFromManagedString(sHash));
+    return (EM_ReturnCode)eRet;
+}
+
+void CLexemeManaged::AddWordForm(CWordFormManaged^% Wf)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    IWordForm* pItf = Wf->pGetUnmanagedItf();
+    m_pLexeme->AddWordForm(pItf);
 }
 
 bool CLexemeManaged::bHasIrregularForm(String^ sGramHash)
@@ -2839,6 +2861,15 @@ EM_ReturnCode CLexemeManaged::eDeleteIrregularForm(String^ sFormHash)
     return (EM_ReturnCode)m_pLexeme->eDeleteIrregularForm(sFromManagedString(sFormHash));
 }
 
+EM_ReturnCode CLexemeManaged::eSaveIrregularForms(String^ sGramHash)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pLexeme->eSaveIrregularForms(sFromManagedString(sGramHash));
+}
 
 EM_ReturnCode CLexemeManaged::eMakeGraphicStem()
 {

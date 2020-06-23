@@ -244,8 +244,8 @@ namespace MainLibManaged
         void SetNoLongForms(bool);
         bool bShortFormsIncomplete();
         void SetShortFormsIncomplete(bool);
-        bool bNoPastParticiple();
-        void SetNoPastParticiple(bool);
+        bool bNoPassivePastParticiple();
+        void SetNoPassivePastParticiple(bool);
         bool bFleetingVowel();
         void SetFleetingVowel(bool);
         int iStemAugment();
@@ -269,6 +269,8 @@ namespace MainLibManaged
         EM_ReturnCode eWordFormFromHash(String^ sHash, int iAt, CWordFormManaged^% Wf);
         EM_ReturnCode eCreateWordForm(CWordFormManaged^% wf);
         EM_ReturnCode eRemoveWordForm(String^ sHash, int iAt);
+        EM_ReturnCode eRemoveWordForms(String^ sHash);
+        void AddWordForm(CWordFormManaged^% Wf);
         bool bHasIrregularForm(String^ sGramHash);
         bool bNoRegularForms(String^ sGramHash);
         EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% wf);
@@ -292,6 +294,7 @@ namespace MainLibManaged
         EM_ReturnCode eSaveTestData();
         EM_ReturnCode eCheckLexemeProperties(); // for manual input/editing
         EM_ReturnCode eDeleteIrregularForm(String^ sFormHash);
+        EM_ReturnCode eSaveIrregularForms(String^ sGramHash);
         EM_ReturnCode eMakeGraphicStem();
         EM_ReturnCode eMakeGraphicStem(const String^ sSource, String^% sGraphicStem);
 
