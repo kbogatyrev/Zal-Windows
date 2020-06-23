@@ -1216,7 +1216,58 @@ namespace ZalTestApp
             }
         }
 
-        public static EM_ReturnCode StressMarksToPosList(string sWord, out string sOutWord, out Dictionary<int, EM_StressType> dictPositions)
+        public static EM_ReturnCode StressMarksToCharPosList(string sWord, out string sOutWord, out Dictionary<int, EM_StressType> dictPositions)
+        {
+            dictPositions = new Dictionary<int, EM_StressType>();
+            sOutWord = "";
+
+            for (int iPos = 0; iPos < sWord.Length; )
+            {
+                if (iPos >= sWord.Length)
+                {
+                    System.Windows.MessageBox.Show("Unable to find stress position. ");
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+
+                if (iPos < sWord.Length - 1 && '\x300' == sWord[iPos + 1])
+                {
+                    if (Helpers.arrRusVowels.Contains(sWord[iPos]))
+                    {
+                        dictPositions[iPos] = EM_StressType.STRESS_SECONDARY;
+                    }
+                    else
+                    {
+                        System.Windows.MessageBox.Show("Stressed character is not a vowel. ");
+                    }
+                }
+                else if (iPos < sWord.Length - 1 && '\x301' == sWord[iPos + 1])
+                {
+                    if (Helpers.arrRusVowels.Contains(sWord[iPos]))
+                    {
+                        dictPositions[iPos] = EM_StressType.STRESS_PRIMARY;
+                    }
+                    else
+                    {
+                        System.Windows.MessageBox.Show("Secondary stressed character is not a vowel. ");
+                    }
+                }
+                else if ('ё' == sWord[iPos])
+                {
+                    dictPositions[iPos] = EM_StressType.STRESS_PRIMARY;
+                }
+
+                ++iPos;
+            }
+
+            sOutWord = sWord;
+            sOutWord = sOutWord.Replace("\x300", string.Empty);
+            sOutWord = sOutWord.Replace("\x301", string.Empty);
+
+            return EM_ReturnCode.H_NO_ERROR;
+
+        }   //  StressMarksToCharOffsetList()
+
+        public static EM_ReturnCode StressMarksToSyllabicPosList(string sWord, out string sOutWord, out Dictionary<int, EM_StressType> dictPositions)
         {
             dictPositions = new Dictionary<int, EM_StressType>();
             sOutWord = "";
@@ -1266,7 +1317,7 @@ namespace ZalTestApp
 
             return EM_ReturnCode.H_NO_ERROR;
 
-        }   //  StressMarksToPosList()
+        }   //  StressMarksToSyllabicPosList()
 
         public static void MarkStress(ref string sWordForm, CWordFormManaged wf)
         {

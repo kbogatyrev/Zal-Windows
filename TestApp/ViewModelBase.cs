@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
 using System.Windows;
+using System.Linq;
 using MainLibManaged;
 
 namespace ZalTestApp
@@ -57,36 +58,42 @@ namespace ZalTestApp
             }
         }
 
-        protected void SetForm(string sHash, string sForm)
+        protected void SetForm(string sHash, string sCellContents)
         {
-            if (!m_DictFormStatus.ContainsKey(sHash))
-            {
-                return;
-            }
-
-            string sStressedForm = "";
-            Helpers.AssignDiacritics(sForm, ref sStressedForm);
+            m_Lexeme.eRemoveWordForms(sHash);
 
             var formsForHash = m_DictFormStatus[sHash];
-            int iAt = formsForHash.iCurrentForm;
+            int iAt = 0;
+            if (formsForHash.iCurrentForm != null && formsForHash.lstForms.Count > 0)
+            {
+                iAt = formsForHash.iCurrentForm;
+            }
             if (iAt < 0 || iAt >= formsForHash.lstForms.Count)
             {
                 MessageBox.Show("Internal error: Illegal form index.");
                 return;
             }
-
-            string sFormWithStressRemoved = "";
-            Dictionary<int, EM_StressType> dctStressPositions;
-            Helpers.StressMarksToPosList(sStressedForm, out sFormWithStressRemoved, out dctStressPositions);
-            formsForHash.lstForms[iAt].WordFormManaged.SetWordForm(sFormWithStressRemoved);
-            var eRet = formsForHash.lstForms[iAt].WordFormManaged.eSetStressPositions(dctStressPositions);
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            char[] arrSeparators = { ';' };
+            List<string> lstWordForms = new List<string>(sCellContents.Split(arrSeparators, StringSplitOptions.RemoveEmptyEntries));
+            formsForHash.lstForms.Clear();
+            bool bIsVariant = false;
+            foreach (var sForm in lstWordForms)
             {
-                MessageBox.Show("Unable to modify stress positions.");
+                string sStressedForm = "";
+                Helpers.AssignDiacritics(sForm, ref sStressedForm);
+                var fd = new FormDescriptor();
+                CWordFormManaged wf = null;
+                CreateIrregularWordForm(sHash, sStressedForm, ref wf);
+                wf.SetIsVariant(bIsVariant);
+                fd.WordFormManaged = wf;
+                fd.IsUnsaved = true;
+                formsForHash.lstForms.Add(fd);
+
+                m_Lexeme.AddWordForm(ref wf);
+                OnPropertyChanged(sHash);
+                OnPropertyChanged(sHash+"_HasMultipleForms");
             }
-            formsForHash.lstForms[iAt].IsUnsaved = true;
-            OnPropertyChanged(sHash);
-        }
+        }       //  SetForm()
 
         public void FormScrollUp(Object obj)
         {
@@ -378,13 +385,13 @@ namespace ZalTestApp
 
             string sOutForm = "";
             Dictionary<int, EM_StressType> dictStressPos;
-            Helpers.StressMarksToPosList(sForm, out sOutForm, out dictStressPos);
+            Helpers.StressMarksToSyllabicPosList(sForm, out sOutForm, out dictStressPos);
             wf.SetWordForm(sOutForm);
-            //            eRet = wf.eSetIrregularStressPositions(dictStressPos);
-            eRet = wf.eSaveIrregularForm();
+            wf.SetIrregular(true);
+            eRet = wf.eSetStressPositions(dictStressPos);
             if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
-                var msg = "Internal error: unable to save irregular form.";
+                var msg = "Internal error: unable to assign stress positions.";
                 MessageBox.Show(msg);
                 return eRet;
             }
@@ -397,7 +404,21 @@ namespace ZalTestApp
         {
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
 
-            foreach (KeyValuePair<string, FormsForGramHash> entry in m_DictFormStatus)
+            foreach (var entry in m_DictFormStatus)
+            {
+                var lstFormsForHash = entry.Value.lstForms;
+                IEnumerable<FormDescriptor> select = lstFormsForHash.Where(form => form.IsUnsaved);
+                if (select.Count() > 0)
+                {
+                    eRet = m_Lexeme.eSaveIrregularForms(entry.Key);
+                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    {
+                        MessageBox.Show("Internal error: failed to save forms for {0}.", entry.Key);
+                    }
+                }
+            }
+
+            foreach (var entry in m_DictFormStatus)
             {
                 FormsForGramHash formsPerHash = entry.Value;
                 if (formsPerHash.lstForms.Count < 1)
@@ -406,40 +427,13 @@ namespace ZalTestApp
                     continue;
                 }
 
-//                string sGramHash = sDisplayHashToFormHash(entry.Key);
+                //                string sGramHash = sDisplayHashToFormHash(entry.Key);
 
-                bool isVariant = false;
                 foreach (var fd in formsPerHash.lstForms)
                 {
-                    if (!fd.IsUnsaved)
-                    {
-                        continue;
-                    }
-
-                    try
-                    {
-                        fd.WordFormManaged.SetIsVariant(isVariant);
-                        isVariant = true;       // for subsequent forms if they exist
-
-                        // TODO: comments
-
-                        eRet = fd.WordFormManaged.eSaveIrregularForm();
-                        if (eRet != EM_ReturnCode.H_NO_ERROR)
-                        {
-                            var msg = "Internal error: unable to save word form.";
-                            MessageBox.Show(msg);
-                            continue;
-                        }
-                        fd.IsUnsaved = false;
-                    }
-                    catch (Exception ex)
-                    {
-                        var msg = string.Format("Exception: {0}.", ex.Message);
-                        MessageBox.Show(msg);
-                        return;
-                    }
+                    fd.IsUnsaved = false;
                 }
-            }       // foreach()
+            }
 
             if (EM_ReturnCode.H_NO_ERROR == eRet)
             {
@@ -449,8 +443,6 @@ namespace ZalTestApp
             {
                 MessageBox.Show("Ошибки при записи форм в базу данных.");
             }
-
-
         }       //  SaveForms()
 
         ////////////////////////////////////////////////////////
