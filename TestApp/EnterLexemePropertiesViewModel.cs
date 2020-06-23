@@ -1647,13 +1647,13 @@ namespace ZalTestApp
                 return bRet;
             });
 
-            m_ChangedPropertiesHandlers.Add("NoPastParticiple", () =>
+            m_ChangedPropertiesHandlers.Add("NoPassivePastParticiple", () =>
             {
                 bool bValue = false;
-                bool bRet = bGetYesNoValue("NoPastParticiple", m_sFramedXSymbol, ref bValue);
+                bool bRet = bGetYesNoValue("NoPassivePastParticiple", m_sFramedXSymbol, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetNoPastParticiple(bValue);
+                    m_Lexeme.SetNoPassivePastParticiple(bValue);
                 }
                 return bRet;
             });
@@ -2045,7 +2045,7 @@ namespace ZalTestApp
             if (EM_PartOfSpeech.POS_VERB == m_Lexeme.ePartOfSpeech())
             {
                 XSymbol = m_Lexeme.bPastParticipleRestricted() ? m_YesNoValues[0] : m_YesNoValues[1];
-                FramedXSymbol = m_Lexeme.bNoPastParticiple() ? m_YesNoValues[0] : m_YesNoValues[1];
+                FramedXSymbol = m_Lexeme.bNoPassivePastParticiple() ? m_YesNoValues[0] : m_YesNoValues[1];
             }
         }
 
