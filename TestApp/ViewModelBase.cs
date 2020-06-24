@@ -63,16 +63,8 @@ namespace ZalTestApp
             m_Lexeme.eRemoveWordForms(sHash);
 
             var formsForHash = m_DictFormStatus[sHash];
-            int iAt = 0;
-            if (formsForHash.iCurrentForm != null && formsForHash.lstForms.Count > 0)
-            {
-                iAt = formsForHash.iCurrentForm;
-            }
-            if (iAt < 0 || iAt >= formsForHash.lstForms.Count)
-            {
-                MessageBox.Show("Internal error: Illegal form index.");
-                return;
-            }
+            formsForHash.lstForms.Clear();
+
             char[] arrSeparators = { ';' };
             List<string> lstWordForms = new List<string>(sCellContents.Split(arrSeparators, StringSplitOptions.RemoveEmptyEntries));
             formsForHash.lstForms.Clear();
