@@ -58,7 +58,23 @@ namespace ZalTestApp
             }
         }
 
-        protected void SetForm(string sHash, string sCellContents)
+        public void OnGotFocus(string sHash, ref string sFormString)
+        {
+            var formsForHash = m_DictFormStatus[sHash];
+            sFormString = "";
+            foreach (var formDescriptor in formsForHash.lstForms)
+            {
+                if (sFormString.Length > 0)
+                {
+                    sFormString += "; ";
+                }
+                var sFormattedWord = formDescriptor.StressedWordform;
+                Helpers.RestoreInlineStressMarks(ref sFormattedWord);
+                sFormString += sFormattedWord;
+            }
+        }
+
+        public void SetForm(string sHash, string sCellContents)
         {
             m_Lexeme.eRemoveWordForms(sHash);
 
@@ -69,8 +85,9 @@ namespace ZalTestApp
             List<string> lstWordForms = new List<string>(sCellContents.Split(arrSeparators, StringSplitOptions.RemoveEmptyEntries));
             formsForHash.lstForms.Clear();
             bool bIsVariant = false;
-            foreach (var sForm in lstWordForms)
+            foreach (var item in lstWordForms)
             {
+                var sForm = item.Trim();
                 string sStressedForm = "";
                 Helpers.AssignDiacritics(sForm, ref sStressedForm);
                 var fd = new FormDescriptor();
@@ -352,6 +369,7 @@ namespace ZalTestApp
                 wf.SetAnimacy(eAnimacy);
             }
 
+/*
             EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
 
             switch (m_Lexeme.ePartOfSpeech())
@@ -372,6 +390,11 @@ namespace ZalTestApp
                     MessageBox.Show("Illegal part of speech value.");
                     return EM_ReturnCode.H_ERROR_UNEXPECTED;
             }
+*/
+
+            EM_PartOfSpeech ePOS = EM_PartOfSpeech.POS_UNDEFINED;
+            EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+            eRet = Helpers.eGramHashToSubparadigm(sGramHash, ref ePOS, ref eSp);
 
             wf.SetSubparadigm(eSp);
 
