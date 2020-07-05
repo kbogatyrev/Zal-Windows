@@ -112,7 +112,7 @@ namespace ZalTestApp
             set
             {
                 string sNewSourceForm = value;
-                Helpers.RestoreStressMarks(ref sNewSourceForm);
+                Helpers.RestoreInlineStressMarks(ref sNewSourceForm);
                 if (sNewSourceForm != m_sSourceForm)
                 {
                     SourceForm = sNewSourceForm;
@@ -1128,7 +1128,7 @@ namespace ZalTestApp
                 else
                 {
                     string sTmp = m_sSourceForm;
-                    Helpers.RestoreStressMarks(ref sTmp);
+                    Helpers.RestoreInlineStressMarks(ref sTmp);
                     m_Lexeme.SetSourceForm(sTmp);
                     return true;
                 }
@@ -1144,7 +1144,7 @@ namespace ZalTestApp
                 else
                 {
                     string sTmp = m_sSourceForm;
-                    Helpers.RestoreStressMarks(ref sTmp);
+                    Helpers.RestoreInlineStressMarks(ref sTmp);
                     m_Lexeme.SetSourceForm(sTmp);
                     return true;
                 }

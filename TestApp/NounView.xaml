@@ -29,12 +29,12 @@
                 <TextBox Text="P2" Margin="33,401,0,0" Style="{StaticResource FormLabel}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding Noun_Sg_N}" Margin="70,70,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Noun_Sg_A}" Margin="70,115,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Noun_Sg_G}" Margin="70,160,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Noun_Sg_P}" Margin="70,205,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Noun_Sg_D}" Margin="70,250,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Noun_Sg_I}" Margin="70,295,0,0" Style="{StaticResource FormText}" />
+                <TextBox Name ="Noun_Sg_N" Text="{Binding Noun_Sg_N}" Margin="70,70,0,0"  Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Noun_Sg_A" Text="{Binding Noun_Sg_A}" Margin="70,115,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Noun_Sg_G" Text="{Binding Noun_Sg_G}" Margin="70,160,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Noun_Sg_P" Text="{Binding Noun_Sg_P}" Margin="70,205,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Noun_Sg_D" Text="{Binding Noun_Sg_D}" Margin="70,250,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Noun_Sg_I" Text="{Binding Noun_Sg_I}" Margin="70,295,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
 
                 <TextBox Text="{Binding Noun_Sg_Part}" Margin="70,356,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Noun_Sg_P2}" Margin="70,401,0,0" Style="{StaticResource FormText}" />
@@ -97,12 +97,12 @@
                 <TextBox Text="I" Margin="347,295,0,0" Style="{StaticResource FormLabel}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding Path=Noun_Pl_N}" Margin="383,70,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Pl_A}" Margin="383,115,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Pl_G}" Margin="383,160,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Pl_P}" Margin="383,205,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Pl_D}" Margin="383,250,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding Path=Noun_Pl_I}" Margin="383,295,0,0" Style="{StaticResource FormText}" />
+                <TextBox Name ="Noun_Pl_N" Text="{Binding Path=Noun_Pl_N}" Margin="383,70,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Noun_Pl_A" Text="{Binding Path=Noun_Pl_A}" Margin="383,115,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Noun_Pl_G" Text="{Binding Path=Noun_Pl_G}" Margin="383,160,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Noun_Pl_P" Text="{Binding Path=Noun_Pl_P}" Margin="383,205,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Noun_Pl_D" Text="{Binding Path=Noun_Pl_D}" Margin="383,250,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Noun_Pl_I" Text="{Binding Path=Noun_Pl_I}" Margin="383,295,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
 
                 <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
                 <Button Margin="531,74,0,0" CommandParameter="Noun_Pl_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Noun_Pl_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />

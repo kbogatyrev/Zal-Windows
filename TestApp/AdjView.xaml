@@ -28,13 +28,13 @@
                 <TextBox Text="I" Margin="0,340,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding AdjL_M_Sg_N}" Margin="64,70,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_M_Sg_A_Inanim}" Margin="64,115,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_M_Sg_A_Anim}" Margin="64,160,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_M_Sg_G}" Margin="64,205,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_M_Sg_P}" Margin="64,250,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_M_Sg_D}" Margin="64,295,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_M_Sg_I}" Margin="64,340,0,0" Style="{StaticResource FormText}" />
+                <TextBox Name ="AdjL_M_Sg_N" Text="{Binding AdjL_M_Sg_N}" Margin="64,70,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_M_Sg_A_Inanim" Text="{Binding AdjL_M_Sg_A_Inanim}" Margin="64,115,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_M_Sg_A_Anim" Text="{Binding AdjL_M_Sg_A_Anim}" Margin="64,160,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_M_Sg_G" Text="{Binding AdjL_M_Sg_G}" Margin="64,205,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_M_Sg_P" Text="{Binding AdjL_M_Sg_P}" Margin="64,250,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_M_Sg_D" Text="{Binding AdjL_M_Sg_D}" Margin="64,295,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_M_Sg_I" Text="{Binding AdjL_M_Sg_I}" Margin="64,340,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
 
                 <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
                 <Button Margin="212,74,0,0" CommandParameter="AdjL_M_Sg_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjL_M_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
@@ -83,12 +83,12 @@
                 <!-- Case Labels -->
 
                 <!-- Forms -->
-                <TextBox Text="{Binding AdjL_F_Sg_N}" IsReadOnly="{Binding AdjL_F_Sg_N_IsReadOnly}" Margin="290,70,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_F_Sg_A}" IsReadOnly="{Binding AdjL_F_Sg_A_IsReadOnly}" Margin="290,115,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_F_Sg_G}" IsReadOnly="{Binding AdjL_F_Sg_G_IsReadOnly}" Margin="290,205,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_F_Sg_P}" IsReadOnly="{Binding AdjL_F_Sg_P_IsReadOnly}" Margin="290,250,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_F_Sg_D}" IsReadOnly="{Binding AdjL_F_Sg_D_IsReadOnly}" Margin="290,295,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_F_Sg_I}" IsReadOnly="{Binding AdjL_F_Sg_I_IsReadOnly}" Margin="290,340,0,0" Style="{StaticResource FormText}" />
+                <TextBox Name ="AdjL_F_Sg_N" Text="{Binding AdjL_F_Sg_N}" IsReadOnly="{Binding AdjL_F_Sg_N_IsReadOnly}" Margin="290,70,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_F_Sg_A" Text="{Binding AdjL_F_Sg_A}" IsReadOnly="{Binding AdjL_F_Sg_A_IsReadOnly}" Margin="290,115,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_F_Sg_G" Text="{Binding AdjL_F_Sg_G}" IsReadOnly="{Binding AdjL_F_Sg_G_IsReadOnly}" Margin="290,205,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_F_Sg_P" Text="{Binding AdjL_F_Sg_P}" IsReadOnly="{Binding AdjL_F_Sg_P_IsReadOnly}" Margin="290,250,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_F_Sg_D" Text="{Binding AdjL_F_Sg_D}" IsReadOnly="{Binding AdjL_F_Sg_D_IsReadOnly}" Margin="290,295,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_F_Sg_I" Text="{Binding AdjL_F_Sg_I}" IsReadOnly="{Binding AdjL_F_Sg_I_IsReadOnly}" Margin="290,340,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
 
                 <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
                 <Button Margin="438,74,0,0" CommandParameter="AdjL_F_Sg_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjL_F_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
@@ -130,12 +130,12 @@
                 <TextBox Text="N Sg" Margin="583,20,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding AdjL_N_Sg_N}" IsReadOnly="{Binding AdjL_N_Sg_N_IsReadOnly}" Margin="523,70,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_N_Sg_A}" IsReadOnly="{Binding AdjL_N_Sg_A_IsReadOnly}" Margin="523,115,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_N_Sg_G}" IsReadOnly="{Binding AdjL_N_Sg_G_IsReadOnly}" Margin="523,205,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_N_Sg_P}" IsReadOnly="{Binding AdjL_N_Sg_P_IsReadOnly}" Margin="523,250,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_N_Sg_D}" IsReadOnly="{Binding AdjL_N_Sg_D_IsReadOnly}" Margin="523,295,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_N_Sg_I}" IsReadOnly="{Binding AdjL_N_Sg_I_IsReadOnly}" Margin="523,340,0,0" Style="{StaticResource FormText}" />
+                <TextBox Name ="AdjL_N_Sg_N" Text="{Binding AdjL_N_Sg_N}" IsReadOnly="{Binding AdjL_N_Sg_N_IsReadOnly}" Margin="523,70,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_N_Sg_A" Text="{Binding AdjL_N_Sg_A}" IsReadOnly="{Binding AdjL_N_Sg_A_IsReadOnly}" Margin="523,115,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_N_Sg_G" Text="{Binding AdjL_N_Sg_G}" IsReadOnly="{Binding AdjL_N_Sg_G_IsReadOnly}" Margin="523,205,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_N_Sg_P" Text="{Binding AdjL_N_Sg_P}" IsReadOnly="{Binding AdjL_N_Sg_P_IsReadOnly}" Margin="523,250,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_N_Sg_D" Text="{Binding AdjL_N_Sg_D}" IsReadOnly="{Binding AdjL_N_Sg_D_IsReadOnly}" Margin="523,295,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_N_Sg_I" Text="{Binding AdjL_N_Sg_I}" IsReadOnly="{Binding AdjL_N_Sg_I_IsReadOnly}" Margin="523,340,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
 
                 <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
                 <Button Margin="671,74,0,0" CommandParameter="AdjL_N_Sg_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjL_N_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
@@ -185,13 +185,13 @@
                 <TextBox Text="I" Margin="0,750,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding AdjL_Pl_N}" Margin="65,480,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_Pl_A_Inanim}" Margin="65,525,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_Pl_A_Anim}" Margin="65,570,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_Pl_G}" Margin="65,615,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_Pl_P}" Margin="65,660,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_Pl_D}" Margin="65,705,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjL_Pl_I}" Margin="65,750,0,0" Style="{StaticResource FormText}" />
+                <TextBox Name ="AdjL_Pl_N" Text="{Binding AdjL_Pl_N}" Margin="65,480,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_Pl_A_Inanim" Text="{Binding AdjL_Pl_A_Inanim}" Margin="65,525,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_Pl_A_Anim" Text="{Binding AdjL_Pl_A_Anim}" Margin="65,570,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_Pl_G" Text="{Binding AdjL_Pl_G}" Margin="65,615,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_Pl_P" Text="{Binding AdjL_Pl_P}" Margin="65,660,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_Pl_D" Text="{Binding AdjL_Pl_D}" Margin="65,705,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjL_Pl_I" Text="{Binding AdjL_Pl_I}" Margin="65,750,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
 
                 <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
                 <Button Margin="212,484,0,0" CommandParameter="AdjL_Pl_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjL_Pl_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
@@ -243,10 +243,10 @@
                 <TextBox Text="Pl" Margin="386,615,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
-                <TextBox Text="{Binding AdjS_M}" Margin="454,480,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjS_F}" Margin="454,525,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjS_N}" Margin="454,570,0,0" Style="{StaticResource FormText}" />
-                <TextBox Text="{Binding AdjS_Pl}" Margin="454,615,0,0" Style="{StaticResource FormText}" />
+                <TextBox Name ="AdjS_M" Text="{Binding AdjS_M}" Margin="454,480,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjS_F" Text="{Binding AdjS_F}" Margin="454,525,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjS_N" Text="{Binding AdjS_N}" Margin="454,570,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="AdjS_Pl" Text="{Binding AdjS_Pl}" Margin="454,615,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
 
                 <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
                 <Button Margin="602,484,0,0" CommandParameter="AdjS_M" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjS_M_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
@@ -275,7 +275,7 @@
 
                 <!-- Comparative -->
                 <TextBox Text="Сравн." Margin="504,681,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="{Binding AdjComp}" Margin="454,718,0,0" Style="{StaticResource FormText}" />
+                <TextBox Name ="AdjComp" Text="{Binding AdjComp}" Margin="454,718,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
                 <Button Margin="602,722,0,0" CommandParameter="AdjComp" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjComp_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Button Margin="602,730,0,0" CommandParameter="AdjComp" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjComp_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Image HorizontalAlignment="Left" Margin="627,725,0,0" VerticalAlignment="Top" Style="{Binding AdjComp_Marks, Converter={StaticResource StyleConverter}}" />

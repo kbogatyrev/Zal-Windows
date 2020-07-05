@@ -1394,7 +1394,7 @@ namespace ZalTestApp
         }       //  ExtractStressMarks()
 
         // Diacritics --> "/", "\"
-        public static void RestoreStressMarks(ref string sWord)
+        public static void RestoreInlineStressMarks(ref string sWord)
         {
             char chrStressMark = '\x301';
             char chrSecondaryStressMark = '\x300';
@@ -1402,7 +1402,7 @@ namespace ZalTestApp
 
             int iPos = 0;
             iPos = sWord.IndexOfAny(arrStressMarks, iPos);
-            while (iPos > 0 && iPos < sWord.Length - 1)
+            while (iPos > 0 && iPos < sWord.Length)
             {
                 StringBuilder sb = new StringBuilder(sWord);
                 char chrDiacritic = (chrStressMark == sb[iPos]) ? '/' : '\\';
