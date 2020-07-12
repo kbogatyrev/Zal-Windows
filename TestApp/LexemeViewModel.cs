@@ -286,12 +286,7 @@ namespace ZalTestApp
                 AddProperty("Прич. прош. страд. затрудн.", "");
             }
 
-            if (m_Lexeme.bNoLongForms())
-            {
-                AddProperty("Нет прич. прош. страд.", "");
-            }
-
-            if (m_Lexeme.bNoLongForms())
+            if (m_Lexeme.bNoPassivePastParticiple())
             {
                 AddProperty("Нет прич. прош. страд.", "");
             }
