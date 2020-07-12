@@ -1381,7 +1381,7 @@ namespace ZalTestApp
             }
             catch (KeyNotFoundException exKey)
             {
-                System.Windows.MessageBox.Show("Error: unable to find form:  " + exKey.Message);
+ //               System.Windows.MessageBox.Show("Error: unable to find form:  " + exKey.Message);
             }
             catch (Exception exOther)
             {
