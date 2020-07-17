@@ -956,7 +956,7 @@ namespace ZalTestApp
             }
             else if (EM_PartOfSpeech.POS_PRONOUN_ADJ == lexeme.ePartOfSpeech())
             {
-                if ("мс" == lexeme.sInflectionType())
+                if ("мс-п" == lexeme.sInflectionType())
                 {
                     eSp = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
                 }
@@ -967,7 +967,14 @@ namespace ZalTestApp
             }
             else if (EM_PartOfSpeech.POS_NUM_ADJ == lexeme.ePartOfSpeech())
             {
-                eSp = EM_Subparadigm.SUBPARADIGM_NUM_ADJ;
+                if ("числ.-п" == lexeme.sInflectionType())
+                {
+                    eSp = EM_Subparadigm.SUBPARADIGM_NUM_ADJ;
+                }
+                else
+                {
+                    eSp = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;
+                }
             }
 
             HandleAccusatives(lexeme, eSp);
