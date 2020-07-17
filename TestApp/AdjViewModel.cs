@@ -1051,61 +1051,6 @@ namespace ZalTestApp
             BackButtonEvent?.Invoke();
         }
 
-/*
-        private EM_ReturnCode CreateIrregularWordForm(string sForm, string sGramHash, ref CWordFormManaged wf)
-        {
-            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
-
-            eRet = m_Lexeme.eCreateWordForm(ref wf);
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
-            {
-                MessageBox.Show("Unable to create a word form.");
-                return eRet;
-            }
-
-//            wf.SetPos(m_Lexeme.ePartOfSpeech());
-
-            EM_Number eNumber = EM_Number.NUM_UNDEFINED;
-            eRet = Helpers.eGramHashToNumber(sGramHash, ref eNumber);
-            if (EM_ReturnCode.H_NO_ERROR == eRet)
-            {
-                wf.SetNumber(eNumber);
-            }
-
-            EM_Gender eGender = EM_Gender.GENDER_UNDEFINED;
-            eRet = Helpers.eGramHashToGender(sGramHash, ref eGender);
-            wf.SetGender(eGender);
-
-            EM_Case eCase = EM_Case.CASE_UNDEFINED;
-            EM_Animacy eAnimacy = EM_Animacy.ANIM_UNDEFINED;
-            eRet = Helpers.eGramHashToCase(sGramHash, ref eCase, ref eAnimacy);
-            wf.SetCase(eCase);
-            wf.SetAnimacy(eAnimacy);
-
-            EM_PartOfSpeech ePos = EM_PartOfSpeech.POS_UNDEFINED;
-            ePos = EM_PartOfSpeech.POS_ADJ;
-            wf.SetPos(ePos);
-            EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
-            eRet = Helpers.eGramHashToSubparadigm(sGramHash, ref ePos, ref eSp);
-            wf.SetSubparadigm(eSp);
-
-            string sOutForm = "";
-            Dictionary<int, EM_StressType> dictStressPos;
-            Helpers.StressMarksToPosList(sForm, out sOutForm, out dictStressPos);
-            wf.SetWordForm(sOutForm);
-            eRet = wf.eSetIrregularStressPositions(dictStressPos);
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
-            {
-                var msg = "Internal error: unable to save stress positions";
-                MessageBox.Show(msg);
-                return eRet;
-            }
-
-            return EM_ReturnCode.H_NO_ERROR;
-
-        }       //  CreateIrregularWordForm()
-*/
-
         public void adjViewModel_PropertyChanged(object sender, PropertyChangedEventArgs arg)
         {
             var sFormHash = arg.PropertyName.ToString();
