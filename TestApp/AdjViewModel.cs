@@ -966,7 +966,7 @@ namespace ZalTestApp
                     continue;
                 }
 
-                string sParadigmHash = null;    // use standard adj gram hashes regardless of part of speech
+                string sParadigmHash = null;    // use standard long adj gram hashes regardless of part of speech
                 try
                 {
                     sParadigmHash = Helpers.m_listPropNamesAdj[keyIdx];
@@ -1144,7 +1144,7 @@ namespace ZalTestApp
             if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
             {
                 // Remove?
-                if ("мс" == m_Lexeme.sInflectionType())
+                if ("мс-п" == m_Lexeme.sInflectionType())
                 {
                     listKeys = Helpers.m_listPropNamesPronAdj;
                 }
@@ -1156,7 +1156,7 @@ namespace ZalTestApp
 
             if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ)
             {
-                if ("мс" == m_Lexeme.sInflectionType())
+                if ("мс-п" == m_Lexeme.sInflectionType())
                 {
                     listKeys = Helpers.m_listPropNamesPronAdj;
                 }
@@ -1167,7 +1167,14 @@ namespace ZalTestApp
             }
             if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NUM_ADJ)
             {
-                listKeys = Helpers.m_listPropNamesNumAdj;
+                if ("числ-п" == m_Lexeme.sInflectionType())
+                {
+                    listKeys = Helpers.m_listPropNamesNumAdj;
+                }
+                else
+                {
+                    listKeys = Helpers.m_listPropNamesAdj;
+                }
             }
             else if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
             {
