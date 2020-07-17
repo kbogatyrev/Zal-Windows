@@ -589,8 +589,7 @@ namespace ZalTestApp
                         formsPerHash.iCurrentForm = 0;
                     }
 
-                    var sDisplayHash = sFormHashToDisplayHash(sHash);
-                    m_DictFormStatus[sDisplayHash] = formsPerHash;
+                    m_DictFormStatus[sHash] = formsPerHash;
                 }
             }
             catch (Exception ex)
@@ -735,7 +734,7 @@ namespace ZalTestApp
 
                 }       //  CreateIrregularWordForm()
         */
-
+        /*
         private string sFormHashToDisplayHash(string sFormHash)
         {
             int iKeyIdx = -1;
@@ -769,7 +768,7 @@ namespace ZalTestApp
                 return "";
             }
         }       //  sFormHashToDisplayHash()
-
+        */
 /*
         private string sDisplayHashToFormHash(string sDisplayHash)
         {

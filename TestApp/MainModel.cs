@@ -852,6 +852,8 @@ namespace ZalTestApp
             CWordFormManaged wf = null;
             eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
 
+            EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+
             while (EM_ReturnCode.H_NO_ERROR == eRet)
             {
                 if (null == wf)
@@ -859,8 +861,10 @@ namespace ZalTestApp
                     continue;
                 }
 
+                eSp = wf.eSubparadigm();
+
                 string sKey = "";
-                if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_LONG_ADJ)
+                if (eSp == EM_Subparadigm.SUBPARADIGM_LONG_ADJ)
                 {
                     sKey = "AdjL_";
                     if (wf.eNumber() == EM_Number.NUM_SG)
@@ -871,7 +875,7 @@ namespace ZalTestApp
                     sKey += Helpers.sNumberToString(wf.eNumber()) + "_"
                         + Helpers.sCaseToString(wf.eCase());
                 }
-                else if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ)
+                else if (eSp == EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ)
                 {
                     sKey = "PronAdj_";
                     if (wf.eNumber() == EM_Number.NUM_SG)
@@ -882,7 +886,7 @@ namespace ZalTestApp
                     sKey += Helpers.sNumberToString(wf.eNumber()) + "_"
                         + Helpers.sCaseToString(wf.eCase());
                 }
-                else if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_NUM_ADJ)
+                else if (eSp == EM_Subparadigm.SUBPARADIGM_NUM_ADJ)
                 {
                     sKey = "NumAdj_";
                     if (wf.eNumber() == EM_Number.NUM_SG)
@@ -893,7 +897,7 @@ namespace ZalTestApp
                     sKey += Helpers.sNumberToString(wf.eNumber()) + "_"
                         + Helpers.sCaseToString(wf.eCase());
                 }
-                else if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_SHORT_ADJ)
+                else if (eSp == EM_Subparadigm.SUBPARADIGM_SHORT_ADJ)
                 {
                     sKey = "AdjS_";
                     if (wf.eNumber() == EM_Number.NUM_SG)
@@ -909,7 +913,7 @@ namespace ZalTestApp
                         System.Windows.MessageBox.Show("Error: illegal number value.");
                     }
                 }
-                else if (wf.eSubparadigm() == EM_Subparadigm.SUBPARADIGM_COMPARATIVE)
+                else if (eSp == EM_Subparadigm.SUBPARADIGM_COMPARATIVE)
                 {
                     sKey = "AdjComp";
                 }
@@ -929,7 +933,6 @@ namespace ZalTestApp
 
                 if (sKey != null)
                 {
-
                     if (!dctParadigm.ContainsKey(sKey))
                     {
                         dctParadigm[sKey] = new List<CWordFormManaged>();
@@ -946,8 +949,12 @@ namespace ZalTestApp
             m_dctLexemeHashToLexeme[sHash] = lexeme;
             m_dctFormComments[sHash] = comments;
 
-            EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+            eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
             if (EM_PartOfSpeech.POS_ADJ == lexeme.ePartOfSpeech())
+            {
+                eSp = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;
+            }
+            else if (EM_PartOfSpeech.POS_PRONOUN_ADJ == lexeme.ePartOfSpeech())
             {
                 if ("мс" == lexeme.sInflectionType())
                 {
@@ -957,10 +964,6 @@ namespace ZalTestApp
                 {
                     eSp = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;
                 }
-            }
-            else if (EM_PartOfSpeech.POS_PRONOUN_ADJ == lexeme.ePartOfSpeech())
-            {
-                eSp = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
             }
             else if (EM_PartOfSpeech.POS_NUM_ADJ == lexeme.ePartOfSpeech())
             {

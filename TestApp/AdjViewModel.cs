@@ -150,9 +150,9 @@ namespace ZalTestApp
             }
         }
 
-        private string GetForm(string sDisplayHash, EM_Subparadigm eSubparadigm)
+        private string GetForm(string sFormHash, EM_Subparadigm eSubparadigm)
         {
-            string sFormHash = sDisplayHashToFormHash(sDisplayHash, eSubparadigm);
+
             if (!m_DictFormStatus.ContainsKey(sFormHash))
             {
                 return "";
@@ -977,7 +977,8 @@ namespace ZalTestApp
                     continue;
                 }
 
-                m_DictFormStatus[sHash] = formsPerHash;
+                var sDisplayHash = Helpers.sFormHashToDisplayHash(sHash);
+                m_DictFormStatus[sDisplayHash] = formsPerHash;
             }
         }       //  private void InitFormDictionary()
 
@@ -1142,6 +1143,7 @@ namespace ZalTestApp
 
             if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
             {
+                // Remove?
                 if ("мс" == m_Lexeme.sInflectionType())
                 {
                     listKeys = Helpers.m_listPropNamesPronAdj;
@@ -1154,7 +1156,14 @@ namespace ZalTestApp
 
             if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ)
             {
-                listKeys = Helpers.m_listPropNamesPronAdj;
+                if ("мс" == m_Lexeme.sInflectionType())
+                {
+                    listKeys = Helpers.m_listPropNamesPronAdj;
+                }
+                else
+                {
+                    listKeys = Helpers.m_listPropNamesAdj;
+                }
             }
             if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NUM_ADJ)
             {
@@ -1197,70 +1206,6 @@ namespace ZalTestApp
         }       //  GetGramHashes()
 
 
-        /*
-                private string sFormHashToDisplayHash(string sFormHash)
-                {
-                    int iKeyIdx = -1;
-                    try
-                    {
-                        if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
-                        {
-                            if ("мс" == m_Lexeme.sInflectionType())
-                            {
-                                iKeyIdx = m_listPropNamesPronAdj.IndexOf(sFormHash);
-                            }
-                            else
-                            {
-                                iKeyIdx = m_listPropNamesAdj.IndexOf(sFormHash);
-                            }
-                        }
-
-                        if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_PRONOUN_ADJ)
-                        {
-                            iKeyIdx = m_listPropNamesPronAdj.IndexOf(sFormHash);
-                        }
-                        else if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
-                        {
-                            IsDerived = true;
-
-                            switch (m_eSubparadigm)
-                            {
-                                case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
-                                    iKeyIdx = m_listPropNamesPartPresAct.IndexOf(sFormHash);
-                                    break;
-
-                                case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
-                                    iKeyIdx = m_listPropNamesPartPastAct.IndexOf(sFormHash);
-                                    break;
-
-                                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
-                                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
-                                    iKeyIdx = m_listPropNamesPartPresPass.IndexOf(sFormHash);
-                                    break;
-
-                                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
-                                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
-                                    iKeyIdx = m_listPropNamesPartPastPass.IndexOf(sFormHash);
-                                    break;
-
-                                default:
-                                    MessageBox.Show("Illegal subparadigm.");
-                                    break;
-                            }
-                        }
-
-                        return m_listPropNamesAdj[iKeyIdx];
-                    }
-                    catch (Exception ex)
-                    {
-                        string sMsg = "Unable to find form hash. ";
-                        sMsg += ex.Message;
-                        MessageBox.Show(sMsg);
-                    }
-
-                    return "";
-                }
-        */
 #endregion
     }       //  public class AdjViewModel ...
 }       //  namespace ZalTestApp

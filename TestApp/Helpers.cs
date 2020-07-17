@@ -398,9 +398,19 @@ namespace ZalTestApp
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT;
                     break;
 
+                case "PPresPS":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT;
+                    break;
+
                 case "PPastA":
                     ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT;
+                    break;
+
+                case "PPastPS":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT;
                     break;
 
                 case "PPresPL":
@@ -701,7 +711,7 @@ namespace ZalTestApp
             }
 
             int iKeyIdx = -1;
-            string sDisplayHash;
+            string sDisplayHash = "";
 
             try
             {
@@ -723,48 +733,51 @@ namespace ZalTestApp
                         break;
 
                     case EM_PartOfSpeech.POS_ADJ:
-                        if (eSubparadigm == EM_Subparadigm.SUBPARADIGM_LONG_ADJ)
+                        if (eSubparadigm == EM_Subparadigm.SUBPARADIGM_LONG_ADJ ||
+                            eSubparadigm == EM_Subparadigm.SUBPARADIGM_SHORT_ADJ ||
+                            eSubparadigm == EM_Subparadigm.SUBPARADIGM_COMPARATIVE) 
                         {
                             sDisplayHash = sFormHash;
                         }
+                        // Is thie possible at all?
                         else if (eSubparadigm == EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ)
                         {
                             iKeyIdx = m_listPropNamesPronAdj.IndexOf(sFormHash);
                             sDisplayHash = m_listPropNamesAdj[iKeyIdx];
                         }
-                        else if (ePartOfSpeech == EM_PartOfSpeech.POS_VERB)
+                        break;
+
+                    case EM_PartOfSpeech.POS_VERB:
+                        switch (eSubparadigm)
                         {
-                            //                                IsDerived = true;
+                            case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
+                                iKeyIdx = m_listPropNamesPartPresAct.IndexOf(sFormHash);
+                                break;
 
-                            switch (eSubparadigm)
-                            {
-                                case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
-                                    iKeyIdx = m_listPropNamesPartPresAct.IndexOf(sFormHash);
-                                    break;
+                            case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
+                                iKeyIdx = m_listPropNamesPartPastAct.IndexOf(sFormHash);
+                                break;
 
-                                case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
-                                    iKeyIdx = m_listPropNamesPartPastAct.IndexOf(sFormHash);
-                                    break;
+                            case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
+                            case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
+                                iKeyIdx = m_listPropNamesPartPresPass.IndexOf(sFormHash);
+                                break;
 
-                                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
-                                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
-                                    iKeyIdx = m_listPropNamesPartPresPass.IndexOf(sFormHash);
-                                    break;
+                            case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
+                            case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
+                                iKeyIdx = m_listPropNamesPartPastPass.IndexOf(sFormHash);
+                                break;
 
-                                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
-                                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
-                                    iKeyIdx = m_listPropNamesPartPastPass.IndexOf(sFormHash);
-                                    break;
-
-                                default:
-                                    MessageBox.Show(string.Format("Subparadigm {0} was not recognized", eSubparadigm));
-                                    return "";
-                            }
-
-                            sDisplayHash = m_listPropNamesAdj[iKeyIdx];
-
+                            default:
+                                MessageBox.Show(string.Format("Subparadigm {0} was not recognized", eSubparadigm));
+                                return "";
                         }
+                        sDisplayHash = m_listPropNamesAdj[iKeyIdx];                      
+                        break;
 
+                    case EM_PartOfSpeech.POS_PRONOUN_ADJ:
+                        iKeyIdx = m_listPropNamesPronAdj.IndexOf(sFormHash);
+                        sDisplayHash = m_listPropNamesAdj[iKeyIdx];
                         break;
 
                     default:
@@ -781,7 +794,7 @@ namespace ZalTestApp
                 return "";
             }
 
-            return m_listPropNamesNoun[iKeyIdx];
+            return sDisplayHash;
 
         }       //  sFormHashToDisplayHash()
 
