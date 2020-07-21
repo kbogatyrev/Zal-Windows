@@ -1093,6 +1093,10 @@ namespace ZalTestApp
                 {
                     listKeys = Helpers.m_listPropNamesPronAdj;
                 }
+                else if ("мс" == m_Lexeme.sInflectionType())
+                {
+                    listKeys = Helpers.m_listPropNamesPronAdj;
+                }
                 else
                 {
                     listKeys = Helpers.m_listPropNamesAdj;

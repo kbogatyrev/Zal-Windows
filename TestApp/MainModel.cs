@@ -952,7 +952,14 @@ namespace ZalTestApp
             eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
             if (EM_PartOfSpeech.POS_ADJ == lexeme.ePartOfSpeech())
             {
-                eSp = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;
+                if ("мс" == lexeme.sInflectionType())
+                {
+                    eSp = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
+                }
+                else
+                {
+                    eSp = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;
+                }
             }
             else if (EM_PartOfSpeech.POS_PRONOUN_ADJ == lexeme.ePartOfSpeech())
             {
