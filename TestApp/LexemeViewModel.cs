@@ -13,6 +13,7 @@ namespace ZalTestApp
     {
         private string m_sName;
         private string m_sValue;
+        private string m_sSingleEntry;
 
         public string LexemePropertyName
         {
@@ -33,11 +34,38 @@ namespace ZalTestApp
                 OnPropertyChanged("LexemePropertyValue");
             }
         }
+
+        public string LexemePropertySingleEntry
+        {
+            get { return m_sSingleEntry; }
+            set
+            {
+                m_sSingleEntry = value;
+                OnPropertyChanged("LexemePropertySingleEntry");
+            }
+        }
+
+    }
+
+    public class LexemeSingleProperty : ViewModelBase
+    {
+        private string m_sValue;
+
+        public string LexemeSinglePropertyValue
+        {
+            get { return m_sValue; }
+            set
+            {
+                m_sValue = value;
+                OnPropertyChanged("LexemeSinglePropertyValue");
+            }
+        }
     }
 
     public class LexemeViewModel : ViewModelBase
     {
         public ObservableCollection<LexemeProperty> LexemeDetails { get; private set; }
+        public ObservableCollection<LexemeSingleProperty> LexemeProperties { get; private set; }
 
         public CLexemeManaged Lexeme
         {
@@ -131,7 +159,11 @@ namespace ZalTestApp
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
             SaveRegressionCommand = new RelayCommand(new Action<object>(SaveRegression));
+
+            LexemeDetails = new ObservableCollection<LexemeProperty>();
+            LexemeProperties = new ObservableCollection<LexemeSingleProperty>();
         }
+
 
         public LexemeViewModel(CLexemeManaged l)
         {
@@ -142,6 +174,7 @@ namespace ZalTestApp
             SaveRegressionCommand = new RelayCommand(new Action<object>(SaveRegression));
 
             LexemeDetails = new ObservableCollection<LexemeProperty>();
+            LexemeProperties = new ObservableCollection<LexemeSingleProperty>();
 
             CollectLexemeProperties();
         }
@@ -155,6 +188,7 @@ namespace ZalTestApp
             SaveRegressionCommand = new RelayCommand(new Action<object>(SaveRegression));
 
             LexemeDetails = new ObservableCollection<LexemeProperty>();
+            LexemeProperties = new ObservableCollection<LexemeSingleProperty>();
 
             CollectLexemeProperties();
         }
@@ -165,6 +199,13 @@ namespace ZalTestApp
             lp.LexemePropertyName = sName;
             lp.LexemePropertyValue = sValue;
             LexemeDetails.Add(lp);
+        }
+
+        private void AddSingleProperty(string sSingleValue)
+        {
+            LexemeProperty lsp = new LexemeProperty();
+            lsp.LexemePropertySingleEntry = sSingleValue;
+            LexemeDetails.Add(lsp);
         }
 
         private void CollectLexemeProperties()
@@ -208,96 +249,6 @@ namespace ZalTestApp
                 AddProperty("Вариант", sSourceFormWithAccents);
             }
 
-            if (m_Lexeme.sHeadwordComment().Length > 0)
-            {
-                AddProperty("Доп. помета (1)", m_Lexeme.sHeadwordComment());
-            }
-
-            if (m_Lexeme.sPluralOf().Length > 0)
-            {
-                AddProperty("Мн. от", m_Lexeme.sPluralOf());
-            }
-
-            if (m_Lexeme.sUsage().Length > 0)
-            {
-                AddProperty("Доп. помета (2)", m_Lexeme.sUsage());
-            }
-
-            if (m_Lexeme.sSeeRef().Length > 0)
-            {
-                AddProperty("См. также", m_Lexeme.sSeeRef());
-            }
-
-            if (m_Lexeme.sTrailingComment().Length > 0)
-            {
-                AddProperty("Доп. помета (3)", m_Lexeme.sTrailingComment());
-            }
-
-            if (m_Lexeme.sRestrictedForms().Length > 0)
-            {
-                string sPhraseo = m_Lexeme.sRestrictedForms();
-                string sSourceFormWithAccents = "";
-                Helpers.AssignDiacritics(sPhraseo, ref sSourceFormWithAccents);
-                AddProperty("Фразеологизмы", sSourceFormWithAccents);
-            }
-
-            if (m_Lexeme.bNoComparative())
-            {
-                AddProperty("Нет сравнительной степени", "");
-            }
-
-            if (m_Lexeme.bAssumedForms())
-            {
-                AddProperty("Есть гипотетические формы", "");
-            }
-
-            if (m_Lexeme.bHasIrregularForms())
-            {
-                AddProperty("Есть нерегулярные формы", "");
-            }
-
-            if (m_Lexeme.bHasIrregularVariants())
-            {
-                AddProperty("Есть нерегулярные варианты", "");
-            }
-
-            if (m_Lexeme.bHasDeficiencies())
-            {
-                AddProperty("Неполная парадигма", "");
-            }
-
-            if (m_Lexeme.bShortFormsRestricted())
-            {
-                AddProperty("Краткие формы затруднительны", "");
-            }
-
-            if (m_Lexeme.bShortFormsIncomplete())
-            {
-                AddProperty("Краткие формы ограничены", "");
-            }
-
-            if (m_Lexeme.bNoLongForms())
-            {
-                AddProperty("Нет полных форм", "");
-            }
-
-            if (m_Lexeme.bPastParticipleRestricted())
-            {
-                AddProperty("Прич. прош. страд. затрудн.", "");
-            }
-
-            if (m_Lexeme.bNoPassivePastParticiple())
-            {
-                AddProperty("Нет прич. прош. страд.", "");
-            }
-
-            if (m_Lexeme.iStemAugment() > 0)
-            {
-                AddProperty("Цифра в кружочке", m_Lexeme.iStemAugment().ToString());
-            }
-
-            AddProperty("Графическая основа", m_Lexeme.sGraphicStem());
-
             string sMainSymbol = m_Lexeme.sMainSymbol();
             if (m_Lexeme.sAltMainSymbol().Length > 0)
             {
@@ -319,6 +270,7 @@ namespace ZalTestApp
             {
                 sRet += "/" + Helpers.sAccenTypeToStressSchema(eAp2);
             }
+
             AddProperty("Схема ударения", sRet);
 
             if (Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
@@ -359,6 +311,119 @@ namespace ZalTestApp
                         return;
                     }
                 }
+            }
+
+            if (m_Lexeme.sHeadwordComment().Length > 0)
+            {
+                AddProperty("Доп. помета (1)", m_Lexeme.sHeadwordComment());
+            }
+
+            if (m_Lexeme.sPluralOf().Length > 0)
+            {
+                AddProperty("Мн. от", m_Lexeme.sPluralOf());
+            }
+
+            if (m_Lexeme.sUsage().Length > 0)
+            {
+                AddProperty("Доп. помета (2)", m_Lexeme.sUsage());
+            }
+
+            if (m_Lexeme.sSeeRef().Length > 0)
+            {
+                AddProperty("См. также", m_Lexeme.sSeeRef());
+            }
+
+            if (m_Lexeme.sTrailingComment().Length > 0)
+            {
+                AddProperty("Доп. помета (3)", m_Lexeme.sTrailingComment());
+            }
+
+            if (m_Lexeme.sRestrictedForms().Length > 0)
+            {
+                string sPhraseo = m_Lexeme.sRestrictedForms();
+                string sSourceFormWithAccents = "";
+                Helpers.AssignDiacritics(sPhraseo, ref sSourceFormWithAccents);
+                AddProperty("Фразеологизмы", sSourceFormWithAccents);
+            }
+
+            if (m_Lexeme.bNoComparative())
+            {
+                AddSingleProperty("Нет сравнительной степени");
+            }
+
+            if (m_Lexeme.bAssumedForms())
+            {
+                AddSingleProperty("Есть гипотетические формы");
+            }
+
+            if (m_Lexeme.bHasIrregularForms())
+            {
+                AddSingleProperty("Есть нерегулярные формы");
+            }
+
+            if (m_Lexeme.bHasIrregularVariants())
+            {
+                AddSingleProperty("Есть нерегулярные варианты");
+            }
+
+            if (m_Lexeme.bHasDeficiencies())
+            {
+                AddSingleProperty("Неполная парадигма");
+            }
+
+            if (m_Lexeme.bShortFormsRestricted())
+            {
+                AddSingleProperty("Краткие формы затруднительны");
+            }
+
+            if (m_Lexeme.bShortFormsIncomplete())
+            {
+                AddSingleProperty("Краткие формы ограничены");
+            }
+
+            if (m_Lexeme.bNoLongForms())
+            {
+                AddSingleProperty("Нет полных форм");
+            }
+
+            if (m_Lexeme.bPastParticipleRestricted())
+            {
+                AddSingleProperty("Прич. прош. страд. затрудн.");
+            }
+
+            if (m_Lexeme.bNoPassivePastParticiple())
+            {
+                AddSingleProperty("Нет прич. прош. страд.");
+            }
+
+            if (m_Lexeme.iStemAugment() > 0)
+            {
+                AddProperty("Цифра в кружочке", m_Lexeme.iStemAugment().ToString());
+            }
+
+//            AddProperty("Графическая основа", m_Lexeme.sGraphicStem());
+
+            if (Lexeme.bAssumedForms())
+            {
+                if (Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NOUN)
+                {
+                    AddSingleProperty("Формы мн. ч. предположительны");
+                }
+                else if (Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ)
+                {
+                    AddSingleProperty("Краткая форма мн. ч. предположительна");
+                }
+                else
+                {
+                    string sMsg = "Пoмета \"-\" (минус) не ожидается";
+                    MessageBox.Show(sMsg, "Zal Error");
+                }
+
+                if (Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ && Lexeme.bShortFormsRestricted())
+                {
+                    AddSingleProperty("Краткие формы затруднительны");
+                }
+
             }
         }       //  CollectLexemeProperties()
 

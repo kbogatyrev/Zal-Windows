@@ -10,14 +10,14 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,60,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="379" Height="459" Grid.Column="0" >
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,60,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="400" Height="459" Grid.Column="0" >
         <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" >
             <Grid Margin="0,0,0,0" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <ItemsControl ItemsSource="{Binding LexemeDetails}" Grid.IsSharedSizeScope="True" Height="400" Margin="0,0,-0.222,0" VerticalAlignment="Top">
+                <ItemsControl ItemsSource="{Binding LexemeDetails}" Grid.IsSharedSizeScope="True" Height="400" Margin="0,0,0,0" VerticalAlignment="Top">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -27,10 +27,12 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left"/>
                                 <TextBlock Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{StaticResource DataField}" MaxWidth="170"/>
+                                <TextBlock Text="{Binding LexemePropertySingleEntry}" Style="{StaticResource DataField}" MaxWidth="250"/>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+
                 <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Проверено" Command="{Binding SaveRegressionCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="183,0,25.333,0" VerticalAlignment="Top" Width="Auto" />
                 <Button Grid.Row="1" Style="{DynamicResource BtnLarge}" Content="Редактировать" Command="{Binding EditLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="29,0,192.333,0" VerticalAlignment="Top" Width="Auto" />
             </Grid>
