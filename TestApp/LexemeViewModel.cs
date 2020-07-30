@@ -261,6 +261,12 @@ namespace ZalTestApp
             }
             AddProperty("Основной символ", sMainSymbol);
 
+            string sInflectionSymbol = m_Lexeme.sInflectionType();
+            if (sMainSymbol != sInflectionSymbol)
+            {
+                AddProperty("Словоизм. тип", sInflectionSymbol);
+            }
+
             AddProperty("Индекс", m_Lexeme.iType().ToString());
 
             var eAp1 = m_Lexeme.eAccentType1();
@@ -399,6 +405,11 @@ namespace ZalTestApp
             if (m_Lexeme.iStemAugment() > 0)
             {
                 AddProperty("Цифра в кружочке", m_Lexeme.iStemAugment().ToString());
+            }
+
+            if (m_Lexeme.iSection() > 0)
+            {
+                AddProperty("Доп. особенности", String.Format("§{0}", m_Lexeme.iSection()));
             }
 
 //            AddProperty("Графическая основа", m_Lexeme.sGraphicStem());
