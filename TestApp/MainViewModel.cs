@@ -1058,8 +1058,35 @@ namespace ZalTestApp
 
             if (true == openFileDialog.ShowDialog())
             {
-                MainLibManaged.DelegateProgress progress = new MainLibManaged.DelegateProgress(UpdateProgress);
-                m_MainModel.ExportRegressionData(openFileDialog.FileName, progress);
+//                MainLibManaged.DelegateProgress progress = new MainLibManaged.DelegateProgress(UpdateProgress);
+//                m_MainModel.ExportRegressionData(openFileDialog.FileName, progress);
+                if (null == m_ProgressViewModel)
+                {
+                    m_ProgressViewModel = new ProgressViewModel();
+                }
+
+                ProgressDialog pd = new ProgressDialog(m_ProgressViewModel);
+                pd.Owner = Application.Current.MainWindow;
+                pd.Show();
+
+                try
+                {
+                    RegressionDataExportThread rt = new RegressionDataExportThread(m_MainModel, m_ProgressViewModel, pd, openFileDialog.FileName);
+                    System.Threading.Thread t = new Thread(new ThreadStart(rt.ThreadProc));
+                    t.Name = "TestApp test data export thread";
+                    t.IsBackground = true;
+                    //              m_WorkerThread.Priority = ThreadPriority.Lowest;
+                    t.SetApartmentState(ApartmentState.STA);
+                    t.Start();
+                    //                    t.Join();
+                    //                    pd.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                    return;
+                }
+
             }
         }
 
@@ -1177,6 +1204,56 @@ namespace ZalTestApp
                 if (eRet != EM_ReturnCode.H_NO_ERROR)
                 {
                     MessageBox.Show("Unable to load test data", "Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                //                MainLib.ZalError err = new MainLib.ZalError();
+                string sMsg = ex.Message;
+                sMsg += "\n";
+                //                sMsg += err.LastError;
+                MessageBox.Show(sMsg, "Error");
+                return;
+            }
+
+            Application.Current.Dispatcher.Invoke(new Action(() => { m_ProgressDialog.Close(); }));
+
+        }   //  ThreadProc()
+
+    }   //  public class RegressionDataThread
+
+    public class RegressionDataExportThread
+    {
+        private MainModel m_Caller;
+        private ProgressViewModel m_ProgressViewModel;
+        private ProgressDialog m_ProgressDialog;
+        private string m_sPath;
+        private int m_iPercentDone;
+        private delegate void DelegateProgress(int iPercentDone, bool bOperationComplete);
+
+        private void UpdateProgress(int iPercentDone, bool bOperationComplete)
+        {
+            m_iPercentDone = iPercentDone;
+            m_ProgressViewModel.Progress = m_iPercentDone;
+        }
+
+        public RegressionDataExportThread(MainModel mm, ProgressViewModel pvm, ProgressDialog pd, string sPath)
+        {
+            m_Caller = mm;
+            m_ProgressViewModel = pvm;
+            m_ProgressDialog = pd;
+            m_sPath = sPath;
+        }
+
+        public void ThreadProc()
+        {
+            try
+            {
+                MainLibManaged.DelegateProgress progress = new MainLibManaged.DelegateProgress(UpdateProgress);
+                EM_ReturnCode eRet = m_Caller.ExportRegressionData(m_sPath, progress);
+                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                {
+                    MessageBox.Show("Unable to write test data", "Error");
                 }
             }
             catch (Exception ex)
