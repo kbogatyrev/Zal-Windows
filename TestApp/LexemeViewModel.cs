@@ -269,6 +269,11 @@ namespace ZalTestApp
 
             AddProperty("Индекс", m_Lexeme.iType().ToString());
 
+            if (m_Lexeme.bHasFleetingVowel())
+            {
+                AddSingleProperty("Есть беглая гласная");
+            }
+
             var eAp1 = m_Lexeme.eAccentType1();
             string sRet = Helpers.sAccenTypeToStressSchema(eAp1);
             var eAp2 = m_Lexeme.eAccentType2();

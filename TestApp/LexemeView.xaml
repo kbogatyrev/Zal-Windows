@@ -27,7 +27,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left"/>
                                 <TextBlock Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{StaticResource DataField}" MaxWidth="170"/>
-                                <TextBlock Text="{Binding LexemePropertySingleEntry}" Style="{StaticResource DataField}" MaxWidth="250"/>
+                                <TextBlock Text="{Binding LexemePropertySingleEntry}" Style="{StaticResource SinglePropertyField}" MaxWidth="250"/>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
