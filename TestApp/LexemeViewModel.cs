@@ -259,15 +259,22 @@ namespace ZalTestApp
                     sMainSymbol += " " + m_Lexeme.sAltMainSymbolComment();
                 }
             }
-            AddProperty("Основной символ", sMainSymbol);
+
+            if (sMainSymbol != "")
+            {
+                AddProperty("Основной символ", sMainSymbol);
+            }
 
             string sInflectionSymbol = m_Lexeme.sInflectionType();
-            if (sMainSymbol != sInflectionSymbol)
+            if (sMainSymbol != sInflectionSymbol && sInflectionSymbol != "")
             {
                 AddProperty("Словоизм. тип", sInflectionSymbol);
             }
 
-            AddProperty("Индекс", m_Lexeme.iType().ToString());
+            if (m_Lexeme.iType() > 0)
+            {
+                AddProperty("Индекс", m_Lexeme.iType().ToString());
+            }
 
             if (m_Lexeme.bHasFleetingVowel())
             {
@@ -275,14 +282,17 @@ namespace ZalTestApp
             }
 
             var eAp1 = m_Lexeme.eAccentType1();
-            string sRet = Helpers.sAccenTypeToStressSchema(eAp1);
-            var eAp2 = m_Lexeme.eAccentType2();
-            if (eAp2 != EM_AccentType.AT_UNDEFINED)
+            if (eAp1 != EM_AccentType.AT_UNDEFINED)
             {
-                sRet += "/" + Helpers.sAccenTypeToStressSchema(eAp2);
-            }
+                string sRet = Helpers.sAccenTypeToStressSchema(eAp1);
+                var eAp2 = m_Lexeme.eAccentType2();
+                if (eAp2 != EM_AccentType.AT_UNDEFINED)
+                {
+                    sRet += "/" + Helpers.sAccenTypeToStressSchema(eAp2);
+                }
 
-            AddProperty("Схема ударения", sRet);
+                AddProperty("Схема ударения", sRet);
+            }
 
             if (Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
             {
