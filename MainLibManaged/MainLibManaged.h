@@ -22,6 +22,7 @@ namespace MainLibManaged
     public delegate void DelegateProgress(int iPercentDone, bool bOperationComplete);
 
     ref class CLexemeManaged;
+    ref class CLexemeEnumeratorManaged;
     ref class CParserManaged;
     ref class CAnalyticsManaged;
     ref class CVerifierManaged;
@@ -258,8 +259,12 @@ namespace MainLibManaged
         void SetInfinitive(String^);
         String^ sInfStem();
         void SetInfStem(String^);
-        EM_ReturnCode eAddCommonDeviation(int iValue, bool bIsOptional);
+        int iInflectedParts();
+        void SetInflectedParts(int);
+        bool bIsSecondPart();
+        void SetSecondPart(bool);
 
+        EM_ReturnCode eAddCommonDeviation(int iValue, bool bIsOptional);
         bool bFindCommonDeviation(int iNum, bool% bIsOptional);
         bool bFindStandardAlternation(String^ sKey, String^% sValue);
         EM_ReturnCode eGetStemStressPositions(String^ sStem, List<int>% listPositions);
@@ -338,16 +343,11 @@ namespace MainLibManaged
         EM_ReturnCode eSaveInflectionInfo(CLexemeManaged^);
 
         int nLexemesFound();
-        EM_ReturnCode eGetFirstLexeme(CLexemeManaged^% pLexeme);
-        EM_ReturnCode eGetNextLexeme(CLexemeManaged^% pLexeme);
-
-//        EM_ReturnCode eParseWord(String^ sText);
-
-//        EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% pWordFrom);
-//        EM_ReturnCode eGetNextWordForm(CWordFormManaged^% pWordForm);
 
         void Clear();
         EM_ReturnCode Clear(CLexemeManaged^ pLexeme);
+
+        EM_ReturnCode eCreateLexemeEnumerator(CLexemeEnumeratorManaged^%);
 
         EM_ReturnCode eGetParser(CParserManaged^%); 
         EM_ReturnCode eGetAnalytics(CAnalyticsManaged^%);
@@ -375,6 +375,20 @@ namespace MainLibManaged
         void SetReflexivity(EM_Reflexive);
         void SetAspect(EM_Aspect);
         String^ sHash();
+    };
+
+    public ref class CLexemeEnumeratorManaged
+    {
+        Hlib::ILexemeEnumerator* m_pLexemeEnumerator;
+
+    public:
+        CLexemeEnumeratorManaged(ILexemeEnumerator *);
+        ~CLexemeEnumeratorManaged();
+
+        EM_ReturnCode eReset();
+
+        EM_ReturnCode eGetFirstLexeme(CLexemeManaged^% pLexemeItf);
+        EM_ReturnCode eGetNextLexeme(CLexemeManaged^% pLexemeItf);
     };
 
     public ref class CParserManaged

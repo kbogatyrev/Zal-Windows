@@ -790,46 +790,6 @@ int CDictionaryManaged::nLexemesFound()
     return m_pDictionary->nLexemesFound();
 }
 
-EM_ReturnCode CDictionaryManaged::eGetFirstLexeme(CLexemeManaged^% lexeme)
-{
-    if (NULL == m_pDictionary)
-    {
-        throw gcnew Exception(L"Dictionary object is NULL.");
-    }
-
-    ILexeme * pLexeme = NULL;
-    ET_ReturnCode eRet = m_pDictionary->eGetFirstLexeme(pLexeme);
-    if (H_NO_ERROR == eRet)
-    {
-        if (pLexeme)
-        {
-            lexeme = gcnew CLexemeManaged(pLexeme);
-        }
-    }
-
-    return (EM_ReturnCode)eRet;
-}
-
-EM_ReturnCode CDictionaryManaged::eGetNextLexeme(CLexemeManaged^% lexeme)
-{
-    if (NULL == m_pDictionary)
-    {
-        throw gcnew Exception(L"Dictionary object is NULL.");
-    }
-
-    ILexeme * pLexeme = NULL;
-    ET_ReturnCode eRet = m_pDictionary->eGetNextLexeme(pLexeme);
-    if (H_NO_ERROR == eRet)
-    {
-        if (pLexeme)
-        {
-            lexeme = gcnew CLexemeManaged(pLexeme);
-        }
-    }
-
-    return (EM_ReturnCode)eRet;
-}
-
 void CDictionaryManaged::Clear()
 {
     if (NULL == m_pDictionary)
@@ -849,6 +809,29 @@ EM_ReturnCode CDictionaryManaged::Clear(CLexemeManaged^ pLexeme)
 
     ET_ReturnCode eRet = m_pDictionary->Clear(pLexeme->m_pLexeme);
 
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CDictionaryManaged::eCreateLexemeEnumerator(CLexemeEnumeratorManaged^% pLeManaged)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary objectis NULL.");
+    }
+
+    ILexemeEnumerator * pLexemeEnumerator = nullptr;
+    ET_ReturnCode eRet = m_pDictionary->eCreateLexemeEnumerator(pLexemeEnumerator);
+    if (H_NO_ERROR == eRet)
+    {
+        if (pLexemeEnumerator)
+        {
+            pLeManaged = gcnew CLexemeEnumeratorManaged(pLexemeEnumerator);
+        }
+        else
+        {
+            return EM_ReturnCode::H_ERROR_UNEXPECTED;
+        }
+    }
     return (EM_ReturnCode)eRet;
 }
 
@@ -2410,6 +2393,46 @@ void CLexemeManaged::SetInfStem(String^ sValue)
     m_pLexeme->SetInfStem(sFromManagedString(sValue));
 }
 
+int CLexemeManaged::iInflectedParts()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return m_pLexeme->iInflectedParts();
+}
+
+void CLexemeManaged::SetInflectedParts(int iValue)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    m_pLexeme->SetInflectedParts(iValue);
+}
+
+bool CLexemeManaged::bIsSecondPart()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return m_pLexeme->bIsSecondPart();
+}
+
+void CLexemeManaged::SetSecondPart(bool bValue)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    m_pLexeme->SetSecondPart(bValue);
+}
+
 EM_ReturnCode CLexemeManaged::eAddCommonDeviation(int iValue, bool bIsOptional)
 {
     if (NULL == m_pLexeme)
@@ -3073,6 +3096,65 @@ EM_ReturnCode CSqliteManaged::eExportTable(string sPathToTextFile, array<String^
     return EM_ReturnCode::H_NO_ERROR;
 }
 */
+
+CLexemeEnumeratorManaged::CLexemeEnumeratorManaged(ILexemeEnumerator* pLe) : m_pLexemeEnumerator(pLe)
+{}
+
+CLexemeEnumeratorManaged::~CLexemeEnumeratorManaged()
+{
+    if (NULL == m_pLexemeEnumerator)
+    {
+        throw gcnew Exception(L"Lexeme enumerator object is NULL.");
+    }    
+    delete m_pLexemeEnumerator;
+}
+
+EM_ReturnCode CLexemeEnumeratorManaged::eReset()
+{
+    if (NULL == m_pLexemeEnumerator)
+    {
+        throw gcnew Exception(L"Lexeme enumerator object is NULL.");
+    }
+    return (EM_ReturnCode) m_pLexemeEnumerator->eReset();
+}
+
+EM_ReturnCode CLexemeEnumeratorManaged::eGetFirstLexeme(CLexemeManaged^% pLexemeItf)
+{
+    if (NULL == m_pLexemeEnumerator)
+    {
+        throw gcnew Exception(L"Lexeme enumerator object is NULL.");
+    }
+
+    ILexeme* pLexeme = NULL;
+    ET_ReturnCode eRet = m_pLexemeEnumerator->eGetFirstLexeme(pLexeme);
+    if (H_NO_ERROR == eRet || H_NO_MORE == eRet)
+    {
+        if (pLexeme)
+        {
+            pLexemeItf = gcnew CLexemeManaged(pLexeme);
+        }
+    }
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CLexemeEnumeratorManaged::eGetNextLexeme(CLexemeManaged^% pLexemeItf)
+{
+    if (NULL == m_pLexemeEnumerator)
+    {
+        throw gcnew Exception(L"Lexeme enumerator object is NULL.");
+    }
+
+    ILexeme* pLexeme = NULL;
+    ET_ReturnCode eRet = m_pLexemeEnumerator->eGetNextLexeme(pLexeme);
+    if (H_NO_ERROR == eRet || H_NO_MORE == eRet)
+    {
+        if (pLexeme)
+        {
+            pLexemeItf = gcnew CLexemeManaged(pLexeme);
+        }
+    }
+    return (EM_ReturnCode)eRet;
+}
 
 CParserManaged::CParserManaged(IParser * pParser) : m_pParser(pParser)
 {}
