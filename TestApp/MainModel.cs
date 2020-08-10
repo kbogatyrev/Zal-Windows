@@ -511,7 +511,9 @@ namespace ZalTestApp
             }
 
             CLexemeManaged lexeme = null;
-            eRet = m_Dictionary.eGetFirstLexeme(ref lexeme);
+            CLexemeEnumeratorManaged le = null;
+            m_Dictionary.eCreateLexemeEnumerator(ref le);
+            eRet = le.eGetFirstLexeme(ref lexeme);
             if (EM_ReturnCode.H_NO_ERROR != eRet)
             {
                 System.Windows.MessageBox.Show("Error: unable to retrieve lexeme");
@@ -529,13 +531,16 @@ namespace ZalTestApp
 //                        return;
                     }
 
-                    if (!bArrangeParadigm(lexeme))
+                    if (!(2 == lexeme.iInflectedParts() && lexeme.bIsSecondPart()))
                     {
-                        System.Windows.MessageBox.Show("Unable to generate forms.");
+                        if (!bArrangeParadigm(lexeme))
+                        {
+                            System.Windows.MessageBox.Show("Unable to generate forms.");
+                        }
                     }
                 }
 
-                eRet = m_Dictionary.eGetNextLexeme(ref lexeme);
+                eRet = le.eGetNextLexeme(ref lexeme);
 
             } while (EM_ReturnCode.H_NO_ERROR == eRet);
 
