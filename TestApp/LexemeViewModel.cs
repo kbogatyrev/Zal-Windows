@@ -451,6 +451,16 @@ namespace ZalTestApp
                 }
 
             }
+
+            if (Lexeme.sQuestionableForms() != "")
+            {
+                AddSingleProperty(Lexeme.sQuestionableForms());
+            }
+
+            if (Lexeme.bHasDeficiencies())
+            {
+                AddSingleProperty(Lexeme.sQuestionableForms());
+            }
         }       //  CollectLexemeProperties()
 
         private void SaveRegression(object arg)
