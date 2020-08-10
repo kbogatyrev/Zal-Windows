@@ -290,6 +290,12 @@
   <ItemGroup>
     <Resource Include="comment_btn.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MainLibManaged\ZalMainLibManaged.vcxproj">
+      <Project>{83628bb9-349b-4b0d-a7fa-9cddcacac5be}</Project>
+      <Name>ZalMainLibManaged</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.111.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.111.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
