@@ -759,6 +759,7 @@ namespace ZalTestApp
                 case EM_PartOfSpeech.POS_PREPOSITION:
                 case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
                 case EM_PartOfSpeech.POS_ADV:
+                case EM_PartOfSpeech.POS_NULL:
                     return bGetUninflectedForm(lexeme);
 
                 default:

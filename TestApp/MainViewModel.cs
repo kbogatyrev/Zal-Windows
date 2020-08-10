@@ -885,6 +885,7 @@ namespace ZalTestApp
                 case EM_PartOfSpeech.POS_PREDIC:
                 case EM_PartOfSpeech.POS_PREPOSITION:
                 case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
+                case EM_PartOfSpeech.POS_NULL:
                     paradigmViewModel = new ViewModelBase();
                     break;
 
