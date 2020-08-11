@@ -373,6 +373,11 @@ namespace ZalTestApp
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_PRONOUN;
                     break;
 
+                case "Numeral":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_NUM;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_NUM;
+                    break;
+
                 case "AdjL":
                     ePartOfSpeech = EM_PartOfSpeech.POS_ADJ;
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;

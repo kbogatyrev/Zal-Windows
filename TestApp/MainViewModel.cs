@@ -257,7 +257,7 @@ namespace ZalTestApp
 
         #region Properties
 
-        private bool m_bDbOpen;
+        private bool m_bDbOpen = false;
         public bool DbOpen
         {
             get
