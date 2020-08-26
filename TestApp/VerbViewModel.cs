@@ -697,50 +697,50 @@ namespace ZalTestApp
             }
         }
 
-        public string VAdvPres
+        public string VAdv_Pres
         {
-            get { return GetForm("VAdvPres", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT); }
-            set { SetForm("VAdvPres", value); }
+            get { return GetForm("VAdv_Pres", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT); }
+            set { SetForm("VAdv_Pres", value); }
         }
 
-        private EMark m_eVAdvPres_Marks = EMark.None;
-        public EMark VAdvPres_Marks
+        private EMark m_eVAdv_Pres_Marks = EMark.None;
+        public EMark VAdv_Pres_Marks
         {
-            get { return GetFormStatus("VAdvPres"); }
-            set { m_eVAdvPres_Marks = value; OnPropertyChanged("VAdvPres_Marks"); }
+            get { return GetFormStatus("VAdv_Pres"); }
+            set { m_eVAdv_Pres_Marks = value; OnPropertyChanged("VAdv_Pres_Marks"); }
         }
 
-        public bool VAdvPres_HasMultipleForms
+        public bool VAdv_Pres_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_eVAdvPres", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_eVAdv_Pres", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool VAdvPres_HasComments
+        public bool VAdv_Pres_HasComments
         {
-            get { return HasComments("VAdvPres", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT); }
+            get { return HasComments("VAdv_Pres", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT); }
         }
 
-        public string VAdvPast
+        public string VAdv_Past
         {
-            get { return GetForm("VAdvPast", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST); }
-            set { SetForm("VAdvPast", value); }
+            get { return GetForm("VAdv_Past", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST); }
+            set { SetForm("VAdv_Past", value); }
         }
 
-        private EMark m_eVAdvPast_Marks = EMark.None;
-        public EMark VAdvPast_Marks
+        private EMark m_eVAdv_Past_Marks = EMark.None;
+        public EMark VAdv_Past_Marks
         {
-            get { return GetFormStatus("VAdvPast"); }
-            set { m_eVAdvPast_Marks = value; OnPropertyChanged("VAdvPast_Marks"); }
+            get { return GetFormStatus("VAdv_Past"); }
+            set { m_eVAdv_Past_Marks = value; OnPropertyChanged("VAdv_Past_Marks"); }
         }
 
-        public bool VAdvPast_HasMultipleForms
+        public bool VAdv_Past_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_eVAdvPast", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_eVAdv_Past", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool VAdvPast_HasComments
+        public bool VAdv_Past_HasComments
         {
-            get { return HasComments("VAdvPast", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST); }
+            get { return HasComments("VAdv_Past", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST); }
         }
 
         #endregion

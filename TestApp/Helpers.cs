@@ -101,8 +101,8 @@ namespace ZalTestApp
         public static List<string> m_listPropNamesVerbMainScreen = new List<string>()
         {
             "Infinitive", "Pres_Sg_1", "Pres_Sg_2", "Pres_Sg_3", "Pres_Pl_1", "Pres_Pl_2", "Pres_Pl_3", 
-            "Past_M", "Past_F", "Past_N", "Past_Pl", "Impv_Sg_2", "Impv_Pl_2", "PPresA_M_Sg_N", "VAdvPres",
-            "PPastA_M_Sg_N", "VAdvPast", "PPresPL_M_Sg_N", "PPastPL_M_Sg_N"
+            "Past_M", "Past_F", "Past_N", "Past_Pl", "Impv_Sg_2", "Impv_Pl_2", "PPresA_M_Sg_N", "VAdv_Pres",
+            "PPastA_M_Sg_N", "VAdv_Past", "PPresPL_M_Sg_N", "PPastPL_M_Sg_N"
         };
         #endregion
 
@@ -448,12 +448,12 @@ namespace ZalTestApp
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_IMPERATIVE;
                     break;
 
-                case "VAdvPres":
+                case "VAdv_Pres":
                     ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT;
                     break;
 
-                case "VAdvPast":
+                case "VAdv_Past":
                     ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST;
                     break;

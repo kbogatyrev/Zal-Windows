@@ -1066,11 +1066,11 @@ namespace ZalTestApp
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT:
-                        sKey = "VAdvPres";
+                        sKey = "VAdv_Pres";
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST:
-                        sKey = "VAdvPast";
+                        sKey = "VAdv_Past";
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
