@@ -655,22 +655,22 @@ namespace ZalTestApp
             }
         }
 
-        private string m_sQuestionableForms;
-        public string QuestionableForms
-        {
-            get
-            {
-                return m_sQuestionableForms;
-            }
-            set
-            {
-                if (value != m_sQuestionableForms)
-                {
-                    m_sQuestionableForms = value;
-                }
-                OnPropertyChanged("QuestionableForms");
-            }
-        }
+        //private string m_sQuestionableForms;
+        //public string QuestionableForms
+        //{
+        //    get
+        //    {
+        //        return m_sQuestionableForms;
+        //    }
+        //    set
+        //    {
+        //        if (value != m_sQuestionableForms)
+        //        {
+        //            m_sQuestionableForms = value;
+        //        }
+        //        OnPropertyChanged("QuestionableForms");
+        //    }
+        //}
 
         private string m_sHasIrregularForms;
         public string HasIrregularForms
@@ -706,22 +706,22 @@ namespace ZalTestApp
             }
         }
 
-        private string m_sHasDeficiencies;
-        public string HasDeficiencies
-        {
-            get
-            {
-                return m_sHasDeficiencies;
-            }
-            set
-            {
-                if (value != m_sHasDeficiencies)
-                {
-                    m_sHasDeficiencies = value;
-                }
-                OnPropertyChanged("HasDeficiencies");
-            }
-        }
+        //private string m_sHasDeficiencies;
+        //public string HasDeficiencies
+        //{
+        //    get
+        //    {
+        //        return m_sHasDeficiencies;
+        //    }
+        //    set
+        //    {
+        //        if (value != m_sHasDeficiencies)
+        //        {
+        //            m_sHasDeficiencies = value;
+        //        }
+        //        OnPropertyChanged("HasDeficiencies");
+        //    }
+        //}
 
         private string m_sRestrictedContexts;
         public string RestrictedContexts
@@ -1435,15 +1435,15 @@ namespace ZalTestApp
                 return true;
             });
 
-            m_ChangedPropertiesHandlers.Add("QuestionableForms", () =>
-            {
-                if (null == m_sQuestionableForms)
-                {
-                    return true;
-                }
-                m_Lexeme.SetQuestionableForms(m_sQuestionableForms);
-                return true;
-            });
+            //m_ChangedPropertiesHandlers.Add("QuestionableForms", () =>
+            //{
+            //    if (null == m_sQuestionableForms)
+            //    {
+            //        return true;
+            //    }
+            //    m_Lexeme.SetQuestionableForms(m_sQuestionableForms);
+            //    return true;
+            //});
 
             m_ChangedPropertiesHandlers.Add("HasIrregularForms", () =>
             {
@@ -1467,16 +1467,16 @@ namespace ZalTestApp
                 return bRet;
             });
 
-            m_ChangedPropertiesHandlers.Add("HasDeficiencies", () =>
-            {
-                bool bValue = false;
-                bool bRet = bGetYesNoValue("HasDeficiencies", m_sHasDeficiencies, ref bValue);
-                if (bRet)
-                {
-                    m_Lexeme.SetHasDeficiencies(bValue);
-                }
-                return bRet;
-            });
+            //m_ChangedPropertiesHandlers.Add("HasDeficiencies", () =>
+            //{
+            //    bool bValue = false;
+            //    bool bRet = bGetYesNoValue("HasDeficiencies", m_sHasDeficiencies, ref bValue);
+            //    if (bRet)
+            //    {
+            //        m_Lexeme.SetHasDeficiencies(bValue);
+            //    }
+            //    return bRet;
+            //});
 
             m_ChangedPropertiesHandlers.Add("RestrictedContexts", () =>
             {
@@ -2028,10 +2028,10 @@ namespace ZalTestApp
             AspectPairType = m_Lexeme.iAspectPairType();
             AspectPairData = m_Lexeme.sAspectPairData();
             AltAspectPairComment = m_Lexeme.sAltAspectPairComment();
-            QuestionableForms = m_Lexeme.sQuestionableForms();
+//            QuestionableForms = m_Lexeme.sQuestionableForms();
             HasIrregularForms = m_Lexeme.bHasIrregularForms() ? m_YesNoValues[0] : m_YesNoValues[1];
             HasIrregularVariants = m_Lexeme.bHasIrregularVariants() ? m_YesNoValues[0] : m_YesNoValues[1];
-            HasDeficiencies = m_Lexeme.bHasDeficiencies() ? m_YesNoValues[0] : m_YesNoValues[1];
+//            HasDeficiencies = m_Lexeme.bHasDeficiencies() ? m_YesNoValues[0] : m_YesNoValues[1];
             RestrictedContexts = m_Lexeme.sRestrictedForms();
             Contexts = m_Lexeme.sContexts();
             //            Cognates 

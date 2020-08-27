@@ -11,12 +11,50 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
+using System.Windows.Data;
+using System.Globalization;
 using System.Windows;
 using System.Linq;
 using MainLibManaged;
 
 namespace ZalTestApp
 {
+    public enum ECellStatus { Normal, Missing, Difficult };
+
+    public sealed class StyleConverterCell : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var sAssemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+
+            string uri = sAssemblyName + ";component/Skins.xaml";
+
+            ResourceDictionary resourceDictionary =
+                (ResourceDictionary)Application.LoadComponent(new System.Uri(uri, System.UriKind.Relative));
+
+            if (ECellStatus.Normal == (ECellStatus)value)
+            {
+                return resourceDictionary["FormText"] as Style;
+            }
+            else if (ECellStatus.Missing == (ECellStatus)value)
+            {
+                return resourceDictionary["EmptyFormTextBox"] as Style;
+            }
+            else if (ECellStatus.Difficult == (ECellStatus)value)
+            {
+                return resourceDictionary["DifficultFormTextBox"] as Style;
+            }
+            else 
+            {
+                return resourceDictionary["FormText"] as Style;
+            }
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     /// <summary>
     /// Base class for all ViewModel classes in the application. Provides support for 
     /// property changes notification. Original implementation by Josh Smith.

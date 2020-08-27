@@ -299,6 +299,9 @@
         <MenuItem Command="{Binding EditFormCommentCommand}" Header="Комментарий" />
     </ContextMenu>
 -->
+
+    <local:StyleConverterCell x:Key="StyleConverterCell"/>
+
     <Style TargetType="TextBox" x:Key="FormText">
         <Setter Property="Height" Value="28"/>
         <Setter Property="Width" Value="160"/>
@@ -349,6 +352,49 @@
 -->
     </Style>
 
+    <Style TargetType="TextBox" x:Key="EmptyFormTextBox">
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="Width" Value="160"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="Foreground" Value="Navy"/>
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="10,3,0,4"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+        <Setter Property="ScrollViewer.Height" Value="28.0"/>
+        <Setter Property="IsReadOnly" Value="False"/>
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="DifficultFormTextBox">
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="Width" Value="160"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="Foreground" Value="Navy"/>
+        <Setter Property="Background" Value="#E0E0E0"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="10,3,0,4"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+<!--        <Setter Property="FontStyle" Value="Italic"/>   -->
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+        <Setter Property="ScrollViewer.Height" Value="28.0"/>
+        <Setter Property="IsReadOnly" Value="False"/>
+    </Style>
+
     <Style TargetType="TextBox" x:Key="Text">
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="Foreground" Value="Navy"/>
@@ -363,7 +409,7 @@
         <Setter Property="IsReadOnly" Value="False"/>
     </Style>
 
-    <local:StyleConverter x:Key="StyleConverter"/>
+    <local:StyleConverterMarks x:Key="StyleConverterMarks"/>
 
     <Style TargetType="Image" x:Key="IrregularFormMark">
         <Setter Property="Height" Value="15"/>

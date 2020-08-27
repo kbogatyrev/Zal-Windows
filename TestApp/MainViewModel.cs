@@ -16,7 +16,7 @@ namespace ZalTestApp
 {
     public enum EMark { None, IsIrregular, IsEdited };
 
-    public sealed class StyleConverter : IValueConverter
+    public sealed class StyleConverterMarks : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -47,7 +47,6 @@ namespace ZalTestApp
             throw new NotImplementedException();
         }
     }
-
 
     public class ViewPage
     {

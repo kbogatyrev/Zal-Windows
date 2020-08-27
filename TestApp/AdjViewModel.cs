@@ -152,7 +152,6 @@ namespace ZalTestApp
 
         private string GetForm(string sFormHash, EM_Subparadigm eSubparadigm)
         {
-
             if (!m_DictFormStatus.ContainsKey(sFormHash))
             {
                 return "";
@@ -186,6 +185,19 @@ namespace ZalTestApp
             return EMark.None;
         }
 
+        ECellStatus GetCellStatus(string sFormHash)
+        {
+            string sLexemeHash = m_Lexeme.sHash();
+            if (m_MainModel.bIsMissing(sLexemeHash, sFormHash))
+            {
+                return ECellStatus.Missing;
+            }
+            else if (m_MainModel.bIsDifficult(sLexemeHash, sFormHash))
+            {
+                return ECellStatus.Difficult;
+            }
+            return ECellStatus.Normal;
+        }
 
         #region Bindings_Long_Masculine_Sg
 
@@ -207,6 +219,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_M_Sg_N", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_M_Sg_N_CellStatus
+        {
+            get { return GetCellStatus("AdjL_M_Sg_N"); }
+        }
+
         public string AdjL_M_Sg_A_Anim
         {
             get { return GetForm("AdjL_M_Sg_A_Anim", Subparadigm); }
@@ -223,6 +240,11 @@ namespace ZalTestApp
         public bool AdjL_M_Sg_A_Anim_HasComments
         {
             get { return HasComments("AdjL_M_Sg_A_Anim", m_eSubparadigm); }
+        }
+
+        public ECellStatus AdjL_M_Sg_A_Anim_CellStatus
+        {
+            get { return GetCellStatus("AdjL_M_Sg_A_Anim"); }
         }
 
         public string AdjL_M_Sg_A_Inanim
@@ -243,6 +265,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_M_Sg_A_Inanim", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_M_Sg_A_Inanim_CellStatus
+        {
+            get { return GetCellStatus("AdjL_M_Sg_A_Inanim"); }
+        }
+
         public string AdjL_M_Sg_G
         {
             get { return GetForm("AdjL_M_Sg_G", Subparadigm); }
@@ -259,6 +286,11 @@ namespace ZalTestApp
         public bool AdjL_M_Sg_G_HasComments
         {
             get { return HasComments("AdjL_M_Sg_G", m_eSubparadigm); }
+        }
+
+        public ECellStatus AdjL_M_Sg_G_CellStatus
+        {
+            get { return GetCellStatus("AdjL_M_Sg_G"); }
         }
 
         public string AdjL_M_Sg_P
@@ -279,6 +311,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_M_Sg_P", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_M_Sg_P_CellStatus
+        {
+            get { return GetCellStatus("AdjL_M_Sg_P"); }
+        }
+
         public string AdjL_M_Sg_D
         {
             get { return GetForm("AdjL_M_Sg_D", Subparadigm); }
@@ -297,6 +334,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_M_Sg_D", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_M_Sg_D_CellStatus
+        {
+            get { return GetCellStatus("AdjL_M_Sg_D"); }
+        }
+
         public string AdjL_M_Sg_I
         {
             get { return GetForm("AdjL_M_Sg_I", Subparadigm); }
@@ -313,6 +355,11 @@ namespace ZalTestApp
         public bool AdjL_M_Sg_I_HasComments
         {
             get { return HasComments("AdjL_M_Sg_I", m_eSubparadigm); }
+        }
+
+        public ECellStatus AdjL_M_Sg_I_CellStatus
+        {
+            get { return GetCellStatus("AdjL_M_Sg_I"); }
         }
 
         #endregion
@@ -337,6 +384,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_F_Sg_N", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_F_Sg_N_CellStatus
+        {
+            get { return GetCellStatus("AdjL_F_Sg_N"); }
+        }
+
         public string AdjL_F_Sg_A
         {
             get { return GetForm("AdjL_F_Sg_A", Subparadigm); }
@@ -353,6 +405,11 @@ namespace ZalTestApp
         public bool AdjL_F_Sg_A_HasComments
         {
             get { return HasComments("AdjL_F_Sg_A", m_eSubparadigm); }
+        }
+
+        public ECellStatus AdjL_F_Sg_A_CellStatus
+        {
+            get { return GetCellStatus("AdjL_F_Sg_A"); }
         }
 
         public string AdjL_F_Sg_G
@@ -373,6 +430,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_F_Sg_G", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_F_Sg_G_CellStatus
+        {
+            get { return GetCellStatus("AdjL_F_Sg_G"); }
+        }
+
         public string AdjL_F_Sg_P
         {
             get { return GetForm("AdjL_F_Sg_P", Subparadigm); }
@@ -389,6 +451,11 @@ namespace ZalTestApp
         public bool AdjL_F_Sg_P_HasComments
         {
             get { return HasComments("AdjL_F_Sg_P", m_eSubparadigm); }
+        }
+
+        public ECellStatus AdjL_F_Sg_P_CellStatus
+        {
+            get { return GetCellStatus("AdjL_F_Sg_P"); }
         }
 
         public string AdjL_F_Sg_D
@@ -409,6 +476,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_F_Sg_D", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_F_Sg_D_CellStatus
+        {
+            get { return GetCellStatus("AdjL_F_Sg_D"); }
+        }
+
         public string AdjL_F_Sg_I
         {
             get { return GetForm("AdjL_F_Sg_I", Subparadigm); }
@@ -425,6 +497,11 @@ namespace ZalTestApp
         public bool AdjL_F_Sg_I_HasComments
         {
             get { return HasComments("AdjL_F_Sg_I", m_eSubparadigm); }
+        }
+
+        public ECellStatus AdjL_F_Sg_I_CellStatus
+        {
+            get { return GetCellStatus("AdjL_F_Sg_I"); }
         }
 
         #endregion
@@ -449,6 +526,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_N_Sg_N", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_N_Sg_N_CellStatus
+        {
+            get { return GetCellStatus("AdjL_N_Sg_N"); }
+        }
+
         public string AdjL_N_Sg_A
         {
             get { return GetForm("AdjL_N_Sg_A", Subparadigm); }
@@ -465,6 +547,11 @@ namespace ZalTestApp
         public bool AdjL_N_Sg_A_HasComments
         {
             get { return HasComments("AdjL_N_Sg_A", m_eSubparadigm); }
+        }
+
+        public ECellStatus AdjL_N_Sg_A_CellStatus
+        {
+            get { return GetCellStatus("AdjL_N_Sg_A"); }
         }
 
         public string AdjL_N_Sg_G
@@ -485,6 +572,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_N_Sg_G", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_N_Sg_G_CellStatus
+        {
+            get { return GetCellStatus("AdjL_N_Sg_G"); }
+        }
+
         public string AdjL_N_Sg_P
         {
             get { return GetForm("AdjL_N_Sg_P", Subparadigm); }
@@ -501,6 +593,11 @@ namespace ZalTestApp
         public bool AdjL_N_Sg_P_HasComments
         {
             get { return HasComments("AdjL_N_Sg_P", m_eSubparadigm); }
+        }
+
+        public ECellStatus AdjL_N_Sg_P_CellStatus
+        {
+            get { return GetCellStatus("AdjL_N_Sg_P"); }
         }
 
         public string AdjL_N_Sg_D
@@ -521,6 +618,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_N_Sg_D", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_N_Sg_D_CellStatus
+        {
+            get { return GetCellStatus("AdjL_N_Sg_D"); }
+        }
+
         public string AdjL_N_Sg_I
         {
             get { return GetForm("AdjL_N_Sg_I", Subparadigm); }
@@ -537,6 +639,11 @@ namespace ZalTestApp
         public bool AdjL_N_Sg_I_HasComments
         {
             get { return HasComments("AdjL_N_Sg_I", m_eSubparadigm); }
+        }
+
+        public ECellStatus AdjL_N_Sg_I_CellStatus
+        {
+            get { return GetCellStatus("AdjL_N_Sg_I"); }
         }
 
         #endregion
@@ -561,6 +668,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_Pl_N", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_Pl_N_CellStatus
+        {
+            get { return GetCellStatus("AdjL_Pl_N"); }
+        }
+
         public string AdjL_Pl_A_Anim
         {
             get { return GetForm("AdjL_Pl_A_Anim", Subparadigm); }
@@ -577,6 +689,11 @@ namespace ZalTestApp
         public bool AdjL_Pl_A_Anim_HasComments
         {
             get { return HasComments("AdjL_Pl_A_Anim", m_eSubparadigm); }
+        }
+
+        public ECellStatus AdjL_Pl_A_Anim_CellStatus
+        {
+            get { return GetCellStatus("AdjL_Pl_A_Anim"); }
         }
 
         public string AdjL_Pl_A_Inanim
@@ -597,6 +714,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_Pl_A_Inanim", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_Pl_A_Inanim_CellStatus
+        {
+            get { return GetCellStatus("AdjL_Pl_A_Inanim"); }
+        }
+
         public string AdjL_Pl_G
         {
             get { return GetForm("AdjL_Pl_G", Subparadigm); }
@@ -613,6 +735,11 @@ namespace ZalTestApp
         public bool AdjL_Pl_G_HasComments
         {
             get { return HasComments("AdjL_Pl_G", m_eSubparadigm); }
+        }
+
+        public ECellStatus AdjL_Pl_G_CellStatus
+        {
+            get { return GetCellStatus("AdjL_Pl_G"); }
         }
 
         public string AdjL_Pl_P
@@ -633,6 +760,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_Pl_P", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_Pl_P_CellStatus
+        {
+            get { return GetCellStatus("AdjL_Pl_P"); }
+        }
+
         public string AdjL_Pl_D
         {
             get { return GetForm("AdjL_Pl_D", Subparadigm); }
@@ -651,6 +783,11 @@ namespace ZalTestApp
             get { return HasComments("AdjL_Pl_D", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjL_Pl_D_CellStatus
+        {
+            get { return GetCellStatus("AdjL_Pl_D"); }
+        }
+
         public string AdjL_Pl_I
         {
             get { return GetForm("AdjL_Pl_I", Subparadigm); }
@@ -667,6 +804,11 @@ namespace ZalTestApp
         public bool AdjL_Pl_I_HasComments
         {
             get { return HasComments("AdjL_Pl_I", m_eSubparadigm); }
+        }
+
+        public ECellStatus AdjL_Pl_I_CellStatus
+        {
+            get { return GetCellStatus("AdjL_Pl_I"); }
         }
 
         #endregion
@@ -691,6 +833,11 @@ namespace ZalTestApp
             get { return HasComments("AdjS_M", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjS_M_CellStatus
+        {
+            get { return GetCellStatus("AdjS_M"); }
+        }
+
         public string AdjS_F
         {
             get { return GetForm("AdjS_F", Subparadigm); }
@@ -707,6 +854,11 @@ namespace ZalTestApp
         public bool AdjS_F_HasComments
         {
             get { return HasComments("AdjS_F", m_eSubparadigm); }
+        }
+
+        public ECellStatus AdjS_F_CellStatus
+        {
+            get { return GetCellStatus("AdjS_F"); }
         }
 
         public string AdjS_N
@@ -727,6 +879,11 @@ namespace ZalTestApp
             get { return HasComments("AdjS_N", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjS_N_CellStatus
+        {
+            get { return GetCellStatus("AdjS_N"); }
+        }
+
         public string AdjS_Pl
         {
             get { return GetForm("AdjS_Pl", Subparadigm); }
@@ -745,6 +902,11 @@ namespace ZalTestApp
             get { return HasComments("AdjS_Pl", m_eSubparadigm); }
         }
 
+        public ECellStatus AdjS_Pl_CellStatus
+        {
+            get { return GetCellStatus("AdjS_Pl"); }
+        }
+
         #endregion
 
         #region Bindings_Comparative
@@ -760,6 +922,11 @@ namespace ZalTestApp
         {
             get { return GetFormStatus("AdjComp"); }
             set { m_eAdjComp_Marks = value; OnPropertyChanged("AdjComp_Marks"); }
+        }
+
+        public ECellStatus AdjComp_CellStatus
+        {
+            get { return GetCellStatus("AdjComp"); }
         }
 
         private bool m_bEditEnabled = false;

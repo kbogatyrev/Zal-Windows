@@ -387,10 +387,10 @@ namespace ZalTestApp
                 AddSingleProperty("Есть нерегулярные варианты");
             }
 
-            if (m_Lexeme.bHasDeficiencies())
-            {
-                AddSingleProperty("Неполная парадигма");
-            }
+            //if (m_Lexeme.bHasDeficiencies())
+            //{
+            //    AddSingleProperty("Неполная парадигма");
+            //}
 
             if (m_Lexeme.bShortFormsRestricted())
             {
@@ -452,15 +452,15 @@ namespace ZalTestApp
 
             }
 
-            if (Lexeme.sQuestionableForms() != "")
-            {
-                AddSingleProperty(Lexeme.sQuestionableForms());
-            }
+            //if (Lexeme.sQuestionableForms() != "")
+            //{
+            //    AddSingleProperty(Lexeme.sQuestionableForms());
+            //}
 
-            if (Lexeme.bHasDeficiencies())
-            {
-                AddSingleProperty(Lexeme.sQuestionableForms());
-            }
+            //if (Lexeme.bHasDeficiencies())
+            //{
+            //    AddSingleProperty(Lexeme.sQuestionableForms());
+            //}
         }       //  CollectLexemeProperties()
 
         private void SaveRegression(object arg)

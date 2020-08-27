@@ -1314,6 +1314,44 @@ namespace ZalTestApp
             return wf.bIsVariant();
         }
 
+        public bool bIsMissing(string sLexemeHash, string sFormHash)
+        {
+            CLexemeManaged lexeme;
+            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            {
+                //                System.Windows.MessageBox.Show("Unable to find lexeme.");
+                return false;
+            }
+
+            EM_ReturnCode eRet = lexeme.eFormExists(sFormHash);
+            if (eRet != EM_ReturnCode.H_TRUE)
+            {
+                //                System.Windows.MessageBox.Show("Unable to check word form edit status.");
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool bIsDifficult(string sLexemeHash, string sFormHash)
+        {
+            CLexemeManaged lexeme;
+            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            {
+                //                System.Windows.MessageBox.Show("Unable to find lexeme.");
+                return false;
+            }
+
+            EM_ReturnCode eRet = lexeme.eIsFormDifficult(sFormHash);
+            if (EM_ReturnCode.H_TRUE == eRet)
+            {
+                //                System.Windows.MessageBox.Show("Unable to check word form edit status.");
+                return true;
+            }
+
+            return false;
+        }
+
         private void HandleAccusatives(CLexemeManaged lexeme, EM_Subparadigm eSubparadigm)
         {
             Dictionary<string, List<CWordFormManaged>> dctParadigm;
