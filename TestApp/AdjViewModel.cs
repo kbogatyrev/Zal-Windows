@@ -185,20 +185,6 @@ namespace ZalTestApp
             return EMark.None;
         }
 
-        ECellStatus GetCellStatus(string sFormHash)
-        {
-            string sLexemeHash = m_Lexeme.sHash();
-            if (m_MainModel.bIsMissing(sLexemeHash, sFormHash))
-            {
-                return ECellStatus.Missing;
-            }
-            else if (m_MainModel.bIsDifficult(sLexemeHash, sFormHash))
-            {
-                return ECellStatus.Difficult;
-            }
-            return ECellStatus.Normal;
-        }
-
         #region Bindings_Long_Masculine_Sg
 
         public string AdjL_M_Sg_N

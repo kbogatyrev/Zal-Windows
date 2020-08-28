@@ -341,6 +341,20 @@ namespace ZalTestApp
             return true;
         }
 
+        public ECellStatus GetCellStatus(string sFormHash)
+        {
+            string sLexemeHash = m_Lexeme.sHash();
+            if (m_MainModel.bIsMissing(sLexemeHash, sFormHash))
+            {
+                return ECellStatus.Missing;
+            }
+            else if (m_MainModel.bIsDifficult(sLexemeHash, sFormHash))
+            {
+                return ECellStatus.Difficult;
+            }
+            return ECellStatus.Normal;
+        }
+
         /// <summary>
         /// Raised when a property on this object has a new value.
         /// </summary>

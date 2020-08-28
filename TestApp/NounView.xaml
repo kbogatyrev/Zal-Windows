@@ -29,12 +29,12 @@
                 <TextBox Text="P2" Margin="33,401,0,0" Style="{StaticResource FormLabel}" />
 
                 <!-- Forms -->
-                <TextBox Name ="Noun_Sg_N" Text="{Binding Noun_Sg_N}" Margin="70,70,0,0"  Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
-                <TextBox Name ="Noun_Sg_A" Text="{Binding Noun_Sg_A}" Margin="70,115,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
-                <TextBox Name ="Noun_Sg_G" Text="{Binding Noun_Sg_G}" Margin="70,160,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
-                <TextBox Name ="Noun_Sg_P" Text="{Binding Noun_Sg_P}" Margin="70,205,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
-                <TextBox Name ="Noun_Sg_D" Text="{Binding Noun_Sg_D}" Margin="70,250,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
-                <TextBox Name ="Noun_Sg_I" Text="{Binding Noun_Sg_I}" Margin="70,295,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Noun_Sg_N" Text="{Binding Noun_Sg_N}" Margin="70,70,0,0"  Style="{Binding Noun_Sg_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Noun_Sg_A" Text="{Binding Noun_Sg_A}" Margin="70,115,0,0" Style="{Binding Noun_Sg_A_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Noun_Sg_G" Text="{Binding Noun_Sg_G}" Margin="70,160,0,0" Style="{Binding Noun_Sg_G_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Noun_Sg_P" Text="{Binding Noun_Sg_P}" Margin="70,205,0,0" Style="{Binding Noun_Sg_P_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Noun_Sg_D" Text="{Binding Noun_Sg_D}" Margin="70,250,0,0" Style="{Binding Noun_Sg_D_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Noun_Sg_I" Text="{Binding Noun_Sg_I}" Margin="70,295,0,0" Style="{Binding Noun_Sg_I_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
 
                 <TextBox Text="{Binding Noun_Sg_Part}" Margin="70,356,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Noun_Sg_P2}" Margin="70,401,0,0" Style="{StaticResource FormText}" />
@@ -68,14 +68,14 @@
                 <Button Margin="218,413,0,0" CommandParameter="Noun_Sg_P2" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Noun_Sg_P2_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
 
                 <!-- Triangle image -->
-                <Image HorizontalAlignment="Left" Margin="233,77,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_N_Marks, Converter={StaticResource StyleConverter}}" />
-                <Image HorizontalAlignment="Left" Margin="233,122,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_A_Marks, Converter={StaticResource StyleConverter}}" />
-                <Image HorizontalAlignment="Left" Margin="233,167,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_G_Marks, Converter={StaticResource StyleConverter}}" />
-                <Image HorizontalAlignment="Left" Margin="233,212,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_P_Marks, Converter={StaticResource StyleConverter}}" />
-                <Image HorizontalAlignment="Left" Margin="233,257,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_D_Marks, Converter={StaticResource StyleConverter}}" />
-                <Image HorizontalAlignment="Left" Margin="233,302,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_I_Marks, Converter={StaticResource StyleConverter}}" />
-                <Image HorizontalAlignment="Left" Margin="233,257,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_Part_Marks, Converter={StaticResource StyleConverter}}" />
-                <Image HorizontalAlignment="Left" Margin="233,302,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_P2_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="233,77,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_N_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,122,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_A_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,167,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_G_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,212,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_P_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,257,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_D_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,302,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_I_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,257,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_Part_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,302,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_P2_Marks, Converter={StaticResource StyleConverterMarks}}" />
 
                 <!-- Comment button -->
                 <Button  Margin="251,70,0,0" CommandParameter="Noun_Sg_N" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Noun_Sg_N_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
@@ -97,12 +97,12 @@
                 <TextBox Text="I" Margin="347,295,0,0" Style="{StaticResource FormLabel}" />
 
                 <!-- Forms -->
-                <TextBox Name ="Noun_Pl_N" Text="{Binding Path=Noun_Pl_N}" Margin="383,70,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
-                <TextBox Name ="Noun_Pl_A" Text="{Binding Path=Noun_Pl_A}" Margin="383,115,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
-                <TextBox Name ="Noun_Pl_G" Text="{Binding Path=Noun_Pl_G}" Margin="383,160,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
-                <TextBox Name ="Noun_Pl_P" Text="{Binding Path=Noun_Pl_P}" Margin="383,205,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
-                <TextBox Name ="Noun_Pl_D" Text="{Binding Path=Noun_Pl_D}" Margin="383,250,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
-                <TextBox Name ="Noun_Pl_I" Text="{Binding Path=Noun_Pl_I}" Margin="383,295,0,0" Style="{StaticResource FormText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Noun_Pl_N" Text="{Binding Path=Noun_Pl_N}" Margin="383,70,0,0" Style="{Binding Noun_Pl_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Noun_Pl_A" Text="{Binding Path=Noun_Pl_A}" Margin="383,115,0,0" Style="{Binding Noun_Pl_A_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Noun_Pl_G" Text="{Binding Path=Noun_Pl_G}" Margin="383,160,0,0" Style="{Binding Noun_Pl_G_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Noun_Pl_P" Text="{Binding Path=Noun_Pl_P}" Margin="383,205,0,0" Style="{Binding Noun_Pl_P_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Noun_Pl_D" Text="{Binding Path=Noun_Pl_D}" Margin="383,250,0,0" Style="{Binding Noun_Pl_D_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Noun_Pl_I" Text="{Binding Path=Noun_Pl_I}" Margin="383,295,0,0" Style="{Binding Noun_Pl_I_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
 
                 <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
                 <Button Margin="531,74,0,0" CommandParameter="Noun_Pl_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Noun_Pl_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
@@ -124,12 +124,12 @@
                 <Button Margin="531,307,0,0" CommandParameter="Noun_Pl_I" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Noun_Pl_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
 
                 <!-- Triangle image -->
-                <Image HorizontalAlignment="Left" Margin="546,77,0,0" VerticalAlignment="Top" Style="{Binding Noun_Pl_N_Marks, Converter={StaticResource StyleConverter}}" />
-                <Image HorizontalAlignment="Left" Margin="546,122,0,0" VerticalAlignment="Top" Style="{Binding Noun_Pl_A_Marks, Converter={StaticResource StyleConverter}}" />
-                <Image HorizontalAlignment="Left" Margin="546,167,0,0" VerticalAlignment="Top" Style="{Binding Noun_Pl_G_Marks, Converter={StaticResource StyleConverter}}" />
-                <Image HorizontalAlignment="Left" Margin="546,212,0,0" VerticalAlignment="Top" Style="{Binding Noun_Pl_P_Marks, Converter={StaticResource StyleConverter}}" />
-                <Image HorizontalAlignment="Left" Margin="546,257,0,0" VerticalAlignment="Top" Style="{Binding Noun_Pl_D_Marks, Converter={StaticResource StyleConverter}}" />
-                <Image HorizontalAlignment="Left" Margin="546,302,0,0" VerticalAlignment="Top" Style="{Binding Noun_Pl_I_Marks, Converter={StaticResource StyleConverter}}" />
+                <Image HorizontalAlignment="Left" Margin="546,77,0,0" VerticalAlignment="Top" Style="{Binding Noun_Pl_N_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="546,122,0,0" VerticalAlignment="Top" Style="{Binding Noun_Pl_A_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="546,167,0,0" VerticalAlignment="Top" Style="{Binding Noun_Pl_G_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="546,212,0,0" VerticalAlignment="Top" Style="{Binding Noun_Pl_P_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="546,257,0,0" VerticalAlignment="Top" Style="{Binding Noun_Pl_D_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="546,302,0,0" VerticalAlignment="Top" Style="{Binding Noun_Pl_I_Marks, Converter={StaticResource StyleConverterMarks}}" />
 
                 <!-- Comment button -->
                 <Button  Margin="564,70,0,0" CommandParameter="Noun_Pl_N" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Noun_Pl_N_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />

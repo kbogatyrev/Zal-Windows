@@ -516,6 +516,76 @@ namespace ZalTestApp
             get { return HasComments("Noun_Pl_I", m_eSubparadigm); }
         }
 
+        public ECellStatus Noun_Sg_N_CellStatus
+        {
+            get { return GetCellStatus("Noun_Sg_N"); }
+        }
+
+        public ECellStatus Noun_Sg_A_CellStatus
+        {
+            get { return GetCellStatus("Noun_Sg_A"); }
+        }
+
+        public ECellStatus Noun_Sg_G_CellStatus
+        {
+            get { return GetCellStatus("Noun_Sg_G"); }
+        }
+
+        public ECellStatus Noun_Sg_P_CellStatus
+        {
+            get { return GetCellStatus("Noun_Sg_P"); }
+        }
+
+        public ECellStatus Noun_Sg_D_CellStatus
+        {
+            get { return GetCellStatus("Noun_Sg_D"); }
+        }
+
+        public ECellStatus Noun_Sg_I_CellStatus
+        {
+            get { return GetCellStatus("Noun_Sg_I"); }
+        }
+
+        public ECellStatus Noun_Sg_Part_CellStatus
+        {
+            get { return GetCellStatus("Noun_Sg_Part"); }
+        }
+
+        public ECellStatus Noun_Sg_P2_CellStatus
+        {
+            get { return GetCellStatus("Noun_Sg_P2"); }
+        }
+
+        public ECellStatus Noun_Pl_N_CellStatus
+        {
+            get { return GetCellStatus("Noun_Pl_N"); }
+        }
+
+        public ECellStatus Noun_Pl_A_CellStatus
+        {
+            get { return GetCellStatus("Noun_Pl_A"); }
+        }
+
+        public ECellStatus Noun_Pl_G_CellStatus
+        {
+            get { return GetCellStatus("Noun_Pl_G"); }
+        }
+
+        public ECellStatus Noun_Pl_P_CellStatus
+        {
+            get { return GetCellStatus("Noun_Pl_P"); }
+        }
+
+        public ECellStatus Noun_Pl_D_CellStatus
+        {
+            get { return GetCellStatus("Noun_Pl_D"); }
+        }
+
+        public ECellStatus Noun_Pl_I_CellStatus
+        {
+            get { return GetCellStatus("Noun_Pl_I"); }
+        }
+
         #endregion
 
         #region Property_Delegates
