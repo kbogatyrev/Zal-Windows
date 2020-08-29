@@ -260,6 +260,11 @@ namespace ZalTestApp
             get { return HasComments("Infinitive", EM_Subparadigm.SUBPARADIGM_INFINITIVE); }
         }
 
+        public ECellStatus Infinitive_CellStatus
+        {
+            get { return GetCellStatus("Noun_Sg_A"); }
+        }
+
         #region Bindings_PresentTense
 
         public string Pres_Sg_1
@@ -285,6 +290,11 @@ namespace ZalTestApp
             get { return HasComments("Pres_Sg_1", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
         }
 
+        public ECellStatus Pres_Sg_1_CellStatus
+        {
+            get { return GetCellStatus("Pres_Sg_1"); }
+        }
+
         public string Pres_Sg_2
         {
             get { return GetForm("Pres_Sg_2", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
@@ -306,6 +316,11 @@ namespace ZalTestApp
         public bool Pres_Sg_2_HasComments
         {
             get { return HasComments("Pres_Sg_2", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
+        }
+
+        public ECellStatus Pres_Sg_2_CellStatus
+        {
+            get { return GetCellStatus("Pres_Sg_2"); }
         }
 
         public string Pres_Sg_3
@@ -331,6 +346,11 @@ namespace ZalTestApp
             get { return HasComments("Pres_Sg_3", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
         }
 
+        public ECellStatus Pres_Sg_3_CellStatus
+        {
+            get { return GetCellStatus("Pres_Sg_3"); }
+        }
+
         public string Pres_Pl_1
         {
             get { return GetForm("Pres_Pl_1", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
@@ -352,6 +372,11 @@ namespace ZalTestApp
         public bool Pres_Pl_1_HasComments
         {
             get { return HasComments("Pres_Pl_1", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
+        }
+
+        public ECellStatus Pres_Pl_1_CellStatus
+        {
+            get { return GetCellStatus("Pres_Pl_1"); }
         }
 
         public string Pres_Pl_2
@@ -377,6 +402,11 @@ namespace ZalTestApp
             get { return HasComments("Pres_Pl_2", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
         }
 
+        public ECellStatus Pres_Pl_2_CellStatus
+        {
+            get { return GetCellStatus("Pres_Pl_2"); }
+        }
+
         public string Pres_Pl_3
         {
             get { return GetForm("Pres_Pl_3", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
@@ -398,6 +428,11 @@ namespace ZalTestApp
         public bool Pres_Pl_3_HasComments
         {
             get { return HasComments("Pres_Pl_3", EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE); }
+        }
+
+        public ECellStatus Pres_Pl_3_CellStatus
+        {
+            get { return GetCellStatus("Pres_Pl_3"); }
         }
 
         #endregion
@@ -427,6 +462,11 @@ namespace ZalTestApp
             get { return HasComments("Past_M", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
         }
 
+        public ECellStatus Past_M_CellStatus
+        {
+            get { return GetCellStatus("Past_M"); }
+        }
+
         public string Past_F
         {
             get { return GetForm("Past_F", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
@@ -448,6 +488,11 @@ namespace ZalTestApp
         public bool Past_F_HasComments
         {
             get { return HasComments("Past_F", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
+        }
+
+        public ECellStatus Past_F_CellStatus
+        {
+            get { return GetCellStatus("Past_F"); }
         }
 
         public string Past_N
@@ -473,6 +518,11 @@ namespace ZalTestApp
             get { return HasComments("Past_N", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
         }
 
+        public ECellStatus Past_N_CellStatus
+        {
+            get { return GetCellStatus("Past_N"); }
+        }
+
         public string Past_Pl
         {
             get { return GetForm("Past_Pl", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
@@ -494,6 +544,11 @@ namespace ZalTestApp
         public bool Past_Pl_HasComments
         {
             get { return HasComments("Past_Pl", EM_Subparadigm.SUBPARADIGM_PAST_TENSE); }
+        }
+
+        public ECellStatus Past_Pl_CellStatus
+        {
+            get { return GetCellStatus("Past_Pl"); }
         }
 
         #endregion
@@ -522,6 +577,11 @@ namespace ZalTestApp
             get { return HasComments("Impv_Sg_2", EM_Subparadigm.SUBPARADIGM_IMPERATIVE); }
         }
 
+        public ECellStatus Impv_Sg_2_CellStatus
+        {
+            get { return GetCellStatus("Impv_Sg_2"); }
+        }
+
         public string Impv_Pl_2
         {
             get { return GetForm("Impv_Pl_2", EM_Subparadigm.SUBPARADIGM_IMPERATIVE); }
@@ -543,6 +603,11 @@ namespace ZalTestApp
         public bool Impv_Pl_2_HasComments
         {
             get { return HasComments("Impv_Pl_2", EM_Subparadigm.SUBPARADIGM_IMPERATIVE); }
+        }
+
+        public ECellStatus Impv_Pl_2_CellStatus
+        {
+            get { return GetCellStatus("Impv_Pl_2"); }
         }
 
         #endregion
@@ -570,6 +635,11 @@ namespace ZalTestApp
         public bool PPresA_M_Sg_N_HasComments
         {
             get { return HasComments("PPresA_M_Sg_N", EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT); }
+        }
+
+        public ECellStatus PPresA_M_Sg_N_CellStatus
+        {
+            get { return GetCellStatus("PPresA_M_Sg_N"); }
         }
 
         private bool m_bPPresAExists;
@@ -607,6 +677,11 @@ namespace ZalTestApp
         public bool PPastA_M_Sg_N_HasComments
         {
             get { return HasComments("PPastA_M_Sg_N", EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT); }
+        }
+
+        public ECellStatus PPastA_M_Sg_N_CellStatus
+        {
+            get { return GetCellStatus("PPastA_M_Sg_N"); }
         }
 
         private bool m_bPPastAExists;
@@ -683,6 +758,11 @@ namespace ZalTestApp
             get { return HasComments("PPastPL_M_Sg_N", EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG); }
         }
 
+        public ECellStatus PPastPL_M_Sg_N_CellStatus
+        {
+            get { return GetCellStatus("PPastPL_M_Sg_N"); }
+        }
+
         private bool m_bPPastPExists;
         public bool PPastPExists
         {
@@ -720,6 +800,11 @@ namespace ZalTestApp
             get { return HasComments("VAdv_Pres", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT); }
         }
 
+        public ECellStatus VAdv_Pres_CellStatus
+        {
+            get { return GetCellStatus("VAdv_Pres"); }
+        }
+
         public string VAdv_Past
         {
             get { return GetForm("VAdv_Past", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST); }
@@ -741,6 +826,11 @@ namespace ZalTestApp
         public bool VAdv_Past_HasComments
         {
             get { return HasComments("VAdv_Past", EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST); }
+        }
+
+        public ECellStatus VAdv_Past_CellStatus
+        {
+            get { return GetCellStatus("VAdv_Past"); }
         }
 
         #endregion

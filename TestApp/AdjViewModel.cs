@@ -230,7 +230,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_M_Sg_A_Anim_CellStatus
         {
-            get { return GetCellStatus("AdjL_M_Sg_A_Anim"); }
+            get { return GetCellStatus("AdjL_M_Sg_G"); }        // sic, no separate hash for Acc anim
         }
 
         public string AdjL_M_Sg_A_Inanim
@@ -253,7 +253,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_M_Sg_A_Inanim_CellStatus
         {
-            get { return GetCellStatus("AdjL_M_Sg_A_Inanim"); }
+            get { return GetCellStatus("AdjL_M_Sg_N"); }        // sic, no separate hash for Acc inanim
         }
 
         public string AdjL_M_Sg_G
@@ -679,7 +679,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_Pl_A_Anim_CellStatus
         {
-            get { return GetCellStatus("AdjL_Pl_A_Anim"); }
+            get { return GetCellStatus("AdjL_Pl_G"); }         // sic, no separate hash for Acc anim
         }
 
         public string AdjL_Pl_A_Inanim
@@ -702,7 +702,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_Pl_A_Inanim_CellStatus
         {
-            get { return GetCellStatus("AdjL_Pl_A_Inanim"); }
+            get { return GetCellStatus("AdjL_Pl_N"); }        // sic, no separate hash for Acc inanim
         }
 
         public string AdjL_Pl_G

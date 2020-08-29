@@ -377,8 +377,8 @@
         <Setter Property="Height" Value="28"/>
         <Setter Property="Width" Value="160"/>
         <Setter Property="BorderBrush" Value="Black"/>
-        <Setter Property="Foreground" Value="Navy"/>
-        <Setter Property="Background" Value="#E0E0E0"/>
+        <Setter Property="Foreground" Value="#505050"/>
+        <Setter Property="Background" Value="#F0F0F0"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
