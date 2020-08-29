@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <ProductVersion>3.9</ProductVersion>
-    <ProjectGuid>28d25f75-a6fc-4995-accc-c153750bf4d5</ProjectGuid>
+    <ProjectGuid>{e9ff79ac-59e8-4d07-aa47-4e17fa01b6c3}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>Zal</OutputName>
     <OutputType>Package</OutputType>
