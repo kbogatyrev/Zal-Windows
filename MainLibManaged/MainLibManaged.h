@@ -215,12 +215,8 @@ namespace MainLibManaged
         EM_ReturnCode eGetAltAspectPair(String^% sAltAspectPair, int% iAltStressPos);
         String^ sAspectPairData();
         void SetAspectPairData(String^);
-        String^ sQuestionableForms();
-        void SetQuestionableForms(String^);
         bool bHasIrregularVariants();
         void SetHasIrregularVariants(bool);
-        bool bHasDeficiencies();
-        void SetHasDeficiencies(bool);
         String^ sRestrictedForms();
         void SetRestrictedForms(String^);
         String^ sContexts();
@@ -285,7 +281,8 @@ namespace MainLibManaged
         int iFormCount(String^ sHash);
         bool bHasCommonDeviation(int iCd);
         bool bDeviationOptional(int iCd);
-        bool bIsFormMissing(String^ sGramHash);
+        EM_ReturnCode eFormExists(String^ sGramHash);
+        EM_ReturnCode eIsFormDifficult(String^ sGramHash);
         bool bIsMultistressedCompound();
         EM_ReturnCode eGetSourceFormWithStress(String^% sSourceForm, bool bIsVariant);
         EM_ReturnCode eGetFirstStemStressPos(int% iPos);

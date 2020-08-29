@@ -1953,26 +1953,6 @@ void CLexemeManaged::SetAspectPairData(String^ sAspectPairData)
     m_pLexeme->SetAspectPairData(sFromManagedString(sAspectPairData));
 }
 
-String^ CLexemeManaged::sQuestionableForms()
-{
-    if (NULL == m_pLexeme)
-    {
-        throw gcnew Exception(L"Lexeme object is NULL.");
-    }
-
-    return gcnew String(m_pLexeme->sQuestionableForms());
-}
- 
-void CLexemeManaged::SetQuestionableForms(String^ sValue)
-{
-    if (NULL == m_pLexeme)
-    {
-        throw gcnew Exception(L"Lexeme object is NULL.");
-    }
-
-    m_pLexeme->SetQuestionableForms(sFromManagedString(sValue));
-}
-
 bool CLexemeManaged::bHasIrregularVariants()
 {
     if (NULL == m_pLexeme)
@@ -1991,26 +1971,6 @@ void CLexemeManaged::SetHasIrregularVariants(bool bValue)
     }
 
     m_pLexeme->SetHasIrregularVariants(bValue);
-}
-
-bool CLexemeManaged::bHasDeficiencies()
-{
-    if (NULL == m_pLexeme)
-    {
-        throw gcnew Exception(L"Lexeme object is NULL.");
-    }
-
-    return m_pLexeme->bHasDeficiencies();
-}
- 
-void CLexemeManaged::SetHasDeficiencies(bool bValue)
-{
-    if (NULL == m_pLexeme)
-    {
-        throw gcnew Exception(L"Lexeme object is NULL.");
-    }
-
-    m_pLexeme->SetHasDeficiencies(bValue);
 }
 
 String^ CLexemeManaged::sRestrictedForms()
@@ -2732,17 +2692,27 @@ bool CLexemeManaged::bDeviationOptional(int iCd)
 
     return m_pLexeme->bDeviationOptional(iCd);
 }
- 
-bool CLexemeManaged::bIsFormMissing(String^ sGramHash)
+
+EM_ReturnCode CLexemeManaged::eFormExists(String^ sGramHash)
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->bIsFormMissing(sFromManagedString(sGramHash));
+    return (EM_ReturnCode)m_pLexeme->eFormExists(sFromManagedString(sGramHash));
 }
- 
+
+EM_ReturnCode CLexemeManaged::eIsFormDifficult(String^ sGramHash)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pLexeme->eIsFormDifficult(sFromManagedString(sGramHash));
+}
+
 bool CLexemeManaged::bIsMultistressedCompound()
 {
     if (NULL == m_pLexeme)
