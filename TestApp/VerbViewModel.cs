@@ -721,6 +721,11 @@ namespace ZalTestApp
             get { return HasComments("PPresPL_M_Sg_N", EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG); }
         }
 
+        public ECellStatus PPresPL_M_Sg_N_CellStatus
+        {
+            get { return GetCellStatus("PPresPL_M_Sg_N"); }
+        }
+
         private bool m_bPPresPExists;
         public bool PPresPExists
         {
