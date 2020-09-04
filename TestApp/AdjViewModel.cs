@@ -1168,7 +1168,8 @@ namespace ZalTestApp
             Comments wndComments = new Comments();
             wndComments.Owner = Application.Current.MainWindow;
             var sDisplayHash = obj as string;
-            string sFormHash = sDisplayHashToFormHash(sDisplayHash, m_eSubparadigm);
+//            string sFormHash = sDisplayHashToFormHash(sDisplayHash, m_eSubparadigm);
+            string sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech());
             var formsForHash = m_DictFormStatus[sFormHash];
             if (formsForHash.iCurrentForm < 0 || formsForHash.iCurrentForm >= formsForHash.lstForms.Count)
             {

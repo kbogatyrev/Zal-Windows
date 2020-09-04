@@ -112,11 +112,13 @@ namespace ZalTestApp
             }
         }
 
-        public void SetForm(string sHash, string sCellContents)
+        public void SetForm(string sDisplayHash, string sCellContents)
         {
-            m_Lexeme.eRemoveWordForms(sHash);
+            var sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech());
 
-            var formsForHash = m_DictFormStatus[sHash];
+            m_Lexeme.eRemoveWordForms(sFormHash);
+
+            var formsForHash = m_DictFormStatus[sDisplayHash];
             formsForHash.lstForms.Clear();
 
             char[] arrSeparators = { ';' };
@@ -130,15 +132,15 @@ namespace ZalTestApp
                 Helpers.AssignDiacritics(sForm, ref sStressedForm);
                 var fd = new FormDescriptor();
                 CWordFormManaged wf = null;
-                CreateIrregularWordForm(sHash, sStressedForm, ref wf);
+                CreateIrregularWordForm(sFormHash, sStressedForm, ref wf);
                 wf.SetIsVariant(bIsVariant);
                 fd.WordFormManaged = wf;
                 fd.IsUnsaved = true;
                 formsForHash.lstForms.Add(fd);
 
                 m_Lexeme.AddWordForm(ref wf);
-                OnPropertyChanged(sHash);
-                OnPropertyChanged(sHash+"_HasMultipleForms");
+                OnPropertyChanged(sDisplayHash);
+                OnPropertyChanged(sDisplayHash+"_HasMultipleForms");
             }
         }       //  SetForm()
 
@@ -170,12 +172,13 @@ namespace ZalTestApp
             }
         }
 
-        public static string sDisplayHashToFormHash(string sDisplayHash, EM_Subparadigm eSubparadigm)
+        public static string sDisplayHashToFormHash(string sDisplayHash, 
+                                                    EM_PartOfSpeech ePartOfSpeech, 
+                                                    EM_Subparadigm eSubparadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED)
         {
-            EM_PartOfSpeech ePartOfSpeech = Helpers.SubparadigmToPOS(eSubparadigm);
             if (EM_PartOfSpeech.POS_UNDEFINED == ePartOfSpeech)
             {
-                MessageBox.Show(String.Format("Unable to determine part of speech for subparadigm {0}", eSubparadigm));
+                MessageBox.Show(String.Format("Part of speech {0} not recognized.", ePartOfSpeech));
                 return "";
             }
 
@@ -316,7 +319,7 @@ namespace ZalTestApp
 
         public bool HasComments(string sDisplayHash, EM_Subparadigm eSubparadigm)
         {
-            string sFormHash = sDisplayHashToFormHash(sDisplayHash, eSubparadigm);
+            string sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech(), eSubparadigm);
             FormsForGramHash formsForHash = null;
             if (!m_DictFormStatus.TryGetValue(sFormHash, out formsForHash))
             {
@@ -390,65 +393,143 @@ namespace ZalTestApp
             }
         }
 
-        protected EM_ReturnCode CreateIrregularWordForm(string sGramHash,
+        protected EM_ReturnCode CreateIrregularWordForm(string sDisplayHash,
                                                         string sForm,
                                                         ref CWordFormManaged wf)
         {
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
 
+            //            var sGramHash = sDisplayHashToFormHash(sDisplayHash, 
+            var sGramHash = sDisplayHash;
+
             eRet = m_Lexeme.eCreateWordForm(ref wf);
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            if (EM_ReturnCode.H_NO_ERROR != eRet)
             {
                 MessageBox.Show("Unable to create a word form.");
                 return eRet;
             }
 
             wf.SetPos(m_Lexeme.ePartOfSpeech());
-
-            EM_Number eNumber = EM_Number.NUM_UNDEFINED;
-            eRet = Helpers.eGramHashToNumber(sGramHash, ref eNumber);
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
-            {
-                wf.SetNumber(eNumber);
-            }
-
-            EM_Case eCase = EM_Case.CASE_UNDEFINED;
-            EM_Animacy eAnimacy = EM_Animacy.ANIM_UNDEFINED;
-            eRet = Helpers.eGramHashToCase(sGramHash, ref eCase, ref eAnimacy);
-            if (eRet == EM_ReturnCode.H_NO_ERROR)
-            {
-                wf.SetCase(eCase);
-                wf.SetAnimacy(eAnimacy);
-            }
-
-/*
+            EM_PartOfSpeech eIgnoreMe = EM_PartOfSpeech.POS_UNDEFINED;
             EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+            eRet = Helpers.eGramHashToSubparadigm(sGramHash, ref eIgnoreMe, ref eSp);
+            wf.SetSubparadigm(eSp);
 
-            switch (m_Lexeme.ePartOfSpeech())
+            switch (eSp)
             {
-                case EM_PartOfSpeech.POS_NOUN:
-                    eSp = EM_Subparadigm.SUBPARADIGM_NOUN;
+                case EM_Subparadigm.SUBPARADIGM_NOUN:
+                case EM_Subparadigm.SUBPARADIGM_NUM:
+                case EM_Subparadigm.SUBPARADIGM_PRONOUN:
+                {
+                    EM_Case eCase = EM_Case.CASE_UNDEFINED;
+                    EM_Animacy eIgnoreAnimacy = EM_Animacy.ANIM_UNDEFINED;
+                    eRet = Helpers.eGramHashToCase(sGramHash, ref eCase, ref eIgnoreAnimacy);
+                    if (EM_ReturnCode.H_NO_ERROR == eRet)
+                    {
+                        wf.SetCase(eCase);
+                    }
+                    EM_Number eNumber = EM_Number.NUM_UNDEFINED;
+                    eRet = Helpers.eGramHashToNumber(sGramHash, ref eNumber);
+                    if (EM_ReturnCode.H_NO_ERROR == eRet)
+                    {
+                        wf.SetNumber(eNumber);
+                    }
                     break;
+                }
 
-                case EM_PartOfSpeech.POS_PRONOUN:
-                    eSp = EM_Subparadigm.SUBPARADIGM_PRONOUN;
-                    break;
+                case EM_Subparadigm.SUBPARADIGM_LONG_ADJ:
+                case EM_Subparadigm.SUBPARADIGM_NUM_ADJ:
+                case EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ:
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
+                {
+                    EM_Gender eGender = EM_Gender.GENDER_UNDEFINED;
+                    eRet = Helpers.eGramHashToGender(sGramHash, ref eGender);
+                    if (EM_ReturnCode.H_NO_ERROR == eRet)
+                    {
+                        wf.SetGender(eGender);
+                    }
 
-                case EM_PartOfSpeech.POS_NUM:
-                    eSp = EM_Subparadigm.SUBPARADIGM_NUM;
+                    EM_Number eNumber = EM_Number.NUM_UNDEFINED;
+                    eRet = Helpers.eGramHashToNumber(sGramHash, ref eNumber);
+                    if (EM_ReturnCode.H_NO_ERROR == eRet)
+                    {
+                        wf.SetNumber(eNumber);
+                    }
+
+                    EM_Case eCase = EM_Case.CASE_UNDEFINED;
+                    EM_Animacy eAnimacy = EM_Animacy.ANIM_UNDEFINED;
+                    eRet = Helpers.eGramHashToCase(sGramHash, ref eCase, ref eAnimacy);
+                    if (EM_ReturnCode.H_NO_ERROR == eRet)
+                    {
+                        wf.SetCase(eCase);
+                        wf.SetAnimacy(eAnimacy);
+                    }
+                    break;                
+                }
+
+                case EM_Subparadigm.SUBPARADIGM_SHORT_ADJ:
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
+                {
+                    EM_Gender eGender = EM_Gender.GENDER_UNDEFINED;
+                    eRet = Helpers.eGramHashToGender(sGramHash, ref eGender);
+                    if (EM_ReturnCode.H_NO_ERROR == eRet)
+                    {
+                        wf.SetGender(eGender);
+                    }
+
+                    EM_Number eNumber = EM_Number.NUM_UNDEFINED;
+                    eRet = Helpers.eGramHashToNumber(sGramHash, ref eNumber);
+                    if (EM_ReturnCode.H_NO_ERROR == eRet)
+                    {
+                        wf.SetNumber(eNumber);
+                    }
                     break;
+                }
+
+                case EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE:
+                case EM_Subparadigm.SUBPARADIGM_IMPERATIVE:
+                {
+                    EM_Person ePerson = EM_Person.PERSON_UNDEFINED;
+                    EM_Number eNumber = EM_Number.NUM_UNDEFINED;
+                    eRet = Helpers.eGramHashToPersonAndNumber(sGramHash, ref ePerson, ref eNumber);
+                    if (EM_ReturnCode.H_NO_ERROR == eRet)
+                    {
+                        wf.SetNumber(eNumber);
+                    }
+                    break;
+                }
+
+                case EM_Subparadigm.SUBPARADIGM_PAST_TENSE:
+                {
+                    EM_Gender eGender = EM_Gender.GENDER_UNDEFINED;
+                    eRet = Helpers.eGramHashToGender(sGramHash, ref eGender);
+                    if (EM_ReturnCode.H_NO_ERROR == eRet)
+                    {
+                        wf.SetGender(eGender);
+                    }
+
+                    EM_Number eNumber = EM_Number.NUM_UNDEFINED;
+                    eRet = Helpers.eGramHashToNumber(sGramHash, ref eNumber);
+                    if (EM_ReturnCode.H_NO_ERROR == eRet)
+                    {
+                        wf.SetNumber(eNumber);
+                    }
+                    break;
+                }
+
+                case EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST:
+                case EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT:
+                case EM_Subparadigm.SUBPARADIGM_COMPARATIVE:
+                case EM_Subparadigm.SUBPARADIGM_INFINITIVE:
+                {
+                    break;
+                }
 
                 default:
-                    MessageBox.Show("Illegal part of speech value.");
+                    MessageBox.Show("Illegal subparadigm value.");
                     return EM_ReturnCode.H_ERROR_UNEXPECTED;
             }
-*/
-
-            EM_PartOfSpeech ePOS = EM_PartOfSpeech.POS_UNDEFINED;
-            EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
-            eRet = Helpers.eGramHashToSubparadigm(sGramHash, ref ePOS, ref eSp);
-
-            wf.SetSubparadigm(eSp);
 
             string sOutForm = "";
             Dictionary<int, EM_StressType> dictStressPos;
@@ -477,7 +558,8 @@ namespace ZalTestApp
                 IEnumerable<FormDescriptor> select = lstFormsForHash.Where(form => form.IsUnsaved);
                 if (select.Count() > 0)
                 {
-                    eRet = m_Lexeme.eSaveIrregularForms(entry.Key);
+                    var sFormHash = sDisplayHashToFormHash(entry.Key, m_Lexeme.ePartOfSpeech());
+                    eRet = m_Lexeme.eSaveIrregularForms(sFormHash);
                     if (eRet != EM_ReturnCode.H_NO_ERROR)
                     {
                         MessageBox.Show("Internal error: failed to save forms for {0}.", entry.Key);

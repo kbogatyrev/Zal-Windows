@@ -479,11 +479,11 @@ namespace ZalTestApp
 
             string[] arrTokens = sHash.Split('_');
 
-            if (EM_Subparadigm.SUBPARADIGM_LONG_ADJ == eSubParadigm &&
-                EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ == eSubParadigm &&
-                EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT == eSubParadigm &&
-                EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT == eSubParadigm &&
-                EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG == eSubParadigm &&
+            if (EM_Subparadigm.SUBPARADIGM_LONG_ADJ == eSubParadigm ||
+                EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ == eSubParadigm ||
+                EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT == eSubParadigm ||
+                EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT == eSubParadigm ||
+                EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG == eSubParadigm ||
                 EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG == eSubParadigm)
             {
                 if (arrTokens.Length < 4)
@@ -591,7 +591,7 @@ namespace ZalTestApp
                 }
             }
 
-            return EM_ReturnCode.H_ERROR_UNEXPECTED;
+            return EM_ReturnCode.H_NO_ERROR;
 
         }   //  eGramHashToNumber()
 
@@ -699,6 +699,59 @@ namespace ZalTestApp
                     return EM_ReturnCode.H_ERROR_UNEXPECTED;
 
             }       //  switch (sCase)
+
+            return EM_ReturnCode.H_NO_ERROR;
+
+        }   //  eGramHashToCase()
+
+        public static EM_ReturnCode eGramHashToPersonAndNumber(string sHash, ref EM_Person ePerson, ref EM_Number eNumber)
+        {
+            EM_PartOfSpeech ePartOfSpeech = EM_PartOfSpeech.POS_UNDEFINED;
+            EM_Subparadigm eSubParadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+
+            ePerson = EM_Person.PERSON_UNDEFINED;
+            eNumber = EM_Number.NUM_UNDEFINED;
+
+            EM_ReturnCode eRet = Helpers.eGramHashToSubparadigm(sHash, ref ePartOfSpeech, ref eSubParadigm);
+            if (eRet != EM_ReturnCode.H_NO_ERROR || eSubParadigm != EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE)
+            {
+                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+            }
+
+            string[] arrTokens = sHash.Split('_');
+            if (arrTokens.Length != 3 || (arrTokens[0] != "Pres" && arrTokens[1] != "Impv"))
+            {
+                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+            }
+
+            if ("Sg" == arrTokens[1])
+            {
+                eNumber = EM_Number.NUM_SG;
+            }
+            else if ("Pl" == arrTokens[1])
+            {
+                eNumber = EM_Number.NUM_PL;
+            }
+            else 
+            { 
+                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+            }
+
+            switch (arrTokens[2])
+            {
+                case "1":
+                    ePerson = EM_Person.PERSON_1;
+                    break;
+                case "2":
+                    ePerson = EM_Person.PERSON_2;
+                    break;
+                case "3":
+                    ePerson = EM_Person.PERSON_3;
+                    break;
+                default:
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+
+            }
 
             return EM_ReturnCode.H_NO_ERROR;
 
