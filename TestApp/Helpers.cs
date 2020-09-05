@@ -561,6 +561,17 @@ namespace ZalTestApp
                     sNumber = arrTokens[2];
                     break;
 
+                case EM_Subparadigm.SUBPARADIGM_SHORT_ADJ:
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT:
+
+                    if (arrTokens.Length < 2)
+                    {
+                        return EM_ReturnCode.H_NO_ERROR;
+                    }
+                    sNumber = arrTokens[1];
+                    break;
+
                 case EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE:
                     if (arrTokens.Length < 2)
                     {
