@@ -448,14 +448,25 @@ namespace ZalTestApp
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_IMPERATIVE;
                     break;
 
-                case "VAdv_Pres":
-                    ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
-                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT;
-                    break;
+                case "VAdv":
+                    if (arrTokens.Length != 2)
+                    {
+                        return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                    }
 
-                case "VAdv_Past":
                     ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
-                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST;
+                    if ("Pres" == arrTokens[1])
+                    {
+                        eSubParadigm = EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PRESENT;
+                    }
+                    else if ("Past" == arrTokens[1])
+                    {
+                        eSubParadigm = EM_Subparadigm.SUBPARADIGM_ADVERBIAL_PAST;
+                    }
+                    else
+                    {
+                        return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                    }
                     break;
 
                 default:
