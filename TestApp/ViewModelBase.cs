@@ -515,6 +515,7 @@ namespace ZalTestApp
                     eRet = Helpers.eGramHashToPersonAndNumber(sGramHash, ref ePerson, ref eNumber);
                     if (EM_ReturnCode.H_NO_ERROR == eRet)
                     {
+                        wf.SetPerson(ePerson);
                         wf.SetNumber(eNumber);
                     }
                     break;
