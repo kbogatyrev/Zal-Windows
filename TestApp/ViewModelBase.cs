@@ -98,17 +98,20 @@ namespace ZalTestApp
 
         public void OnGotFocus(string sHash, ref string sFormString)
         {
-            var formsForHash = m_DictFormStatus[sHash];
-            sFormString = "";
-            foreach (var formDescriptor in formsForHash.lstForms)
+            FormsForGramHash formsForHash = null;
+            if (m_DictFormStatus.TryGetValue(sHash, out formsForHash))
             {
-                if (sFormString.Length > 0)
+                sFormString = "";
+                foreach (var formDescriptor in formsForHash.lstForms)
                 {
-                    sFormString += "; ";
+                    if (sFormString.Length > 0)
+                    {
+                        sFormString += "; ";
+                    }
+                    var sFormattedWord = formDescriptor.StressedWordform;
+                    Helpers.RestoreInlineStressMarks(ref sFormattedWord);
+                    sFormString += sFormattedWord;
                 }
-                var sFormattedWord = formDescriptor.StressedWordform;
-                Helpers.RestoreInlineStressMarks(ref sFormattedWord);
-                sFormString += sFormattedWord;
             }
         }
 
@@ -118,8 +121,17 @@ namespace ZalTestApp
 
             m_Lexeme.eRemoveWordForms(sFormHash);
 
-            var formsForHash = m_DictFormStatus[sDisplayHash];
-            formsForHash.lstForms.Clear();
+            FormsForGramHash formsForHash = null; 
+            if (m_DictFormStatus.TryGetValue(sDisplayHash, out formsForHash))
+            {
+                formsForHash.lstForms.Clear();
+            }
+            else
+            {
+                formsForHash = new FormsForGramHash();
+                formsForHash.iCurrentForm = 0;
+                m_DictFormStatus[sDisplayHash] = formsForHash;
+            }
 
             char[] arrSeparators = { ';' };
             List<string> lstWordForms = new List<string>(sCellContents.Split(arrSeparators, StringSplitOptions.RemoveEmptyEntries));
@@ -219,8 +231,16 @@ namespace ZalTestApp
                     break;
 
                 case EM_PartOfSpeech.POS_VERB:
+                    EM_PartOfSpeech ePOS = EM_PartOfSpeech.POS_UNDEFINED;
+                    EM_Subparadigm eSP = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
+                    var eRet = Helpers.eGramHashToSubparadigm(sDisplayHash, ref ePOS, ref eSP);
+                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    {
+                        MessageBox.Show(String.Format("Display hash {0} was not recognized.", sDisplayHash));
+                        return sDisplayHash;
+                    }
 
-                    switch (eSubparadigm)
+                    switch (eSP)
                     {
                         // If form hash points to a participle then form hash == display hash
                         // this only happens on initial verb forms page
