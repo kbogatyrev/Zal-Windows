@@ -232,12 +232,15 @@ namespace ZalTestApp
 
                 case EM_PartOfSpeech.POS_VERB:
                     EM_PartOfSpeech ePOS = EM_PartOfSpeech.POS_UNDEFINED;
-                    EM_Subparadigm eSP = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
-                    var eRet = Helpers.eGramHashToSubparadigm(sDisplayHash, ref ePOS, ref eSP);
-                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    EM_Subparadigm eSP = eSubparadigm;
+                    if (EM_Subparadigm.SUBPARADIGM_UNDEFINED == eSP)
                     {
-                        MessageBox.Show(String.Format("Display hash {0} was not recognized.", sDisplayHash));
-                        return sDisplayHash;
+                        var eRet = Helpers.eGramHashToSubparadigm(sDisplayHash, ref ePOS, ref eSP);
+                        if (eRet != EM_ReturnCode.H_NO_ERROR)
+                        {
+                            MessageBox.Show(String.Format("Display hash {0} was not recognized.", sDisplayHash));
+                            return sDisplayHash;
+                        }
                     }
 
                     switch (eSP)
