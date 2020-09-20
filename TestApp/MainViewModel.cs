@@ -270,6 +270,26 @@ namespace ZalTestApp
             }
         }
 
+        public string DbPath
+        {
+            get 
+            {
+                if (String.IsNullOrEmpty(m_MainModel.Path))
+                {
+                    return "Zal Editor";
+                }
+                else
+                {
+                    return "        " + m_MainModel.Path;
+                }
+            }
+            set 
+            {
+                //DbPath = value;
+                OnPropertyChanged("DbPath");
+            }
+        }
+
         private bool m_bEditDbOpen;
         public bool EditDbOpen
         {
@@ -493,6 +513,7 @@ namespace ZalTestApp
                 m_bDbOpen = false;
                 m_bEditDbOpen = false;
 
+
                 m_MainModel = new MainModel();
                 if (!m_MainModel.Initialized)
                 {
@@ -586,6 +607,7 @@ namespace ZalTestApp
             if (EM_ReturnCode.H_NO_ERROR == eRet)
             {
                 DbOpen = true;
+                DbPath = m_MainModel.Path;
             }
         }
 

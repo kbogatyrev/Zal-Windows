@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Zal Test App" Height="Auto" Width="1400" Margin="0">
+        Title="{Binding DbPath}" Height="Auto" Width="1400" Margin="0" >
 
     <Window.DataContext>
         <local:MainViewModel/>
