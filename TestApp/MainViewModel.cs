@@ -500,8 +500,8 @@ namespace ZalTestApp
                     return;
                 }
 
-                m_bDbOpen = true;
-                m_bEditDbOpen = true;
+//                m_bDbOpen = true;
+//                m_bEditDbOpen = true;
 
                 m_BreadCrumbs = new LinkedList<ViewModelBase>();
                 //            m_LexemeGridViewModel = new ViewPage ("парадигмы", new LexemeGridViewModel());
