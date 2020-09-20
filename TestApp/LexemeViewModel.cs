@@ -444,12 +444,6 @@ namespace ZalTestApp
                     string sMsg = "Пoмета \"-\" (минус) не ожидается";
                     MessageBox.Show(sMsg, "Zal Error");
                 }
-
-                if (Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_ADJ && Lexeme.bShortFormsRestricted())
-                {
-                    AddSingleProperty("Краткие формы затруднительны");
-                }
-
             }
 
             //if (Lexeme.sQuestionableForms() != "")

@@ -283,6 +283,7 @@ namespace MainLibManaged
         bool bDeviationOptional(int iCd);
         EM_ReturnCode eFormExists(String^ sGramHash);
         EM_ReturnCode eIsFormDifficult(String^ sGramHash);
+        EM_ReturnCode eIsFormAssumed(String^ sGramHash);
         bool bIsMultistressedCompound();
         EM_ReturnCode eGetSourceFormWithStress(String^% sSourceForm, bool bIsVariant);
         EM_ReturnCode eGetFirstStemStressPos(int% iPos);

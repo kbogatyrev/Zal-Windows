@@ -19,7 +19,7 @@ using MainLibManaged;
 
 namespace ZalTestApp
 {
-    public enum ECellStatus { Normal, Missing, Difficult };
+    public enum ECellStatus { Normal, Missing, Difficult, Assumed };
 
     public sealed class StyleConverterCell : IValueConverter
     {
@@ -44,7 +44,11 @@ namespace ZalTestApp
             {
                 return resourceDictionary["DifficultFormTextBox"] as Style;
             }
-            else 
+            else if (ECellStatus.Assumed == (ECellStatus)value)
+            {
+                return resourceDictionary["AssumedFormTextBox"] as Style;
+            }
+            else
             {
                 return resourceDictionary["FormText"] as Style;
             }
@@ -378,6 +382,11 @@ namespace ZalTestApp
             {
                 return ECellStatus.Difficult;
             }
+            else if (m_MainModel.bIsAssumed(sLexemeHash, sFormHash))
+            {
+                return ECellStatus.Assumed;
+            }
+
             return ECellStatus.Normal;
         }
 

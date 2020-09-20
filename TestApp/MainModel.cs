@@ -1352,6 +1352,25 @@ namespace ZalTestApp
             return false;
         }
 
+        public bool bIsAssumed(string sLexemeHash, string sFormHash)
+        {
+            CLexemeManaged lexeme;
+            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            {
+                //                System.Windows.MessageBox.Show("Unable to find lexeme.");
+                return false;
+            }
+
+            EM_ReturnCode eRet = lexeme.eIsFormAssumed(sFormHash);
+            if (EM_ReturnCode.H_TRUE == eRet)
+            {
+                //                System.Windows.MessageBox.Show("Unable to check word form edit status.");
+                return true;
+            }
+
+            return false;
+        }
+
         private void HandleAccusatives(CLexemeManaged lexeme, EM_Subparadigm eSubparadigm)
         {
             Dictionary<string, List<CWordFormManaged>> dctParadigm;

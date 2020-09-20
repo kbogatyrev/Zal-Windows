@@ -2713,6 +2713,16 @@ EM_ReturnCode CLexemeManaged::eIsFormDifficult(String^ sGramHash)
     return (EM_ReturnCode)m_pLexeme->eIsFormDifficult(sFromManagedString(sGramHash));
 }
 
+EM_ReturnCode CLexemeManaged::eIsFormAssumed(String^ sGramHash)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pLexeme->eIsFormAssumed(sFromManagedString(sGramHash));
+}
+
 bool CLexemeManaged::bIsMultistressedCompound()
 {
     if (NULL == m_pLexeme)

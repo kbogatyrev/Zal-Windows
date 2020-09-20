@@ -378,7 +378,7 @@
         <Setter Property="Width" Value="160"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="Foreground" Value="#505050"/>
-        <Setter Property="Background" Value="#F0F0F0"/>
+<!--        <Setter Property="Background" Value="#F0F0F0"/>   -->
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -386,6 +386,28 @@
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="FontWeight" Value="Bold"/>
 <!--        <Setter Property="FontStyle" Value="Italic"/>   -->
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+        <Setter Property="ScrollViewer.Height" Value="28.0"/>
+        <Setter Property="IsReadOnly" Value="False"/>
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="AssumedFormTextBox">
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="Width" Value="160"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="Foreground" Value="#505050"/>
+<!--        <Setter Property="Background" Value="#F0F0F0"/>    -->
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="10,3,0,4"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontStyle" Value="Italic"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Calibri"/>
         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
