@@ -221,7 +221,7 @@ namespace ZalTestApp
             {
                 string sSourceFormWithAccents = "";
                 Helpers.AssignDiacritics(sSourceForm, ref sSourceFormWithAccents);
-                AddProperty("Исходная форма", sSourceFormWithAccents);
+                AddProperty("Исходная форма:", sSourceFormWithAccents);
             }
 
             List<int> arrHomonyms = m_Lexeme.arrHomonyms();
@@ -236,7 +236,7 @@ namespace ZalTestApp
                     }
                     sHomonyms += iHomonym.ToString();
                 }
-                AddProperty("Омонимы", sHomonyms);
+                AddProperty("Омонимы:", sHomonyms);
             }
 
             if (m_Lexeme.sHeadwordVariant().Length > 0)
@@ -246,7 +246,7 @@ namespace ZalTestApp
                 string sSourceFormWithAccents = "";
                 Helpers.AssignDiacritics(sVariant, ref sSourceFormWithAccents);
 
-                AddProperty("Вариант", sSourceFormWithAccents);
+                AddProperty("Вариант:", sSourceFormWithAccents);
             }
 
             string sMainSymbol = m_Lexeme.sMainSymbol();
@@ -262,18 +262,18 @@ namespace ZalTestApp
 
             if (sMainSymbol != "")
             {
-                AddProperty("Основной символ", sMainSymbol);
+                AddProperty("Основной символ:", sMainSymbol);
             }
 
             string sInflectionSymbol = m_Lexeme.sInflectionType();
             if (sMainSymbol != sInflectionSymbol && sInflectionSymbol != "")
             {
-                AddProperty("Словоизм. тип", sInflectionSymbol);
+                AddProperty("Словоизм. тип:", sInflectionSymbol);
             }
 
             if (m_Lexeme.iType() > 0)
             {
-                AddProperty("Индекс", m_Lexeme.iType().ToString());
+                AddProperty("Индекс:", m_Lexeme.iType().ToString());
             }
 
             if (m_Lexeme.bHasFleetingVowel())
@@ -291,7 +291,7 @@ namespace ZalTestApp
                     sRet += "/" + Helpers.sAccenTypeToStressSchema(eAp2);
                 }
 
-                AddProperty("Схема ударения", sRet);
+                AddProperty("Схема ударения:", sRet);
             }
 
             if (Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
@@ -322,7 +322,7 @@ namespace ZalTestApp
                             sAspectPair += ", ";
                             sAspectPair += sAltAspectPair;
                         }
-                        AddProperty("Видовая пара", sAspectPair);
+                        AddProperty("Видовая пара:", sAspectPair);
                     }
                     catch (Exception ex)
                     {
@@ -336,27 +336,27 @@ namespace ZalTestApp
 
             if (m_Lexeme.sHeadwordComment().Length > 0)
             {
-                AddProperty("Доп. помета (1)", m_Lexeme.sHeadwordComment());
+                AddProperty("Доп. помета (1):", m_Lexeme.sHeadwordComment());
             }
 
             if (m_Lexeme.sPluralOf().Length > 0)
             {
-                AddProperty("Мн. от", m_Lexeme.sPluralOf());
+                AddProperty("Мн. от:", m_Lexeme.sPluralOf());
             }
 
             if (m_Lexeme.sUsage().Length > 0)
             {
-                AddProperty("Доп. помета (2)", m_Lexeme.sUsage());
+                AddProperty("Доп. помета (2):", m_Lexeme.sUsage());
             }
 
             if (m_Lexeme.sSeeRef().Length > 0)
             {
-                AddProperty("См. также", m_Lexeme.sSeeRef());
+                AddProperty("См. также:", m_Lexeme.sSeeRef());
             }
 
             if (m_Lexeme.sTrailingComment().Length > 0)
             {
-                AddProperty("Доп. помета (3)", m_Lexeme.sTrailingComment());
+                AddProperty("Доп. помета (3):", m_Lexeme.sTrailingComment());
             }
 
             if (m_Lexeme.sRestrictedForms().Length > 0)
@@ -364,7 +364,7 @@ namespace ZalTestApp
                 string sPhraseo = m_Lexeme.sRestrictedForms();
                 string sSourceFormWithAccents = "";
                 Helpers.AssignDiacritics(sPhraseo, ref sSourceFormWithAccents);
-                AddProperty("Фразеологизмы", sSourceFormWithAccents);
+                AddProperty("Фразеологизмы:", sSourceFormWithAccents);
             }
 
             if (m_Lexeme.bNoComparative())
@@ -419,12 +419,35 @@ namespace ZalTestApp
 
             if (m_Lexeme.iStemAugment() > 0)
             {
-                AddProperty("Цифра в кружочке", m_Lexeme.iStemAugment().ToString());
+                AddProperty("Аугмент:", m_Lexeme.iStemAugment().ToString());
+            }
+
+            List<int> lCommonDeviations = new List<int>();
+            string sCommonDeviations = "";
+            for (int iCD = 1; iCD <= 9; ++iCD)
+            {
+                if (m_Lexeme.bHasCommonDeviation(iCD))
+                {
+                    if (sCommonDeviations.Length > 0)
+                    {
+                        sCommonDeviations += ", ";
+                    }
+                    sCommonDeviations += iCD.ToString();
+                    if (m_Lexeme.bDeviationOptional(iCD))
+                    {
+                        sCommonDeviations += " (вариант)";
+                    }
+                }
+            }
+
+            if (sCommonDeviations.Length > 0)
+            {
+                AddProperty("Отклонения: ", sCommonDeviations);
             }
 
             if (m_Lexeme.iSection() > 0)
             {
-                AddProperty("Доп. особенности", String.Format("§{0}", m_Lexeme.iSection()));
+                AddProperty("Доп. особенности:", String.Format("§{0}", m_Lexeme.iSection()));
             }
 
 //            AddProperty("Графическая основа", m_Lexeme.sGraphicStem());
