@@ -154,10 +154,10 @@
 
                 <TextBox Text="Действ. прош. вр." Width="155" Margin="0,870,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Name ="PPastA_M_Sg_N" Text="{Binding Path=PPastA_M_Sg_N}" Margin="160,870,0,0" Style="{Binding PPastA_M_Sg_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
-                <Button Margin="308,873,0,0" CommandParameter="VAdv_Pres" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding VAdv_Pres_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
-                <Button Margin="308,883,0,0" CommandParameter="VAdv_Pres" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding VAdv_Pres_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="308,873,0,0" CommandParameter="PPastA_M_Sg_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding PPastA_M_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="308,883,0,0" CommandParameter="PPastA_M_Sg_N" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding PPastA_M_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Image HorizontalAlignment="Left" Margin="323,875,0,0" VerticalAlignment="Top" Style="{Binding PPastA_M_Sg_N_Marks, Converter={StaticResource StyleConverterMarks}}" />
-                <Button Margin="341,869,0,0" CommandParameter="VAdv_Pres" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding VAdv_Pres_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button Margin="341,869,0,0" CommandParameter="PPastA_M_Sg_N" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding VAdv_Pres_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                 <Button Content="Показать формы" Margin="400,870,0,0" Command="{Binding ShowPastActFormsCommand }" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                 <TextBox Text="Деепр. прош вр." Width="155" Margin="0,915,0,0" Style="{StaticResource FormLabelWide}" />

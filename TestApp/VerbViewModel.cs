@@ -282,7 +282,7 @@ namespace ZalTestApp
 
         public bool Pres_Sg_1_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePres_Sg_1", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Pres_Sg_1", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Pres_Sg_1_HasComments
@@ -310,7 +310,7 @@ namespace ZalTestApp
 
         public bool Pres_Sg_2_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePres_Sg_2", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Pres_Sg_2", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Pres_Sg_2_HasComments
@@ -338,7 +338,7 @@ namespace ZalTestApp
 
         public bool Pres_Sg_3_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePres_Sg_3", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Pres_Sg_3", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Pres_Sg_3_HasComments
@@ -366,7 +366,7 @@ namespace ZalTestApp
 
         public bool Pres_Pl_1_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePres_Pl_1", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Pres_Pl_1", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Pres_Pl_1_HasComments
@@ -394,7 +394,7 @@ namespace ZalTestApp
 
         public bool Pres_Pl_2_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePres_Pl_2", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Pres_Pl_2", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Pres_Pl_2_HasComments
@@ -422,7 +422,7 @@ namespace ZalTestApp
 
         public bool Pres_Pl_3_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePres_Pl_3", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Pres_Pl_3", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Pres_Pl_3_HasComments
@@ -454,7 +454,7 @@ namespace ZalTestApp
 
         public bool Past_M_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePast_M", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Past_M", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Past_M_HasComments
@@ -482,7 +482,7 @@ namespace ZalTestApp
 
         public bool Past_F_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePast_F", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Past_F", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Past_F_HasComments
@@ -510,7 +510,7 @@ namespace ZalTestApp
 
         public bool Past_N_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePast_N", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Past_N", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Past_N_HasComments
@@ -538,7 +538,7 @@ namespace ZalTestApp
 
         public bool Past_Pl_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePast_Pl", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Past_Pl", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Past_Pl_HasComments
@@ -569,7 +569,7 @@ namespace ZalTestApp
 
         public bool Impv_Sg_2_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_eImpv_Sg_2", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Impv_Sg_2", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Impv_Sg_2_HasComments
@@ -597,7 +597,7 @@ namespace ZalTestApp
 
         public bool Impv_Pl_2_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_eImpv_Pl_2", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Impv_Pl_2", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Impv_Pl_2_HasComments
@@ -629,7 +629,7 @@ namespace ZalTestApp
 
         public bool PPresA_M_Sg_N_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePPresA_M_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("PPresA_M_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool PPresA_M_Sg_N_HasComments
@@ -671,7 +671,7 @@ namespace ZalTestApp
 
         public bool PPastA_M_Sg_N_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePPastA_M_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("PPastA_M_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool PPastA_M_Sg_N_HasComments
@@ -713,7 +713,7 @@ namespace ZalTestApp
 
         public bool PPresPL_M_Sg_N_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePPresPL_M_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("PPresPL_M_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool PPresPL_M_Sg_N_HasComments
@@ -755,7 +755,7 @@ namespace ZalTestApp
 
         public bool PPastPL_M_Sg_N_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_ePPastPL_M_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("PPastPL_M_Sg_N", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool PPastPL_M_Sg_N_HasComments
@@ -797,7 +797,7 @@ namespace ZalTestApp
 
         public bool VAdv_Pres_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_eVAdv_Pres", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("VAdv_Pres", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool VAdv_Pres_HasComments
@@ -825,7 +825,7 @@ namespace ZalTestApp
 
         public bool VAdv_Past_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("m_eVAdv_Past", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("VAdv_Past", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool VAdv_Past_HasComments
