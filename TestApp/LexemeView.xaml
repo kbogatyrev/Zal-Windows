@@ -25,7 +25,7 @@
                                     <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="one" />
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="two" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <TextBlock Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{StaticResource DataField}" MaxWidth="170"/>
                                 <TextBlock Text="{Binding LexemePropertySingleEntry}" Style="{StaticResource SinglePropertyField}" MaxWidth="250"/>
                             </Grid>

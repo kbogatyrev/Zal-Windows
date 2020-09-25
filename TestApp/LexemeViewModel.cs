@@ -236,7 +236,7 @@ namespace ZalTestApp
                     }
                     sHomonyms += iHomonym.ToString();
                 }
-                AddProperty("Омонимы:", sHomonyms);
+                AddProperty("Индекс омонима:", sHomonyms);
             }
 
             if (m_Lexeme.sHeadwordVariant().Length > 0)
