@@ -126,6 +126,30 @@ namespace ZalTestApp
             }
         }
 
+        private bool m_bSourceFormIsIrregular = false;
+        public bool SourceFormIsIrregular
+        {
+            get { return m_bSourceFormIsIrregular; }
+            set
+            {
+                if (value != m_bSourceFormIsIrregular)
+                {
+                    m_bSourceFormIsIrregular = value;
+                    GraphicStem = "";
+                }
+                OnPropertyChanged("SourceFormIsIrregular");
+                OnPropertyChanged("GraphicStemGenerated");
+                OnPropertyChanged("SourceFormWithAccents");
+            }
+        }
+        public bool GraphicStemGenerated
+        {
+            get 
+            { 
+                return !m_bSourceFormIsIrregular; 
+            }
+        }
+
         private string m_sVariant;
         public string Variant
         {
