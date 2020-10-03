@@ -469,6 +469,18 @@ namespace ZalTestApp
                 }
             }
 
+            if (m_Lexeme.bHasDifficultForms())
+            {
+                List<String> lstDifficultFormsHashes = new List<string>();
+                eRet = m_Lexeme.eDifficultFormsHashes(ref lstDifficultFormsHashes);
+                foreach (var sHash in lstDifficultFormsHashes)
+                {
+                    string sTranslation = "";
+                    Helpers.eGramHashToText(sHash, out sTranslation);
+                    AddSingleProperty(sTranslation + " затрудн.");
+                }
+            }
+
             //if (Lexeme.sQuestionableForms() != "")
             //{
             //    AddSingleProperty(Lexeme.sQuestionableForms());

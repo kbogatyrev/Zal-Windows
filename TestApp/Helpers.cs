@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Markup.Localizer;
 
 namespace ZalTestApp
 {
@@ -105,6 +106,74 @@ namespace ZalTestApp
             "PPastA_M_Sg_N", "VAdv_Past", "PPresPL_M_Sg_N", "PPastPL_M_Sg_N"
         };
         #endregion
+
+        // Produce Russian translation of inflection state, e.g., Noun_Sg_D --> Д. мн.
+        // Note that POS is usually ignored
+        public static EM_ReturnCode eGramHashToText(string sHash, out string sTranslation)
+        {
+            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+            sTranslation = "";
+
+            switch (sHash)
+            {
+                case "VAdv_Pres":
+                    sTranslation = "Деепр. наст.";
+                    break;
+                case "VAdvPast":
+                    sTranslation = "Деепр. прош.";
+                    break;
+                case "!* _Sg_N":
+                    sTranslation = "Косв. формы";
+                    break;
+                case "AdjS_*":
+                    sTranslation = "Краткие формы";
+                    break;
+                case "AdjS_F":
+                    sTranslation = "Краткая форма ж.р.";
+                        break;
+                case "AdjS_M":
+                    sTranslation = "Краткая форма м.р.";
+                    break;
+                case "Impv_* _*":
+                    sTranslation = "Повелительное наклонение";
+                    break;
+                case "Noun_* _G":
+                    sTranslation = "Род. падеж";
+                    break;
+                case "Noun_Pl_*":
+                    sTranslation = "Мн. ч.";
+                    break;
+                case "Noun_Pl_G":
+                    sTranslation = "Род. мн.";
+                    break;
+                case "PPresPL_Pl_*":
+                    sTranslation = "Прич. наст. страд.";
+                    break;
+                case "PPresPS_*":
+                    sTranslation = "Прич. наст. страд. кр. формы";
+                    break;
+                case "Past_M":
+                    sTranslation = "Прош. вр. м. р.";
+                    break;
+                case "PPresPL_*_Sg_*":
+                    sTranslation = "Прич. наст. страд. ед. ч.";
+                    break;
+                case "Pres_*_*":
+                    sTranslation = "Наст. вр.";
+                    break;
+                case "Pres_Sg_1":
+                    sTranslation = "Наст. вр. 1 л. ед. ч.";
+                    break;
+
+                default:
+                    sTranslation = "";
+                    eRet = EM_ReturnCode.H_ERROR_INVALID_ARG;
+                    break;
+            }
+
+            return eRet;
+
+        }       //  sGramHashToText()
 
         public static EM_MainSymbol eMainSymbolToEnum(string sMainSymbol)
         {

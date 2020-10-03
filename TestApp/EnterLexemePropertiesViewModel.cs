@@ -20,8 +20,8 @@ namespace ZalTestApp
         HashSet<string> m_PropertiesChanged;
         string[] HeadwordProperties = { "SourceFormWithAccents", "Variant", "HeadwordComment", "IsPluralOf", "PluralOf", "SeeRef", "BackRef",
                                         "IsUnstressed", "IsVariant", "Usage" };
-        string[] DescriptorProperties = { "AltMainSymbol", "MainSymbol", "Triangle", "FleetingVowel", "YoAlternation", "OAlternation", "TildeSymbol",
-                                          "SecondGenitive", "HasAspectPair", "HasIrregularForms", "HasDeficiencies", "RestrictedContexts", "Contexts",
+        string[] DescriptorProperties = { "SourceFormIsIrregular", "GraphicStem", "AltMainSymbol", "MainSymbol", "Triangle", "FleetingVowel", "YoAlternation", "OAlternation",
+                                          "TildeSymbol", "SecondGenitive", "HasAspectPair", "HasIrregularForms", "HasDeficiencies", "RestrictedContexts", "Contexts",
                                           "TrailingComment", "VerbStemAlternation", "PartPastPassZhd", "Section", "NoComparative", "AssumedForms" };
         string[] InflectionProperties = { "Index", "StressType1", "StressType2", "SmallCircle", "FleetingVowel", "XSymbol", "FramedXSymbol", "IsPrimaryInflectionGroup" };
         string[] CommonDeviationProperties = { "NumberInCircle" };
@@ -351,8 +351,14 @@ namespace ZalTestApp
                 if (value != m_sMainSymbol)
                 {
                     m_sMainSymbol = value;
+                    if (GraphicStemGenerated)
+                    {
+                        m_Lexeme.eMakeGraphicStem();
+                        GraphicStem = m_Lexeme.sGraphicStem();
+                    }
                 }
                 OnPropertyChanged("MainSymbol");
+                OnPropertyChanged("GraphicStem");
             }
         }
 

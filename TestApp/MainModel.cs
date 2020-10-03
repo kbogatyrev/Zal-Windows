@@ -367,7 +367,7 @@ namespace ZalTestApp
             }
             catch (Exception ex)
             {
-                string sMsg = String.Format("Exception reading tact group data: {0}", ex.Message);
+                string sMsg = String.Format("Exception saving descriptor data: {0}", ex.Message);
                 return false;
             }
 

@@ -2703,6 +2703,16 @@ EM_ReturnCode CLexemeManaged::eFormExists(String^ sGramHash)
     return (EM_ReturnCode)m_pLexeme->eFormExists(sFromManagedString(sGramHash));
 }
 
+EM_ReturnCode CLexemeManaged::eSetFormExists(String^ sGramHash, bool bExists)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pLexeme->eSetFormExists(sFromManagedString(sGramHash), bExists);
+}
+
 EM_ReturnCode CLexemeManaged::eIsFormDifficult(String^ sGramHash)
 {
     if (NULL == m_pLexeme)
@@ -2713,6 +2723,46 @@ EM_ReturnCode CLexemeManaged::eIsFormDifficult(String^ sGramHash)
     return (EM_ReturnCode)m_pLexeme->eIsFormDifficult(sFromManagedString(sGramHash));
 }
 
+EM_ReturnCode CLexemeManaged::eSetFormDifficult(String^ sGramHash, bool bIsDifficult)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pLexeme->eSetFormDifficult(sFromManagedString(sGramHash), bIsDifficult);
+}
+
+bool CLexemeManaged::bHasDifficultForms()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return m_pLexeme->bHasDifficultForms();
+}
+
+EM_ReturnCode CLexemeManaged::eDifficultFormsHashes(List<String^>^% lstHashes)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    
+    vector<CEString> vecHashes;
+    ET_ReturnCode eRet = m_pLexeme->eDifficultFormsHashes(vecHashes);
+    if (ET_ReturnCode::H_NO_ERROR == eRet)
+    {
+        for (auto sHash : vecHashes)
+        {
+            lstHashes->Add(gcnew String(sHash));
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
 EM_ReturnCode CLexemeManaged::eIsFormAssumed(String^ sGramHash)
 {
     if (NULL == m_pLexeme)
@@ -2721,6 +2771,16 @@ EM_ReturnCode CLexemeManaged::eIsFormAssumed(String^ sGramHash)
     }
 
     return (EM_ReturnCode)m_pLexeme->eIsFormAssumed(sFromManagedString(sGramHash));
+}
+
+EM_ReturnCode CLexemeManaged::eSetHasAssumedForms(bool bIsAssumed)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (EM_ReturnCode)m_pLexeme->eSetHasAssumedForms(bIsAssumed);
 }
 
 bool CLexemeManaged::bIsMultistressedCompound()
