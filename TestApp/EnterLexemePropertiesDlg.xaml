@@ -63,8 +63,40 @@
             <ComboBoxItem Content="межд." IsEnabled="True" />
         </ComboBox>
 
-        <TextBox Text="Индекс" Margin="356,65,0,0" Style="{StaticResource FormLabel}" Width="120" />
-        <ComboBox Text="{Binding Path=Index}" HorizontalAlignment="Left" Margin="481,65,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
+        <TextBox Text="Словоизм. тип" Margin="356,65,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=InflectionType}" HorizontalAlignment="Left" Margin="481,65,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
+            <ComboBoxItem Content="" IsEnabled="True" />
+            <ComboBoxItem Content="м" IsEnabled="True" />
+            <ComboBoxItem Content="мо" IsEnabled="True"/>
+            <ComboBoxItem Content="ж" IsEnabled="True" />
+            <ComboBoxItem Content="жо" IsEnabled="True" />
+            <ComboBoxItem Content="с" IsEnabled="True" />
+            <ComboBoxItem Content="со" IsEnabled="True"/>
+            <ComboBoxItem Content="мо-жо" IsEnabled="True" />
+            <ComboBoxItem Content="мн." IsEnabled="True" />
+            <ComboBoxItem Content="мн. неод." IsEnabled="True" />
+            <ComboBoxItem Content="мн. одуш." IsEnabled="True"/>
+            <ComboBoxItem Content="мн. от" IsEnabled="True" />
+            <ComboBoxItem Content="п" IsEnabled="True"/>
+            <ComboBoxItem Content="мс" IsEnabled="True" />
+            <ComboBoxItem Content="мс-п" IsEnabled="True" />
+            <ComboBoxItem Content="числ." IsEnabled="True" />
+            <ComboBoxItem Content="числ.-п" IsEnabled="True"/>
+            <ComboBoxItem Content="св" IsEnabled="True" />
+            <ComboBoxItem Content="нсв" IsEnabled="True"/>
+            <ComboBoxItem Content="св-нсв" IsEnabled="True" />
+            <ComboBoxItem Content="н" IsEnabled="True"/>
+            <ComboBoxItem Content="предл." IsEnabled="True" />
+            <ComboBoxItem Content="союз" IsEnabled="True" />
+            <ComboBoxItem Content="предик." IsEnabled="True" />
+            <ComboBoxItem Content="вводн." IsEnabled="True"/>
+            <ComboBoxItem Content="сравн." IsEnabled="True" />
+            <ComboBoxItem Content="част." IsEnabled="True"/>
+            <ComboBoxItem Content="межд." IsEnabled="True" />
+        </ComboBox>
+
+        <TextBox Text="Индекс" Margin="356,100,0,0" Style="{StaticResource FormLabel}" Width="120" />
+        <ComboBox Text="{Binding Path=Index}" HorizontalAlignment="Left" Margin="481,100,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="" IsEnabled="True" />
             <ComboBoxItem Content="1" IsEnabled="True" />
             <ComboBoxItem Content="2" IsEnabled="True"/>
@@ -84,11 +116,11 @@
             <ComboBoxItem Content="16" IsEnabled="True"/>
         </ComboBox>
 
-        <TextBox Text="Мн. от" Margin="356,100,0,0" Style="{StaticResource FormLabel}" ToolTip="Исходная форма ед. ч." Width="120" />
-        <TextBox Text="{Binding Path=IsPluralOf}" Margin="481,100,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
+        <TextBox Text="Мн. от" Margin="356,135,0,0" Style="{StaticResource FormLabel}" ToolTip="Исходная форма ед. ч." Width="120" />
+        <TextBox Text="{Binding Path=IsPluralOf}" Margin="481,135,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
 
         <TextBox Text="Кружочек" Margin="356,135,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="(Сразу после цифры)"/>
-        <ComboBox Text="{Binding Path=SmallCircle}" HorizontalAlignment="Left" Margin="482,135,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+        <ComboBox Text="{Binding Path=SmallCircle}" HorizontalAlignment="Left" Margin="482,170,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="Да" IsEnabled="True" />
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
         </ComboBox>

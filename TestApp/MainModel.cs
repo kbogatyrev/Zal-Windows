@@ -778,7 +778,7 @@ namespace ZalTestApp
 
             CWordFormManaged wf = null;
             eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
-            while (EM_ReturnCode.H_NO_ERROR == eRet || EM_ReturnCode.H_FALSE == eRet)
+            while (wf != null && (EM_ReturnCode.H_NO_ERROR == eRet || EM_ReturnCode.H_FALSE == eRet))
             {
                 try
                 {

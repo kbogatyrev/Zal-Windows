@@ -20,8 +20,8 @@ namespace ZalTestApp
         HashSet<string> m_PropertiesChanged;
         string[] HeadwordProperties = { "SourceFormWithAccents", "Variant", "HeadwordComment", "IsPluralOf", "PluralOf", "SeeRef", "BackRef",
                                         "IsUnstressed", "IsVariant", "Usage" };
-        string[] DescriptorProperties = { "SourceFormIsIrregular", "GraphicStem", "AltMainSymbol", "MainSymbol", "Triangle", "FleetingVowel", "YoAlternation", "OAlternation",
-                                          "TildeSymbol", "SecondGenitive", "HasAspectPair", "HasIrregularForms", "HasDeficiencies", "RestrictedContexts", "Contexts",
+        string[] DescriptorProperties = { "SourceFormIsIrregular", "GraphicStem", "AltMainSymbol", "MainSymbol", "InflectionType", "Triangle", "FleetingVowel", "YoAlternation",
+                                          "OAlternation", "TildeSymbol", "SecondGenitive", "HasAspectPair", "HasIrregularForms", "HasDeficiencies", "RestrictedContexts", "Contexts",
                                           "TrailingComment", "VerbStemAlternation", "PartPastPassZhd", "Section", "NoComparative", "AssumedForms" };
         string[] InflectionProperties = { "Index", "StressType1", "StressType2", "SmallCircle", "FleetingVowel", "XSymbol", "FramedXSymbol", "IsPrimaryInflectionGroup" };
         string[] CommonDeviationProperties = { "NumberInCircle" };
@@ -358,6 +358,29 @@ namespace ZalTestApp
                     }
                 }
                 OnPropertyChanged("MainSymbol");
+                OnPropertyChanged("GraphicStem");
+            }
+        }
+
+        private string m_sInflectionType;
+        public string InflectionType
+        {
+            get
+            {
+                return m_sInflectionType;
+            }
+            set
+            {
+                if (value != m_sInflectionType)
+                {
+                    m_sInflectionType = value;
+                    if (GraphicStemGenerated)
+                    {
+                        m_Lexeme.eMakeGraphicStem();
+                        GraphicStem = m_Lexeme.sGraphicStem();
+                    }
+                }
+                OnPropertyChanged("InflectionType");
                 OnPropertyChanged("GraphicStem");
             }
         }
@@ -1967,6 +1990,9 @@ namespace ZalTestApp
             {
                 MainSymbol = m_Lexeme.sMainSymbol();
             }
+
+            InflectionType = m_Lexeme.sInflectionType();
+
             Index = m_Lexeme.iType().ToString();
             StressType1 = Helpers.sAccenTypeToStressSchema(m_Lexeme.eAccentType1());
             if (m_Lexeme.eAccentType2() != EM_AccentType.AT_UNDEFINED)
