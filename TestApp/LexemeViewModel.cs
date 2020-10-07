@@ -278,7 +278,7 @@ namespace ZalTestApp
 
             if (m_Lexeme.bHasFleetingVowel())
             {
-                AddSingleProperty("Есть беглая гласная");
+                AddSingleProperty("Беглая гласная");
             }
 
             var eAp1 = m_Lexeme.eAccentType1();
@@ -419,7 +419,7 @@ namespace ZalTestApp
 
             if (m_Lexeme.iStemAugment() > 0)
             {
-                AddProperty("Аугмент:", m_Lexeme.iStemAugment().ToString());
+                AddSingleProperty("Чередование в основе");
             }
 
             List<int> lCommonDeviations = new List<int>();
