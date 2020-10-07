@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Windows.Input;
 using System.Windows.Data;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Linq;
 using MainLibManaged;
@@ -141,14 +142,30 @@ namespace ZalTestApp
             List<string> lstWordForms = new List<string>(sCellContents.Split(arrSeparators, StringSplitOptions.RemoveEmptyEntries));
             formsForHash.lstForms.Clear();
             bool bIsVariant = false;
+            if (0 == lstWordForms.Count)
+            {
+//&&&&
+            }
             foreach (var item in lstWordForms)
             {
                 var sForm = item.Trim();
+                string sComment = "";
+                var iCommentOffset = sForm.IndexOf('(');
+                if (iCommentOffset >= 0)
+                {
+                    var regex = new Regex(@"\(.+\)");
+                    MatchCollection matches = regex.Matches(sForm.Substring(iCommentOffset));
+                    if (matches.Count > 0)
+                    {
+                        sForm = sForm.Substring(0, iCommentOffset);
+                        sComment = matches[0].Value;
+                    }
+                }
                 string sStressedForm = "";
                 Helpers.AssignDiacritics(sForm, ref sStressedForm);
                 var fd = new FormDescriptor();
                 CWordFormManaged wf = null;
-                CreateIrregularWordForm(sFormHash, sStressedForm, ref wf);
+                CreateIrregularWordForm(sFormHash, sStressedForm, sComment, ref wf);
                 wf.SetIsVariant(bIsVariant);
                 fd.WordFormManaged = wf;
                 fd.IsUnsaved = true;
@@ -346,6 +363,11 @@ namespace ZalTestApp
 
         public bool HasComments(string sDisplayHash, EM_Subparadigm eSubparadigm)
         {
+            return false;
+
+// ***                   CURRENTLY DISABLED                   ***
+
+            /*
             string sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech(), eSubparadigm);
             FormsForGramHash formsForHash = null;
             if (!m_DictFormStatus.TryGetValue(sFormHash, out formsForHash))
@@ -369,11 +391,12 @@ namespace ZalTestApp
             }
 
             return true;
+            */
         }
 
         public ECellStatus GetCellStatus(string sFormHash)
         {
-            string sLexemeHash = m_Lexeme.sHash();
+            string sLexemeHash = m_Lexeme.sParadigmHash();
             if (m_MainModel.bIsMissing(sLexemeHash, sFormHash))
             {
                 return ECellStatus.Missing;
@@ -427,6 +450,7 @@ namespace ZalTestApp
 
         protected EM_ReturnCode CreateIrregularWordForm(string sDisplayHash,
                                                         string sForm,
+                                                        string sComment,
                                                         ref CWordFormManaged wf)
         {
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
@@ -575,6 +599,11 @@ namespace ZalTestApp
                 var msg = "Internal error: unable to assign stress positions.";
                 MessageBox.Show(msg);
                 return eRet;
+            }
+
+            if (sComment.Length > 0)
+            {
+                wf.SetTrailingComment(sComment);
             }
 
             return EM_ReturnCode.H_NO_ERROR;
