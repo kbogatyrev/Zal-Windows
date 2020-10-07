@@ -594,7 +594,7 @@ namespace ZalTestApp
         {
             try
             {
-                string sLexemeHash = m_Lexeme.sHash();
+                string sLexemeHash = m_Lexeme.sParadigmHash();
                 List<string> listKeys = null;
 
                 switch (m_Lexeme.ePartOfSpeech())

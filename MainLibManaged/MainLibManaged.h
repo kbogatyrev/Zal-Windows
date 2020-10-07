@@ -267,6 +267,7 @@ namespace MainLibManaged
         EM_ReturnCode eGetAlternatingPreverb(String^ sVerbForm, String^% sPreverb, bool% bVoicing);
         String^ sHash();
         String^ sStoredHash();
+        String^ sParadigmHash();
         EM_ReturnCode eWordFormFromHash(String^ sHash, int iAt, CWordFormManaged^% Wf);
         EM_ReturnCode eCreateWordForm(CWordFormManaged^% wf);
         EM_ReturnCode eRemoveWordForm(String^ sHash, int iAt);

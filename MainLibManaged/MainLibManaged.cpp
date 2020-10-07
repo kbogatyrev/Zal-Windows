@@ -2491,6 +2491,16 @@ String^ CLexemeManaged::sStoredHash()
     return m_sStoredLexemeHash;
 }
 
+String^ CLexemeManaged::sParadigmHash()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return gcnew String(m_pLexeme->sParadigmHash());
+}
+
 EM_ReturnCode CLexemeManaged::eWordFormFromHash(String^ sHash, int iAt, CWordFormManaged^% wf)
 {
     if (NULL == m_pLexeme)

@@ -182,7 +182,7 @@ namespace ZalTestApp
 
         EMark GetFormStatus(string sFormHash)
         {
-            string sLexemeHash = m_Lexeme.sHash();
+            string sLexemeHash = m_Lexeme.sParadigmHash();
             if (m_MainModel.bIsEdited(sLexemeHash, sFormHash))
             {
                 return EMark.IsEdited;
@@ -856,7 +856,7 @@ namespace ZalTestApp
 
         private void InitFormDictionary(CLexemeManaged lexeme)
         {
-            string sLexemeHash = m_Lexeme.sHash();
+            string sLexemeHash = m_Lexeme.sParadigmHash();
 
             List<string> listGramHashes = Helpers.m_listPropNamesVerbMainScreen;
             foreach (string sHash in listGramHashes)

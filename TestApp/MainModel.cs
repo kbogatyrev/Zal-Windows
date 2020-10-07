@@ -522,7 +522,7 @@ namespace ZalTestApp
 
             do
             {
-                if (!m_dctLexemes.ContainsKey(lexeme.sHash()))
+                if (!m_dctLexemes.ContainsKey(lexeme.sParadigmHash()))
                 {
                     eRet = lexeme.eGenerateParadigm();
                     if (eRet != EM_ReturnCode.H_NO_ERROR)
@@ -840,7 +840,7 @@ namespace ZalTestApp
                 return true;        // OK to show empty paradigm
             }
 
-            string sHash = lexeme.sHash();
+            string sHash = lexeme.sParadigmHash();
             m_dctLexemes[sHash] = dctParadigm;
             m_dctLexemeHashToLexeme[sHash] = lexeme;
 
@@ -950,7 +950,7 @@ namespace ZalTestApp
 
             }   //  while... 
 
-            string sHash = lexeme.sHash();
+            string sHash = lexeme.sParadigmHash();
             m_dctLexemes[sHash] = dctParadigm;
             m_dctLexemeHashToLexeme[sHash] = lexeme;
             m_dctFormComments[sHash] = comments;
@@ -1160,7 +1160,7 @@ namespace ZalTestApp
 
             } while (EM_ReturnCode.H_NO_ERROR == eRet);
 
-            string sHash = lexeme.sHash();
+            string sHash = lexeme.sParadigmHash();
             m_dctLexemes[sHash] = dctParadigm;
             m_dctLexemeHashToLexeme[sHash] = lexeme;
 //            m_FormComments[sHash] = comments;
@@ -1200,7 +1200,7 @@ namespace ZalTestApp
             var sKey = wf.sGramHash();
             dctParadigm[sKey] = new List<CWordFormManaged>();
             dctParadigm[sKey].Add(wf);
-            string sLexHash = lexeme.sHash();
+            string sLexHash = lexeme.sParadigmHash();
             m_dctLexemes[sLexHash] = dctParadigm;
             m_dctLexemeHashToLexeme[sLexHash] = lexeme;
 
@@ -1374,7 +1374,7 @@ namespace ZalTestApp
         private void HandleAccusatives(CLexemeManaged lexeme, EM_Subparadigm eSubparadigm)
         {
             Dictionary<string, List<CWordFormManaged>> dctParadigm;
-            if (!m_dctLexemes.TryGetValue(lexeme.sHash(), out dctParadigm))
+            if (!m_dctLexemes.TryGetValue(lexeme.sParadigmHash(), out dctParadigm))
             {
                 System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return;

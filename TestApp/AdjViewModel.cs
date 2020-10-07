@@ -173,7 +173,7 @@ namespace ZalTestApp
 
         EMark GetFormStatus(string sFormHash)
         {
-            string sLexemeHash = m_Lexeme.sHash();
+            string sLexemeHash = m_Lexeme.sParadigmHash();
             if (m_MainModel.bIsEdited(sLexemeHash, sFormHash))
             {
                 return EMark.IsEdited;
@@ -1090,7 +1090,7 @@ namespace ZalTestApp
 
         private void InitFormDictionary()
         {
-            string sLexemeHash = m_Lexeme.sHash();
+            string sLexemeHash = m_Lexeme.sParadigmHash();
 
             List<string> listGramHashes = null;
             GetGramHashes(ref listGramHashes);
@@ -1165,6 +1165,7 @@ namespace ZalTestApp
 
         public void ShowFormCommentImpl(Object obj)
         {
+            /*
             Comments wndComments = new Comments();
             wndComments.Owner = Application.Current.MainWindow;
             var sDisplayHash = obj as string;
@@ -1196,6 +1197,7 @@ namespace ZalTestApp
             }
 
             wndComments.ShowDialog();
+            */
 
             return;
         }
