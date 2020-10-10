@@ -559,6 +559,11 @@ namespace ZalTestApp
 
             string[] arrTokens = sHash.Split('_');
 
+            if (arrTokens.Length < 2)
+            {
+                return EM_ReturnCode.H_ERROR_INVALID_ARG;
+            }
+
             if (EM_Subparadigm.SUBPARADIGM_LONG_ADJ == eSubParadigm ||
                 EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ == eSubParadigm ||
                 EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT == eSubParadigm ||
@@ -566,9 +571,19 @@ namespace ZalTestApp
                 EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG == eSubParadigm ||
                 EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG == eSubParadigm)
             {
-                if (arrTokens.Length < 4)
+                if (arrTokens.Length < 3)
                 {
                     return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+
+                if (3 == arrTokens.Length)
+                {
+                    if (arrTokens[1] != "Pl")
+                    {
+                        return EM_ReturnCode.H_ERROR_INVALID_ARG;
+                    }
+                    eGender = EM_Gender.GENDER_UNDEFINED;
+                    return EM_ReturnCode.H_NO_ERROR;
                 }
 
                 sGender = arrTokens[1];
@@ -638,7 +653,24 @@ namespace ZalTestApp
                     {
                         return EM_ReturnCode.H_NO_ERROR;
                     }
-                    sNumber = arrTokens[2];
+
+                    if (3 == arrTokens.Length)
+                    {
+                        if (arrTokens[1] != "Pl")
+                        {
+                            return EM_ReturnCode.H_ERROR_INVALID_ARG;
+                        }
+
+                        sNumber = arrTokens[1];
+                    }
+                    else 
+                    { 
+                        if (arrTokens.Length != 4)
+                        {
+                            return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                        }
+                        sNumber = arrTokens[2];
+                    }
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_SHORT_ADJ:
@@ -721,11 +753,27 @@ namespace ZalTestApp
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
                     bAdjParadigm = true;
 
-                    if (arrTokens.Length < 4)
+                    if (arrTokens.Length < 3)
                     {
                         return EM_ReturnCode.H_NO_ERROR;
                     }
-                    sCase = arrTokens[3];
+                    if (3 == arrTokens.Length)
+                    {
+                        if (arrTokens[1] != "Pl")
+                        {
+                            return EM_ReturnCode.H_ERROR_INVALID_ARG;
+                        }
+                        sCase = arrTokens[2];
+                    }
+                    else
+                    {
+                        if (arrTokens.Length != 4)
+                        {
+                            return EM_ReturnCode.H_ERROR_INVALID_ARG;
+                        }
+                        sCase = arrTokens[3];
+                    }
+
                     break;
 
                 default:
