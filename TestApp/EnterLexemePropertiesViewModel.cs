@@ -94,8 +94,11 @@ namespace ZalTestApp
                 if (value != m_sSourceForm)
                 {
                     m_sSourceForm = value;
-                    m_Lexeme.eMakeGraphicStem();
-                    GraphicStem = m_Lexeme.sGraphicStem();
+                    if (!SourceFormIsIrregular)
+                    {
+                        m_Lexeme.eMakeGraphicStem();
+                        GraphicStem = m_Lexeme.sGraphicStem();
+                    }
                 }
                 OnPropertyChanged("SourceForm");
             }
@@ -119,8 +122,11 @@ namespace ZalTestApp
                     var sTmp = sNewSourceForm.Replace(@"\", "");
                     sTmp = sTmp.Replace("/", "");
                     string sGs = "";
-                    m_Lexeme.eMakeGraphicStem(sTmp, ref sGs);
-                    GraphicStem = sGs;
+                    if (!SourceFormIsIrregular)
+                    {
+                        m_Lexeme.eMakeGraphicStem(sTmp, ref sGs);
+                        GraphicStem = sGs;
+                    }
                 }
                 OnPropertyChanged("SourceFormWithAccents");
             }
@@ -1304,6 +1310,20 @@ namespace ZalTestApp
                     m_Lexeme.SetIsVariant(bValue);
                 }
                 return bRet;
+            });
+
+            m_ChangedPropertiesHandlers.Add("GraphicStem", () =>
+            {
+                if (null == m_sGraphicStem || m_sGraphicStem.Length < 1)
+                {
+                    MessageBox.Show("Unexpected value for GraphicStem property" + m_sGraphicStem, "Error");
+                    return false;
+                }
+                else
+                {
+                    m_Lexeme.SetGraphicStem(m_sGraphicStem);
+                    return true;
+                }
             });
 
             m_ChangedPropertiesHandlers.Add("MainSymbol", () =>
