@@ -276,11 +276,6 @@ namespace ZalTestApp
                 AddProperty("Индекс:", m_Lexeme.iType().ToString());
             }
 
-            if (m_Lexeme.bHasFleetingVowel())
-            {
-                AddSingleProperty("Беглая гласная");
-            }
-
             var eAp1 = m_Lexeme.eAccentType1();
             if (eAp1 != EM_AccentType.AT_UNDEFINED)
             {
@@ -367,6 +362,41 @@ namespace ZalTestApp
                 AddProperty("Фразеологизмы:", sSourceFormWithAccents);
             }
 
+            List<int> lCommonDeviations = new List<int>();
+            string sCommonDeviations = "";
+            for (int iCD = 1; iCD <= 9; ++iCD)
+            {
+                if (m_Lexeme.bHasCommonDeviation(iCD))
+                {
+                    if (sCommonDeviations.Length > 0)
+                    {
+                        sCommonDeviations += ", ";
+                    }
+                    sCommonDeviations += iCD.ToString();
+                    if (m_Lexeme.bDeviationOptional(iCD))
+                    {
+                        sCommonDeviations += " (вариант)";
+                    }
+                }
+            }
+
+            if (sCommonDeviations.Length > 0)
+            {
+                AddProperty("Отклонения: ", sCommonDeviations);
+            }
+
+            if (m_Lexeme.iSection() > 0)
+            {
+                AddProperty("Доп. особенности:", String.Format("§{0}", m_Lexeme.iSection()));
+            }
+
+            //            AddProperty("Графическая основа", m_Lexeme.sGraphicStem());
+
+            if (m_Lexeme.bHasFleetingVowel())
+            {
+                AddSingleProperty("Беглая гласная");
+            }
+
             if (m_Lexeme.bNoComparative())
             {
                 AddSingleProperty("Нет сравнительной степени");
@@ -421,36 +451,6 @@ namespace ZalTestApp
             {
                 AddSingleProperty("Чередование в основе");
             }
-
-            List<int> lCommonDeviations = new List<int>();
-            string sCommonDeviations = "";
-            for (int iCD = 1; iCD <= 9; ++iCD)
-            {
-                if (m_Lexeme.bHasCommonDeviation(iCD))
-                {
-                    if (sCommonDeviations.Length > 0)
-                    {
-                        sCommonDeviations += ", ";
-                    }
-                    sCommonDeviations += iCD.ToString();
-                    if (m_Lexeme.bDeviationOptional(iCD))
-                    {
-                        sCommonDeviations += " (вариант)";
-                    }
-                }
-            }
-
-            if (sCommonDeviations.Length > 0)
-            {
-                AddProperty("Отклонения: ", sCommonDeviations);
-            }
-
-            if (m_Lexeme.iSection() > 0)
-            {
-                AddProperty("Доп. особенности:", String.Format("§{0}", m_Lexeme.iSection()));
-            }
-
-//            AddProperty("Графическая основа", m_Lexeme.sGraphicStem());
 
             if (Lexeme.bAssumedForms())
             {
