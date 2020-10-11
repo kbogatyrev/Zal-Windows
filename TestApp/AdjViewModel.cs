@@ -158,11 +158,17 @@ namespace ZalTestApp
             }
 
             var formsForHash = m_DictFormStatus[sFormHash];
+            if (formsForHash.lstForms.Count < 1)
+            {
+                return "";
+            }
+
             int iAt = formsForHash.iCurrentForm;
             if (iAt < 0 || iAt >= formsForHash.lstForms.Count)
             {
-                MessageBox.Show("Internal error: Illegal form index.");
-                return "Error";
+                iAt = 0;
+//                MessageBox.Show("Internal error: Illegal form index.");
+//                return "Error";
             }
 
             return formsForHash.lstForms[iAt].StressedWordform;

@@ -111,11 +111,15 @@ namespace ZalTestApp
             }
 
             var formsForHash = m_DictFormStatus[sFormHash];
+            if (formsForHash.lstForms.Count < 1)
+            {
+                return "";
+            }
+
             int iAt = formsForHash.iCurrentForm;
             if (iAt < 0 || iAt >= formsForHash.lstForms.Count)
             {
-                MessageBox.Show("Internal error: Illegal form index.");
-                return "Error";
+                iAt = 0;
             }
 
             //  TODO: comment
@@ -128,6 +132,11 @@ namespace ZalTestApp
             string sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech());
             FormsForGramHash formsForHash = null;
             if (!m_DictFormStatus.TryGetValue(sFormHash, out formsForHash))
+            {
+                return EMark.None;
+            }
+
+            if (formsForHash.lstForms.Count < 1)
             {
                 return EMark.None;
             }
