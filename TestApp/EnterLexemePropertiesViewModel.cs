@@ -359,6 +359,7 @@ namespace ZalTestApp
                     m_sMainSymbol = value;
                     if (GraphicStemGenerated)
                     {
+                        m_Lexeme.SetMainSymbol(m_sMainSymbol);
                         m_Lexeme.eMakeGraphicStem();
                         GraphicStem = m_Lexeme.sGraphicStem();
                     }
@@ -380,6 +381,7 @@ namespace ZalTestApp
                 if (value != m_sInflectionType)
                 {
                     m_sInflectionType = value;
+                    m_Lexeme.SetInflectionType(m_sInflectionType);
                     if (GraphicStemGenerated)
                     {
                         m_Lexeme.eMakeGraphicStem();
@@ -1610,7 +1612,7 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("StressType2", () =>
             {
-                m_Lexeme.SetAccentType1(Helpers.eStringToAccentType(m_sStressType2));
+                m_Lexeme.SetAccentType2(Helpers.eStringToAccentType(m_sStressType2));
                 return true;
             });
 
