@@ -397,6 +397,16 @@ namespace ZalTestApp
                 AddSingleProperty("Беглая гласная");
             }
 
+            if (m_Lexeme.bHasYoAlternation())
+            {
+                AddSingleProperty("Чередование ё/е");
+            }
+
+            if (m_Lexeme.bHasOAlternation())
+            {
+                AddSingleProperty("Чередование о/е");
+            }
+
             if (m_Lexeme.bNoComparative())
             {
                 AddSingleProperty("Нет сравнительной степени");
