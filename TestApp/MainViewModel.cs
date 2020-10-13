@@ -900,9 +900,11 @@ namespace ZalTestApp
                     paradigmViewModel = vvm;
                     break;
                 case EM_PartOfSpeech.POS_ADV:
-                case EM_PartOfSpeech.POS_INTERJ:
-                case EM_PartOfSpeech.POS_PARTICLE:
                 case EM_PartOfSpeech.POS_CONJUNCTION:
+                case EM_PartOfSpeech.POS_COMPAR:
+                case EM_PartOfSpeech.POS_INTERJ:
+                case EM_PartOfSpeech.POS_PARENTH:
+                case EM_PartOfSpeech.POS_PARTICLE:
                 case EM_PartOfSpeech.POS_PREDIC:
                 case EM_PartOfSpeech.POS_PREPOSITION:
                 case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
