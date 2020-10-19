@@ -838,7 +838,7 @@ namespace ZalTestApp
             if (eRet != EM_ReturnCode.H_NO_MORE)
             {
 //                System.Windows.MessageBox.Show("Error generating noun forms.");
-                return true;        // OK to show empty paradigm
+//                return true;        // OK to show empty paradigm
             }
 
             string sHash = lexeme.sParadigmHash();

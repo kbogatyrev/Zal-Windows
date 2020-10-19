@@ -511,7 +511,7 @@ namespace ZalTestApp
                 ExportRegressionDataCommand = new RelayCommand(new Action<object>(ExportRegressionData));
 
                 m_bDbOpen = false;
-                m_bEditDbOpen = false;
+                m_bEditDbOpen = true;
 
 
                 m_MainModel = new MainModel();
@@ -644,9 +644,10 @@ namespace ZalTestApp
 
             EnterDataViewModel eddvm = (EnterDataViewModel)edd.DataContext;
             m_MainModel.SearchByInitialForm(eddvm.DataString);
+            
             if (m_MainModel.NLexemes < 1)
             {
-                return;
+//                return;
             }
 
             foreach (string sLexemeHash in m_MainModel)

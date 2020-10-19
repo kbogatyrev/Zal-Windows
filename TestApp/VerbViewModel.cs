@@ -274,7 +274,7 @@ namespace ZalTestApp
 
         public ECellStatus Infinitive_CellStatus
         {
-            get { return GetCellStatus("Noun_Sg_A"); }
+            get { return GetCellStatus("Infinitive"); }
         }
 
         #region Bindings_PresentTense

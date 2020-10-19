@@ -496,9 +496,12 @@ namespace ZalTestApp
                 case EM_Subparadigm.SUBPARADIGM_LONG_ADJ:
                 case EM_Subparadigm.SUBPARADIGM_NUM_ADJ:
                 case EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ:
+                case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
-                {
-                    EM_Gender eGender = EM_Gender.GENDER_UNDEFINED;
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
+                case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
+                    {
+                        EM_Gender eGender = EM_Gender.GENDER_UNDEFINED;
                     eRet = Helpers.eGramHashToGender(sGramHash, ref eGender);
                     if (EM_ReturnCode.H_NO_ERROR == eRet)
                     {
@@ -624,7 +627,7 @@ namespace ZalTestApp
                     eRet = m_Lexeme.eSaveIrregularForms(sFormHash);
                     if (eRet != EM_ReturnCode.H_NO_ERROR)
                     {
-                        MessageBox.Show("Internal error: failed to save forms for {0}.", entry.Key);
+                        MessageBox.Show(String.Format("Internal error: failed to save forms for {0}.", entry.Key));
                     }
                 }
             }
@@ -634,7 +637,7 @@ namespace ZalTestApp
                 FormsForGramHash formsPerHash = entry.Value;
                 if (formsPerHash.lstForms.Count < 1)
                 {
-                    MessageBox.Show("Internal error: no forms for {0}.", entry.Key);
+                    MessageBox.Show(String.Format("Internal error: no forms for {0}.", entry.Key));
                     continue;
                 }
 
