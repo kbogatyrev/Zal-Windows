@@ -282,6 +282,8 @@
                 <Button  Margin="620,718,0,0" CommandParameter="AdjS_Pl" Command="{Binding ShowFormComment}" Style="{StaticResource BtnComment}" Visibility="{Binding AdjS_Pl_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
             </Grid>
         </ScrollViewer>
+        <!--
         <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveFormsCommand}" Margin="5,424,0,0" Grid.Column="1" />
+        -->
     </Grid>
 </UserControl>

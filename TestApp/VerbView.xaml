@@ -184,6 +184,8 @@
                 <Button Content="Показать формы" Margin="400,1005,0,0" Command="{Binding ShowPastPassFormsCommand }" IsEnabled="{Binding Path=PPastPExists}" Style="{StaticResource BtnSmall}" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Grid>
         </ScrollViewer>
+<!--        
         <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveFormsCommand}"  Grid.Column="1" Margin="22,100,0,0" />
+-->        
     </Grid>
 </UserControl>

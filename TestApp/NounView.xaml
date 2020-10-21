@@ -140,6 +140,8 @@
                 <Button  Margin="564,295,0,0" CommandParameter="Noun_Pl_I" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Noun_Pl_I_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
             </Grid>
         </ScrollViewer>
+<!--        
         <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveFormsCommand}"  Grid.Column="1" Margin="0,200,40,250" />
+-->        
     </Grid>
 </UserControl>

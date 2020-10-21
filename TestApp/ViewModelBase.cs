@@ -124,7 +124,7 @@ namespace ZalTestApp
         {
             var sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech());
 
-            m_Lexeme.eRemoveWordForms(sFormHash);
+//            m_Lexeme.eRemoveWordForms(sFormHash);
 
             FormsForGramHash formsForHash = null; 
             if (m_DictFormStatus.TryGetValue(sDisplayHash, out formsForHash))
@@ -144,8 +144,28 @@ namespace ZalTestApp
             bool bIsVariant = false;
             if (0 == lstWordForms.Count)
             {
-//&&&&
+                var mbRetDel = MessageBox.Show("Восстановить регулярную форму?", "Отмена", MessageBoxButton.YesNo);
+                if (MessageBoxResult.Yes == mbRetDel)
+                {
+                    var eDel = m_Lexeme.eDeleteIrregularForm(sFormHash);
+                    if (eDel != EM_ReturnCode.H_NO_ERROR)
+                    {
+                        MessageBox.Show("Ошибки при удалении формы.");
+                    }
+                    OnPropertyChanged(sDisplayHash);
+                    OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
+                    return;
+                }
             }
+
+            var mbRetSave = MessageBox.Show("Сохранить нерегулярную форму?", "Сохранить?", MessageBoxButton.YesNo);
+            if (MessageBoxResult.No == mbRetSave)
+            {
+                OnPropertyChanged(sDisplayHash);
+                OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
+                return;
+            }
+
             foreach (var item in lstWordForms)
             {
                 var sForm = item.Trim();
@@ -172,6 +192,14 @@ namespace ZalTestApp
                 formsForHash.lstForms.Add(fd);
 
                 m_Lexeme.AddWordForm(ref wf);
+
+                var eRet = m_Lexeme.eSaveIrregularForms(sFormHash);
+                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                {
+                    MessageBox.Show(String.Format("Internal error: failed to save forms for {0}.", sFormHash));
+                    return;
+                }
+
                 OnPropertyChanged(sDisplayHash);
                 OnPropertyChanged(sDisplayHash+"_HasMultipleForms");
             }
@@ -637,7 +665,7 @@ namespace ZalTestApp
                 FormsForGramHash formsPerHash = entry.Value;
                 if (formsPerHash.lstForms.Count < 1)
                 {
-                    MessageBox.Show(String.Format("Internal error: no forms for {0}.", entry.Key));
+//                    MessageBox.Show(String.Format("Internal error: no forms for {0}.", entry.Key));
                     continue;
                 }
 
