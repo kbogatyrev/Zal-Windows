@@ -265,8 +265,8 @@
         <TextBox Text="НСВ → СВ черед." Margin="678,415,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <TextBox Text="{Binding Path=VerbStemAlternation}"  Margin="805,415,0,0" Style="{StaticResource FormText}" />
 
-        <Button Content="Cancel" Style="{DynamicResource BtnLarge}" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=LexemePropertiesWindow}"  HorizontalAlignment="Left" Margin="889,493,0,0" VerticalAlignment="Top" Width="75" />
-        <Button Content="OK" Style="{DynamicResource BtnLarge}" Command="{Binding OKCommand}" CommandParameter="{Binding ElementName=LexemePropertiesWindow}" IsEnabled="{Binding Path=PropertiesChanged}" HorizontalAlignment="Left" Margin="806,493,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Отмена" Style="{DynamicResource BtnLarge}" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=LexemePropertiesWindow}"  HorizontalAlignment="Left" Margin="865,493,0,0" VerticalAlignment="Top" Width="100" />
+        <Button Content="Сохранить" Style="{DynamicResource BtnLarge}" Command="{Binding OKCommand}" CommandParameter="{Binding ElementName=LexemePropertiesWindow}" IsEnabled="{Binding Path=PropertiesChanged}" HorizontalAlignment="Left" Margin="758,493,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
     <!--
     <Window.DataContext>
