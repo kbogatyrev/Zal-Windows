@@ -8,12 +8,12 @@
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="857*"/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0" Grid.Column="0">
-            <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0" Grid.Column="0" Grid.ColumnSpan="1" >
+            <Grid Margin="100,0,0,0"  Width="800" Height="Auto">
                 <!-- Masculine -->
                 <!-- Singular -->
                 <TextBox Text="M Sg" Margin="110,20,0,0" Style="{StaticResource FormLabelWide}" />
@@ -108,7 +108,7 @@
 
                 <Button Margin="438,344,0,0" CommandParameter="AdjL_F_Sg_I" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjL_F_Sg_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Button Margin="438,352,0,0" CommandParameter="AdjL_F_Sg_I" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjL_F_Sg_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
-                
+
                 <!-- Triangle image -->
                 <Image HorizontalAlignment="Left" Margin="453,77,0,0" VerticalAlignment="Top" Style="{Binding AdjL_F_Sg_N_Marks, Converter={StaticResource StyleConverterMarks}}" />
                 <Image HorizontalAlignment="Left" Margin="453,122,0,0" VerticalAlignment="Top" Style="{Binding AdjL_F_Sg_A_Marks, Converter={StaticResource StyleConverterMarks}}" />

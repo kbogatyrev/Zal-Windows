@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:ZalTestApp"
         mc:Ignorable="d">
 
-    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,50,0,0" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="0" Margin="0" Grid.ColumnSpan="1"  >
-            <Grid Width="650" Height="465">
+            <Grid Width="650" Height="Auto">
                 <TextBox Text="Sg" Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
                 <TextBox Text="Pl" Margin="438,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
 

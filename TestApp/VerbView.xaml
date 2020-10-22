@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:ZalTestApp"
              mc:Ignorable="d" >
     
-    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="100,0,0,0" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="1*" /> 
+            <ColumnDefinition Width="0*" /> 
         </Grid.ColumnDefinitions>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="0" Margin="0" Grid.ColumnSpan="1"  >
