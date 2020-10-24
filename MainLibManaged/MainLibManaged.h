@@ -400,7 +400,7 @@ namespace MainLibManaged
         Hlib::IParser * m_pParser;
 
     public:
-        CParserManaged(IParser *);
+        CParserManaged(shared_ptr<IParser>);
         ~CParserManaged();
 
         EM_ReturnCode eParseWord(String^ sWord);
