@@ -224,7 +224,7 @@ namespace ZalTestApp
             //    return;
             //}
 
-            m_Dictionary.eGetVerifier(ref m_Verifier);
+//            m_Dictionary.eGetVerifier(ref m_Verifier);
             //            m_Dictionary.eGetParser(ref m_Parser);
 
             m_dctLexemes = new Dictionary<string, Dictionary<string, List<CWordFormManaged>>>();
@@ -478,6 +478,12 @@ namespace ZalTestApp
                 System.Windows.MessageBox.Show("Analytics module was not initialized.");
             }
 
+            m_Dictionary.eGetVerifier(ref m_Verifier);
+            if (null == m_Verifier)
+            {
+                System.Windows.MessageBox.Show("Verifier module was not initialized.");
+            }
+
             return eRet;
         }
 
@@ -636,14 +642,20 @@ namespace ZalTestApp
         #region Regression
         public bool GetStoredLexemeData()
         {
-            EM_ReturnCode eRet = m_Dictionary.eGetVerifier(ref m_Verifier);
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
+//            EM_ReturnCode eRet = m_Dictionary.eGetVerifier(ref m_Verifier);
+//            if (eRet != EM_ReturnCode.H_NO_ERROR)
+//            {
+//                System.Windows.MessageBox.Show("Unable to load Verifier.");
+//                return false;
+//            }
+
+            if (null == m_Verifier)
             {
-                System.Windows.MessageBox.Show("Unable to load Verifier.");
+                System.Windows.MessageBox.Show("Unable to acquire verifier.", "Zal Test");
                 return false;
             }
 
-            eRet = m_Verifier.eLoadStoredLexemes();
+            var eRet = m_Verifier.eLoadStoredLexemes();
             if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
                 System.Windows.MessageBox.Show("Unable to load stored data.");

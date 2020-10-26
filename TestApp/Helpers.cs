@@ -598,6 +598,15 @@ namespace ZalTestApp
                 sGender = arrTokens[1];
             }
 
+            if (EM_Subparadigm.SUBPARADIGM_PAST_TENSE == eSubParadigm)
+            {
+                if (arrTokens.Length < 2)
+                {
+                    return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                }
+                sGender = arrTokens[1];
+            }
+
             switch (sGender)
             {
                 case "M":
@@ -1401,5 +1410,48 @@ namespace ZalTestApp
             return stripped.ToString();
         }
 
+        public static EM_ReturnCode eCommonDeviationNumToSymbol(int iDeviation, ref char cSymbol)
+        {
+            var eRet = EM_ReturnCode.H_NO_ERROR;
+
+            switch (iDeviation)
+            {
+                case 1:
+                    cSymbol = '①';
+                    break;
+                case 2:
+                    cSymbol = '②';
+                    break;
+                case 3:
+                    cSymbol = '③';
+                    break;
+                case 4:
+                    cSymbol = '④';
+                    break;
+                case 5:
+                    cSymbol = '⑤';
+                    break;
+                case 6:
+                    cSymbol = '⑥';
+                    break;
+                case 7:
+                    cSymbol = '⑦';
+                    break;
+                case 8:
+                    cSymbol = '⑧';
+                    break;
+                case 9:
+                    cSymbol = '⑨';
+                    break;
+
+                default:
+                    eRet = EM_ReturnCode.H_ERROR_INVALID_ARG;
+                    break;
+            }
+
+            return eRet;
+        }
     }       //  public static class HelpersC:\git-repos\Zal-Windows\TestApp\packages.config
+
+
 }       //  namespace ZalTestApp

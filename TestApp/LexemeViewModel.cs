@@ -349,6 +349,12 @@ namespace ZalTestApp
                 AddProperty("См. также:", m_Lexeme.sSeeRef());
             }
 
+            if (m_Lexeme.iStemAugment() > 0)
+            {
+                string sSmallCircleType = m_Lexeme.iType().ToString() + 'ᵒ';
+                AddProperty("Чередование в основе: ", sSmallCircleType);
+            }
+
             if (m_Lexeme.sTrailingComment().Length > 0)
             {
                 AddProperty("Доп. помета (3):", m_Lexeme.sTrailingComment());
@@ -372,7 +378,18 @@ namespace ZalTestApp
                     {
                         sCommonDeviations += ", ";
                     }
-                    sCommonDeviations += iCD.ToString();
+
+                    char chrSymbol = ' ';
+                    eRet = Helpers.eCommonDeviationNumToSymbol(iCD, ref chrSymbol);
+                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    {
+                        MessageBox.Show("Unknown common deviation #", "Zal Error");
+                    }
+                    else
+                    {
+                        //                        sCommonDeviations += iCD.ToString();
+                        sCommonDeviations += chrSymbol;
+                    }
                     if (m_Lexeme.bDeviationOptional(iCD))
                     {
                         sCommonDeviations += " (вариант)";
@@ -455,11 +472,6 @@ namespace ZalTestApp
             if (m_Lexeme.bNoPassivePastParticiple())
             {
                 AddSingleProperty("Нет прич. прош. страд.");
-            }
-
-            if (m_Lexeme.iStemAugment() > 0)
-            {
-                AddSingleProperty("Чередование в основе");
             }
 
             if (Lexeme.bAssumedForms())
