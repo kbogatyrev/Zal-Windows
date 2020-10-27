@@ -101,6 +101,7 @@ namespace ZalTestApp
                     }
                 }
                 OnPropertyChanged("SourceForm");
+                OnPropertyChanged("GraphicStem");
             }
         }
 
@@ -221,6 +222,7 @@ namespace ZalTestApp
                     m_sPluralOf = value;
                 }
                 OnPropertyChanged("PluralOf");
+                GraphicStem = m_Lexeme.sGraphicStem();
             }
         }
 
@@ -405,8 +407,10 @@ namespace ZalTestApp
                 if (value != m_sIndex)
                 {
                     m_sIndex = value;
+                    GraphicStem = m_Lexeme.sGraphicStem();
                 }
                 OnPropertyChanged("Index");
+                OnPropertyChanged("GraphicStem");
             }
         }
 

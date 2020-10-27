@@ -760,14 +760,14 @@ namespace ZalTestApp
 
         void NewLexeme(object obj)
         {
-            CLexemeManaged l = null;
-            var bRet = m_MainModel.bCreateLexeme(ref l);
-            if (null == l || !bRet)
+            CLexemeManaged lexeme = null;
+            var bRet = m_MainModel.bCreateLexeme(ref lexeme);
+            if (null == lexeme || !bRet)
             {
                 return;
             }
 
-            EnterLexemePropertiesViewModel elpModel = new EnterLexemePropertiesViewModel(l, true);
+            EnterLexemePropertiesViewModel elpModel = new EnterLexemePropertiesViewModel(lexeme, true);
             EnterLexemePropertiesDlg dlg = new EnterLexemePropertiesDlg(elpModel);
             dlg.Owner = Application.Current.MainWindow;
 
@@ -777,15 +777,17 @@ namespace ZalTestApp
                 return;
             }
 
-//            bRet = m_MainModel.bSaveLexeme(l);
-//            if (bRet)
-//            {
-//                MessageBox.Show("Лексема сохранена.");
-//            }
-//            else
-//            {
-//                MessageBox.Show("Не удалось сохранить лексему.");
-//            }
+            //            bRet = m_MainModel.bSaveLexeme(l);
+            //            if (bRet)
+            //            {
+            //                MessageBox.Show("Лексема сохранена.");
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("Не удалось сохранить лексему.");
+            //            }
+
+            bRet = bSaveLexeme(elpModel, lexeme);
         }
 
         void EditLexeme(object obj)
@@ -809,6 +811,8 @@ namespace ZalTestApp
                 return;
             }
 
+            bRet = bSaveLexeme(elpModel, editLexeme);
+/*
             if (elpModel.HeadwordChanged)
             {
                 bRet = m_MainModel.bSaveHeadword(editLexeme);
@@ -872,8 +876,76 @@ namespace ZalTestApp
 //            {
 //                MessageBox.Show("Не удалось сохранить лексему.");
 //            }
-
+*/
         }       //  EditLexeme()
+
+        bool bSaveLexeme(EnterLexemePropertiesViewModel elpModel, CLexemeManaged lexeme)
+        {
+            bool bRet = true;
+
+            if (elpModel.HeadwordChanged)
+            {
+                bRet = m_MainModel.bSaveHeadword(lexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить заглавную форму.");
+                    return false;
+                }
+            }
+
+            if (elpModel.AspectPairChanged)
+            {
+                bRet = m_MainModel.bSaveAspectPairInfo(lexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить информацию о видовой паре.");
+                    return false;
+                }
+            }
+
+            if (elpModel.P2Changed)
+            {
+                bRet = m_MainModel.bSaveP2Info(lexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить информацию о втором предложном.");
+                    return false;
+                }
+            }
+
+            if (elpModel.CommonDeviationChanged)
+            {
+                bRet = m_MainModel.bSaveCommonDeviation(lexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить информацию о стандартных отклонениях.");
+                    return false;
+                }
+            }
+
+            if (elpModel.InflectionGroupChanged)
+            {
+                bRet = m_MainModel.bSaveInflectionInfo(lexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить лексему.");
+                    return false;
+                }
+            }
+
+            if (elpModel.DescriptorChanged)
+            {
+                bRet = m_MainModel.bSaveDescriptorInfo(lexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить лексему.");
+                    return false;
+                }
+            }
+
+            return true;
+        
+        }       // bSaveLexeme()
 
         void ShowParadigm(CLexemeManaged lexeme)
         {
