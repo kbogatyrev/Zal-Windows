@@ -395,6 +395,24 @@ namespace ZalTestApp
             }
         }
 
+        private string m_sIsTransitive;
+        public string IsTransitive
+        {
+            get
+            {
+                return m_sIsTransitive;
+            }
+
+            set
+            {
+                if (value != m_sIsTransitive)
+                {
+                    m_sIsTransitive = value;
+                }
+                OnPropertyChanged("IsTransitive");
+            }
+        }
+
         private string m_sIndex;
         public string Index
         {
@@ -1342,15 +1360,15 @@ namespace ZalTestApp
                 return true;
             });
 
-            m_ChangedPropertiesHandlers.Add("Transitive", () =>
+            m_ChangedPropertiesHandlers.Add("IsTransitive", () =>
             {
-                //                bRet = bGetYesNoValue("Transitive", m_sTransitive, ref bValue);
-                //                if (bRet)
-                //                {
-                //                    m_Lexeme.SetTransitive(bValue);
-                //                }
-                //                return bRet;
-                return true;
+                bool bValue = false;
+                bool bRet = bGetYesNoValue("Transitive", m_sIsTransitive, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetTransitive(bValue);
+                }
+                return bRet;
             });
 
 
@@ -2020,6 +2038,7 @@ namespace ZalTestApp
             InflectionType = m_Lexeme.sInflectionType();
 
             Index = m_Lexeme.iType().ToString();
+            IsTransitive = m_Lexeme.bTransitive() ? m_YesNoValues[0] : m_YesNoValues[1];
             StressType1 = Helpers.sAccenTypeToStressSchema(m_Lexeme.eAccentType1());
             if (m_Lexeme.eAccentType2() != EM_AccentType.AT_UNDEFINED)
             {

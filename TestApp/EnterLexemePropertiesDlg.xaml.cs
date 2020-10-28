@@ -16,21 +16,21 @@ namespace ZalTestApp
             this.DataContext = clvm;
         }
 
-/*
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-            this.Close();
-        }
+        /*
+                private void BtnCancel_Click(object sender, RoutedEventArgs e)
+                {
+                    DialogResult = false;
+                    this.Close();
+                }
 
-        private void BtnOK_Click(object sender, RoutedEventArgs e)
-        {
+                private void BtnOK_Click(object sender, RoutedEventArgs e)
+                {
 
-            var model = (EnterLexemePropertiesViewModel)this.DataContext;
+                    var model = (EnterLexemePropertiesViewModel)this.DataContext;
 
-            DialogResult = true;
-            this.Close();
-        }
-*/
+                    DialogResult = true;
+                    this.Close();
+                }
+        */
     }
 }

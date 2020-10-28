@@ -344,6 +344,19 @@ namespace ZalTestApp
                 return false;
             }
 
+            if (l.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB && l.eIsReflexive() == EM_Reflexive.REFL_UNDEFINED)
+            {
+                if (l.sSourceForm().EndsWith("ся") || l.sSourceForm().EndsWith("сь"))
+                {
+                    l.SetIsReflexive(EM_Reflexive.REFL_YES);
+                }
+                else
+                {
+                    l.SetIsReflexive(EM_Reflexive.REFL_NO);
+                }
+            }
+
+
             var eRet = l.eMakeGraphicStem();
             if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
