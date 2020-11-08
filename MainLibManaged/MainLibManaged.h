@@ -120,6 +120,7 @@ namespace MainLibManaged
 //        const StLexemeProperties& stGetProperties();
 //        StLexemeProperties& stGetPropertiesForWriteAccess();
         __int64 llLexemeId();
+        __int64 llHeadwordId();
         EM_Gender eGender();
 //        EM_Animacy eAnimacy();
         String^ sGraphicStem();
