@@ -89,8 +89,8 @@
 
                 <!-- Forms -->
                 <TextBox Name ="Past_M" Text="{Binding Past_M}" Margin="65,405,0,0" Style="{Binding Past_M_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
-                <TextBox Name ="Past_F" Text="{Binding Past_F}" Margin="65,450,0,0" Style="{Binding Past_M_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
-                <TextBox Name ="Past_N" Text="{Binding Past_N}" Margin="65,495,0,0" Style="{Binding Past_M_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Past_F" Text="{Binding Past_F}" Margin="65,450,0,0" Style="{Binding Past_F_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Past_N" Text="{Binding Past_N}" Margin="65,495,0,0" Style="{Binding Past_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
 
                 <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
                 <Button Margin="212,409,0,0" CommandParameter="Past_M" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Past_M_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
