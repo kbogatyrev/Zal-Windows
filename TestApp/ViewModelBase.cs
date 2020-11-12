@@ -122,6 +122,18 @@ namespace ZalTestApp
 
         public void SetForm(string sDisplayHash, string sCellContents)
         {
+            string sMsgSave = "Сохранить нерегулярную форму?";
+            string sMsgRestore = "Восстановить регулярную форму?";
+            var mbRetSave = MessageBox.Show(String.Format("{0}", (sCellContents.Length > 0) ? sMsgSave : sMsgRestore), 
+                "", MessageBoxButton.YesNo);
+            if (MessageBoxResult.No == mbRetSave)
+            {
+                OnPropertyChanged(sDisplayHash);
+                OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
+
+                return;
+            }
+
             var sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech());
 
 //            m_Lexeme.eRemoveWordForms(sFormHash);
@@ -144,9 +156,9 @@ namespace ZalTestApp
             bool bIsVariant = false;
             if (0 == lstWordForms.Count)
             {
-                var mbRetDel = MessageBox.Show("Восстановить регулярную форму?", "Отмена", MessageBoxButton.YesNo);
-                if (MessageBoxResult.Yes == mbRetDel)
-                {
+//                var mbRetDel = MessageBox.Show("Восстановить регулярную форму?", "Отмена", MessageBoxButton.YesNo);
+//                if (MessageBoxResult.Yes == mbRetDel)
+//                {
                     var eDel = m_Lexeme.eDeleteIrregularForm(sFormHash);
                     if (eDel != EM_ReturnCode.H_NO_ERROR)
                     {
@@ -155,15 +167,7 @@ namespace ZalTestApp
                     OnPropertyChanged(sDisplayHash);
                     OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
                     return;
-                }
-            }
-
-            var mbRetSave = MessageBox.Show("Сохранить нерегулярную форму?", "Сохранить?", MessageBoxButton.YesNo);
-            if (MessageBoxResult.No == mbRetSave)
-            {
-                OnPropertyChanged(sDisplayHash);
-                OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
-                return;
+//                }
             }
 
             foreach (var item in lstWordForms)
