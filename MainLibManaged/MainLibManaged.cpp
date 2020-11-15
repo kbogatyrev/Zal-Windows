@@ -2712,6 +2712,16 @@ bool CLexemeManaged::bDeviationOptional(int iCd)
     return m_pLexeme->bDeviationOptional(iCd);
 }
 
+bool CLexemeManaged::bSpryazhSm()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return m_pLexeme->bSpryazhSm();
+}
+
 EM_ReturnCode CLexemeManaged::eFormExists(String^ sGramHash)
 {
     if (NULL == m_pLexeme)

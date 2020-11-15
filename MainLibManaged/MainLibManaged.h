@@ -260,6 +260,7 @@ namespace MainLibManaged
         void SetInflectedParts(int);
         bool bIsSecondPart();
         void SetSecondPart(bool);
+        bool bSpryazhSm();
 
         EM_ReturnCode eAddCommonDeviation(int iValue, bool bIsOptional);
         bool bFindCommonDeviation(int iNum, bool% bIsOptional);
