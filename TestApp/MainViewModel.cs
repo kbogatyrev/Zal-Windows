@@ -794,6 +794,12 @@ namespace ZalTestApp
         void EditLexeme(object obj)
         {
             CLexemeManaged sourceLexeme = (CLexemeManaged)obj;
+            if (sourceLexeme.bSpryazhSm())
+            {
+                MessageBox.Show("Глаголы с пометой \"спряж. см.\" нельзя редактировать.");
+                return;
+            }
+
             CLexemeManaged editLexeme = null;
             bool bRet = m_MainModel.bEditLexeme(sourceLexeme, ref editLexeme);
             if (!bRet)

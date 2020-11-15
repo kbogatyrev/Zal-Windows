@@ -122,6 +122,14 @@ namespace ZalTestApp
 
         public void SetForm(string sDisplayHash, string sCellContents)
         {
+            if (m_Lexeme.bSpryazhSm())
+            {
+                MessageBox.Show("Глаголы с пометой \"спряж. см.\" нельзя редактировать.");
+                OnPropertyChanged(sDisplayHash);
+                OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
+                return;
+            }
+
             string sMsgSave = "Сохранить нерегулярную форму?";
             string sMsgRestore = "Восстановить регулярную форму?";
             var mbRetSave = MessageBox.Show(String.Format("{0}", (sCellContents.Length > 0) ? sMsgSave : sMsgRestore), 
@@ -130,7 +138,6 @@ namespace ZalTestApp
             {
                 OnPropertyChanged(sDisplayHash);
                 OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
-
                 return;
             }
 
