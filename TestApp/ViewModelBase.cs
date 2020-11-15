@@ -130,25 +130,12 @@ namespace ZalTestApp
                 return;
             }
 
-            string sMsgSave = "Сохранить нерегулярную форму?";
-            string sMsgRestore = "Восстановить регулярную форму?";
-            var mbRetSave = MessageBox.Show(String.Format("{0}", (sCellContents.Length > 0) ? sMsgSave : sMsgRestore), 
-                "", MessageBoxButton.YesNo);
-            if (MessageBoxResult.No == mbRetSave)
-            {
-                OnPropertyChanged(sDisplayHash);
-                OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
-                return;
-            }
-
             var sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech());
-
-//            m_Lexeme.eRemoveWordForms(sFormHash);
 
             FormsForGramHash formsForHash = null; 
             if (m_DictFormStatus.TryGetValue(sDisplayHash, out formsForHash))
             {
-                formsForHash.lstForms.Clear();
+//                formsForHash.lstForms.Clear();
             }
             else
             {
@@ -156,6 +143,28 @@ namespace ZalTestApp
                 formsForHash.iCurrentForm = 0;
                 m_DictFormStatus[sDisplayHash] = formsForHash;
             }
+
+            string sOldForms = "";
+            foreach (var form in formsForHash.lstForms)
+            {
+                if (sOldForms.Length > 0)
+                {
+                    sOldForms += "; ";
+                }
+
+                string sForm = form.StressedWordform;
+                Helpers.RestoreInlineStressMarks(ref sForm);
+                sOldForms += sForm;
+            }
+
+            if (sCellContents == sOldForms)
+            {
+                OnPropertyChanged(sDisplayHash);
+                OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
+                return;
+            }
+
+            formsForHash.lstForms.Clear();
 
             char[] arrSeparators = { ';' };
             List<string> lstWordForms = new List<string>(sCellContents.Split(arrSeparators, StringSplitOptions.RemoveEmptyEntries));
@@ -176,6 +185,24 @@ namespace ZalTestApp
                     return;
 //                }
             }
+
+            string sMsgSave = "Сохранить нерегулярную форму?";
+            string sMsgRestore = "Восстановить регулярную форму?";
+            var mbRetSave = MessageBox.Show(String.Format("{0}", (sCellContents.Length > 0) ? sMsgSave : sMsgRestore),
+                "", MessageBoxButton.YesNo);
+            if (MessageBoxResult.No == mbRetSave)
+            {
+                OnPropertyChanged(sDisplayHash);
+                OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
+                return;
+            }
+
+            var eRet = m_Lexeme.eRemoveWordForms(sFormHash);
+            //                if (eRet != EM_ReturnCode.H_NO_ERROR)
+            //                {
+            //                    MessageBox.Show(String.Format("Internal error: failed to remove forms for {0}.", sFormHash));
+            //                    return;
+            //                }
 
             foreach (var item in lstWordForms)
             {
@@ -204,7 +231,7 @@ namespace ZalTestApp
 
                 m_Lexeme.AddWordForm(ref wf);
 
-                var eRet = m_Lexeme.eSaveIrregularForms(sFormHash);
+                eRet = m_Lexeme.eSaveIrregularForms(sFormHash);
                 if (eRet != EM_ReturnCode.H_NO_ERROR)
                 {
                     MessageBox.Show(String.Format("Internal error: failed to save forms for {0}.", sFormHash));

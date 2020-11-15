@@ -25,7 +25,7 @@ namespace ZalTestApp
                                           "TrailingComment", "VerbStemAlternation", "PartPastPassZhd", "Section", "NoComparative", "AssumedForms" };
         string[] InflectionProperties = { "Index", "StressType1", "StressType2", "SmallCircle", "FleetingVowel", "XSymbol", "FramedXSymbol", "IsPrimaryInflectionGroup" };
         string[] CommonDeviationProperties = { "NumberInCircle" };
-        string[] AspectPairProperties = { "AspectPairType", "AspectPairData", "AltAspectPairComment" };
+        string[] AspectPairProperties = { "SvToNsv", "NsvToSv", "AltAspectPairComment" };
         string[] Gen2Properties = { "Gen2", "SecondGenitive" };
         string[] P2Properties = { "P2", "P2Preposition" };
 
@@ -687,23 +687,43 @@ namespace ZalTestApp
             }
         }
 
-        private int m_iAspectPairType;
-        public int AspectPairType
+        private string m_sSvToNsv;
+        public string SvToNsv
         {
             get
             {
-                return m_iAspectPairType;
+                return m_sSvToNsv;
             }
             set
             {
-                if (value != m_iAspectPairType)
+
+                if (value != m_sSvToNsv)
                 {
-                    m_iAspectPairType = value;
+                    m_sSvToNsv = value;
                 }
-                OnPropertyChanged("AspectPairType");
+                OnPropertyChanged("SvToNsv");
             }
         }
 
+        private string m_sNsvToSv;
+        public string NsvToSv
+        {
+            get
+            {
+                return m_sNsvToSv;
+            }
+            set
+            {
+
+                if (value != m_sNsvToSv)
+                {
+                    m_sNsvToSv = value;
+                }
+                OnPropertyChanged("NsvToSv");
+            }
+        }
+
+/*
         private string m_sAspectPairData;
         public string AspectPairData
         {
@@ -720,6 +740,7 @@ namespace ZalTestApp
                 OnPropertyChanged("AspectPairData");
             }
         }
+*/
 
         private string m_sAltAspectPairComment;
         public string AltAspectPairComment
@@ -1500,48 +1521,57 @@ namespace ZalTestApp
                 return bRet;
             });
 
-            m_ChangedPropertiesHandlers.Add("AspectPairType", () =>
+            m_ChangedPropertiesHandlers.Add("SvToNsv", () =>
             {
-                if (m_iAspectPairType < 1 || m_iAspectPairType > 18)
+                int iType = -999;
+                string sSvToNsvData;
+                var eRet = Helpers.eSvToNsvSymbolToNumber(m_sSvToNsv, out iType, out sSvToNsvData);
+                if (eRet != EM_ReturnCode.H_NO_ERROR)
                 {
-                    MessageBox.Show("Unexpected value for m_iAspectPairType property" + m_iAspectPairType, "Error");
+                    MessageBox.Show("Unable to parse aspect pair value: " + sSvToNsvData, "Error");
                     return false;
                 }
 
-                m_Lexeme.SetAltAspectPairType(m_iAspectPairType);
-                return true;
-            });
-
-            m_ChangedPropertiesHandlers.Add("AspectPairData", () =>
-            {
-                if (null == m_sAspectPairData)
+                m_Lexeme.SetAspectPairType(iType);
+                if (sSvToNsvData.Length > 0)
                 {
-                    return true;
+                    m_Lexeme.SetAspectPairData(sSvToNsvData);
                 }
-                m_Lexeme.SetAspectPairData(m_sAspectPairData);
                 return true;
             });
 
-            m_ChangedPropertiesHandlers.Add("AltAspectPairComment", () =>
+            m_ChangedPropertiesHandlers.Add("NsvToSv", () =>
             {
-                if (null == m_sAltAspectPairComment)
-                {
-                    return true;
+                int iNsvToSv = -1;
+                string sNsvToSvData;
+                var eRet = Helpers.eNsvToSvSymbolToNumber(m_sNsvToSv, out iNsvToSv, out sNsvToSvData);
+                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                { 
+                    MessageBox.Show("Unexpected value for NsvToSv " + m_sNsvToSv, "Error");
+                    return false;
                 }
-                m_Lexeme.SetAltAspectPairComment(m_sAltAspectPairComment);
+
+                m_Lexeme.SetAspectPairType(iNsvToSv);
+                if (sNsvToSvData.Length > 0)
+                {
+                    m_Lexeme.SetAspectPairData(sNsvToSvData);
+                }
                 return true;
             });
 
-            //m_ChangedPropertiesHandlers.Add("QuestionableForms", () =>
-            //{
-            //    if (null == m_sQuestionableForms)
-            //    {
-            //        return true;
-            //    }
-            //    m_Lexeme.SetQuestionableForms(m_sQuestionableForms);
-            //    return true;
-            //});
+            
+/*
 
+                                    m_ChangedPropertiesHandlers.Add("AltAspectPairComment", () =>
+                                    {
+                                        if (null == m_sAltAspectPairComment)
+                                        {
+                                            return true;
+                                        }
+                                        m_Lexeme.SetAltAspectPairComment(m_sAltAspectPairComment);
+                                        return true;
+                                    });
+                        */
             m_ChangedPropertiesHandlers.Add("HasIrregularForms", () =>
             {
                 bool bValue = false;
@@ -2089,34 +2119,9 @@ namespace ZalTestApp
             IsUnstressed = m_Lexeme.bIsUnstressed() ? m_YesNoValues[0] : m_YesNoValues[1];
             IsVariant = m_Lexeme.bIsVariant() ? m_YesNoValues[0] : m_YesNoValues[1];
 
-            //            m_bTransitive = &&&&
-
-            //    virtual void SetIsReflexive(ET_Reflexive eValue)
-            //    virtual void SetMainSymbolPluralOf(const CEString& sValue)
-
             m_sGraphicStem = m_Lexeme.sGraphicStem();
 
             m_sAltMainSymbol = m_Lexeme.sAltMainSymbol();
-
-
-
-            //                virtual void SetAspect(ET_Aspect eValue)
-            //    virtual void SetPartOfSpeech(ET_PartOfSpeech eValue)
-            //    virtual void SetComment(const CEString& sValue)
-            //    virtual void SetAltMainSymbolComment(const CEString& sValue)
-            //    virtual void SetAltInflectionComment(const CEString& sValue)
-            /*
-                                case "Index":
-                                    {
-                                        int iType = 0;
-                                        if (Int32.TryParse(m_sIndex, out iType))
-                                        {
-                                            m_Lexeme.SetType(iType);
-                                        }
-                                        break;
-                                    }
-            */
-
             PartPastPassZhd = m_Lexeme.bPartPastPassZhd() ? m_YesNoValues[0] : m_YesNoValues[1];
             Section = m_Lexeme.iSection();
             NoComparative = m_Lexeme.bNoComparative() ? m_YesNoValues[0] : m_YesNoValues[1];
@@ -2126,13 +2131,45 @@ namespace ZalTestApp
             SecondPrepositionalOptional = m_Lexeme.bSecondPrepositionalOptional() ? m_YesNoValues[0] : m_YesNoValues[1];
             P2Preposition = m_Lexeme.sP2Preposition();
             HasAspectPair = m_Lexeme.bHasAspectPair() ? m_YesNoValues[0] : m_YesNoValues[1];
-            AspectPairType = m_Lexeme.iAspectPairType();
-            AspectPairData = m_Lexeme.sAspectPairData();
+
+            m_sSvToNsv = "";
+            m_sNsvToSv = "";
+            if (m_Lexeme.bHasAspectPair())
+            {
+                if (m_Lexeme.iAspectPairType() < 0)
+                {
+                    eRet = Helpers.eSvToNsvNumberToSymbol(m_Lexeme.iAspectPairType(), out m_sSvToNsv);
+                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    {
+                        MessageBox.Show(String.Format("Unable to parse aspect pair type, input: {0}", m_Lexeme.iAspectPairType()), "Error");
+                    }
+                }
+                else
+                {
+                    if (m_Lexeme.iAspectPairType() > 0)
+                    {
+                        m_sNsvToSv = m_Lexeme.iAspectPairType().ToString();
+                    }
+                }
+
+                if (m_Lexeme.sAspectPairData().Length > 0)
+                {
+                    bool bUseParenths = (m_Lexeme.iAspectPairType() > 0) ? m_sNsvToSv.Length > 0 : m_sSvToNsv.Length > 0;
+                    ref var sAspectPairInfo = ref ((m_Lexeme.iAspectPairType() > 0) ? ref m_sNsvToSv : ref m_sSvToNsv);
+                    if (bUseParenths)
+                    {
+                        sAspectPairInfo += " (";
+                    }
+                    sAspectPairInfo += m_Lexeme.sAspectPairData();
+                    if (bUseParenths)
+                    {
+                        sAspectPairInfo += ")";
+                    }
+                }
+            }
             AltAspectPairComment = m_Lexeme.sAltAspectPairComment();
-//            QuestionableForms = m_Lexeme.sQuestionableForms();
             HasIrregularForms = m_Lexeme.bHasIrregularForms() ? m_YesNoValues[0] : m_YesNoValues[1];
             HasIrregularVariants = m_Lexeme.bHasIrregularVariants() ? m_YesNoValues[0] : m_YesNoValues[1];
-//            HasDeficiencies = m_Lexeme.bHasDeficiencies() ? m_YesNoValues[0] : m_YesNoValues[1];
             RestrictedContexts = m_Lexeme.sRestrictedForms();
             Contexts = m_Lexeme.sContexts();
             //            Cognates 

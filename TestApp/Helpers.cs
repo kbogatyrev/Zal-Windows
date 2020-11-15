@@ -701,6 +701,14 @@ namespace ZalTestApp
                     sNumber = arrTokens[1];
                     break;
 
+                case EM_Subparadigm.SUBPARADIGM_PAST_TENSE:
+                    if (arrTokens.Length < 2)
+                    {
+                        return EM_ReturnCode.H_NO_ERROR;
+                    }
+                    sNumber = arrTokens[1];
+                    break;
+
                 default:
                     return EM_ReturnCode.H_ERROR_UNEXPECTED;
 
@@ -1451,7 +1459,113 @@ namespace ZalTestApp
 
             return eRet;
         }
-    }       //  public static class HelpersC:\git-repos\Zal-Windows\TestApp\packages.config
 
+        public static EM_ReturnCode eSvToNsvNumberToSymbol(int iSvToNsv, out string sSvToNsv)
+        {
+            var eRet = EM_ReturnCode.H_NO_ERROR;
+
+            switch (iSvToNsv)
+            {
+                case -1:
+                    sSvToNsv = "I";
+                    break;
+                case -2:
+                    sSvToNsv = "II";
+                    break;
+                case -3:
+                    sSvToNsv = "III";
+                    break;
+
+                default:
+                    sSvToNsv = "";
+                    eRet = EM_ReturnCode.H_ERROR_INVALID_ARG;
+                    break;
+            }
+
+            return eRet;
+        }
+
+        public static EM_ReturnCode eSvToNsvSymbolToNumber(string sSvToNsv, out int iSvToNsvType, out string sSvToNsvData)
+        {
+            var eRet = EM_ReturnCode.H_NO_ERROR;
+            iSvToNsvType = -999;
+            sSvToNsvData = "";
+
+            if (sSvToNsv.StartsWith("III"))
+            {
+                iSvToNsvType = -3;
+            }
+            else if (sSvToNsv.StartsWith("II"))
+            {
+                iSvToNsvType = -2;
+            }
+            else if (sSvToNsv.StartsWith("I"))
+            {
+                iSvToNsvType = -1;
+            }
+            else
+            {
+                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+            }
+
+            var iAt = sSvToNsv.IndexOf('(');
+            if (iAt < 0)
+            {
+                return EM_ReturnCode.H_NO_ERROR;
+            }
+
+            try
+            {
+                var regex = new Regex("\\((.+)\\)");
+                var match = regex.Match(sSvToNsv);
+                if (1 == match.Groups.Count)
+                {
+                    var capture = match.Groups[0].Captures[0];
+                    MessageBox.Show(capture.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(String.Format("Exception: {0}", ex.Message));
+                eRet = EM_ReturnCode.H_ERROR_UNEXPECTED;
+            }
+
+            return eRet;
+        }
+
+        public static EM_ReturnCode eNsvToSvSymbolToNumber(string sNsvToSv, out int iNsvToSvType, out string sNsvToSvData)
+        {
+            var eRet = EM_ReturnCode.H_NO_ERROR;
+            iNsvToSvType = -999;
+            sNsvToSvData = "";
+
+            var iAt = sNsvToSv.IndexOf('(');
+
+            var sType = iAt > 0 ? sNsvToSv.Substring(0, iAt) : sNsvToSv;
+            if (!Int32.TryParse(sType, out iNsvToSvType))
+            {
+                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+            }
+
+            try
+            {
+                var regex = new Regex("\\((.+)\\)");
+                var match = regex.Match(sNsvToSv);
+                if (1 == match.Groups.Count)
+                {
+                    var capture = match.Groups[0].Captures[0];
+                    MessageBox.Show(capture.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(String.Format("Exception: {0}", ex.Message));
+                eRet = EM_ReturnCode.H_ERROR_UNEXPECTED;
+            }
+
+            return eRet;
+        }
+
+    }       //  public static class Helpers
 
 }       //  namespace ZalTestApp
