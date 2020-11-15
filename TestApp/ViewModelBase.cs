@@ -164,6 +164,18 @@ namespace ZalTestApp
                 return;
             }
 
+            string sMsgSave = "Сохранить нерегулярную форму?";
+            string sMsgRestore = "Восстановить регулярную форму?";
+            var mbRetSave = MessageBox.Show(String.Format("{0}", (sCellContents.Length > 0) ? sMsgSave : sMsgRestore),
+                "", MessageBoxButton.YesNo);
+            if (MessageBoxResult.No == mbRetSave)
+            {
+                sCellContents = sOldForms;
+                OnPropertyChanged(sDisplayHash);
+                OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
+                return;
+            }
+
             formsForHash.lstForms.Clear();
 
             char[] arrSeparators = { ';' };
@@ -184,17 +196,6 @@ namespace ZalTestApp
                     OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
                     return;
 //                }
-            }
-
-            string sMsgSave = "Сохранить нерегулярную форму?";
-            string sMsgRestore = "Восстановить регулярную форму?";
-            var mbRetSave = MessageBox.Show(String.Format("{0}", (sCellContents.Length > 0) ? sMsgSave : sMsgRestore),
-                "", MessageBoxButton.YesNo);
-            if (MessageBoxResult.No == mbRetSave)
-            {
-                OnPropertyChanged(sDisplayHash);
-                OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
-                return;
             }
 
             var eRet = m_Lexeme.eRemoveWordForms(sFormHash);
