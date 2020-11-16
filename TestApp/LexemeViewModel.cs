@@ -98,6 +98,9 @@ namespace ZalTestApp
         public delegate void EditLexemeHandler(CLexemeManaged l);
         public event EditLexemeHandler EditLexemeEvent;
 
+        public delegate void DeleteLexemeHandler(CLexemeManaged l);
+        public event DeleteLexemeHandler DeleteLexemeEvent;
+
         #region ICommand
         private ICommand m_ShowParadigmCommand;
         public ICommand ShowParadigmCommand
@@ -150,6 +153,19 @@ namespace ZalTestApp
                 m_EditLexemeCommand = value;
             }
         }
+
+        private ICommand m_DeleteLexemeCommand;
+        public ICommand DeleteLexemeCommand
+        {
+            get
+            {
+                return m_DeleteLexemeCommand;
+            }
+            set
+            {
+                m_DeleteLexemeCommand = value;
+            }
+        }
         #endregion
 
         public LexemeViewModel()
@@ -158,6 +174,7 @@ namespace ZalTestApp
             m_bReadOnly = false;
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
+            DeleteLexemeCommand = new RelayCommand(new Action<object>(DeleteLexeme));
             SaveRegressionCommand = new RelayCommand(new Action<object>(SaveRegression));
 
             LexemeDetails = new ObservableCollection<LexemeProperty>();
@@ -171,6 +188,7 @@ namespace ZalTestApp
             m_bReadOnly = false;
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
+            DeleteLexemeCommand = new RelayCommand(new Action<object>(DeleteLexeme));
             SaveRegressionCommand = new RelayCommand(new Action<object>(SaveRegression));
 
             LexemeDetails = new ObservableCollection<LexemeProperty>();
@@ -185,6 +203,7 @@ namespace ZalTestApp
             m_bReadOnly = bReadOnly;
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
+            DeleteLexemeCommand = new RelayCommand(new Action<object>(DeleteLexeme));
             SaveRegressionCommand = new RelayCommand(new Action<object>(SaveRegression));
 
             LexemeDetails = new ObservableCollection<LexemeProperty>();
@@ -551,6 +570,12 @@ namespace ZalTestApp
         {
             EditLexemeEvent?.Invoke(this.m_Lexeme);
         }
+
+        private void DeleteLexeme(object arg)
+        {
+            DeleteLexemeEvent?.Invoke(this.m_Lexeme);
+        }
+
     }   //  public class LexemeViewModel 
 
 }   //  namespace ZalTestApp

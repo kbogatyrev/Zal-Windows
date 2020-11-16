@@ -456,6 +456,14 @@ namespace ZalTestApp
             return lexeme.sP2Preposition();
         }
 
+        // Remove from the database
+        public EM_ReturnCode eDeleteLexeme(CLexemeManaged l)
+        {
+            var eRet = m_Dictionary.eDeleteLexeme(l);
+            return eRet;
+        }
+
+        // Remove from internal data structures
         public void RemoveLexeme(CLexemeManaged l)
         {
             string sLexemeHash = l.sHash();

@@ -451,6 +451,19 @@ namespace ZalTestApp
             }
         }
 
+        private ICommand m_DeleteLexemeCommand;
+        public ICommand DeleteLexemeCommand
+        {
+            get
+            {
+                return m_DeleteLexemeCommand;
+            }
+            set
+            {
+                m_DeleteLexemeCommand = value;
+            }
+        }
+
         private ICommand m_ShowRegressionPageCommand;
         public ICommand ShowRegressionPageCommand
         {
@@ -506,6 +519,7 @@ namespace ZalTestApp
 //                CreateTextParserCommand = new RelayCommand(new Action<object>(CreateTextParser));
                 NewLexemeCommand = new RelayCommand(new Action<object>(NewLexeme));
                 EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
+                DeleteLexemeCommand = new RelayCommand(new Action<object>(DeleteLexeme));
                 ShowRegressionPageCommand = new RelayCommand(new Action<object>(ShowRegression));
                 ImportRegressionDataCommand = new RelayCommand(new Action<object>(ImportRegressionData));
                 ExportRegressionDataCommand = new RelayCommand(new Action<object>(ExportRegressionData));
@@ -819,72 +833,23 @@ namespace ZalTestApp
             }
 
             bRet = bSaveLexeme(elpModel, editLexeme);
-/*
-            if (elpModel.HeadwordChanged)
-            {
-                bRet = m_MainModel.bSaveHeadword(editLexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить заглавную форму.");
-                }
-            }
 
-            if (elpModel.AspectPairChanged)
-            {
-                bRet = m_MainModel.bSaveAspectPairInfo(editLexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить информацию о видовой паре.");
-                }
-            }
-
-            if (elpModel.P2Changed)
-            {
-                bRet = m_MainModel.bSaveP2Info(editLexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить информацию о втором предложном.");
-                }
-            }
-
-            if (elpModel.CommonDeviationChanged)
-            {
-                bRet = m_MainModel.bSaveCommonDeviation(editLexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить информацию о стандартных отклонениях.");
-                }
-            }
-
-            if (elpModel.InflectionGroupChanged)
-            {
-                bRet = m_MainModel.bSaveInflectionInfo(editLexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить лексему.");
-                }
-            }
-
-            if (elpModel.DescriptorChanged)
-            {
-                bRet = m_MainModel.bSaveDescriptorInfo(editLexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить лексему.");
-                }
-            }
-
-//            bRet = m_MainModel.bSaveLexeme(editLexeme);
-//            if (bRet)
-//            {
-//                MessageBox.Show("Лексема сохранена.");
-//            }
-//            else
-//            {
-//                MessageBox.Show("Не удалось сохранить лексему.");
-//            }
-*/
         }       //  EditLexeme()
+
+        void DeleteLexeme(object obj)
+        {
+            CLexemeManaged lexeme = (CLexemeManaged)obj;
+
+            var mbRet = MessageBox.Show("Стереть лексему?", "", MessageBoxButton.YesNo);
+            if (MessageBoxResult.Yes == mbRet)
+            {
+                var eRet = m_MainModel.eDeleteLexeme(lexeme);
+                if (eRet != EM_ReturnCode.H_NO_ERROR)
+                {
+                    MessageBox.Show("Не удалось стереть лексему", "");
+                }
+            }
+        }
 
         bool bSaveLexeme(EnterLexemePropertiesViewModel elpModel, CLexemeManaged lexeme)
         {
@@ -959,6 +924,7 @@ namespace ZalTestApp
             LexemeViewModel lexemeViewModel = new LexemeViewModel(lexeme);
             //                lvm.RemoveLexemeEvent += new LexemeViewModel.RemoveLexemeHandler(RemoveLexeme);
             lexemeViewModel.EditLexemeEvent += new LexemeViewModel.EditLexemeHandler(EditLexeme);
+            lexemeViewModel.DeleteLexemeEvent += new LexemeViewModel.DeleteLexemeHandler(DeleteLexeme);
             m_CurrentLexeme = lexemeViewModel;
             ViewModelBase paradigmViewModel = null;
 
