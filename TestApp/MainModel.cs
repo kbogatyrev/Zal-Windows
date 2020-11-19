@@ -288,6 +288,34 @@ namespace ZalTestApp
             return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         }
 
+        public bool bUpdateHeadword(CLexemeManaged l)
+        {
+            if (null == m_Dictionary)
+            {
+                System.Windows.MessageBox.Show("Dictionary was not initialized.");
+                return false;
+            }
+
+            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eUpdateHeadword(l);
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                return false;
+            }
+
+            eRet = (EM_ReturnCode)m_Dictionary.eSaveHeadwordStress(l);
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                return false;
+            }
+
+            eRet = (EM_ReturnCode)m_Dictionary.eSaveHomonyms(l);
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                return false;
+            }
+            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+        }
+
         public bool bSaveAspectPairInfo(CLexemeManaged l)
         {
             if (null == m_Dictionary)

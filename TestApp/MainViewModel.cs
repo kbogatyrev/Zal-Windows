@@ -802,7 +802,7 @@ namespace ZalTestApp
             //                MessageBox.Show("Не удалось сохранить лексему.");
             //            }
 
-            bRet = bSaveLexeme(elpModel, lexeme);
+            bRet = bSaveNewLexeme(elpModel, lexeme);
         }
 
         void EditLexeme(object obj)
@@ -832,7 +832,7 @@ namespace ZalTestApp
                 return;
             }
 
-            bRet = bSaveLexeme(elpModel, editLexeme);
+            bRet = bUpdateLexeme(elpModel, editLexeme);
 
         }       //  EditLexeme()
 
@@ -851,16 +851,24 @@ namespace ZalTestApp
             }
         }
 
-        bool bSaveLexeme(EnterLexemePropertiesViewModel elpModel, CLexemeManaged lexeme)
+        bool bSaveNewLexeme(EnterLexemePropertiesViewModel elpModel, CLexemeManaged lexeme)
+        {
+            bool bRet = true;
+
+            return true;
+
+        }       //  bSaveNewLexeme()
+
+        bool bUpdateLexeme(EnterLexemePropertiesViewModel elpModel, CLexemeManaged lexeme)
         {
             bool bRet = true;
 
             if (elpModel.HeadwordChanged)
             {
-                bRet = m_MainModel.bSaveHeadword(lexeme);
+                bRet = m_MainModel.bUpdateHeadword(lexeme);
                 if (!bRet)
                 {
-                    MessageBox.Show("Не удалось сохранить заглавную форму.");
+                    MessageBox.Show("Не удалось обновить заглавную форму.");
                     return false;
                 }
             }
