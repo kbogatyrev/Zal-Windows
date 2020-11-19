@@ -708,7 +708,43 @@ EM_ReturnCode CDictionaryManaged::eCountLexemes(Int64% iLexemes)
 //    return (EM_ReturnCode)eRet;
 //}
 
+EM_ReturnCode CDictionaryManaged::eUpdateHeadword(CLexemeManaged^ l)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pDictionary->eUpdateHeadword(l->m_pLexeme);
+
+    return (EM_ReturnCode)eRet;
+}
+
 EM_ReturnCode CDictionaryManaged::eSaveHeadword(CLexemeManaged^ l)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pDictionary->eSaveHeadword(l->m_pLexeme);
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CDictionaryManaged::eSaveHeadwordStress(CLexemeManaged^ l)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pDictionary->eSaveHeadword(l->m_pLexeme);
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CDictionaryManaged::eSaveHomonyms(CLexemeManaged^ l)
 {
     if (NULL == m_pDictionary)
     {
@@ -776,6 +812,18 @@ EM_ReturnCode CDictionaryManaged::eSaveCommonDeviation(CLexemeManaged^ l)
     }
 
     ET_ReturnCode eRet = m_pDictionary->eSaveCommonDeviation(l->m_pLexeme);
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CDictionaryManaged::eDeleteLexeme(CLexemeManaged^ l)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pDictionary->eDeleteLexeme(l->m_pLexeme);
 
     return (EM_ReturnCode)eRet;
 }
