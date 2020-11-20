@@ -739,7 +739,7 @@ EM_ReturnCode CDictionaryManaged::eSaveHeadwordStress(CLexemeManaged^ l)
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    ET_ReturnCode eRet = m_pDictionary->eSaveHeadword(l->m_pLexeme);
+    ET_ReturnCode eRet = m_pDictionary->eSaveHeadwordStress(l->m_pLexeme);
 
     return (EM_ReturnCode)eRet;
 }
@@ -751,7 +751,7 @@ EM_ReturnCode CDictionaryManaged::eSaveHomonyms(CLexemeManaged^ l)
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    ET_ReturnCode eRet = m_pDictionary->eSaveHeadword(l->m_pLexeme);
+    ET_ReturnCode eRet = m_pDictionary->eSaveHomonyms(l->m_pLexeme);
 
     return (EM_ReturnCode)eRet;
 }
