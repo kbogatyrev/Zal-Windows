@@ -689,7 +689,7 @@ namespace ZalTestApp
         public NounViewModel(CLexemeManaged lexeme, MainModel m)
         {
             BackCommand = new RelayCommand(new Action<object>(GoBack));
-            ShowFormComment = new RelayCommand(new Action<object>(ShowFormCommentImpl));
+//            ShowFormComment = new RelayCommand(new Action<object>(ShowFormCommentImpl));
             SaveFormsCommand = new RelayCommand(new Action<object>(SaveForms));
             FormScrollUpCommand = new RelayCommand(new Action<object>(FormScrollUp));
             FormScrollDownCommand = new RelayCommand(new Action<object>(FormScrollDown));
@@ -706,6 +706,7 @@ namespace ZalTestApp
             BackButtonEvent?.Invoke();
         }
 
+/*
         public void ShowFormCommentImpl(Object obj)
         {
             Comments wndComments = new Comments();
@@ -742,7 +743,7 @@ namespace ZalTestApp
             return;
 
         }
-
+*/
         /*
                 private EM_ReturnCode CreateIrregularWordForm(string sGramHash, 
                                                               string sForm, 

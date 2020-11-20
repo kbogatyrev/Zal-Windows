@@ -119,9 +119,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AdjViewModel.cs" />
-    <Compile Include="Comments.xaml.cs">
-      <DependentUpon>Comments.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Skins.xaml.cs" />
     <Compile Include="EnterLexemePropertiesDlg.xaml.cs" />
     <Compile Include="EnterLexemePropertiesViewModel.cs" />
@@ -163,10 +160,6 @@
     </Compile>
     <Compile Include="WordFormView.xaml.cs" />
     <Compile Include="WordFormViewModel.cs" />
-    <Page Include="Comments.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="EnterDataDlg.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
