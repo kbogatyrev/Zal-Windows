@@ -342,7 +342,7 @@ namespace MainLibManaged
 
         // Save manually edited entries
         EM_ReturnCode eUpdateHeadword(CLexemeManaged^);
-        EM_ReturnCode eSaveHeadword(CLexemeManaged^);
+        EM_ReturnCode eSaveNewHeadword(CLexemeManaged^);
         EM_ReturnCode eSaveHeadwordStress(CLexemeManaged^);
         EM_ReturnCode eSaveHomonyms(CLexemeManaged^);
         EM_ReturnCode eSaveAspectPairInfo(CLexemeManaged^);

@@ -720,14 +720,14 @@ EM_ReturnCode CDictionaryManaged::eUpdateHeadword(CLexemeManaged^ l)
     return (EM_ReturnCode)eRet;
 }
 
-EM_ReturnCode CDictionaryManaged::eSaveHeadword(CLexemeManaged^ l)
+EM_ReturnCode CDictionaryManaged::eSaveNewHeadword(CLexemeManaged^ l)
 {
     if (NULL == m_pDictionary)
     {
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    ET_ReturnCode eRet = m_pDictionary->eSaveHeadword(l->m_pLexeme);
+    ET_ReturnCode eRet = m_pDictionary->eSaveNewHeadword(l->m_pLexeme);
 
     return (EM_ReturnCode)eRet;
 }

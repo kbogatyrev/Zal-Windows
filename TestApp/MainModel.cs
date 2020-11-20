@@ -276,7 +276,7 @@ namespace ZalTestApp
             }
         }
 
-        public bool bSaveHeadword(CLexemeManaged l)
+        public bool bSaveNewHeadword(CLexemeManaged l)
         {
             if (null == m_Dictionary)
             {
@@ -284,7 +284,7 @@ namespace ZalTestApp
                 return false;
             }
 
-            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveHeadword(l);
+            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveNewHeadword(l);
             return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         }
 

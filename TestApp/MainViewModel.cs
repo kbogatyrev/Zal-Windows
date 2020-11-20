@@ -855,7 +855,67 @@ namespace ZalTestApp
         {
             bool bRet = true;
 
-            return true;
+            if (elpModel.HeadwordChanged)
+            {
+                bRet = m_MainModel.bSaveNewHeadword(lexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить заглавную форму.");
+                    return false;
+                }
+            }
+
+            if (elpModel.AspectPairChanged)
+            {
+                bRet = m_MainModel.bSaveAspectPairInfo(lexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить информацию о видовой паре.");
+                    return false;
+                }
+            }
+
+            if (elpModel.P2Changed)
+            {
+                bRet = m_MainModel.bSaveP2Info(lexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить информацию о втором предложном.");
+                    return false;
+                }
+            }
+
+            if (elpModel.CommonDeviationChanged)
+            {
+                bRet = m_MainModel.bSaveCommonDeviation(lexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить информацию о стандартных отклонениях.");
+                    return false;
+                }
+            }
+
+            if (elpModel.InflectionGroupChanged)
+            {
+                bRet = m_MainModel.bSaveInflectionInfo(lexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить лексему.");
+                    return false;
+                }
+            }
+
+            if (elpModel.DescriptorChanged)
+            {
+                bRet = m_MainModel.bSaveDescriptorInfo(lexeme);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить лексему.");
+                    return false;
+                }
+            }
+
+            return bRet;
 
         }       //  bSaveNewLexeme()
 
