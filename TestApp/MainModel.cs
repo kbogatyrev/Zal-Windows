@@ -1461,7 +1461,8 @@ namespace ZalTestApp
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_NUM_ADJ:
-                    sPrefix = "NumAdj_";
+//                    sPrefix = "NumAdj_";
+                    sPrefix = "PronAdj_";
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:

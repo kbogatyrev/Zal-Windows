@@ -467,6 +467,11 @@ namespace ZalTestApp
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
                     break;
 
+                case "NumAdj":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_NUM_ADJ;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_NUM_ADJ;
+                    break;
+
                 case "PPresA":
                     ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT;
@@ -569,7 +574,8 @@ namespace ZalTestApp
                 EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT == eSubParadigm ||
                 EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT == eSubParadigm ||
                 EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG == eSubParadigm ||
-                EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG == eSubParadigm)
+                EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG == eSubParadigm  ||
+                EM_Subparadigm.SUBPARADIGM_NUM_ADJ == eSubParadigm)
             {
                 if (arrTokens.Length < 3)
                 {
@@ -654,6 +660,7 @@ namespace ZalTestApp
 
                 case EM_Subparadigm.SUBPARADIGM_LONG_ADJ:
                 case EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ:
+                case EM_Subparadigm.SUBPARADIGM_NUM_ADJ:
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
@@ -764,6 +771,7 @@ namespace ZalTestApp
 
                 case EM_Subparadigm.SUBPARADIGM_LONG_ADJ:
                 case EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ:
+                case EM_Subparadigm.SUBPARADIGM_NUM_ADJ:
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:

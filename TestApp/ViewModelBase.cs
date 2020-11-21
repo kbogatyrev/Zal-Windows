@@ -166,15 +166,15 @@ namespace ZalTestApp
 
             string sMsgSave = "Сохранить нерегулярную форму?";
             string sMsgRestore = "Восстановить регулярную форму?";
-            var mbRetSave = MessageBox.Show(String.Format("{0}", (sCellContents.Length > 0) ? sMsgSave : sMsgRestore),
-                "", MessageBoxButton.YesNo);
-            if (MessageBoxResult.No == mbRetSave)
-            {
-                sCellContents = sOldForms;
-                OnPropertyChanged(sDisplayHash);
-                OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
-                return;
-            }
+//            var mbRetSave = MessageBox.Show(String.Format("{0}", (sCellContents.Length > 0) ? sMsgSave : sMsgRestore),
+//                "", MessageBoxButton.YesNo);
+//            if (MessageBoxResult.No == mbRetSave)
+//            {
+//                sCellContents = sOldForms;
+//                OnPropertyChanged(sDisplayHash);
+//                OnPropertyChanged(sDisplayHash + "_HasMultipleForms");
+//                return;
+//            }
 
             formsForHash.lstForms.Clear();
 
@@ -567,8 +567,8 @@ namespace ZalTestApp
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
-                    {
-                        EM_Gender eGender = EM_Gender.GENDER_UNDEFINED;
+                {
+                    EM_Gender eGender = EM_Gender.GENDER_UNDEFINED;
                     eRet = Helpers.eGramHashToGender(sGramHash, ref eGender);
                     if (EM_ReturnCode.H_NO_ERROR == eRet)
                     {
