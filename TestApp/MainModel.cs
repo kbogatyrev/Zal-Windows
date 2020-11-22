@@ -1053,6 +1053,10 @@ namespace ZalTestApp
                 {
                     eSp = EM_Subparadigm.SUBPARADIGM_NUM_ADJ;
                 }
+                else if ("мс" == lexeme.sInflectionType())
+                {
+                    eSp = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
+                }
                 else
                 {
                     eSp = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;
