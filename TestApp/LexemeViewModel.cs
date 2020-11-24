@@ -258,6 +258,14 @@ namespace ZalTestApp
                 AddProperty("Индекс омонима:", sHomonyms);
             }
 
+            if (m_Lexeme.sContexts().Length > 0)
+            {
+                string sContexts = "";
+                Helpers.AssignDiacritics(m_Lexeme.sContexts(), ref sContexts);
+                AddProperty("Употр:", sContexts);
+            }
+
+
             if (m_Lexeme.sHeadwordVariant().Length > 0)
             {
                 String sVariant = "";
