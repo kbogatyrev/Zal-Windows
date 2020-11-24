@@ -218,8 +218,8 @@ namespace MainLibManaged
         void SetAspectPairData(String^);
         bool bHasIrregularVariants();
         void SetHasIrregularVariants(bool);
-        String^ sRestrictedForms();
-        void SetRestrictedForms(String^);
+        String^ sRestrictedContexts();
+        void SetRestrictedContexts(String^);
         String^ sContexts();
         void SetContexts(String^);
         String^ sTrailingComment();

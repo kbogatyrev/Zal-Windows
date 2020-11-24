@@ -2030,24 +2030,24 @@ void CLexemeManaged::SetHasIrregularVariants(bool bValue)
     m_pLexeme->SetHasIrregularVariants(bValue);
 }
 
-String^ CLexemeManaged::sRestrictedForms()
+String^ CLexemeManaged::sRestrictedContexts()
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(m_pLexeme->sRestrictedForms());
+    return gcnew String(m_pLexeme->sRestrictedContexts());
 }
 
-void CLexemeManaged::SetRestrictedForms(String^ sValue)
+void CLexemeManaged::SetRestrictedContexts(String^ sValue)
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    m_pLexeme->SetRestrictedForms(sFromManagedString(sValue));
+    m_pLexeme->SetRestrictedContexts(sFromManagedString(sValue));
 }
  
 String^ CLexemeManaged::sContexts()
