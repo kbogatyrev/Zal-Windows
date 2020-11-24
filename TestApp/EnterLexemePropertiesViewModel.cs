@@ -1611,7 +1611,7 @@ namespace ZalTestApp
                 {
                     return true;
                 }
-                m_Lexeme.SetRestrictedForms(m_sRestrictedContexts);
+                m_Lexeme.SetRestrictedContexts(m_sRestrictedContexts);
                 return true;
             });
 
@@ -2170,7 +2170,7 @@ namespace ZalTestApp
             AltAspectPairComment = m_Lexeme.sAltAspectPairComment();
             HasIrregularForms = m_Lexeme.bHasIrregularForms() ? m_YesNoValues[0] : m_YesNoValues[1];
             HasIrregularVariants = m_Lexeme.bHasIrregularVariants() ? m_YesNoValues[0] : m_YesNoValues[1];
-            RestrictedContexts = m_Lexeme.sRestrictedForms();
+            RestrictedContexts = m_Lexeme.sRestrictedContexts();
             Contexts = m_Lexeme.sContexts();
             //            Cognates 
             TrailingComment = m_Lexeme.sTrailingComment();

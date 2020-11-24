@@ -379,9 +379,9 @@ namespace ZalTestApp
                 AddProperty("Доп. помета (3):", m_Lexeme.sTrailingComment());
             }
 
-            if (m_Lexeme.sRestrictedForms().Length > 0)
+            if (m_Lexeme.sRestrictedContexts().Length > 0)
             {
-                string sPhraseo = m_Lexeme.sRestrictedForms();
+                string sPhraseo = m_Lexeme.sRestrictedContexts();
                 string sSourceFormWithAccents = "";
                 Helpers.AssignDiacritics(sPhraseo, ref sSourceFormWithAccents);
                 AddProperty("Фразеологизмы:", sSourceFormWithAccents);
