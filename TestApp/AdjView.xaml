@@ -16,16 +16,16 @@
             <Grid Margin="100,0,0,0"  Width="800" Height="Auto">
                 <!-- Masculine -->
                 <!-- Singular -->
-                <TextBox Text="M Sg" Margin="110,20,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="М. ед." Margin="110,20,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Case Labels -->
-                <TextBox Text="N" Margin="0,70,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="A" Margin="0,115,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="A Anim." Margin="0,160,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="G" Margin="0,205,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="P" Margin="0,250,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="D" Margin="0,295,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="I" Margin="0,340,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="И" Margin="0,70,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="В" Margin="0,115,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="В одуш." Margin="0,160,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Р" Margin="0,205,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="П" Margin="0,250,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Д" Margin="0,295,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Т" Margin="0,340,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
                 <TextBox Name ="AdjL_M_Sg_N" Text="{Binding AdjL_M_Sg_N}" Margin="64,70,0,0" Style="{Binding AdjL_M_Sg_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
@@ -78,7 +78,7 @@
 
                 <!-- Feminine -->
                 <!-- Singular -->
-                <TextBox Text="F Sg" Margin="348,20,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Ж. ед." Margin="348,20,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Case Labels -->
 
@@ -127,7 +127,7 @@
 
                 <!-- Neuter -->
                 <!-- Singular -->
-                <TextBox Text="N Sg" Margin="583,20,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Ср. ед." Margin="583,20,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
                 <TextBox Name ="AdjL_N_Sg_N" Text="{Binding AdjL_N_Sg_N}" IsReadOnly="{Binding AdjL_N_Sg_N_IsReadOnly}" Margin="523,70,0,0" Style="{Binding AdjL_N_Sg_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
@@ -173,16 +173,16 @@
                 <Button  Margin="704,340,0,0" CommandParameter="AdjL_N_Sg_I" Command="{Binding ShowFormComment}" Style="{StaticResource BtnComment}" Visibility="{Binding AdjL_N_Sg_I_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
                 <!-- Plural -->
-                <TextBox Text="Pl" Margin="100,430,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Мн." Margin="100,430,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Case Labels -->
-                <TextBox Text="N" Margin="0,480,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="A" Margin="0,525,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="A Anim" Margin="0,570,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="G" Margin="0,615,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="P" Margin="0,660,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="D" Margin="0,705,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="I" Margin="0,750,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="И" Margin="0,480,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="В" Margin="0,525,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="В одуш." Margin="0,570,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Р" Margin="0,615,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="П" Margin="0,660,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Д" Margin="0,705,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Т" Margin="0,750,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
                 <TextBox Name ="AdjL_Pl_N" Text="{Binding AdjL_Pl_N}" Margin="65,480,0,0" Style="{Binding AdjL_Pl_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
@@ -234,13 +234,13 @@
                 <Button  Margin="246,757,0,0" CommandParameter="AdjL_Pl_I" Command="{Binding ShowFormComment}" Style="{StaticResource BtnComment}" Visibility="{Binding AdjL_Pl_I_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
                 <!-- Short -->
-                <TextBox Text="Краткие формы" Margin="470,430,0,0" Style="{StaticResource FormLabelWide}" Width="121" />
+                <TextBox Text="Кр. формы" Margin="485,430,0,0" Style="{StaticResource FormLabelWide}" Width="98" />
 
                 <!-- Labels -->
-                <TextBox Text="M Sg" Margin="386,480,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="F Sg" Margin="386,525,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="N Sg" Margin="386,570,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="Pl" Margin="386,615,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="М. ед." Margin="386,480,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Ж. ед." Margin="386,525,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Ср. ед." Margin="386,570,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Мн." Margin="386,615,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
                 <TextBox Name ="AdjS_M" Text="{Binding AdjS_M}" Margin="454,480,0,0" Style="{Binding AdjS_M_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
@@ -274,7 +274,7 @@
                 <Button  Margin="635,615,0,0" CommandParameter="AdjS_Pl" Command="{Binding ShowFormComment}" Style="{StaticResource BtnComment}" Visibility="{Binding AdjS_Pl_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
                 <!-- Comparative -->
-                <TextBox Text="Сравн." Margin="504,681,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Сравн. ст." Margin="480,681,0,0" Style="{StaticResource FormLabelWide}" Width="108" />
                 <TextBox Name ="AdjComp" Text="{Binding AdjComp}" Margin="454,718,0,0" Style="{Binding AdjComp_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
                 <Button Margin="602,722,0,0" CommandParameter="AdjComp" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjComp_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Button Margin="602,730,0,0" CommandParameter="AdjComp" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjComp_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />

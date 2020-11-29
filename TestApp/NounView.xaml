@@ -14,19 +14,19 @@
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="0" Margin="0" Grid.ColumnSpan="1"  >
             <Grid Width="650" Height="Auto">
-                <TextBox Text="Sg" Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
-                <TextBox Text="Pl" Margin="438,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
+                <TextBox Text="Ед." Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
+                <TextBox Text="Мн." Margin="438,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
 
                 <!-- Singular -->
                 <!-- Case Labels -->
-                <TextBox Text="N" Margin="33,70,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="A" Margin="33,115,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="G" Margin="33,160,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="P" Margin="33,205,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="D" Margin="33,250,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="I" Margin="33,295,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="G2" Margin="33,356,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="P2" Margin="33,401,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="И" Margin="33,70,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="В" Margin="33,115,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Р" Margin="33,160,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="П" Margin="33,205,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Д" Margin="33,250,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Т" Margin="33,295,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Р2" Margin="33,356,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="П2" Margin="33,401,0,0" Style="{StaticResource FormLabel}" />
 
                 <!-- Forms -->
                 <TextBox Name ="Noun_Sg_N" Text="{Binding Noun_Sg_N}" Margin="70,70,0,0"  Style="{Binding Noun_Sg_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
@@ -89,12 +89,12 @@
 
                 <!-- Plural -->
                 <!-- Case Labels -->
-                <TextBox Text="N" Margin="347,70,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="A" Margin="347,115,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="G" Margin="347,160,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="P" Margin="347,205,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="D" Margin="347,250,0,0" Style="{StaticResource FormLabel}" />
-                <TextBox Text="I" Margin="347,295,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="И" Margin="347,70,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="В" Margin="347,115,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Р" Margin="347,160,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="П" Margin="347,205,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Д" Margin="347,250,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Т" Margin="347,295,0,0" Style="{StaticResource FormLabel}" />
 
                 <!-- Forms -->
                 <TextBox Name ="Noun_Pl_N" Text="{Binding Path=Noun_Pl_N}" Margin="383,70,0,0" Style="{Binding Noun_Pl_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />

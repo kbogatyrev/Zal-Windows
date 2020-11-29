@@ -22,9 +22,9 @@
                 <TextBox Text="Настоящее время" Margin="210,120,0,0" Style="{StaticResource FormLabelWide}" Width="150"/>
 
                 <!-- Labels -->
-                <TextBox Text="1 Sg" Margin="0,170,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="2 Sg" Margin="0,215,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="3 Sg" Margin="0,260,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="1 ед." Margin="0,170,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="2 ед." Margin="0,215,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="3 ед." Margin="0,260,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
                 <TextBox Name ="Pres_Sg_1" Text="{Binding Pres_Sg_1}" Margin="65,170,0,0"  Style="{Binding Pres_Sg_1_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
@@ -51,9 +51,9 @@
 
                 <!-- Present tense plural -->
                 <!-- Labels -->
-                <TextBox Text="1 Pl" Margin="310,170,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="2 Pl" Margin="310,215,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="3 Pl" Margin="310,260,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="1 мн." Margin="310,170,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="2 мн." Margin="310,215,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="3 мн." Margin="310,260,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
                 <TextBox Name ="Pres_Pl_1" Text="{Binding Pres_Pl_1}" Margin="375,170,0,0" Style="{Binding Pres_Pl_1_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
@@ -83,9 +83,9 @@
 
                 <!-- Past tense singular -->
                 <!-- Labels -->
-                <TextBox Text="M Sg" Margin="0,405,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="F Sg" Margin="0,450,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="N Sg" Margin="0,495,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="М. ед." Margin="0,405,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Ж. ед." Margin="0,450,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Ср. ед." Margin="0,495,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
                 <TextBox Name ="Past_M" Text="{Binding Past_M}" Margin="65,405,0,0" Style="{Binding Past_M_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
@@ -111,7 +111,7 @@
                 <Button  Margin="246,495,0,0" CommandParameter="Past_N" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Past_N_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Past tense Plural -->
-                <TextBox Text="Pl" Margin="310,405,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Мн." Margin="310,405,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Name ="Past_Pl" Text="{Binding Past_Pl}" Margin="375,405,0,0" Style="{Binding Past_Pl_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
                 <Button Margin="523,409,0,0" CommandParameter="Past_Pl" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Past_Pl_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Button Margin="523,417,0,0" CommandParameter="Past_Pl" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Past_Pl_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
@@ -120,14 +120,14 @@
 
                 <!-- Imperative -->
                 <TextBox Text="Повелительное наклонение" Margin="210,590,0,0" Style="{StaticResource FormLabelWide}" Width="210"/>
-                <TextBox Text="2 Sg" Margin="0,640,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="2 ед." Margin="0,640,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Name ="Impv_Sg_2" Text="{Binding Path=Impv_Sg_2}" Margin="65,640,0,0" Style="{Binding Impv_Sg_2_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
                 <Button Margin="212,644,0,0" CommandParameter="Impv_Sg_2" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Impv_Sg_2_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Button Margin="212,653,0,0" CommandParameter="Impv_Sg_2" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Impv_Sg_2_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Image HorizontalAlignment="Left" Margin="228,645,0,0" VerticalAlignment="Top" Style="{Binding Impv_Sg_2_Marks, Converter={StaticResource StyleConverterMarks}}" />
                 <Button  Margin="246,640,0,0" CommandParameter="Impv_Sg_2" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Impv_Sg_2_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
-                <TextBox Text="2 Pl" Margin="310,640,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="2 мн." Margin="310,640,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Name ="Impv_Pl_2" Text="{Binding Path=Impv_Pl_2}" Margin="375,640,0,0" Style="{Binding Impv_Pl_2_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
                 <Button Margin="523,644,0,0" CommandParameter="Impv_Pl_2" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Impv_Pl_2_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Button Margin="523,653,0,0" CommandParameter="Impv_Pl_2" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Impv_Pl_2_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
