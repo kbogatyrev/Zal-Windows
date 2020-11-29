@@ -262,9 +262,8 @@ namespace ZalTestApp
             {
                 string sContexts = "";
                 Helpers.AssignDiacritics(m_Lexeme.sContexts(), ref sContexts);
-                AddProperty("Употр:", sContexts);
+                AddProperty("Огр. сочетаемость:", sContexts);
             }
-
 
             if (m_Lexeme.sHeadwordVariant().Length > 0)
             {
