@@ -58,6 +58,10 @@
             <local:NounView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type local:NumeralViewModel2to4}" >
+            <local:NumeralView2to4 />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type local:AdjViewModel}">
             <local:AdjView />
         </DataTemplate>

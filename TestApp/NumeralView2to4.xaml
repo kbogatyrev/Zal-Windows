@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="ZalTestApp.NumeralView2to4"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZalTestApp"
+        mc:Ignorable="d">
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,50,0,50" Height="755" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="0" Margin="0" Grid.ColumnSpan="1"  >
+            <Grid Width="650" Height="Auto">
+                <TextBox Text="М., Ср." Margin="110,25,0,0" Style="{StaticResource FormLabel}" Width="80"/>
+                <TextBox Text="Ж." Margin="438,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
+
+                <!-- M. Sg -->
+                <!-- Case Labels -->
+                <TextBox Text="И" Margin="33,70,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="В" Margin="33,115,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Р" Margin="33,160,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="П" Margin="33,205,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Д" Margin="33,250,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Т" Margin="33,295,0,0" Style="{StaticResource FormLabel}" />
+
+                <!-- Forms -->
+                <TextBox Name ="Num24_MN_N" Text="{Binding Num24_MN_N}" Margin="70,70,0,0"  Style="{Binding Num24_MN_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Num24_MN_A" Text="{Binding Num24_MN_A}" Margin="70,115,0,0" Style="{Binding Num24_MN_A_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Num24_MN_G" Text="{Binding Num24_MN_G}" Margin="70,160,0,0" Style="{Binding Num24_MN_G_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Num24_MN_P" Text="{Binding Num24_MN_P}" Margin="70,205,0,0" Style="{Binding Num24_MN_P_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Num24_MN_D" Text="{Binding Num24_MN_D}" Margin="70,250,0,0" Style="{Binding Num24_MN_D_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Num24_MN_I" Text="{Binding Num24_MN_I}" Margin="70,295,0,0" Style="{Binding Num24_MN_I_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+
+                <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
+                <Button Margin="218,74,0,0" CommandParameter="Num24_MN_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_MN_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,82,0,0" CommandParameter="Num24_MN_N" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_MN_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="218,119,0,0" CommandParameter="Num24_MN_A" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_MN_A_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,127,0,0" CommandParameter="Num24_MN_A" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_MN_A_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="218,164,0,0" CommandParameter="Num24_MN_G" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_MN_G_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,172,0,0" CommandParameter="Num24_MN_G" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_MN_G_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="218,209,0,0" CommandParameter="Num24_MN_P" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_MN_P_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,217,0,0" CommandParameter="Num24_MN_P" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_MN_P_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="218,254,0,0" CommandParameter="Num24_MN_D" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_MN_D_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,262,0,0" CommandParameter="Num24_MN_D" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_MN_D_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="218,299,0,0" CommandParameter="Num24_MN_I" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_MN_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,307,0,0" CommandParameter="Num24_MN_I" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_MN_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <!-- F. Sg. -->
+                <!-- Case Labels -->
+                <TextBox Text="И" Margin="347,70,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="В" Margin="347,115,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Р" Margin="347,160,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="П" Margin="347,205,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Д" Margin="347,250,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Т" Margin="347,295,0,0" Style="{StaticResource FormLabel}" />
+
+                <!-- Forms -->
+                <TextBox Name ="Num24_F_N" Text="{Binding Path=Num24_F_N}" Margin="383,70,0,0" Style="{Binding Num24_F_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Num24_F_A" Text="{Binding Path=Num24_F_A}" Margin="383,115,0,0" Style="{Binding Num24_F_A_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Num24_F_G" Text="{Binding Path=Num24_F_G}" Margin="383,160,0,0" Style="{Binding Num24_F_G_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Num24_F_P" Text="{Binding Path=Num24_F_P}" Margin="383,205,0,0" Style="{Binding Num24_F_P_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Num24_F_D" Text="{Binding Path=Num24_F_D}" Margin="383,250,0,0" Style="{Binding Num24_F_D_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Num24_F_I" Text="{Binding Path=Num24_F_I}" Margin="383,295,0,0" Style="{Binding Num24_F_I_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+
+                <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
+                <Button Margin="531,74,0,0" CommandParameter="Num24_F_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_F_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="531,82,0,0" CommandParameter="Num24_F_N" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_F_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="531,119,0,0" CommandParameter="Num24_F_A" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_F_A_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="531,127,0,0" CommandParameter="Num24_F_A" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_F_A_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="531,164,0,0" CommandParameter="Num24_F_G" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_F_G_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="531,172,0,0" CommandParameter="Num24_F_G" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_F_G_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="531,209,0,0" CommandParameter="Num24_F_P" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_F_P_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="531,217,0,0" CommandParameter="Num24_F_P" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_F_P_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="531,254,0,0" CommandParameter="Num24_F_D" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_F_D_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="531,262,0,0" CommandParameter="Num24_F_D" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_F_D_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="531,299,0,0" CommandParameter="Num24_F_I" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_F_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="531,307,0,0" CommandParameter="Num24_F_I" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_F_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <!-- Pl. -->
+                <TextBox Text="Мн." Margin="270,400,0,0" Style="{StaticResource FormLabel}" Width="40"/>
+                
+                <!-- Case Labels -->
+                <TextBox Text="И" Margin="180,450,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="В" Margin="180,495,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Р" Margin="180,540,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="П" Margin="180,585,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Д" Margin="180,630,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Т" Margin="180,675,0,0" Style="{StaticResource FormLabel}" />
+
+                <!-- Forms -->
+                <TextBox Name ="Num24_Pl_N" Text="{Binding Path=Num24_Pl_N}" Margin="216,450,0,0" Style="{Binding Num24_Pl_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Num24_Pl_A" Text="{Binding Path=Num24_Pl_A}" Margin="216,495,0,0" Style="{Binding Num24_Pl_A_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Num24_Pl_G" Text="{Binding Path=Num24_Pl_G}" Margin="216,540,0,0" Style="{Binding Num24_Pl_G_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Num24_Pl_P" Text="{Binding Path=Num24_Pl_P}" Margin="216,585,0,0" Style="{Binding Num24_Pl_P_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Num24_Pl_D" Text="{Binding Path=Num24_Pl_D}" Margin="216,630,0,0" Style="{Binding Num24_Pl_D_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Num24_Pl_I" Text="{Binding Path=Num24_Pl_I}" Margin="216,675,0,0" Style="{Binding Num24_Pl_I_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+
+                <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
+                <Button Margin="334,454,0,0" CommandParameter="Num24_Pl_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_Pl_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="334,462,0,0" CommandParameter="Num24_Pl_N" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_Pl_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="334,499,0,0" CommandParameter="Num24_Pl_A" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_Pl_A_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="334,507,0,0" CommandParameter="Num24_Pl_A" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_Pl_A_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="334,545,0,0" CommandParameter="Num24_Pl_G" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_Pl_G_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="334,552,0,0" CommandParameter="Num24_Pl_G" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_Pl_G_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="334,599,0,0" CommandParameter="Num24_Pl_P" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_Pl_P_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="334,607,0,0" CommandParameter="Num24_Pl_P" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_Pl_P_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="334,644,0,0" CommandParameter="Num24_Pl_D" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_Pl_D_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="334,652,0,0" CommandParameter="Num24_Pl_D" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_Pl_D_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="334,699,0,0" CommandParameter="Num24_Pl_I" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_Pl_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="334,707,0,0" CommandParameter="Num24_Pl_I" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Num24_Pl_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+            </Grid>
+        </ScrollViewer>
+<!--        
+        <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveFormsCommand}"  Grid.Column="1" Margin="0,200,40,250" />
+-->        
+    </Grid>
+</UserControl>

@@ -1000,8 +1000,11 @@ namespace ZalTestApp
             {
                 case EM_PartOfSpeech.POS_NOUN:
                 case EM_PartOfSpeech.POS_PRONOUN:
-                case EM_PartOfSpeech.POS_NUM:
+//                case EM_PartOfSpeech.POS_NUM:
                     paradigmViewModel = new NounViewModel(lexeme, m_MainModel);
+                    break;
+                case EM_PartOfSpeech.POS_NUM:
+                    paradigmViewModel = new NumeralViewModel2to4(lexeme, m_MainModel);
                     break;
                 case EM_PartOfSpeech.POS_ADJ:
                 case EM_PartOfSpeech.POS_PRONOUN_ADJ:
