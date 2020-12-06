@@ -35,9 +35,9 @@ namespace ZalTestApp
 
         public static List<string> m_listPropNamesNumeral = new List<string>()
         {
-            "Numeral_Sg_N", "Numeral_Sg_A", "Numeral_Sg_G", "Numeral_Sg_P", "Numeral_Sg_D", "Numeral_Sg_P2",
-            "Numeral_Sg_I", "Numeral_Sg_Part", "Numeral_Pl_N", "Numeral_Pl_A", "Numeral_Pl_G", "Numeral_Pl_P",
-            "Numeral_Pl_D", "Numeral_Pl_L", "Numeral_Pl_I"
+            "Numeral_M_N", "Numeral_M_A", "Numeral_M_G", "Numeral_M_P", "Numeral_M_D", "Numeral_M_P2",
+            "Numeral_M_I", "Numeral_M_Part", "Numeral_F_N", "Numeral_F_A", "Numeral_F_G", "Numeral_F_P",
+            "Numeral_F_D", "Numeral_F_L", "Numeral_F_I"
         };
 
         public static List<string> m_listPropNamesAdj = new List<string>()
@@ -613,6 +613,18 @@ namespace ZalTestApp
                 sGender = arrTokens[1];
             }
 
+            if (EM_Subparadigm.SUBPARADIGM_NUM == eSubParadigm)
+            {
+                if (arrTokens.Length >= 3)
+                {
+                    sGender = arrTokens[1];
+                }
+                else
+                {
+                    return EM_ReturnCode.H_FALSE;
+                }
+            }
+
             switch (sGender)
             {
                 case "M":
@@ -769,6 +781,21 @@ namespace ZalTestApp
                     sCase = arrTokens[2];
                     break;
 
+                case EM_Subparadigm.SUBPARADIGM_NUM:
+                    if (arrTokens.Length >= 3)
+                    {
+                        sCase = arrTokens[2];
+                    }
+                    else if (arrTokens.Length >= 2)
+                    {
+                        sCase = arrTokens[1];
+                    }
+                    else
+                    {
+                        return EM_ReturnCode.H_ERROR_INVALID_ARG;
+                    }
+                    break;
+
                 case EM_Subparadigm.SUBPARADIGM_LONG_ADJ:
                 case EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ:
                 case EM_Subparadigm.SUBPARADIGM_NUM_ADJ:
@@ -823,6 +850,25 @@ namespace ZalTestApp
                         if (arrTokens.Length >= 5)
                         {
                             string sAnimacy = arrTokens[4];
+                            if ("Anim" == sAnimacy)
+                            {
+                                eAnimacy = EM_Animacy.ANIM_YES;
+                            }
+                            if ("Inanim" == sAnimacy)
+                            {
+                                eAnimacy = EM_Animacy.ANIM_YES;
+                            }
+                            else
+                            {
+                                return EM_ReturnCode.H_ERROR_UNEXPECTED;
+                            }
+                        }
+                    }
+                    else if (EM_Subparadigm.SUBPARADIGM_NUM == eSubParadigm)
+                    {
+                        if (4 == arrTokens.Length)
+                        {
+                            string sAnimacy = arrTokens[3];
                             if ("Anim" == sAnimacy)
                             {
                                 eAnimacy = EM_Animacy.ANIM_YES;
@@ -951,7 +997,7 @@ namespace ZalTestApp
 
                     case EM_PartOfSpeech.POS_NUM:
                         iKeyIdx = m_listPropNamesNumeral.IndexOf(sFormHash);
-                        sDisplayHash = m_listPropNamesNoun[iKeyIdx];
+                        sDisplayHash = m_listPropNamesNumeral[iKeyIdx];
                         break;
 
                     case EM_PartOfSpeech.POS_ADJ:

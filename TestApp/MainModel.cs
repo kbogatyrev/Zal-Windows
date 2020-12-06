@@ -393,7 +393,7 @@ namespace ZalTestApp
             }
 
             var sOldLexHash = l.sStoredHash();
-            eRet = (EM_ReturnCode)m_Dictionary.eSaveDescriptorInfo(l);
+            eRet = (EM_ReturnCode)m_Dictionary.eUpdateDescriptorInfo(l);
             var sNewLexHash = l.sHash();
 
             var sDbPath = m_Dictionary.sGetDbPath();
@@ -809,8 +809,10 @@ namespace ZalTestApp
             {
                 case EM_PartOfSpeech.POS_NOUN:
                 case EM_PartOfSpeech.POS_PRONOUN:
-                case EM_PartOfSpeech.POS_NUM:
                     return bGenerateNominalForms(lexeme);
+
+                case EM_PartOfSpeech.POS_NUM:
+                    return bGenerateNumeralForms(lexeme);
 
                 case EM_PartOfSpeech.POS_ADJ:
                 case EM_PartOfSpeech.POS_PRONOUN_ADJ:
@@ -916,6 +918,59 @@ namespace ZalTestApp
             return true;
 
         }   //  bGenerateNominalForms()
+
+        private bool bGenerateNumeralForms(CLexemeManaged lexeme)
+        {
+            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+
+            Dictionary<string, List<CWordFormManaged>> dctParadigm = new Dictionary<string, List<CWordFormManaged>>();
+
+            CWordFormManaged wf = null;
+            eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
+            while (wf != null && (EM_ReturnCode.H_NO_ERROR == eRet || EM_ReturnCode.H_FALSE == eRet))
+            {
+                try
+                {
+                    string sKey = "Numeral";
+                    sKey += "_";
+                    if (wf.eGender() != EM_Gender.GENDER_UNDEFINED)
+                    {
+                        sKey += Helpers.sGenderToString(wf.eGender());
+                        sKey += "_";
+                    }
+                    sKey += Helpers.sCaseToString(wf.eCase());
+
+                    string sWordForm = wf.sWordForm();
+                    Helpers.MarkStress(ref sWordForm, wf);
+
+                    if (!dctParadigm.ContainsKey(sKey))
+                    {
+                        dctParadigm[sKey] = new List<CWordFormManaged>();
+                    }
+
+                    dctParadigm[sKey].Add(wf);
+                }
+                catch (Exception ex)
+                {
+                    //                    return false;
+                }
+
+                eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
+
+            }   //  while...
+
+            if (eRet != EM_ReturnCode.H_NO_MORE)
+            {
+                //                System.Windows.MessageBox.Show("Error generating noun forms.");
+                //                return true;        // OK to show empty paradigm
+            }
+
+            string sHash = lexeme.sParadigmHash();
+            m_dctLexemes[sHash] = dctParadigm;
+            m_dctLexemeHashToLexeme[sHash] = lexeme;
+
+            return true;
+        }
 
         private bool bGenerateAdjForms(CLexemeManaged lexeme)
         {

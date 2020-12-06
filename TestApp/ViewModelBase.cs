@@ -299,7 +299,7 @@ namespace ZalTestApp
                     break;
 
                 case EM_PartOfSpeech.POS_NUM:
-                    lstDisplayPropNames = Helpers.m_listPropNamesNoun;
+                    lstDisplayPropNames = Helpers.m_listPropNamesNumeral;
                     lstPropNames = Helpers.m_listPropNamesNumeral;
                     break;
 
@@ -541,7 +541,6 @@ namespace ZalTestApp
             switch (eSp)
             {
                 case EM_Subparadigm.SUBPARADIGM_NOUN:
-                case EM_Subparadigm.SUBPARADIGM_NUM:
                 case EM_Subparadigm.SUBPARADIGM_PRONOUN:
                 {
                     EM_Case eCase = EM_Case.CASE_UNDEFINED;
@@ -558,6 +557,25 @@ namespace ZalTestApp
                         wf.SetNumber(eNumber);
                     }
                     break;
+                }
+
+                case EM_Subparadigm.SUBPARADIGM_NUM:
+                {
+                    EM_Case eCase = EM_Case.CASE_UNDEFINED;
+                    EM_Animacy eAnimacy = EM_Animacy.ANIM_UNDEFINED;
+                    eRet = Helpers.eGramHashToCase(sGramHash, ref eCase, ref eAnimacy);
+                    if (EM_ReturnCode.H_NO_ERROR == eRet)
+                    {
+                        wf.SetCase(eCase);
+                    }
+
+                    EM_Gender eGender = EM_Gender.GENDER_UNDEFINED;
+                    eRet = Helpers.eGramHashToGender(sGramHash, ref eGender);
+                    if (EM_ReturnCode.H_NO_ERROR == eRet)
+                    {
+                        wf.SetGender(eGender);
+                    }
+                    break;    
                 }
 
                 case EM_Subparadigm.SUBPARADIGM_LONG_ADJ:
