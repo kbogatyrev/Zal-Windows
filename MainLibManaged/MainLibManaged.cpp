@@ -780,14 +780,14 @@ EM_ReturnCode CDictionaryManaged::eSaveP2Info(CLexemeManaged^ l)
     return (EM_ReturnCode)eRet;
 }
 
-EM_ReturnCode CDictionaryManaged::eSaveDescriptorInfo(CLexemeManaged^ l)
+EM_ReturnCode CDictionaryManaged::eUpdateDescriptorInfo(CLexemeManaged^ l)
 {
     if (NULL == m_pDictionary)
     {
         throw gcnew Exception(L"Dictionary object is NULL.");
     }
 
-    ET_ReturnCode eRet = m_pDictionary->eSaveDescriptorInfo(l->m_pLexeme);
+    ET_ReturnCode eRet = m_pDictionary->eUpdateDescriptorInfo(l->m_pLexeme);
 
     return (EM_ReturnCode)eRet;
 }

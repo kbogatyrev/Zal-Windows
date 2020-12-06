@@ -347,7 +347,7 @@ namespace MainLibManaged
         EM_ReturnCode eSaveHomonyms(CLexemeManaged^);
         EM_ReturnCode eSaveAspectPairInfo(CLexemeManaged^);
         EM_ReturnCode eSaveP2Info(CLexemeManaged^);
-        EM_ReturnCode eSaveDescriptorInfo(CLexemeManaged^);
+        EM_ReturnCode eUpdateDescriptorInfo(CLexemeManaged^);
         EM_ReturnCode eSaveCommonDeviation(CLexemeManaged^);
         EM_ReturnCode eSaveInflectionInfo(CLexemeManaged^);
         EM_ReturnCode eDeleteLexeme(CLexemeManaged^);
