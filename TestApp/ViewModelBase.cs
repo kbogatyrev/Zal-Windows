@@ -164,8 +164,8 @@ namespace ZalTestApp
                 return;
             }
 
-            string sMsgSave = "Сохранить нерегулярную форму?";
-            string sMsgRestore = "Восстановить регулярную форму?";
+//            string sMsgSave = "Сохранить нерегулярную форму?";
+//            string sMsgRestore = "Восстановить регулярную форму?";
 //            var mbRetSave = MessageBox.Show(String.Format("{0}", (sCellContents.Length > 0) ? sMsgSave : sMsgRestore),
 //                "", MessageBoxButton.YesNo);
 //            if (MessageBoxResult.No == mbRetSave)
@@ -198,7 +198,11 @@ namespace ZalTestApp
 //                }
             }
 
-            var eRet = m_Lexeme.eRemoveWordForms(sFormHash);
+            var eRet = EM_ReturnCode.H_NO_ERROR;
+            if (sFormHash != null)
+            {
+                eRet = m_Lexeme.eRemoveWordForms(sFormHash);
+            }
             //                if (eRet != EM_ReturnCode.H_NO_ERROR)
             //                {
             //                    MessageBox.Show(String.Format("Internal error: failed to remove forms for {0}.", sFormHash));
@@ -567,6 +571,7 @@ namespace ZalTestApp
                     if (EM_ReturnCode.H_NO_ERROR == eRet)
                     {
                         wf.SetCase(eCase);
+                        wf.SetAnimacy(eAnimacy);
                     }
 
                     EM_Gender eGender = EM_Gender.GENDER_UNDEFINED;

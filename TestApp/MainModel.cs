@@ -939,6 +939,22 @@ namespace ZalTestApp
                         sKey += "_";
                     }
                     sKey += Helpers.sCaseToString(wf.eCase());
+                    if (wf.eAnimacy() != EM_Animacy.ANIM_UNDEFINED)
+                    {
+                        sKey += "_";
+                        if (wf.eAnimacy() == EM_Animacy.ANIM_NO)
+                        {
+                            sKey += "Inanim";
+                        }
+                        else if (wf.eAnimacy() == EM_Animacy.ANIM_YES)
+                        {
+                            sKey += "Anim";
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
 
                     string sWordForm = wf.sWordForm();
                     Helpers.MarkStress(ref sWordForm, wf);

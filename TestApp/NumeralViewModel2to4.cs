@@ -156,10 +156,16 @@ namespace ZalTestApp
             set { SetForm("Numeral_M_N", value); }
         }
 
-        public string Numeral_M_A
+        public string Numeral_M_A_Inanim
         {
-            get { return GetForm("Numeral_M_A"); }
-            set { SetForm("Numeral_M_A", value); }
+            get { return GetForm("Numeral_M_A_Inanim"); }
+            set { SetForm("Numeral_M_A_Inanim", value); }
+        }
+
+        public string Numeral_M_A_Anim
+        {
+            get { return GetForm("Numeral_M_A_Anim"); }
+            set { SetForm("Numeral_M_A_Anim", value); }
         }
 
         public string Numeral_M_G
@@ -275,9 +281,14 @@ namespace ZalTestApp
             get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_M_N", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool Numeral_M_A_HasMultipleForms
+        public bool Numeral_M_A_Inanim_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_M_A", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_M_A_Inanim", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Numeral_M_A_Anim_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_M_A_Anim", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Numeral_M_G_HasMultipleForms
@@ -335,9 +346,14 @@ namespace ZalTestApp
             get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_Pl_N", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool Numeral_Pl_A_HasMultipleForms
+        public bool Numeral_Pl_A_Inanim_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_Pl_A", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_Pl_A_Inanim", out f); return f != null && f.lstForms.Count > 1; }
+        }
+
+        public bool Numeral_Pl_A_Anim_HasMultipleForms
+        {
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_Pl_A_Anim", out f); return f != null && f.lstForms.Count > 1; }
         }
 
         public bool Numeral_Pl_G_HasMultipleForms
