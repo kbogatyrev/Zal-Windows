@@ -261,6 +261,8 @@ namespace MainLibManaged
         bool bIsSecondPart();
         void SetSecondPart(bool);
         bool bSpryazhSm();
+        EM_Subparadigm eSubparadigm();
+        void SetSubparadigm(EM_Subparadigm);    // currently only used with numerals
 
         EM_ReturnCode eAddCommonDeviation(int iValue, bool bIsOptional);
         bool bFindCommonDeviation(int iNum, bool% bIsOptional);

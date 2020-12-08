@@ -2770,6 +2770,27 @@ bool CLexemeManaged::bSpryazhSm()
     return m_pLexeme->bSpryazhSm();
 }
 
+EM_Subparadigm CLexemeManaged::eSubparadigm()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (EM_Subparadigm)m_pLexeme->eSubparadigm();
+}
+
+void CLexemeManaged::SetSubparadigm(EM_Subparadigm eSp)    // currently only used with numerals
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    m_pLexeme->SetSubparadigm((ET_Subparadigm)eSp);
+}
+
+
 EM_ReturnCode CLexemeManaged::eFormExists(String^ sGramHash)
 {
     if (NULL == m_pLexeme)
