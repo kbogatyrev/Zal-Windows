@@ -932,6 +932,10 @@ namespace ZalTestApp
                 try
                 {
                     string sKey = "Numeral";
+                    if (EM_Subparadigm.SUBPARADIGM_NUM_2TO4 == wf.eSubparadigm())
+                    {
+                        sKey += "24";
+                    }
                     sKey += "_";
                     if (wf.eGender() != EM_Gender.GENDER_UNDEFINED)
                     {

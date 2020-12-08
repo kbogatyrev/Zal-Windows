@@ -33,6 +33,13 @@ namespace ZalTestApp
             "Pronoun_Pl_D", "Pronoun_Pl_L", "Pronoun_Pl_I"
         };
 
+        public static List<string> m_listPropNamesNumeral24 = new List<string>()
+        {
+            "Numeral24_M_N", "Numeral24_M_A_Inanim", "Numeral24_M_A_Anim", "Numeral24_M_G", "Numeral24_M_P", "Numeral24_M_D", 
+            "Numeral24_M_P2", "Numeral24_M_I", "Numeral24_M_Part", "Numeral24_F_N", "Numeral24_F_A_Inanim", "Numeral24_F_A_Anim", 
+            "Numeral24_F_G", "Numeral24_F_P", "Numeral24_F_D", "Numeral24_F_L", "Numeral24_F_I"
+        };
+
         public static List<string> m_listPropNamesNumeral = new List<string>()
         {
             "Numeral_M_N", "Numeral_M_A_Inanim", "Numeral_M_A_Anim", "Numeral_M_G", "Numeral_M_P", "Numeral_M_D", "Numeral_M_P2",
@@ -442,6 +449,11 @@ namespace ZalTestApp
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_PRONOUN;
                     break;
 
+                case "Numeral24":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_NUM;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_NUM_2TO4;
+                    break;
+
                 case "Numeral":
                     ePartOfSpeech = EM_PartOfSpeech.POS_NUM;
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_NUM;
@@ -613,7 +625,8 @@ namespace ZalTestApp
                 sGender = arrTokens[1];
             }
 
-            if (EM_Subparadigm.SUBPARADIGM_NUM == eSubParadigm)
+            if (EM_Subparadigm.SUBPARADIGM_NUM == eSubParadigm ||
+                EM_Subparadigm.SUBPARADIGM_NUM_2TO4 == eSubParadigm)
             {
                 if (arrTokens.Length >= 3)
                 {
@@ -782,6 +795,7 @@ namespace ZalTestApp
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_NUM:
+                case EM_Subparadigm.SUBPARADIGM_NUM_2TO4:
                     if (arrTokens.Length >= 3)
                     {
                         sCase = arrTokens[2];
@@ -864,7 +878,8 @@ namespace ZalTestApp
                             }
                         }
                     }
-                    else if (EM_Subparadigm.SUBPARADIGM_NUM == eSubParadigm)
+                    else if (EM_Subparadigm.SUBPARADIGM_NUM == eSubParadigm ||
+                             EM_Subparadigm.SUBPARADIGM_NUM_2TO4 == eSubParadigm)
                     {
                         if (4 == arrTokens.Length)
                         {
@@ -996,8 +1011,16 @@ namespace ZalTestApp
                         break;
 
                     case EM_PartOfSpeech.POS_NUM:
-                        iKeyIdx = m_listPropNamesNumeral.IndexOf(sFormHash);
-                        sDisplayHash = m_listPropNamesNumeral[iKeyIdx];
+                        if (EM_Subparadigm.SUBPARADIGM_NUM_2TO4 == eSubparadigm)
+                        {
+                            iKeyIdx = m_listPropNamesNumeral24.IndexOf(sFormHash);
+                            sDisplayHash = m_listPropNamesNumeral24[iKeyIdx];
+                        }
+                        else
+                        {
+                            iKeyIdx = m_listPropNamesNumeral.IndexOf(sFormHash);
+                            sDisplayHash = m_listPropNamesNumeral[iKeyIdx];
+                        }
                         break;
 
                     case EM_PartOfSpeech.POS_ADJ:
@@ -1106,6 +1129,7 @@ namespace ZalTestApp
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_NUM:
+                case EM_Subparadigm.SUBPARADIGM_NUM_2TO4:
                     ePartOfSpeech = EM_PartOfSpeech.POS_NUM;
                     break;
 

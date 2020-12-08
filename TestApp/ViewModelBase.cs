@@ -303,8 +303,16 @@ namespace ZalTestApp
                     break;
 
                 case EM_PartOfSpeech.POS_NUM:
-                    lstDisplayPropNames = Helpers.m_listPropNamesNumeral;
-                    lstPropNames = Helpers.m_listPropNamesNumeral;
+                    if (sDisplayHash.StartsWith("Numeral24"))
+                    {
+                        lstDisplayPropNames = Helpers.m_listPropNamesNumeral24;
+                        lstPropNames = Helpers.m_listPropNamesNumeral24;
+                    }
+                    else
+                    {
+                        lstDisplayPropNames = Helpers.m_listPropNamesNumeral;
+                        lstPropNames = Helpers.m_listPropNamesNumeral;
+                    }
                     break;
 
                 case EM_PartOfSpeech.POS_ADJ:
@@ -564,6 +572,7 @@ namespace ZalTestApp
                 }
 
                 case EM_Subparadigm.SUBPARADIGM_NUM:
+                case EM_Subparadigm.SUBPARADIGM_NUM_2TO4:
                 {
                     EM_Case eCase = EM_Case.CASE_UNDEFINED;
                     EM_Animacy eAnimacy = EM_Animacy.ANIM_UNDEFINED;

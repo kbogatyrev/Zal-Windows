@@ -150,330 +150,234 @@ namespace ZalTestApp
 
         #region Bindings
 
-        public string Numeral_M_N
+        public string Numeral24_M_N
         {
-            get { return GetForm("Numeral_M_N"); }
-            set { SetForm("Numeral_M_N", value); }
+            get { return GetForm("Numeral24_M_N"); }
+            set { SetForm("Numeral24_M_N", value); }
         }
 
-        public string Numeral_M_A_Inanim
+        public string Numeral24_M_A_Inanim
         {
-            get { return GetForm("Numeral_M_A_Inanim"); }
-            set { SetForm("Numeral_M_A_Inanim", value); }
+            get { return GetForm("Numeral24_M_A_Inanim"); }
+            set { SetForm("Numeral24_M_A_Inanim", value); }
         }
 
-        public string Numeral_M_A_Anim
+        public string Numeral24_M_A_Anim
         {
-            get { return GetForm("Numeral_M_A_Anim"); }
-            set { SetForm("Numeral_M_A_Anim", value); }
+            get { return GetForm("Numeral24_M_A_Anim"); }
+            set { SetForm("Numeral24_M_A_Anim", value); }
         }
 
-        public string Numeral_M_G
+        public string Numeral24_M_G
         {
-            get { return GetForm("Numeral_M_G"); }
-            set { SetForm("Numeral_M_G", value); }
+            get { return GetForm("Numeral24_M_G"); }
+            set { SetForm("Numeral24_M_G", value); }
         }
 
-        public string Numeral_M_P
+        public string Numeral24_M_P
         {
-            get { return GetForm("Numeral_M_P"); }
-            set { SetForm("Numeral_M_P", value); }
+            get { return GetForm("Numeral24_M_P"); }
+            set { SetForm("Numeral24_M_P", value); }
         }
 
-        public string Numeral_M_D
+        public string Numeral24_M_D
         {
-            get { return GetForm("Numeral_M_D"); }
-            set { SetForm("Numeral_M_D", value); }
+            get { return GetForm("Numeral24_M_D"); }
+            set { SetForm("Numeral24_M_D", value); }
         }
 
-        public string Numeral_M_I
+        public string Numeral24_M_I
         {
-            get { return GetForm("Numeral_M_I"); }
-            set { SetForm("Numeral_M_I", value); }
+            get { return GetForm("Numeral24_M_I"); }
+            set { SetForm("Numeral24_M_I", value); }
         }
 
-        public string Numeral_F_N
+        public string Numeral24_F_N
         {
-            get { return GetForm("Numeral_F_N"); }
-            set { SetForm("Numeral_F_N", value); }
+            get { return GetForm("Numeral24_F_N"); }
+            set { SetForm("Numeral24_F_N", value); }
         }
 
-        public string Numeral_F_A
+        public string Numeral24_F_A_Inanim
         {
-            get { return GetForm("Numeral_F_A"); }
-            set { SetForm("Numeral_F_A", value); }
+            get { return GetForm("Numeral24_F_A_Inanim"); }
+            set { SetForm("Numeral24_F_A_Inanim", value); }
         }
 
-        public string Numeral_F_G
+        public string Numeral24_F_A_Anim
         {
-            get { return GetForm("Numeral_F_G"); }
-            set { SetForm("Numeral_F_G", value); }
+            get { return GetForm("Numeral24_F_A_Anim"); }
+            set { SetForm("Numeral24_F_A_Anim", value); }
         }
 
-        public string Numeral_F_P
+        public string Numeral24_F_G
         {
-            get { return GetForm("Numeral_F_P"); }
-            set { SetForm("Numeral_F_P", value); }
+            get { return GetForm("Numeral24_F_G"); }
+            set { SetForm("Numeral24_F_G", value); }
         }
 
-        public string Numeral_F_D
+        public string Numeral24_F_P
         {
-            get { return GetForm("Numeral_F_D"); }
-            set { SetForm("Numeral_F_D", value); }
+            get { return GetForm("Numeral24_F_P"); }
+            set { SetForm("Numeral24_F_P", value); }
         }
 
-        public string Numeral_F_I
+        public string Numeral24_F_D
         {
-            get { return GetForm("Numeral_F_I"); }
-            set { SetForm("Numeral_F_I", value); }
+            get { return GetForm("Numeral24_F_D"); }
+            set { SetForm("Numeral24_F_D", value); }
         }
 
-        public string Numeral_F_L
+        public string Numeral24_F_I
         {
-            get { return GetForm("Numeral_F_L"); }
-            set { SetForm("Numeral_F_L", value); }
+            get { return GetForm("Numeral24_F_I"); }
+            set { SetForm("Numeral24_F_I", value); }
         }
 
-        public string Numeral_Pl_N
+        public string Numeral24_F_L
         {
-            get { return GetForm("Numeral_Pl_N"); }
-            set { SetForm("Numeral_Pl_N", value); }
+            get { return GetForm("Numeral24_F_L"); }
+            set { SetForm("Numeral24_F_L", value); }
         }
 
-        public string Numeral_Pl_A
+        public bool Numeral24_M_N_HasMultipleForms
         {
-            get { return GetForm("Numeral_Pl_A"); }
-            set { SetForm("Numeral_Pl_A", value); }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_M_N", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public string Numeral_Pl_G
+        public bool Numeral24_M_A_Inanim_HasMultipleForms
         {
-            get { return GetForm("Numeral_Pl_G"); }
-            set { SetForm("Numeral_Pl_G", value); }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_M_A_Inanim", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public string Numeral_Pl_P
+        public bool Numeral24_M_A_Anim_HasMultipleForms
         {
-            get { return GetForm("Numeral_Pl_P"); }
-            set { SetForm("Numeral_Pl_P", value); }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_M_A_Anim", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public string Numeral_Pl_D
+        public bool Numeral24_M_G_HasMultipleForms
         {
-            get { return GetForm("Numeral_Pl_D"); }
-            set { SetForm("Numeral_Pl_D", value); }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_M_G", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public string Numeral_Pl_I
+        public bool Numeral24_M_P_HasMultipleForms
         {
-            get { return GetForm("Numeral_Pl_I"); }
-            set { SetForm("Numeral_Pl_I", value); }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_M_P", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public string Numeral_Pl_L
+        public bool Numeral24_M_D_HasMultipleForms
         {
-            get { return GetForm("Numeral_Pl_L"); }
-            set { SetForm("Numeral_Pl_L", value); }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_M_D", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool Numeral_M_N_HasMultipleForms
+        public bool Numeral24_M_I_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_M_N", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_M_I", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool Numeral_M_A_Inanim_HasMultipleForms
+        public bool Numeral24_F_N_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_M_A_Inanim", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_F_N", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool Numeral_M_A_Anim_HasMultipleForms
+        public bool Numeral24_F_A_Inanim_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_M_A_Anim", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_F_A_Inanim", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool Numeral_M_G_HasMultipleForms
+        public bool Numeral24_F_A_Anim_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_M_G", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_F_A_Anim", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool Numeral_M_P_HasMultipleForms
+        public bool Numeral24_F_G_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_M_P", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_F_G", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool Numeral_M_D_HasMultipleForms
+        public bool Numeral24_F_P_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_M_D", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_F_P", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool Numeral_M_I_HasMultipleForms
+        public bool Numeral24_F_D_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_M_I", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_F_D", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool Numeral_F_N_HasMultipleForms
+        public bool Numeral24_F_I_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_F_N", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral24_F_I", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool Numeral_F_A_HasMultipleForms
+        public ECellStatus Numeral24_M_N_CellStatus
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_F_A", out f); return f != null && f.lstForms.Count > 1; }
+            get { return GetCellStatus("Numeral24_M_N"); }
         }
 
-        public bool Numeral_F_G_HasMultipleForms
+        public ECellStatus Numeral24_M_A_Inanim_CellStatus
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_F_G", out f); return f != null && f.lstForms.Count > 1; }
+            get { return GetCellStatus("Numeral24_M_A_Inanim"); }
         }
 
-        public bool Numeral_F_P_HasMultipleForms
+        public ECellStatus Numeral24_M_A_Anim_CellStatus
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_F_P", out f); return f != null && f.lstForms.Count > 1; }
+            get { return GetCellStatus("Numeral24_M_A_Anim"); }
         }
 
-        public bool Numeral_F_D_HasMultipleForms
+        public ECellStatus Numeral24_M_G_CellStatus
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_F_D", out f); return f != null && f.lstForms.Count > 1; }
+            get { return GetCellStatus("Numeral24_M_G"); }
         }
 
-        public bool Numeral_F_I_HasMultipleForms
+        public ECellStatus Numeral24_M_P_CellStatus
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_F_I", out f); return f != null && f.lstForms.Count > 1; }
+            get { return GetCellStatus("Numeral24_M_P"); }
         }
 
-        public bool Numeral_Pl_N_HasMultipleForms
+        public ECellStatus Numeral24_M_D_CellStatus
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_Pl_N", out f); return f != null && f.lstForms.Count > 1; }
+            get { return GetCellStatus("Numeral24_M_D"); }
         }
 
-        public bool Numeral_Pl_A_Inanim_HasMultipleForms
+        public ECellStatus Numeral24_M_I_CellStatus
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_Pl_A_Inanim", out f); return f != null && f.lstForms.Count > 1; }
+            get { return GetCellStatus("Numeral24_M_I"); }
         }
 
-        public bool Numeral_Pl_A_Anim_HasMultipleForms
+        public ECellStatus Numeral24_F_N_CellStatus
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_Pl_A_Anim", out f); return f != null && f.lstForms.Count > 1; }
+            get { return GetCellStatus("Numeral24_F_N"); }
         }
 
-        public bool Numeral_Pl_G_HasMultipleForms
+        public ECellStatus Numeral24_F_A_Inanim_CellStatus
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_Pl_G", out f); return f != null && f.lstForms.Count > 1; }
+            get { return GetCellStatus("Numeral24_F_A_Inanim"); }
         }
 
-        public bool Numeral_Pl_P_HasMultipleForms
+        public ECellStatus Numeral24_F_A_Anim_CellStatus
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_Pl_P", out f); return f != null && f.lstForms.Count > 1; }
+            get { return GetCellStatus("Numeral24_F_A_Anim"); }
         }
 
-        public bool Numeral_Pl_D_HasMultipleForms
+        public ECellStatus Numeral24_F_G_CellStatus
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_Pl_D", out f); return f != null && f.lstForms.Count > 1; }
+            get { return GetCellStatus("Numeral24_F_G"); }
         }
 
-        public bool Numeral_Pl_I_HasMultipleForms
+        public ECellStatus Numeral24_F_P_CellStatus
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Numeral_Pl_I", out f); return f != null && f.lstForms.Count > 1; }
+            get { return GetCellStatus("Numeral24_F_P"); }
         }
 
-        public ECellStatus Numeral_M_N_CellStatus
+        public ECellStatus Numeral24_F_D_CellStatus
         {
-            get { return GetCellStatus("Numeral_M_N"); }
+            get { return GetCellStatus("Numeral24_F_D"); }
         }
 
-        public ECellStatus Numeral_M_A_Inanim_CellStatus
-        {
-            get { return GetCellStatus("Numeral_M_A_Inanim"); }
-        }
-
-        public ECellStatus Numeral_M_A_Anim_CellStatus
-        {
-            get { return GetCellStatus("Numeral_M_A_Anim"); }
-        }
-
-        public ECellStatus Numeral_M_G_CellStatus
-        {
-            get { return GetCellStatus("Numeral_M_G"); }
-        }
-
-        public ECellStatus Numeral_M_P_CellStatus
-        {
-            get { return GetCellStatus("Numeral_M_P"); }
-        }
-
-        public ECellStatus Numeral_M_D_CellStatus
-        {
-            get { return GetCellStatus("Numeral_M_D"); }
-        }
-
-        public ECellStatus Numeral_M_I_CellStatus
-        {
-            get { return GetCellStatus("Numeral_M_I"); }
-        }
-
-        public ECellStatus Numeral_F_N_CellStatus
-        {
-            get { return GetCellStatus("Numeral_F_N"); }
-        }
-
-        public ECellStatus Numeral_F_A_Inanim_CellStatus
-        {
-            get { return GetCellStatus("Numeral_F_A_Inanim"); }
-        }
-
-        public ECellStatus Numeral_F_A_Anim_CellStatus
-        {
-            get { return GetCellStatus("Numeral_F_A_Anim"); }
-        }
-
-        public ECellStatus Numeral_F_G_CellStatus
-        {
-            get { return GetCellStatus("Numeral_F_G"); }
-        }
-
-        public ECellStatus Numeral_F_P_CellStatus
-        {
-            get { return GetCellStatus("Numeral_F_P"); }
-        }
-
-        public ECellStatus Numeral_F_D_CellStatus
-        {
-            get { return GetCellStatus("Numeral_F_D"); }
-        }
-
-        public ECellStatus Numeral_F_I_CellStatus
+        public ECellStatus Numeral24_F_I_CellStatus
         {
             get { return GetCellStatus("Num24_F_I"); }
-        }
-
-        public ECellStatus Numeral_Pl_N_CellStatus
-        {
-            get { return GetCellStatus("Numeral_Pl_N"); }
-        }
-
-        public ECellStatus Numeral_Pl_A_CellStatus
-        {
-            get { return GetCellStatus("Numeral_Pl_A"); }
-        }
-
-        public ECellStatus Numeral_Pl_G_CellStatus
-        {
-            get { return GetCellStatus("Numeral_Pl_G"); }
-        }
-
-        public ECellStatus Numeral_Pl_P_CellStatus
-        {
-            get { return GetCellStatus("Numeral_Pl_P"); }
-        }
-
-        public ECellStatus Numeral_Pl_D_CellStatus
-        {
-            get { return GetCellStatus("Numeral_Pl_D"); }
-        }
-
-        public ECellStatus Numeral_Pl_I_CellStatus
-        {
-            get { return GetCellStatus("Numeral_Pl_I"); }
         }
 
         #endregion
@@ -485,7 +389,7 @@ namespace ZalTestApp
             try
             {
                 string sLexemeHash = m_Lexeme.sParadigmHash();
-                List<string> listKeys = Helpers.m_listPropNamesNumeral;
+                List<string> listKeys = Helpers.m_listPropNamesNumeral24;
                 foreach (var sHash in listKeys)
                 {
                     FormsForGramHash formsPerHash = new FormsForGramHash();
