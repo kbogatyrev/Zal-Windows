@@ -119,6 +119,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AdjViewModel.cs" />
+    <Compile Include="NumeralView.xaml.cs">
+      <DependentUpon>NumeralView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NumeralViewModel.cs" />
     <Compile Include="NumeralViewModel2to4.cs" />
     <Compile Include="NumeralView2to4.xaml.cs">
       <DependentUpon>NumeralView2to4.xaml</DependentUpon>
@@ -188,6 +192,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NumeralView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="NumeralView2to4.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

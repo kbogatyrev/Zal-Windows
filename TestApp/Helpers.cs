@@ -42,9 +42,8 @@ namespace ZalTestApp
 
         public static List<string> m_listPropNamesNumeral = new List<string>()
         {
-            "Numeral_M_N", "Numeral_M_A_Inanim", "Numeral_M_A_Anim", "Numeral_M_G", "Numeral_M_P", "Numeral_M_D", "Numeral_M_P2",
-            "Numeral_M_I", "Numeral_M_Part", "Numeral_F_N", "Numeral_F_A", "Numeral_F_G", "Numeral_F_P",
-            "Numeral_F_D", "Numeral_F_L", "Numeral_F_I"
+            "Numeral_N", "Numeral_A", "Numeral_A", "Numeral_G", "Numeral_P", "Numeral_D", "Numeral_P2",
+            "Numeral_I", "Numeral_Part"
         };
 
         public static List<string> m_listPropNamesAdj = new List<string>()

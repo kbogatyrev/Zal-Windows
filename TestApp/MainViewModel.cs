@@ -1004,7 +1004,18 @@ namespace ZalTestApp
                     paradigmViewModel = new NounViewModel(lexeme, m_MainModel);
                     break;
                 case EM_PartOfSpeech.POS_NUM:
-                    paradigmViewModel = new NumeralViewModel2to4(lexeme, m_MainModel);
+                    if (EM_Subparadigm.SUBPARADIGM_NUM_2TO4 == lexeme.eSubparadigm())
+                    {
+                        paradigmViewModel = new NumeralViewModel2to4(lexeme, m_MainModel);
+                    }
+                    else if (EM_Subparadigm.SUBPARADIGM_NUM == lexeme.eSubparadigm())
+                    {
+                        paradigmViewModel = new NumeralViewModel(lexeme, m_MainModel);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Illegal subparadigm speech value a numeral.");
+                    }
                     break;
                 case EM_PartOfSpeech.POS_ADJ:
                 case EM_PartOfSpeech.POS_PRONOUN_ADJ:

@@ -62,6 +62,10 @@
             <local:NumeralView2to4 />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type local:NumeralViewModel}" >
+            <local:NumeralView />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type local:AdjViewModel}">
             <local:AdjView />
         </DataTemplate>
