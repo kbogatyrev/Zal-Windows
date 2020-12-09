@@ -1014,7 +1014,7 @@ namespace ZalTestApp
                     }
                     else
                     {
-                        MessageBox.Show("Illegal subparadigm speech value a numeral.");
+                        MessageBox.Show("Illegal subparadigm value for a numeral.");
                     }
                     break;
                 case EM_PartOfSpeech.POS_ADJ:

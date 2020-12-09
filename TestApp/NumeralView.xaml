@@ -16,20 +16,20 @@
             <Grid Width="650" Height="Auto">
 
                 <!-- Case Labels -->
-                <TextBox Text="И" Margin="33,70,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="В" Margin="33,115,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="Р" Margin="33,205,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="П" Margin="33,160,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="Д" Margin="33,250,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="Т" Margin="33,295,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="И" Margin="133,70,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="В" Margin="133,115,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Р" Margin="133,205,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="П" Margin="133,160,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Д" Margin="133,250,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Т" Margin="133,295,0,0" Style="{StaticResource FormLabelWide}" />
 
                 <!-- Forms -->
-                <TextBox Name ="Numeral_N" Text="{Binding Numeral_N}" Margin="101,70,0,0"  Style="{Binding Numeral_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
-                <TextBox Name ="Numeral_A" Text="{Binding Numeral_A}" Margin="101,115,0,0" Style="{Binding Numeral_A_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
-                <TextBox Name ="Numeral_G" Text="{Binding Numeral_G}" Margin="101,160,0,0" Style="{Binding Numeral_G_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
-                <TextBox Name ="Numeral_P" Text="{Binding Numeral_P}" Margin="101,205,0,0" Style="{Binding Numeral_P_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
-                <TextBox Name ="Numeral_D" Text="{Binding Numeral_D}" Margin="101,250,0,0" Style="{Binding Numeral_D_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
-                <TextBox Name ="Numeral_I" Text="{Binding Numeral_I}" Margin="101,295,0,0" Style="{Binding Numeral_I_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="Numeral_N" Text="{Binding Numeral_N}" Margin="200,70,0,0"  Style="{Binding Numeral_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Numeral_A" Text="{Binding Numeral_A}" Margin="200,115,0,0" Style="{Binding Numeral_A_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Numeral_G" Text="{Binding Numeral_G}" Margin="200,160,0,0" Style="{Binding Numeral_G_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Numeral_P" Text="{Binding Numeral_P}" Margin="200,205,0,0" Style="{Binding Numeral_P_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Numeral_D" Text="{Binding Numeral_D}" Margin="200,250,0,0" Style="{Binding Numeral_D_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="Numeral_I" Text="{Binding Numeral_I}" Margin="200,295,0,0" Style="{Binding Numeral_I_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
 
                 <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
                 <Button Margin="249,74,0,0" CommandParameter="Numeral_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Numeral_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
