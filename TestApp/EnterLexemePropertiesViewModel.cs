@@ -1189,7 +1189,7 @@ namespace ZalTestApp
 
         private void InitChangedPropertyHandlers()
         {
-            m_ChangedPropertiesHandlers.Add("FleetigVowel", () =>
+            m_ChangedPropertiesHandlers.Add("FleetingVowel", () =>
             {
                 bool bValue = false;
                 bool bRet = bGetYesNoValue("FleetingVowel", m_sFleetingVowel, ref bValue);

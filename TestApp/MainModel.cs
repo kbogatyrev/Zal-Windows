@@ -384,7 +384,6 @@ namespace ZalTestApp
                 }
             }
 
-
             var eRet = l.eMakeGraphicStem();
             if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
