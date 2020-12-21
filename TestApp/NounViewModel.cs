@@ -215,11 +215,23 @@ namespace ZalTestApp
         private bool m_bIs_P2_optional = false;
         public bool Is_P2_optional
         {
-            get { return m_bIs_P2_optional; }
+            get 
+            {
+                m_bIs_P2_optional = m_Lexeme.bSecondPrepositionalOptional();
+                return m_bIs_P2_optional; 
+            }
             set
             {
+/*
+                if (m_bIs_P2_optional != value)
+                {
+                    m_bIs_P2_optional = value;
+                    m_Lexeme.SetSecondPrepositionalOptional(m_bIs_P2_optional);
+                    OnPropertyChanged("Noun_Sg_P2_Prepositions");
+                }
                 m_bIs_P2_optional = value;
                 OnPropertyChanged("Is_P2_optional");
+*/
             }
         }
 
@@ -228,13 +240,13 @@ namespace ZalTestApp
         {
             get
             {
+                if (null == m_sNoun_Sg_P2_Prepositions)
+                {
+                    m_sNoun_Sg_P2_Prepositions = m_Lexeme.sP2Preposition();
+                }
                 return m_sNoun_Sg_P2_Prepositions;
             }
-            set
-            {
-                m_sNoun_Sg_P2_Prepositions = value;
-                OnPropertyChanged("Noun_Sg_P2_Prepositions");
-            }
+            set {}
         }
 
         public string Noun_Pl_N

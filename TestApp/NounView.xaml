@@ -38,9 +38,9 @@
 
                 <TextBox Text="{Binding Noun_Sg_Part}" Margin="70,356,0,0" Style="{StaticResource FormText}" />
                 <TextBox Text="{Binding Noun_Sg_P2}" Margin="70,401,0,0" Style="{StaticResource FormText}" />
-                <CheckBox Content="Факульт." IsChecked="{Binding Path=Is_P2_optional}" HorizontalAlignment="Left" Margin="301,409,0,0" VerticalAlignment="Top" Width="87"/>
+                <CheckBox Content="Факульт." IsChecked="{Binding Path=Is_P2_optional}" IsEnabled="False" HorizontalAlignment="Left" Margin="301,409,0,0" VerticalAlignment="Top" Width="87"/>
                 <Label Content="Предлоги:" HorizontalAlignment="Left" Margin="393,402,0,0" VerticalAlignment="Top" Width="66"/>
-                <TextBox Text="{Binding Path=Noun_Sg_P2_Prepositions}" Margin="464,401,0,0" Style="{StaticResource FormText}" Width="63" />
+                <TextBox Text="{Binding Path=Noun_Sg_P2_Prepositions}" IsReadOnly="True" Margin="464,401,0,0" Style="{StaticResource FormText}" Width="63" />
 
                 <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
                 <Button Margin="218,74,0,0" CommandParameter="Noun_Sg_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Noun_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />

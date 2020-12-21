@@ -214,12 +214,12 @@
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
         </ComboBox>
         <TextBox Text="Помета Р2" Margin="678,170,0,0" Style="{StaticResource FormLabel}" Width="120" />
-        <ComboBox Text="{Binding Path=Gen2}" HorizontalAlignment="Left" Margin="805,170,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+        <ComboBox Text="{Binding Path=SecondGenitive}" HorizontalAlignment="Left" Margin="805,170,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="Да" IsEnabled="True" />
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
         </ComboBox>
         <TextBox Text="Помета П2" Margin="678,205,0,0" Style="{StaticResource FormLabel}" Width="120" />
-        <ComboBox Text="{Binding Path=P2}" HorizontalAlignment="Left" Margin="805,205,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
+        <ComboBox Text="{Binding Path=SecondLocative}" HorizontalAlignment="Left" Margin="805,205,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="Да" IsEnabled="True" />
             <ComboBoxItem Content="Нет" IsEnabled="True"/>
             <ComboBoxItem Content="Факульт." IsEnabled="True" />
