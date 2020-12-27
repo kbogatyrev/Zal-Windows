@@ -224,7 +224,7 @@ namespace MainLibManaged
         void SetContexts(String^);
         String^ sTrailingComment();
         void SetTrailingComment(String^);
-        int iInflectionId();
+        long long llInflectionId();
         void SetInflectionId(int);
         bool bPrimaryInflectionGroup();
         void SetPrimaryInflectionGroup(bool);
@@ -350,6 +350,7 @@ namespace MainLibManaged
         EM_ReturnCode eSaveAspectPairInfo(CLexemeManaged^);
         EM_ReturnCode eSaveP2Info(CLexemeManaged^);
         EM_ReturnCode eUpdateDescriptorInfo(CLexemeManaged^);
+        EM_ReturnCode eSaveDescriptorInfo(CLexemeManaged^ pLexeme);
         EM_ReturnCode eSaveCommonDeviation(CLexemeManaged^);
         EM_ReturnCode eSaveInflectionInfo(CLexemeManaged^);
         EM_ReturnCode eDeleteLexeme(CLexemeManaged^);

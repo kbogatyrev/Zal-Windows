@@ -688,7 +688,7 @@ namespace ZalTestApp
 
                     if (lexeme.llLexemeId() == knownLvm.Lexeme.llLexemeId() && 
                         lexeme.llHeadwordId() == knownLvm.Lexeme.llHeadwordId() &&
-                        lexeme.iInflectionId() == knownLvm.Lexeme.iInflectionId())
+                        lexeme.llInflectionId() == knownLvm.Lexeme.llInflectionId())
                     {
                         bIsNewLexeme = false;
                         break;
@@ -865,6 +865,17 @@ namespace ZalTestApp
                 }
             }
 
+            if (elpModel.DescriptorChanged)
+            {
+                var bIsNew = true;
+                bRet = m_MainModel.bSaveDescriptorInfo(lexeme, bIsNew);
+                if (!bRet)
+                {
+                    MessageBox.Show("Не удалось сохранить лексему.");
+                    return false;
+                }
+            }
+
             if (elpModel.AspectPairChanged)
             {
                 bRet = m_MainModel.bSaveAspectPairInfo(lexeme);
@@ -885,16 +896,6 @@ namespace ZalTestApp
                 }
             }
 
-            if (elpModel.CommonDeviationChanged)
-            {
-                bRet = m_MainModel.bSaveCommonDeviation(lexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить информацию о стандартных отклонениях.");
-                    return false;
-                }
-            }
-
             if (elpModel.InflectionGroupChanged)
             {
                 bRet = m_MainModel.bSaveInflectionInfo(lexeme);
@@ -905,12 +906,12 @@ namespace ZalTestApp
                 }
             }
 
-            if (elpModel.DescriptorChanged)
+            if (elpModel.CommonDeviationChanged)
             {
-                bRet = m_MainModel.bSaveDescriptorInfo(lexeme);
+                bRet = m_MainModel.bSaveCommonDeviation(lexeme);
                 if (!bRet)
                 {
-                    MessageBox.Show("Не удалось сохранить лексему.");
+                    MessageBox.Show("Не удалось сохранить информацию о стандартных отклонениях.");
                     return false;
                 }
             }

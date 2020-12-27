@@ -364,7 +364,7 @@ namespace ZalTestApp
             return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         }
 
-        public bool bSaveDescriptorInfo(CLexemeManaged l)
+        public bool bSaveDescriptorInfo(CLexemeManaged l, bool bNewEntry = false)
         {
             if (null == m_Dictionary)
             {
@@ -392,7 +392,15 @@ namespace ZalTestApp
             }
 
             var sOldLexHash = l.sStoredHash();
-            eRet = (EM_ReturnCode)m_Dictionary.eUpdateDescriptorInfo(l);
+
+            if (bNewEntry)
+            {
+                eRet = (EM_ReturnCode)m_Dictionary.eSaveDescriptorInfo(l);
+            }
+            else
+            {
+                eRet = (EM_ReturnCode)m_Dictionary.eUpdateDescriptorInfo(l);
+            }
             var sNewLexHash = l.sHash();
 
             var sDbPath = m_Dictionary.sGetDbPath();

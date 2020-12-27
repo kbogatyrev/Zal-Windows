@@ -1818,7 +1818,7 @@ namespace ZalTestApp
                 return bRet;
             });
 
-            m_ChangedPropertiesHandlers.Add("StemAugment", () =>
+            m_ChangedPropertiesHandlers.Add("SmallCircle", () =>
             {
                 bool bValue = false;
                 bool bRet = bGetYesNoValue("SmallCircle", m_sSmallCircle, ref bValue);
@@ -1827,13 +1827,18 @@ namespace ZalTestApp
                     return false;
                 }
 
+                if (!bValue)
+                {
+                    m_Lexeme.SetStemAugment(-1);
+                }
+
                 if (EM_PartOfSpeech.POS_NOUN == m_Lexeme.ePartOfSpeech())
                 {
-                    if (1 == m_Lexeme.iInflectionId())
+                    if (1 == m_Lexeme.llInflectionId())
                     {
                         m_Lexeme.SetStemAugment(1);
                     }
-                    else if (3 == m_Lexeme.iInflectionId())
+                    else if (3 == m_Lexeme.llInflectionId())
                     {
                         if (m_Lexeme.sSourceForm().EndsWith("онок") || m_Lexeme.sSourceForm().EndsWith("ёнок"))
                         {
@@ -1849,7 +1854,7 @@ namespace ZalTestApp
                             return false;
                         }
                     }
-                    else if (8 == m_Lexeme.iInflectionId())
+                    else if (8 == m_Lexeme.llInflectionId())
                     {
                         if (m_Lexeme.sSourceForm().EndsWith("мя"))
                         {
@@ -2068,7 +2073,10 @@ namespace ZalTestApp
             InflectionType = m_Lexeme.sInflectionType();
 
             Index = m_Lexeme.iType().ToString();
-            IsTransitive = m_Lexeme.bTransitive() ? m_YesNoValues[0] : m_YesNoValues[1];
+            if (EM_PartOfSpeech.POS_VERB == m_Lexeme.ePartOfSpeech())
+            {
+                IsTransitive = m_Lexeme.bTransitive() ? m_YesNoValues[0] : m_YesNoValues[1];
+            }
             StressType1 = Helpers.sAccenTypeToStressSchema(m_Lexeme.eAccentType1());
             if (m_Lexeme.eAccentType2() != EM_AccentType.AT_UNDEFINED)
             {

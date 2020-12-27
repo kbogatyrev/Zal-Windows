@@ -792,6 +792,19 @@ EM_ReturnCode CDictionaryManaged::eUpdateDescriptorInfo(CLexemeManaged^ l)
     return (EM_ReturnCode)eRet;
 }
 
+EM_ReturnCode CDictionaryManaged::eSaveDescriptorInfo(CLexemeManaged^ l)
+{
+    if (NULL == m_pDictionary)
+    {
+        throw gcnew Exception(L"Dictionary object is NULL.");
+    }
+
+    ET_ReturnCode eRet = m_pDictionary->eSaveDescriptorInfo(l->m_pLexeme);
+
+    return (EM_ReturnCode)eRet;
+}
+
+
 EM_ReturnCode CDictionaryManaged::eSaveInflectionInfo(CLexemeManaged^ l)
 {
     if (NULL == m_pDictionary)
@@ -2090,14 +2103,14 @@ void CLexemeManaged::SetTrailingComment(String^ sValue)
     m_pLexeme->SetTrailingComment(sFromManagedString(sValue));
 }
 
-int CLexemeManaged::iInflectionId()
+long long CLexemeManaged::llInflectionId()
 {
     if (NULL == m_pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return m_pLexeme->iInflectionId();
+    return m_pLexeme->llInflectionId();
 }
  
 void CLexemeManaged::SetInflectionId(int iValue)
