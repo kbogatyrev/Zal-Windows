@@ -452,7 +452,7 @@ namespace ZalTestApp
                     forms.Add(fd);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 //                System.Windows.MessageBox.Show("Internal error: Gram hash not recognized. " + ex.Message);
                 return false;
@@ -903,7 +903,7 @@ namespace ZalTestApp
 
                     dctParadigm[sKey].Add(wf);
                 }
-                catch(Exception ex)
+                catch
                 {
 //                    return false;
                 }
@@ -977,7 +977,7 @@ namespace ZalTestApp
 
                     dctParadigm[sKey].Add(wf);
                 }
-                catch (Exception ex)
+                catch
                 {
                     //                    return false;
                 }
@@ -1615,14 +1615,15 @@ namespace ZalTestApp
                     dctParadigm[sPrefix + "Pl_A_Anim"].Add(sForm);
                 }
             }
-            catch (KeyNotFoundException exKey)
+//            catch (KeyNotFoundException exKey)
+            catch
             {
- //               System.Windows.MessageBox.Show("Error: unable to find form:  " + exKey.Message);
+                //               System.Windows.MessageBox.Show("Error: unable to find form:  " + exKey.Message);
             }
-            catch (Exception exOther)
-            {
-                System.Windows.MessageBox.Show("Exception: " + exOther.Message);
-            }
+//            catch (Exception exOther)
+//            {
+//                System.Windows.MessageBox.Show("Exception: " + exOther.Message);
+//            }
         }       //  HandleAccusatives()
 
         #endregion
