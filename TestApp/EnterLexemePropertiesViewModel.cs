@@ -2197,7 +2197,7 @@ namespace ZalTestApp
 
         public void OffloadData()
         {
-            bool bRet = true;
+//            bool bRet = true;
 //            bool bValue = true;
 
             foreach (string sProperty in m_PropertiesChanged)

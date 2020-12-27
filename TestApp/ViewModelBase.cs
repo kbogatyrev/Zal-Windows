@@ -787,7 +787,7 @@ namespace ZalTestApp
 
     public class FormDescriptor
     {
-        private string m_sStressedWordform;
+//        private string m_sStressedWordform;
         public string StressedWordform
         {
             get

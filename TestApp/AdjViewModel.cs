@@ -1130,7 +1130,7 @@ namespace ZalTestApp
                 {
                     sParadigmHash = Helpers.m_listPropNamesAdj[keyIdx];
                 }
-                catch (Exception ex)
+                catch
                 {
                     MessageBox.Show(String.Format("Unable to find paradigm hash string; illegal hash value: {0}", sHash));
                     continue;

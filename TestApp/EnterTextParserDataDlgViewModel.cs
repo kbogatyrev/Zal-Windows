@@ -13,9 +13,9 @@ namespace ZalTestApp
 {
     public class EnterTextParserDataDlgViewModel : ViewModelBase
     {
-        string m_sTextName;
-        string m_sSourceText;
-        string m_sSourceMetadata;
+//        string m_sTextName;
+//        string m_sSourceText;
+//        string m_sSourceMetadata;
 
         private ICommand m_OpenFileCommand;
         public ICommand OpenFileCommand
