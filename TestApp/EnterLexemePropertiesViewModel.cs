@@ -1834,11 +1834,11 @@ namespace ZalTestApp
 
                 if (EM_PartOfSpeech.POS_NOUN == m_Lexeme.ePartOfSpeech())
                 {
-                    if (1 == m_Lexeme.llInflectionId())
+                    if (1 == m_Lexeme.iType())
                     {
                         m_Lexeme.SetStemAugment(1);
                     }
-                    else if (3 == m_Lexeme.llInflectionId())
+                    else if (3 == m_Lexeme.iType())
                     {
                         if (m_Lexeme.sSourceForm().EndsWith("онок") || m_Lexeme.sSourceForm().EndsWith("ёнок"))
                         {
@@ -1854,7 +1854,7 @@ namespace ZalTestApp
                             return false;
                         }
                     }
-                    else if (8 == m_Lexeme.llInflectionId())
+                    else if (8 == m_Lexeme.iType())
                     {
                         if (m_Lexeme.sSourceForm().EndsWith("мя"))
                         {
