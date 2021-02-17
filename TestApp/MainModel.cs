@@ -384,14 +384,16 @@ namespace ZalTestApp
                 }
             }
 
-            var eRet = l.eMakeGraphicStem();
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
-            {
-                System.Windows.MessageBox.Show("Unable to create graphic stem.");
-                return false;
-            }
+//            var eRet = l.eMakeGraphicStem();
+//            if (eRet != EM_ReturnCode.H_NO_ERROR)
+//            {
+//                System.Windows.MessageBox.Show("Unable to create graphic stem.");
+//                return false;
+//            }
 
             var sOldLexHash = l.sStoredHash();
+
+            var eRet = EM_ReturnCode.H_NO_ERROR;
 
             if (bNewEntry)
             {

@@ -976,6 +976,20 @@ namespace ZalTestApp
 
             if (elpModel.DescriptorChanged)
             {
+                if (elpModel.SourceFormIsIrregular)
+                {
+                    lexeme.SetGraphicStem(elpModel.GraphicStem);
+                }
+                else
+                {
+                    var eRet = lexeme.eMakeGraphicStem();
+                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    {
+                        System.Windows.MessageBox.Show("Unable to create graphic stem.");
+                        return false;
+                    }
+                }
+
                 bRet = m_MainModel.bSaveDescriptorInfo(lexeme);
                 if (!bRet)
                 {
