@@ -442,14 +442,10 @@ namespace ZalTestApp
 
         public bool HasComments(string sDisplayHash, EM_Subparadigm eSubparadigm)
         {
-            return false;
-
-// ***                   CURRENTLY DISABLED                   ***
-
-            /*
             string sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech(), eSubparadigm);
             FormsForGramHash formsForHash = null;
-            if (!m_DictFormStatus.TryGetValue(sFormHash, out formsForHash))
+//            if (!m_DictFormStatus.TryGetValue(sFormHash, out formsForHash))
+            if (!m_DictFormStatus.TryGetValue(sDisplayHash, out formsForHash))
             {
                 return false;
             }
@@ -470,7 +466,6 @@ namespace ZalTestApp
             }
 
             return true;
-            */
         }
 
         public ECellStatus GetCellStatus(string sFormHash)

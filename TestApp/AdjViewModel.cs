@@ -179,7 +179,7 @@ namespace ZalTestApp
 
         EMark GetFormStatus(string sDisplayHash)
         {
-            var sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech());
+            var sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech(), m_eSubparadigm);
             string sLexemeHash = m_Lexeme.sParadigmHash();
             if (m_MainModel.bIsEdited(sLexemeHash, sFormHash))
             {
