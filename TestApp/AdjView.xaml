@@ -279,7 +279,7 @@
                 <Button Margin="602,722,0,0" CommandParameter="AdjComp" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjComp_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Button Margin="602,730,0,0" CommandParameter="AdjComp" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjComp_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Image HorizontalAlignment="Left" Margin="627,725,0,0" VerticalAlignment="Top" Style="{Binding AdjComp_Marks, Converter={StaticResource StyleConverterMarks}}" />
-                <Button  Margin="620,718,0,0" CommandParameter="AdjS_Pl" Command="{Binding ShowFormComment}" Style="{StaticResource BtnComment}" Visibility="{Binding AdjS_Pl_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <Button  Margin="620,718,0,0" CommandParameter="AdjComp" Command="{Binding ShowFormComment}" Style="{StaticResource BtnComment}" Visibility="{Binding AdjS_Pl_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
             </Grid>
         </ScrollViewer>
         <!--
