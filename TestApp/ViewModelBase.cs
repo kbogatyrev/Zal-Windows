@@ -404,6 +404,10 @@ namespace ZalTestApp
                             sFormHash = sDisplayHash;
                             break;
 
+                        case EM_Subparadigm.SUBPARADIGM_COMPARATIVE:        // does not belong to participial paradigm
+                            sFormHash = "";                                 // may appear since UI has the same window for
+                            break;                                          // adj. and participles
+
                         default:
                             MessageBox.Show(String.Format("Subparadigm {0} was not recognized.", eSubparadigm.ToString()));
                             break;
@@ -468,10 +472,12 @@ namespace ZalTestApp
             return true;
         }
 
-        public ECellStatus GetCellStatus(string sFormHash)
+        public ECellStatus GetCellStatus(string sDisplayHash, 
+                                         EM_Subparadigm eSubparadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED)
         {
             string sLexemeHash = m_Lexeme.sParadigmHash();
-            if (m_MainModel.bIsMissing(sLexemeHash, sFormHash))
+            var sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech(), eSubparadigm);
+            if (sFormHash == "" || m_MainModel.bIsMissing(sLexemeHash, sFormHash))
             {
                 return ECellStatus.Missing;
             }

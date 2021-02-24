@@ -214,7 +214,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_M_Sg_N_CellStatus
         {
-            get { return GetCellStatus("AdjL_M_Sg_N"); }
+            get { return GetCellStatus("AdjL_M_Sg_N", m_eSubparadigm); }
         }
 
         public string AdjL_M_Sg_A_Anim
@@ -237,7 +237,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_M_Sg_A_Anim_CellStatus
         {
-            get { return GetCellStatus("AdjL_M_Sg_G"); }        // sic, no separate hash for Acc anim
+            get { return GetCellStatus("AdjL_M_Sg_G", m_eSubparadigm); }        // sic, no separate hash for Acc anim
         }
 
         public string AdjL_M_Sg_A_Inanim
@@ -260,7 +260,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_M_Sg_A_Inanim_CellStatus
         {
-            get { return GetCellStatus("AdjL_M_Sg_N"); }        // sic, no separate hash for Acc inanim
+            get { return GetCellStatus("AdjL_M_Sg_N", m_eSubparadigm); }        // sic, no separate hash for Acc inanim
         }
 
         public string AdjL_M_Sg_G
@@ -283,7 +283,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_M_Sg_G_CellStatus
         {
-            get { return GetCellStatus("AdjL_M_Sg_G"); }
+            get { return GetCellStatus("AdjL_M_Sg_G", m_eSubparadigm); }
         }
 
         public string AdjL_M_Sg_P
@@ -306,7 +306,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_M_Sg_P_CellStatus
         {
-            get { return GetCellStatus("AdjL_M_Sg_P"); }
+            get { return GetCellStatus("AdjL_M_Sg_P", m_eSubparadigm); }
         }
 
         public string AdjL_M_Sg_D
@@ -329,7 +329,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_M_Sg_D_CellStatus
         {
-            get { return GetCellStatus("AdjL_M_Sg_D"); }
+            get { return GetCellStatus("AdjL_M_Sg_D", m_eSubparadigm); }
         }
 
         public string AdjL_M_Sg_I
@@ -352,7 +352,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_M_Sg_I_CellStatus
         {
-            get { return GetCellStatus("AdjL_M_Sg_I"); }
+            get { return GetCellStatus("AdjL_M_Sg_I", m_eSubparadigm); }
         }
 
         #endregion
@@ -379,7 +379,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_F_Sg_N_CellStatus
         {
-            get { return GetCellStatus("AdjL_F_Sg_N"); }
+            get { return GetCellStatus("AdjL_F_Sg_N", m_eSubparadigm); }
         }
 
         public string AdjL_F_Sg_A
@@ -402,7 +402,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_F_Sg_A_CellStatus
         {
-            get { return GetCellStatus("AdjL_F_Sg_A"); }
+            get { return GetCellStatus("AdjL_F_Sg_A", m_eSubparadigm); }
         }
 
         public string AdjL_F_Sg_G
@@ -425,7 +425,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_F_Sg_G_CellStatus
         {
-            get { return GetCellStatus("AdjL_F_Sg_G"); }
+            get { return GetCellStatus("AdjL_F_Sg_G", m_eSubparadigm); }
         }
 
         public string AdjL_F_Sg_P
@@ -448,7 +448,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_F_Sg_P_CellStatus
         {
-            get { return GetCellStatus("AdjL_F_Sg_P"); }
+            get { return GetCellStatus("AdjL_F_Sg_P", m_eSubparadigm); }
         }
 
         public string AdjL_F_Sg_D
@@ -471,7 +471,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_F_Sg_D_CellStatus
         {
-            get { return GetCellStatus("AdjL_F_Sg_D"); }
+            get { return GetCellStatus("AdjL_F_Sg_D", m_eSubparadigm); }
         }
 
         public string AdjL_F_Sg_I
@@ -494,7 +494,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_F_Sg_I_CellStatus
         {
-            get { return GetCellStatus("AdjL_F_Sg_I"); }
+            get { return GetCellStatus("AdjL_F_Sg_I", m_eSubparadigm); }
         }
 
         #endregion
@@ -521,7 +521,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_N_Sg_N_CellStatus
         {
-            get { return GetCellStatus("AdjL_N_Sg_N"); }
+            get { return GetCellStatus("AdjL_N_Sg_N", m_eSubparadigm); }
         }
 
         public string AdjL_N_Sg_A
@@ -544,7 +544,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_N_Sg_A_CellStatus
         {
-            get { return GetCellStatus("AdjL_N_Sg_A"); }
+            get { return GetCellStatus("AdjL_N_Sg_A", m_eSubparadigm); }
         }
 
         public string AdjL_N_Sg_G
@@ -567,7 +567,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_N_Sg_G_CellStatus
         {
-            get { return GetCellStatus("AdjL_N_Sg_G"); }
+            get { return GetCellStatus("AdjL_N_Sg_G", m_eSubparadigm); }
         }
 
         public string AdjL_N_Sg_P
@@ -590,7 +590,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_N_Sg_P_CellStatus
         {
-            get { return GetCellStatus("AdjL_N_Sg_P"); }
+            get { return GetCellStatus("AdjL_N_Sg_P", m_eSubparadigm); }
         }
 
         public string AdjL_N_Sg_D
@@ -613,7 +613,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_N_Sg_D_CellStatus
         {
-            get { return GetCellStatus("AdjL_N_Sg_D"); }
+            get { return GetCellStatus("AdjL_N_Sg_D", m_eSubparadigm); }
         }
 
         public string AdjL_N_Sg_I
@@ -636,7 +636,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_N_Sg_I_CellStatus
         {
-            get { return GetCellStatus("AdjL_N_Sg_I"); }
+            get { return GetCellStatus("AdjL_N_Sg_I", m_eSubparadigm); }
         }
 
         #endregion
@@ -663,7 +663,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_Pl_N_CellStatus
         {
-            get { return GetCellStatus("AdjL_Pl_N"); }
+            get { return GetCellStatus("AdjL_Pl_N", m_eSubparadigm); }
         }
 
         public string AdjL_Pl_A_Anim
@@ -686,7 +686,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_Pl_A_Anim_CellStatus
         {
-            get { return GetCellStatus("AdjL_Pl_G"); }         // sic, no separate hash for Acc anim
+            get { return GetCellStatus("AdjL_Pl_G", m_eSubparadigm); }         // sic, no separate hash for Acc anim
         }
 
         public string AdjL_Pl_A_Inanim
@@ -709,7 +709,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_Pl_A_Inanim_CellStatus
         {
-            get { return GetCellStatus("AdjL_Pl_N"); }        // sic, no separate hash for Acc inanim
+            get { return GetCellStatus("AdjL_Pl_N", m_eSubparadigm); }        // sic, no separate hash for Acc inanim
         }
 
         public string AdjL_Pl_G
@@ -732,7 +732,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_Pl_G_CellStatus
         {
-            get { return GetCellStatus("AdjL_Pl_G"); }
+            get { return GetCellStatus("AdjL_Pl_G", m_eSubparadigm); }
         }
 
         public string AdjL_Pl_P
@@ -755,7 +755,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_Pl_P_CellStatus
         {
-            get { return GetCellStatus("AdjL_Pl_P"); }
+            get { return GetCellStatus("AdjL_Pl_P", m_eSubparadigm); }
         }
 
         public string AdjL_Pl_D
@@ -778,7 +778,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_Pl_D_CellStatus
         {
-            get { return GetCellStatus("AdjL_Pl_D"); }
+            get { return GetCellStatus("AdjL_Pl_D", m_eSubparadigm); }
         }
 
         public string AdjL_Pl_I
@@ -801,7 +801,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjL_Pl_I_CellStatus
         {
-            get { return GetCellStatus("AdjL_Pl_I"); }
+            get { return GetCellStatus("AdjL_Pl_I", m_eSubparadigm); }
         }
 
         #endregion
@@ -828,7 +828,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjS_M_CellStatus
         {
-            get { return GetCellStatus("AdjS_M"); }
+            get { return GetCellStatus("AdjS_M", m_eSubparadigm); }
         }
 
         public string AdjS_F
@@ -851,7 +851,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjS_F_CellStatus
         {
-            get { return GetCellStatus("AdjS_F"); }
+            get { return GetCellStatus("AdjS_F", m_eSubparadigm); }
         }
 
         public string AdjS_N
@@ -874,7 +874,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjS_N_CellStatus
         {
-            get { return GetCellStatus("AdjS_N"); }
+            get { return GetCellStatus("AdjS_N", m_eSubparadigm); }
         }
 
         public string AdjS_Pl
@@ -897,7 +897,7 @@ namespace ZalTestApp
 
         public ECellStatus AdjS_Pl_CellStatus
         {
-            get { return GetCellStatus("AdjS_Pl"); }
+            get { return GetCellStatus("AdjS_Pl", m_eSubparadigm); }
         }
 
         #endregion
