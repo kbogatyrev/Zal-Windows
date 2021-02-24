@@ -274,8 +274,8 @@
                 <Button  Margin="635,615,0,0" CommandParameter="AdjS_Pl" Command="{Binding ShowFormComment}" Style="{StaticResource BtnComment}" Visibility="{Binding AdjS_Pl_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
                 <!-- Comparative -->
-                <TextBox Text="Сравн. ст." Margin="480,681,0,0" Style="{StaticResource FormLabelWide}" Width="108" />
-                <TextBox Name ="AdjComp" Text="{Binding AdjComp}" Margin="454,718,0,0" Style="{Binding AdjComp_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Text="Сравн. ст." Margin="480,681,0,0" Style="{StaticResource FormLabelWide}" Width="108" Visibility="{Binding AdjComp_Exists, Converter={StaticResource BoolToVisibility}}"/>
+                <TextBox Name ="AdjComp" Text="{Binding AdjComp}" Margin="454,718,0,0" Style="{Binding AdjComp_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Visibility="{Binding AdjComp_Exists, Converter={StaticResource BoolToVisibility}}"/>
                 <Button Margin="602,722,0,0" CommandParameter="AdjComp" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjComp_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Button Margin="602,730,0,0" CommandParameter="AdjComp" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding AdjComp_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Image HorizontalAlignment="Left" Margin="627,725,0,0" VerticalAlignment="Top" Style="{Binding AdjComp_Marks, Converter={StaticResource StyleConverterMarks}}" />

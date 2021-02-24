@@ -922,6 +922,11 @@ namespace ZalTestApp
             get { return GetCellStatus("AdjComp"); }
         }
 
+        public bool AdjComp_Exists
+        {
+            get { return EM_PartOfSpeech.POS_ADJ == m_Lexeme.ePartOfSpeech(); }
+        }
+
         private bool m_bEditEnabled = false;
         public bool EditEnabled
         {
@@ -1090,7 +1095,7 @@ namespace ZalTestApp
         {
             get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("AdjComp", out f); return f != null && f.lstForms.Count > 1; }
         }
-        
+
         #endregion
 
         #region Data_Acquisition
