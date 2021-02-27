@@ -1284,9 +1284,13 @@ namespace ZalTestApp
             }
             if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_NUM_ADJ)
             {
-                if ("числ.-п" == m_Lexeme.sInflectionType() || "мс" == m_Lexeme.sInflectionType())
+                if ("числ.-п" == m_Lexeme.sInflectionType())
                 {
-//                    listKeys = Helpers.m_listPropNamesNumAdj;
+                    listKeys = Helpers.m_listPropNamesNumAdj;
+//                    listKeys = Helpers.m_listPropNamesPronAdj;
+                }
+                else if ("мс" == m_Lexeme.sInflectionType()) 
+                {
                     listKeys = Helpers.m_listPropNamesPronAdj;
                 }
                 else
