@@ -1022,6 +1022,11 @@ namespace ZalTestApp
                         }
                         break;
 
+                    case EM_PartOfSpeech.POS_NUM_ADJ:
+                        iKeyIdx = m_listPropNamesNumAdj.IndexOf(sFormHash);
+                        sDisplayHash = m_listPropNamesAdj[iKeyIdx];
+                        break;
+
                     case EM_PartOfSpeech.POS_ADJ:
                         if (eSubparadigm == EM_Subparadigm.SUBPARADIGM_LONG_ADJ ||
                             eSubparadigm == EM_Subparadigm.SUBPARADIGM_SHORT_ADJ ||
@@ -1286,8 +1291,26 @@ namespace ZalTestApp
 
         }   //  StressMarksToSyllabicPosList()
 
+        public static bool bNoStressMark(ref string sWordForm)
+        {
+            var iAt = sWordForm.IndexOfAny(arrRusVowels, 0);
+            if (iAt < 0)
+            {
+                return true;
+            }
+
+            iAt = sWordForm.IndexOfAny(arrRusVowels, iAt + 1);
+
+            return iAt < 0 ? true : false;
+        }
+
         public static void MarkStress(ref string sWordForm, CWordFormManaged wf)
         {
+            if (bNoStressMark(ref sWordForm))
+            {
+                return;
+            }
+
             int iPos = -1;
             EM_StressType eType = EM_StressType.STRESS_TYPE_UNDEFINED;
             char chrMark = ' ';
