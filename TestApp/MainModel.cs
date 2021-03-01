@@ -1473,6 +1473,11 @@ namespace ZalTestApp
 
         public bool bIsMissing(string sLexemeHash, string sFormHash)
         {
+            if (null == sFormHash)
+            {
+                return false;
+            }
+
             CLexemeManaged lexeme;
             if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
             {
@@ -1492,6 +1497,11 @@ namespace ZalTestApp
 
         public bool bIsDifficult(string sLexemeHash, string sFormHash)
         {
+            if (null == sFormHash)
+            {
+                return false;
+            }
+
             CLexemeManaged lexeme;
             if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
             {
@@ -1511,6 +1521,11 @@ namespace ZalTestApp
 
         public bool bIsAssumed(string sLexemeHash, string sFormHash)
         {
+            if (null == sFormHash)
+            {
+                return false;
+            }
+
             CLexemeManaged lexeme;
             if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
             {
