@@ -21,9 +21,9 @@ namespace ZalTestApp
 
         public static List<string> m_listPropNamesNoun = new List<string>()
         {
-            "Noun_Sg_N", "Noun_Sg_A", "Noun_Sg_G", "Noun_Sg_P", "Noun_Sg_D", "Noun_Sg_P2",
-            "Noun_Sg_I", "Noun_Sg_Part", "Noun_Pl_N", "Noun_Pl_A", "Noun_Pl_G", "Noun_Pl_P",
-            "Noun_Pl_D", "Noun_Pl_L", "Noun_Pl_I"
+            "Noun_Sg_N", "Noun_Sg_A", "Noun_Sg_G", "Noun_Sg_P", "Noun_Sg_D", "Noun_Sg_P2", "Noun_Sg_P2_Prepositions",
+            "Noun_Sg_I", "Noun_Sg_Part", "Noun_Pl_N", "Noun_Pl_A", "Noun_Pl_G", "Noun_Pl_P", "Noun_Pl_D", "Noun_Pl_L", 
+            "Noun_Pl_I"
         };
 
         public static List<string> m_listPropNamesPronoun = new List<string>()

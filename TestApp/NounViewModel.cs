@@ -577,6 +577,11 @@ namespace ZalTestApp
             get { return GetCellStatus("Noun_Sg_P2"); }
         }
 
+        public ECellStatus Noun_Sg_P2_Prepositions_CellStatus
+        {
+            get { return GetCellStatus("Noun_Sg_P2_Prepositions"); }
+        }
+
         public ECellStatus Noun_Pl_N_CellStatus
         {
             get { return GetCellStatus("Noun_Pl_N"); }
