@@ -69,7 +69,7 @@
 #include "EString.h"
 #include "Callbacks.h"
 #include "GramHasher.h"
-#include "SqliteWrapper.h"
+//#include "SqliteWrapper.h"
 
 #include <stdlib.h>
 #include <crtdbg.h>
