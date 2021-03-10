@@ -22,7 +22,7 @@ namespace ZalTestApp
                                         "IsUnstressed", "IsVariant", "Usage" };
         string[] DescriptorProperties = { "SourceFormIsIrregular", "GraphicStem", "AltMainSymbol", "MainSymbol", "InflectionType", "Triangle", "FleetingVowel", "YoAlternation",
                                           "OAlternation", "TildeSymbol", "SecondGenitive", "HasAspectPair", "HasIrregularForms", "HasDeficiencies", "RestrictedContexts", "Contexts",
-                                          "TrailingComment", "VerbStemAlternation", "PartPastPassZhd", "Section", "NoComparative", "AssumedForms" };
+                                          "TrailingComment", "VerbStemAlternation", "PartPastPassZhd", "Section", "NoComparative", "AssumedForms", "DescriptorComment" };
         string[] InflectionProperties = { "Index", "StressType1", "StressType2", "SmallCircle", "FleetingVowel", "XSymbol", "FramedXSymbol", "IsPrimaryInflectionGroup" };
         string[] CommonDeviationProperties = { "NumberInCircle" };
         string[] AspectPairProperties = { "SvToNsv", "NsvToSv", "AltAspectPairComment" };
@@ -1031,6 +1031,24 @@ namespace ZalTestApp
             }
         }
 
+        // Comment after main descriptor not captured by other means, e.g., "прош. нет"
+        private string m_sDescriptorComment;
+        public string DescriptorComment
+        {
+            get
+            {
+                return m_sDescriptorComment;
+            }
+            set
+            {
+                if (value != m_sDescriptorComment)
+                {
+                    m_sDescriptorComment = value;
+                }
+                OnPropertyChanged("DescriptorComment");
+            }
+        }
+
         private List<string> m_YesNoValues;
         public List<string> YesNoValues
         {
@@ -1869,10 +1887,22 @@ namespace ZalTestApp
                 return true;
             });
 
+            m_ChangedPropertiesHandlers.Add("DescriptorComment", () =>
+            {
+                if (null == m_sDescriptorComment)
+                {
+                    return true;
+                }
+                m_Lexeme.SetComment(m_sDescriptorComment);
+                return true;
+            });
+
+
+
         }   //  InitChangedPropertyHandlers()
         #endregion
 
-    public EnterLexemePropertiesViewModel(CLexemeManaged lexeme, bool bIsNew)
+        public EnterLexemePropertiesViewModel(CLexemeManaged lexeme, bool bIsNew)
     {
         m_Lexeme = lexeme;
         m_PropertiesChanged = new HashSet<string>();
@@ -1890,7 +1920,7 @@ namespace ZalTestApp
         
 
             //            String sAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя\u0300\u0301";
-        String sAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя/\\";
+        String sAlphabet = "-абвгдеёжзийклмнопрстуфхцчшщъыьэюя/\\";
         m_CyrillicAlphabet = new HashSet<char>(sAlphabet.ToCharArray());
 
         m_Errors = new List<string>();
@@ -2193,6 +2223,8 @@ namespace ZalTestApp
                 XSymbol = m_Lexeme.bPastParticipleRestricted() ? m_YesNoValues[0] : m_YesNoValues[1];
                 FramedXSymbol = m_Lexeme.bNoPassivePastParticiple() ? m_YesNoValues[0] : m_YesNoValues[1];
             }
+
+            DescriptorComment = m_Lexeme.sComment();
         }
 
         public void OffloadData()

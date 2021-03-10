@@ -529,6 +529,11 @@ namespace ZalTestApp
                 }
             }
 
+            if (m_Lexeme.sComment().Length > 0)
+            {
+                AddSingleProperty(m_Lexeme.sComment());
+            }
+
             //if (Lexeme.sQuestionableForms() != "")
             //{
             //    AddSingleProperty(Lexeme.sQuestionableForms());

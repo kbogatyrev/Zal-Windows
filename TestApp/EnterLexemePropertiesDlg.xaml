@@ -239,6 +239,9 @@
         <TextBox Text="НСВ → СВ" Margin="678,345,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <TextBox Text="{Binding Path = NsvToSv}" Style="{StaticResource FormText}" HorizontalAlignment="Left" Margin="804,345,0,0" VerticalAlignment="Top" Width="160" Height="28"/>
 
+        <TextBox Text="Комментарий" Margin="678,380,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="Курсивный текст ПОСЛЕ основной грамматической пометы, напр.: прош. нет "/>
+        <TextBox Text="{Binding DescriptorComment}" Margin="805,380,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
+
         <Button Content="Отмена" Style="{DynamicResource BtnLarge}" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=LexemePropertiesWindow}"  HorizontalAlignment="Left" Margin="865,493,0,0" VerticalAlignment="Top" Width="100" />
         <Button Content="Сохранить" Style="{DynamicResource BtnLarge}" Command="{Binding OKCommand}" CommandParameter="{Binding ElementName=LexemePropertiesWindow}" IsEnabled="{Binding Path=PropertiesChanged}" HorizontalAlignment="Left" Margin="758,493,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
