@@ -2,6 +2,9 @@
 // or project specific include files that are used frequently,
 // but are changed infrequently
 
+#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
+#define _SILENCE_CXX17_STRSTREAM_DEPRECATION_WARNING
+
 #pragma once
 
 #define _CRTDBG_MAP_ALLOC
