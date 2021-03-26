@@ -288,6 +288,11 @@ namespace ZalTestApp
 
             if (sMainSymbol != "")
             {
+                var sDisplayMainSymbol = sMainSymbol;   // will add " нп" to non-transitive verbs
+                if (EM_PartOfSpeech.POS_VERB == m_Lexeme.ePartOfSpeech() && !m_Lexeme.bTransitive())
+                {
+                    sMainSymbol += " нп";
+                }
                 AddProperty("Основной символ:", sMainSymbol);
             }
 
