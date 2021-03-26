@@ -1747,6 +1747,17 @@ namespace ZalTestApp
                 return true;
             });                 //  m_ChangedPropertiesHandlers.Add("NumberInCircle" ...
 
+            m_ChangedPropertiesHandlers.Add("Triangle", () =>
+            {
+                bool bValue = false;
+                bool bRet = bGetYesNoValue("Triangle", m_sTriangle, ref bValue);
+                if (bRet)
+                {
+                    m_Lexeme.SetHasIrregularForms(bValue);
+                }
+                return bRet;
+            });
+
             m_ChangedPropertiesHandlers.Add("ShortFormsRestricted", () =>
             {
                 bool bValue = false;
