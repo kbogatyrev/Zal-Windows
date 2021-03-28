@@ -937,13 +937,15 @@ namespace ZalTestApp
             eNumber = EM_Number.NUM_UNDEFINED;
 
             EM_ReturnCode eRet = Helpers.eGramHashToSubparadigm(sHash, ref ePartOfSpeech, ref eSubParadigm);
-            if (eRet != EM_ReturnCode.H_NO_ERROR || eSubParadigm != EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE)
+            if (eRet != EM_ReturnCode.H_NO_ERROR || 
+                !(eSubParadigm == EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE ||
+                  eSubParadigm == EM_Subparadigm.SUBPARADIGM_IMPERATIVE))
             {
                 return EM_ReturnCode.H_ERROR_UNEXPECTED;
             }
 
             string[] arrTokens = sHash.Split('_');
-            if (arrTokens.Length != 3 || (arrTokens[0] != "Pres" && arrTokens[1] != "Impv"))
+            if (arrTokens.Length != 3 || (arrTokens[0] != "Pres" && arrTokens[0] != "Impv"))
             {
                 return EM_ReturnCode.H_ERROR_UNEXPECTED;
             }
