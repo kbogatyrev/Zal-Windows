@@ -855,20 +855,38 @@ namespace ZalTestApp
         {
             bool bRet = true;
 
-            if (elpModel.HeadwordChanged)
+            bRet = m_MainModel.bSaveNewHeadword(lexeme);
+            if (!bRet)
             {
-                bRet = m_MainModel.bSaveNewHeadword(lexeme);
-                if (!bRet)
+                MessageBox.Show("Не удалось сохранить заглавную форму.");
+                return false;
+            }
+            
+            if (elpModel.SourceFormIsIrregular)
+            {
+                lexeme.SetGraphicStem(elpModel.GraphicStem);
+            }
+            else
+            {
+                var eRet = lexeme.eMakeGraphicStem();
+                if (eRet != EM_ReturnCode.H_NO_ERROR)
                 {
-                    MessageBox.Show("Не удалось сохранить заглавную форму.");
+                    System.Windows.MessageBox.Show("Unable to create graphic stem.");
                     return false;
                 }
             }
 
-            if (elpModel.DescriptorChanged)
+            bool bNewEntry = true;
+            bRet = m_MainModel.bSaveDescriptorInfo(lexeme, bNewEntry);
+            if (!bRet)
             {
-                var bIsNew = true;
-                bRet = m_MainModel.bSaveDescriptorInfo(lexeme, bIsNew);
+                MessageBox.Show("Не удалось сохранить лексему.");
+                return false;
+            }
+
+            if (elpModel.InflectionGroupChanged)
+            {
+                bRet = m_MainModel.bSaveInflectionInfo(lexeme);
                 if (!bRet)
                 {
                     MessageBox.Show("Не удалось сохранить лексему.");
@@ -892,16 +910,6 @@ namespace ZalTestApp
                 if (!bRet)
                 {
                     MessageBox.Show("Не удалось сохранить информацию о втором предложном.");
-                    return false;
-                }
-            }
-
-            if (elpModel.InflectionGroupChanged)
-            {
-                bRet = m_MainModel.bSaveInflectionInfo(lexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить лексему.");
                     return false;
                 }
             }
