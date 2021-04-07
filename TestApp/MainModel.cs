@@ -602,13 +602,13 @@ namespace ZalTestApp
 //                        return;
                     }
 
-                    if (!(2 == lexeme.iInflectedParts() && lexeme.bIsSecondPart()))
-                    {
+//                    if (!(2 == lexeme.iInflectedParts() && lexeme.bIsSecondPart()))
+//                    {
                         if (!bArrangeParadigm(lexeme))
                         {
                             System.Windows.MessageBox.Show("Unable to generate forms.");
                         }
-                    }
+//                    }
                 }
 
                 eRet = le.eGetNextLexeme(ref lexeme);

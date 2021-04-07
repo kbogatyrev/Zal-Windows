@@ -2426,46 +2426,46 @@ void CLexemeManaged::SetInfStem(String^ sValue)
     m_pLexeme->SetInfStem(sFromManagedString(sValue));
 }
 
-int CLexemeManaged::iInflectedParts()
-{
-    if (NULL == m_pLexeme)
-    {
-        throw gcnew Exception(L"Lexeme object is NULL.");
-    }
-
-    return m_pLexeme->iInflectedParts();
-}
-
-void CLexemeManaged::SetInflectedParts(int iValue)
-{
-    if (NULL == m_pLexeme)
-    {
-        throw gcnew Exception(L"Lexeme object is NULL.");
-    }
-
-    m_pLexeme->SetInflectedParts(iValue);
-}
-
-bool CLexemeManaged::bIsSecondPart()
-{
-    if (NULL == m_pLexeme)
-    {
-        throw gcnew Exception(L"Lexeme object is NULL.");
-    }
-
-    return m_pLexeme->bIsSecondPart();
-}
-
-void CLexemeManaged::SetSecondPart(bool bValue)
-{
-    if (NULL == m_pLexeme)
-    {
-        throw gcnew Exception(L"Lexeme object is NULL.");
-    }
-
-    m_pLexeme->SetSecondPart(bValue);
-}
-
+//int CLexemeManaged::iInflectedParts()
+//{
+//    if (NULL == m_pLexeme)
+//    {
+//        throw gcnew Exception(L"Lexeme object is NULL.");
+//    }
+//
+//    return m_pLexeme->iInflectedParts();
+//}
+//
+//void CLexemeManaged::SetInflectedParts(int iValue)
+//{
+//    if (NULL == m_pLexeme)
+//    {
+//        throw gcnew Exception(L"Lexeme object is NULL.");
+//    }
+//
+//    m_pLexeme->SetInflectedParts(iValue);
+//}
+//
+//bool CLexemeManaged::bIsSecondPart()
+//{
+//    if (NULL == m_pLexeme)
+//    {
+//        throw gcnew Exception(L"Lexeme object is NULL.");
+//    }
+//
+//    return m_pLexeme->bIsSecondPart();
+//}
+//
+//void CLexemeManaged::SetSecondPart(bool bValue)
+//{
+//    if (NULL == m_pLexeme)
+//    {
+//        throw gcnew Exception(L"Lexeme object is NULL.");
+//    }
+//
+//    m_pLexeme->SetSecondPart(bValue);
+//}
+//
 EM_ReturnCode CLexemeManaged::eAddCommonDeviation(int iValue, bool bIsOptional)
 {
     if (NULL == m_pLexeme)

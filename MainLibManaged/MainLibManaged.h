@@ -256,10 +256,10 @@ namespace MainLibManaged
         void SetInfinitive(String^);
         String^ sInfStem();
         void SetInfStem(String^);
-        int iInflectedParts();
-        void SetInflectedParts(int);
-        bool bIsSecondPart();
-        void SetSecondPart(bool);
+//        int iInflectedParts();
+//        void SetInflectedParts(int);
+//        bool bIsSecondPart();
+//        void SetSecondPart(bool);
         bool bSpryazhSm();
         EM_Subparadigm eSubparadigm();
         void SetSubparadigm(EM_Subparadigm);    // currently only used with numerals
