@@ -17,10 +17,13 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <ItemsControl ItemsSource="{Binding LexemeDetails}" Grid.IsSharedSizeScope="True" Height="400" VerticalAlignment="Top" HorizontalAlignment="Left" >
+                <ItemsControl ItemsSource="{Binding LexemeDetails}" Grid.IsSharedSizeScope="True" Height="400" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,20,0,0" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="one" />
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="two" />
