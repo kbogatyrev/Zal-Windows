@@ -29,7 +29,7 @@
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="two" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                <TextBlock Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{StaticResource DataField}" MaxWidth="170"/>
+                                <TextBox Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{DynamicResource ScrollableDataField}"  MaxWidth="250"  />
                                 <TextBlock Text="{Binding LexemePropertySingleEntry}" Style="{StaticResource SinglePropertyField}" MaxWidth="250"/>
                             </Grid>
                         </DataTemplate>
