@@ -1713,7 +1713,8 @@ namespace ZalTestApp
                             int iType = -1;
                             try
                             {
-                                Convert.ToInt32(sNic[2]);
+                                var sFromChar = sNic[1];  // apparently must be a string
+                                iType = Convert.ToInt32(sFromChar);
                             }
                             catch(OverflowException)
                             {
@@ -1734,7 +1735,7 @@ namespace ZalTestApp
                             int iType = -1;
                             try
                             {
-                                Convert.ToInt32(sNic[0]);
+                                iType = Convert.ToInt32(sNic);
                             }
                             catch (OverflowException)
                             {
