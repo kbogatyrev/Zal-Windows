@@ -320,6 +320,11 @@ namespace ZalTestApp
                 AddProperty("Схема ударения:", sRet);
             }
 
+            if (m_Lexeme.sComment().Length > 0)
+            {
+                AddProperty("Доп. указания:", m_Lexeme.sComment());
+            }
+
             if (Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
             {
                 if (m_Lexeme.bHasAspectPair())
@@ -532,11 +537,6 @@ namespace ZalTestApp
                     Helpers.eGramHashToText(sHash, out sTranslation);
                     AddSingleProperty(sTranslation + " затрудн.");
                 }
-            }
-
-            if (m_Lexeme.sComment().Length > 0)
-            {
-                AddSingleProperty(m_Lexeme.sComment());
             }
 
             //if (Lexeme.sQuestionableForms() != "")

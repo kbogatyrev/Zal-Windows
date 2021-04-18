@@ -4,43 +4,41 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZalTestApp"
-        mc:Ignorable="d" d:DesignHeight="529.147" Width="477.234">
+        mc:Ignorable="d" d:DesignHeight="529.147" Width="580">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,60,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="450" Height="459" Grid.Column="0" >
-        <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" >
-            <Grid Margin="0,0,0,0" VerticalAlignment="Top" Width="376">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,20,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="559" Height="499" Grid.Column="0" >
+        <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" Width="518" >
+            <Grid Margin="-15,0,-14,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.463" Height="488">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="75"/>
                 </Grid.RowDefinitions>
-                <ItemsControl ItemsSource="{Binding LexemeDetails}" Grid.IsSharedSizeScope="True" Height="400" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,20,0,0" >
+                <ItemsControl ItemsSource="{Binding LexemeDetails}" Grid.IsSharedSizeScope="True" Height="400" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="40,20,0,0" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="one" />
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="two" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                <ScrollViewer Grid.Column="1"  VerticalScrollBarVisibility="Hidden">
-                                    <TextBlock Text="{Binding LexemePropertyValue}" Style="{DynamicResource DataField}"  MaxWidth="250"  />
-                                </ScrollViewer>
+                                <TextBox Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{DynamicResource ScrollableDataField}" MaxWidth="270"  />
                                 <TextBlock Text="{Binding LexemePropertySingleEntry}" Style="{StaticResource SinglePropertyField}" MaxWidth="250"/>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <Button Style="{DynamicResource BtnLarge}" Content="Редактировать" Command="{Binding EditLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="-4,404,258,0" VerticalAlignment="Top"  Width="Auto" Grid.RowSpan="2"/>
-                <Button Style="{DynamicResource BtnLarge}" Content="Проверено" Command="{Binding SaveRegressionCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="128,404,130,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" />
-                <Button Style="{DynamicResource BtnLarge}" Content="Стереть" Command="{Binding DeleteLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="256,404,-4,0" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2" />
+                <Button Style="{DynamicResource BtnLarge}" Content="Редактировать" Command="{Binding EditLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="39,26,362,0" VerticalAlignment="Top"  Width="Auto" Grid.Row="1"/>
+                <Button Style="{DynamicResource BtnLarge}" Content="Проверено" Command="{Binding SaveRegressionCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="197,26,195,0" VerticalAlignment="Top" Width="Auto" Grid.Row="1" />
+                <Button Style="{DynamicResource BtnLarge}" Content="Стереть" Command="{Binding DeleteLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="364,26,36,0" VerticalAlignment="Top" Width="Auto" Grid.Row="1" />
             </Grid>
         </Border>
     </ScrollViewer>

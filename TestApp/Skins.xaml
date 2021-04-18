@@ -43,7 +43,10 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+        <Setter Property="ScrollViewer.Height" Value="20.0"/>
     </Style>
 
     <Style TargetType="TextBlock" x:Key="SinglePropertyField">
