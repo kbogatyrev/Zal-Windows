@@ -1690,8 +1690,8 @@ namespace ZalTestApp
             {
                 if (m_sNumberInCircle.Length < 1)
                 {
-                    MessageBox.Show("Warning: expected number in circle.");
-                    return false;
+                    m_Lexeme.ClearCommonDeviations();
+                    return true;
                 }
                 var sSource = m_sNumberInCircle.Replace(" ", "");
                 var arrNumbersInCircle = m_sNumberInCircle.Split(new char[] { ',' });
