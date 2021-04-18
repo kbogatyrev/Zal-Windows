@@ -265,6 +265,7 @@ namespace MainLibManaged
         void SetSubparadigm(EM_Subparadigm);    // currently only used with numerals
 
         EM_ReturnCode eAddCommonDeviation(int iValue, bool bIsOptional);
+        void ClearCommonDeviations();
         bool bFindCommonDeviation(int iNum, bool% bIsOptional);
         bool bFindStandardAlternation(String^ sKey, String^% sValue);
         EM_ReturnCode eGetStemStressPositions(String^ sStem, List<int>% listPositions);

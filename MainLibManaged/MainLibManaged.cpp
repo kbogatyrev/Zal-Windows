@@ -2491,6 +2491,16 @@ bool CLexemeManaged::bFindCommonDeviation(int iNum, bool% bIsOptionalDotNet)
     return bRet;
 }
  
+void CLexemeManaged::ClearCommonDeviations()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    m_pLexeme->ClearCommonDeviations();
+}
+
 bool CLexemeManaged::bFindStandardAlternation(String^ sKey, String^% sValue)
 {
     if (NULL == m_pLexeme)
