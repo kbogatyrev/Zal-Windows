@@ -12,12 +12,12 @@
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,20,0,0" Padding="10,2,10,5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="559" Height="499" Grid.Column="0" >
         <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" Width="518" >
-            <Grid Margin="-15,0,-14,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.463" Height="488">
+            <Grid Margin="0,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.463" Height="488">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="75"/>
                 </Grid.RowDefinitions>
-                <ItemsControl ItemsSource="{Binding LexemeDetails}" Grid.IsSharedSizeScope="True" Height="400" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="40,20,0,0" >
+                <ItemsControl ItemsSource="{Binding LexemeDetails}" Grid.IsSharedSizeScope="True" Height="400" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="38,20,0,0">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -30,7 +30,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <TextBox Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{DynamicResource ScrollableDataField}" Width="240"  />
-                                <TextBlock Text="{Binding LexemePropertySingleEntry}" Style="{StaticResource SinglePropertyField}" MaxWidth="260"/>
+                                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding LexemePropertySingleEntry}" Style="{StaticResource SinglePropertyField}" MaxWidth="400"/>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

@@ -460,7 +460,7 @@ namespace ZalTestApp
                 AddSingleProperty("Чередование о/е");
             }
 
-            if (m_Lexeme.bNoComparative())
+            if (m_Lexeme.bNoComparative() && EM_PartOfSpeech.POS_ADJ == m_Lexeme.ePartOfSpeech())
             {
                 AddSingleProperty("Нет сравнительной степени");
             }
@@ -485,17 +485,17 @@ namespace ZalTestApp
             //    AddSingleProperty("Неполная парадигма");
             //}
 
-            if (m_Lexeme.bShortFormsRestricted())
+            if (m_Lexeme.bShortFormsRestricted() && EM_PartOfSpeech.POS_ADJ == m_Lexeme.ePartOfSpeech())
             {
                 AddSingleProperty("Краткие формы затруднительны");
             }
 
-            if (m_Lexeme.bShortFormsIncomplete())
+            if (m_Lexeme.bShortFormsIncomplete() && EM_PartOfSpeech.POS_ADJ == m_Lexeme.ePartOfSpeech())
             {
-                AddSingleProperty("Краткие формы ограничены");
+                AddSingleProperty("Краткой формы м. р. нет, прочие затруднительны");
             }
 
-            if (m_Lexeme.bNoLongForms())
+            if (m_Lexeme.bNoLongForms() && EM_PartOfSpeech.POS_ADJ == m_Lexeme.ePartOfSpeech())
             {
                 AddSingleProperty("Нет полных форм");
             }
