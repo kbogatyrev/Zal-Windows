@@ -36,9 +36,9 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <Button Style="{DynamicResource BtnLarge}" Content="Редактировать" Command="{Binding EditLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="39,26,362,0" VerticalAlignment="Top"  Width="Auto" Grid.Row="1"/>
-                <Button Style="{DynamicResource BtnLarge}" Content="Проверено" Command="{Binding SaveRegressionCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="197,26,195,0" VerticalAlignment="Top" Width="Auto" Grid.Row="1" />
-                <Button Style="{DynamicResource BtnLarge}" Content="Стереть" Command="{Binding DeleteLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="364,26,36,0" VerticalAlignment="Top" Width="Auto" Grid.Row="1" />
+                <Button Style="{DynamicResource BtnLarge}" Content="Редактировать" Command="{Binding EditLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="35,26,350,0" VerticalAlignment="Top"  Width="Auto" Grid.Row="1"/>
+                <Button Style="{DynamicResource BtnLarge}" Content="Проверено" Command="{Binding SaveRegressionCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="192,26,192,0" VerticalAlignment="Top" Width="Auto" Grid.Row="1" />
+                <Button Style="{DynamicResource BtnLarge}" Content="Стереть" Command="{Binding DeleteLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="349,26,35,0" VerticalAlignment="Top" Width="Auto" Grid.Row="1" />
             </Grid>
         </Border>
     </ScrollViewer>
