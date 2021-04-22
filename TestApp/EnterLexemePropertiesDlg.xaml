@@ -123,7 +123,7 @@
         </ComboBox>
 
         <TextBox Text="Мн. от" Margin="356,170,0,0" Style="{StaticResource FormLabel}" ToolTip="Исходная форма ед. ч." Width="120" />
-        <TextBox Text="{Binding Path=IsPluralOf}" Margin="481,170,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
+        <TextBox Text="{Binding Path=PluralOf}" Margin="481,170,0,0" Style="{StaticResource FormText}" IsReadOnly="False" />
 
         <TextBox Text="Кружочек" Margin="356,205,0,0" Style="{StaticResource FormLabel}" Width="120" ToolTip="(Сразу после цифры)"/>
         <ComboBox Text="{Binding Path=SmallCircle}" HorizontalAlignment="Left" Margin="482,205,0,0" SelectedIndex="1" VerticalAlignment="Top" Width="160" Height="28">
