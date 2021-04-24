@@ -82,11 +82,11 @@ namespace ZalTestApp
                 case EM_Subparadigm.SUBPARADIGM_NOUN:
                     return "Существительное";
                 case EM_Subparadigm.SUBPARADIGM_LONG_ADJ:
-                    return "Прилагательное, полная форма";
+                    return "Полная форма";
                 case EM_Subparadigm.SUBPARADIGM_SHORT_ADJ:
-                    return "Прилагательное, краткая форма";
+                    return "Краткая форма";
                 case EM_Subparadigm.SUBPARADIGM_COMPARATIVE:
-                    return "Прилагательное, сравнительная степень";
+                    return "Сравнительная степень";
                 case EM_Subparadigm.SUBPARADIGM_PRONOUN:
                     return "Местоимение";
                 case EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ:
@@ -344,8 +344,12 @@ namespace ZalTestApp
             }
 
             AddProperty("Словоформа:", sWordForm);
-//            AddProperty("Дескриптор:", m_WordForm.sGramHash());
             AddProperty("Часть речи:", sPosToString(m_WordForm.ePos()));
+            //            AddProperty("Дескриптор:", m_WordForm.sGramHash());
+            if (EM_PartOfSpeech.POS_ADJ == m_WordForm.ePos() || EM_PartOfSpeech.POS_VERB == m_WordForm.ePos())
+            {
+                AddProperty("Категория:", sSubparadigmToString(m_WordForm.eSubparadigm()));
+            }
             if (EM_PartOfSpeech.POS_NOUN == m_WordForm.ePos())
             {
                 AddProperty("Число:", sNumberToString(m_WordForm.eNumber()));
@@ -354,15 +358,29 @@ namespace ZalTestApp
 
             if (EM_PartOfSpeech.POS_ADJ == m_WordForm.ePos())
             {
-                AddProperty("Род:", sGenderToString(m_WordForm.eGender()));
-                AddProperty("Одушевленность:", sAnimacyToString(m_WordForm.eAnimacy()));
-                AddProperty("Число:", sNumberToString(m_WordForm.eNumber()));
-                AddProperty("Падеж:", sCaseToString(m_WordForm.eCase()));
+                if ((EM_Subparadigm.SUBPARADIGM_LONG_ADJ == m_WordForm.eSubparadigm() || 
+                     EM_Subparadigm.SUBPARADIGM_SHORT_ADJ == m_WordForm.eSubparadigm()) && 
+                     EM_Number.NUM_SG == m_WordForm.eNumber())
+                {
+                    AddProperty("Род:", sGenderToString(m_WordForm.eGender()));
+                }
+                //                if (EM_Subparadigm.SUBPARADIGM_LONG_ADJ == m_WordForm.eSubparadigm())
+                //                {
+                //                    AddProperty("Одушевленность:", sAnimacyToString(m_WordForm.eAnimacy()));
+                //                }
+                if (EM_Subparadigm.SUBPARADIGM_COMPARATIVE != m_WordForm.eSubparadigm())
+                {
+                    AddProperty("Число:", sNumberToString(m_WordForm.eNumber()));
+                }
+                if (EM_Subparadigm.SUBPARADIGM_LONG_ADJ == m_WordForm.eSubparadigm())
+                {
+                    AddProperty("Падеж:", sCaseToString(m_WordForm.eCase()));
+                }
             }
 
             if (EM_PartOfSpeech.POS_VERB == m_WordForm.ePos())
             {
-                AddProperty("Субпарадигма:", sSubparadigmToString(m_WordForm.eSubparadigm()));
+//                AddProperty("Субпарадигма:", sSubparadigmToString(m_WordForm.eSubparadigm()));
 
                 switch (m_WordForm.eSubparadigm())
                 {
@@ -383,7 +401,10 @@ namespace ZalTestApp
                     case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
                     case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
                         AddProperty("Падеж:", sCaseToString(m_WordForm.eCase()));
-                        AddProperty("Род:", sGenderToString(m_WordForm.eGender()));
+                        if (EM_Number.NUM_SG == m_WordForm.eNumber())
+                        {
+                            AddProperty("Род:", sGenderToString(m_WordForm.eGender()));
+                        }
                         AddProperty("Число:", sNumberToString(m_WordForm.eNumber()));
                         break;
                     case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT:
