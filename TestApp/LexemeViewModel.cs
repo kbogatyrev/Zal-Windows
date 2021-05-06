@@ -275,6 +275,11 @@ namespace ZalTestApp
                 AddProperty("Вариант:", sSourceFormWithAccents);
             }
 
+            if (m_Lexeme.sSpryazhSmRefSource().Length > 0)
+            {
+                AddProperty("Спрягается как: ", m_Lexeme.sSpryazhSmRefSource());
+            }
+
             string sMainSymbol = m_Lexeme.sMainSymbol();
             if (m_Lexeme.sAltMainSymbol().Length > 0)
             {

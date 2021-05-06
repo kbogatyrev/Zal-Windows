@@ -2796,6 +2796,17 @@ bool CLexemeManaged::bSpryazhSm()
     return m_pLexeme->bSpryazhSm();
 }
 
+String^ CLexemeManaged::sSpryazhSmRefSource()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return gcnew String(m_pLexeme->sSpryazhSmRefSource());
+}
+
+
 EM_Subparadigm CLexemeManaged::eSubparadigm()
 {
     if (NULL == m_pLexeme)

@@ -261,6 +261,7 @@ namespace MainLibManaged
 //        bool bIsSecondPart();
 //        void SetSecondPart(bool);
         bool bSpryazhSm();
+        String^ sSpryazhSmRefSource();
         EM_Subparadigm eSubparadigm();
         void SetSubparadigm(EM_Subparadigm);    // currently only used with numerals
 
