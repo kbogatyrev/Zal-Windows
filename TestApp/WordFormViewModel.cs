@@ -389,7 +389,10 @@ namespace ZalTestApp
                         AddProperty("Лицо:", sPersonToString(m_WordForm.ePerson()));
                         break;
                     case EM_Subparadigm.SUBPARADIGM_PAST_TENSE:
-                        AddProperty("Род:", sGenderToString(m_WordForm.eGender()));
+                        if (EM_Number.NUM_SG == m_WordForm.eNumber())
+                        {
+                            AddProperty("Род:", sGenderToString(m_WordForm.eGender()));
+                        }
                         AddProperty("Число:", sNumberToString(m_WordForm.eNumber()));
                         break;
                     case EM_Subparadigm.SUBPARADIGM_IMPERATIVE:
@@ -421,7 +424,7 @@ namespace ZalTestApp
                 }
             }
 
-        }       //  CollectLexemeProperties()
+        }       //  CollectWordFormProperties()
 
         private void RemoveWordForm(object arg)
         {
