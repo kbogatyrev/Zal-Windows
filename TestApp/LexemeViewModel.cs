@@ -332,7 +332,7 @@ namespace ZalTestApp
 
             if (Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
             {
-                if (m_Lexeme.bHasAspectPair())
+                if (!m_bReadOnly && m_Lexeme.bHasAspectPair())
                 {
                     try
                     {
