@@ -1708,12 +1708,12 @@ namespace ZalTestApp
 
                     if (sNic.Length == 3)
                     {
-                        if ('[' == sNic['0'] && ']' == sNic[2] && sDigits.IndexOf(sNic[1]) >= 0)
+                        if ('[' == sNic[0] && ']' == sNic[2] && sDigits.IndexOf(sNic[1]) >= 0)
                         {
                             int iType = -1;
                             try
                             {
-                                var sFromChar = sNic[1];  // apparently must be a string
+                                string sFromChar = sNic[1].ToString();  // apparently must be a string
                                 iType = Convert.ToInt32(sFromChar);
                             }
                             catch(OverflowException)
