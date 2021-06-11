@@ -128,7 +128,7 @@ namespace ZalTestApp
                 case "VAdvPast":
                     sTranslation = "Деепр. прош.";
                     break;
-                case "!* _Sg_N":
+                case "!*_Sg_N":
                     sTranslation = "Косв. формы";
                     break;
                 case "AdjS_*":
@@ -140,10 +140,10 @@ namespace ZalTestApp
                 case "AdjS_M":
                     sTranslation = "Краткая форма м.р.";
                     break;
-                case "Impv_* _*":
+                case "Impv_*_*":
                     sTranslation = "Повелительное наклонение";
                     break;
-                case "Noun_* _G":
+                case "Noun_*_G":
                     sTranslation = "Род. падеж";
                     break;
                 case "Noun_Pl_*":
