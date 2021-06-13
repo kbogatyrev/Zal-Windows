@@ -424,6 +424,23 @@ namespace ZalTestApp
                 }
             }
 
+            if (EM_PartOfSpeech.POS_PRONOUN == m_WordForm.ePos())
+            {
+                AddProperty("Число:", sNumberToString(m_WordForm.eNumber()));
+                AddProperty("Падеж:", sCaseToString(m_WordForm.eCase()));
+            }
+
+            if (EM_PartOfSpeech.POS_PRONOUN_ADJ == m_WordForm.ePos())
+            {
+                AddProperty("Род:", sGenderToString(m_WordForm.eGender()));
+                AddProperty("Число:", sNumberToString(m_WordForm.eNumber()));
+                AddProperty("Падеж:", sCaseToString(m_WordForm.eCase()));
+            }
+
+            if (EM_PartOfSpeech.POS_NUM == m_WordForm.ePos())
+            {
+                AddProperty("Падеж:", sCaseToString(m_WordForm.eCase()));
+            }
         }       //  CollectWordFormProperties()
 
         private void RemoveWordForm(object arg)
