@@ -1799,7 +1799,7 @@ namespace ZalTestApp
                 bool bRet = bGetYesNoValue("ShortFormsIncomplete", m_sFramedXSymbol, ref bValue);
                 if (bRet)
                 {
-                m_Lexeme.SetShortFormsIncomplete(bValue);
+                    m_Lexeme.SetShortFormsIncomplete(bValue);
                 }
                 return bRet;
             });
@@ -2246,8 +2246,32 @@ namespace ZalTestApp
 
             foreach (string sProperty in m_PropertiesChanged)
             {
+                string sKey = sProperty;
+                if ("FramedXSymbol" == sProperty)
+                {
+                    if (EM_PartOfSpeech.POS_ADJ == m_Lexeme.ePartOfSpeech())
+                    {
+                        sKey = "ShortFormsIncomplete";
+                    }
+                    if (EM_PartOfSpeech.POS_VERB == m_Lexeme.ePartOfSpeech())
+                    {
+                        sKey = "NoPassivePastParticiple";
+                    }
+                }
+                if ("XSymbol" == sProperty)
+                {
+                    if (EM_PartOfSpeech.POS_ADJ == m_Lexeme.ePartOfSpeech())
+                    {
+                        sKey = "ShortFormsRestricted";
+                    }
+                    if (EM_PartOfSpeech.POS_VERB == m_Lexeme.ePartOfSpeech())
+                    {
+                        sKey = "PastParticipleRestricted";
+                    }
+                }
+
                 ChangedPropertyHandler handler = null;
-                if (m_ChangedPropertiesHandlers.TryGetValue(sProperty, out handler))
+                if (m_ChangedPropertiesHandlers.TryGetValue(sKey, out handler))
                 {
                     if (null == handler)
                     {
