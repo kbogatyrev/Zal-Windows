@@ -22,7 +22,7 @@ namespace ZalTestApp
                                         "IsUnstressed", "IsVariant", "Usage" };
         string[] DescriptorProperties = { "SourceFormIsIrregular", "GraphicStem", "AltMainSymbol", "MainSymbol", "InflectionType", "Triangle", "FleetingVowel", "YoAlternation",
                                           "OAlternation", "TildeSymbol", "SecondGenitive", "HasAspectPair", "HasIrregularForms", "HasDeficiencies", "RestrictedContexts", "Contexts",
-                                          "TrailingComment", "VerbStemAlternation", "PartPastPassZhd", "Section", "NoComparative", "AssumedForms", "DescriptorComment" };
+                                          "TrailingComment", "VerbStemAlternation", "PartPastPassZhd", "Section", "NoComparative", "AssumedForms", "DescriptorComment", "IsTransitive" };
         string[] InflectionProperties = { "Index", "StressType1", "StressType2", "SmallCircle", "FleetingVowel", "XSymbol", "FramedXSymbol", "IsPrimaryInflectionGroup" };
         string[] CommonDeviationProperties = { "NumberInCircle" };
         string[] AspectPairProperties = { "SvToNsv", "NsvToSv", "AltAspectPairComment" };
