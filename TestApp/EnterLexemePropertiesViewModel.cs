@@ -1688,11 +1688,13 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("NumberInCircle", () =>
             {
+                m_Lexeme.ClearCommonDeviations();
+
                 if (m_sNumberInCircle.Length < 1)
                 {
-                    m_Lexeme.ClearCommonDeviations();
                     return true;
                 }
+
                 var sSource = m_sNumberInCircle.Replace(" ", "");
                 var arrNumbersInCircle = m_sNumberInCircle.Split(new char[] { ',' });
                 string sDigits = "123456789";
