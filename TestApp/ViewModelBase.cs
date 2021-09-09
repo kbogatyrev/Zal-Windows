@@ -395,6 +395,7 @@ namespace ZalTestApp
                             }
                             break;
 
+                        case EM_Subparadigm.SUBPARADIGM_INFINITIVE:
                         case EM_Subparadigm.SUBPARADIGM_PRESENT_TENSE:
                         case EM_Subparadigm.SUBPARADIGM_PAST_TENSE:
                         case EM_Subparadigm.SUBPARADIGM_IMPERATIVE:

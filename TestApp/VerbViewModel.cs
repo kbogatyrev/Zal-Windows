@@ -249,32 +249,32 @@ namespace ZalTestApp
             }
         }
 
-        public string Infinitive
+        public string Inf
         {
-            get { return GetForm("Infinitive", EM_Subparadigm.SUBPARADIGM_INFINITIVE); }
-            set { SetForm("Infinitive", value); }
+            get { return GetForm("Inf", EM_Subparadigm.SUBPARADIGM_INFINITIVE); }
+            set { SetForm("Inf", value); }
         }
 
         private EMark m_eInfinitive_Marks = EMark.None;
-        public EMark Infinitive_Marks
+        public EMark Inf_Marks
         {
-            get { return GetFormStatus("Infinitive"); }
-            set { m_eInfinitive_Marks = value; OnPropertyChanged("Infinitive_Marks"); }
+            get { return GetFormStatus("Inf"); }
+            set { m_eInfinitive_Marks = value; OnPropertyChanged("Inf_Marks"); }
         }
 
-        public bool Infinitive_HasMultipleForms
+        public bool Inf_HasMultipleForms
         {
-            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Infinitive", out f); return f != null && f.lstForms.Count > 1; }
+            get { FormsForGramHash f = null; m_DictFormStatus.TryGetValue("Inf", out f); return f != null && f.lstForms.Count > 1; }
         }
 
-        public bool Infinitive_HasComments
+        public bool Inf_HasComments
         {
-            get { return HasComments("Infinitive", EM_Subparadigm.SUBPARADIGM_INFINITIVE); }
+            get { return HasComments("Inf", EM_Subparadigm.SUBPARADIGM_INFINITIVE); }
         }
 
-        public ECellStatus Infinitive_CellStatus
+        public ECellStatus Inf_CellStatus
         {
-            get { return GetCellStatus("Infinitive"); }
+            get { return GetCellStatus("Inf"); }
         }
 
         #region Bindings_PresentTense

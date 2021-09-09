@@ -1194,7 +1194,7 @@ namespace ZalTestApp
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_INFINITIVE:
-                        sKey = "Infinitive";
+                        sKey = "Inf";
                         break;
 
                     case EM_Subparadigm.SUBPARADIGM_IMPERATIVE:

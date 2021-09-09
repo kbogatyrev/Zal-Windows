@@ -15,7 +15,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="0" Margin="0" Grid.ColumnSpan="1"  >
             <Grid>
                 <!-- Infinitive -->
-                <TextBox Text="{Binding Path=Infinitive}" Margin="210,20,0,0" Style="{StaticResource FormText}" />
+                <TextBox Text="{Binding Path=Inf}" Margin="210,20,0,0" Style="{StaticResource FormText}" />
                 <Image HorizontalAlignment="Left" Margin="233,77,0,0" VerticalAlignment="Top" Style="{Binding Noun_Sg_N_Marks, Converter={StaticResource StyleConverterMarks}}" />
 
                 <!-- Present tense -->
