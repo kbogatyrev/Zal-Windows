@@ -10,7 +10,7 @@
 #include "IAnalytics.h"
 #include "IVerifier.h"
 #include "IAspectPair.h"
-#include "..\Hlib-Windows\SqliteWrapper.h"
+#include "..\Hlib\SqliteWrapper.h"
 #include "EnumsManaged.h"
 
 using namespace System;

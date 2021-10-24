@@ -87,7 +87,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\HLib-Windows;..\..\ThirdPartyLibs-Windows\Sqlite;..\MainLib;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\HLib;..\..\ThirdPartyLibs-Windows\Sqlite;..\MainLib;$(IncludePath)</IncludePath>
     <LibraryPath>..\lib\x64\Debug;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -95,7 +95,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\HLib-Windows;..\..\ThirdPartyLibs-Windows\Sqlite;..\MainLib;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\HLib;..\..\ThirdPartyLibs-Windows\Sqlite;..\MainLib;$(IncludePath)</IncludePath>
     <LibraryPath>..\lib\x64\Release;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
