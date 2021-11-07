@@ -3,7 +3,6 @@
 #define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 #define _SILENCE_CXX17_STRSTREAM_DEPRECATION_WARNING
 
-#include "stdafx.h"
 #include <msclr\marshal.h>
 #include "GramHasher.h"
 #include "MainLibManaged.h"
@@ -11,8 +10,8 @@
 using namespace System;
 using namespace msclr::interop;
 using namespace System::Runtime::InteropServices;
-using namespace std;
 using namespace MainLibManaged;
+using namespace std;
 
 CEString sFromManagedString(String^ sSource)
 {

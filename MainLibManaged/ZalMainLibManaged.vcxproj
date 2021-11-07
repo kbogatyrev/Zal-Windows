@@ -22,11 +22,15 @@
     <ClInclude Include="EnumsManaged.h" />
     <ClInclude Include="MainLibManaged.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainLibManaged.cpp" />
-    <ClCompile Include="Stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -87,15 +91,15 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\HLib;..\..\ThirdPartyLibs-Windows\Sqlite;..\MainLib;$(IncludePath)</IncludePath>
-    <LibraryPath>..\lib\x64\Debug;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>..\..\HLib;..\..\ThirdParty\Sqlite;..\..\Zal-Core\MainLib;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\Zal-Core\out\build\x64-Debug;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\HLib;..\..\ThirdPartyLibs-Windows\Sqlite;..\MainLib;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\HLib;..\..\ThirdParty\Sqlite;..\..\Zal-Core\MainLib;$(IncludePath)</IncludePath>
     <LibraryPath>..\lib\x64\Release;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
