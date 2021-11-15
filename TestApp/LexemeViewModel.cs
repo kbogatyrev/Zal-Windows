@@ -540,7 +540,10 @@ namespace ZalTestApp
                 {
                     string sTranslation = "";
                     Helpers.eGramHashToText(sHash, out sTranslation);
-                    AddSingleProperty(sTranslation + " затрудн.");
+                    if (sTranslation.Length > 0)
+                    {
+                        AddSingleProperty(sTranslation + " затрудн.");
+                    }
                 }
             }
 

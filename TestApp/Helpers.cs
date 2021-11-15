@@ -128,7 +128,7 @@ namespace ZalTestApp
                 case "VAdvPast":
                     sTranslation = "Деепр. прош.";
                     break;
-                case "!*_Sg_N":
+                case "!Noun_Sg_N":
                     sTranslation = "Косв. формы";
                     break;
                 case "AdjS_*":
