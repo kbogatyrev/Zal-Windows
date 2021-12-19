@@ -2445,26 +2445,26 @@ void CLexemeManaged::SetInfStem(String^ sValue)
 //    m_pLexeme->SetInflectedParts(iValue);
 //}
 //
-//bool CLexemeManaged::bIsSecondPart()
-//{
-//    if (NULL == m_pLexeme)
-//    {
-//        throw gcnew Exception(L"Lexeme object is NULL.");
-//    }
-//
-//    return m_pLexeme->bIsSecondPart();
-//}
-//
-//void CLexemeManaged::SetSecondPart(bool bValue)
-//{
-//    if (NULL == m_pLexeme)
-//    {
-//        throw gcnew Exception(L"Lexeme object is NULL.");
-//    }
-//
-//    m_pLexeme->SetSecondPart(bValue);
-//}
-//
+bool CLexemeManaged::bIsSecondPart()
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return m_pLexeme->bIsSecondPart();
+}
+
+void CLexemeManaged::SetIsSecondPart(bool bValue)
+{
+    if (NULL == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    m_pLexeme->SetIsSecondPart(bValue);
+}
+
 EM_ReturnCode CLexemeManaged::eAddCommonDeviation(int iValue, bool bIsOptional)
 {
     if (NULL == m_pLexeme)

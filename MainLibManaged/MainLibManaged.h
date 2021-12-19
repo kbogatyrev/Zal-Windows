@@ -258,8 +258,8 @@ namespace MainLibManaged
         void SetInfStem(String^);
 //        int iInflectedParts();
 //        void SetInflectedParts(int);
-//        bool bIsSecondPart();
-//        void SetSecondPart(bool);
+        bool bIsSecondPart();
+        void SetIsSecondPart(bool);
         bool bSpryazhSm();
         String^ sSpryazhSmRefSource();
         EM_Subparadigm eSubparadigm();
