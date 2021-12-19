@@ -19,8 +19,8 @@ namespace ZalTestApp
 
         HashSet<string> m_PropertiesChanged;
         string[] HeadwordProperties = { "SourceFormWithAccents", "Variant", "HeadwordComment", "IsPluralOf", "PluralOf", "SeeRef", "BackRef",
-                                        "IsUnstressed", "IsVariant", "Usage" };
-        string[] DescriptorProperties = { "SourceFormIsIrregular", "GraphicStem", "AltMainSymbol", "MainSymbol", "InflectionType", "Triangle", "FleetingVowel", "YoAlternation",
+                                        "IsUnstressed", "IsVariant", "Usage", "SecondPart" };
+        string[] DescriptorProperties = { "SourceFormIsIrregular", "SecondPart", "GraphicStem", "AltMainSymbol", "MainSymbol", "InflectionType", "Triangle", "FleetingVowel", "YoAlternation",
                                           "OAlternation", "TildeSymbol", "SecondGenitive", "HasAspectPair", "HasIrregularForms", "HasDeficiencies", "RestrictedContexts", "Contexts",
                                           "TrailingComment", "VerbStemAlternation", "PartPastPassZhd", "Section", "NoComparative", "AssumedForms", "DescriptorComment", "IsTransitive" };
         string[] InflectionProperties = { "Index", "StressType1", "StressType2", "SmallCircle", "FleetingVowel", "XSymbol", "FramedXSymbol", "IsPrimaryInflectionGroup" };
@@ -149,11 +149,27 @@ namespace ZalTestApp
                 OnPropertyChanged("SourceFormWithAccents");
             }
         }
+
         public bool GraphicStemGenerated
         {
             get 
             { 
                 return !m_bSourceFormIsIrregular; 
+            }
+        }
+
+        private bool m_bSecondPart = false;
+        public bool SecondPart
+        {
+            get { return m_bSecondPart; }
+            set
+            {
+                if (value != m_bSecondPart)
+                {
+                    m_bSecondPart = value;
+//                    GraphicStem = "";
+                }
+                OnPropertyChanged("SecondPart");
             }
         }
 
@@ -1282,6 +1298,12 @@ namespace ZalTestApp
                 return true;
             });
 
+            m_ChangedPropertiesHandlers.Add("SecondPart", () =>
+            {
+                m_Lexeme.SetIsSecondPart(m_bSecondPart);
+                return true;
+            });
+
             m_ChangedPropertiesHandlers.Add("Variant", () =>
             {
                 if (null == m_sVariant)
@@ -1916,7 +1938,7 @@ namespace ZalTestApp
         }   //  InitChangedPropertyHandlers()
         #endregion
 
-        public EnterLexemePropertiesViewModel(CLexemeManaged lexeme, bool bIsNew)
+    public EnterLexemePropertiesViewModel(CLexemeManaged lexeme, bool bIsNew)
     {
         m_Lexeme = lexeme;
         m_PropertiesChanged = new HashSet<string>();
