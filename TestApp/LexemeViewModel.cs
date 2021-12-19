@@ -547,15 +547,10 @@ namespace ZalTestApp
                 }
             }
 
-            //if (Lexeme.sQuestionableForms() != "")
-            //{
-            //    AddSingleProperty(Lexeme.sQuestionableForms());
-            //}
-
-            //if (Lexeme.bHasDeficiencies())
-            //{
-            //    AddSingleProperty(Lexeme.sQuestionableForms());
-            //}
+            if (m_Lexeme.bIsSecondPart())
+            {
+                AddSingleProperty("Употр. только в составе сложн. слова");
+            }
         }       //  CollectLexemeProperties()
 
         private void SaveRegression(object arg)
