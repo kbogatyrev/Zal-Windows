@@ -307,7 +307,7 @@ namespace ZalTestApp
                 AddProperty("Словоизм. тип:", sInflectionSymbol);
             }
 
-            if (m_Lexeme.iType() > 0)
+            if (m_Lexeme.iType() >= 0)
             {
                 AddProperty("Индекс:", m_Lexeme.iType().ToString());
             }
