@@ -307,9 +307,19 @@ namespace ZalTestApp
                 AddProperty("Словоизм. тип:", sInflectionSymbol);
             }
 
-            if (m_Lexeme.iType() >= 0)
+            if (EM_PartOfSpeech.POS_NOUN == m_Lexeme.ePartOfSpeech())
             {
-                AddProperty("Индекс:", m_Lexeme.iType().ToString());
+                if (m_Lexeme.iType() >= 0)
+                {
+                    AddProperty("Индекс:", m_Lexeme.iType().ToString());
+                }
+            }
+            else
+            {
+                if (m_Lexeme.iType() > 0)
+                {
+                    AddProperty("Индекс:", m_Lexeme.iType().ToString());
+                }
             }
 
             var eAp1 = m_Lexeme.eAccentType1();
