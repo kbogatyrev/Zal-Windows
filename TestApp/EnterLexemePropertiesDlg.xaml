@@ -105,6 +105,7 @@
         <TextBox Text="Индекс" Margin="356,135,0,0" Style="{StaticResource FormLabel}" Width="120" />
         <ComboBox Text="{Binding Path=Index}" HorizontalAlignment="Left" Margin="481,135,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="160" Height="28">
             <ComboBoxItem Content="" IsEnabled="True" />
+            <ComboBoxItem Content="0" IsEnabled="True" />
             <ComboBoxItem Content="1" IsEnabled="True" />
             <ComboBoxItem Content="2" IsEnabled="True"/>
             <ComboBoxItem Content="3" IsEnabled="True" />
