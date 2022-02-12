@@ -5,6 +5,7 @@
 
 <?define S_WPF_BUILD_DIR = "..\TestApp\bin\Release" ?>
 <?define S_CPP_BUILD_DIR = "..\x64\Release" ?>
+<?define S_CORE_BUILD_DIR = "..\..\Zal-Core\out\build\x64-Release" ?>
 <?define S_DATA_DIR = "..\..\Zal-Data\ZalData" ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
@@ -65,7 +66,10 @@
       </Component>
       <Component Guid="*" Id="MainLibManaged_dll">
           <File Id="MainLibManaged_dll" KeyPath="yes" Source="$(var.S_CPP_BUILD_DIR)\ZalMainLibManaged.dll" />
-      </Component>  
+      </Component>
+      <Component Guid="*" Id="MainLib_dll">
+        <File Id="MainLib_dll" KeyPath="yes" Source="$(var.S_CORE_BUILD_DIR)\ZalMainLib.dll" />
+      </Component>
     </ComponentGroup>
 
 <!--
