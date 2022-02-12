@@ -5,12 +5,12 @@
 
 <?define S_WPF_BUILD_DIR = "..\TestApp\bin\Release" ?>
 <?define S_CPP_BUILD_DIR = "..\x64\Release" ?>
-<?define S_DATA_DIR = "..\ZalData" ?>
+<?define S_DATA_DIR = "..\..\Zal-Data\ZalData" ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
   xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
-  <Product Id="*" Name="Zalizniak's Grammatical Dictionary of Russian: Demo" Language="1033" Version="4.6.3.40" Manufacturer="Xiao Gogo Software and Baked Goods" UpgradeCode="DD5CB95E-6F3B-4684-8746-33800F1E9D82">
+  <Product Id="*" Name="Zalizniak's Grammatical Dictionary of Russian: Demo" Language="1033" Version="4.6.4.41" Manufacturer="Xiao Gogo Software and Baked Goods" UpgradeCode="DD5CB95E-6F3B-4684-8746-33800F1E9D82">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
