@@ -3,6 +3,8 @@
 #define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 #define _SILENCE_CXX17_STRSTREAM_DEPRECATION_WARNING
 
+#define NOMINMAX
+
 #include <msclr\marshal.h>
 #include "GramHasher.h"
 #include "MainLibManaged.h"
