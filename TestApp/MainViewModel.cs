@@ -1267,66 +1267,75 @@ namespace ZalTestApp
 
         private void CloseCommandMethod(object arg)
         {
-            ViewModelBase vm = (ViewModelBase)arg;
-
-            List<ViewPage> pagesToRemove = new List<ViewPage>();
-
-            foreach (ViewPage page in m_Pages)
+            try
             {
-                if (page.Page.InstanceId == vm.InstanceId)
-                {
-                    pagesToRemove.Add(page);
-                }
-            }
+                ViewModelBase vm = (ViewModelBase)arg;
 
-            List<ViewPage> derivedPagesToRemove = new List<ViewPage>();
-            foreach (ViewPage pageToRemove in pagesToRemove)
-            {
-                if (pageToRemove.Page.GetType() == typeof(VerbViewModel))
+                List<ViewPage> pagesToRemove = new List<ViewPage>();
+
+                foreach (ViewPage page in m_Pages)
                 {
-                    foreach (ViewPage page in m_Pages)
+                    if (page.Page.InstanceId == vm.InstanceId)
                     {
-                        if (page.Page.InstanceId == pageToRemove.Page.InstanceId)
-                        {
-                            continue;
-                        }
+                        pagesToRemove.Add(page);
+                    }
+                }
 
-                        if (((LexemeViewModel)page.LexemeInfo).Lexeme == null)
+                List<ViewPage> derivedPagesToRemove = new List<ViewPage>();
+                foreach (ViewPage pageToRemove in pagesToRemove)
+                {
+                    if (pageToRemove.Page.GetType() == typeof(VerbViewModel))
+                    {
+                        foreach (ViewPage page in m_Pages)
                         {
-                            continue;
-                        }
+                            if (page.Page.InstanceId == pageToRemove.Page.InstanceId)
+                            {
+                                continue;
+                            }
 
-                        if (((LexemeViewModel)page.LexemeInfo).Lexeme == ((LexemeViewModel)pageToRemove.LexemeInfo).Lexeme)
-                        {
-                            derivedPagesToRemove.Add(page);
+                            if (((LexemeViewModel)page.LexemeInfo).Lexeme == null)
+                            {
+                                continue;
+                            }
+
+                            if (((LexemeViewModel)page.LexemeInfo).Lexeme == ((LexemeViewModel)pageToRemove.LexemeInfo).Lexeme)
+                            {
+                                derivedPagesToRemove.Add(page);
+                            }
                         }
                     }
                 }
-            }
 
-            foreach (ViewPage pageView in pagesToRemove)
-            {
-                m_Pages.Remove(pageView);
-                if (pageView.Page.IsDerived)
+                foreach (ViewPage pageView in pagesToRemove)
                 {
-                    continue;
-                }
-
-                if (pageView.LexemeInfo != null)
-                {
-                    CLexemeManaged l = ((LexemeViewModel)pageView.LexemeInfo).Lexeme;
-                    if (l != null)
+                    m_Pages.Remove(pageView);
+                    if (pageView.Page.IsDerived)
                     {
-                        m_MainModel.RemoveLexeme(l);
+                        continue;
+                    }
+
+                    if (pageView.LexemeInfo != null)
+                    {
+                        CLexemeManaged l = ((LexemeViewModel)pageView.LexemeInfo).Lexeme;
+                        if (l != null)
+                        {
+                            m_MainModel.RemoveLexeme(l);
+                        }
                     }
                 }
-            }
 
-            foreach (var pageView in derivedPagesToRemove)
+                foreach (var pageView in derivedPagesToRemove)
+                {
+                    m_Pages.Remove(pageView);
+                }
+            }
+            catch (Exception ex)
             {
-                m_Pages.Remove(pageView);
+                string sMsg = ex.Message;
+                sMsg += "\n";
+                MessageBox.Show(sMsg, "Error");
+                return;
             }
-
         }   //  CloseCommandMethod()
 
         void UpdateProgress(int iPercent, bool bDone)
