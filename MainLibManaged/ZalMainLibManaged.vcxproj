@@ -19,12 +19,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnalyticsManaged.h" />
+    <ClInclude Include="DictionaryManaged.h" />
     <ClInclude Include="EnumsManaged.h" />
-    <ClInclude Include="MainLibManaged.h" />
+    <ClInclude Include="InflectionManaged.h" />
+    <ClInclude Include="LexemeManaged.h" />
+    <ClInclude Include="ParserManaged.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="UtilsManaged.h" />
+    <ClInclude Include="VerifierManaged.h" />
+    <ClInclude Include="WordFormManaged.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MainLibManaged.cpp" />
+    <ClCompile Include="AnalyticsManaged.cpp" />
+    <ClCompile Include="DictionaryManaged.cpp" />
+    <ClCompile Include="InflectionManaged.cpp" />
+    <ClCompile Include="LexemeManaged.cpp" />
+    <ClCompile Include="ParserManaged.cpp" />
+    <ClCompile Include="UtilsManaged.cpp" />
+    <ClCompile Include="VerifierManaged.cpp" />
+    <ClCompile Include="WordFormManaged.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

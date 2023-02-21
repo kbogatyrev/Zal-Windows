@@ -1,4 +1,6 @@
-﻿namespace MainLibManaged
+﻿#pragma once
+
+namespace MainLibManaged
 {
     public enum class EM_Ternary
     {
