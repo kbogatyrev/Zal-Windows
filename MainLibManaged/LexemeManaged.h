@@ -231,7 +231,7 @@ namespace MainLibManaged
         //        EM_ReturnCode eGenerateParadigm();
         //        EM_ReturnCode eBuildAspectPair();
         //        EM_ReturnCode eSaveTestData();
-        EM_ReturnCode eCheckLexemeProperties(); // for manual input/editing
+        //        EM_ReturnCode eCheckLexemeProperties(); // for manual input/editing
         //        EM_ReturnCode eDeleteIrregularForm(String^ sFormHash);
         //        EM_ReturnCode eSaveIrregularForms(String^ sGramHash);
         //        EM_ReturnCode eMakeGraphicStem();

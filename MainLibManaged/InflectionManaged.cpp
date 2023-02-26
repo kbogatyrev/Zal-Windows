@@ -24,6 +24,7 @@
 
 #include "UtilsManaged.h"
 #include "LexemeManaged.h"
+#include "WordFormManaged.h"
 #include "InflectionManaged.h"
 
 using namespace System;
@@ -360,6 +361,411 @@ void CInflectionManaged::ClearCommonDeviations()
     }
 
     (*m_pInflection)->ClearCommonDeviations();
+}
+
+String^ CInflectionManaged::sHash()
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    return gcnew String((*m_pInflection)->sHash());
+}
+
+String^ CInflectionManaged::sStoredHash()
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    return m_sStoredEntryHash;
+}
+
+String^ CInflectionManaged::sParadigmHash()
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return gcnew String((*m_pInflection)->sParadigmHash());
+}
+
+EM_ReturnCode CInflectionManaged::eWordFormFromHash(String^ sHash, int iAt, CWordFormManaged^% wf)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    shared_ptr<CWordForm> spWf;
+    ET_ReturnCode eRet = (*m_pInflection)->eWordFormFromHash(sFromManagedString(sHash), iAt, spWf);
+    if (H_NO_ERROR == eRet)
+    {
+        if (spWf)
+        {
+            wf = gcnew CWordFormManaged(spWf);
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CInflectionManaged::eCreateWordForm(CWordFormManaged^% pWf)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    shared_ptr<CWordForm> spIwf;
+    ET_ReturnCode eRet = (*m_pInflection)->eCreateWordForm(spIwf);
+
+    pWf = gcnew CWordFormManaged(spIwf);
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CInflectionManaged::eRemoveWordForm(String^ sHash, int iAt)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    ET_ReturnCode eRet = (*m_pInflection)->eRemoveWordForm(sFromManagedString(sHash), iAt);
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CInflectionManaged::eRemoveWordForms(String^ sHash)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    ET_ReturnCode eRet = (*m_pInflection)->eRemoveWordForms(sFromManagedString(sHash));
+    return (EM_ReturnCode)eRet;
+}
+
+void CInflectionManaged::AddWordForm(CWordFormManaged^% Wf)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    shared_ptr<CWordForm> spWf = Wf->spWordForm();
+    (*m_pInflection)->AddWordForm(spWf);
+}
+
+bool CInflectionManaged::bHasIrregularForm(String^ sGramHash)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    return (*m_pInflection)->bHasIrregularForm(sFromManagedString(sGramHash));
+}
+
+bool CInflectionManaged::bNoRegularForms(String^ sGramHash)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    return (*m_pInflection)->bNoRegularForms(sFromManagedString(sGramHash));
+}
+
+EM_ReturnCode CInflectionManaged::eGetFirstWordForm(CWordFormManaged^% wf)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    shared_ptr<CWordForm> spWf;
+    ET_ReturnCode eRet = (*m_pInflection)->eGetFirstWordForm(spWf);
+    if (H_NO_ERROR == eRet)
+    {
+        if (spWf)
+        {
+            wf = gcnew CWordFormManaged(spWf);
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CInflectionManaged::eGetNextWordForm(CWordFormManaged^% wf)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    shared_ptr<CWordForm> spWf;
+    ET_ReturnCode eRet = (*m_pInflection)->eGetNextWordForm(spWf);
+    if (H_NO_ERROR == eRet)
+    {
+        if (spWf)
+        {
+            wf = gcnew CWordFormManaged(spWf);
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CInflectionManaged::eGetFirstIrregularForm(String^ sHash, CWordFormManaged^% wf, bool% bIsOptional)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    shared_ptr<CWordForm> spWf;
+    bool cppbIsOptional = false;
+    ET_ReturnCode eRet = (*m_pInflection)->eGetFirstIrregularForm(sFromManagedString(sHash), spWf, cppbIsOptional);
+    if (H_NO_ERROR == eRet)
+    {
+        if (spWf)
+        {
+            wf = gcnew CWordFormManaged(spWf);
+            //            wf = gcnew CWordFormManaged(pWf);
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CInflectionManaged::eGetNextIrregularForm(CWordFormManaged^% wf, bool% bIsOptional)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    shared_ptr<CWordForm> spWf;
+    bool cppbIsOptional = false;
+    ET_ReturnCode eRet = (*m_pInflection)->eGetNextIrregularForm(spWf, cppbIsOptional);
+    if (H_NO_ERROR == eRet)
+    {
+        if (spWf)
+        {
+            wf = gcnew CWordFormManaged(spWf);
+            bIsOptional = cppbIsOptional;
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+int CInflectionManaged::iFormCount(String^ sHash)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (*m_pInflection)->iFormCount(sFromManagedString(sHash));
+}
+
+bool CInflectionManaged::bHasCommonDeviation(int iCd)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (*m_pInflection)->bHasCommonDeviation(iCd);
+}
+
+bool CInflectionManaged::bDeviationOptional(int iCd)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (*m_pInflection)->bDeviationOptional(iCd);
+}
+
+EM_ReturnCode CInflectionManaged::eFormExists(String^ sGramHash)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    return (EM_ReturnCode)(*m_pInflection)->eFormExists(sFromManagedString(sGramHash));
+}
+
+EM_ReturnCode CInflectionManaged::eSetFormExists(String^ sGramHash, bool bExists)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"m_pInflection object is NULL.");
+    }
+
+    return (EM_ReturnCode)(*m_pInflection)->eSetFormExists(sFromManagedString(sGramHash), bExists);
+}
+
+EM_ReturnCode CInflectionManaged::eIsFormDifficult(String^ sGramHash)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"m_pInflection object is NULL.");
+    }
+
+    return (EM_ReturnCode)(*m_pInflection)->eIsFormDifficult(sFromManagedString(sGramHash));
+}
+
+EM_ReturnCode CInflectionManaged::eSetFormDifficult(String^ sGramHash, bool bIsDifficult)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"m_pInflection object is NULL.");
+    }
+
+    return (EM_ReturnCode)(*m_pInflection)->eSetFormDifficult(sFromManagedString(sGramHash), bIsDifficult);
+}
+
+EM_ReturnCode CInflectionManaged::eDifficultFormsHashes(List<String^>^% lstHashes)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    vector<CEString> vecHashes;
+    ET_ReturnCode eRet = (*m_pInflection)->eDifficultFormsHashes(vecHashes);
+    if (ET_ReturnCode::H_NO_ERROR == eRet)
+    {
+        for (auto sHash : vecHashes)
+        {
+            lstHashes->Add(gcnew String(sHash));
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CInflectionManaged::eIsFormAssumed(String^ sGramHash)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    return (EM_ReturnCode)(*m_pInflection)->eIsFormAssumed(sFromManagedString(sGramHash));
+}
+
+EM_ReturnCode CInflectionManaged::eSetHasAssumedForms(bool bIsAssumed)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    return (EM_ReturnCode)(*m_pInflection)->eSetHasAssumedForms(bIsAssumed);
+}
+
+bool CInflectionManaged::bIsMultistressedCompound()
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    return (*m_pInflection)->bIsMultistressedCompound();
+}
+
+EM_ReturnCode CInflectionManaged::eGenerateParadigm()
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    return (EM_ReturnCode)(*m_pInflection)->eGenerateParadigm();
+}
+
+EM_ReturnCode CInflectionManaged::eSaveTestData()
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    return (EM_ReturnCode)(*m_pInflection)->eSaveTestData();
+}
+
+/*
+EM_ReturnCode CLexemeManaged::eCheckLexemeProperties() // for manual input/editing
+{
+    if (nullptr == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (EM_ReturnCode)(*m_pLexeme)->eCheckLexemeProperties();
+}
+*/
+
+EM_ReturnCode CInflectionManaged::eDeleteIrregularForm(String^ sFormHash)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    return (EM_ReturnCode)(*m_pInflection)->eDeleteIrregularForm(sFromManagedString(sFormHash));
+}
+
+EM_ReturnCode CInflectionManaged::eSaveIrregularForms(String^ sGramHash)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    return (EM_ReturnCode)(*m_pInflection)->eSaveIrregularForms(sFromManagedString(sGramHash));
+}
+
+EM_ReturnCode CInflectionManaged::eMakeGraphicStem()
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    auto eRet = (*m_pInflection)->eMakeGraphicStem();
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CInflectionManaged::eMakeGraphicStem(const String^ sSource, String^% sGraphicStem)
+{
+    if (nullptr == m_pInflection)
+    {
+        throw gcnew Exception(L"Inflection object is NULL.");
+    }
+
+    CEString sGs;
+    auto eRet = (*m_pInflection)->eMakeGraphicStem(sFromManagedString(sSource), sGs);
+    if (eRet != H_NO_ERROR)
+    {
+        return (EM_ReturnCode)eRet;
+    }
+
+    sGraphicStem = gcnew String(sGs);
+
+    return (EM_ReturnCode)eRet;
 }
 
 CInflectionEnumeratorManaged::CInflectionEnumeratorManaged(shared_ptr<CInflectionEnumerator> spIe) 

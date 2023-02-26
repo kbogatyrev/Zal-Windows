@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <msclr\marshal.h>
+#include "MainLib.h"
 #include "GramHasher.h"
 //#include "MainLibManaged.h"
 
@@ -39,16 +40,19 @@ using namespace std;
 
 namespace MainLibManaged
 {
+/*
     extern "C"
     {
         ET_ReturnCode GetDictionary(shared_ptr<CDictionary>*&);        // the only external function defined in MainLib
     }
+*/
+    Singleton m_singleton;
 
     CDictionaryManaged::CDictionaryManaged()
     {
-        shared_ptr<Hlib::CDictionary>* pD = nullptr;
-        ET_ReturnCode rc = GetDictionary(pD);
-        m_pDictionary = pD;
+        shared_ptr<Hlib::CDictionary> pD;
+        ET_ReturnCode rc = m_singleton.GetDictionary(pD);
+        m_pDictionary = &pD;
     }
 
     CDictionaryManaged::~CDictionaryManaged()
@@ -398,7 +402,6 @@ namespace MainLibManaged
         return (EM_ReturnCode)eRet;
     }
 
-    /*
     EM_ReturnCode CDictionaryManaged::eCreateLexemeEnumerator(CLexemeEnumeratorManaged^% pLeManaged)
     {
         if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
@@ -406,13 +409,13 @@ namespace MainLibManaged
             throw gcnew Exception(L"Dictionary objectis NULL.");
         }
 
-        ILexemeEnumerator * pLexemeEnumerator = nullptr;
-        ET_ReturnCode eRet = m_pDictionary->eCreateLexemeEnumerator(pLexemeEnumerator);
+        shared_ptr<CLexemeEnumerator> spLexemeEnumerator;
+        ET_ReturnCode eRet = (*m_pDictionary)->eCreateLexemeEnumerator(spLexemeEnumerator);
         if (H_NO_ERROR == eRet)
         {
-            if (pLexemeEnumerator)
+            if (spLexemeEnumerator)
             {
-                pLeManaged = gcnew CLexemeEnumeratorManaged(pLexemeEnumerator);
+                pLeManaged = gcnew CLexemeEnumeratorManaged(spLexemeEnumerator);
             }
             else
             {
@@ -421,7 +424,6 @@ namespace MainLibManaged
         }
         return (EM_ReturnCode)eRet;
     }
-    */
 
     EM_ReturnCode CDictionaryManaged::eGetParser(CParserManaged^% pParserManaged)
     {
@@ -494,7 +496,7 @@ namespace MainLibManaged
 
         return (EM_ReturnCode)eRet;
     }
-
+/*
     EM_ReturnCode CDictionaryManaged::eExportTestData(String^ sPath, DelegateProgress^ progressCallback)
     {
         if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
@@ -522,5 +524,5 @@ namespace MainLibManaged
 
         return (EM_ReturnCode)(*m_pDictionary)->eImportTestData(sFromManagedString(sPath), *pProgress);
     }
-
+    */
 }

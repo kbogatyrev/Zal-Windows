@@ -1089,6 +1089,164 @@ void CLexemeManaged::SetIsSecondPart(bool bValue)
     (*m_pLexeme)->SetIsSecondPart(bValue);
 }
 
+bool CLexemeManaged::bFindStandardAlternation(String^ sKey, String^% sValue)
+{
+    if (nullptr == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    CEString cestrValue;
+    bool bRet = (*m_pLexeme)->bFindStandardAlternation(sFromManagedString(sKey), cestrValue);
+    sValue = gcnew String(sValue);
+
+    return bRet;
+}
+
+EM_ReturnCode CLexemeManaged::eGetStemStressPositions(String^ sStem, List<int>% listPositions)
+{
+    if (nullptr == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    vector<int> vecPositions;
+    ET_ReturnCode eRet = (*m_pLexeme)->eGetStemStressPositions(sFromManagedString(sStem), vecPositions);
+    if (H_NO_ERROR == eRet)
+    {
+        for (vector<int>::iterator it = vecPositions.begin(); it != vecPositions.end(); ++it)
+        {
+            listPositions.Add(*it);
+        }
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+bool CLexemeManaged::bHasDifficultForms()
+{
+    if (nullptr == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (*m_pLexeme)->bHasDifficultForms();
+}
+
+EM_ReturnCode CLexemeManaged::eGetSourceFormWithStress(String^% sSourceForm, bool bIsVariant)
+{
+    if (nullptr == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    CEString sSource;
+    ET_ReturnCode eRet = (*m_pLexeme)->eGetSourceFormWithStress(sSource, bIsVariant);
+
+    sSourceForm = gcnew String(sSource);
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CLexemeManaged::eGetFirstStemStressPos(int% iPos)
+{
+    if (nullptr == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    int cppiPos = 0;
+    ET_ReturnCode eRet = (*m_pLexeme)->eGetFirstStemStressPos(cppiPos);
+    if (H_NO_ERROR == eRet)
+    {
+        iPos = cppiPos;
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CLexemeManaged::eGetNextStemStressPos(int% iPos)
+{
+    if (nullptr == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    int cppiPos = 0;
+    ET_ReturnCode eRet = (*m_pLexeme)->eGetNextStemStressPos(cppiPos);
+    if (H_NO_ERROR == eRet)
+    {
+        iPos = cppiPos;
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CLexemeManaged::eGetFirstSecondaryStemStressPos(int% iPos)
+{
+    if (nullptr == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    int cppiPos = 0;
+    ET_ReturnCode eRet = (*m_pLexeme)->eGetFirstSecondaryStemStressPos(cppiPos);
+    if (H_NO_ERROR == eRet)
+    {
+        iPos = cppiPos;
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+EM_ReturnCode CLexemeManaged::eGetNextSecondaryStemStressPos(int% iPos)
+{
+    if (nullptr == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    int cppiPos = 0;
+    ET_ReturnCode eRet = (*m_pLexeme)->eGetNextSecondaryStemStressPos(cppiPos);
+    if (H_NO_ERROR == eRet)
+    {
+        iPos = cppiPos;
+    }
+
+    return (EM_ReturnCode)eRet;
+}
+
+/*
+EM_ReturnCode CLexemeManaged::eCheckLexemeProperties() // for manual input/editing
+{
+    if (nullptr == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return (EM_ReturnCode)(*m_pLexeme)->eCheckLexemeProperties();
+}
+*/
+
+EM_ReturnCode CLexemeManaged::eGetErrorMsg(String^% sErrorMsg)
+{
+    if (nullptr == m_pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    CEString sNativeErrMsg;
+    ET_ReturnCode eRet = (*m_pLexeme)->eGetErrorMsg(sNativeErrMsg);
+    if (eRet != H_NO_ERROR)
+    {
+        return (EM_ReturnCode)eRet;
+    }
+
+    sErrorMsg = gcnew String(sNativeErrMsg);
+
+    return (EM_ReturnCode)H_NO_ERROR;
+}
+
 bool CLexemeManaged::bHasAspectPair()
 {
     if (nullptr == m_pLexeme)

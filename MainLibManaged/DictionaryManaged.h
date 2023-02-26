@@ -70,13 +70,13 @@ namespace MainLibManaged
         void Clear();
         EM_ReturnCode Clear(CLexemeManaged^ pLexeme);
 
-        //        EM_ReturnCode eCreateLexemeEnumerator(CLexemeEnumeratorManaged^%);
+        EM_ReturnCode eCreateLexemeEnumerator(CLexemeEnumeratorManaged^%);
 
         EM_ReturnCode eGetParser(CParserManaged^%);
         EM_ReturnCode eGetAnalytics(CAnalyticsManaged^%);
         EM_ReturnCode eGetVerifier(CVerifierManaged^%);
-        EM_ReturnCode eExportTestData(String^ sPath, DelegateProgress^);
-        EM_ReturnCode eImportTestData(String^ sPath, DelegateProgress^);
+//        EM_ReturnCode eExportTestData(String^ sPath, DelegateProgress^);
+//        EM_ReturnCode eImportTestData(String^ sPath, DelegateProgress^);
 
     };      //  CDictionaryManaged
 
