@@ -254,13 +254,13 @@ namespace ZalTestApp
         {
             try
             {
-                string sLexemeHash = m_Inflection.sParadigmHash();
+                string sParadigmHash = m_Inflection.sParadigmHash();
                 List<string> listKeys = Helpers.m_listPropNamesNumeral;
                 foreach (var sHash in listKeys)
                 {
                     FormsForGramHash formsPerHash = new FormsForGramHash();
                     List<FormDescriptor> lstForms = null;
-                    if (!m_MainModel.GetFormsByGramHash(sLexemeHash, sHash, out lstForms))
+                    if (!m_MainModel.GetFormsByGramHash(sParadigmHash, sHash, out lstForms))
                     {
                         continue;
                     }
@@ -305,6 +305,11 @@ namespace ZalTestApp
 
             //            m_Lexeme = lexeme;
             m_Inflection = inflection;
+            var eRet = m_Inflection.eGetLexeme(ref m_Lexeme);
+            if (eRet != EM_ReturnCode.H_NO_ERROR)
+            {
+                MessageBox.Show("Unable to retrieve lexeme instance.");
+            }
 
             InitFormHandlers();
         }

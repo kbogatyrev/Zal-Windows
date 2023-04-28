@@ -1081,7 +1081,7 @@ namespace ZalTestApp
                 case EM_PartOfSpeech.POS_ADJ:
                 case EM_PartOfSpeech.POS_PRONOUN_ADJ:
                 case EM_PartOfSpeech.POS_NUM_ADJ:
-                    paradigmViewModel = new AdjViewModel(inflection, EM_Subparadigm.SUBPARADIGM_LONG_ADJ, m_MainModel);
+                    paradigmViewModel = new AdjViewModel(lexeme, inflection, EM_Subparadigm.SUBPARADIGM_LONG_ADJ, m_MainModel);
                     break;
                 case EM_PartOfSpeech.POS_VERB:
                     VerbViewModel vvm = new VerbViewModel(lexeme, inflection, m_MainModel, lexemeViewModel);
@@ -1165,7 +1165,7 @@ namespace ZalTestApp
             switch (sp)
             {
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
-                    AdjViewModel avmPresAct = new AdjViewModel(inflection, sp, m_MainModel);
+                    AdjViewModel avmPresAct = new AdjViewModel(lexeme, inflection, sp, m_MainModel);
                     ViewPage avpPresAct = new ViewPage(lexeme.sSourceForm() + " прич. наст. д.", parent, avmPresAct);
                     m_Pages.Add(avpPresAct);
                     m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPresAct.Page);
@@ -1173,7 +1173,7 @@ namespace ZalTestApp
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
-                    AdjViewModel avmPastAct = new AdjViewModel(inflection, sp, m_MainModel);
+                    AdjViewModel avmPastAct = new AdjViewModel(lexeme, inflection, sp, m_MainModel);
                     ViewPage avpPastAct = new ViewPage(lexeme.sSourceForm() + " прич. прош. д.", parent, avmPastAct);
                     m_Pages.Add(avpPastAct);
 //                        avmPastAct.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
@@ -1182,7 +1182,7 @@ namespace ZalTestApp
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
-                    AdjViewModel avmPresPass = new AdjViewModel(inflection, sp, m_MainModel);
+                    AdjViewModel avmPresPass = new AdjViewModel(lexeme, inflection, sp, m_MainModel);
                     ViewPage avpPresPass = new ViewPage(lexeme.sSourceForm() + " прич. наст. страд.", parent, avmPresPass);
                     m_Pages.Add(avpPresPass);
 //                        avmPresPass.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
@@ -1191,7 +1191,7 @@ namespace ZalTestApp
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
-                    AdjViewModel avmPastPass = new AdjViewModel(inflection, sp, m_MainModel);
+                    AdjViewModel avmPastPass = new AdjViewModel(lexeme, inflection, sp, m_MainModel);
                     ViewPage avpPastPass = new ViewPage(lexeme.sSourceForm() + " прич. прош. страд.", parent, avmPastPass);
                     //                        avmPastPass.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
                     m_Pages.Add(avpPastPass);

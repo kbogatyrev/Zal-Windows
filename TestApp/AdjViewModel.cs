@@ -1149,8 +1149,9 @@ namespace ZalTestApp
 
         #endregion
 
-        public AdjViewModel(CInflectionManaged inflection, EM_Subparadigm eSubparadigm, MainModel m)
+        public AdjViewModel(CLexemeManaged lexeme, CInflectionManaged inflection, EM_Subparadigm eSubparadigm, MainModel m)
         {
+            m_Lexeme = lexeme;
             m_Inflection = inflection;
             m_MainModel = m;
 

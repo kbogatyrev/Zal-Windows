@@ -637,31 +637,34 @@ return true;
                 CInflectionEnumeratorManaged ie = null;
                 lexeme.eCreateInflectionEnumerator(ref ie);
                 var eRetInfl = ie.eGetFirstInflection(ref inflection);
-                if (EM_ReturnCode.H_NO_ERROR != eRetInfl)
+                if (EM_ReturnCode.H_NO_ERROR != eRetInfl && EM_ReturnCode.H_FALSE != eRetInfl)
                 {
                     System.Windows.MessageBox.Show("Error: unable to retrieve inflection");
                     return;
                 }
-                do
+                if (EM_ReturnCode.H_NO_ERROR == eRetInfl)
                 {
-                    if (!m_dctHashToWordform.ContainsKey(inflection.sParadigmHash()))
+                    do
                     {
-                        eRet = inflection.eGenerateParadigm();
-                        if (eRet != EM_ReturnCode.H_NO_ERROR)
+                        if (!m_dctHashToWordform.ContainsKey(inflection.sParadigmHash()))
                         {
-                            //                        System.Windows.MessageBox.Show("Error generating paradigm.");
-                            //                        return;
+                            eRet = inflection.eGenerateParadigm();
+                            if (eRet != EM_ReturnCode.H_NO_ERROR)
+                            {
+                                //                        System.Windows.MessageBox.Show("Error generating paradigm.");
+                                //                        return;
+                            }
+
+                            if (!bArrangeParadigm(inflection))
+                            {
+                                System.Windows.MessageBox.Show("Unable to generate forms.");
+                            }
                         }
 
-                        if (!bArrangeParadigm(inflection))
-                        {
-                            System.Windows.MessageBox.Show("Unable to generate forms.");
-                        }
-                    }
+                        eRetInfl = ie.eGetNextInflection(ref inflection);
 
-                    eRetInfl = ie.eGetNextInflection(ref inflection);
-
-                } while (EM_ReturnCode.H_NO_ERROR == eRetInfl);
+                    } while (EM_ReturnCode.H_NO_ERROR == eRetInfl);
+                }
 
                 eRetLex = le.eGetNextLexeme(ref lexeme);
 

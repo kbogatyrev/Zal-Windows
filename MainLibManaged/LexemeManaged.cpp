@@ -193,7 +193,7 @@ __int64 CLexemeManaged::llLexemeId()
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    return llLexemeId();
+    return spLexeme->llLexemeId();
 }
 
 __int64 CLexemeManaged::llHeadwordId()
@@ -203,7 +203,7 @@ __int64 CLexemeManaged::llHeadwordId()
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    return llHeadwordId();
+    return spLexeme->llHeadwordId();
 }
 
 EM_Gender CLexemeManaged::eGender()
