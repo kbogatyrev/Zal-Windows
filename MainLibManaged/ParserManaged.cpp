@@ -10,6 +10,7 @@
 #include "UtilsManaged.h"
 #include "GramHasher.h"
 #include "WordFormManaged.h"
+#include "Singleton.h"
 
 //#include "Dictionary.h"
 //#include "Lexeme.h"
@@ -31,66 +32,71 @@ using namespace System::Runtime::InteropServices;
 using namespace MainLibManaged;
 using namespace std;
 
-CParserManaged::CParserManaged(shared_ptr<CParser> spParser) : m_pParser(&spParser)
-{}
-
-CParserManaged::~CParserManaged()
+namespace MainLibManaged
 {
-    delete m_pParser;
+    CParserManaged::CParserManaged(shared_ptr<CParser> spParser)
+    {}
 
-    //    this->!CParserManaged();
-}
+    CParserManaged::~CParserManaged()
+    {}
 
-EM_ReturnCode CParserManaged::eParseWord(String^ sForm)
-{
-    if (nullptr == m_pParser)
+    shared_ptr<CParser> CParserManaged::spGetInstance()
     {
-        throw gcnew Exception(L"Parser object is NULL.");
-    }
-
-    return (EM_ReturnCode)(*m_pParser)->eParseWord(sFromManagedString(sForm));
-}
-
-EM_ReturnCode CParserManaged::eGetFirstWordForm(CWordFormManaged^% pManagedWordFrom)
-{
-    if (nullptr == m_pParser)
-    {
-        throw gcnew Exception(L"Parser object is NULL.");
-    }
-
-    shared_ptr<CWordForm> spWordForm;
-    ET_ReturnCode eRet = (*m_pParser)->eGetFirstWordForm(spWordForm);
-    if (H_NO_ERROR == eRet)
-    {
-        if (spWordForm)
+        shared_ptr<CParser> spParser;
+        auto rc = Singleton::pGetInstance()->eGetParser(spParser);
+        if (rc != H_NO_ERROR || nullptr == spParser)
         {
-            pManagedWordFrom = gcnew CWordFormManaged(spWordForm);
+            throw gcnew Exception(L"Unable to retrieve parser instance.");
         }
+        return spParser;
     }
 
-    return (EM_ReturnCode)eRet;
-}
-
-EM_ReturnCode CParserManaged::eGetNextWordForm(CWordFormManaged^% pManagedWordFrom)
-{
-    if (nullptr == m_pParser)
+    EM_ReturnCode CParserManaged::eParseWord(String^ sForm)
     {
-        throw gcnew Exception(L"Parser object is NULL.");
+        return (EM_ReturnCode)(spGetInstance()->eParseWord(sFromManagedString(sForm)));
     }
 
-    shared_ptr<CWordForm> spWordForm;
-    ET_ReturnCode eRet = (*m_pParser)->eGetNextWordForm(spWordForm);
-    if (H_NO_ERROR == eRet)
+    EM_ReturnCode CParserManaged::eGetFirstWordForm(CWordFormManaged^% pManagedWordFrom)
     {
-        if (spWordForm)
+        shared_ptr<CWordForm> spWordForm;
+        ET_ReturnCode eRet = spGetInstance()->eGetFirstWordForm(spWordForm);
+        if (H_NO_ERROR == eRet)
         {
-            pManagedWordFrom = gcnew CWordFormManaged(spWordForm);
+            if (spWordForm)
+            {
+                auto iHandle = Singleton::pGetInstance()->iAddWordForm(spWordForm);
+                if (iHandle < 0)
+                {
+                    if (iHandle < 0)
+                    {
+                        throw gcnew Exception(L"Failed to add a word form.");
+                    }
+                }
+                pManagedWordFrom = gcnew CWordFormManaged(iHandle);
+            }
         }
-        else
-        {
-            return EM_ReturnCode::H_ERROR_UNEXPECTED;
-        }
+        return (EM_ReturnCode)eRet;
     }
 
-    return (EM_ReturnCode)eRet;
-}
+    EM_ReturnCode CParserManaged::eGetNextWordForm(CWordFormManaged^% pManagedWordFrom)
+    {
+        shared_ptr<CWordForm> spWordForm;
+        ET_ReturnCode eRet = spGetInstance()->eGetNextWordForm(spWordForm);
+        if (H_NO_ERROR == eRet)
+        {
+            if (spWordForm)
+            {
+                auto iHandle = Singleton::pGetInstance()->iAddWordForm(spWordForm);
+                if (iHandle < 0)
+                {
+                    if (iHandle < 0)
+                    {
+                        throw gcnew Exception(L"Failed to add a word form.");
+                    }
+                }
+                pManagedWordFrom = gcnew CWordFormManaged(iHandle);
+            }
+        }
+        return (EM_ReturnCode)eRet;
+    }
+}       // namespace MainLibManaged

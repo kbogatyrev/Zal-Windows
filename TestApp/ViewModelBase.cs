@@ -68,6 +68,7 @@ namespace ZalTestApp
     {
         protected MainModel m_MainModel = null;
         protected CLexemeManaged m_Lexeme = null;
+        protected CInflectionManaged m_Inflection = null;
 
         protected Guid m_InstanceId;
 
@@ -187,7 +188,7 @@ namespace ZalTestApp
 //                var mbRetDel = MessageBox.Show("Восстановить регулярную форму?", "Отмена", MessageBoxButton.YesNo);
 //                if (MessageBoxResult.Yes == mbRetDel)
 //                {
-                    var eDel = m_Lexeme.eDeleteIrregularForm(sFormHash);
+                    var eDel = m_Inflection.eDeleteIrregularForm(sFormHash);
                     if (eDel != EM_ReturnCode.H_NO_ERROR)
                     {
                         MessageBox.Show("Ошибки при удалении формы.");
@@ -201,7 +202,7 @@ namespace ZalTestApp
             var eRet = EM_ReturnCode.H_NO_ERROR;
             if (sFormHash != null)
             {
-                eRet = m_Lexeme.eRemoveWordForms(sFormHash);
+                eRet = m_Inflection.eRemoveWordForms(sFormHash);
             }
             //                if (eRet != EM_ReturnCode.H_NO_ERROR)
             //                {
@@ -234,9 +235,9 @@ namespace ZalTestApp
                 fd.IsUnsaved = true;
                 formsForHash.lstForms.Add(fd);
 
-                m_Lexeme.AddWordForm(ref wf);
+                m_Inflection.AddWordForm(ref wf);
 
-                eRet = m_Lexeme.eSaveIrregularForms(sFormHash);
+                eRet = m_Inflection.eSaveIrregularForms(sFormHash);
                 if (eRet != EM_ReturnCode.H_NO_ERROR)
                 {
                     MessageBox.Show(String.Format("Internal error: failed to save forms for {0}.", sFormHash));
@@ -476,17 +477,17 @@ namespace ZalTestApp
         public ECellStatus GetCellStatus(string sDisplayHash, 
                                          EM_Subparadigm eSubparadigm = EM_Subparadigm.SUBPARADIGM_UNDEFINED)
         {
-            string sLexemeHash = m_Lexeme.sParadigmHash();
+            string sHash = m_Inflection.sParadigmHash();
             var sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech(), eSubparadigm);
-            if (sFormHash == "" || m_MainModel.bIsMissing(sLexemeHash, sFormHash))
+            if (sFormHash == "" || m_MainModel.bIsMissing(sHash, sFormHash))
             {
                 return ECellStatus.Missing;
             }
-            else if (m_MainModel.bIsDifficult(sLexemeHash, sFormHash))
+            else if (m_MainModel.bIsDifficult(sHash, sFormHash))
             {
                 return ECellStatus.Difficult;
             }
-            else if (m_MainModel.bIsAssumed(sLexemeHash, sFormHash))
+            else if (m_MainModel.bIsAssumed(sHash, sFormHash))
             {
                 return ECellStatus.Assumed;
             }
@@ -539,7 +540,7 @@ namespace ZalTestApp
             //            var sGramHash = sDisplayHashToFormHash(sDisplayHash, 
             var sGramHash = sDisplayHash;
 
-            eRet = m_Lexeme.eCreateWordForm(ref wf);
+            eRet = m_Inflection.eCreateWordForm(ref wf);
             if (EM_ReturnCode.H_NO_ERROR != eRet)
             {
                 MessageBox.Show("Unable to create a word form.");
@@ -725,7 +726,7 @@ namespace ZalTestApp
                 if (select.Count() > 0)
                 {
                     var sFormHash = sDisplayHashToFormHash(entry.Key, m_Lexeme.ePartOfSpeech());
-                    eRet = m_Lexeme.eSaveIrregularForms(sFormHash);
+                    eRet = m_Inflection.eSaveIrregularForms(sFormHash);
                     if (eRet != EM_ReturnCode.H_NO_ERROR)
                     {
                         MessageBox.Show(String.Format("Internal error: failed to save forms for {0}.", entry.Key));

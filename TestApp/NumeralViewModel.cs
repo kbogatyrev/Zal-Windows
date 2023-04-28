@@ -254,7 +254,7 @@ namespace ZalTestApp
         {
             try
             {
-                string sLexemeHash = m_Lexeme.sParadigmHash();
+                string sLexemeHash = m_Inflection.sParadigmHash();
                 List<string> listKeys = Helpers.m_listPropNamesNumeral;
                 foreach (var sHash in listKeys)
                 {
@@ -293,7 +293,7 @@ namespace ZalTestApp
 
         #endregion
 
-        public NumeralViewModel(CLexemeManaged lexeme, MainModel m)
+        public NumeralViewModel(CInflectionManaged inflection, MainModel m)
         {
             BackCommand = new RelayCommand(new Action<object>(GoBack));
 //            ShowFormComment = new RelayCommand(new Action<object>(ShowFormCommentImpl));
@@ -303,7 +303,8 @@ namespace ZalTestApp
 
             m_MainModel = m;
 
-            m_Lexeme = lexeme;
+            //            m_Lexeme = lexeme;
+            m_Inflection = inflection;
 
             InitFormHandlers();
         }

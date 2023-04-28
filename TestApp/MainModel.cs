@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SQLite;
+using System.Windows.Forms;
 
 namespace ZalTestApp
 {
@@ -19,22 +20,22 @@ namespace ZalTestApp
             return m_Verifier;
         }
 
-        private Dictionary<string, Dictionary<string, List<CWordFormManaged>>> m_dctLexemes;  // lexeme hash to (gram hash --> forms)
+        private Dictionary<string, Dictionary<string, List<CWordFormManaged>>> m_dctHashToWordform;  // hash to (gram hash --> forms)
         public IEnumerator GetEnumerator()
         {
-            return m_dctLexemes.Keys.GetEnumerator();
+            return m_dctHashToWordform.Keys.GetEnumerator();
         }
 
         private Dictionary<string, Dictionary<string, List<Tuple<string, string>>>> m_dctFormComments;
         //                           ^-- lex. hash       ^-- gram hash     ^-- leading comment, trailing comment))
 
-        private Dictionary<string, CLexemeManaged> m_dctLexemeHashToLexeme;
-        public CLexemeManaged LexemeFromHash(string sHash)
+        private Dictionary<string, CInflectionManaged> m_dctHashToEntry;
+        public CInflectionManaged EntryFromHash(string sHash)
         {
-            CLexemeManaged lexeme = null;
-            m_dctLexemeHashToLexeme.TryGetValue(sHash, out lexeme);
+            CInflectionManaged entry;
+            m_dctHashToEntry.TryGetValue(sHash, out entry);
 
-            return lexeme;
+            return entry;
         }
 
         private Dictionary<string, string> m_dctStoredLexemes; // hash --> source form
@@ -190,7 +191,7 @@ namespace ZalTestApp
         {
             get
             {
-                return m_dctLexemes.Count;
+                return m_dctHashToWordform.Count;
             }
         }
 
@@ -227,9 +228,9 @@ namespace ZalTestApp
 //            m_Dictionary.eGetVerifier(ref m_Verifier);
             //            m_Dictionary.eGetParser(ref m_Parser);
 
-            m_dctLexemes = new Dictionary<string, Dictionary<string, List<CWordFormManaged>>>();
+            m_dctHashToWordform = new Dictionary<string, Dictionary<string, List<CWordFormManaged>>>();
             m_dctFormComments = new Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>();
-            m_dctLexemeHashToLexeme = new Dictionary<string, CLexemeManaged>();
+            m_dctHashToEntry = new Dictionary<string, CInflectionManaged>();
             m_dctStoredLexemes = new Dictionary<string, string>();
             m_dctParses = new Dictionary<string, List<CWordFormManaged>>();
             m_dctWordformToLexeme = new Dictionary<CWordFormManaged, CLexemeManaged>();
@@ -257,7 +258,7 @@ namespace ZalTestApp
             }
         }
 
-        public bool bEditLexeme(CLexemeManaged source, ref CLexemeManaged copy)
+        public bool bEditLexeme(CLexemeManaged sourceL, ref CLexemeManaged copyL)
         {
             if (null == m_Dictionary)
             {
@@ -265,15 +266,9 @@ namespace ZalTestApp
                 return false;
             }
 
-            copy = m_Dictionary.CopyLexemeForEdit(source);
-            if (copy != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            m_Dictionary.eCopyEntryForEdit(sourceL, copyL);
+
+            return true;
         }
 
         public bool bSaveNewHeadword(CLexemeManaged l)
@@ -284,8 +279,9 @@ namespace ZalTestApp
                 return false;
             }
 
-            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveNewHeadword(l);
-            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+            //            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveNewHeadword(l);
+            //            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+            return true;        // TODO restore code above
         }
 
         public bool bUpdateHeadword(CLexemeManaged l)
@@ -296,12 +292,12 @@ namespace ZalTestApp
                 return false;
             }
 
-            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eUpdateHeadword(l);
-            if (eRet != EM_ReturnCode.H_NO_ERROR)
+//            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eUpdateHeadword(l);
+//            if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
                 return false;
             }
-
+/*
             eRet = (EM_ReturnCode)m_Dictionary.eSaveHeadwordStress(l);
             if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
@@ -314,6 +310,7 @@ namespace ZalTestApp
                 return false;
             }
             return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+*/
         }
 
         public bool bSaveAspectPairInfo(CLexemeManaged l)
@@ -323,9 +320,9 @@ namespace ZalTestApp
                 System.Windows.MessageBox.Show("Dictionary was not initialized.");
                 return false;
             }
-
-            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveAspectPairInfo(l);
-            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+            return true;            // TODO REMOVE
+//            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveAspectPairInfo(l);
+//            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         }
 
         public bool bSaveP2Info(CLexemeManaged l)
@@ -336,11 +333,12 @@ namespace ZalTestApp
                 return false;
             }
 
-            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveP2Info(l);
-            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+            //            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveP2Info(l);
+            //            return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
+            return true;
         }
-
-        public bool bSaveCommonDeviation(CLexemeManaged l)
+/*
+        public bool bSaveCommonDeviation(CInflectionManaged i)
         {
             if (null == m_Dictionary)
             {
@@ -348,11 +346,12 @@ namespace ZalTestApp
                 return false;
             }
 
-            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveCommonDeviation(l);
+            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveCommonDeviation(i);
             return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         }
-
-        public bool bSaveInflectionInfo(CLexemeManaged l)
+*/
+/*
+        public bool bSaveInflectionInfo(CInflectionManaged i)
         {
             if (null == m_Dictionary)
             {
@@ -360,11 +359,11 @@ namespace ZalTestApp
                 return false;
             }
 
-            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveInflectionInfo(l);
+            EM_ReturnCode eRet = (EM_ReturnCode)m_Dictionary.eSaveInflectionInfo(i);
             return eRet == EM_ReturnCode.H_NO_ERROR ? true : false;
         }
-
-        public bool bSaveDescriptorInfo(CLexemeManaged l, bool bNewEntry = false)
+*/
+        public bool bSaveDescriptorInfo(CInflectionManaged inflection, bool bNewEntry = false)
         {
             if (null == m_Dictionary)
             {
@@ -372,15 +371,23 @@ namespace ZalTestApp
                 return false;
             }
 
-            if (l.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB && l.eIsReflexive() == EM_Reflexive.REFL_UNDEFINED)
+            CLexemeManaged lexeme = null;
+            var rc = inflection.eGetLexeme(ref lexeme);
+            if (rc != EM_ReturnCode.H_NO_ERROR || null == lexeme)
             {
-                if (l.sSourceForm().EndsWith("ся") || l.sSourceForm().EndsWith("сь"))
+                MessageBox.Show("Не удалось получить доступ к лесеме.", "Zal");
+                return false;
+            }
+
+            if (lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB && lexeme.eIsReflexive() == EM_Reflexive.REFL_UNDEFINED)
+            {
+                if (lexeme.sSourceForm().EndsWith("ся") || lexeme.sSourceForm().EndsWith("сь"))
                 {
-                    l.SetIsReflexive(EM_Reflexive.REFL_YES);
+                    lexeme.SetIsReflexive(EM_Reflexive.REFL_YES);
                 }
                 else
                 {
-                    l.SetIsReflexive(EM_Reflexive.REFL_NO);
+                    lexeme.SetIsReflexive(EM_Reflexive.REFL_NO);
                 }
             }
 
@@ -391,19 +398,22 @@ namespace ZalTestApp
 //                return false;
 //            }
 
-            var sOldLexHash = l.sStoredHash();
+            var sOldLexHash = inflection.sStoredHash();
 
             var eRet = EM_ReturnCode.H_NO_ERROR;
-
+// TODO RESTORE
+return true;
+/*
             if (bNewEntry)
             {
-                eRet = (EM_ReturnCode)m_Dictionary.eSaveDescriptorInfo(l);
+                eRet = (EM_ReturnCode)m_Dictionary.eSaveDescriptorInfo(lexeme);
             }
             else
             {
-                eRet = (EM_ReturnCode)m_Dictionary.eUpdateDescriptorInfo(l);
+                eRet = (EM_ReturnCode)m_Dictionary.eUpdateDescriptorInfo(lexeme);
             }
-            var sNewLexHash = l.sHash();
+*/
+            var sNewLexHash = inflection.sHash();
 
             var sDbPath = m_Dictionary.sGetDbPath();
             var dbConnection = new SQLiteConnection("Data Source = " + sDbPath + ";Version=3;");
@@ -437,7 +447,7 @@ namespace ZalTestApp
         {
             forms = new List<FormDescriptor>();
             Dictionary<string, List<CWordFormManaged>> dctParadigm;
-            if (!m_dctLexemes.TryGetValue(sLexemeHash, out dctParadigm))
+            if (!m_dctHashToWordform.TryGetValue(sLexemeHash, out dctParadigm))
             {
                 System.Windows.MessageBox.Show("Internal error: lexeme hash not found.");
                 return false;
@@ -466,7 +476,7 @@ namespace ZalTestApp
         public bool UpdateFormsByGramHash(string sLexemeHash, string sGramHash, List<CWordFormManaged> lstForms)
         {
             Dictionary<string, List<CWordFormManaged>> dctParadigm;
-            if (!m_dctLexemes.TryGetValue(sLexemeHash, out dctParadigm))
+            if (!m_dctHashToWordform.TryGetValue(sLexemeHash, out dctParadigm))
             {
                 System.Windows.MessageBox.Show("Internal error: Lexeme hash not found.");
                 return false;
@@ -496,23 +506,53 @@ namespace ZalTestApp
         // Remove from the database
         public EM_ReturnCode eDeleteLexeme(CLexemeManaged l)
         {
-            var eRet = m_Dictionary.eDeleteLexeme(l);
-            return eRet;
+            //            var eRet = m_Dictionary.eDeleteLexeme(l);
+            //            return eRet;
+            return EM_ReturnCode.H_NO_ERROR;
         }
 
         // Remove from internal data structures
-        public void RemoveLexeme(CLexemeManaged l)
+        public void RemoveLexeme(CLexemeManaged lexeme)
         {
-            string sLexemeHash = l.sHash();
-            m_Dictionary.Clear(l);
-            m_dctLexemes.Remove(sLexemeHash);
-            m_dctLexemeHashToLexeme.Remove(sLexemeHash);
+            CInflectionEnumeratorManaged ie = null;
+            CInflectionManaged inflection = null;
+            lexeme.eCreateInflectionEnumerator(ref ie);
+            var eRet = ie.eGetFirstInflection(ref inflection);
+            if (EM_ReturnCode.H_NO_ERROR != eRet)
+            {
+                System.Windows.MessageBox.Show("Error: unable to retrieve inflection");
+                return;
+            }
+            do
+            {
+                if (!m_dctHashToWordform.ContainsKey(inflection.sParadigmHash()))
+                {
+                    eRet = inflection.eGenerateParadigm();
+                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    {
+                        //                        System.Windows.MessageBox.Show("Error generating paradigm.");
+                        //                        return;
+                    }
+
+                    if (!bArrangeParadigm(inflection))
+                    {
+                        System.Windows.MessageBox.Show("Unable to generate forms.");
+                    }
+                }
+
+                m_Dictionary.Clear();
+                m_dctHashToWordform.Remove(inflection.sHash());
+                m_dctHashToEntry.Remove(inflection.sHash());
+
+                eRet = ie.eGetNextInflection(ref inflection);
+
+            } while (EM_ReturnCode.H_NO_ERROR == eRet);
         }
 
         public void Clear()
         {
             m_Dictionary.Clear();
-            m_dctLexemes.Clear();
+            m_dctHashToWordform.Clear();
         }
 
         public EM_ReturnCode OpenDictionary(string sPath)
@@ -566,7 +606,7 @@ namespace ZalTestApp
                 return;
             }
 
-            m_dctLexemes.Clear();
+            m_dctHashToWordform.Clear();
 
             var eRet = m_Dictionary.eGetLexemesByInitialForm(str);
             if (eRet != EM_ReturnCode.H_NO_MORE && eRet != EM_ReturnCode.H_FALSE)
@@ -584,8 +624,8 @@ namespace ZalTestApp
             CLexemeManaged lexeme = null;
             CLexemeEnumeratorManaged le = null;
             m_Dictionary.eCreateLexemeEnumerator(ref le);
-            eRet = le.eGetFirstLexeme(ref lexeme);
-            if (EM_ReturnCode.H_NO_ERROR != eRet)
+            var eRetLex = le.eGetFirstLexeme(ref lexeme);
+            if (EM_ReturnCode.H_NO_ERROR != eRetLex)
             {
                 System.Windows.MessageBox.Show("Error: unable to retrieve lexeme");
                 return;
@@ -593,26 +633,41 @@ namespace ZalTestApp
 
             do
             {
-                if (!m_dctLexemes.ContainsKey(lexeme.sParadigmHash()))
+                CInflectionManaged inflection = null;
+                CInflectionEnumeratorManaged ie = null;
+                lexeme.eCreateInflectionEnumerator(ref ie);
+                var eRetInfl = ie.eGetFirstInflection(ref inflection);
+                if (EM_ReturnCode.H_NO_ERROR != eRetInfl)
                 {
-                    eRet = lexeme.eGenerateParadigm();
-                    if (eRet != EM_ReturnCode.H_NO_ERROR)
-                    {
-//                        System.Windows.MessageBox.Show("Error generating paradigm.");
-//                        return;
-                    }
-
-                    if (!bArrangeParadigm(lexeme))
-                    {
-                        System.Windows.MessageBox.Show("Unable to generate forms.");
-                    }
+                    System.Windows.MessageBox.Show("Error: unable to retrieve inflection");
+                    return;
                 }
+                do
+                {
+                    if (!m_dctHashToWordform.ContainsKey(inflection.sParadigmHash()))
+                    {
+                        eRet = inflection.eGenerateParadigm();
+                        if (eRet != EM_ReturnCode.H_NO_ERROR)
+                        {
+                            //                        System.Windows.MessageBox.Show("Error generating paradigm.");
+                            //                        return;
+                        }
 
-                eRet = le.eGetNextLexeme(ref lexeme);
+                        if (!bArrangeParadigm(inflection))
+                        {
+                            System.Windows.MessageBox.Show("Unable to generate forms.");
+                        }
+                    }
 
-            } while (EM_ReturnCode.H_NO_ERROR == eRet);
+                    eRetInfl = ie.eGetNextInflection(ref inflection);
 
-            if (eRet != EM_ReturnCode.H_NO_MORE)
+                } while (EM_ReturnCode.H_NO_ERROR == eRetInfl);
+
+                eRetLex = le.eGetNextLexeme(ref lexeme);
+
+            } while (EM_ReturnCode.H_NO_ERROR == eRetLex);
+
+            if (eRetLex != EM_ReturnCode.H_NO_MORE)
             {
                 System.Windows.MessageBox.Show("Error accessing lexeme collection.");
                 return;
@@ -768,9 +823,9 @@ namespace ZalTestApp
 
             MainLibManaged.DelegateProgress DelegateProgress = new MainLibManaged.DelegateProgress(callback);
 
-            var eRet = m_Dictionary.eImportTestData(sPath, callback);
-
-            return eRet;
+            //            var eRet = m_Dictionary.eImportTestData(sPath, callback);
+            //            return eRet;
+            return EM_ReturnCode.H_UNAVAILABLE;
         }
 
         public EM_ReturnCode ExportRegressionData(string sPath, MainLibManaged.DelegateProgress callback)
@@ -782,9 +837,9 @@ namespace ZalTestApp
 
             MainLibManaged.DelegateProgress DelegateProgress = new MainLibManaged.DelegateProgress(callback);
 
-            var eRet = m_Dictionary.eExportTestData(sPath, callback);
-
-            return eRet;
+//            var eRet = m_Dictionary.eExportTestData(sPath, callback);
+//            return eRet;
+            return EM_ReturnCode.H_UNAVAILABLE;
         }
 
         public EM_ReturnCode DeleteSavedLexeme(string sLexemeHash, ref EM_TestResult eTestResult)
@@ -808,25 +863,33 @@ namespace ZalTestApp
         #endregion
 
         #region FormGeneration
-        private bool bArrangeParadigm(CLexemeManaged lexeme)
+        private bool bArrangeParadigm(CInflectionManaged inflection)
         {
+            CLexemeManaged lexeme = null;
+            var eRc = inflection.eGetLexeme(ref lexeme);
+            if (eRc != EM_ReturnCode.H_NO_ERROR)
+            {
+                MessageBox.Show("Unable to retrieve lexeme data.");
+                return false;
+            }
+
             EM_PartOfSpeech ePos = lexeme.ePartOfSpeech();
             switch (ePos)
             {
                 case EM_PartOfSpeech.POS_NOUN:
                 case EM_PartOfSpeech.POS_PRONOUN:
-                    return bGenerateNominalForms(lexeme);
+                    return bGenerateNominalForms(inflection);
 
                 case EM_PartOfSpeech.POS_NUM:
-                    return bGenerateNumeralForms(lexeme);
+                    return bGenerateNumeralForms(inflection);
 
                 case EM_PartOfSpeech.POS_ADJ:
                 case EM_PartOfSpeech.POS_PRONOUN_ADJ:
                 case EM_PartOfSpeech.POS_NUM_ADJ:
-                    return bGenerateAdjForms(lexeme);
+                    return bGenerateAdjForms(inflection);
 
                 case EM_PartOfSpeech.POS_VERB:
-                    return bGenerateVerbForms(lexeme);
+                    return bGenerateVerbForms(inflection);
 
                 case EM_PartOfSpeech.POS_ADV:
                 case EM_PartOfSpeech.POS_CONJUNCTION:
@@ -838,7 +901,7 @@ namespace ZalTestApp
                 case EM_PartOfSpeech.POS_PREPOSITION:
                 case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
                 case EM_PartOfSpeech.POS_NULL:
-                    return bGetUninflectedForm(lexeme);
+                    return bGetUninflectedForm(inflection);
 
                 default:
                     System.Windows.MessageBox.Show("Part of speech not handled.");
@@ -848,14 +911,21 @@ namespace ZalTestApp
             //return true;
         }
  
-        private bool bGenerateNominalForms(CLexemeManaged lexeme)
+        private bool bGenerateNominalForms(CInflectionManaged inflection)
         {
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+            CLexemeManaged lexeme = null;
+            var eRc = inflection.eGetLexeme(ref lexeme);
+            if (eRc != EM_ReturnCode.H_NO_ERROR)
+            {
+                MessageBox.Show("Unable to retrieve lexeme data.");
+                return false;
+            }
 
             Dictionary<string, List<CWordFormManaged>> dctParadigm = new Dictionary<string, List<CWordFormManaged>>();
 
             CWordFormManaged wf = null;
-            eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
+            eRet = (EM_ReturnCode)inflection.eGetFirstWordForm(ref wf);
             while (wf != null && (EM_ReturnCode.H_NO_ERROR == eRet || EM_ReturnCode.H_FALSE == eRet))
             {
                 try
@@ -908,7 +978,7 @@ namespace ZalTestApp
 //                    return false;
                 }
 
-                eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
+                eRet = (EM_ReturnCode)inflection.eGetNextWordForm(ref wf);
 
             }   //  while...
 
@@ -918,22 +988,22 @@ namespace ZalTestApp
 //                return true;        // OK to show empty paradigm
             }
 
-            string sHash = lexeme.sParadigmHash();
-            m_dctLexemes[sHash] = dctParadigm;
-            m_dctLexemeHashToLexeme[sHash] = lexeme;
+            string sHash = inflection.sParadigmHash();
+            m_dctHashToWordform[sHash] = dctParadigm;
+            m_dctHashToEntry[sHash] = inflection;
 
             return true;
 
         }   //  bGenerateNominalForms()
 
-        private bool bGenerateNumeralForms(CLexemeManaged lexeme)
+        private bool bGenerateNumeralForms(CInflectionManaged inflection)
         {
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
 
             Dictionary<string, List<CWordFormManaged>> dctParadigm = new Dictionary<string, List<CWordFormManaged>>();
 
             CWordFormManaged wf = null;
-            eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
+            eRet = (EM_ReturnCode)inflection.eGetFirstWordForm(ref wf);
             while (wf != null && (EM_ReturnCode.H_NO_ERROR == eRet || EM_ReturnCode.H_FALSE == eRet))
             {
                 try
@@ -982,7 +1052,7 @@ namespace ZalTestApp
                     //                    return false;
                 }
 
-                eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
+                eRet = (EM_ReturnCode)inflection.eGetNextWordForm(ref wf);
 
             }   //  while...
 
@@ -992,22 +1062,30 @@ namespace ZalTestApp
                 //                return true;        // OK to show empty paradigm
             }
 
-            string sHash = lexeme.sParadigmHash();
-            m_dctLexemes[sHash] = dctParadigm;
-            m_dctLexemeHashToLexeme[sHash] = lexeme;
+            string sHash = inflection.sParadigmHash();
+            m_dctHashToWordform[sHash] = dctParadigm;
+            m_dctHashToEntry[sHash] = inflection;
 
             return true;
         }
 
-        private bool bGenerateAdjForms(CLexemeManaged lexeme)
+        private bool bGenerateAdjForms(CInflectionManaged inflection)
         {
             EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+
+            CLexemeManaged lexeme = null;
+            var eRc = inflection.eGetLexeme(ref lexeme);
+            if (eRc != EM_ReturnCode.H_NO_ERROR)
+            {
+                MessageBox.Show("Unable to retrieve lexeme data.");
+                return false;
+            }
 
             Dictionary<string, List<CWordFormManaged>> dctParadigm = new Dictionary<string, List<CWordFormManaged>>(); // hash -> form
             Dictionary<string, List<Tuple<string, string>>> comments = null;    // hash -> left comment, right comment
 
             CWordFormManaged wf = null;
-            eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
+            eRet = (EM_ReturnCode)inflection.eGetFirstWordForm(ref wf);
 
             EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
 
@@ -1097,13 +1175,13 @@ namespace ZalTestApp
                     dctParadigm[sKey].Add(wf);
                 }
 
-                eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
+                eRet = (EM_ReturnCode)inflection.eGetNextWordForm(ref wf);
 
             }   //  while... 
 
-            string sHash = lexeme.sParadigmHash();
-            m_dctLexemes[sHash] = dctParadigm;
-            m_dctLexemeHashToLexeme[sHash] = lexeme;
+            string sHash = inflection.sParadigmHash();
+            m_dctHashToWordform[sHash] = dctParadigm;
+            m_dctHashToEntry[sHash] = inflection;
             m_dctFormComments[sHash] = comments;
 
             eSp = EM_Subparadigm.SUBPARADIGM_UNDEFINED;
@@ -1145,19 +1223,19 @@ namespace ZalTestApp
                 }
             }
 
-            HandleAccusatives(lexeme, eSp);
+            HandleAccusatives(inflection, eSp);
 
             return true;
 
         }   //  GenerateAdjForms()
 
-        private bool bGenerateVerbForms(CLexemeManaged lexeme)
+        private bool bGenerateVerbForms(CInflectionManaged inflection)
         {
             Dictionary<string, List<CWordFormManaged>> dctParadigm = new Dictionary<string, List<CWordFormManaged>>();
             Dictionary<string, List<Tuple<string, string>>> comments = null;
 
             CWordFormManaged wf = null;
-            var eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
+            var eRet = (EM_ReturnCode)inflection.eGetFirstWordForm(ref wf);
             if (eRet != EM_ReturnCode.H_NO_ERROR || null == wf)
             {
                 System.Windows.MessageBox.Show("Unable to load a word form.");
@@ -1306,7 +1384,7 @@ namespace ZalTestApp
                     comments[sKey].Add(new Tuple<string, string>(wf.sLeadComment(), wf.sTrailingComment()));
                 }
 
-                eRet = (EM_ReturnCode)lexeme.eGetNextWordForm(ref wf);
+                eRet = (EM_ReturnCode)inflection.eGetNextWordForm(ref wf);
                 if ((eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE) || null == wf)
                 {
                     System.Windows.MessageBox.Show("Unable to load a word form.");
@@ -1315,36 +1393,36 @@ namespace ZalTestApp
 
             } while (EM_ReturnCode.H_NO_ERROR == eRet);
 
-            string sHash = lexeme.sParadigmHash();
-            m_dctLexemes[sHash] = dctParadigm;
-            m_dctLexemeHashToLexeme[sHash] = lexeme;
+            string sHash = inflection.sParadigmHash();
+            m_dctHashToWordform[sHash] = dctParadigm;
+            m_dctHashToEntry[sHash] = inflection;
 //            m_FormComments[sHash] = comments;
 
             if (dctParadigm.ContainsKey("PPresA_M_Sg_N"))
             {
-                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT);
+                HandleAccusatives(inflection, EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT);
             }
             if (dctParadigm.ContainsKey("PPastA_M_Sg_N"))
             {
-                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT);
+                HandleAccusatives(inflection, EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT);
             }
             if (dctParadigm.ContainsKey("PPresPL_M_Sg_N"))
             {
-                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG);
+                HandleAccusatives(inflection, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG);
             }
             if (dctParadigm.ContainsKey("PPastPL_M_Sg_N"))
             {
-                HandleAccusatives(lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG);
+                HandleAccusatives(inflection, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG);
             }
 
             return true;
 
         }   //  GenerateVerbForms()
 
-        public bool bGetUninflectedForm(CLexemeManaged lexeme)
+        public bool bGetUninflectedForm(CInflectionManaged inflection)
         {
             CWordFormManaged wf = null;
-            var eRet = (EM_ReturnCode)lexeme.eGetFirstWordForm(ref wf);
+            var eRet = (EM_ReturnCode)inflection.eGetFirstWordForm(ref wf);
             if (eRet != EM_ReturnCode.H_NO_ERROR || null == wf)
             {
                 System.Windows.MessageBox.Show("Unable to load a word form.");
@@ -1355,25 +1433,25 @@ namespace ZalTestApp
             var sKey = wf.sGramHash();
             dctParadigm[sKey] = new List<CWordFormManaged>();
             dctParadigm[sKey].Add(wf);
-            string sLexHash = lexeme.sParadigmHash();
-            m_dctLexemes[sLexHash] = dctParadigm;
-            m_dctLexemeHashToLexeme[sLexHash] = lexeme;
+            string sLexHash = inflection.sParadigmHash();
+            m_dctHashToWordform[sLexHash] = dctParadigm;
+            m_dctHashToEntry[sLexHash] = inflection;
 
             return true;
 
         }       //  bGetUninflectedForm()
 
-        public bool bLeadComment(string sLexemeHash, string sFormHash, ref string sComment)
+        public bool bLeadComment(string sEntryHash, string sFormHash, ref string sComment)
         {
-            CLexemeManaged lexeme;
-            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            CInflectionManaged inflection;
+            if (!m_dctHashToEntry.TryGetValue(sEntryHash, out inflection))
             {
                 System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return false;
             }
 
             CWordFormManaged wf = null;
-            EM_ReturnCode eRet = lexeme.eWordFormFromHash(sFormHash, 0, ref wf);    // no need to check for all
+            EM_ReturnCode eRet = inflection.eWordFormFromHash(sFormHash, 0, ref wf);    // no need to check for all
             if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
                 System.Windows.MessageBox.Show("Unable to check word form edit status.");
@@ -1409,17 +1487,17 @@ namespace ZalTestApp
         }
         */
 
-        public bool bIsIrregular(string sLexemeHash, string sFormHash)
+        public bool bIsIrregular(string sEntryHash, string sFormHash)
         {
-            CLexemeManaged lexeme;
-            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            CInflectionManaged inflection;
+            if (!m_dctHashToEntry.TryGetValue(sEntryHash, out inflection))
             {
 //                System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return false;
             }
 
             CWordFormManaged wf = null;
-            EM_ReturnCode eRet = lexeme.eWordFormFromHash(sFormHash, 0, ref wf);    // no need to check for all
+            EM_ReturnCode eRet = inflection.eWordFormFromHash(sFormHash, 0, ref wf);    // no need to check for all
             if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
 //                System.Windows.MessageBox.Show("Unable to check word form edit status.");
@@ -1429,17 +1507,17 @@ namespace ZalTestApp
             return wf.bIrregular();
         }
 
-        public bool bIsEdited(string sLexemeHash, string sFormHash)
+        public bool bIsEdited(string sEntryHash, string sFormHash)
         {
-            CLexemeManaged lexeme;
-            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            CInflectionManaged inflection;
+            if (!m_dctHashToEntry.TryGetValue(sEntryHash, out inflection))
             {
 //                System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return false;
             }
 
             CWordFormManaged wf = null;
-            EM_ReturnCode eRet = lexeme.eWordFormFromHash(sFormHash, 0, ref wf);    // no need to check for all
+            EM_ReturnCode eRet = inflection.eWordFormFromHash(sFormHash, 0, ref wf);    // no need to check for all
             if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
 //                System.Windows.MessageBox.Show("Unable to check word form edit status.");
@@ -1449,17 +1527,17 @@ namespace ZalTestApp
             return wf.bIsEdited();
         }
 
-        public bool bIsVariant(string sLexemeHash, string sFormHash)
+        public bool bIsVariant(string sEntryHash, string sFormHash)
         {
-            CLexemeManaged lexeme;
-            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            CInflectionManaged inflection;
+            if (!m_dctHashToEntry.TryGetValue(sEntryHash, out inflection))
             {
                 System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return false;
             }
 
             CWordFormManaged wf = null;
-            EM_ReturnCode eRet = lexeme.eWordFormFromHash(sFormHash, 0, ref wf);    // no need to check for all
+            EM_ReturnCode eRet = inflection.eWordFormFromHash(sFormHash, 0, ref wf);    // no need to check for all
             if (eRet != EM_ReturnCode.H_NO_ERROR)
             {
                 //                System.Windows.MessageBox.Show("Unable to check word form edit status.");
@@ -1469,21 +1547,21 @@ namespace ZalTestApp
             return wf.bIsVariant();
         }
 
-        public bool bIsMissing(string sLexemeHash, string sFormHash)
+        public bool bIsMissing(string sEntryHash, string sFormHash)
         {
             if (null == sFormHash)
             {
                 return false;
             }
 
-            CLexemeManaged lexeme;
-            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            CInflectionManaged inflection;
+            if (!m_dctHashToEntry.TryGetValue(sEntryHash, out inflection))
             {
                 //                System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return false;
             }
 
-            EM_ReturnCode eRet = lexeme.eFormExists(sFormHash);
+            EM_ReturnCode eRet = inflection.eFormExists(sFormHash);
             if (eRet != EM_ReturnCode.H_TRUE)
             {
                 //                System.Windows.MessageBox.Show("Unable to check word form edit status.");
@@ -1493,21 +1571,21 @@ namespace ZalTestApp
             return false;
         }
 
-        public bool bIsDifficult(string sLexemeHash, string sFormHash)
+        public bool bIsDifficult(string sEntryHash, string sFormHash)
         {
             if (null == sFormHash)
             {
                 return false;
             }
 
-            CLexemeManaged lexeme;
-            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            CInflectionManaged inflection;
+            if (!m_dctHashToEntry.TryGetValue(sEntryHash, out inflection))
             {
                 //                System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return false;
             }
 
-            EM_ReturnCode eRet = lexeme.eIsFormDifficult(sFormHash);
+            EM_ReturnCode eRet = inflection.eIsFormDifficult(sFormHash);
             if (EM_ReturnCode.H_TRUE == eRet)
             {
                 //                System.Windows.MessageBox.Show("Unable to check word form edit status.");
@@ -1517,21 +1595,21 @@ namespace ZalTestApp
             return false;
         }
 
-        public bool bIsAssumed(string sLexemeHash, string sFormHash)
+        public bool bIsAssumed(string sEntryHash, string sFormHash)
         {
             if (null == sFormHash)
             {
                 return false;
             }
 
-            CLexemeManaged lexeme;
-            if (!m_dctLexemeHashToLexeme.TryGetValue(sLexemeHash, out lexeme))
+            CInflectionManaged inflection;
+            if (!m_dctHashToEntry.TryGetValue(sEntryHash, out inflection))
             {
                 //                System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return false;
             }
 
-            EM_ReturnCode eRet = lexeme.eIsFormAssumed(sFormHash);
+            EM_ReturnCode eRet = inflection.eIsFormAssumed(sFormHash);
             if (EM_ReturnCode.H_TRUE == eRet)
             {
                 //                System.Windows.MessageBox.Show("Unable to check word form edit status.");
@@ -1541,10 +1619,10 @@ namespace ZalTestApp
             return false;
         }
 
-        private void HandleAccusatives(CLexemeManaged lexeme, EM_Subparadigm eSubparadigm)
+        private void HandleAccusatives(CInflectionManaged inflection, EM_Subparadigm eSubparadigm)
         {
             Dictionary<string, List<CWordFormManaged>> dctParadigm;
-            if (!m_dctLexemes.TryGetValue(lexeme.sParadigmHash(), out dctParadigm))
+            if (!m_dctHashToWordform.TryGetValue(inflection.sParadigmHash(), out dctParadigm))
             {
                 System.Windows.MessageBox.Show("Unable to find lexeme.");
                 return;
@@ -1643,11 +1721,11 @@ namespace ZalTestApp
 
         #endregion
 
-        public bool bGetFormByGramHash(CLexemeManaged l, string sHash, out List<CWordFormManaged> lstForms)
+        public bool bGetFormByGramHash(CInflectionManaged inflection, string sHash, out List<CWordFormManaged> lstForms)
         {
             lstForms = null;
             Dictionary<string, List<CWordFormManaged>> dctParadigm;
-            if (m_dctLexemes.TryGetValue(l.sHash(), out dctParadigm))
+            if (m_dctHashToWordform.TryGetValue(inflection.sHash(), out dctParadigm))
             {
                 if (dctParadigm.TryGetValue(sHash, out lstForms))
                 {

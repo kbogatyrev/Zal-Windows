@@ -180,7 +180,7 @@ namespace ZalTestApp
         EMark GetFormStatus(string sDisplayHash)
         {
             var sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech(), m_eSubparadigm);
-            string sLexemeHash = m_Lexeme.sParadigmHash();
+            string sLexemeHash = m_Inflection.sParadigmHash();
             if (m_MainModel.bIsEdited(sLexemeHash, sFormHash))
             {
                 return EMark.IsEdited;
@@ -1102,7 +1102,7 @@ namespace ZalTestApp
 
         private void InitFormDictionary()
         {
-            string sLexemeHash = m_Lexeme.sParadigmHash();
+            string sLexemeHash = m_Inflection.sParadigmHash();
 
             List<string> listGramHashes = null;
             GetGramHashes(ref listGramHashes);
@@ -1149,9 +1149,9 @@ namespace ZalTestApp
 
         #endregion
 
-        public AdjViewModel(CLexemeManaged lexeme, EM_Subparadigm eSubparadigm, MainModel m)
+        public AdjViewModel(CInflectionManaged inflection, EM_Subparadigm eSubparadigm, MainModel m)
         {
-            m_Lexeme = lexeme;
+            m_Inflection = inflection;
             m_MainModel = m;
 
             BackCommand = new RelayCommand(new Action<object>(GoBack));

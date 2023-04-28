@@ -7,6 +7,7 @@
 #include "UtilsManaged.h"
 #include "LexemeManaged.h"
 #include "WordFormManaged.h"
+#include "Singleton.h"
 
 using namespace System;
 //using namespace msclr::interop;
@@ -14,397 +15,231 @@ using namespace System::Runtime::InteropServices;
 using namespace MainLibManaged;
 using namespace std;
 
-CWordFormManaged::CWordFormManaged(shared_ptr<CWordForm> spWf) : m_pWordForm(&spWf)
-{}
+CWordFormManaged::CWordFormManaged(int64_t iHandle) : m_iHandle(iHandle)
+{
+    if (0 == iHandle)
+    {
+        int figasse = -1;
+    }
+}
 
 CWordFormManaged::~CWordFormManaged()
-{}
-
-CLexemeManaged^ CWordFormManaged::Lexeme()
 {
-    if (nullptr == m_pWordForm)
+    m_iHandle = -1;
+}
+
+shared_ptr<CWordForm> CWordFormManaged::spGetInstance()
+{
+    shared_ptr<CWordForm> spWordForm;
+    auto rc = Singleton::pGetInstance()->eGetWordForm(m_iHandle, spWordForm);
+    if (rc != H_NO_ERROR || nullptr == spWordForm)
     {
-        throw gcnew Exception(L"WordForm object is NULL.");
+        throw gcnew Exception(L"Unable to retrieve word form instance.");
     }
-
-    return gcnew CLexemeManaged((*m_pWordForm)->spLexeme());
+    return spWordForm;
 }
 
-shared_ptr<CWordForm> CWordFormManaged::spWordForm()
-{
-    return *m_pWordForm;
-}
+
+//CLexemeManaged^ CWordFormManaged::Lexeme()
+//{
+//    if (nullptr == m_pWordForm)
+//    {
+//        throw gcnew Exception(L"WordForm object is NULL.");
+//    }
+
+//    return gcnew CLexemeManaged(m_pWordForm->spLexeme().get());
+//}
+
+//CWordForm* CWordFormManaged::pWordForm()
+//{
+//    return m_pWordForm;
+//}
 
 String^ CWordFormManaged::sWordForm()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return gcnew String((*m_pWordForm)->sWordForm());
+    return gcnew String(spGetInstance()->sWordForm());
 }
 
 void CWordFormManaged::SetWordForm(String^ sWordForm)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"Word form object is NULL.");
-    }
-
-    (*m_pWordForm)->SetWordForm(sFromManagedString(sWordForm));
+    spGetInstance()->SetWordForm(sFromManagedString(sWordForm));
 }
 
 long long CWordFormManaged::llWordFormDbId()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"Word form object is NULL.");
-    }
-
-    return (*m_pWordForm)->llDbId();
+    return spGetInstance()->llDbId();
 }
 
 String^ CWordFormManaged::sStem()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return gcnew String((*m_pWordForm)->sStem());
+    return gcnew String(spGetInstance()->sStem());
 }
 
 void CWordFormManaged::SetStem(String^ sStem)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"Word form object is NULL.");
-    }
-
-    (*m_pWordForm)->SetStem(sFromManagedString(sStem));
+    spGetInstance()->SetStem(sFromManagedString(sStem));
 }
 
 __int64 CWordFormManaged::llLexemeId()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (*m_pWordForm)->spLexeme()->llLexemeId();
+    return spGetInstance()->spLexeme()->llLexemeId();
 }
 
 EM_PartOfSpeech CWordFormManaged::ePos()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (EM_PartOfSpeech)(*m_pWordForm)->ePos();
+    return (EM_PartOfSpeech)spGetInstance()->ePos();
 }
 
 void CWordFormManaged::SetPos(EM_PartOfSpeech ePos)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"Word form object is NULL.");
-    }
-
-    (*m_pWordForm)->SetPos((ET_PartOfSpeech)ePos);
+    spGetInstance()->SetPos((ET_PartOfSpeech)ePos);
 }
 
 EM_Case CWordFormManaged::eCase()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (EM_Case)(*m_pWordForm)->eCase();
+    return (EM_Case)spGetInstance()->eCase();
 }
 
 void CWordFormManaged::SetCase(EM_Case eCase)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    (*m_pWordForm)->SetCase((ET_Case)eCase);
+    spGetInstance()->SetCase((ET_Case)eCase);
 }
 
 EM_Number CWordFormManaged::eNumber()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (EM_Number)(*m_pWordForm)->eNumber();
+    return (EM_Number)spGetInstance()->eNumber();
 }
 
 void CWordFormManaged::SetNumber(EM_Number eNumber)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    (*m_pWordForm)->SetNumber((ET_Number)eNumber);
+    spGetInstance()->SetNumber((ET_Number)eNumber);
 }
 
 EM_Subparadigm CWordFormManaged::eSubparadigm()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (EM_Subparadigm)(*m_pWordForm)->eSubparadigm();
+    return (EM_Subparadigm)spGetInstance()->eSubparadigm();
 }
 
 void CWordFormManaged::SetSubparadigm(EM_Subparadigm eSubparadigm)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    (*m_pWordForm)->SetSubparadigm((ET_Subparadigm)eSubparadigm);
+    spGetInstance()->SetSubparadigm((ET_Subparadigm)eSubparadigm);
 }
 
 EM_Gender CWordFormManaged::eGender()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (EM_Gender)(*m_pWordForm)->eGender();
+    return (EM_Gender)spGetInstance()->eGender();
 }
 
 void CWordFormManaged::SetGender(EM_Gender eGender)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    (*m_pWordForm)->SetGender((ET_Gender)eGender);
+    spGetInstance()->SetGender((ET_Gender)eGender);
 }
 
 EM_Person CWordFormManaged::ePerson()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (EM_Person)(*m_pWordForm)->ePerson();
+    return (EM_Person)spGetInstance()->ePerson();
 }
 
 void CWordFormManaged::SetPerson(EM_Person ePerson)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    (*m_pWordForm)->SetPerson((ET_Person)ePerson);
+    spGetInstance()->SetPerson((ET_Person)ePerson);
 }
 
 EM_Animacy CWordFormManaged::eAnimacy()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (EM_Animacy)(*m_pWordForm)->eAnimacy();
+    return (EM_Animacy)spGetInstance()->eAnimacy();
 }
 
 void CWordFormManaged::SetAnimacy(EM_Animacy eAnimacy)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    (*m_pWordForm)->SetAnimacy((ET_Animacy)eAnimacy);
+    spGetInstance()->SetAnimacy((ET_Animacy)eAnimacy);
 }
 
 EM_Reflexive CWordFormManaged::eReflexive()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (EM_Reflexive)(*m_pWordForm)->eReflexive();
+    return (EM_Reflexive)spGetInstance()->eReflexive();
 }
 
 void CWordFormManaged::SetReflexivity(EM_Reflexive eReflexive)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    (*m_pWordForm)->SetReflexivity((ET_Reflexivity)eReflexive);
+    spGetInstance()->SetReflexivity((ET_Reflexivity)eReflexive);
 }
 
 EM_Aspect CWordFormManaged::eAspect()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (EM_Aspect)(*m_pWordForm)->eAspect();
+    return (EM_Aspect)spGetInstance()->eAspect();
 }
 
 void CWordFormManaged::SetAspect(EM_Aspect eAspect)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    (*m_pWordForm)->SetAspect((ET_Aspect)eAspect);
+    spGetInstance()->SetAspect((ET_Aspect)eAspect);
 }
 
 EM_Status CWordFormManaged::eStatus()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (EM_Status)(*m_pWordForm)->eStatus();
+    return (EM_Status)spGetInstance()->eStatus();
 }
 
 void CWordFormManaged::SetStatus(EM_Status eStatus)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    (*m_pWordForm)->SetStatus((ET_Status)eStatus);
+    spGetInstance()->SetStatus((ET_Status)eStatus);
 }
 
 bool CWordFormManaged::bIrregular()      // came from the DB as opposed to being generated by the app
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (*m_pWordForm)->bIrregular();
+    return spGetInstance()->bIrregular();
 }
 
 void CWordFormManaged::SetIrregular(bool bIrregular)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    (*m_pWordForm)->SetIrregular(bIrregular);
+    spGetInstance()->SetIrregular(bIrregular);
 }
 
 String^ CWordFormManaged::sLeadComment()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return gcnew String((*m_pWordForm)->sLeadComment());
+    return gcnew String(spGetInstance()->sLeadComment());
 }
 
 void CWordFormManaged::SetLeadComment(String^ sLeadComment)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    (*m_pWordForm)->SetLeadComment(sFromManagedString(sLeadComment));
+    spGetInstance()->SetLeadComment(sFromManagedString(sLeadComment));
 }
 
 String^ CWordFormManaged::sTrailingComment()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return gcnew String((*m_pWordForm)->sTrailingComment());
+    return gcnew String(spGetInstance()->sTrailingComment());
 }
 
 void CWordFormManaged::SetTrailingComment(String^ sTrailingComment)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    (*m_pWordForm)->SetTrailingComment(sFromManagedString(sTrailingComment));
+    spGetInstance()->SetTrailingComment(sFromManagedString(sTrailingComment));
 }
 
 bool CWordFormManaged::bIsEdited()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (*m_pWordForm)->bIsEdited();
+    return spGetInstance()->bIsEdited();
 }
 
 void CWordFormManaged::SetIsEdited(bool bIsEdited)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (*m_pWordForm)->SetIsEdited(bIsEdited);
+    return spGetInstance()->SetIsEdited(bIsEdited);
 }
 
 bool CWordFormManaged::bIsVariant()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (*m_pWordForm)->bIsVariant();
+    return spGetInstance()->bIsVariant();
 }
 
 void CWordFormManaged::SetIsVariant(bool bIsVariant)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (*m_pWordForm)->SetIsVariant(bIsVariant);
+    return spGetInstance()->SetIsVariant(bIsVariant);
 }
 
 EM_ReturnCode CWordFormManaged::eGetFirstStressPos(int% iPos, EM_StressType% eType)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
     int cppiPos = -1;
     ET_StressType cppeType = ET_StressType::STRESS_TYPE_UNDEFINED;
-    ET_ReturnCode eRet = (*m_pWordForm)->eGetFirstStressPos(cppiPos, cppeType);
+    ET_ReturnCode eRet = spGetInstance()->eGetFirstStressPos(cppiPos, cppeType);
     if (H_NO_ERROR == eRet)
     {
         iPos = cppiPos;
@@ -416,14 +251,9 @@ EM_ReturnCode CWordFormManaged::eGetFirstStressPos(int% iPos, EM_StressType% eTy
 
 EM_ReturnCode CWordFormManaged::eGetNextStressPos(int% iPos, EM_StressType% eType)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
     int cppiPos = -1;
     ET_StressType cppeType = ET_StressType::STRESS_TYPE_UNDEFINED;
-    ET_ReturnCode eRet = (*m_pWordForm)->eGetNextStressPos(cppiPos, cppeType);
+    ET_ReturnCode eRet = spGetInstance()->eGetNextStressPos(cppiPos, cppeType);
     if (H_NO_ERROR == eRet)
     {
         iPos = cppiPos;
@@ -435,11 +265,6 @@ EM_ReturnCode CWordFormManaged::eGetNextStressPos(int% iPos, EM_StressType% eTyp
 
 EM_ReturnCode CWordFormManaged::eSetStressPositions(Collections::Generic::Dictionary<int, EM_StressType>^ dctStressPositions)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
     Collections::Generic::Dictionary<int, EM_StressType>::Enumerator^ enumerator = dctStressPositions->GetEnumerator();
     map<int, ET_StressType> mapStressPositions;
     while (enumerator->MoveNext())
@@ -449,39 +274,24 @@ EM_ReturnCode CWordFormManaged::eSetStressPositions(Collections::Generic::Dictio
         mapStressPositions[iPos] = (ET_StressType)eType;
     }
 
-    ET_ReturnCode eRet = (*m_pWordForm)->eSetStressPositions(mapStressPositions);
+    ET_ReturnCode eRet = spGetInstance()->eSetStressPositions(mapStressPositions);
 
     return (EM_ReturnCode)eRet;
 }
 
 String^ CWordFormManaged::sGramHash()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return gcnew String((*m_pWordForm)->sGramHash());
+    return gcnew String(spGetInstance()->sGramHash());
 }
 
 EM_ReturnCode CWordFormManaged::eInitFromHash(String^ sHash)
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (EM_ReturnCode)(*m_pWordForm)->eInitFromHash(sFromManagedString(sHash));
+    return (EM_ReturnCode)spGetInstance()->eInitFromHash(sFromManagedString(sHash));
 }
 
 EM_ReturnCode CWordFormManaged::eSaveIrregularForm()
 {
-    if (nullptr == m_pWordForm || nullptr == *m_pWordForm)
-    {
-        throw gcnew Exception(L"WordForm object is NULL.");
-    }
-
-    return (EM_ReturnCode)(*m_pWordForm)->eSaveIrregularForm();
+    return (EM_ReturnCode)spGetInstance()->eSaveIrregularForm();
 }
 
 //EM_ReturnCode CWordFormManaged::eSetIrregularStressPositions(Dictionary<int, EM_StressType>^ dictPositions)
@@ -501,3 +311,4 @@ EM_ReturnCode CWordFormManaged::eSaveIrregularForm()
 
 //    return (EM_ReturnCode)eRet;
 //}
+

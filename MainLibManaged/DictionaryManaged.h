@@ -26,20 +26,35 @@ namespace MainLibManaged
     ref class CAnalyticsManaged;
     ref class CVerifierManaged;
 
+    public ref class CLexemeEnumeratorManaged
+    {
+    public:
+        CLexemeEnumeratorManaged(int64_t iHandle);
+        ~CLexemeEnumeratorManaged();
+
+        shared_ptr<CLexemeEnumerator> spGetInstance();
+
+        EM_ReturnCode eReset();
+
+        EM_ReturnCode eGetFirstLexeme(CLexemeManaged^% pLexeme);
+        EM_ReturnCode eGetNextLexeme(CLexemeManaged^% pLexeme);
+
+    protected:
+        int64_t m_iHandle;
+    };
+
     public ref class CDictionaryManaged
     {
-    protected:
-        shared_ptr<Hlib::CDictionary>* m_pDictionary;
-
     public:
-        CDictionaryManaged();
+//        CDictionaryManaged();
         ~CDictionaryManaged();
+
+        shared_ptr<CDictionary> spGetInstance();
 
         EM_ReturnCode eSetDbPath(String^ sDbPath);
         String^ sGetDbPath();
         CLexemeManaged^ CreateLexemeForEdit();
-        EM_ReturnCode eCopyEntryForEdit(CLexemeManaged^ pSourceL, CInflectionManaged^ pSourceI,
-            CLexemeManaged^ pTargetL, CInflectionManaged^ pTargetI);
+        EM_ReturnCode eCopyEntryForEdit(CLexemeManaged^ pSourceL, CLexemeManaged^ pTargetL);
 
         EM_ReturnCode eGetLexemeById(long long Id, CLexemeManaged^% pLexeme);
         EM_ReturnCode eGetLexemesByHash(String^);
@@ -49,26 +64,27 @@ namespace MainLibManaged
         //        EM_ReturnCode eGenerateFormsForSelectedLexemes();
         EM_ReturnCode eCountLexemes(Int64% iLexemes);
 
+
         //        EM_ReturnCode eVerifyLexemeProperties(CLexemeManaged^);
         //        EM_ReturnCode eSourceFormExists(CLexemeManaged^, bool%);
 
                 // Save manually edited entries
-        EM_ReturnCode eUpdateHeadword(CLexemeManaged^);
-        EM_ReturnCode eSaveNewHeadword(CLexemeManaged^);
-        EM_ReturnCode eSaveHeadwordStress(CLexemeManaged^);
-        EM_ReturnCode eSaveHomonyms(CLexemeManaged^);
-        EM_ReturnCode eSaveAspectPairInfo(CLexemeManaged^);
-        EM_ReturnCode eSaveP2Info(CLexemeManaged^);
-        EM_ReturnCode eUpdateDescriptorInfo(CLexemeManaged^);
-        EM_ReturnCode eSaveDescriptorInfo(CLexemeManaged^ pLexeme);
-        EM_ReturnCode eSaveCommonDeviation(CInflectionManaged^);
-        EM_ReturnCode eSaveInflectionInfo(CInflectionManaged^);
-        EM_ReturnCode eDeleteLexeme(CLexemeManaged^);
+//        EM_ReturnCode eUpdateHeadword(CLexemeManaged^);
+//        EM_ReturnCode eSaveNewHeadword(CLexemeManaged^);
+//        EM_ReturnCode eSaveHeadwordStress(CLexemeManaged^);
+//        EM_ReturnCode eSaveHomonyms(CLexemeManaged^);
+//        EM_ReturnCode eSaveAspectPairInfo(CLexemeManaged^);
+//        EM_ReturnCode eSaveP2Info(CLexemeManaged^);
+//        EM_ReturnCode eUpdateDescriptorInfo(CLexemeManaged^);
+//        EM_ReturnCode eSaveDescriptorInfo(CLexemeManaged^ pLexeme);
+//        EM_ReturnCode eSaveCommonDeviation(CInflectionManaged^);
+//        EM_ReturnCode eSaveInflectionInfo(CInflectionManaged^);
+//        EM_ReturnCode eDeleteLexeme(CLexemeManaged^);
 
         int nLexemesFound();
 
         void Clear();
-        EM_ReturnCode Clear(CLexemeManaged^ pLexeme);
+//        EM_ReturnCode Clear(CLexemeManaged^ pLexeme);
 
         EM_ReturnCode eCreateLexemeEnumerator(CLexemeEnumeratorManaged^%);
 

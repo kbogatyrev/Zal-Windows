@@ -14,7 +14,7 @@ namespace ZalTestApp
 {
     public class EnterLexemePropertiesViewModel : ViewModelBase
     {
-        public delegate void ShowParadigmForEditHandler(CLexemeManaged l);
+        public delegate void ShowParadigmForEditHandler(CInflectionManaged l);
         public event ShowParadigmForEditHandler ShowParadigmForEditEvent;
 
         HashSet<string> m_PropertiesChanged;
@@ -96,7 +96,7 @@ namespace ZalTestApp
                     m_sSourceForm = value;
                     if (!SourceFormIsIrregular)
                     {
-                        m_Lexeme.eMakeGraphicStem();
+                        m_Inflection.eMakeGraphicStem();
                         GraphicStem = m_Lexeme.sGraphicStem();
                     }
                 }
@@ -125,7 +125,7 @@ namespace ZalTestApp
                     string sGs = "";
                     if (!SourceFormIsIrregular)
                     {
-                        m_Lexeme.eMakeGraphicStem(sTmp, ref sGs);
+                        m_Inflection.eMakeGraphicStem(sTmp, ref sGs);
                         GraphicStem = sGs;
                     }
                 }
@@ -378,7 +378,7 @@ namespace ZalTestApp
                     if (GraphicStemGenerated)
                     {
                         m_Lexeme.SetMainSymbol(m_sMainSymbol);
-                        m_Lexeme.eMakeGraphicStem();
+                        m_Inflection.eMakeGraphicStem();
                         GraphicStem = m_Lexeme.sGraphicStem();
                     }
                 }
@@ -402,7 +402,7 @@ namespace ZalTestApp
                     m_Lexeme.SetInflectionType(m_sInflectionType);
                     if (GraphicStemGenerated)
                     {
-                        m_Lexeme.eMakeGraphicStem();
+                        m_Inflection.eMakeGraphicStem();
                         GraphicStem = m_Lexeme.sGraphicStem();
                     }
                 }
@@ -1229,7 +1229,7 @@ namespace ZalTestApp
                 bool bRet = bGetYesNoValue("FleetingVowel", m_sFleetingVowel, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetHasFleetingVowel(bValue);
+                    m_Inflection.SetHasFleetingVowel(bValue);
                 }
                 return bRet;
             });
@@ -1458,7 +1458,7 @@ namespace ZalTestApp
                 int iType = 0;
                 if (Int32.TryParse(m_sIndex, out iType))
                 {
-                    m_Lexeme.SetType(iType);
+                    m_Inflection.SetType(iType);
                 }
                 return true;
             });
@@ -1681,7 +1681,7 @@ namespace ZalTestApp
                 bool bRet = bGetYesNoValue("PrimaryInflectionGroup", m_sIsPrimaryInflectionGroup, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetPrimaryInflectionGroup(bValue);
+                    m_Inflection.SetPrimaryInflectionGroup(bValue);
                 }
                 return bRet;
             });
@@ -1698,19 +1698,19 @@ namespace ZalTestApp
 
             m_ChangedPropertiesHandlers.Add("StressType1", () =>
             {
-                m_Lexeme.SetAccentType1(Helpers.eStringToAccentType(m_sStressType1));
+                m_Inflection.SetAccentType1(Helpers.eStringToAccentType(m_sStressType1));
                 return true;
             });
 
             m_ChangedPropertiesHandlers.Add("StressType2", () =>
             {
-                m_Lexeme.SetAccentType2(Helpers.eStringToAccentType(m_sStressType2));
+                m_Inflection.SetAccentType2(Helpers.eStringToAccentType(m_sStressType2));
                 return true;
             });
 
             m_ChangedPropertiesHandlers.Add("NumberInCircle", () =>
             {
-                m_Lexeme.ClearCommonDeviations();
+                m_Inflection.ClearCommonDeviations();
 
                 if (m_sNumberInCircle.Length < 1)
                 {
@@ -1744,7 +1744,7 @@ namespace ZalTestApp
                             {
                                 MessageBox.Show("Цифра в кружке: ошибка в формате (цифра).");
                             }
-                            m_Lexeme.eAddCommonDeviation(iType, true);
+                            m_Inflection.eAddCommonDeviation(iType, true);
                         }
                         else
                         {
@@ -1765,7 +1765,7 @@ namespace ZalTestApp
                             {
                                 MessageBox.Show("Цифра в кружке: ошибка в формате (цифра).");
                             }
-                            m_Lexeme.eAddCommonDeviation(iType, false);
+                            m_Inflection.eAddCommonDeviation(iType, false);
                         }
                     }
                 }
@@ -1789,7 +1789,7 @@ namespace ZalTestApp
                 bool bRet = bGetYesNoValue("ShortFormsRestricted", m_sXSymbol, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetShortFormsRestricted(bValue);
+                    m_Inflection.SetShortFormsRestricted(bValue);
                 }
                 return bRet;
             });
@@ -1800,7 +1800,7 @@ namespace ZalTestApp
                 bool bRet = bGetYesNoValue("PastParticipleRestricted", m_sXSymbol, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetPastParticipleRestricted(bValue);
+                    m_Inflection.SetPastParticipleRestricted(bValue);
                 }
                 return bRet;
             });
@@ -1823,7 +1823,7 @@ namespace ZalTestApp
                 bool bRet = bGetYesNoValue("ShortFormsIncomplete", m_sFramedXSymbol, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetShortFormsIncomplete(bValue);
+                    m_Inflection.SetShortFormsIncomplete(bValue);
                 }
                 return bRet;
             });
@@ -1834,7 +1834,7 @@ namespace ZalTestApp
                 bool bRet = bGetYesNoValue("NoPassivePastParticiple", m_sFramedXSymbol, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetNoPassivePastParticiple(bValue);
+                    m_Inflection.SetNoPassivePastParticiple(bValue);
                 }
                 return bRet;
             });
@@ -1883,24 +1883,24 @@ namespace ZalTestApp
 
                 if (!bValue)
                 {
-                    m_Lexeme.SetStemAugment(-1);
+                    m_Inflection.SetStemAugment(-1);
                 }
 
                 if (EM_PartOfSpeech.POS_NOUN == m_Lexeme.ePartOfSpeech())
                 {
-                    if (1 == m_Lexeme.iType())
+                    if (1 == m_Inflection.iType())
                     {
-                        m_Lexeme.SetStemAugment(1);
+                        m_Inflection.SetStemAugment(1);
                     }
-                    else if (3 == m_Lexeme.iType())
+                    else if (3 == m_Inflection.iType())
                     {
                         if (m_Lexeme.sSourceForm().EndsWith("онок") || m_Lexeme.sSourceForm().EndsWith("ёнок"))
                         {
-                            m_Lexeme.SetStemAugment(1);
+                            m_Inflection.SetStemAugment(1);
                         }
                         else if (m_Lexeme.sSourceForm().EndsWith("оночек") || m_Lexeme.sSourceForm().EndsWith("ёночек"))
                         {
-                            m_Lexeme.SetStemAugment(2);
+                            m_Inflection.SetStemAugment(2);
                         }
                         else
                         {
@@ -1908,17 +1908,17 @@ namespace ZalTestApp
                             return false;
                         }
                     }
-                    else if (8 == m_Lexeme.iType())
+                    else if (8 == m_Inflection.iType())
                     {
                         if (m_Lexeme.sSourceForm().EndsWith("мя"))
                         {
-                            m_Lexeme.SetStemAugment(3);
+                            m_Inflection.SetStemAugment(3);
                         }
                     }
                 }
                 else if (EM_PartOfSpeech.POS_VERB == m_Lexeme.ePartOfSpeech())
                 {
-                    m_Lexeme.SetStemAugment(1);
+                    m_Inflection.SetStemAugment(1);
                 }
                 return true;
             });
@@ -1940,7 +1940,6 @@ namespace ZalTestApp
 
     public EnterLexemePropertiesViewModel(CLexemeManaged lexeme, bool bIsNew)
     {
-        m_Lexeme = lexeme;
         m_PropertiesChanged = new HashSet<string>();
         m_sSourceForm = "";
         m_bPropertiesChanged = false;
@@ -2064,7 +2063,7 @@ namespace ZalTestApp
 
         public void OnEditForms(object view)
         {
-            ShowParadigmForEditEvent?.Invoke(this.m_Lexeme);
+            ShowParadigmForEditEvent?.Invoke(this.m_Inflection);
         }
 
         public bool bGetYesNoValue(string sPropertyName, string sValue, ref bool bResult)
@@ -2111,7 +2110,7 @@ namespace ZalTestApp
 
         public void LoadData()
         {
-            FleetingVowel = m_Lexeme.bHasFleetingVowel() ? m_YesNoValues[0] : m_YesNoValues[1];
+            FleetingVowel = m_Inflection.bHasFleetingVowel() ? m_YesNoValues[0] : m_YesNoValues[1];
             YoAlternation = m_Lexeme.bHasYoAlternation() ? m_YesNoValues[0] : m_YesNoValues[1];
             OAlternation = m_Lexeme.bHasOAlternation() ? m_YesNoValues[0] : m_YesNoValues[1];
             EM_ReturnCode eRet = m_Lexeme.eGetSourceFormWithStress(ref m_sSourceForm, false);
@@ -2138,20 +2137,20 @@ namespace ZalTestApp
 
             InflectionType = m_Lexeme.sInflectionType();
 
-            Index = m_Lexeme.iType().ToString();
+            Index = m_Inflection.iType().ToString();
             if (EM_PartOfSpeech.POS_VERB == m_Lexeme.ePartOfSpeech())
             {
                 IsTransitive = m_Lexeme.bTransitive() ? m_YesNoValues[0] : m_YesNoValues[1];
             }
-            StressType1 = Helpers.sAccenTypeToStressSchema(m_Lexeme.eAccentType1());
-            if (m_Lexeme.eAccentType2() != EM_AccentType.AT_UNDEFINED)
+            StressType1 = Helpers.sAccenTypeToStressSchema(m_Inflection.eAccentType1());
+            if (m_Inflection.eAccentType2() != EM_AccentType.AT_UNDEFINED)
             {
-                StressType2 = Helpers.sAccenTypeToStressSchema(m_Lexeme.eAccentType2());
+                StressType2 = Helpers.sAccenTypeToStressSchema(m_Inflection.eAccentType2());
             }
 
             Triangle = m_Lexeme.bHasIrregularForms() ? m_YesNoValues[0] : m_YesNoValues[1];
 
-            if (m_Lexeme.iStemAugment() > 0)
+            if (m_Inflection.iStemAugment() > 0)
             {
                 SmallCircle = m_YesNoValues[0];
             }
@@ -2165,13 +2164,13 @@ namespace ZalTestApp
             string sNumbersInCircle = "";
             for (int iCD = 0; iCD <= 9; ++iCD)
             {
-                if (m_Lexeme.bHasCommonDeviation(iCD))
+                if (m_Inflection.bHasCommonDeviation(iCD))
                 {
                     if (sNumbersInCircle.Length > 0)
                     {
                         sNumbersInCircle += ", ";
                     }
-                    if (m_Lexeme.bDeviationOptional(iCD))
+                    if (m_Inflection.bDeviationOptional(iCD))
                     {
                         sNumbersInCircle += "[" + iCD.ToString() + "]";
                     }
@@ -2248,16 +2247,16 @@ namespace ZalTestApp
             Contexts = m_Lexeme.sContexts();
             //            Cognates 
             TrailingComment = m_Lexeme.sTrailingComment();
-            IsPrimaryInflectionGroup = m_Lexeme.bPrimaryInflectionGroup() ? m_YesNoValues[0] : m_YesNoValues[1];
+            IsPrimaryInflectionGroup = m_Inflection.bPrimaryInflectionGroup() ? m_YesNoValues[0] : m_YesNoValues[1];
             if (EM_PartOfSpeech.POS_ADJ == m_Lexeme.ePartOfSpeech())
             {
-                XSymbol = m_Lexeme.bShortFormsRestricted() ? m_YesNoValues[0] : m_YesNoValues[1];
-                FramedXSymbol = m_Lexeme.bShortFormsIncomplete() ? m_YesNoValues[0] : m_YesNoValues[1];
+                XSymbol = m_Inflection.bShortFormsRestricted() ? m_YesNoValues[0] : m_YesNoValues[1];
+                FramedXSymbol = m_Inflection.bShortFormsIncomplete() ? m_YesNoValues[0] : m_YesNoValues[1];
             }
             if (EM_PartOfSpeech.POS_VERB == m_Lexeme.ePartOfSpeech())
             {
-                XSymbol = m_Lexeme.bPastParticipleRestricted() ? m_YesNoValues[0] : m_YesNoValues[1];
-                FramedXSymbol = m_Lexeme.bNoPassivePastParticiple() ? m_YesNoValues[0] : m_YesNoValues[1];
+                XSymbol = m_Inflection.bPastParticipleRestricted() ? m_YesNoValues[0] : m_YesNoValues[1];
+                FramedXSymbol = m_Inflection.bNoPassivePastParticiple() ? m_YesNoValues[0] : m_YesNoValues[1];
             }
 
             DescriptorComment = m_Lexeme.sComment();

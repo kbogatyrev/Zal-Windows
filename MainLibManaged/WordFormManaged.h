@@ -30,15 +30,14 @@ namespace MainLibManaged
 
     public ref class CWordFormManaged
     {
-        shared_ptr<CWordForm>* m_pWordForm;
+    protected:
+        int64_t m_iHandle{ -1 };    // seq # of this instance in parent container
 
     public:
-        CWordFormManaged(shared_ptr<CWordForm>);
+        CWordFormManaged(int64_t iHandle);
         ~CWordFormManaged();
 
-        CLexemeManaged^ Lexeme();
-
-        shared_ptr<CWordForm> spWordForm();
+        shared_ptr<CWordForm> spGetInstance();
 
         String^ sWordForm();
 

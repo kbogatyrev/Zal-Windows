@@ -28,14 +28,9 @@ namespace MainLibManaged
     public ref class CInflectionManaged
     {
     public:
-        shared_ptr<CInflection>* m_pInflection;
-
-        CInflectionManaged();
-        CInflectionManaged(shared_ptr<CLexeme>);
-        CInflectionManaged(shared_ptr<CInflection>); // copy ctor
+        CInflectionManaged(int64_t handle);
         ~CInflectionManaged();
 
-        shared_ptr<CInflection> spInflection();
 
         //        bool bHasIrregularForms();
         //        void SetHasIrregularForms(bool);
@@ -43,13 +38,13 @@ namespace MainLibManaged
         String^ sParadigmHash();
         String^ sStoredHash();
 
-        void SetLexeme(CLexemeManaged^ lexeme);
+//        void SetLexeme(CLexemeManaged^ lexeme);
         EM_ReturnCode eGetLexeme(CLexemeManaged^% lexeme);
         EM_ReturnCode eWordFormFromHash(String^ sHash, int iAt, CWordFormManaged^% Wf);
         EM_ReturnCode eCreateWordForm(CWordFormManaged^% wf);
         EM_ReturnCode eRemoveWordForm(String^ sHash, int iAt);
         EM_ReturnCode eRemoveWordForms(String^ sHash);
-        void AddWordForm(CWordFormManaged^% Wf);
+        void AddWordForm(CWordFormManaged^% Wf);            // neded to add a new or modified(?) wf
         bool bHasIrregularForm(String^ sGramHash);
         bool bNoRegularForms(String^ sGramHash);
         EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% wf);
@@ -104,20 +99,11 @@ namespace MainLibManaged
         // private:     -- TODO: accessors/mutators?
         String^ m_sStoredEntryHash;
 
-    };
+        shared_ptr<CInflection> spGetInstance();
 
-    public ref class CInflectionEnumeratorManaged
-    {
-        shared_ptr<Hlib::CInflectionEnumerator>* m_pInflectionEnumerator;
-
-    public:
-        CInflectionEnumeratorManaged(shared_ptr<CInflectionEnumerator>);
-        ~CInflectionEnumeratorManaged();
-
-        EM_ReturnCode eReset();
-
-        EM_ReturnCode eGetFirstInflection(CInflectionManaged^% pInflection);
-        EM_ReturnCode eGetNextInflection(CInflectionManaged^% pInflection);
+    protected:
+        CInflectionManaged() {};
+        int64_t m_iHandle{ -1 }; 
     };
 
 

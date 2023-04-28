@@ -7,7 +7,7 @@
 
 #include <memory>
 #include <msclr\marshal.h>
-#include "MainLib.h"
+#include "Singleton.h"
 #include "GramHasher.h"
 //#include "MainLibManaged.h"
 
@@ -40,75 +40,107 @@ using namespace std;
 
 namespace MainLibManaged
 {
-/*
-    extern "C"
-    {
-        ET_ReturnCode GetDictionary(shared_ptr<CDictionary>*&);        // the only external function defined in MainLib
-    }
-*/
-    Singleton m_singleton;
+    CLexemeEnumeratorManaged::CLexemeEnumeratorManaged(int64_t iHandle) : m_iHandle(iHandle)
+    {}
 
-    CDictionaryManaged::CDictionaryManaged()
+    CLexemeEnumeratorManaged::~CLexemeEnumeratorManaged()
     {
-        shared_ptr<Hlib::CDictionary> pD;
-        ET_ReturnCode rc = m_singleton.GetDictionary(pD);
-        m_pDictionary = &pD;
+        m_iHandle = -1;
     }
+
+    shared_ptr<CLexemeEnumerator> CLexemeEnumeratorManaged::spGetInstance()
+    {
+        shared_ptr<CLexemeEnumerator> spLexemeEnumerator;
+        auto rc = Singleton::pGetInstance()->eGetLexemeEnumerator(m_iHandle, spLexemeEnumerator);
+        if (rc != H_NO_ERROR || nullptr == spLexemeEnumerator)
+        {
+            throw gcnew Exception(L"Unable to retrieve inflection enumerator instance.");
+        }
+        return spLexemeEnumerator;
+    }
+
+    EM_ReturnCode CLexemeEnumeratorManaged::eReset()
+    {
+        return (EM_ReturnCode)spGetInstance()->eReset();
+    }
+
+    EM_ReturnCode CLexemeEnumeratorManaged::eGetFirstLexeme(CLexemeManaged^% lexeme)
+    {
+        shared_ptr<CLexeme> spLexeme;
+        ET_ReturnCode eRet = spGetInstance()->eGetFirstLexeme(spLexeme);
+        if (H_NO_ERROR == eRet || H_NO_MORE == eRet)
+        {
+            if (spLexeme)
+            {
+                auto iHandle = Singleton::pGetInstance()->iAddLexeme(spLexeme);
+                lexeme = gcnew CLexemeManaged(iHandle);
+            }
+        }
+        return (EM_ReturnCode)eRet;
+    }
+
+    EM_ReturnCode CLexemeEnumeratorManaged::eGetNextLexeme(CLexemeManaged^% lexeme)
+    {
+        shared_ptr<CLexeme> spLexeme;
+        ET_ReturnCode eRet = spGetInstance()->eGetNextLexeme(spLexeme);
+        if (H_NO_ERROR == eRet || H_NO_MORE == eRet)
+        {
+            if (spLexeme)
+            {
+                auto iHandle = Singleton::pGetInstance()->iAddLexeme(spLexeme);
+                lexeme = gcnew CLexemeManaged(iHandle);
+            }
+        }
+        return (EM_ReturnCode)eRet;
+    }
+
+
+ ////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     CDictionaryManaged::~CDictionaryManaged()
+    {}
+
+    shared_ptr<CDictionary> CDictionaryManaged::spGetInstance()
     {
-        //    It has a smart pointer wrapper now
-        //    delete m_pDictionary;
+        shared_ptr<CDictionary> spDictionary;
+        auto rc = Singleton::pGetInstance()->eGetDictionary(spDictionary);
+        if (rc != H_NO_ERROR || nullptr == spDictionary)
+        {
+            throw gcnew Exception(L"Unable to retrieve dictionary instance.");
+        }
+        return spDictionary;
     }
 
     EM_ReturnCode CDictionaryManaged::eSetDbPath(String^ sDbPath)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
-        return (EM_ReturnCode)(*m_pDictionary)->eSetDbPath(sFromManagedString(sDbPath));
+        return (EM_ReturnCode)spGetInstance()->eSetDbPath(sFromManagedString(sDbPath));
     }
 
     String^ CDictionaryManaged::sGetDbPath()
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
-        return gcnew String((*m_pDictionary)->sGetDbPath());
+        return gcnew String(spGetInstance()->sGetDbPath());
     }
 
     CLexemeManaged^ CDictionaryManaged::CreateLexemeForEdit()
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary itf handle is NULL.");
-        }
-
         shared_ptr<CLexeme> spLexeme;
-        shared_ptr<CInflection> spInflection;
-        ET_ReturnCode eRet = (*m_pDictionary)->eCreateLexemeForEdit(spLexeme, spInflection);
+//        shared_ptr<CInflection> spInflection;
+        auto eRet = spGetInstance()->eCreateLexemeForEdit(spLexeme);
         if (eRet != H_NO_ERROR || nullptr == spLexeme)
         {
             throw gcnew Exception(L"Unable to create lexeme.");
         }
 
-        CLexemeManaged^ pManaged = gcnew CLexemeManaged();
-        //    pManaged->m_pLexeme = pLexeme;
+        auto iHandle = Singleton::pGetInstance()->iAddLexeme(spLexeme);
+
+        CLexemeManaged^ pManaged = gcnew CLexemeManaged(iHandle);
 
         return pManaged;
     }
 
-    EM_ReturnCode CDictionaryManaged::eCopyEntryForEdit(CLexemeManaged^ sourceL, CInflectionManaged^ sourceI,
-        CLexemeManaged^ targetL, CInflectionManaged^ targetI)
+    EM_ReturnCode CDictionaryManaged::eCopyEntryForEdit(CLexemeManaged^ sourceL, CLexemeManaged^ targetL)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary itf handle is NULL.");
-        }
         /*
 
             CLexeme * pCopyL = nullptr;
@@ -132,18 +164,13 @@ namespace MainLibManaged
 
     EM_ReturnCode CDictionaryManaged::eGetLexemeById(long long llId, CLexemeManaged^% lexeme)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
         shared_ptr<CLexeme> spLexeme;
-        ET_ReturnCode eRet = (*m_pDictionary)->eGetLexemeById(llId, spLexeme);
+        auto eRet = spGetInstance()->eGetLexemeById(llId, spLexeme);
         if (H_NO_ERROR == eRet || H_NO_MORE == eRet)
         {
             if (spLexeme)
             {
-                lexeme = gcnew CLexemeManaged(spLexeme);
+                lexeme = gcnew CLexemeManaged(Singleton::pGetInstance()->iAddLexeme(spLexeme));
             }
         }
         return (EM_ReturnCode)eRet;
@@ -151,12 +178,7 @@ namespace MainLibManaged
 
     EM_ReturnCode CDictionaryManaged::eGetLexemesByHash(String^ sHash)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
-        return (EM_ReturnCode)(*m_pDictionary)->eGetLexemesByHash(sFromManagedString(sHash));
+        return (EM_ReturnCode)spGetInstance()->eGetLexemesByHash(sFromManagedString(sHash));
     }
 
     /*
@@ -173,48 +195,28 @@ namespace MainLibManaged
 
     EM_ReturnCode CDictionaryManaged::eGetLexemesByInitialForm(String^ sInitForm)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
-        return (EM_ReturnCode)(*m_pDictionary)->eGetLexemesByInitialForm(sFromManagedString(sInitForm));
+        return (EM_ReturnCode)spGetInstance()->eGetLexemesByInitialForm(sFromManagedString(sInitForm));
     }
 
     EM_ReturnCode CDictionaryManaged::eGenerateAllForms()
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
-        return (EM_ReturnCode)(*m_pDictionary)->eGenerateAllForms();
+        return (EM_ReturnCode)spGetInstance()->eGenerateAllForms();
     }
 
     /*
     EM_ReturnCode CDictionaryManaged::eGenerateFormsForSelectedLexemes()
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
-        return (EM_ReturnCode)m_pDictionary->eGenerateFormsForSelectedLexemes();
+        return (EM_ReturnCode)spGetInstance()->eGenerateFormsForSelectedLexemes();
     }
     */
 
-    EM_ReturnCode CDictionaryManaged::eCountLexemes(Int64% iLexemes)
+    EM_ReturnCode CDictionaryManaged::eCountLexemes(Int64% riLexemes)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
-        int64_t cppiLexemes = 0;
-        ET_ReturnCode eRet = (*m_pDictionary)->eCountLexemes(cppiLexemes);
+        int64_t iLexemes = 0;
+        ET_ReturnCode eRet = spGetInstance()->eCountLexemes(iLexemes);
         if (H_NO_ERROR == eRet)
         {
-            iLexemes = cppiLexemes;
+            riLexemes = iLexemes;
         }
 
         return (EM_ReturnCode)eRet;
@@ -226,7 +228,7 @@ namespace MainLibManaged
     /*
     EM_ReturnCode CDictionaryManaged::eSaveLexeme(CLexemeManaged^ l)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
+       if (nullptr == m_pDictionary)
         //    {
         //        throw gcnew Exception(L"Dictionary object is NULL.");
         //    }
@@ -236,160 +238,150 @@ namespace MainLibManaged
         //    return (EM_ReturnCode)eRet;
         //}
     */
-
+    /*
     EM_ReturnCode CDictionaryManaged::eUpdateHeadword(CLexemeManaged^ l)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
+        if (nullptr == m_pDictionary)
         {
             throw gcnew Exception(L"Dictionary object is NULL.");
         }
 
-        ET_ReturnCode eRet = (*m_pDictionary)->eUpdateHeadword(l->spLexeme());
+        ET_ReturnCode eRet = m_pDictionary->eUpdateHeadword(l->pLexeme());
 
         return (EM_ReturnCode)eRet;
     }
 
     EM_ReturnCode CDictionaryManaged::eSaveNewHeadword(CLexemeManaged^ l)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
+        if (nullptr == m_pDictionary)
         {
             throw gcnew Exception(L"Dictionary object is NULL.");
         }
 
-        ET_ReturnCode eRet = (*m_pDictionary)->eSaveNewHeadword(l->spLexeme());
+        ET_ReturnCode eRet = m_pDictionary->eSaveNewHeadword(l->pLexeme());
 
         return (EM_ReturnCode)eRet;
     }
 
     EM_ReturnCode CDictionaryManaged::eSaveHeadwordStress(CLexemeManaged^ l)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
+       if (nullptr == m_pDictionary)
         {
             throw gcnew Exception(L"Dictionary object is NULL.");
         }
 
-        ET_ReturnCode eRet = (*m_pDictionary)->eSaveHeadwordStress(l->spLexeme());
+        ET_ReturnCode eRet = m_pDictionary->eSaveHeadwordStress(l->pLexeme());
 
         return (EM_ReturnCode)eRet;
     }
 
     EM_ReturnCode CDictionaryManaged::eSaveHomonyms(CLexemeManaged^ l)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
+       if (nullptr == m_pDictionary 
         {
             throw gcnew Exception(L"Dictionary object is NULL.");
         }
 
-        ET_ReturnCode eRet = (*m_pDictionary)->eSaveHomonyms(l->spLexeme());
+        ET_ReturnCode eRet = m_pDictionary->eSaveHomonyms(l->pLexeme());
 
         return (EM_ReturnCode)eRet;
     }
 
     EM_ReturnCode CDictionaryManaged::eSaveAspectPairInfo(CLexemeManaged^ l)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
+       if (nullptr == m_pDictionary 
         {
             throw gcnew Exception(L"Dictionary object is NULL.");
         }
 
-        ET_ReturnCode eRet = (*m_pDictionary)->eSaveAspectPairInfo(l->spLexeme());
+        ET_ReturnCode eRet = m_pDictionary->eSaveAspectPairInfo(l->pLexeme());
 
         return (EM_ReturnCode)eRet;
     }
 
     EM_ReturnCode CDictionaryManaged::eSaveP2Info(CLexemeManaged^ l)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
+       if (nullptr == m_pDictionary 
         {
             throw gcnew Exception(L"Dictionary object is NULL.");
         }
 
-        ET_ReturnCode eRet = (*m_pDictionary)->eSaveP2Info(l->spLexeme());
+        ET_ReturnCode eRet = m_pDictionary->eSaveP2Info(l->pLexeme());
 
         return (EM_ReturnCode)eRet;
     }
 
     EM_ReturnCode CDictionaryManaged::eUpdateDescriptorInfo(CLexemeManaged^ l)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
+       if (nullptr == m_pDictionary)
         {
             throw gcnew Exception(L"Dictionary object is NULL.");
         }
 
-        ET_ReturnCode eRet = (*m_pDictionary)->eUpdateDescriptorInfo(l->spLexeme());
+        ET_ReturnCode eRet = m_pDictionary->eUpdateDescriptorInfo(l->pLexeme());
 
         return (EM_ReturnCode)eRet;
     }
 
     EM_ReturnCode CDictionaryManaged::eSaveDescriptorInfo(CLexemeManaged^ l)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
+       if (nullptr == m_pDictionary)
         {
             throw gcnew Exception(L"Dictionary object is NULL.");
         }
 
-        ET_ReturnCode eRet = (*m_pDictionary)->eSaveDescriptorInfo(l->spLexeme());
+        ET_ReturnCode eRet = m_pDictionary->eSaveDescriptorInfo(l->pLexeme());
 
         return (EM_ReturnCode)eRet;
     }
+    */
 
+    //EM_ReturnCode CDictionaryManaged::eSaveInflectionInfo(CInflectionManaged^ i)
+    //{
+    //   if (nullptr == m_pDictionary)
+    //    {
+    //        throw gcnew Exception(L"Dictionary object is NULL.");
+    //    }
 
-    EM_ReturnCode CDictionaryManaged::eSaveInflectionInfo(CInflectionManaged^ i)
-    {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
+    //    ET_ReturnCode eRet = m_pDictionary->eSaveInflectionInfo(i->spInflection());
 
-        ET_ReturnCode eRet = (*m_pDictionary)->eSaveInflectionInfo(i->spInflection());
+    //    return (EM_ReturnCode)eRet;
+    //}
 
-        return (EM_ReturnCode)eRet;
-    }
+    //EM_ReturnCode CDictionaryManaged::eSaveCommonDeviation(CInflectionManaged^ i)
+    //{
+    //   if (nullptr == m_pDictionary)
+    //    {
+    //        throw gcnew Exception(L"Dictionary object is NULL.");
+    //    }
 
-    EM_ReturnCode CDictionaryManaged::eSaveCommonDeviation(CInflectionManaged^ i)
-    {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
+    //    ET_ReturnCode eRet = m_pDictionary->eSaveCommonDeviation(i->spInflection());
 
-        ET_ReturnCode eRet = (*m_pDictionary)->eSaveCommonDeviation(i->spInflection());
-
-        return (EM_ReturnCode)eRet;
-    }
-
+    //    return (EM_ReturnCode)eRet;
+    //}
+/*
     EM_ReturnCode CDictionaryManaged::eDeleteLexeme(CLexemeManaged^ l)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
+       if (nullptr == m_pDictionary)
         {
             throw gcnew Exception(L"Dictionary object is NULL.");
         }
 
-        ET_ReturnCode eRet = (*m_pDictionary)->eDeleteLexeme(l->spLexeme());
+        ET_ReturnCode eRet = m_pDictionary->eDeleteLexeme(l->pLexeme());
 
         return (EM_ReturnCode)eRet;
     }
-
+*/
     int CDictionaryManaged::nLexemesFound()
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
-        return (*m_pDictionary)->nLexemesFound();
+        return spGetInstance()->nLexemesFound();
     }
 
     void CDictionaryManaged::Clear()
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
-        (*m_pDictionary)->Clear();
+        spGetInstance()->Clear();
     }
-
+/*
     EM_ReturnCode CDictionaryManaged::Clear(CLexemeManaged^ pLexeme)
     {
         if (nullptr == m_pDictionary)
@@ -397,43 +389,32 @@ namespace MainLibManaged
             throw gcnew Exception(L"Dictionary object is NULL.");
         }
 
-        ET_ReturnCode eRet = (*m_pDictionary)->Clear(pLexeme->spLexeme());
+        ET_ReturnCode eRet = m_pDictionary->Clear(pLexeme());
 
         return (EM_ReturnCode)eRet;
     }
+*/
 
     EM_ReturnCode CDictionaryManaged::eCreateLexemeEnumerator(CLexemeEnumeratorManaged^% pLeManaged)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary objectis NULL.");
-        }
-
         shared_ptr<CLexemeEnumerator> spLexemeEnumerator;
-        ET_ReturnCode eRet = (*m_pDictionary)->eCreateLexemeEnumerator(spLexemeEnumerator);
-        if (H_NO_ERROR == eRet)
+        ET_ReturnCode rc = spGetInstance()->eCreateLexemeEnumerator(spLexemeEnumerator);
+        if (H_NO_ERROR == rc && spLexemeEnumerator)
         {
-            if (spLexemeEnumerator)
-            {
-                pLeManaged = gcnew CLexemeEnumeratorManaged(spLexemeEnumerator);
-            }
-            else
-            {
-                return EM_ReturnCode::H_ERROR_UNEXPECTED;
-            }
+            auto iHandle = Singleton::pGetInstance()->iAddLexemeEnumerator(spLexemeEnumerator);
+            pLeManaged = gcnew CLexemeEnumeratorManaged(iHandle);
         }
-        return (EM_ReturnCode)eRet;
+        else
+        {
+            return EM_ReturnCode::H_ERROR_UNEXPECTED;
+        }
+        return (EM_ReturnCode)rc;
     }
 
     EM_ReturnCode CDictionaryManaged::eGetParser(CParserManaged^% pParserManaged)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
         shared_ptr<CParser> spParser;
-        ET_ReturnCode eRet = (*m_pDictionary)->eGetParser(spParser);
+        ET_ReturnCode eRet = spGetInstance()->eGetParser(spParser);
         if (H_NO_ERROR == eRet)
         {
             if (spParser)
@@ -446,18 +427,15 @@ namespace MainLibManaged
             }
         }
 
+        Singleton::pGetInstance()->SetParser(spParser);
+
         return (EM_ReturnCode)eRet;
     }
 
     EM_ReturnCode CDictionaryManaged::eGetAnalytics(CAnalyticsManaged^% pAnalyticsManaged)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
         shared_ptr<CAnalytics> spAnalytics;
-        ET_ReturnCode eRet = (*m_pDictionary)->eGetAnalytics(spAnalytics);
+        ET_ReturnCode eRet = spGetInstance()->eGetAnalytics(spAnalytics);
         if (H_NO_ERROR == eRet)
         {
             if (spAnalytics)
@@ -469,19 +447,13 @@ namespace MainLibManaged
                 return EM_ReturnCode::H_ERROR_UNEXPECTED;
             }
         }
-
         return (EM_ReturnCode)eRet;
     }
 
     EM_ReturnCode CDictionaryManaged::eGetVerifier(CVerifierManaged^% verifier)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
         shared_ptr<CVerifier> spVerifier;
-        ET_ReturnCode eRet = (*m_pDictionary)->eGetVerifier(spVerifier);
+        ET_ReturnCode eRet = spGetInstance()->eGetVerifier(spVerifier);
         if (H_NO_ERROR == eRet)
         {
             if (spVerifier)
@@ -493,13 +465,13 @@ namespace MainLibManaged
                 return EM_ReturnCode::H_ERROR_UNEXPECTED;
             }
         }
-
         return (EM_ReturnCode)eRet;
     }
+
 /*
     EM_ReturnCode CDictionaryManaged::eExportTestData(String^ sPath, DelegateProgress^ progressCallback)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
+       if (nullptr == m_pDictionary)
         {
             throw gcnew Exception(L"Dictionary object is NULL.");
         }
@@ -508,12 +480,12 @@ namespace MainLibManaged
         IntPtr iptr = Marshal::GetFunctionPointerForDelegate(progressCallback);
         PROGRESS_CALLBACK_CLR pProgress = static_cast<PROGRESS_CALLBACK_CLR>(iptr.ToPointer());
 
-        return (EM_ReturnCode)(*m_pDictionary)->eExportTestData(sFromManagedString(sPath), *pProgress);
+        return (EM_ReturnCode)m_pDictionary->eExportTestData(sFromManagedString(sPath), *pProgress);
     }
 
     EM_ReturnCode CDictionaryManaged::eImportTestData(String^ sPath, DelegateProgress^ progressCallback)
     {
-        if (nullptr == m_pDictionary || nullptr == *m_pDictionary)
+       if (nullptr == m_pDictionary)
         {
             throw gcnew Exception(L"Dictionary object is NULL.");
         }
@@ -522,7 +494,10 @@ namespace MainLibManaged
         IntPtr iptr = Marshal::GetFunctionPointerForDelegate(progressCallback);
         PROGRESS_CALLBACK_CLR pProgress = static_cast<PROGRESS_CALLBACK_CLR>(iptr.ToPointer());
 
-        return (EM_ReturnCode)(*m_pDictionary)->eImportTestData(sFromManagedString(sPath), *pProgress);
+        return (EM_ReturnCode)m_pDictionary->eImportTestData(sFromManagedString(sPath), *pProgress);
     }
     */
-}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+}       // namespace

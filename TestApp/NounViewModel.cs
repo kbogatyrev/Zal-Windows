@@ -620,7 +620,7 @@ namespace ZalTestApp
         {
             try
             {
-                string sLexemeHash = m_Lexeme.sParadigmHash();
+                string sLexemeHash = m_Inflection.sParadigmHash();
                 List<string> listKeys = null;
 
                 switch (m_Lexeme.ePartOfSpeech())
@@ -703,7 +703,7 @@ namespace ZalTestApp
 
         #endregion
 
-        public NounViewModel(CLexemeManaged lexeme, MainModel m)
+        public NounViewModel(CInflectionManaged inflection, MainModel m)
         {
             BackCommand = new RelayCommand(new Action<object>(GoBack));
 //            ShowFormComment = new RelayCommand(new Action<object>(ShowFormCommentImpl));
@@ -713,7 +713,13 @@ namespace ZalTestApp
 
             m_MainModel = m;
 
-            m_Lexeme = lexeme;
+            m_Inflection = inflection;
+            var eRc = inflection.eGetLexeme(ref m_Lexeme);
+            if (eRc != EM_ReturnCode.H_NO_ERROR)
+            {
+                MessageBox.Show("Unable to retrieve lexeme data.");
+                return;
+            }
 
             InitFormHandlers();
         }

@@ -27,22 +27,50 @@ namespace MainLibManaged
     ref class CAnalyticsManaged;
     ref class CVerifierManaged;
 
-    public ref class CLexemeManaged
+    public ref class CInflectionEnumeratorManaged
     {
     public:
-        shared_ptr<CLexeme>* m_pLexeme;
+        CInflectionEnumeratorManaged(int64_t iHandle);
+        ~CInflectionEnumeratorManaged();
+
+        shared_ptr<CInflectionEnumerator> spGetInstance();
+
+        EM_ReturnCode eReset();
+
+        EM_ReturnCode eGetFirstInflection(CInflectionManaged^% pLexeme);
+        EM_ReturnCode eGetNextInflection(CInflectionManaged^% pLexeme);
+
+    protected:
+        int64_t m_iHandle;
+    };
+
+    public ref class CLexemeManaged
+    {
+    protected:
+        uint64_t m_iHandle;
+        int m_iCurrentInflection{ -1 };
+
+//        CLexemeManaged();
+
+    public:
         //        String^ m_sStoredLexemeHash;
 
-        CLexemeManaged();
-        CLexemeManaged(shared_ptr<CLexeme>);
+        CLexemeManaged(int64_t iHandle);
+
+//        CLexemeManaged(CLexeme *);
+//        CLexemeManaged(shared_ptr<CLexeme>);
         //        CLexemeManaged(String^ sGramHash);
         ~CLexemeManaged();
 
         EM_ReturnCode eCreateInflectionEnumerator(CInflectionEnumeratorManaged^%);
 
+        shared_ptr<CLexeme> spGetInstance();
+
         //        const StLexemeProperties& stGetProperties();
 //        StLexemeProperties& stGetPropertiesForWriteAccess();
-        shared_ptr<CLexeme> spLexeme();
+//        CLexeme * pLexeme();
+//        EM_ReturnCode eGetFirstInflection(CInflectionManaged^% inflection);
+//        EM_ReturnCode eGetNextInflection(CInflectionManaged^% inflection);
         __int64 llLexemeId();
         __int64 llHeadwordId();
         EM_Gender eGender();
@@ -231,7 +259,7 @@ namespace MainLibManaged
         //        EM_ReturnCode eGenerateParadigm();
         //        EM_ReturnCode eBuildAspectPair();
         //        EM_ReturnCode eSaveTestData();
-        //        EM_ReturnCode eCheckLexemeProperties(); // for manual input/editing
+        EM_ReturnCode eCheckLexemeProperties(); // for manual input/editing
         //        EM_ReturnCode eDeleteIrregularForm(String^ sFormHash);
         //        EM_ReturnCode eSaveIrregularForms(String^ sGramHash);
         //        EM_ReturnCode eMakeGraphicStem();
@@ -239,23 +267,10 @@ namespace MainLibManaged
 
         EM_ReturnCode eGetErrorMsg(String^% sErrorMsg);
 
-    protected:
+
+
         //        EM_ReturnCode eGetAspectPair(String^%, int%, bool bIsVariant);
 
     };  //  public ref class CLexemeManaged
-
-    public ref class CLexemeEnumeratorManaged
-    {
-        shared_ptr<Hlib::CLexemeEnumerator>* m_pLexemeEnumerator;
-
-    public:
-        CLexemeEnumeratorManaged(shared_ptr<CLexemeEnumerator>);
-        ~CLexemeEnumeratorManaged();
-
-        EM_ReturnCode eReset();
-
-        EM_ReturnCode eGetFirstLexeme(CLexemeManaged^% pLexemeItf);
-        EM_ReturnCode eGetNextLexeme(CLexemeManaged^% pLexemeItf);
-    };
 
 }       // namespace

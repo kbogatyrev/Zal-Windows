@@ -22,12 +22,11 @@ namespace MainLibManaged
 
     public ref class CParserManaged
     {
-        shared_ptr<Hlib::CParser>* m_pParser;
-
     public:
         CParserManaged(shared_ptr<CParser>);
         ~CParserManaged();
 
+        shared_ptr<CParser> spGetInstance();
         EM_ReturnCode eParseWord(String^ sWord);
         EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% pWordFrom);
         EM_ReturnCode eGetNextWordForm(CWordFormManaged^% pWordFrom);

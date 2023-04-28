@@ -75,6 +75,14 @@ namespace ZalTestApp
             }
         }
 
+        public CInflectionManaged Inflection
+        {
+            get
+            {
+                return m_Inflection;
+            }
+        }
+
         private bool m_bReadOnly;
         public bool ReadOnly
         {
@@ -171,6 +179,7 @@ namespace ZalTestApp
         public LexemeViewModel()
         {
             m_Lexeme = null;
+            m_Inflection = null;
             m_bReadOnly = false;
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
@@ -182,9 +191,16 @@ namespace ZalTestApp
         }
 
 
-        public LexemeViewModel(CLexemeManaged l)
+        public LexemeViewModel(CInflectionManaged inflection)
         {
-            m_Lexeme = l;
+            var rc = inflection.eGetLexeme(ref m_Lexeme);
+            if (rc != EM_ReturnCode.H_NO_ERROR || null == m_Lexeme)
+            {
+                MessageBox.Show("Не удалось получить доступ к лесеме.", "Zal");
+                return;
+            }
+
+            m_Inflection = inflection;
             m_bReadOnly = false;
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
@@ -197,9 +213,14 @@ namespace ZalTestApp
             CollectLexemeProperties();
         }
 
-        public LexemeViewModel(CLexemeManaged l, bool bReadOnly)
+        public LexemeViewModel(CInflectionManaged inflection, bool bReadOnly)
         {
-            m_Lexeme = l;
+            var rc = inflection.eGetLexeme(ref m_Lexeme);
+            if (rc != EM_ReturnCode.H_NO_ERROR || null == m_Lexeme)
+            {
+                MessageBox.Show("Не удалось получить доступ к лесеме.", "Zal");
+                return;
+            }
             m_bReadOnly = bReadOnly;
             RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
             EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
@@ -230,6 +251,11 @@ namespace ZalTestApp
         private void CollectLexemeProperties()
         {
             if (null == m_Lexeme)
+            {
+                return;
+            }
+
+            if (null == m_Inflection)
             {
                 return;
             }
@@ -309,24 +335,24 @@ namespace ZalTestApp
 
             if (EM_PartOfSpeech.POS_NOUN == m_Lexeme.ePartOfSpeech())
             {
-                if (m_Lexeme.iType() >= 0)
+                if (m_Inflection.iType() >= 0)
                 {
-                    AddProperty("Индекс:", m_Lexeme.iType().ToString());
+                    AddProperty("Индекс:", m_Inflection.iType().ToString());
                 }
             }
             else
             {
-                if (m_Lexeme.iType() > 0)
+                if (m_Inflection.iType() > 0)
                 {
-                    AddProperty("Индекс:", m_Lexeme.iType().ToString());
+                    AddProperty("Индекс:", m_Inflection.iType().ToString());
                 }
             }
 
-            var eAp1 = m_Lexeme.eAccentType1();
+            var eAp1 = m_Inflection.eAccentType1();
             if (eAp1 != EM_AccentType.AT_UNDEFINED)
             {
                 string sRet = Helpers.sAccenTypeToStressSchema(eAp1);
-                var eAp2 = m_Lexeme.eAccentType2();
+                var eAp2 = m_Inflection.eAccentType2();
                 if (eAp2 != EM_AccentType.AT_UNDEFINED)
                 {
                     sRet += "/" + Helpers.sAccenTypeToStressSchema(eAp2);
@@ -400,9 +426,9 @@ namespace ZalTestApp
                 AddProperty("См. также:", m_Lexeme.sSeeRef());
             }
 
-            if (m_Lexeme.iStemAugment() > 0)
+            if (m_Inflection.iStemAugment() > 0)
             {
-                string sSmallCircleType = m_Lexeme.iType().ToString() + 'ᵒ';
+                string sSmallCircleType = m_Inflection.iType().ToString() + 'ᵒ';
                 AddProperty("Чередование в основе: ", sSmallCircleType);
             }
 
@@ -423,7 +449,7 @@ namespace ZalTestApp
             string sCommonDeviations = "";
             for (int iCD = 1; iCD <= 9; ++iCD)
             {
-                if (m_Lexeme.bHasCommonDeviation(iCD))
+                if (m_Inflection.bHasCommonDeviation(iCD))
                 {
                     if (sCommonDeviations.Length > 0)
                     {
@@ -441,7 +467,7 @@ namespace ZalTestApp
                         //                        sCommonDeviations += iCD.ToString();
                         sCommonDeviations += chrSymbol;
                     }
-                    if (m_Lexeme.bDeviationOptional(iCD))
+                    if (m_Inflection.bDeviationOptional(iCD))
                     {
                         sCommonDeviations += " (вариант)";
                     }
@@ -460,7 +486,7 @@ namespace ZalTestApp
 
             //            AddProperty("Графическая основа", m_Lexeme.sGraphicStem());
 
-            if (m_Lexeme.bHasFleetingVowel())
+            if (m_Inflection.bHasFleetingVowel())
             {
                 AddSingleProperty("Беглая гласная");
             }
@@ -500,12 +526,12 @@ namespace ZalTestApp
             //    AddSingleProperty("Неполная парадигма");
             //}
 
-            if (m_Lexeme.bShortFormsRestricted() && EM_PartOfSpeech.POS_ADJ == m_Lexeme.ePartOfSpeech())
+            if (m_Inflection.bShortFormsRestricted() && EM_PartOfSpeech.POS_ADJ == m_Lexeme.ePartOfSpeech())
             {
                 AddSingleProperty("Краткие формы затруднительны");
             }
 
-            if (m_Lexeme.bShortFormsIncomplete() && EM_PartOfSpeech.POS_ADJ == m_Lexeme.ePartOfSpeech())
+            if (m_Inflection.bShortFormsIncomplete() && EM_PartOfSpeech.POS_ADJ == m_Lexeme.ePartOfSpeech())
             {
                 AddSingleProperty("Краткой формы м. р. нет, прочие затруднительны");
             }
@@ -515,12 +541,12 @@ namespace ZalTestApp
                 AddSingleProperty("Нет полных форм");
             }
 
-            if (m_Lexeme.bPastParticipleRestricted())
+            if (m_Inflection.bPastParticipleRestricted())
             {
                 AddSingleProperty("Прич. прош. страд. затрудн.");
             }
 
-            if (m_Lexeme.bNoPassivePastParticiple())
+            if (m_Inflection.bNoPassivePastParticiple())
             {
                 AddSingleProperty("Нет прич. прош. страд.");
             }
@@ -545,7 +571,7 @@ namespace ZalTestApp
             if (m_Lexeme.bHasDifficultForms())
             {
                 List<String> lstDifficultFormsHashes = new List<string>();
-                eRet = m_Lexeme.eDifficultFormsHashes(ref lstDifficultFormsHashes);
+                eRet = m_Inflection.eDifficultFormsHashes(ref lstDifficultFormsHashes);
                 foreach (var sHash in lstDifficultFormsHashes)
                 {
                     string sTranslation = "";
@@ -567,13 +593,13 @@ namespace ZalTestApp
         {
             try
             {
-                EM_ReturnCode eRet = m_Lexeme.eGenerateParadigm();
+                EM_ReturnCode eRet = m_Inflection.eGenerateParadigm();
                 if (eRet != EM_ReturnCode.H_NO_ERROR)
                 {
                     MessageBox.Show("Не удалось породить парадигму.", "Zal");
                     return;
                 }
-                eRet = m_Lexeme.eSaveTestData();
+                eRet = m_Inflection.eSaveTestData();
                 if (eRet != EM_ReturnCode.H_NO_ERROR)
                 {
                     MessageBox.Show("Ошибка при попытке сохранить парадигму.", "Zal");

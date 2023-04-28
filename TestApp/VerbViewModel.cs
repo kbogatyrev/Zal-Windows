@@ -13,7 +13,7 @@ namespace ZalTestApp
         public delegate void BackButtonHandler();
         public event BackButtonHandler BackButtonEvent;
 
-        public delegate void ShowParticipleForms(CLexemeManaged l, EM_Subparadigm sp, ViewModelBase lvm);
+        public delegate void ShowParticipleForms(CInflectionManaged i, EM_Subparadigm sp, ViewModelBase lvm);
         public event ShowParticipleForms ShowParticipleFormsEvent;
 
         ViewModelBase m_LexemeViewModel;
@@ -194,7 +194,7 @@ namespace ZalTestApp
 
         EMark GetFormStatus(string sFormHash)
         {
-            string sLexemeHash = m_Lexeme.sParadigmHash();
+            string sLexemeHash = m_Inflection.sParadigmHash();
             if (m_MainModel.bIsEdited(sLexemeHash, sFormHash))
             {
                 return EMark.IsEdited;
@@ -868,7 +868,7 @@ namespace ZalTestApp
 
         private void InitFormDictionary(CLexemeManaged lexeme)
         {
-            string sLexemeHash = m_Lexeme.sParadigmHash();
+            string sLexemeHash = m_Inflection.sParadigmHash();
 
             List<string> listGramHashes = Helpers.m_listPropNamesVerbMainScreen;
             foreach (string sHash in listGramHashes)
@@ -1010,10 +1010,11 @@ namespace ZalTestApp
                 }
         */
 
-        public VerbViewModel(CLexemeManaged lexeme, MainModel m, ViewModelBase lvm)
+        public VerbViewModel(CLexemeManaged lexeme, CInflectionManaged inflection, MainModel m, ViewModelBase lvm)
         {
             m_MainModel = m;
             m_Lexeme = lexeme;
+            m_Inflection = inflection;
             m_LexemeViewModel = lvm;
 
             BackCommand = new RelayCommand(new Action<object>(GoBack));
@@ -1041,24 +1042,24 @@ namespace ZalTestApp
 
         public void ShowPresActForms(Object obj)
         {
-            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT, m_LexemeViewModel);
+            ShowParticipleFormsEvent?.Invoke(m_Inflection, EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT, m_LexemeViewModel);
         }
 
         public void ShowPastActForms(Object obj)
         {
-            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT, m_LexemeViewModel);
+            ShowParticipleFormsEvent?.Invoke(m_Inflection, EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT, m_LexemeViewModel);
         }
 
         public void ShowPresPassForms(Object obj)
         {
-            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG, m_LexemeViewModel);
-            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT, m_LexemeViewModel);
+            ShowParticipleFormsEvent?.Invoke(m_Inflection, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG, m_LexemeViewModel);
+            ShowParticipleFormsEvent?.Invoke(m_Inflection, EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_SHORT, m_LexemeViewModel);
         }
 
         public void ShowPastPassForms(Object obj)
         {
-            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG, m_LexemeViewModel);
-            ShowParticipleFormsEvent?.Invoke(m_Lexeme, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT, m_LexemeViewModel);
+            ShowParticipleFormsEvent?.Invoke(m_Inflection, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG, m_LexemeViewModel);
+            ShowParticipleFormsEvent?.Invoke(m_Inflection, EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_SHORT, m_LexemeViewModel);
         }
 
         public void EditForm(Object obj)

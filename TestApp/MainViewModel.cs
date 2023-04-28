@@ -50,15 +50,15 @@ namespace ZalTestApp
 
     public class ViewPage
     {
-        public ViewPage(string sHeader, ViewModelBase lexeme, ViewModelBase page)
+        public ViewPage(string sHeader, ViewModelBase data, ViewModelBase page)
         {
             m_sHeader = sHeader;
-            m_LexemeInfo = lexeme;
+            m_EntryData = data;
             m_Page = page;
         }
 
         string m_sHeader;
-        ViewModelBase m_LexemeInfo;
+        ViewModelBase m_EntryData;
         ViewModelBase m_Page;
 
         public string Header
@@ -81,7 +81,7 @@ namespace ZalTestApp
         {
             get
             {
-                return m_LexemeInfo;
+                return m_EntryData;
             }
         }
 
@@ -89,7 +89,7 @@ namespace ZalTestApp
         {
             get
             {
-                if (m_LexemeInfo != null)
+                if (m_EntryData != null)
                 {
                     return "Lexeme";
                 }
@@ -664,10 +664,10 @@ namespace ZalTestApp
 //                return;
             }
 
-            foreach (string sLexemeHash in m_MainModel)
+            foreach (string sHash in m_MainModel)
             {
-                CLexemeManaged lexeme = m_MainModel.LexemeFromHash(sLexemeHash);
-                if (null == lexeme)
+                CInflectionManaged inflection = m_MainModel.EntryFromHash(sHash);
+                if (null == inflection)
                 {
                     MessageBox.Show("Internal error: lexeme descriptor is corrupt.");
                     return;
@@ -686,9 +686,16 @@ namespace ZalTestApp
                         continue;
                     }
 
+                    CLexemeManaged lexeme = null;
+                    var rc = inflection.eGetLexeme(ref lexeme);
+                    if (rc != EM_ReturnCode.H_NO_ERROR || null == lexeme)
+                    {
+                        MessageBox.Show("Не удалось получить доступ к лесеме.", "Zal");
+                        return;
+                    }
                     if (lexeme.llLexemeId() == knownLvm.Lexeme.llLexemeId() && 
                         lexeme.llHeadwordId() == knownLvm.Lexeme.llHeadwordId() &&
-                        lexeme.llInflectionId() == knownLvm.Lexeme.llInflectionId())
+                        inflection.llInflectionId() == knownLvm.Inflection.llInflectionId())
                     {
                         bIsNewLexeme = false;
                         break;
@@ -700,7 +707,7 @@ namespace ZalTestApp
                     continue;
                 }
 
-                ShowParadigm(lexeme);
+                ShowParadigm(inflection);
 
             }       // foreach (ViewPage ...)
 
@@ -802,7 +809,7 @@ namespace ZalTestApp
             //                MessageBox.Show("Не удалось сохранить лексему.");
             //            }
 
-            bRet = bSaveNewLexeme(elpModel, lexeme);
+//            bRet = bSaveNewLexeme(elpModel, lexeme, inflection);
         }
 
         void EditLexeme(object obj)
@@ -814,14 +821,14 @@ namespace ZalTestApp
                 return;
             }
 
-            CLexemeManaged editLexeme = null;
-            bool bRet = m_MainModel.bEditLexeme(sourceLexeme, ref editLexeme);
+            CLexemeManaged targetLexeme = null;
+            bool bRet = m_MainModel.bEditLexeme(sourceLexeme, ref targetLexeme);
             if (!bRet)
             {
                 return;
             }
 
-            EnterLexemePropertiesViewModel elpModel = new EnterLexemePropertiesViewModel(editLexeme, false);
+            EnterLexemePropertiesViewModel elpModel = new EnterLexemePropertiesViewModel(targetLexeme, false);
             elpModel.ShowParadigmForEditEvent += ShowParadigm;
             EnterLexemePropertiesDlg dlg = new EnterLexemePropertiesDlg(elpModel);
             dlg.Owner = Application.Current.MainWindow;
@@ -832,7 +839,7 @@ namespace ZalTestApp
                 return;
             }
 
-            bRet = bUpdateLexeme(elpModel, editLexeme);
+            bRet = bUpdateLexeme(elpModel, targetLexeme);
 
         }       //  EditLexeme()
 
@@ -851,7 +858,8 @@ namespace ZalTestApp
             }
         }
 
-        bool bSaveNewLexeme(EnterLexemePropertiesViewModel elpModel, CLexemeManaged lexeme)
+        bool bSaveNewLexeme(EnterLexemePropertiesViewModel elpModel, 
+                            CLexemeManaged lexeme)
         {
             bool bRet = true;
 
@@ -868,172 +876,202 @@ namespace ZalTestApp
             }
             else
             {
-                var eRet = lexeme.eMakeGraphicStem();
-                if (eRet != EM_ReturnCode.H_NO_ERROR)
-                {
-                    System.Windows.MessageBox.Show("Unable to create graphic stem.");
-                    return false;
-                }
+//                var eRet = inflection.eMakeGraphicStem();
+//                if (eRet != EM_ReturnCode.H_NO_ERROR)
+//                {
+//                    System.Windows.MessageBox.Show("Unable to create graphic stem.");
+//                    return false;
+//                }
             }
 
             bool bNewEntry = true;
-            bRet = m_MainModel.bSaveDescriptorInfo(lexeme, bNewEntry);
-            if (!bRet)
-            {
-                MessageBox.Show("Не удалось сохранить лексему.");
-                return false;
-            }
+            //            bRet = m_MainModel.bSaveDescriptorInfo(lexeme, inflection, bNewEntry);
+            //            if (!bRet)
+            //            {
+            //                MessageBox.Show("Не удалось сохранить лексему.");
+            //                return false;
+            //            }
 
-            if (elpModel.InflectionGroupChanged)
-            {
-                bRet = m_MainModel.bSaveInflectionInfo(lexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить лексему.");
-                    return false;
-                }
-            }
+            //            if (elpModel.InflectionGroupChanged)
+            //            {
+            //                bRet = m_MainModel.bSaveInflectionInfo(inflection);
+            //                if (!bRet)
+            //                {
+            //                    MessageBox.Show("Не удалось сохранить лексему.");
+            //                    return false;
+            //                }
+            //            }
 
-            if (elpModel.AspectPairChanged)
-            {
-                bRet = m_MainModel.bSaveAspectPairInfo(lexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить информацию о видовой паре.");
-                    return false;
-                }
-            }
+            //            if (elpModel.AspectPairChanged)
+            //            {
+            //                bRet = m_MainModel.bSaveAspectPairInfo(lexeme);
+            //                if (!bRet)
+            //                {
+            //                    MessageBox.Show("Не удалось сохранить информацию о видовой паре.");
+            //                    return false;
+            //                }
+            //            }
 
-            if (elpModel.P2Changed)
-            {
-                bRet = m_MainModel.bSaveP2Info(lexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить информацию о втором предложном.");
-                    return false;
-                }
-            }
+            //            if (elpModel.P2Changed)
+            //            {
+            //                bRet = m_MainModel.bSaveP2Info(lexeme);
+            //                if (!bRet)
+            //                {
+            //                    MessageBox.Show("Не удалось сохранить информацию о втором предложном.");
+            //                    return false;
+            //                }
+            //            }
 
-            if (elpModel.CommonDeviationChanged)
-            {
-                bRet = m_MainModel.bSaveCommonDeviation(lexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить информацию о стандартных отклонениях.");
-                    return false;
-                }
-            }
+            //            if (elpModel.CommonDeviationChanged)
+            //            {
+            //                bRet = m_MainModel.bSaveCommonDeviation(inflection);
+            //                if (!bRet)
+            //                {
+            //                    MessageBox.Show("Не удалось сохранить информацию о стандартных отклонениях.");
+            //                    return false;
+            //                }
+            //            }
 
-            return bRet;
+            //            return bRet;
+            return true;
 
         }       //  bSaveNewLexeme()
 
-        bool bUpdateLexeme(EnterLexemePropertiesViewModel elpModel, CLexemeManaged lexeme)
+        bool bUpdateLexeme(EnterLexemePropertiesViewModel elpModel, 
+                           CLexemeManaged lexeme) 
         {
             bool bRet = true;
 
-            if (elpModel.HeadwordChanged)
+            CInflectionEnumeratorManaged ie = null;
+            var rc = lexeme.eCreateInflectionEnumerator(ref ie);
+            if (rc != EM_ReturnCode.H_NO_ERROR)
             {
-                bRet = m_MainModel.bUpdateHeadword(lexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось обновить заглавную форму.");
-                    return false;
-                }
+                MessageBox.Show("Не удалось получить доступ к морфологической информации.");
+                return false;
             }
 
-            if (elpModel.AspectPairChanged)
+            CInflectionManaged inflection = null;
+            rc = ie.eGetFirstInflection(ref inflection);
+            if (rc != EM_ReturnCode.H_NO_ERROR)
             {
-                bRet = m_MainModel.bSaveAspectPairInfo(lexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить информацию о видовой паре.");
-                    return false;
-                }
+                MessageBox.Show("Не удалось получить доступ к морфологической информации.");
+                return false;
             }
 
-            if (elpModel.P2Changed)
+            while (EM_ReturnCode.H_NO_ERROR == rc)
             {
-                bRet = m_MainModel.bSaveP2Info(lexeme);
-                if (!bRet)
+                if (elpModel.HeadwordChanged)
                 {
-                    MessageBox.Show("Не удалось сохранить информацию о втором предложном.");
-                    return false;
-                }
-            }
-
-            if (elpModel.CommonDeviationChanged)
-            {
-                bRet = m_MainModel.bSaveCommonDeviation(lexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить информацию о стандартных отклонениях.");
-                    return false;
-                }
-            }
-
-            if (elpModel.InflectionGroupChanged)
-            {
-                bRet = m_MainModel.bSaveInflectionInfo(lexeme);
-                if (!bRet)
-                {
-                    MessageBox.Show("Не удалось сохранить лексему.");
-                    return false;
-                }
-            }
-
-            if (elpModel.DescriptorChanged)
-            {
-                if (elpModel.SourceFormIsIrregular)
-                {
-                    lexeme.SetGraphicStem(elpModel.GraphicStem);
-                }
-                else
-                {
-                    var eRet = lexeme.eMakeGraphicStem();
-                    if (eRet != EM_ReturnCode.H_NO_ERROR)
+                    bRet = m_MainModel.bUpdateHeadword(lexeme);
+                    if (!bRet)
                     {
-                        System.Windows.MessageBox.Show("Unable to create graphic stem.");
+                        MessageBox.Show("Не удалось обновить заглавную форму.");
                         return false;
                     }
                 }
 
-                bRet = m_MainModel.bSaveDescriptorInfo(lexeme);
-                if (!bRet)
+                if (elpModel.AspectPairChanged)
                 {
-                    MessageBox.Show("Не удалось сохранить лексему.");
-                    return false;
+                    bRet = m_MainModel.bSaveAspectPairInfo(lexeme);
+                    if (!bRet)
+                    {
+                        MessageBox.Show("Не удалось сохранить информацию о видовой паре.");
+                        return false;
+                    }
                 }
-            }
+
+                if (elpModel.P2Changed)
+                {
+                    bRet = m_MainModel.bSaveP2Info(lexeme);
+                    if (!bRet)
+                    {
+                        MessageBox.Show("Не удалось сохранить информацию о втором предложном.");
+                        return false;
+                    }
+                }
+/*
+                if (elpModel.CommonDeviationChanged)
+                {
+                    bRet = m_MainModel.bSaveCommonDeviation(inflection);
+                    if (!bRet)
+                    {
+                        MessageBox.Show("Не удалось сохранить информацию о стандартных отклонениях.");
+                        return false;
+                    }
+                }
+*/
+/*
+                if (elpModel.InflectionGroupChanged)
+                {
+                    bRet = m_MainModel.bSaveInflectionInfo(inflection);
+                    if (!bRet)
+                    {
+                        MessageBox.Show("Не удалось сохранить лексему.");
+                        return false;
+                    }
+                }
+*/
+                if (elpModel.DescriptorChanged)
+                {
+                    if (elpModel.SourceFormIsIrregular)
+                    {
+                        lexeme.SetGraphicStem(elpModel.GraphicStem);
+                    }
+                    else
+                    {
+                        var eRet = inflection.eMakeGraphicStem();
+                        if (eRet != EM_ReturnCode.H_NO_ERROR)
+                        {
+                            System.Windows.MessageBox.Show("Unable to create graphic stem.");
+                            return false;
+                        }
+                    }
+
+                    bRet = m_MainModel.bSaveDescriptorInfo(inflection);
+                    if (!bRet)
+                    {
+                        MessageBox.Show("Не удалось сохранить лексему.");
+                        return false;
+                    }
+                }
+            }     //  while (EM_ReturnCode.H_NO_ERROR == rc)
 
             return true;
         
-        }       // bSaveLexeme()
+        }       // blpdateexeme()
 
-        void ShowParadigm(CLexemeManaged lexeme)
+        void ShowParadigm(CInflectionManaged inflection)
         {
-            LexemeViewModel lexemeViewModel = new LexemeViewModel(lexeme);
+            LexemeViewModel lexemeViewModel = new LexemeViewModel(inflection);
             //                lvm.RemoveLexemeEvent += new LexemeViewModel.RemoveLexemeHandler(RemoveLexeme);
             lexemeViewModel.EditLexemeEvent += new LexemeViewModel.EditLexemeHandler(EditLexeme);
             lexemeViewModel.DeleteLexemeEvent += new LexemeViewModel.DeleteLexemeHandler(DeleteLexeme);
             m_CurrentLexeme = lexemeViewModel;
             ViewModelBase paradigmViewModel = null;
 
+            CLexemeManaged lexeme = null;
+            var eRc = inflection.eGetLexeme(ref lexeme);
+            if (eRc != EM_ReturnCode.H_NO_ERROR)
+            {
+                MessageBox.Show("Unable to retrieve lexeme data.");
+                return;
+            }
+
             switch (lexeme.ePartOfSpeech())
             {
                 case EM_PartOfSpeech.POS_NOUN:
                 case EM_PartOfSpeech.POS_PRONOUN:
 //                case EM_PartOfSpeech.POS_NUM:
-                    paradigmViewModel = new NounViewModel(lexeme, m_MainModel);
+                    paradigmViewModel = new NounViewModel(inflection, m_MainModel);
                     break;
                 case EM_PartOfSpeech.POS_NUM:
                     if (EM_Subparadigm.SUBPARADIGM_NUM_2TO4 == lexeme.eSubparadigm())
                     {
-                        paradigmViewModel = new NumeralViewModel2to4(lexeme, m_MainModel);
+                        paradigmViewModel = new NumeralViewModel2to4(inflection, m_MainModel);
                     }
                     else if (EM_Subparadigm.SUBPARADIGM_NUM == lexeme.eSubparadigm())
                     {
-                        paradigmViewModel = new NumeralViewModel(lexeme, m_MainModel);
+                        paradigmViewModel = new NumeralViewModel(inflection, m_MainModel);
                     }
                     else
                     {
@@ -1043,10 +1081,10 @@ namespace ZalTestApp
                 case EM_PartOfSpeech.POS_ADJ:
                 case EM_PartOfSpeech.POS_PRONOUN_ADJ:
                 case EM_PartOfSpeech.POS_NUM_ADJ:
-                    paradigmViewModel = new AdjViewModel(lexeme, EM_Subparadigm.SUBPARADIGM_LONG_ADJ, m_MainModel);
+                    paradigmViewModel = new AdjViewModel(inflection, EM_Subparadigm.SUBPARADIGM_LONG_ADJ, m_MainModel);
                     break;
                 case EM_PartOfSpeech.POS_VERB:
-                    VerbViewModel vvm = new VerbViewModel(lexeme, m_MainModel, lexemeViewModel);
+                    VerbViewModel vvm = new VerbViewModel(lexeme, inflection, m_MainModel, lexemeViewModel);
                     vvm.ShowParticipleFormsEvent += new VerbViewModel.ShowParticipleForms(ShowParticiple);
                     paradigmViewModel = vvm;
                     break;
@@ -1086,14 +1124,14 @@ namespace ZalTestApp
             }
 
             bool bReadOnly = true;
-            LexemeViewModel lexemeViewModel = new LexemeViewModel(lexeme, bReadOnly);
+            LexemeViewModel lexemeViewModel = new LexemeViewModel(m_Inflection, bReadOnly);
             m_CurrentViewPage = new ViewPage(wf.sWordForm(), lexemeViewModel, wordFormViewModel);
             m_Pages.Add(m_CurrentViewPage);
             m_iCurrentTab = m_Pages.Count - 1;
             //                m_CurrentViewModel = m_BreadCrumbs.AddLast(nvp.Page);
         }
 
-        void ShowParticiple(CLexemeManaged lexeme, EM_Subparadigm sp, ViewModelBase parent)
+        void ShowParticiple(CInflectionManaged inflection, EM_Subparadigm sp, ViewModelBase parent)
         {
             LexemeViewModel parentViewModel = (LexemeViewModel)parent;
 
@@ -1115,10 +1153,19 @@ namespace ZalTestApp
                 }
             }
 
+            CLexemeManaged lexeme = null;
+            var ret = inflection.eGetLexeme(ref lexeme);
+            var rc = inflection.eGetLexeme(ref lexeme);
+            if (rc != EM_ReturnCode.H_NO_ERROR || null == lexeme)
+            {
+                MessageBox.Show("Не удалось получить доступ к лесеме.", "Zal");
+                return;
+            }
+
             switch (sp)
             {
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
-                    AdjViewModel avmPresAct = new AdjViewModel(lexeme, sp, m_MainModel);
+                    AdjViewModel avmPresAct = new AdjViewModel(inflection, sp, m_MainModel);
                     ViewPage avpPresAct = new ViewPage(lexeme.sSourceForm() + " прич. наст. д.", parent, avmPresAct);
                     m_Pages.Add(avpPresAct);
                     m_CurrentViewModel = m_BreadCrumbs.AddLast(avpPresAct.Page);
@@ -1126,7 +1173,7 @@ namespace ZalTestApp
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_ACT:
-                    AdjViewModel avmPastAct = new AdjViewModel(lexeme, sp, m_MainModel);
+                    AdjViewModel avmPastAct = new AdjViewModel(inflection, sp, m_MainModel);
                     ViewPage avpPastAct = new ViewPage(lexeme.sSourceForm() + " прич. прош. д.", parent, avmPastAct);
                     m_Pages.Add(avpPastAct);
 //                        avmPastAct.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
@@ -1135,7 +1182,7 @@ namespace ZalTestApp
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_PASS_LONG:
-                    AdjViewModel avmPresPass = new AdjViewModel(lexeme, sp, m_MainModel);
+                    AdjViewModel avmPresPass = new AdjViewModel(inflection, sp, m_MainModel);
                     ViewPage avpPresPass = new ViewPage(lexeme.sSourceForm() + " прич. наст. страд.", parent, avmPresPass);
                     m_Pages.Add(avpPresPass);
 //                        avmPresPass.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
@@ -1144,7 +1191,7 @@ namespace ZalTestApp
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_PART_PAST_PASS_LONG:
-                    AdjViewModel avmPastPass = new AdjViewModel(lexeme, sp, m_MainModel);
+                    AdjViewModel avmPastPass = new AdjViewModel(inflection, sp, m_MainModel);
                     ViewPage avpPastPass = new ViewPage(lexeme.sSourceForm() + " прич. прош. страд.", parent, avmPastPass);
                     //                        avmPastPass.BackButtonEvent += new AdjViewModel.BackButtonHandler(GoBack);
                     m_Pages.Add(avpPastPass);
