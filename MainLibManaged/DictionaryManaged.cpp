@@ -458,7 +458,7 @@ namespace MainLibManaged
         {
             if (spVerifier)
             {
-                verifier = gcnew CVerifierManaged(spVerifier);
+                verifier = gcnew CVerifierManaged();
             }
             else
             {

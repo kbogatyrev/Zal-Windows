@@ -21,11 +21,11 @@ namespace MainLibManaged
 {
     public ref class CVerifierManaged
     {
-        shared_ptr<Hlib::CVerifier>* m_pVerifier;
-
     public:
-        CVerifierManaged(shared_ptr<CVerifier>);
+        CVerifierManaged();
         ~CVerifierManaged();
+
+        shared_ptr<CVerifier> spGetInstance();
 
         EM_ReturnCode eVerify(String^ sLexemeHash);
         EM_TestResult eResult();
