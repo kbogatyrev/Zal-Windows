@@ -303,16 +303,16 @@ namespace MainLibManaged
         return (EM_ReturnCode)eRet;
     }
 
-    EM_ReturnCode CInflectionManaged::eRemoveWordForms(String^ sHash)
+    EM_ReturnCode CInflectionManaged::eRemoveIrregularForms(String^ sHash)
     {
-        ET_ReturnCode eRet = spGetInstance()->eRemoveWordForms(sFromManagedString(sHash));
+        ET_ReturnCode eRet = spGetInstance()->eRemoveIrregularForms(sFromManagedString(sHash));
         return (EM_ReturnCode)eRet;
     }
 
-    void CInflectionManaged::AddWordForm(CWordFormManaged^% Wf)
+    void CInflectionManaged::AddModifiedForm(CWordFormManaged^% Wf)
     {
-        shared_ptr<CWordForm> spWordForm;
-        // TODO notimplemented
+        shared_ptr<CWordForm> spWordForm = Wf->spGetInstance();
+        spGetInstance()->AddModifiedForm(spWordForm);
     }
 
     bool CInflectionManaged::bHasIrregularForm(String^ sGramHash)

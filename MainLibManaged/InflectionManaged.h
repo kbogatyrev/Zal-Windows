@@ -43,8 +43,8 @@ namespace MainLibManaged
         EM_ReturnCode eWordFormFromHash(String^ sHash, int iAt, CWordFormManaged^% Wf);
         EM_ReturnCode eCreateWordForm(CWordFormManaged^% wf);
         EM_ReturnCode eRemoveWordForm(String^ sHash, int iAt);
-        EM_ReturnCode eRemoveWordForms(String^ sHash);
-        void AddWordForm(CWordFormManaged^% Wf);            // neded to add a new or modified(?) wf
+        EM_ReturnCode eRemoveIrregularForms(String^ sHash);
+        void AddModifiedForm(CWordFormManaged^% Wf);            // neded to add a new or modified(?) wf
         bool bHasIrregularForm(String^ sGramHash);
         bool bNoRegularForms(String^ sGramHash);
         EM_ReturnCode eGetFirstWordForm(CWordFormManaged^% wf);

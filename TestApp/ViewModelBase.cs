@@ -202,7 +202,7 @@ namespace ZalTestApp
             var eRet = EM_ReturnCode.H_NO_ERROR;
             if (sFormHash != null)
             {
-                eRet = m_Inflection.eRemoveWordForms(sFormHash);
+                eRet = m_Inflection.eRemoveIrregularForms(sFormHash);
             }
             //                if (eRet != EM_ReturnCode.H_NO_ERROR)
             //                {
@@ -235,7 +235,7 @@ namespace ZalTestApp
                 fd.IsUnsaved = true;
                 formsForHash.lstForms.Add(fd);
 
-                m_Inflection.AddWordForm(ref wf);
+                m_Inflection.AddModifiedForm(ref wf);
 
                 eRet = m_Inflection.eSaveIrregularForms(sFormHash);
                 if (eRet != EM_ReturnCode.H_NO_ERROR)
