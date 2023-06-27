@@ -82,7 +82,7 @@ void CWordFormManaged::SetStem(String^ sStem)
 
 __int64 CWordFormManaged::llLexemeId()
 {
-    return spGetInstance()->spLexeme()->llLexemeId();
+    return spGetInstance()->llLexemeId();
 }
 
 EM_PartOfSpeech CWordFormManaged::ePos()
