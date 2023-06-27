@@ -213,8 +213,25 @@ namespace ZalTestApp
             CollectLexemeProperties();
         }
 
+        public LexemeViewModel(CLexemeManaged lexeme, bool bReadOnly)
+        {
+            m_bReadOnly = bReadOnly;
+            RemoveLexemeCommand = new RelayCommand(new Action<object>(RemoveLexeme));
+            EditLexemeCommand = new RelayCommand(new Action<object>(EditLexeme));
+            DeleteLexemeCommand = new RelayCommand(new Action<object>(DeleteLexeme));
+            SaveRegressionCommand = new RelayCommand(new Action<object>(SaveRegression));
+
+            LexemeDetails = new ObservableCollection<LexemeProperty>();
+            LexemeProperties = new ObservableCollection<LexemeSingleProperty>();
+
+            m_Lexeme = lexeme;
+
+            CollectLexemeProperties();
+        }
+
         public LexemeViewModel(CInflectionManaged inflection, bool bReadOnly)
         {
+            m_Inflection = inflection;
             var rc = inflection.eGetLexeme(ref m_Lexeme);
             if (rc != EM_ReturnCode.H_NO_ERROR || null == m_Lexeme)
             {

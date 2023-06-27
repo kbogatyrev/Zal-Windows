@@ -11,6 +11,7 @@ using MainLibManaged;
 using System.Windows.Data;
 using System.Globalization;
 using ZalTestApp.Properties;
+using System.Data.Entity.Core.Metadata.Edm;
 
 namespace ZalTestApp
 {
@@ -704,7 +705,7 @@ namespace ZalTestApp
 
                 if (!bIsNewLexeme)
                 {
-                    continue;
+//                    continue;
                 }
 
                 ShowParadigm(inflection);
@@ -749,6 +750,12 @@ namespace ZalTestApp
                 List<CWordFormManaged> listWf = m_MainModel.WordFormsFromHash(sGramHash);
                 foreach (CWordFormManaged wf in listWf)
                 {
+                    CLexemeManaged lexeme = m_MainModel.GetLexemeFromWordform(wf);
+                    if (null == lexeme)
+                    {
+                        System.Windows.MessageBox.Show("Unable to find lexeme.");
+                        return;
+                    }
                     ShowParsedForm(wf);
                 }
             }
@@ -1124,10 +1131,53 @@ namespace ZalTestApp
             }
 
             bool bReadOnly = true;
-            LexemeViewModel lexemeViewModel = new LexemeViewModel(m_Inflection, bReadOnly);
+
+            /////////////////////////////////////////////////////////////////////////
+            CInflectionEnumeratorManaged ie = null;
+            var rc = lexeme.eCreateInflectionEnumerator(ref ie);
+            if (rc != EM_ReturnCode.H_NO_ERROR)
+            {
+                MessageBox.Show("Не удалось получить доступ к морфологической информации.");
+                return;
+            }
+
+            CInflectionManaged inflection = null;
+            rc = ie.eGetFirstInflection(ref inflection);
+            if (rc != EM_ReturnCode.H_NO_ERROR)
+            {
+                MessageBox.Show("Не удалось получить доступ к морфологической информации.");
+                return;
+            }
+
+            LexemeViewModel lexemeViewModel = new LexemeViewModel(inflection, bReadOnly);
             m_CurrentViewPage = new ViewPage(wf.sWordForm(), lexemeViewModel, wordFormViewModel);
-            m_Pages.Add(m_CurrentViewPage);
-            m_iCurrentTab = m_Pages.Count - 1;
+//            m_Pages.Add(m_CurrentViewPage);
+//            m_iCurrentTab = m_Pages.Count - 1;
+            //                m_CurrentViewModel = m_BreadCrumbs.AddLast(nvp.Page);
+
+
+            while (EM_ReturnCode.H_NO_ERROR == rc)
+            {
+                rc = ie.eGetNextInflection(ref inflection);
+                lexemeViewModel = new LexemeViewModel(inflection, bReadOnly);
+                m_CurrentViewPage = new ViewPage(wf.sWordForm(), lexemeViewModel, wordFormViewModel);
+                m_Pages.Add(m_CurrentViewPage);
+                m_iCurrentTab = m_Pages.Count - 1;
+            }     //  while (EM_ReturnCode.H_NO_ERROR == rc)
+
+            if (rc != EM_ReturnCode.H_NO_MORE)
+            {
+                MessageBox.Show("Ошибка при считывании морфологической информации.");
+                return;
+            }
+
+
+            ////////////////////////////////////////////////////////////////////////
+
+//            LexemeViewModel lexemeViewModel = new LexemeViewModel(lexeme, bReadOnly);
+//            m_CurrentViewPage = new ViewPage(wf.sWordForm(), lexemeViewModel, wordFormViewModel);
+//            m_Pages.Add(m_CurrentViewPage);
+//            m_iCurrentTab = m_Pages.Count - 1;
             //                m_CurrentViewModel = m_BreadCrumbs.AddLast(nvp.Page);
         }
 
