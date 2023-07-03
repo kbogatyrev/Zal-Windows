@@ -1132,7 +1132,6 @@ namespace ZalTestApp
 
             bool bReadOnly = true;
 
-            /////////////////////////////////////////////////////////////////////////
             CInflectionEnumeratorManaged ie = null;
             var rc = lexeme.eCreateInflectionEnumerator(ref ie);
             if (rc != EM_ReturnCode.H_NO_ERROR)

@@ -737,11 +737,12 @@ return true;
                 }
                 else
                 {
-//                    System.Windows.MessageBox.Show("Empty gram hash.");
+                    System.Windows.MessageBox.Show("Empty gram hash.");
 //                    return false;
                 }
 
                 CLexemeManaged lexeme = null;
+                m_Dictionary.Clear();
                 eRet = m_Dictionary.eGetLexemeById(wordFormData.llLexemeId(), ref lexeme);
                 if (EM_ReturnCode.H_NO_ERROR == eRet || EM_ReturnCode.H_NO_MORE == eRet)
                 {
