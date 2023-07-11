@@ -10,20 +10,6 @@
 #include "GramHasher.h"
 #include "Singleton.h"
 
-//#include "MainLibManaged.h"
-
-//#include "Dictionary.h"
-//#include "Lexeme.h"
-//#include "Inflection.h"
-//#include "WordForm.h"
-//#include "Gramhasher.h"
-//#include "Parser.h"
-//#include "Analytics.h"
-//#include "Verifier.h"
-//#include "AspectPair.h"
-//#include "..\Hlib\SqliteWrapper.h"
-//#include "EnumsManaged.h"
-
 #include "UtilsManaged.h"
 #include "InflectionManaged.h"
 #include "LexemeManaged.h"
@@ -119,43 +105,6 @@ shared_ptr<CLexeme> CLexemeManaged::spGetInstance()
     }
     return spLexeme;
 }
-
-//CLexeme* CLexemeManaged::pLexeme()
-//{
-//    return m_pLexeme;
-//}
-
-//EM_ReturnCode CLexemeManaged::eCreateInflectionEnumerator(CInflectionEnumeratorManaged^% pIeManaged)
-//{
-//    shared_ptr<CLexeme> spLexeme;
-//    auto spDictionary = singleton.spGetDictionary();
-//    if (nullptr == spDictionary)
-//    {
-//        ERROR_LOG(L"Unable to retrieve dictionary instance.");
-//        return EM_ReturnCode::H_ERROR_POINTER;
-//    }
-//
-//    auto eRet = spDictionary->eGetLexemeInstance(m_iHandle, spLexeme);
-//    if (eRet  != H_NO_ERROR)
-//    {
-//        return EM_ReturnCode::H_ERROR_UNEXPECTED;
-//    }
-//
-//    shared_ptr<CInflectionEnumerator> spInflectionEnumerator;
-//    eRet = spLexeme->eCreateInflectionEnumerator(spInflectionEnumerator);
-//    if (H_NO_ERROR == eRet)
-//    {
-//        if (spInflectionEnumerator)
-//        {
-////            pIeManaged = gcnew CInflectionEnumeratorManaged(spInflectionEnumerator);
-//        }
-//        else
-//        {
-//            return EM_ReturnCode::H_ERROR_UNEXPECTED;
-//        }
-//    }
-//    return (EM_ReturnCode)eRet;
-//}
 
 EM_ReturnCode CLexemeManaged::eCreateInflectionEnumerator(CInflectionEnumeratorManaged^% pLeManaged)
 {
@@ -989,36 +938,6 @@ void CLexemeManaged::SetAssumedForms(bool bValue)
     spLexeme->SetAssumedForms(bValue);
 }
 
-//bool CLexemeManaged::bYoAlternation()
-//{
-//    if (nullptr == m_pLexeme)
-//    {
-//        throw gcnew Exception(L"Lexeme object is NULL.");
-//    }
-
-//    return m_pLexeme->bYoAlternation();
-//}
-
-//void CLexemeManaged::SetYoAlternation(bool bValue)
-//{
-//    if (nullptr == m_pLexeme)
-//    {
-//        throw gcnew Exception(L"Lexeme object is NULL.");
-//    }
-
-//    m_pLexeme->SetYoAlternation(bValue);
-//}
-
-//bool CLexemeManaged::bOAlternation()
-//{
-//    if (nullptr == m_pLexeme)
-//    {
-//        throw gcnew Exception(L"Lexeme object is NULL.");
-//    }
-
-//    return m_pLexeme->bOAlternation();
-//}
-
 bool CLexemeManaged::bSecondGenitive()
 {
     auto spLexeme = spGetInstance();
@@ -1684,4 +1603,3 @@ void CLexemeManaged::SetTrailingComment(String^ sValue)
 
     spLexeme->SetTrailingComment(sFromManagedString(sValue));
 }
-

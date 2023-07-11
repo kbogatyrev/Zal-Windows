@@ -1141,7 +1141,8 @@ namespace ZalTestApp
             }
 
             CInflectionManaged inflection = null;
-            rc = ie.eGetFirstInflection(ref inflection);
+
+            rc = wf.eGetInflection(ref inflection);
             if (rc != EM_ReturnCode.H_NO_ERROR)
             {
                 MessageBox.Show("Не удалось получить доступ к морфологической информации.");
@@ -1150,34 +1151,10 @@ namespace ZalTestApp
 
             LexemeViewModel lexemeViewModel = new LexemeViewModel(inflection, bReadOnly);
             m_CurrentViewPage = new ViewPage(wf.sWordForm(), lexemeViewModel, wordFormViewModel);
-//            m_Pages.Add(m_CurrentViewPage);
-//            m_iCurrentTab = m_Pages.Count - 1;
+            m_Pages.Add(m_CurrentViewPage);
+            m_iCurrentTab = m_Pages.Count - 1;
             //                m_CurrentViewModel = m_BreadCrumbs.AddLast(nvp.Page);
 
-
-            while (EM_ReturnCode.H_NO_ERROR == rc)
-            {
-                rc = ie.eGetNextInflection(ref inflection);
-                lexemeViewModel = new LexemeViewModel(inflection, bReadOnly);
-                m_CurrentViewPage = new ViewPage(wf.sWordForm(), lexemeViewModel, wordFormViewModel);
-                m_Pages.Add(m_CurrentViewPage);
-                m_iCurrentTab = m_Pages.Count - 1;
-            }     //  while (EM_ReturnCode.H_NO_ERROR == rc)
-
-            if (rc != EM_ReturnCode.H_NO_MORE)
-            {
-                MessageBox.Show("Ошибка при считывании морфологической информации.");
-                return;
-            }
-
-
-            ////////////////////////////////////////////////////////////////////////
-
-//            LexemeViewModel lexemeViewModel = new LexemeViewModel(lexeme, bReadOnly);
-//            m_CurrentViewPage = new ViewPage(wf.sWordForm(), lexemeViewModel, wordFormViewModel);
-//            m_Pages.Add(m_CurrentViewPage);
-//            m_iCurrentTab = m_Pages.Count - 1;
-            //                m_CurrentViewModel = m_BreadCrumbs.AddLast(nvp.Page);
         }
 
         void ShowParticiple(CInflectionManaged inflection, EM_Subparadigm sp, ViewModelBase parent)

@@ -39,6 +39,8 @@ namespace MainLibManaged
 
         shared_ptr<CWordForm> spGetInstance();
 
+        EM_ReturnCode eGetInflection(CInflectionManaged^% inflection);
+
         String^ sWordForm();
 
         void SetWordForm(String^);

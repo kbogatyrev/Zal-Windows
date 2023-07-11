@@ -1,11 +1,6 @@
-//#include "Analytics.h"
-//#include "Verifier.h"
-//#include "AspectPair.h"
-//#include "..\Hlib\SqliteWrapper.h"
-//#include "EnumsManaged.h"
-
 #include "UtilsManaged.h"
 #include "LexemeManaged.h"
+#include "InflectionManaged.h"
 #include "WordFormManaged.h"
 #include "Singleton.h"
 
@@ -39,6 +34,24 @@ shared_ptr<CWordForm> CWordFormManaged::spGetInstance()
     return spWordForm;
 }
 
+EM_ReturnCode CWordFormManaged::eGetInflection(CInflectionManaged^% inflection)
+{
+    shared_ptr<CWordForm> spWordForm;
+    auto rc = Singleton::pGetInstance()->eGetWordForm(m_iHandle, spWordForm);
+    if (rc != H_NO_ERROR || nullptr == spWordForm)
+    {
+        throw gcnew Exception(L"Unable to retrieve word form instance.");
+    }
+
+    auto spInflection = spWordForm->spInflection();
+    if (rc != H_NO_ERROR || nullptr == spInflection)
+    {
+        throw gcnew Exception(L"Unable to retrieve inflection instance.");
+    }
+
+    auto iHandle = Singleton::pGetInstance()->iAddInflection(spInflection);
+    inflection = gcnew CInflectionManaged(iHandle);
+}
 
 //CLexemeManaged^ CWordFormManaged::Lexeme()
 //{

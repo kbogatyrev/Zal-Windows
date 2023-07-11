@@ -10,20 +10,6 @@
 #include "GramHasher.h"
 #include "Singleton.h"
 
-//#include "MainLibManaged.h"
-
-//#include "Dictionary.h"
-//#include "Lexeme.h"
-//#include "Inflection.h"
-//#include "WordForm.h"
-//#include "Gramhasher.h"
-//#include "Parser.h"
-//#include "Analytics.h"
-//#include "Verifier.h"
-//#include "AspectPair.h"
-//#include "..\Hlib\SqliteWrapper.h"
-//#include "EnumsManaged.h"
-
 #include "UtilsManaged.h"
 #include "LexemeManaged.h"
 #include "WordFormManaged.h"
@@ -42,28 +28,6 @@ namespace MainLibManaged
 
     CInflectionManaged::CInflectionManaged(int64_t iHandle) : m_iHandle(iHandle)
     {}
-
-    //CInflectionManaged::CInflectionManaged(String^ sGramHash)
-    //{
-    //    m_sStoredEntryHash = "";
-    //}
-
-    //CInflectionManaged::CInflectionManaged(CLexeme* pLexeme)
-    //{
-    //    if (nullptr == pLexeme)
-    //    {
-    //        throw gcnew Exception(L"Lexeme pointer is NULL.");
-    //    }
-    //}
-
-    //CInflectionManaged::CInflectionManaged(CInflection* pInflection) 
-    //    : m_pInflection(pInflection)
-    //{
-    //    if (nullptr == m_pInflection)
-    //    {
-    //        throw gcnew Exception(L"Inflection pointer is NULL.");
-    //    }
-    //}
 
     CInflectionManaged::~CInflectionManaged()
     {
@@ -521,66 +485,5 @@ namespace MainLibManaged
         sGraphicStem = gcnew String(sGs);
         return (EM_ReturnCode)eRet;
     }
-
-    //
-    //CInflectionEnumeratorManaged::CInflectionEnumeratorManaged(shared_ptr<CInflectionEnumerator> spIe) 
-    //    : m_pInflectionEnumerator(&spIe)
-    //{}
-    //
-    //CInflectionEnumeratorManaged::~CInflectionEnumeratorManaged()
-    //{
-    //    if (nullptr == m_pInflectionEnumerator)
-    //    {
-    //        throw gcnew Exception(L"Inflection enumerator object is NULL.");
-    //    }
-    //    delete m_pInflectionEnumerator;
-    //}
-    //
-    //EM_ReturnCode CInflectionEnumeratorManaged::eReset()
-    //{
-    //    if (nullptr == m_pInflectionEnumerator)
-    //    {
-    //        throw gcnew Exception(L"Inflection enumerator object is NULL.");
-    //    }
-    //    return (EM_ReturnCode)(*m_pInflectionEnumerator)->eReset();
-    //}
-    //
-    //EM_ReturnCode CInflectionEnumeratorManaged::eGetFirstInflection(CInflectionManaged^% pInflectionItf)
-    //{
-    //    if (nullptr == m_pInflectionEnumerator)
-    //    {
-    //        throw gcnew Exception(L"Inflection enumerator object is NULL.");
-    //    }
-    //
-    //    shared_ptr<CInflection> spInflection;
-    //    ET_ReturnCode eRet = (*m_pInflectionEnumerator)->eGetFirstInflection(spInflection);
-    //    if (H_NO_ERROR == eRet || H_NO_MORE == eRet)
-    //    {
-    //        if (spInflection)
-    //        {
-    //            pInflectionItf = gcnew CInflectionManaged(spInflection);
-    //        }
-    //    }
-    //    return (EM_ReturnCode)eRet;
-    //}
-    //
-    //EM_ReturnCode CInflectionEnumeratorManaged::eGetNextInflection(CInflectionManaged^% pInflectionItf)
-    //{
-    //    if (nullptr == m_pInflectionEnumerator)
-    //    {
-    //        throw gcnew Exception(L"Inflection enumerator object is NULL.");
-    //    }
-    //
-    //    shared_ptr<CInflection> spInflection;
-    //    ET_ReturnCode eRet = (*m_pInflectionEnumerator)->eGetNextInflection(spInflection);
-    //    if (H_NO_ERROR == eRet || H_NO_MORE == eRet)
-    //    {
-    //        if (spInflection)
-    //        {
-    //            pInflectionItf = gcnew CInflectionManaged(spInflection);
-    //        }
-    //    }
-    //    return (EM_ReturnCode)eRet;
-    //}
 
 }       // namespace MainLibManaged

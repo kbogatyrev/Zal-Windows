@@ -31,14 +31,10 @@ namespace MainLibManaged
         CInflectionManaged(int64_t handle);
         ~CInflectionManaged();
 
-
-        //        bool bHasIrregularForms();
-        //        void SetHasIrregularForms(bool);
         String^ sHash();
         String^ sParadigmHash();
         String^ sStoredHash();
 
-//        void SetLexeme(CLexemeManaged^ lexeme);
         EM_ReturnCode eGetLexeme(CLexemeManaged^% lexeme);
         EM_ReturnCode eWordFormFromHash(String^ sHash, int iAt, CWordFormManaged^% Wf);
         EM_ReturnCode eCreateWordForm(CWordFormManaged^% wf);
