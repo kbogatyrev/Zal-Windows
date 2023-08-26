@@ -46,7 +46,6 @@ namespace MainLibManaged
     public ref class CDictionaryManaged
     {
     public:
-//        CDictionaryManaged();
         ~CDictionaryManaged();
 
         shared_ptr<CDictionary> spGetInstance();
@@ -58,41 +57,20 @@ namespace MainLibManaged
 
         EM_ReturnCode eGetLexemeById(long long Id, CLexemeManaged^% pLexeme);
         EM_ReturnCode eGetLexemesByHash(String^);
-        //        EM_ReturnCode eGetLexemesByGraphicStem(String^);
         EM_ReturnCode eGetLexemesByInitialForm(String^);
         EM_ReturnCode eGenerateAllForms();
-        //        EM_ReturnCode eGenerateFormsForSelectedLexemes();
         EM_ReturnCode eCountLexemes(Int64% iLexemes);
 
-
-        //        EM_ReturnCode eVerifyLexemeProperties(CLexemeManaged^);
-        //        EM_ReturnCode eSourceFormExists(CLexemeManaged^, bool%);
-
-                // Save manually edited entries
-//        EM_ReturnCode eUpdateHeadword(CLexemeManaged^);
-//        EM_ReturnCode eSaveNewHeadword(CLexemeManaged^);
-//        EM_ReturnCode eSaveHeadwordStress(CLexemeManaged^);
-//        EM_ReturnCode eSaveHomonyms(CLexemeManaged^);
-//        EM_ReturnCode eSaveAspectPairInfo(CLexemeManaged^);
-//        EM_ReturnCode eSaveP2Info(CLexemeManaged^);
-//        EM_ReturnCode eUpdateDescriptorInfo(CLexemeManaged^);
-//        EM_ReturnCode eSaveDescriptorInfo(CLexemeManaged^ pLexeme);
-//        EM_ReturnCode eSaveCommonDeviation(CInflectionManaged^);
-//        EM_ReturnCode eSaveInflectionInfo(CInflectionManaged^);
-//        EM_ReturnCode eDeleteLexeme(CLexemeManaged^);
 
         int nLexemesFound();
 
         void Clear();
-//        EM_ReturnCode Clear(CLexemeManaged^ pLexeme);
 
         EM_ReturnCode eCreateLexemeEnumerator(CLexemeEnumeratorManaged^%);
 
         EM_ReturnCode eGetParser(CParserManaged^%);
         EM_ReturnCode eGetAnalytics(CAnalyticsManaged^%);
         EM_ReturnCode eGetVerifier(CVerifierManaged^%);
-//        EM_ReturnCode eExportTestData(String^ sPath, DelegateProgress^);
-//        EM_ReturnCode eImportTestData(String^ sPath, DelegateProgress^);
 
     };      //  CDictionaryManaged
 

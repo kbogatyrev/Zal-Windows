@@ -9,19 +9,6 @@
 #include <msclr\marshal.h>
 #include "Singleton.h"
 #include "GramHasher.h"
-//#include "MainLibManaged.h"
-
-//#include "Dictionary.h"
-//#include "Lexeme.h"
-//#include "Inflection.h"
-//#include "WordForm.h"
-//#include "Gramhasher.h"
-//#include "Parser.h"
-//#include "Analytics.h"
-//#include "Verifier.h"
-//#include "AspectPair.h"
-//#include "..\Hlib\SqliteWrapper.h"
-//#include "EnumsManaged.h"
 
 #include "UtilsManaged.h"
 #include "LexemeManaged.h"
