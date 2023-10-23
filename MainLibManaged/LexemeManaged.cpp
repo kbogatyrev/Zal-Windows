@@ -54,7 +54,7 @@ EM_ReturnCode CInflectionEnumeratorManaged::eGetFirstInflection(CInflectionManag
     {
         if (spInflection)
         {
-            auto iHandle = Singleton::pGetInstance()->iAddInflection(spInflection);
+            auto iHandle = Singleton::pGetInstance()->iAddInflection(spInflection.get());
             inflection = gcnew CInflectionManaged(iHandle);
         }
     }
@@ -69,7 +69,7 @@ EM_ReturnCode CInflectionEnumeratorManaged::eGetNextInflection(CInflectionManage
     {
         if (spInflection)
         {
-            auto iHandle = Singleton::pGetInstance()->iAddInflection(spInflection);
+            auto iHandle = Singleton::pGetInstance()->iAddInflection(spInflection.get());
             inflection = gcnew CInflectionManaged(iHandle);
         }
     }
@@ -95,21 +95,21 @@ CLexemeManaged::~CLexemeManaged()
     m_iHandle = -1;
 }
 
-shared_ptr<CLexeme> CLexemeManaged::spGetInstance()
+CLexeme* CLexemeManaged::pGetInstance()
 {
-    shared_ptr<CLexeme> spLexeme;
-    auto rc = Singleton::pGetInstance()->eGetLexeme(m_iHandle, spLexeme);
-    if (rc != H_NO_ERROR || nullptr == spLexeme)
+    CLexeme* pLexeme;
+    auto rc = Singleton::pGetInstance()->eGetLexeme(m_iHandle, pLexeme);
+    if (rc != H_NO_ERROR || nullptr == pLexeme)
     {
         throw gcnew Exception(L"Unable to retrieve lexeme instance.");
     }
-    return spLexeme;
+    return pLexeme;
 }
 
 EM_ReturnCode CLexemeManaged::eCreateInflectionEnumerator(CInflectionEnumeratorManaged^% pLeManaged)
 {
     shared_ptr<CInflectionEnumerator> spInflectionEnumerator;
-    ET_ReturnCode rc = spGetInstance()->eCreateInflectionEnumerator(spInflectionEnumerator);
+    ET_ReturnCode rc = pGetInstance()->eCreateInflectionEnumerator(spInflectionEnumerator);
     if (H_NO_ERROR == rc && spInflectionEnumerator)
     {
         auto iHandle = Singleton::pGetInstance()->iAddInflectionEnumerator(spInflectionEnumerator);
@@ -137,7 +137,7 @@ StLexemeProperties& CLexemeManaged::stGetPropertiesForWriteAccess()
 
 __int64 CLexemeManaged::llLexemeId()
 {
-    auto spLexeme = spGetInstance();
+    auto spLexeme = pGetInstance();
     if (nullptr == spLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
@@ -147,156 +147,156 @@ __int64 CLexemeManaged::llLexemeId()
 
 __int64 CLexemeManaged::llHeadwordId()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    return spLexeme->llHeadwordId();
+    return pLexeme->llHeadwordId();
 }
 
 EM_Gender CLexemeManaged::eGender()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    return (EM_Gender)spLexeme->eInflectionTypeToGender();
+    return (EM_Gender)pLexeme->eInflectionTypeToGender();
 }
 
 String^ CLexemeManaged::sGraphicStem()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    return gcnew String(spLexeme->sGraphicStem());
+    return gcnew String(pLexeme->sGraphicStem());
 }
 
 void CLexemeManaged::SetGraphicStem(String^ sGraphicStem)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    spLexeme->SetGraphicStem(sFromManagedString(sGraphicStem));
+    pLexeme->SetGraphicStem(sFromManagedString(sGraphicStem));
 }
 
 bool CLexemeManaged::bHasIrregularForms()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    return spLexeme->bHasIrregularForms();
+    return pLexeme->bHasIrregularForms();
 }
 
 void CLexemeManaged::SetHasIrregularForms(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    spLexeme->SetHasIrregularForms(bValue);
+    pLexeme->SetHasIrregularForms(bValue);
 }
 
 bool CLexemeManaged::bHasSecondaryStress()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    return spLexeme->bHasSecondaryStress();
+    return pLexeme->bHasSecondaryStress();
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 
 bool CLexemeManaged::bHasYoAlternation()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    return spLexeme->bHasYoAlternation();
+    return pLexeme->bHasYoAlternation();
 }
 
 void CLexemeManaged::SetHasYoAlternation(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    spLexeme->SetHasYoAlternation(bValue);
+    pLexeme->SetHasYoAlternation(bValue);
 }
 
 bool CLexemeManaged::bHasOAlternation()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    return spLexeme->bHasOAlternation();
+    return pLexeme->bHasOAlternation();
 }
 
 void CLexemeManaged::SetHasOAlternation(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    spLexeme->SetHasOAlternation(bValue);
+    pLexeme->SetHasOAlternation(bValue);
 }
 
 String^ CLexemeManaged::sSourceForm()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    return gcnew String(spLexeme->sSourceForm());
+    return gcnew String(pLexeme->sSourceForm());
 }
 
 void CLexemeManaged::SetSourceForm(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    spLexeme->SetSourceForm(sFromManagedString(sValue));
+    pLexeme->SetSourceForm(sFromManagedString(sValue));
 }
 
 bool CLexemeManaged::bHasHomonyms()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    return spLexeme->stGetProperties().vecHomonyms.size() > 0;
+    return pLexeme->stGetProperties().vecHomonyms.size() > 0;
 }
 
 List<int>^ CLexemeManaged::arrHomonyms()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
     List<int>^ lHomonyms = gcnew List<int>();
-    for (int iHomonymNumber : spLexeme->stGetProperties().vecHomonyms)
+    for (int iHomonymNumber : pLexeme->stGetProperties().vecHomonyms)
     {
         lHomonyms->Add(iHomonymNumber);
     }
@@ -305,13 +305,13 @@ List<int>^ CLexemeManaged::arrHomonyms()
 
 void CLexemeManaged::SetHomonyms(List<int>^ arrHomonyms)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    StLexemeProperties& stProperties = spLexeme->stGetPropertiesForWriteAccess();
+    StLexemeProperties& stProperties = pLexeme->stGetPropertiesForWriteAccess();
     for each (int iHomonymNumber in arrHomonyms)
     {
         stProperties.vecHomonyms.push_back(iHomonymNumber);
@@ -323,238 +323,238 @@ void CLexemeManaged::SetHomonyms(List<int>^ arrHomonyms)
 
 String^ CLexemeManaged::sHeadwordComment()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sHeadwordComment());
+    return gcnew String(pLexeme->sHeadwordComment());
 }
 
 void CLexemeManaged::SetHeadwordComment(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetHeadwordComment(sFromManagedString(sValue));
+    pLexeme->SetHeadwordComment(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sHeadwordVariant()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sHeadwordVariant());
+    return gcnew String(pLexeme->sHeadwordVariant());
 }
 
 void CLexemeManaged::SetHeadwordVariant(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetHeadwordVariant(sFromManagedString(sValue));
+    pLexeme->SetHeadwordVariant(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sHeadwordVariantComment()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sHeadwordVariantComment());
+    return gcnew String(pLexeme->sHeadwordVariantComment());
 }
 
 void CLexemeManaged::SetHeadwordVariantComment(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetHeadwordVariantComment(sFromManagedString(sValue));
+    pLexeme->SetHeadwordVariantComment(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sPluralOf()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sPluralOf());
+    return gcnew String(pLexeme->sPluralOf());
 }
 
 void CLexemeManaged::SetPluralOf(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetPluralOf(sFromManagedString(sValue));
+    pLexeme->SetPluralOf(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sUsage()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sUsage());
+    return gcnew String(pLexeme->sUsage());
 }
 
 void CLexemeManaged::SetUsage(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetUsage(sFromManagedString(sValue));
+    pLexeme->SetUsage(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sSeeRef()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sSeeRef());
+    return gcnew String(pLexeme->sSeeRef());
 }
 
 void CLexemeManaged::SetSeeRef(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetSeeRef(sFromManagedString(sValue));
+    pLexeme->SetSeeRef(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sBackRef()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sBackRef());
+    return gcnew String(pLexeme->sBackRef());
 }
 
 void CLexemeManaged::SetBackRef(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetBackRef(sFromManagedString(sValue));
+    pLexeme->SetBackRef(sFromManagedString(sValue));
 }
 
 bool CLexemeManaged::bIsUnstressed()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return spLexeme->bIsUnstressed();
+    return pLexeme->bIsUnstressed();
 }
 
 void CLexemeManaged::SetIsUnstressed(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return spLexeme->SetIsUnstressed(bValue);
+    return pLexeme->SetIsUnstressed(bValue);
 }
 
 bool CLexemeManaged::bIsVariant()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return spLexeme->bIsVariant();
+    return pLexeme->bIsVariant();
 }
 
 void CLexemeManaged::SetIsVariant(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetIsVariant(bValue);
+    pLexeme->SetIsVariant(bValue);
 }
 
 String^ CLexemeManaged::sMainSymbol()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sMainSymbol());
+    return gcnew String(pLexeme->sMainSymbol());
 }
 
 void CLexemeManaged::SetMainSymbol(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetMainSymbol(sFromManagedString(sValue));
+    pLexeme->SetMainSymbol(sFromManagedString(sValue));
 }
 
 bool CLexemeManaged::bIsPluralOf()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return spLexeme->bIsPluralOf();
+    return pLexeme->bIsPluralOf();
 }
 
 void CLexemeManaged::SetIsPluralOf(bool bValue)
 {
-    auto spLexeme = spGetInstance();
+    auto spLexeme = pGetInstance();
     if (nullptr == spLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
@@ -565,575 +565,543 @@ void CLexemeManaged::SetIsPluralOf(bool bValue)
 
 bool CLexemeManaged::bTransitive()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return spLexeme->bTransitive();
+    return pLexeme->bTransitive();
 }
 
 void CLexemeManaged::SetTransitive(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return spLexeme->SetTransitive(bValue);
+    return pLexeme->SetTransitive(bValue);
 }
 
 EM_Reflexive CLexemeManaged::eIsReflexive()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return (EM_Reflexive)spLexeme->eIsReflexive();
+    return (EM_Reflexive)pLexeme->eIsReflexive();
 }
 
 void CLexemeManaged::SetIsReflexive(EM_Reflexive eValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetIsReflexive((ET_Reflexivity)eValue);
+    pLexeme->SetIsReflexive((ET_Reflexivity)eValue);
 }
 
 String^ CLexemeManaged::sMainSymbolPluralOf()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sMainSymbolPluralOf());
+    return gcnew String(pLexeme->sMainSymbolPluralOf());
 }
 
 void CLexemeManaged::SetMainSymbolPluralOf(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetMainSymbolPluralOf(sFromManagedString(sValue));
+    pLexeme->SetMainSymbolPluralOf(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sAltMainSymbol()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sAltMainSymbol());
+    return gcnew String(pLexeme->sAltMainSymbol());
 }
 
 void CLexemeManaged::SetAltMainSymbol(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetAltMainSymbol(sFromManagedString(sValue));
+    pLexeme->SetAltMainSymbol(sFromManagedString(sValue));
 }
 
 EM_Aspect CLexemeManaged::eAspect()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return (EM_Aspect)spLexeme->eAspect();
+    return (EM_Aspect)pLexeme->eAspect();
 }
 
 void CLexemeManaged::SetAspect(EM_Aspect eValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return spLexeme->SetAspect((ET_Aspect)eValue);
+    return pLexeme->SetAspect((ET_Aspect)eValue);
 }
 
 String^ CLexemeManaged::sInflectionType()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sInflectionType());
+    return gcnew String(pLexeme->sInflectionType());
 }
 
 void CLexemeManaged::SetInflectionType(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetInflectionType(sFromManagedString(sValue));
+    pLexeme->SetInflectionType(sFromManagedString(sValue));
 }
 
 EM_PartOfSpeech CLexemeManaged::ePartOfSpeech()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return (EM_PartOfSpeech)spLexeme->ePartOfSpeech();
+    return (EM_PartOfSpeech)pLexeme->ePartOfSpeech();
 }
 
 void CLexemeManaged::SetPartOfSpeech(EM_PartOfSpeech eValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetPartOfSpeech((ET_PartOfSpeech)eValue);
+    pLexeme->SetPartOfSpeech((ET_PartOfSpeech)eValue);
 }
 
 String^ CLexemeManaged::sComment()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sComment());
+    return gcnew String(pLexeme->sComment());
 }
 
 void CLexemeManaged::SetComment(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetComment(sFromManagedString(sValue));
+    pLexeme->SetComment(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sAltMainSymbolComment()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sAltMainSymbolComment());
+    return gcnew String(pLexeme->sAltMainSymbolComment());
 }
 
 void CLexemeManaged::SetAltMainSymbolComment(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetAltMainSymbolComment(sFromManagedString(sValue));
+    pLexeme->SetAltMainSymbolComment(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sAltInflectionComment()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sAltInflectionComment());
+    return gcnew String(pLexeme->sAltInflectionComment());
 }
 
 void CLexemeManaged::SetAltInflectionComment(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetAltInflectionComment(sFromManagedString(sValue));
+    pLexeme->SetAltInflectionComment(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sVerbStemAlternation()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sVerbStemAlternation());
+    return gcnew String(pLexeme->sVerbStemAlternation());
 }
 
 void CLexemeManaged::SetVerbStemAlternation(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetVerbStemAlternation(sFromManagedString(sValue));
+    pLexeme->SetVerbStemAlternation(sFromManagedString(sValue));
 }
 
 bool CLexemeManaged::bPartPastPassZhd()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->bPartPastPassZhd();
+    return pLexeme->bPartPastPassZhd();
 }
 
 void CLexemeManaged::SetPartPastPassZhd(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetPartPastPassZhd(bValue);
+    pLexeme->SetPartPastPassZhd(bValue);
 }
 
 int CLexemeManaged::iSection()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->iSection();
+    return pLexeme->iSection();
 }
 
 void CLexemeManaged::SetSection(int iValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetSection(iValue);
+    pLexeme->SetSection(iValue);
 }
 
 bool CLexemeManaged::bNoComparative()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->bNoComparative();
+    return pLexeme->bNoComparative();
 }
 
 void CLexemeManaged::SetNoComparative(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetNoComparative(bValue);
+    pLexeme->SetNoComparative(bValue);
 }
 
 bool CLexemeManaged::bSpryazhSm()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->bSpryazhSm();
+    return pLexeme->bSpryazhSm();
 }
 
 String^ CLexemeManaged::sSpryazhSmRefSource()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return gcnew String(spLexeme->sSpryazhSmRefSource());
+    return gcnew String(pLexeme->sSpryazhSmRefSource());
 }
 
 
 EM_Subparadigm CLexemeManaged::eSubparadigm()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return (EM_Subparadigm)spLexeme->eSubparadigm();
+    return (EM_Subparadigm)pLexeme->eSubparadigm();
 }
 
 void CLexemeManaged::SetSubparadigm(EM_Subparadigm eSp)    // currently only used with numerals
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetSubparadigm((ET_Subparadigm)eSp);
+    pLexeme->SetSubparadigm((ET_Subparadigm)eSp);
 }
 
 bool CLexemeManaged::bAssumedForms()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->bAssumedForms();
+    return pLexeme->bAssumedForms();
 }
 
 void CLexemeManaged::SetAssumedForms(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetAssumedForms(bValue);
+    pLexeme->SetAssumedForms(bValue);
 }
 
 bool CLexemeManaged::bSecondGenitive()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->bSecondGenitive();
+    return pLexeme->bSecondGenitive();
 }
 
 void CLexemeManaged::SetSecondGenitive(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetSecondGenitive(bValue);
+    pLexeme->SetSecondGenitive(bValue);
 }
 
 bool CLexemeManaged::bSecondPrepositional()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->bSecondPrepositional();
+    return pLexeme->bSecondPrepositional();
 }
 
 void CLexemeManaged::SetSecondPrepositional(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetSecondPrepositional(bValue);
+    pLexeme->SetSecondPrepositional(bValue);
 }
 
 bool CLexemeManaged::bSecondPrepositionalOptional()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->bSecondPrepositionalOptional();
+    return pLexeme->bSecondPrepositionalOptional();
 }
 
 void CLexemeManaged::SetSecondPrepositionalOptional(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetSecondPrepositionalOptional(bValue);
+    pLexeme->SetSecondPrepositionalOptional(bValue);
 }
 
 String^ CLexemeManaged::sP2Preposition()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return gcnew String(spLexeme->sP2Preposition());
+    return gcnew String(pLexeme->sP2Preposition());
 }
 
 void CLexemeManaged::SetP2Preposition(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetP2Preposition(sFromManagedString(sValue));
+    pLexeme->SetP2Preposition(sFromManagedString(sValue));
 }
 
 bool CLexemeManaged::bNoLongForms()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->bNoLongForms();
+    return pLexeme->bNoLongForms();
 }
 
 void CLexemeManaged::SetNoLongForms(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetNoLongForms(bValue);
+    pLexeme->SetNoLongForms(bValue);
 }
 
 String^ CLexemeManaged::s1SgStem()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return gcnew String(spLexeme->s1SgStem());
+    return gcnew String(pLexeme->s1SgStem());
 }
 
 void CLexemeManaged::Set1SgStem(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->Set1SgStem(sFromManagedString(sValue));
+    pLexeme->Set1SgStem(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::s3SgStem()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return gcnew String(spLexeme->s3SgStem());
+    return gcnew String(pLexeme->s3SgStem());
 }
 
 void CLexemeManaged::Set3SgStem(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->Set3SgStem(sFromManagedString(sValue));
+    pLexeme->Set3SgStem(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sInfinitive()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return gcnew String(spLexeme->sInfinitive());
+    return gcnew String(pLexeme->sInfinitive());
 }
 
 void CLexemeManaged::SetInfinitive(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetInfinitive(sFromManagedString(sValue));
+    pLexeme->SetInfinitive(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sInfStem()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return gcnew String(spLexeme->sInfStem());
+    return gcnew String(pLexeme->sInfStem());
 }
 
 void CLexemeManaged::SetInfStem(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetInfStem(sFromManagedString(sValue));
+    pLexeme->SetInfStem(sFromManagedString(sValue));
 }
 
 //int CLexemeManaged::iInflectedParts()
@@ -1158,36 +1126,34 @@ void CLexemeManaged::SetInfStem(String^ sValue)
 //
 bool CLexemeManaged::bIsSecondPart()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->bIsSecondPart();
+    return pLexeme->bIsSecondPart();
 }
 
 void CLexemeManaged::SetIsSecondPart(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetIsSecondPart(bValue);
+    pLexeme->SetIsSecondPart(bValue);
 }
 
 bool CLexemeManaged::bFindStandardAlternation(String^ sKey, String^% sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
     CEString cestrValue;
-    bool bRet = spLexeme->bFindStandardAlternation(sFromManagedString(sKey), cestrValue);
+    bool bRet = pLexeme->bFindStandardAlternation(sFromManagedString(sKey), cestrValue);
     sValue = gcnew String(sValue);
 
     return bRet;
@@ -1195,14 +1161,14 @@ bool CLexemeManaged::bFindStandardAlternation(String^ sKey, String^% sValue)
 
 EM_ReturnCode CLexemeManaged::eGetStemStressPositions(String^ sStem, List<int>% listPositions)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
     vector<int> vecPositions;
-    ET_ReturnCode eRet = spLexeme->eGetStemStressPositions(sFromManagedString(sStem), vecPositions);
+    ET_ReturnCode eRet = pLexeme->eGetStemStressPositions(sFromManagedString(sStem), vecPositions);
     if (H_NO_ERROR == eRet)
     {
         for (vector<int>::iterator it = vecPositions.begin(); it != vecPositions.end(); ++it)
@@ -1210,31 +1176,29 @@ EM_ReturnCode CLexemeManaged::eGetStemStressPositions(String^ sStem, List<int>% 
             listPositions.Add(*it);
         }
     }
-
     return (EM_ReturnCode)eRet;
 }
 
 bool CLexemeManaged::bHasDifficultForms()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->bHasDifficultForms();
+    return pLexeme->bHasDifficultForms();
 }
 
 EM_ReturnCode CLexemeManaged::eGetSourceFormWithStress(String^% sSourceForm, bool bIsVariant)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
     CEString sSource;
-    ET_ReturnCode eRet = spLexeme->eGetSourceFormWithStress(sSource, bIsVariant);
+    ET_ReturnCode eRet = pLexeme->eGetSourceFormWithStress(sSource, bIsVariant);
 
     sSourceForm = gcnew String(sSource);
 
@@ -1243,97 +1207,92 @@ EM_ReturnCode CLexemeManaged::eGetSourceFormWithStress(String^% sSourceForm, boo
 
 EM_ReturnCode CLexemeManaged::eGetFirstStemStressPos(int% iPos)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
     int cppiPos = 0;
-    ET_ReturnCode eRet = spLexeme->eGetFirstStemStressPos(cppiPos);
+    ET_ReturnCode eRet = pLexeme->eGetFirstStemStressPos(cppiPos);
     if (H_NO_ERROR == eRet)
     {
         iPos = cppiPos;
     }
-
     return (EM_ReturnCode)eRet;
 }
 
 EM_ReturnCode CLexemeManaged::eGetNextStemStressPos(int% iPos)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
     int cppiPos = 0;
-    ET_ReturnCode eRet = spLexeme->eGetNextStemStressPos(cppiPos);
+    ET_ReturnCode eRet = pLexeme->eGetNextStemStressPos(cppiPos);
     if (H_NO_ERROR == eRet)
     {
         iPos = cppiPos;
     }
-
     return (EM_ReturnCode)eRet;
 }
 
 EM_ReturnCode CLexemeManaged::eGetFirstSecondaryStemStressPos(int% iPos)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
     int cppiPos = 0;
-    ET_ReturnCode eRet = spLexeme->eGetFirstSecondaryStemStressPos(cppiPos);
+    ET_ReturnCode eRet = pLexeme->eGetFirstSecondaryStemStressPos(cppiPos);
     if (H_NO_ERROR == eRet)
     {
         iPos = cppiPos;
     }
-
     return (EM_ReturnCode)eRet;
 }
 
 EM_ReturnCode CLexemeManaged::eGetNextSecondaryStemStressPos(int% iPos)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
     int cppiPos = 0;
-    ET_ReturnCode eRet = spLexeme->eGetNextSecondaryStemStressPos(cppiPos);
+    ET_ReturnCode eRet = pLexeme->eGetNextSecondaryStemStressPos(cppiPos);
     if (H_NO_ERROR == eRet)
     {
         iPos = cppiPos;
     }
-
     return (EM_ReturnCode)eRet;
 }
 
 EM_ReturnCode CLexemeManaged::eCheckLexemeProperties() // for manual input/editing
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return (EM_ReturnCode)spLexeme->eCheckLexemeProperties();
+    return (EM_ReturnCode)pLexeme->eCheckLexemeProperties();
 }
 
 EM_ReturnCode CLexemeManaged::eGetErrorMsg(String^% sErrorMsg)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
     CEString sNativeErrMsg;
-    ET_ReturnCode eRet = spLexeme->eGetErrorMsg(sNativeErrMsg);
+    ET_ReturnCode eRet = pLexeme->eGetErrorMsg(sNativeErrMsg);
     if (eRet != H_NO_ERROR)
     {
         return (EM_ReturnCode)eRet;
@@ -1346,97 +1305,93 @@ EM_ReturnCode CLexemeManaged::eGetErrorMsg(String^% sErrorMsg)
 
 bool CLexemeManaged::bHasAspectPair()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->bHasAspectPair();
+    return pLexeme->bHasAspectPair();
 }
 
 void CLexemeManaged::SetHasAspectPair(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->SetHasAspectPair(bValue);
+    return pLexeme->SetHasAspectPair(bValue);
 }
 
 bool CLexemeManaged::bHasAltAspectPair()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->bHasAltAspectPair();
+    return pLexeme->bHasAltAspectPair();
 }
 
 int CLexemeManaged::iAspectPairType()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    return spLexeme->iAspectPairType();
+    return pLexeme->iAspectPairType();
 }
 
 void CLexemeManaged::SetAspectPairType(int iValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    spLexeme->SetAspectPairType(iValue);
+    pLexeme->SetAspectPairType(iValue);
 }
 
 int CLexemeManaged::iAltAspectPairType()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    return spLexeme->iAltAspectPairType();
+    return pLexeme->iAltAspectPairType();
 }
 
 void CLexemeManaged::SetAltAspectPairType(int iValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-    spLexeme->SetAltAspectPairType(iValue);
+    pLexeme->SetAltAspectPairType(iValue);
 }
 
 String^ CLexemeManaged::sAltAspectPairComment()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sAltAspectPairComment());
+    return gcnew String(pLexeme->sAltAspectPairComment());
 }
 
 void CLexemeManaged::SetAltAspectPairComment(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetAltAspectPairComment(sFromManagedString(sValue));
+    pLexeme->SetAltAspectPairComment(sFromManagedString(sValue));
 }
 
 EM_ReturnCode CLexemeManaged::eGetAspectPair(String^% sAspectPair, int% iStressPos)
@@ -1446,15 +1401,15 @@ EM_ReturnCode CLexemeManaged::eGetAspectPair(String^% sAspectPair, int% iStressP
         return EM_ReturnCode::H_FALSE;
     }
 
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
     CEString sAp;
     int iSp = -1;
-    ET_ReturnCode eRet = spLexeme->eGetAspectPair(sAp, iSp);
+    ET_ReturnCode eRet = pLexeme->eGetAspectPair(sAp, iSp);
     if (eRet != H_NO_ERROR)
     {
         return (EM_ReturnCode)eRet;
@@ -1474,14 +1429,14 @@ EM_ReturnCode CLexemeManaged::eGetAltAspectPair(String^% sAltAspectPair, int% iA
         return EM_ReturnCode::H_FALSE;
     }
 
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         return (EM_ReturnCode)EM_ReturnCode::H_ERROR_POINTER;
     }
     CEString sAp;
     int iSp = -1;
-    ET_ReturnCode eRet = spLexeme->eGetAltAspectPair(sAp, iSp);
+    ET_ReturnCode eRet = pLexeme->eGetAltAspectPair(sAp, iSp);
     if (eRet != H_NO_ERROR)
     {
         return (EM_ReturnCode)eRet;
@@ -1496,110 +1451,103 @@ EM_ReturnCode CLexemeManaged::eGetAltAspectPair(String^% sAltAspectPair, int% iA
 
 String^ CLexemeManaged::sAspectPairData()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sAspectPairData());
+    return gcnew String(pLexeme->sAspectPairData());
 }
 
 void CLexemeManaged::SetAspectPairData(String^ sAspectPairData)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    spLexeme->SetAspectPairData(sFromManagedString(sAspectPairData));
+    pLexeme->SetAspectPairData(sFromManagedString(sAspectPairData));
 }
 
 bool CLexemeManaged::bHasIrregularVariants()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return spLexeme->bHasIrregularVariants();
+    return pLexeme->bHasIrregularVariants();
 }
 
 void CLexemeManaged::SetHasIrregularVariants(bool bValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetHasIrregularVariants(bValue);
+    pLexeme->SetHasIrregularVariants(bValue);
 }
 
 String^ CLexemeManaged::sRestrictedContexts()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
 
-    return gcnew String(spLexeme->sRestrictedContexts());
+    return gcnew String(pLexeme->sRestrictedContexts());
 }
 
 void CLexemeManaged::SetRestrictedContexts(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetRestrictedContexts(sFromManagedString(sValue));
+    pLexeme->SetRestrictedContexts(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sContexts()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return gcnew String(spLexeme->sContexts());
+    return gcnew String(pLexeme->sContexts());
 }
 
 void CLexemeManaged::SetContexts(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetContexts(sFromManagedString(sValue));
+    pLexeme->SetContexts(sFromManagedString(sValue));
 }
 
 String^ CLexemeManaged::sTrailingComment()
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    return gcnew String(spLexeme->sTrailingComment());
+    return gcnew String(pLexeme->sTrailingComment());
 }
 
 void CLexemeManaged::SetTrailingComment(String^ sValue)
 {
-    auto spLexeme = spGetInstance();
-    if (nullptr == spLexeme)
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
     {
         throw gcnew Exception(L"Lexeme object is NULL.");
     }
-
-    spLexeme->SetTrailingComment(sFromManagedString(sValue));
+    pLexeme->SetTrailingComment(sFromManagedString(sValue));
 }

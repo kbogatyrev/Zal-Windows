@@ -95,7 +95,7 @@ namespace MainLibManaged
         // private:     -- TODO: accessors/mutators?
         String^ m_sStoredEntryHash;
 
-        shared_ptr<CInflection> spGetInstance();
+        CInflection* pGetInstance();
 
     protected:
         CInflectionManaged() {};

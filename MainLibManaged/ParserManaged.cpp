@@ -11,19 +11,6 @@
 #include "GramHasher.h"
 #include "WordFormManaged.h"
 #include "Singleton.h"
-
-//#include "Dictionary.h"
-//#include "Lexeme.h"
-//#include "Inflection.h"
-//#include "WordForm.h"
-//#include "Gramhasher.h"
-//#include "Parser.h"
-//#include "Analytics.h"
-//#include "Verifier.h"
-//#include "AspectPair.h"
-//#include "..\Hlib\SqliteWrapper.h"
-//#include "EnumsManaged.h"
-
 #include "ParserManaged.h"
 
 using namespace System;
@@ -64,7 +51,7 @@ namespace MainLibManaged
         {
             if (spWordForm)
             {
-                auto iHandle = Singleton::pGetInstance()->iAddWordForm(spWordForm);
+                auto iHandle = Singleton::pGetInstance()->iAddWordForm(spWordForm.get());
                 if (iHandle < 0)
                 {
                     if (iHandle < 0)
@@ -86,7 +73,7 @@ namespace MainLibManaged
         {
             if (spWordForm)
             {
-                auto iHandle = Singleton::pGetInstance()->iAddWordForm(spWordForm);
+                auto iHandle = Singleton::pGetInstance()->iAddWordForm(spWordForm.get());
                 if (iHandle < 0)
                 {
                     if (iHandle < 0)

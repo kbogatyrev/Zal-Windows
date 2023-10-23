@@ -37,7 +37,7 @@ namespace MainLibManaged
         CWordFormManaged(int64_t iHandle);
         ~CWordFormManaged();
 
-        shared_ptr<CWordForm> spGetInstance();
+        CWordForm* pGetInstance();
 
         EM_ReturnCode eGetInflection(CInflectionManaged^% inflection);
 

@@ -23,34 +23,36 @@ CWordFormManaged::~CWordFormManaged()
     m_iHandle = -1;
 }
 
-shared_ptr<CWordForm> CWordFormManaged::spGetInstance()
+CWordForm* CWordFormManaged::pGetInstance()
 {
-    shared_ptr<CWordForm> spWordForm;
-    auto rc = Singleton::pGetInstance()->eGetWordForm(m_iHandle, spWordForm);
-    if (rc != H_NO_ERROR || nullptr == spWordForm)
+    CWordForm* pWordForm = nullptr;
+    auto rc = Singleton::pGetInstance()->eGetWordForm(m_iHandle, pWordForm);
+    if (rc != H_NO_ERROR || nullptr == pWordForm)
     {
         throw gcnew Exception(L"Unable to retrieve word form instance.");
     }
-    return spWordForm;
+    return pWordForm;
 }
 
 EM_ReturnCode CWordFormManaged::eGetInflection(CInflectionManaged^% inflection)
 {
-    shared_ptr<CWordForm> spWordForm;
-    auto rc = Singleton::pGetInstance()->eGetWordForm(m_iHandle, spWordForm);
-    if (rc != H_NO_ERROR || nullptr == spWordForm)
+    CWordForm* pWordForm {nullptr};
+    auto rc = Singleton::pGetInstance()->eGetWordForm(m_iHandle, pWordForm);
+    if (rc != H_NO_ERROR || nullptr == pWordForm)
     {
         throw gcnew Exception(L"Unable to retrieve word form instance.");
     }
 
-    auto spInflection = spWordForm->spInflection();
-    if (rc != H_NO_ERROR || nullptr == spInflection)
+    auto pInflection = pWordForm->pInflection();
+    if (rc != H_NO_ERROR || nullptr == pInflection)
     {
         throw gcnew Exception(L"Unable to retrieve inflection instance.");
     }
 
-    auto iHandle = Singleton::pGetInstance()->iAddInflection(spInflection);
+    auto iHandle = Singleton::pGetInstance()->iAddInflection(pInflection);
     inflection = gcnew CInflectionManaged(iHandle);
+
+    return EM_ReturnCode::H_NO_ERROR;
 }
 
 //CLexemeManaged^ CWordFormManaged::Lexeme()
@@ -70,195 +72,194 @@ EM_ReturnCode CWordFormManaged::eGetInflection(CInflectionManaged^% inflection)
 
 String^ CWordFormManaged::sWordForm()
 {
-    return gcnew String(spGetInstance()->sWordForm());
+    return gcnew String(pGetInstance()->sWordForm());
 }
 
 void CWordFormManaged::SetWordForm(String^ sWordForm)
 {
-    spGetInstance()->SetWordForm(sFromManagedString(sWordForm));
+    pGetInstance()->SetWordForm(sFromManagedString(sWordForm));
 }
 
 long long CWordFormManaged::llWordFormDbId()
 {
-    return spGetInstance()->llDbId();
+    return pGetInstance()->llDbId();
 }
 
 String^ CWordFormManaged::sStem()
 {
-    return gcnew String(spGetInstance()->sStem());
+    return gcnew String(pGetInstance()->sStem());
 }
 
 void CWordFormManaged::SetStem(String^ sStem)
 {
-    spGetInstance()->SetStem(sFromManagedString(sStem));
+    pGetInstance()->SetStem(sFromManagedString(sStem));
 }
 
 __int64 CWordFormManaged::llLexemeId()
 {
-    return spGetInstance()->llLexemeId();
+    return pGetInstance()->llLexemeId();
 }
 
 EM_PartOfSpeech CWordFormManaged::ePos()
 {
-    return (EM_PartOfSpeech)spGetInstance()->ePos();
+    return (EM_PartOfSpeech)pGetInstance()->ePos();
 }
 
 void CWordFormManaged::SetPos(EM_PartOfSpeech ePos)
 {
-    spGetInstance()->SetPos((ET_PartOfSpeech)ePos);
+    pGetInstance()->SetPos((ET_PartOfSpeech)ePos);
 }
 
 EM_Case CWordFormManaged::eCase()
 {
-    return (EM_Case)spGetInstance()->eCase();
+    return (EM_Case)pGetInstance()->eCase();
 }
 
 void CWordFormManaged::SetCase(EM_Case eCase)
 {
-    spGetInstance()->SetCase((ET_Case)eCase);
+    pGetInstance()->SetCase((ET_Case)eCase);
 }
 
 EM_Number CWordFormManaged::eNumber()
 {
-    return (EM_Number)spGetInstance()->eNumber();
+    return (EM_Number)pGetInstance()->eNumber();
 }
 
 void CWordFormManaged::SetNumber(EM_Number eNumber)
 {
-    spGetInstance()->SetNumber((ET_Number)eNumber);
+    pGetInstance()->SetNumber((ET_Number)eNumber);
 }
 
 EM_Subparadigm CWordFormManaged::eSubparadigm()
 {
-    return (EM_Subparadigm)spGetInstance()->eSubparadigm();
+    return (EM_Subparadigm)pGetInstance()->eSubparadigm();
 }
 
 void CWordFormManaged::SetSubparadigm(EM_Subparadigm eSubparadigm)
 {
-    spGetInstance()->SetSubparadigm((ET_Subparadigm)eSubparadigm);
+    pGetInstance()->SetSubparadigm((ET_Subparadigm)eSubparadigm);
 }
 
 EM_Gender CWordFormManaged::eGender()
 {
-    return (EM_Gender)spGetInstance()->eGender();
+    return (EM_Gender)pGetInstance()->eGender();
 }
 
 void CWordFormManaged::SetGender(EM_Gender eGender)
 {
-    spGetInstance()->SetGender((ET_Gender)eGender);
+    pGetInstance()->SetGender((ET_Gender)eGender);
 }
 
 EM_Person CWordFormManaged::ePerson()
 {
-    return (EM_Person)spGetInstance()->ePerson();
+    return (EM_Person)pGetInstance()->ePerson();
 }
 
 void CWordFormManaged::SetPerson(EM_Person ePerson)
 {
-    spGetInstance()->SetPerson((ET_Person)ePerson);
+    pGetInstance()->SetPerson((ET_Person)ePerson);
 }
 
 EM_Animacy CWordFormManaged::eAnimacy()
 {
-    return (EM_Animacy)spGetInstance()->eAnimacy();
+    return (EM_Animacy)pGetInstance()->eAnimacy();
 }
 
 void CWordFormManaged::SetAnimacy(EM_Animacy eAnimacy)
 {
-    spGetInstance()->SetAnimacy((ET_Animacy)eAnimacy);
+    pGetInstance()->SetAnimacy((ET_Animacy)eAnimacy);
 }
 
 EM_Reflexive CWordFormManaged::eReflexive()
 {
-    return (EM_Reflexive)spGetInstance()->eReflexive();
+    return (EM_Reflexive)pGetInstance()->eReflexive();
 }
 
 void CWordFormManaged::SetReflexivity(EM_Reflexive eReflexive)
 {
-    spGetInstance()->SetReflexivity((ET_Reflexivity)eReflexive);
+    pGetInstance()->SetReflexivity((ET_Reflexivity)eReflexive);
 }
 
 EM_Aspect CWordFormManaged::eAspect()
 {
-    return (EM_Aspect)spGetInstance()->eAspect();
+    return (EM_Aspect)pGetInstance()->eAspect();
 }
 
 void CWordFormManaged::SetAspect(EM_Aspect eAspect)
 {
-    spGetInstance()->SetAspect((ET_Aspect)eAspect);
+    pGetInstance()->SetAspect((ET_Aspect)eAspect);
 }
 
 EM_Status CWordFormManaged::eStatus()
 {
-    return (EM_Status)spGetInstance()->eStatus();
+    return (EM_Status)pGetInstance()->eStatus();
 }
 
 void CWordFormManaged::SetStatus(EM_Status eStatus)
 {
-    spGetInstance()->SetStatus((ET_Status)eStatus);
+    pGetInstance()->SetStatus((ET_Status)eStatus);
 }
 
 bool CWordFormManaged::bIrregular()      // came from the DB as opposed to being generated by the app
 {
-    return spGetInstance()->bIrregular();
+    return pGetInstance()->bIrregular();
 }
 
 void CWordFormManaged::SetIrregular(bool bIrregular)
 {
-    spGetInstance()->SetIrregular(bIrregular);
+    pGetInstance()->SetIrregular(bIrregular);
 }
 
 String^ CWordFormManaged::sLeadComment()
 {
-    return gcnew String(spGetInstance()->sLeadComment());
+    return gcnew String(pGetInstance()->sLeadComment());
 }
 
 void CWordFormManaged::SetLeadComment(String^ sLeadComment)
 {
-    spGetInstance()->SetLeadComment(sFromManagedString(sLeadComment));
+    pGetInstance()->SetLeadComment(sFromManagedString(sLeadComment));
 }
 
 String^ CWordFormManaged::sTrailingComment()
 {
-    return gcnew String(spGetInstance()->sTrailingComment());
+    return gcnew String(pGetInstance()->sTrailingComment());
 }
 
 void CWordFormManaged::SetTrailingComment(String^ sTrailingComment)
 {
-    spGetInstance()->SetTrailingComment(sFromManagedString(sTrailingComment));
+    pGetInstance()->SetTrailingComment(sFromManagedString(sTrailingComment));
 }
 
 bool CWordFormManaged::bIsEdited()
 {
-    return spGetInstance()->bIsEdited();
+    return pGetInstance()->bIsEdited();
 }
 
 void CWordFormManaged::SetIsEdited(bool bIsEdited)
 {
-    return spGetInstance()->SetIsEdited(bIsEdited);
+    return pGetInstance()->SetIsEdited(bIsEdited);
 }
 
 bool CWordFormManaged::bIsVariant()
 {
-    return spGetInstance()->bIsVariant();
+    return pGetInstance()->bIsVariant();
 }
 
 void CWordFormManaged::SetIsVariant(bool bIsVariant)
 {
-    return spGetInstance()->SetIsVariant(bIsVariant);
+    return pGetInstance()->SetIsVariant(bIsVariant);
 }
 
 EM_ReturnCode CWordFormManaged::eGetFirstStressPos(int% iPos, EM_StressType% eType)
 {
     int cppiPos = -1;
     ET_StressType cppeType = ET_StressType::STRESS_TYPE_UNDEFINED;
-    ET_ReturnCode eRet = spGetInstance()->eGetFirstStressPos(cppiPos, cppeType);
+    ET_ReturnCode eRet = pGetInstance()->eGetFirstStressPos(cppiPos, cppeType);
     if (H_NO_ERROR == eRet)
     {
         iPos = cppiPos;
         eType = (EM_StressType)cppeType;
     }
-
     return (EM_ReturnCode)eRet;
 }
 
@@ -266,13 +267,12 @@ EM_ReturnCode CWordFormManaged::eGetNextStressPos(int% iPos, EM_StressType% eTyp
 {
     int cppiPos = -1;
     ET_StressType cppeType = ET_StressType::STRESS_TYPE_UNDEFINED;
-    ET_ReturnCode eRet = spGetInstance()->eGetNextStressPos(cppiPos, cppeType);
+    ET_ReturnCode eRet = pGetInstance()->eGetNextStressPos(cppiPos, cppeType);
     if (H_NO_ERROR == eRet)
     {
         iPos = cppiPos;
         eType = (EM_StressType)cppeType;
     }
-
     return (EM_ReturnCode)eRet;
 }
 
@@ -287,24 +287,23 @@ EM_ReturnCode CWordFormManaged::eSetStressPositions(Collections::Generic::Dictio
         mapStressPositions[iPos] = (ET_StressType)eType;
     }
 
-    ET_ReturnCode eRet = spGetInstance()->eSetStressPositions(mapStressPositions);
-
+    ET_ReturnCode eRet = pGetInstance()->eSetStressPositions(mapStressPositions);
     return (EM_ReturnCode)eRet;
 }
 
 String^ CWordFormManaged::sGramHash()
 {
-    return gcnew String(spGetInstance()->sGramHash());
+    return gcnew String(pGetInstance()->sGramHash());
 }
 
 EM_ReturnCode CWordFormManaged::eInitFromHash(String^ sHash)
 {
-    return (EM_ReturnCode)spGetInstance()->eInitFromHash(sFromManagedString(sHash));
+    return (EM_ReturnCode)pGetInstance()->eInitFromHash(sFromManagedString(sHash));
 }
 
 EM_ReturnCode CWordFormManaged::eSaveIrregularForm()
 {
-    return (EM_ReturnCode)spGetInstance()->eSaveIrregularForm();
+    return (EM_ReturnCode)pGetInstance()->eSaveIrregularForm();
 }
 
 //EM_ReturnCode CWordFormManaged::eSetIrregularStressPositions(Dictionary<int, EM_StressType>^ dictPositions)
@@ -324,4 +323,3 @@ EM_ReturnCode CWordFormManaged::eSaveIrregularForm()
 
 //    return (EM_ReturnCode)eRet;
 //}
-

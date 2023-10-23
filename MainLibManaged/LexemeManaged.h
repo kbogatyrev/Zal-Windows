@@ -55,7 +55,7 @@ namespace MainLibManaged
         ~CLexemeManaged();
 
         EM_ReturnCode eCreateInflectionEnumerator(CInflectionEnumeratorManaged^%);
-        shared_ptr<CLexeme> spGetInstance();
+        CLexeme* pGetInstance();
         __int64 llLexemeId();
         __int64 llHeadwordId();
         EM_Gender eGender();

@@ -59,7 +59,7 @@ namespace MainLibManaged
         {
             if (spLexeme)
             {
-                auto iHandle = Singleton::pGetInstance()->iAddLexeme(spLexeme);
+                auto iHandle = Singleton::pGetInstance()->iAddLexeme(spLexeme.get());
                 lexeme = gcnew CLexemeManaged(iHandle);
             }
         }
@@ -74,7 +74,7 @@ namespace MainLibManaged
         {
             if (spLexeme)
             {
-                auto iHandle = Singleton::pGetInstance()->iAddLexeme(spLexeme);
+                auto iHandle = Singleton::pGetInstance()->iAddLexeme(spLexeme.get());
                 lexeme = gcnew CLexemeManaged(iHandle);
             }
         }
@@ -119,7 +119,7 @@ namespace MainLibManaged
             throw gcnew Exception(L"Unable to create lexeme.");
         }
 
-        auto iHandle = Singleton::pGetInstance()->iAddLexeme(spLexeme);
+        auto iHandle = Singleton::pGetInstance()->iAddLexeme(spLexeme.get());
 
         CLexemeManaged^ pManaged = gcnew CLexemeManaged(iHandle);
 
@@ -157,7 +157,7 @@ namespace MainLibManaged
         {
             if (spLexeme)
             {
-                lexeme = gcnew CLexemeManaged(Singleton::pGetInstance()->iAddLexeme(spLexeme));
+                lexeme = gcnew CLexemeManaged(Singleton::pGetInstance()->iAddLexeme(spLexeme.get()));
             }
         }
         return (EM_ReturnCode)eRet;
