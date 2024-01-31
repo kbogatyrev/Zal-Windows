@@ -11,7 +11,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
   xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
-  <Product Id="*" Name="Zalizniak's Grammatical Dictionary of Russian: Demo" Language="1033" Version="5.1.1.45" Manufacturer="Xiao Gogo Software and Baked Goods" UpgradeCode="DD5CB95E-6F3B-4684-8746-33800F1E9D82">
+  <Product Id="*" Name="Zalizniak's Grammatical Dictionary of Russian: Demo" Language="1033" Version="5.1.3.47" Manufacturer="Xiao Gogo Software and Baked Goods" UpgradeCode="DD5CB95E-6F3B-4684-8746-33800F1E9D82">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
