@@ -24,7 +24,7 @@ CAnalyticsManaged::~CAnalyticsManaged()
     delete m_pAnalytics;
 }
 
-EM_ReturnCode CAnalyticsManaged::eParseText(String^ sName, String^ sMetaData, String^ sText, long long% lParsedTextId, bool bIsProse)
+EM_ReturnCode CAnalyticsManaged::eParseText(String^ sMetaData, String^ sText, long long% lParsedTextId, bool bIsProse)
 {
     if (nullptr == m_pAnalytics)
     {
@@ -32,7 +32,7 @@ EM_ReturnCode CAnalyticsManaged::eParseText(String^ sName, String^ sMetaData, St
     }
 
     long long llId = 0;
-    auto eRet = (EM_ReturnCode)(*m_pAnalytics)->eParseText(sFromManagedString(sName), sFromManagedString(sMetaData), sFromManagedString(sText), llId, bIsProse);
+    auto eRet = (EM_ReturnCode)(*m_pAnalytics)->eParseText(sFromManagedString(sMetaData), sFromManagedString(sText), llId, bIsProse);
     lParsedTextId = llId;
 
     return eRet;

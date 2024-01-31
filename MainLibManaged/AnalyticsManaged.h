@@ -28,6 +28,6 @@ namespace MainLibManaged
         CAnalyticsManaged(shared_ptr<CAnalytics>);
         ~CAnalyticsManaged();
 
-        EM_ReturnCode eParseText(String^ sName, String^ sMetaData, String^ sText, long long% lParseTextId, bool bIsProse);
+        EM_ReturnCode eParseText(String^ sMetaData, String^ sText, long long% lParseTextId, bool bIsProse);
     };
 }       // namespace
