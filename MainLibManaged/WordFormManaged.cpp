@@ -11,12 +11,7 @@ using namespace MainLibManaged;
 using namespace std;
 
 CWordFormManaged::CWordFormManaged(int64_t iHandle) : m_iHandle(iHandle)
-{
-    if (0 == iHandle)
-    {
-        int figasse = -1;
-    }
-}
+{}
 
 CWordFormManaged::~CWordFormManaged()
 {

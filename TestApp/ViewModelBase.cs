@@ -226,6 +226,8 @@ namespace ZalTestApp
                     }
                 }
                 string sStressedForm = "";
+
+
                 Helpers.AssignDiacritics(sForm, ref sStressedForm);
                 var fd = new FormDescriptor();
                 CWordFormManaged wf = null;
@@ -235,7 +237,7 @@ namespace ZalTestApp
                 fd.IsUnsaved = true;
                 formsForHash.lstForms.Add(fd);
 
-                m_Inflection.AddModifiedForm(ref wf);
+//                m_Inflection.AddModifiedForm(ref wf);
 
                 eRet = m_Inflection.eSaveIrregularForms(sFormHash);
                 if (eRet != EM_ReturnCode.H_NO_ERROR)

@@ -253,7 +253,12 @@ namespace MainLibManaged
             auto iHandle = Singleton::pGetInstance()->iAddWordForm(spIwf.get());
             if (iHandle < 0)
             {
-                throw gcnew Exception(L"Failed to add a word form.");
+                throw gcnew Exception(L"Failed to add a new form.");
+            }
+            auto rc = Singleton::pGetInstance()->eStoreCreatedWordForm(spIwf);
+            if (rc != H_NO_ERROR)
+            {
+                throw gcnew Exception(L"Failed to store a new form.");
             }
             pWf = gcnew CWordFormManaged(iHandle);
         }
@@ -454,11 +459,33 @@ namespace MainLibManaged
 
     EM_ReturnCode CInflectionManaged::eSaveIrregularForms(String^ sGramHash)
     {
+        auto pSingleton = Singleton::pGetInstance();
+        if (pSingleton->iNCreatedForms() < 1)
+        {
+            return (EM_ReturnCode)H_FALSE;     // Error message??
+        }
+
         auto spInflection = pGetInstance();
         if (nullptr == spInflection)
         {
             throw gcnew Exception(L"Inflection object is NULL.");
         }
+
+        shared_ptr<CWordForm> spStoredForm;
+        auto rc = pSingleton->eGetFirstCreatedWordForm(spStoredForm);
+        if (rc != H_NO_ERROR)
+        {
+            throw gcnew Exception(L"Unable to retrieve first created form.");
+        }
+
+        while (H_NO_ERROR == rc)
+        {
+            spInflection->AddModifiedForm(spStoredForm);
+            rc = pSingleton->eGetNextCreatedWordForm(spStoredForm);
+        }
+
+        pSingleton->ClearCreatedForms();
+
         return (EM_ReturnCode)spInflection->eSaveIrregularForms(sFromManagedString(sGramHash));
     }
 
