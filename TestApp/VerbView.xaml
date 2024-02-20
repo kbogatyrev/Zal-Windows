@@ -131,7 +131,7 @@
                 <TextBox Name ="Impv_Pl_2" Text="{Binding Path=Impv_Pl_2}" Margin="375,640,0,0" Style="{Binding Impv_Pl_2_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
                 <Button Margin="523,644,0,0" CommandParameter="Impv_Pl_2" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Impv_Pl_2_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
                 <Button Margin="523,653,0,0" CommandParameter="Impv_Pl_2" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Impv_Pl_2_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
-                <Image HorizontalAlignment="Left" Margin="538,410,0,0" VerticalAlignment="Top" Style="{Binding Impv_Pl_2_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="538,645,0,0" VerticalAlignment="Top" Style="{Binding Impv_Pl_2_Marks, Converter={StaticResource StyleConverterMarks}}" />
                 <Button  Margin="553,640,0,0" CommandParameter="Impv_Sg_2" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding Impv_Sg_2_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                 <!-- Participles & adverbials -->
