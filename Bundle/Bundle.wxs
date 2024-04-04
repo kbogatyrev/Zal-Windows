@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?define S_MSI_DIR = "..\Installer\bin\Release" ?>
+<?define S_REDIST_DIR = "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\v143" ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<Bundle 
+			Name="А.А.Зализняк. Грамматический словарь русского языка. Электронная версия." 
+			Version="5.2.10.57" 
+			Manufacturer="Eight Twelve Papa Papa" 
+			UpgradeCode="64db7b44-b14d-4796-b9b7-ddf6cacd6423"
+	>
+	<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense" >
+		<bal:WixStandardBootstrapperApplication
+			LicenseUrl=""
+			xmlns:bal="http://schemas.microsoft.com/wix/BalExtension" />
+	</BootstrapperApplicationRef>
+
+	<util:RegistrySearch Root="HKLM" Key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64" Value="Version" Variable="VCRedistVersion" />
+		<Chain>
+			<ExePackage Id="VCRedist" Name="Microsoft Visual C++ 2022 Redistributable (x64) - 14.38.33135.00" Cache="no" Compressed="yes" PerMachine="yes" Permanent="yes" Vital="yes" InstallCommand="/q"
+			  SourceFile="$(var.S_REDIST_DIR)\vc_redist.x64.exe"
+			  DetectCondition="(VCRedistVersion = &quot;14.38.33135.00&quot;)"
+			  InstallCondition="(VersionNT64 >= v6.0) AND (NOT (VCRedistVersion = &quot;14.38.33135.00&quot;))"/>
+			<RollbackBoundary />
+			<MsiPackage SourceFile="$(var.S_MSI_DIR)\zal.msi" />
+		</Chain>
+	</Bundle>
+</Wix>
