@@ -69,7 +69,6 @@ namespace ZalTestApp
         protected MainModel m_MainModel = null;
         protected CLexemeManaged m_Lexeme = null;
         protected CInflectionManaged m_Inflection = null;
-
         protected Guid m_InstanceId;
 
         protected Dictionary<string, FormsForGramHash> m_DictFormStatus = new Dictionary<string, FormsForGramHash>();
@@ -226,7 +225,6 @@ namespace ZalTestApp
                     }
                 }
                 string sStressedForm = "";
-
 
                 Helpers.AssignDiacritics(sForm, ref sStressedForm);
                 var fd = new FormDescriptor();

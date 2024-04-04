@@ -217,7 +217,7 @@ namespace ZalTestApp
         {
             get 
             {
-                m_bIs_P2_optional = m_Lexeme.bSecondPrepositionalOptional();
+                m_bIs_P2_optional = m_Inflection.bSecondPrepositionalOptional();
                 return m_bIs_P2_optional; 
             }
             set
@@ -242,7 +242,7 @@ namespace ZalTestApp
             {
                 if (null == m_sNoun_Sg_P2_Prepositions)
                 {
-                    m_sNoun_Sg_P2_Prepositions = m_Lexeme.sP2Preposition();
+                    m_sNoun_Sg_P2_Prepositions = m_Inflection.sP2Preposition();
                 }
                 return m_sNoun_Sg_P2_Prepositions;
             }

@@ -106,8 +106,9 @@
                 <MenuItem Header="_Импорт" Command="{Binding ImportRegressionDataCommand}"/>
                 <MenuItem Header="_Тест" Command="{Binding ShowRegressionPageCommand}"/>
             </MenuItem>
-            <MenuItem Header="_Редактирование" IsEnabled="{Binding DbOpen}"  >
-                <MenuItem Header="_Создать новую статью" Command="{Binding NewLexemeCommand}"/>
+<!--"            <MenuItem Header="_Редактирование" IsEnabled="{Binding DbOpen}"  > -->
+                <MenuItem Header="_Редактирование" IsEnabled="false"  >
+                    <MenuItem Header="_Создать новую статью" Command="{Binding NewLexemeCommand}"/>
 <!--                <MenuItem Header="_Редактировать статью" Command="{Binding EditLexemeCommand}"/>  -->
             </MenuItem>
 

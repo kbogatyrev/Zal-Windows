@@ -117,6 +117,8 @@ namespace ZalTestApp
             }
         }
 
+        public HashSet<string> m_ShownInstanceHashes = new HashSet<string>();
+
         private LinkedListNode<ViewModelBase> m_CurrentViewModel = null;
         public ViewModelBase CurrentViewModel
         {
@@ -675,6 +677,7 @@ namespace ZalTestApp
                 }
 
                 bool bIsNewLexeme = true;
+                string sNewInstanceId = null;
                 foreach (ViewPage page in m_Pages)
                 {
                     LexemeViewModel knownLvm = (LexemeViewModel)page.LexemeInfo;
@@ -691,25 +694,25 @@ namespace ZalTestApp
                     var rc = inflection.eGetLexeme(ref lexeme);
                     if (rc != EM_ReturnCode.H_NO_ERROR || null == lexeme)
                     {
-                        MessageBox.Show("Не удалось получить доступ к лесеме.", "Zal");
+                        MessageBox.Show("Не удалось получить доступ к лексеме.", "Zal");
                         return;
                     }
-                    if (lexeme.llLexemeId() == knownLvm.Lexeme.llLexemeId() && 
-                        lexeme.llHeadwordId() == knownLvm.Lexeme.llHeadwordId() &&
-                        inflection.llInflectionId() == knownLvm.Inflection.llInflectionId())
+
+                    //                    if (lexeme.llLexemeId() == knownLvm.Lexeme.llLexemeId() && 
+                    //                        lexeme.llHeadwordId() == knownLvm.Lexeme.llHeadwordId() &&
+                    //                        inflection.llInflectionId() == knownLvm.Inflection.llInflectionId())                    
+                    if (m_ShownInstanceHashes.Contains(sHash))
                     {
                         bIsNewLexeme = false;
                         break;
                     }
                 }
 
-                if (!bIsNewLexeme)
+                if (bIsNewLexeme)
                 {
-//                    continue;
+                    m_ShownInstanceHashes.Add(sHash);
+                    ShowParadigm(inflection);
                 }
-
-                ShowParadigm(inflection);
-
             }       // foreach (ViewPage ...)
 
             //            m_CurrentViewModel = m_BreadCrumbs.AddAfter(m_CurrentViewModel, m_LexemeGridViewModel);
@@ -790,13 +793,14 @@ namespace ZalTestApp
         void NewLexeme(object obj)
         {
             CLexemeManaged lexeme = null;
+            CInflectionManaged inflection = null;
             var bRet = m_MainModel.bCreateLexeme(ref lexeme);
-            if (null == lexeme || !bRet)
+            if (null == lexeme || null == inflection|| !bRet)
             {
                 return;
             }
 
-            EnterLexemePropertiesViewModel elpModel = new EnterLexemePropertiesViewModel(lexeme, true);
+            EnterLexemePropertiesViewModel elpModel = new EnterLexemePropertiesViewModel(lexeme, inflection, true);
             EnterLexemePropertiesDlg dlg = new EnterLexemePropertiesDlg(elpModel);
             dlg.Owner = Application.Current.MainWindow;
 
@@ -829,13 +833,15 @@ namespace ZalTestApp
             }
 
             CLexemeManaged targetLexeme = null;
-            bool bRet = m_MainModel.bEditLexeme(sourceLexeme, ref targetLexeme);
+            CInflectionManaged targetInflection = null;
+            //            bool bRet = m_MainModel.bEditLexeme(sourceLexeme, ref targetLexeme, ref targetInflection);
+            bool bRet = m_MainModel.bEditLexeme(m_Inflection, ref targetInflection);
             if (!bRet)
             {
                 return;
             }
 
-            EnterLexemePropertiesViewModel elpModel = new EnterLexemePropertiesViewModel(targetLexeme, false);
+            EnterLexemePropertiesViewModel elpModel = new EnterLexemePropertiesViewModel(targetLexeme, targetInflection, false);
             elpModel.ShowParadigmForEditEvent += ShowParadigm;
             EnterLexemePropertiesDlg dlg = new EnterLexemePropertiesDlg(elpModel);
             dlg.Owner = Application.Current.MainWindow;

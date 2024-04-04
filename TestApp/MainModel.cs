@@ -258,7 +258,7 @@ namespace ZalTestApp
             }
         }
 
-        public bool bEditLexeme(CLexemeManaged sourceL, ref CLexemeManaged copyL)
+        public bool bEditLexeme(CInflectionManaged sourceI, ref CInflectionManaged copyI)
         {
             if (null == m_Dictionary)
             {
@@ -266,7 +266,7 @@ namespace ZalTestApp
                 return false;
             }
 
-            m_Dictionary.eCopyEntryForEdit(sourceL, copyL);
+            m_Dictionary.eCopyEntryForEdit(sourceI, copyI);
 
             return true;
         }
@@ -493,15 +493,15 @@ return true;
             return true;
         }
 
-        public bool IsP2Optonal(CLexemeManaged lexeme)
-        {
-            return lexeme.bSecondPrepositionalOptional();
-        }
+//        public bool IsP2Optonal(CLexemeManaged lexeme)
+//        {
+//            return lexeme.bSecondPrepositionalOptional();
+//        }
 
-        public string sGetP2Prepositions(CLexemeManaged lexeme)
-        {
-            return lexeme.sP2Preposition();
-        }
+//        public string sGetP2Prepositions(CLexemeManaged lexeme)
+//        {
+//            return lexeme.sP2Preposition();
+//        }
 
         // Remove from the database
         public EM_ReturnCode eDeleteLexeme(CLexemeManaged l)
@@ -827,9 +827,9 @@ return true;
 
             MainLibManaged.DelegateProgress DelegateProgress = new MainLibManaged.DelegateProgress(callback);
 
-            //            var eRet = m_Dictionary.eImportTestData(sPath, callback);
-            //            return eRet;
-            return EM_ReturnCode.H_UNAVAILABLE;
+            var eRet = m_Dictionary.eImportTestData(sPath, callback);
+            return eRet;
+//            return EM_ReturnCode.H_UNAVAILABLE;
         }
 
         public EM_ReturnCode ExportRegressionData(string sPath, MainLibManaged.DelegateProgress callback)
@@ -841,8 +841,8 @@ return true;
 
             MainLibManaged.DelegateProgress DelegateProgress = new MainLibManaged.DelegateProgress(callback);
 
-//            var eRet = m_Dictionary.eExportTestData(sPath, callback);
-//            return eRet;
+            var eRet = m_Dictionary.eExportTestData(sPath, callback);
+            return eRet;
             return EM_ReturnCode.H_UNAVAILABLE;
         }
 
