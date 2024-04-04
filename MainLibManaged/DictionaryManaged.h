@@ -53,7 +53,7 @@ namespace MainLibManaged
         EM_ReturnCode eSetDbPath(String^ sDbPath);
         String^ sGetDbPath();
         CLexemeManaged^ CreateLexemeForEdit();
-        EM_ReturnCode eCopyEntryForEdit(CLexemeManaged^ pSourceL, CLexemeManaged^ pTargetL);
+        EM_ReturnCode eCopyEntryForEdit(CInflectionManaged^ pSourceI, CInflectionManaged^ pTargetI);
 
         EM_ReturnCode eGetLexemeById(long long Id, CLexemeManaged^% pLexeme);
         EM_ReturnCode eGetLexemesByHash(String^);
@@ -71,6 +71,8 @@ namespace MainLibManaged
         EM_ReturnCode eGetParser(CParserManaged^%);
         EM_ReturnCode eGetAnalytics(CAnalyticsManaged^%);
         EM_ReturnCode eGetVerifier(CVerifierManaged^%);
+        EM_ReturnCode eImportTestData(String^ sPath, DelegateProgress^ progressCallback);
+        EM_ReturnCode eExportTestData(String^ sPath, DelegateProgress^ progressCallback);
 
     };      //  CDictionaryManaged
 

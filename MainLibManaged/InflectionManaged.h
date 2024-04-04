@@ -82,6 +82,18 @@ namespace MainLibManaged
         void SetFleetingVowel(bool);
         int iStemAugment();
         void SetStemAugment(int);
+
+        bool bSecondGenitive();
+        void SetSecondGenitive(bool);
+        String^ sComment();
+        void SetComment(String^);
+        bool bSecondPrepositional();
+        void SetSecondPrepositional(bool);
+        bool bSecondPrepositionalOptional();
+        void SetSecondPrepositionalOptional(bool);
+        String^ sP2Preposition();
+        void SetP2Preposition(String^);
+
         EM_ReturnCode eAddCommonDeviation(int iValue, bool bIsOptional);
         void ClearCommonDeviations();
         bool bFindCommonDeviation(int iNum, bool% bIsOptional);

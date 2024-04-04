@@ -188,6 +188,55 @@ namespace MainLibManaged
         return pGetInstance()->SetStemAugment(iValue);
     }
 
+    bool CInflectionManaged::bSecondGenitive()
+    {
+        return pGetInstance()->bSecondGenitive();
+    }
+
+    void CInflectionManaged::SetSecondGenitive(bool bValue)
+    {
+        pGetInstance()->SetSecondGenitive(bValue);
+    }
+
+    String^ CInflectionManaged::sComment()
+    {
+        return gcnew String(pGetInstance()->sComment());
+    }
+
+    void CInflectionManaged::SetComment(String^ sValue)
+    {
+        pGetInstance()->SetComment(sFromManagedString(sValue));
+    }
+
+    bool CInflectionManaged::bSecondPrepositional()
+    {
+        return pGetInstance()->bSecondPrepositional();
+    }
+
+    void CInflectionManaged::SetSecondPrepositional(bool bValue)
+    {
+        pGetInstance()->SetSecondPrepositional(bValue);
+    }
+
+    bool CInflectionManaged::bSecondPrepositionalOptional()
+    {
+        return pGetInstance()->bSecondPrepositionalOptional();
+    }
+
+    void CInflectionManaged::SetSecondPrepositionalOptional(bool bValue)
+    {
+        pGetInstance()->SetSecondPrepositionalOptional(bValue);
+    }
+
+    String^ CInflectionManaged::sP2Preposition()
+    {
+        return gcnew String(pGetInstance()->sP2Preposition());
+    }
+
+    void CInflectionManaged::SetP2Preposition(String^ sValue)
+    {
+        pGetInstance()->SetP2Preposition(sFromManagedString(sValue));
+    }
 
     EM_ReturnCode CInflectionManaged::eAddCommonDeviation(int iValue, bool bIsOptional)
     {

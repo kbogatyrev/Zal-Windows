@@ -125,14 +125,14 @@ namespace MainLibManaged
         void SetNoComparative(bool);
         bool bAssumedForms();
         void SetAssumedForms(bool);
-        bool bSecondGenitive();
-        void SetSecondGenitive(bool);
-        bool bSecondPrepositional();
-        void SetSecondPrepositional(bool);
-        bool bSecondPrepositionalOptional();
-        void SetSecondPrepositionalOptional(bool);
-        String^ sP2Preposition();
-        void SetP2Preposition(String^);
+//        bool bSecondGenitive();
+//        void SetSecondGenitive(bool);
+//        bool bSecondPrepositional();
+//        void SetSecondPrepositional(bool);
+//        bool bSecondPrepositionalOptional();
+//        void SetSecondPrepositionalOptional(bool);
+//        String^ sP2Preposition();
+//        void SetP2Preposition(String^);
         bool bHasAspectPair();
         void SetHasAspectPair(bool);
         bool bHasAltAspectPair();
@@ -168,6 +168,7 @@ namespace MainLibManaged
         void SetIsSecondPart(bool);
         bool bSpryazhSm();
         String^ sSpryazhSmRefSource();
+        String^ sSpryazhSmComment();
         EM_Subparadigm eSubparadigm();
         void SetSubparadigm(EM_Subparadigm);    // currently only used with numerals
         bool bFindStandardAlternation(String^ sKey, String^% sValue);

@@ -193,6 +193,7 @@ namespace ZalTestApp
 
         public LexemeViewModel(CInflectionManaged inflection)
         {
+            
             var rc = inflection.eGetLexeme(ref m_Lexeme);
             if (rc != EM_ReturnCode.H_NO_ERROR || null == m_Lexeme)
             {
@@ -315,7 +316,18 @@ namespace ZalTestApp
                 string sSourceFormWithAccents = "";
                 Helpers.AssignDiacritics(sVariant, ref sSourceFormWithAccents);
 
-                AddProperty("Вариант:", sSourceFormWithAccents);
+                String sPropertyName = "Вариант";
+                if (m_Lexeme.sHeadwordVariantComment().Length > 0)
+                {
+                    sPropertyName += " (" + m_Lexeme.sHeadwordVariantComment() + ")";
+                }
+                sPropertyName += ":";
+                AddProperty(sPropertyName, sSourceFormWithAccents);
+            }
+
+            if (m_Lexeme.sSpryazhSmComment().Length > 0)
+            {
+                AddProperty("Доп. помета (5):", m_Lexeme.sSpryazhSmComment());
             }
 
             if (m_Lexeme.sSpryazhSmRefSource().Length > 0)
@@ -378,6 +390,11 @@ namespace ZalTestApp
                 AddProperty("Схема ударения:", sRet);
             }
 
+            if (m_Inflection.sComment().Length > 0)
+            {
+                AddProperty("Доп. помета (4):", m_Inflection.sComment());
+            }
+
             if (m_Lexeme.sComment().Length > 0)
             {
                 AddProperty("Доп. указания:", m_Lexeme.sComment());
@@ -425,7 +442,10 @@ namespace ZalTestApp
 
             if (m_Lexeme.sHeadwordComment().Length > 0)
             {
-                AddProperty("Доп. помета (1):", m_Lexeme.sHeadwordComment());
+                string sCommentWithAccents = "";
+                Helpers.AssignDiacritics(m_Lexeme.sHeadwordComment(), ref sCommentWithAccents);
+
+                AddProperty("Доп. помета (1):", sCommentWithAccents);
             }
 
             if (m_Lexeme.sPluralOf().Length > 0)
@@ -451,7 +471,7 @@ namespace ZalTestApp
 
             if (m_Lexeme.sTrailingComment().Length > 0)
             {
-                AddProperty("Доп. помета (3):", m_Lexeme.sTrailingComment());
+                AddProperty("Доп. помета (3):", "("+m_Lexeme.sTrailingComment()+")");
             }
 
             if (m_Lexeme.sRestrictedContexts().Length > 0)

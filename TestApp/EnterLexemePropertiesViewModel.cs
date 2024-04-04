@@ -14,7 +14,7 @@ namespace ZalTestApp
 {
     public class EnterLexemePropertiesViewModel : ViewModelBase
     {
-        public delegate void ShowParadigmForEditHandler(CInflectionManaged l);
+        public delegate void ShowParadigmForEditHandler(CInflectionManaged i);
         public event ShowParadigmForEditHandler ShowParadigmForEditEvent;
 
         HashSet<string> m_PropertiesChanged;
@@ -96,8 +96,8 @@ namespace ZalTestApp
                     m_sSourceForm = value;
                     if (!SourceFormIsIrregular)
                     {
-                        m_Inflection.eMakeGraphicStem();
-                        GraphicStem = m_Lexeme.sGraphicStem();
+//                        m_Inflection.eMakeGraphicStem();
+//                        GraphicStem = m_Lexeme.sGraphicStem();
                     }
                 }
                 OnPropertyChanged("SourceForm");
@@ -1513,7 +1513,7 @@ namespace ZalTestApp
                 bool bRet = bGetYesNoValue("SecondGenitive", m_sSecondGenitive, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetSecondGenitive(bValue);
+                    m_Inflection.SetSecondGenitive(bValue);
                 }
                 return bRet;
             });
@@ -1524,7 +1524,7 @@ namespace ZalTestApp
                 bool bRet = bGetYesNoValue("SecondLocative", m_sSecondPrepositional, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetSecondPrepositional(bValue);
+                    m_Inflection.SetSecondPrepositional(bValue);
                 }
                 return bRet;
             });
@@ -1535,7 +1535,7 @@ namespace ZalTestApp
                 bool bRet = bGetYesNoValue("SecondPrepositionalOptional", m_sSecondPrepositionalOptional, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetSecondPrepositionalOptional(bValue);
+                    m_Inflection.SetSecondPrepositionalOptional(bValue);
                 }
                 return bRet;
             });
@@ -1546,7 +1546,7 @@ namespace ZalTestApp
                 {
                     return true;
                 }
-                m_Lexeme.SetP2Preposition(m_sP2Preposition);
+                m_Inflection.SetP2Preposition(m_sP2Preposition);
                 return true;
             });
 
@@ -1856,7 +1856,7 @@ namespace ZalTestApp
                 bool bRet = bGetYesNoValue("Gen2", m_sGen2, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetSecondGenitive(bValue);
+                    m_Inflection.SetSecondGenitive(bValue);
                 }
                 return bRet;
             });
@@ -1867,7 +1867,7 @@ namespace ZalTestApp
                 bool bRet = bGetYesNoValue("P2", m_sP2, ref bValue);
                 if (bRet)
                 {
-                    m_Lexeme.SetSecondPrepositional(bValue);
+                    m_Inflection.SetSecondPrepositional(bValue);
                 }
                 return bRet;
             });
@@ -1938,8 +1938,10 @@ namespace ZalTestApp
         }   //  InitChangedPropertyHandlers()
         #endregion
 
-    public EnterLexemePropertiesViewModel(CLexemeManaged lexeme, bool bIsNew)
+    public EnterLexemePropertiesViewModel(CLexemeManaged lexeme, CInflectionManaged inflection, bool bIsNew)
     {
+        m_Lexeme = lexeme;
+        m_Inflection  = inflection;
         m_PropertiesChanged = new HashSet<string>();
         m_sSourceForm = "";
         m_bPropertiesChanged = false;
@@ -2199,10 +2201,10 @@ namespace ZalTestApp
             Section = m_Lexeme.iSection();
             NoComparative = m_Lexeme.bNoComparative() ? m_YesNoValues[0] : m_YesNoValues[1];
             AssumedForms = m_Lexeme.bAssumedForms() ? m_YesNoValues[0] : m_YesNoValues[1];
-            SecondGenitive = m_Lexeme.bSecondGenitive() ? m_YesNoValues[0] : m_YesNoValues[1];
-            SecondPrepositional = m_Lexeme.bSecondPrepositional() ? m_YesNoValues[0] : m_YesNoValues[1];
-            SecondPrepositionalOptional = m_Lexeme.bSecondPrepositionalOptional() ? m_YesNoValues[0] : m_YesNoValues[1];
-            P2Preposition = m_Lexeme.sP2Preposition();
+            SecondGenitive = m_Inflection.bSecondGenitive() ? m_YesNoValues[0] : m_YesNoValues[1];
+            SecondPrepositional = m_Inflection.bSecondPrepositional() ? m_YesNoValues[0] : m_YesNoValues[1];
+            SecondPrepositionalOptional = m_Inflection.bSecondPrepositionalOptional() ? m_YesNoValues[0] : m_YesNoValues[1];
+            P2Preposition = m_Inflection.sP2Preposition();
             HasAspectPair = m_Lexeme.bHasAspectPair() ? m_YesNoValues[0] : m_YesNoValues[1];
 
             m_sSvToNsv = "";

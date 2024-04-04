@@ -126,7 +126,7 @@ namespace MainLibManaged
         return pManaged;
     }
 
-    EM_ReturnCode CDictionaryManaged::eCopyEntryForEdit(CLexemeManaged^ sourceL, CLexemeManaged^ targetL)
+    EM_ReturnCode CDictionaryManaged::eCopyEntryForEdit(CInflectionManaged^ sourceI, CInflectionManaged^ targetI)
     {
         /*
 
@@ -455,36 +455,19 @@ namespace MainLibManaged
         return (EM_ReturnCode)eRet;
     }
 
-/*
-    EM_ReturnCode CDictionaryManaged::eExportTestData(String^ sPath, DelegateProgress^ progressCallback)
-    {
-       if (nullptr == m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
-        GCHandle gch = GCHandle::Alloc(progressCallback);
-        IntPtr iptr = Marshal::GetFunctionPointerForDelegate(progressCallback);
-        PROGRESS_CALLBACK_CLR pProgress = static_cast<PROGRESS_CALLBACK_CLR>(iptr.ToPointer());
-
-        return (EM_ReturnCode)m_pDictionary->eExportTestData(sFromManagedString(sPath), *pProgress);
-    }
-
     EM_ReturnCode CDictionaryManaged::eImportTestData(String^ sPath, DelegateProgress^ progressCallback)
     {
-       if (nullptr == m_pDictionary)
-        {
-            throw gcnew Exception(L"Dictionary object is NULL.");
-        }
-
         GCHandle gch = GCHandle::Alloc(progressCallback);
         IntPtr iptr = Marshal::GetFunctionPointerForDelegate(progressCallback);
         PROGRESS_CALLBACK_CLR pProgress = static_cast<PROGRESS_CALLBACK_CLR>(iptr.ToPointer());
-
-        return (EM_ReturnCode)m_pDictionary->eImportTestData(sFromManagedString(sPath), *pProgress);
+        return (EM_ReturnCode)spGetInstance()->eImportTestData(sFromManagedString(sPath), *pProgress);
     }
-    */
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    EM_ReturnCode CDictionaryManaged::eExportTestData(String^ sPath, DelegateProgress^ progressCallback)
+    {
+        GCHandle gch = GCHandle::Alloc(progressCallback);
+        IntPtr iptr = Marshal::GetFunctionPointerForDelegate(progressCallback);
+        PROGRESS_CALLBACK_CLR pProgress = static_cast<PROGRESS_CALLBACK_CLR>(iptr.ToPointer());
+        return (EM_ReturnCode)spGetInstance()->eExportTestData(sFromManagedString(sPath), *pProgress);
+    }
 }       // namespace

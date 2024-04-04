@@ -883,6 +883,15 @@ String^ CLexemeManaged::sSpryazhSmRefSource()
     return gcnew String(pLexeme->sSpryazhSmRefSource());
 }
 
+String^ CLexemeManaged::sSpryazhSmComment()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return gcnew String(pLexeme->sSpryazhSmComment());
+}
 
 EM_Subparadigm CLexemeManaged::eSubparadigm()
 {
@@ -924,6 +933,7 @@ void CLexemeManaged::SetAssumedForms(bool bValue)
     pLexeme->SetAssumedForms(bValue);
 }
 
+/*
 bool CLexemeManaged::bSecondGenitive()
 {
     auto pLexeme = pGetInstance();
@@ -1003,6 +1013,7 @@ void CLexemeManaged::SetP2Preposition(String^ sValue)
     }
     pLexeme->SetP2Preposition(sFromManagedString(sValue));
 }
+*/
 
 bool CLexemeManaged::bNoLongForms()
 {
