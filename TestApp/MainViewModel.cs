@@ -676,6 +676,7 @@ namespace ZalTestApp
                     return;
                 }
 
+/*
                 bool bIsNewLexeme = true;
                 string sNewInstanceId = null;
                 foreach (ViewPage page in m_Pages)
@@ -707,8 +708,9 @@ namespace ZalTestApp
                         break;
                     }
                 }
+*/
 
-                if (bIsNewLexeme)
+                if (!m_ShownInstanceHashes.Contains(sHash))
                 {
                     m_ShownInstanceHashes.Add(sHash);
                     ShowParadigm(inflection);
@@ -1349,6 +1351,7 @@ namespace ZalTestApp
             try
             {
                 ViewModelBase vm = (ViewModelBase)arg;
+                m_ShownInstanceHashes.Remove(vm.ParadigmHash);
 
                 List<ViewPage> pagesToRemove = new List<ViewPage>();
 

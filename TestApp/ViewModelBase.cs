@@ -17,6 +17,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Linq;
 using MainLibManaged;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace ZalTestApp
 {
@@ -84,6 +85,21 @@ namespace ZalTestApp
             get
             {
                 return m_InstanceId.ToString();
+            }
+        }
+
+        public string ParadigmHash
+        {
+            get 
+            {
+                if (m_Inflection != null)
+                {
+                    return m_Inflection.sParadigmHash();
+                }
+                else
+                {
+                    return "";
+                }
             }
         }
 
