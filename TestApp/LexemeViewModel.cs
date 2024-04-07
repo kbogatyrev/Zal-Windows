@@ -397,7 +397,7 @@ namespace ZalTestApp
 
             if (m_Lexeme.sComment().Length > 0)
             {
-                AddProperty("Доп. указания:", m_Lexeme.sComment());
+                AddProperty("Доп. указания:", "("+m_Lexeme.sComment()+")");
             }
 
             if (Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
