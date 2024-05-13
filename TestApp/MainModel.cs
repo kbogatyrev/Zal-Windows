@@ -882,6 +882,7 @@ return true;
             {
                 case EM_PartOfSpeech.POS_NOUN:
                 case EM_PartOfSpeech.POS_PRONOUN:
+                case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
                     return bGenerateNominalForms(inflection);
 
                 case EM_PartOfSpeech.POS_NUM:
@@ -903,7 +904,6 @@ return true;
                 case EM_PartOfSpeech.POS_PARENTH:
                 case EM_PartOfSpeech.POS_PREDIC:
                 case EM_PartOfSpeech.POS_PREPOSITION:
-                case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
                 case EM_PartOfSpeech.POS_NULL:
                     return bGetUninflectedForm(inflection);
 
@@ -942,6 +942,7 @@ return true;
                             break;
 
                         case EM_PartOfSpeech.POS_PRONOUN:
+                        case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
                             sKey = "Pronoun";
                             break;
 

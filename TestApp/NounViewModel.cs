@@ -630,6 +630,7 @@ namespace ZalTestApp
                         break;
 
                     case EM_PartOfSpeech.POS_PRONOUN:
+                    case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
                         listKeys = Helpers.m_listPropNamesPronoun;
                         break;
 
@@ -665,6 +666,7 @@ namespace ZalTestApp
                                 break;
 
                             case EM_PartOfSpeech.POS_PRONOUN:
+                            case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
                                 m_eSubparadigm = EM_Subparadigm.SUBPARADIGM_PRONOUN;
                                 break;
 

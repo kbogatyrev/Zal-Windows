@@ -315,6 +315,7 @@ namespace ZalTestApp
                     break;
 
                 case EM_PartOfSpeech.POS_PRONOUN:
+                case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
                     lstDisplayPropNames = Helpers.m_listPropNamesNoun;
                     lstPropNames = Helpers.m_listPropNamesPronoun;
                     break;
@@ -495,7 +496,9 @@ namespace ZalTestApp
         {
             string sHash = m_Inflection.sParadigmHash();
             var sFormHash = sDisplayHashToFormHash(sDisplayHash, m_Lexeme.ePartOfSpeech(), eSubparadigm);
-            if (sFormHash == "" || m_MainModel.bIsMissing(sHash, sFormHash))
+            if (sFormHash == "" || 
+                sFormHash == "Pronoun_Sg_P2" || sFormHash == "Pronoun_Sg_P2_Prepositions" || sFormHash == "Pronoun_Sg_Part" ||
+                m_MainModel.bIsMissing(sHash, sFormHash))
             {
                 return ECellStatus.Missing;
             }

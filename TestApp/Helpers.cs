@@ -230,7 +230,7 @@ namespace ZalTestApp
                 case "союз":
                     return EM_MainSymbol.MS_SOJUZ;
                 case "предик.":
-                    return EM_MainSymbol.MS_PREDIK;
+                    return EM_MainSymbol.MS_PREDIC;
                 case "вводн.":
                     return EM_MainSymbol.MS_VVODN;
                 case "сравн.":

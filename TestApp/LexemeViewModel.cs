@@ -397,7 +397,7 @@ namespace ZalTestApp
 
             if (m_Lexeme.sComment().Length > 0)
             {
-                AddProperty("Доп. указания:", "("+m_Lexeme.sComment()+")");
+                AddProperty("Доп. указания:", m_Lexeme.sComment());
             }
 
             if (Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
@@ -458,10 +458,10 @@ namespace ZalTestApp
                 AddProperty("Доп. помета (2):", m_Lexeme.sUsage());
             }
 
-            if (m_Lexeme.sSeeRef().Length > 0)
-            {
-                AddProperty("См. также:", m_Lexeme.sSeeRef());
-            }
+//            if (m_Lexeme.sSeeRef().Length > 0)
+//            {
+//                AddProperty("См. также:", m_Lexeme.sSeeRef());
+//            }
 
             if (m_Inflection.iStemAugment() > 0)
             {

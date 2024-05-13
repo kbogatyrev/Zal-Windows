@@ -1076,7 +1076,8 @@ namespace ZalTestApp
             {
                 case EM_PartOfSpeech.POS_NOUN:
                 case EM_PartOfSpeech.POS_PRONOUN:
-//                case EM_PartOfSpeech.POS_NUM:
+                case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
+                    //                case EM_PartOfSpeech.POS_NUM:
                     paradigmViewModel = new NounViewModel(inflection, m_MainModel);
                     break;
                 case EM_PartOfSpeech.POS_NUM:
@@ -1111,7 +1112,6 @@ namespace ZalTestApp
                 case EM_PartOfSpeech.POS_PARTICLE:
                 case EM_PartOfSpeech.POS_PREDIC:
                 case EM_PartOfSpeech.POS_PREPOSITION:
-                case EM_PartOfSpeech.POS_PRONOUN_PREDIC:
                 case EM_PartOfSpeech.POS_NULL:
                     paradigmViewModel = new ViewModelBase();
                     break;
