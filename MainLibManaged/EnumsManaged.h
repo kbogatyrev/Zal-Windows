@@ -62,7 +62,7 @@ namespace MainLibManaged
         MS_N,
         MS_PREDL,
         MS_SOJUZ,
-        MS_PREDIK,
+        MS_PREDIC,
         MS_VVODN,
         MS_SRAVN,
         MS_CHAST,
