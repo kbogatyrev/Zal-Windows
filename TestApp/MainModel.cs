@@ -609,7 +609,7 @@ return true;
             m_dctHashToWordform.Clear();
 
             var eRet = m_Dictionary.eGetLexemesByInitialForm(str);
-            if (eRet != EM_ReturnCode.H_NO_MORE && eRet != EM_ReturnCode.H_FALSE)
+            if (eRet != EM_ReturnCode.H_NO_ERROR && eRet != EM_ReturnCode.H_NO_MORE && eRet != EM_ReturnCode.H_FALSE)
             {
                 System.Windows.MessageBox.Show("Lexeme not found -- error in DB lookup.");
                 return;
