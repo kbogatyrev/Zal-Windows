@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3514A464-8EA8-46E7-9034-03952C791845}"
 EndProject
-Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "installer", "installer\installer.wixproj", "{E9FF79AC-59E8-4D07-AA47-4E17FA01B6C3}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "installer", "installer\installer.wixproj", "{E9FF79AC-59E8-4D07-AA47-4E17FA01B6C3}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZalMainLib", "..\Zal-Core\MainLib\ZalMainLib.vcxproj", "{3F332260-4174-4C50-9604-17B12D745AE6}"
 EndProject
@@ -13,7 +13,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZalMainLibManaged", "MainLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZalUi", "TestApp\ZalUi.csproj", "{7E8D98A4-F05C-4966-B55A-AFB94BE746A5}"
 EndProject
-Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "Bundle", "Bundle\Bundle.wixproj", "{64DB7B44-B14D-4796-B9B7-DDF6CACD6423}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Bundle", "Bundle\Bundle.wixproj", "{64DB7B44-B14D-4796-B9B7-DDF6CACD6423}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,7 +34,7 @@ Global
 		{E9FF79AC-59E8-4D07-AA47-4E17FA01B6C3}.Debug|ARM.Build.0 = Debug|x86
 		{E9FF79AC-59E8-4D07-AA47-4E17FA01B6C3}.Debug|ARM64.ActiveCfg = Debug|x86
 		{E9FF79AC-59E8-4D07-AA47-4E17FA01B6C3}.Debug|ARM64.Build.0 = Debug|x86
-		{E9FF79AC-59E8-4D07-AA47-4E17FA01B6C3}.Debug|x64.ActiveCfg = Debug|x86
+		{E9FF79AC-59E8-4D07-AA47-4E17FA01B6C3}.Debug|x64.ActiveCfg = Release|x86
 		{E9FF79AC-59E8-4D07-AA47-4E17FA01B6C3}.Debug|x86.ActiveCfg = Debug|x86
 		{E9FF79AC-59E8-4D07-AA47-4E17FA01B6C3}.Debug|x86.Build.0 = Debug|x86
 		{E9FF79AC-59E8-4D07-AA47-4E17FA01B6C3}.Release|Any CPU.ActiveCfg = Release|x86
@@ -111,8 +111,8 @@ Global
 		{64DB7B44-B14D-4796-B9B7-DDF6CACD6423}.Debug|ARM.Build.0 = Debug|x86
 		{64DB7B44-B14D-4796-B9B7-DDF6CACD6423}.Debug|ARM64.ActiveCfg = Debug|x86
 		{64DB7B44-B14D-4796-B9B7-DDF6CACD6423}.Debug|ARM64.Build.0 = Debug|x86
-		{64DB7B44-B14D-4796-B9B7-DDF6CACD6423}.Debug|x64.ActiveCfg = Debug|x86
-		{64DB7B44-B14D-4796-B9B7-DDF6CACD6423}.Debug|x64.Build.0 = Debug|x86
+		{64DB7B44-B14D-4796-B9B7-DDF6CACD6423}.Debug|x64.ActiveCfg = Release|x86
+		{64DB7B44-B14D-4796-B9B7-DDF6CACD6423}.Debug|x64.Build.0 = Release|x86
 		{64DB7B44-B14D-4796-B9B7-DDF6CACD6423}.Debug|x86.ActiveCfg = Debug|x86
 		{64DB7B44-B14D-4796-B9B7-DDF6CACD6423}.Debug|x86.Build.0 = Debug|x86
 		{64DB7B44-B14D-4796-B9B7-DDF6CACD6423}.Release|Any CPU.ActiveCfg = Release|x86
