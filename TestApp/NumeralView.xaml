@@ -18,8 +18,8 @@
                 <!-- Case Labels -->
                 <TextBox Text="И" Margin="133,70,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="В" Margin="133,115,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="Р" Margin="133,205,0,0" Style="{StaticResource FormLabelWide}" />
-                <TextBox Text="П" Margin="133,160,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="Р" Margin="133,160,0,0" Style="{StaticResource FormLabelWide}" />
+                <TextBox Text="П" Margin="133,205,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="Д" Margin="133,250,0,0" Style="{StaticResource FormLabelWide}" />
                 <TextBox Text="Т" Margin="133,295,0,0" Style="{StaticResource FormLabelWide}" />
 
