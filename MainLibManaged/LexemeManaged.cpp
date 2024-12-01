@@ -1384,6 +1384,17 @@ void CLexemeManaged::SetAltAspectPairType(int iValue)
     pLexeme->SetAltAspectPairType(iValue);
 }
 
+String^ CLexemeManaged::sAspectPairComment()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    return gcnew String(pLexeme->sAspectPairComment());
+}
+
 String^ CLexemeManaged::sAltAspectPairComment()
 {
     auto pLexeme = pGetInstance();

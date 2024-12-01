@@ -25,7 +25,7 @@ namespace ZalTestApp
                                           "TrailingComment", "VerbStemAlternation", "PartPastPassZhd", "Section", "NoComparative", "AssumedForms", "DescriptorComment", "IsTransitive" };
         string[] InflectionProperties = { "Index", "StressType1", "StressType2", "SmallCircle", "FleetingVowel", "XSymbol", "FramedXSymbol", "IsPrimaryInflectionGroup" };
         string[] CommonDeviationProperties = { "NumberInCircle" };
-        string[] AspectPairProperties = { "SvToNsv", "NsvToSv", "AltAspectPairComment" };
+        string[] AspectPairProperties = { "SvToNsv", "NsvToSv", "AspectPairComment", "AltAspectPairComment" };
         string[] Gen2Properties = { "Gen2", "SecondGenitive" };
         string[] P2Properties = { "P2", "P2Preposition" };
 
@@ -739,24 +739,41 @@ namespace ZalTestApp
             }
         }
 
-/*
-        private string m_sAspectPairData;
-        public string AspectPairData
+        /*
+                private string m_sAspectPairData;
+                public string AspectPairData
+                {
+                    get
+                    {
+                        return m_sAspectPairData;
+                    }
+                    set
+                    {
+                        if (value != m_sAspectPairData)
+                        {
+                            m_sAspectPairData = value;
+                        }
+                        OnPropertyChanged("AspectPairData");
+                    }
+                }
+        */
+
+        private string m_sAspectPairComment;
+        public string AspectPairComment
         {
             get
             {
-                return m_sAspectPairData;
+                return m_sAspectPairComment;
             }
             set
             {
-                if (value != m_sAspectPairData)
+                if (value != m_sAspectPairComment)
                 {
-                    m_sAspectPairData = value;
+                    m_sAspectPairComment = value;
                 }
-                OnPropertyChanged("AspectPairData");
+                OnPropertyChanged("AspectPairComment");
             }
         }
-*/
 
         private string m_sAltAspectPairComment;
         public string AltAspectPairComment

@@ -425,10 +425,54 @@ namespace ZalTestApp
                                 char chrMark = '\x301';
                                 sAltAspectPair = sAltAspectPair.Insert(iAltStressPos + 1, chrMark.ToString());
                             }
-                            sAspectPair += ", ";
-                            sAspectPair += sAltAspectPair;
+//                            sAspectPair += ", ";
+//                            sAspectPair += sAltAspectPair;
+                        }
+
+                        string sAspectPairComment = m_Lexeme.sAspectPairComment();
+                        if (sAspectPairComment.Length > 0)
+                        {
+                            if ("см." == sAspectPairComment)
+                            {
+                                sAspectPair += " (см.)";
+                            }
+                            else
+                            {
+                                if ("устар." == sAspectPairComment || "устаревш." == sAspectPairComment || "простореч." == sAspectPairComment)
+                                {
+                                    sAspectPair = sAspectPairComment + " " + sAspectPair;
+                                }
+                                else
+                                {
+//                                    AddSingleProperty(sAspectPairComment);
+                                }
+                            }
                         }
                         AddProperty("Видовая пара:", sAspectPair);
+
+                        string sAltAspectPairComment = m_Lexeme.sAltAspectPairComment();
+                        if (sAltAspectPairComment.Length > 0)
+                        {
+                            if ("см." == sAltAspectPairComment)
+                            {
+                                sAltAspectPair += " (см.)";
+                            }
+                            else
+                            {
+                                if ("устар." == sAltAspectPairComment || "устаревш." == sAltAspectPairComment || "простореч." == sAltAspectPairComment)
+                                {
+                                    sAltAspectPair = sAltAspectPairComment + " " + sAltAspectPair;
+                                }
+                                else
+                                {
+//                                    AddSingleProperty(sAltAspectPairComment);
+                                }
+                            }
+                        }
+                        if (sAltAspectPair.Length > 0)
+                        {
+                            AddProperty("Видовая пара (вариант):", sAltAspectPair);
+                        }
                     }
                     catch (Exception ex)
                     {

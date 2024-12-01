@@ -138,6 +138,7 @@ namespace MainLibManaged
         bool bHasAltAspectPair();
         int iAspectPairType();
         void SetAspectPairType(int);
+        String^ sAspectPairComment();
         int iAltAspectPairType();
         void SetAltAspectPairType(int);
         String^ sAltAspectPairComment();
