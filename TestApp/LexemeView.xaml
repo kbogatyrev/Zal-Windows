@@ -28,7 +28,7 @@
                                     <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="one" />
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="two" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding LexemePropertyName}" Style="{StaticResource NameField}" HorizontalAlignment="Left" Width="240" VerticalAlignment="Top"/>
                                 <TextBox Grid.Column="1" Text="{Binding LexemePropertyValue}" Style="{DynamicResource ScrollableDataField}" Width="240"  />
                                 <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding LexemePropertySingleEntry}" Style="{StaticResource SinglePropertyField}" MaxWidth="400"/>
                             </Grid>
@@ -36,9 +36,9 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <Button Style="{DynamicResource BtnLarge}" Content="Редактировать" Command="{Binding EditLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="35,26,350,0" VerticalAlignment="Top"  Width="Auto" Grid.Row="1"/>
-                <Button Style="{DynamicResource BtnLarge}" Content="Проверено" Command="{Binding SaveRegressionCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="192,26,192,0" VerticalAlignment="Top" Width="Auto" Grid.Row="1" />
-                <Button Style="{DynamicResource BtnLarge}" Content="Стереть" Command="{Binding DeleteLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="349,26,35,0" VerticalAlignment="Top" Width="Auto" Grid.Row="1" />
+<!--                <Button Style="{DynamicResource BtnLarge}" Content="Редактировать" Command="{Binding EditLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="35,26,350,0" VerticalAlignment="Top"  Width="Auto" Grid.Row="1"/>  -->
+<!--                <Button Style="{DynamicResource BtnLarge}" Content="Проверено" Command="{Binding SaveRegressionCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="192,26,192,0" VerticalAlignment="Top" Width="Auto" Grid.Row="1" /> -->
+<!--                <Button Style="{DynamicResource BtnLarge}" Content="Стереть" Command="{Binding DeleteLexemeCommand}" Visibility="{Binding Path=CanEdit, Converter={StaticResource BoolToVisibility}}" Margin="349,26,35,0" VerticalAlignment="Top" Width="Auto" Grid.Row="1" /> -->
             </Grid>
         </Border>
     </ScrollViewer>

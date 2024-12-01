@@ -19,6 +19,8 @@
         <Setter Property="Margin" Value="3,3,3,3"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
     </Style>
 
     <Style TargetType="TextBlock" x:Key="DataField">

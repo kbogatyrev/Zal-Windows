@@ -309,7 +309,7 @@ namespace ZalTestApp
                 AddProperty("Огр. сочетаемость:", sContexts);
             }
 
-            if (m_Lexeme.sHeadwordVariant().Length > 0)
+            if (m_Lexeme.sHeadwordVariant().Length > 0 || m_Lexeme.sHeadwordVariantComment().Length > 0)
             {
                 String sVariant = "";
                 eRet = m_Lexeme.eGetSourceFormWithStress(ref sVariant, true);
