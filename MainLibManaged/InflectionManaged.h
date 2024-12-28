@@ -55,7 +55,7 @@ namespace MainLibManaged
         EM_ReturnCode eIsFormDifficult(String^ sGramHash);
         EM_ReturnCode eSetFormDifficult(String^ sGramHash, bool bIsDifficult);
         EM_ReturnCode eGenerateParadigm();
-        EM_ReturnCode eSaveTestData();
+//        EM_ReturnCode eSaveTestData();
         EM_ReturnCode eDeleteIrregularForm(String^ sFormHash);
         EM_ReturnCode eSaveIrregularForms(String^ sGramHash);
         bool bHasFleetingVowel();

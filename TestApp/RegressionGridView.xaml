@@ -6,6 +6,14 @@
              xmlns:local="clr-namespace:ZalTestApp"
              mc:Ignorable="d" >
     <!--             d:DesignHeight="200" d:DesignWidth="900">  -->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Skins.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -29,7 +37,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Исходная форма" Binding="{Binding SourceForm}" Width="2*"  IsReadOnly="True"/>
                 <DataGridTextColumn Header="Хеш" Binding="{Binding LexemeHash}" Width="4*" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Результат" Binding="{Binding TestResult}"  Width="*" IsReadOnly="True" Foreground="Green" />
+                <DataGridTextColumn Header="Результат" Binding="{Binding TestResult}"  Width="*" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
 

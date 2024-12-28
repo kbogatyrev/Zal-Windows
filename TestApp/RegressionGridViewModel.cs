@@ -8,6 +8,7 @@ using System.Collections;
 using MainLibManaged;
 using System.Collections.Generic;
 using System.Threading;
+using System.ComponentModel;
 
 namespace ZalTestApp
 {
@@ -81,6 +82,15 @@ namespace ZalTestApp
             }
         }
 
+        private string m_sTestResult;
+        public string TestResult
+        {
+            get
+            {
+                return m_sTestResult;
+            }
+        }
+
         public int NLexemes
         {
             get
@@ -117,7 +127,7 @@ namespace ZalTestApp
                     DataRow row = arrFoundRows[0];
                     row["TestResult"] = sText;
                 }
-
+                m_sTestResult = sText;
             }
             catch (Exception ex)
             {

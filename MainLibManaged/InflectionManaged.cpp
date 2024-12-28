@@ -484,10 +484,10 @@ namespace MainLibManaged
         return (EM_ReturnCode)pGetInstance()->eGenerateParadigm();
     }
 
-    EM_ReturnCode CInflectionManaged::eSaveTestData()
-    {
-        return (EM_ReturnCode)pGetInstance()->eSaveTestData();
-    }
+//    EM_ReturnCode CInflectionManaged::eSaveTestData()
+//    {
+//        return (EM_ReturnCode)pGetInstance()->eSaveTestData();
+//    }
 
     /*
     EM_ReturnCode CLexemeManaged::eCheckLexemeProperties() // for manual input/editing

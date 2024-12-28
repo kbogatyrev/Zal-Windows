@@ -672,6 +672,7 @@ namespace ZalTestApp
 
         private void SaveRegression(object arg)
         {
+/*
             try
             {
                 EM_ReturnCode eRet = m_Inflection.eGenerateParadigm();
@@ -696,6 +697,7 @@ namespace ZalTestApp
                 MessageBox.Show(sMsg, "Zal Error");
                 return;
             }
+*/
         }  
 
         private void RemoveLexeme(object arg)

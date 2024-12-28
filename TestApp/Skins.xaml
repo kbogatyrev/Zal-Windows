@@ -484,6 +484,9 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Calibri"/>
         <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=TestResult}" Value="Pass">
+                <Setter Property="Foreground" Value="Green" />
+            </DataTrigger>
             <DataTrigger Binding="{Binding Path=TestResult}" Value="Fail">
                 <Setter Property="Foreground" Value="Red" />
             </DataTrigger>
