@@ -13,7 +13,8 @@ namespace ZalTestApp
     {
         #region CharConstants
 
-        public static char[] arrRusVowels = { 'а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я' };
+        public static char[] arrRusVowels = 
+            { 'а', 'А', 'е', 'Е', 'ё', 'Ё', 'и', 'И', 'о', 'О', 'у', 'У', 'ы', 'Ы', 'э', 'Э', 'ю', 'Ю', 'я', 'Я' };
 
         #endregion
 
