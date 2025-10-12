@@ -1200,6 +1200,228 @@ bool CLexemeManaged::bHasDifficultForms()
     return pLexeme->bHasDifficultForms();
 }
 
+// ---------------- proper nouns -------------------------------------------------
+
+__int64 CLexemeManaged::llProperNounWordId()
+{ 
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return pLexeme->llProperNounWordId();
+}
+
+__int64 CLexemeManaged::llProperNounWordId2()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return pLexeme->llProperNounWordId2();
+}
+
+bool CLexemeManaged::bIsHypocoristicon()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return pLexeme->bIsHypocoristicon();
+}
+
+void CLexemeManaged::SetIsHypocoristicon(bool bValue)
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    pLexeme->SetIsHypocoristicon(bValue);
+}
+
+bool CLexemeManaged::bOppositeGender()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return pLexeme->bOppositeGender();
+}
+
+void CLexemeManaged::SetOppositeGender(bool bValue)
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    pLexeme->SetOppositeGender(bValue);
+}
+
+bool CLexemeManaged::bIsLastName()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return pLexeme->bIsLastName();
+}
+
+void CLexemeManaged::SetIsLastName(bool bValue)
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    pLexeme->SetIsLastName(bValue);
+}
+
+bool CLexemeManaged::bHasTilde()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return pLexeme->bHasTilde();
+}
+void CLexemeManaged::SetHasTilde(bool bValue)
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    pLexeme->SetHasTilde(bValue);
+}
+
+bool CLexemeManaged::bGPlAssumed()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return pLexeme->bGPlAssumed();
+}
+
+void CLexemeManaged::SetGPlAssumed(bool bValue)
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    pLexeme->SetGPlAssumed(bValue);
+}
+
+bool CLexemeManaged::bHasSpaceeparator()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return pLexeme->bHasSpaceeparator();
+}
+
+void CLexemeManaged::SetHasSpaceeparator(bool bValue)
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    pLexeme->SetHasSpaceeparator(bValue);
+}
+
+String^ CLexemeManaged::sGetProperNounSpadeMark()
+{ 
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return gcnew String(pLexeme->sGetProperNounSpadeMark());
+}
+
+void CLexemeManaged::SetProperNounSpadeMark(String^ sValue)
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    pLexeme->SetProperNounSpadeMark(sFromManagedString(sValue));
+}
+
+String^ CLexemeManaged::sProperNounSpadeText()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return gcnew String(pLexeme->sProperNounSpadeText());
+}
+
+void CLexemeManaged::SetProperNounSpadeText(String^ sProperNounSpadeText)
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    pLexeme->Set1SgStem(sFromManagedString(sProperNounSpadeText));
+}
+
+int CLexemeManaged::iProperNounSpadeStressPos()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return pLexeme->iProperNounSpadeStressPos();
+}
+
+void CLexemeManaged::SetProperNounSpadeStressPos(int iPos)
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    pLexeme->SetProperNounSpadeStressPos(iPos);
+}
+
+String^ CLexemeManaged::sProperNounComment()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    return gcnew String(pLexeme->sProperNounComment());
+}
+
+void CLexemeManaged::SetProperNounComment(String^ sComment)
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+    pLexeme->SetProperNounComment(sFromManagedString(sComment));
+}
+
+
 EM_ReturnCode CLexemeManaged::eGetSourceFormWithStress(String^% sSourceForm, bool bIsVariant)
 {
     auto pLexeme = pGetInstance();

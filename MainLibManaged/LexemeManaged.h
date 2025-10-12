@@ -175,6 +175,30 @@ namespace MainLibManaged
         bool bFindStandardAlternation(String^ sKey, String^% sValue);
         EM_ReturnCode eGetStemStressPositions(String^ sStem, List<int>% listPositions);
         bool bHasDifficultForms();
+
+        __int64 llProperNounWordId();
+        __int64 llProperNounWordId2();
+        bool bIsHypocoristicon();
+        void SetIsHypocoristicon(bool);
+        bool bOppositeGender();
+        void SetOppositeGender(bool);
+        bool bIsLastName();
+        void SetIsLastName(bool);
+        bool bHasTilde();
+        void SetHasTilde(bool);
+        bool bGPlAssumed();
+        void SetGPlAssumed(bool);
+        bool bHasSpaceeparator();
+        void SetHasSpaceeparator(bool);
+        String^ sGetProperNounSpadeMark();
+        void SetProperNounSpadeMark(String^);
+        String^ sProperNounSpadeText();
+        void SetProperNounSpadeText(String^ sProperNounSpadeText);
+        int iProperNounSpadeStressPos();
+        void SetProperNounSpadeStressPos(int iPos);
+        String^ sProperNounComment();
+        void SetProperNounComment(String^ sComment);
+
         EM_ReturnCode eGetSourceFormWithStress(String^% sSourceForm, bool bIsVariant);
         EM_ReturnCode eGetFirstStemStressPos(int% iPos);
         EM_ReturnCode eGetNextStemStressPos(int% iPos);
