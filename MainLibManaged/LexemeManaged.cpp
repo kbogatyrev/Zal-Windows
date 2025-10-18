@@ -1795,3 +1795,31 @@ void CLexemeManaged::SetTrailingComment(String^ sValue)
     }
     pLexeme->SetTrailingComment(sFromManagedString(sValue));
 }
+
+String^ CLexemeManaged::sSpadeTextWithDiacritics()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    CEString sSource;
+    ET_ReturnCode eRet = pLexeme->eGetSpadeTextWithDiacritics(sSource);
+
+    return gcnew String(sSource);
+}
+
+String^ CLexemeManaged::sSpadeMarkWithDiacritics()
+{
+    auto pLexeme = pGetInstance();
+    if (nullptr == pLexeme)
+    {
+        throw gcnew Exception(L"Lexeme object is NULL.");
+    }
+
+    CEString sSource;
+    ET_ReturnCode eRet = pLexeme->eGetSpadeMarkWithDiacritics(sSource);
+
+    return gcnew String(sSource);
+}

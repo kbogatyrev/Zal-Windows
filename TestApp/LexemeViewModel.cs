@@ -287,6 +287,25 @@ namespace ZalTestApp
                 AddProperty("Исходная форма:", sSourceFormWithAccents);
             }
 
+            if (m_Lexeme.llProperNounWordId() > 0)
+            {
+                string sPropNounTag;
+                if (m_Lexeme.bIsLastName())
+                {
+                    sPropNounTag = "Фамилия";
+                }
+                else
+                {
+                    sPropNounTag = "Имя собственное";
+                }
+
+                if (m_Lexeme.sGetProperNounSpadeMark().Length > 0)
+                {
+                    sPropNounTag += " " + m_Lexeme.sSpadeMarkWithDiacritics();
+                }
+                AddSingleProperty(sPropNounTag);
+            }
+
             List<int> arrHomonyms = m_Lexeme.arrHomonyms();
             if (arrHomonyms.Count > 0)
             {

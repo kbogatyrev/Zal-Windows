@@ -1222,7 +1222,7 @@ return true;
                 {
                     eSp = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
                 }
-                else
+               else
                 {
                     eSp = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;
                 }

@@ -155,6 +155,8 @@ namespace MainLibManaged
         void SetContexts(String^);
         String^ sTrailingComment();
         void SetTrailingComment(String^);
+        String^ sSpadeTextWithDiacritics();
+        String^ sSpadeMarkWithDiacritics();
         bool bNoLongForms();
         void SetNoLongForms(bool);
         String^ s1SgStem();
