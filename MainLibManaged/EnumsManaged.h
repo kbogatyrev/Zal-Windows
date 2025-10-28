@@ -90,6 +90,7 @@ namespace MainLibManaged
         POS_PARTICLE,
         POS_INTERJ,
         POS_PARENTH,
+        POS_LAST_NAME,
         POS_NULL,
         POS_COUNT
     };
@@ -132,6 +133,7 @@ namespace MainLibManaged
         SUBPARADIGM_COMPARATIVE,
         SUBPARADIGM_PRONOUN,
         SUBPARADIGM_PRONOUN_ADJ,
+        SUBPARADIGM_LAST_NAME,
         SUBPARADIGM_INFINITIVE,
         SUBPARADIGM_PRESENT_TENSE,
         SUBPARADIGM_PAST_TENSE,

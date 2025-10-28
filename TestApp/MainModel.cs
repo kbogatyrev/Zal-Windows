@@ -893,6 +893,9 @@ return true;
                 case EM_PartOfSpeech.POS_NUM_ADJ:
                     return bGenerateAdjForms(inflection);
 
+                case EM_PartOfSpeech.POS_LAST_NAME:
+                    return bGenerateLastNameForms(inflection);
+
                 case EM_PartOfSpeech.POS_VERB:
                     return bGenerateVerbForms(inflection);
 
@@ -1227,12 +1230,88 @@ return true;
                     eSp = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;
                 }
             }
+            else if (EM_PartOfSpeech.POS_LAST_NAME == lexeme.ePartOfSpeech())
+            {
+                if ("п" == lexeme.sInflectionType())
+                {
+                    eSp = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
+                }
+            }
 
             HandleAccusatives(inflection, eSp);
 
             return true;
 
         }   //  GenerateAdjForms()
+
+        private bool bGenerateLastNameForms(CInflectionManaged inflection)
+        {
+            EM_ReturnCode eRet = EM_ReturnCode.H_NO_ERROR;
+
+            CLexemeManaged lexeme = null;
+            var eRc = inflection.eGetLexeme(ref lexeme);
+            if (eRc != EM_ReturnCode.H_NO_ERROR)
+            {
+                MessageBox.Show("Unable to retrieve lexeme data.");
+                return false;
+            }
+
+            Dictionary<string, List<CWordFormManaged>> dctParadigm = new Dictionary<string, List<CWordFormManaged>>(); // hash -> form
+            Dictionary<string, List<Tuple<string, string>>> comments = null;    // hash -> left comment, right comment
+
+            CWordFormManaged wf = null;
+            eRet = (EM_ReturnCode)inflection.eGetFirstWordForm(ref wf);
+
+            EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_LAST_NAME;
+            if (eSp != wf.eSubparadigm())
+            {
+                System.Windows.MessageBox.Show("Internal error: expected subparadigm SUBPARADIGM_LAST_NAME.");
+                return false;
+            }
+
+            while (EM_ReturnCode.H_NO_ERROR == eRet)
+            {
+                if (null == wf)
+                {
+                    continue;
+                }
+
+                string sKey = "LastName";
+                sKey = "LastName_";
+                if (wf.eNumber() == EM_Number.NUM_SG)
+                {
+                    sKey += Helpers.sGenderToString(wf.eGender()) + "_";
+                }
+                else
+                {
+                    int hren = 0;
+                }
+
+                sKey += Helpers.sNumberToString(wf.eNumber()) + "_" + Helpers.sCaseToString(wf.eCase());
+
+                if (sKey != null)
+                {
+                    if (!dctParadigm.ContainsKey(sKey))
+                    {
+                        dctParadigm[sKey] = new List<CWordFormManaged>();
+                    }
+                    dctParadigm[sKey].Add(wf);
+                }
+
+                eRet = (EM_ReturnCode)inflection.eGetNextWordForm(ref wf);
+
+            }   //  while... 
+
+            string sHash = inflection.sParadigmHash();
+            m_dctHashToWordform[sHash] = dctParadigm;
+            m_dctHashToEntry[sHash] = inflection;
+            m_dctFormComments[sHash] = comments;
+
+//            HandleAccusatives(inflection, eSp);
+
+            return true;
+
+        }   //  GenerateLastNameForms()
 
         private bool bGenerateVerbForms(CInflectionManaged inflection)
         {
@@ -1647,6 +1726,10 @@ return true;
                 case EM_Subparadigm.SUBPARADIGM_NUM_ADJ:
                     sPrefix = "NumAdj_";
 //                    sPrefix = "PronAdj_";
+                    break;
+
+                case EM_Subparadigm.SUBPARADIGM_LAST_NAME:
+                    sPrefix = "LastName_";
                     break;
 
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:

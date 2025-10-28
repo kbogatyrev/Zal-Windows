@@ -348,6 +348,11 @@ namespace ZalTestApp
                     lstPropNames = Helpers.m_listPropNamesNumAdj;
                     break;
 
+                case EM_PartOfSpeech.POS_LAST_NAME:
+                    lstDisplayPropNames = Helpers.m_listPropNamesLastNames;
+                    lstPropNames = Helpers.m_listPropNamesLastNames;
+                    break;
+
                 case EM_PartOfSpeech.POS_VERB:
                     EM_PartOfSpeech ePOS = EM_PartOfSpeech.POS_UNDEFINED;
                     EM_Subparadigm eSP = eSubparadigm;

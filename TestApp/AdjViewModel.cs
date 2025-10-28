@@ -1299,6 +1299,10 @@ namespace ZalTestApp
                     listKeys = Helpers.m_listPropNamesAdj;
                 }
             }
+            if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_LAST_NAME)
+            {
+                    listKeys = Helpers.m_listPropNamesLastNames;
+            }
             else if (m_Lexeme.ePartOfSpeech() == EM_PartOfSpeech.POS_VERB)
             {
                 IsDerived = true;

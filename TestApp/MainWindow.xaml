@@ -74,6 +74,10 @@
             <local:VerbView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type local:LastNameViewModel}">
+            <local:LastNameView />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type local:RegressionGridViewModel}" >
             <local:RegressionGridView />
         </DataTemplate>

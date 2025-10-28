@@ -1,0 +1,181 @@
+﻿<UserControl x:Class="ZalTestApp.LastNameView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZalTestApp"
+        mc:Ignorable="d" Width="861">
+
+    <Grid Height="369" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="122*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="0" Margin="0,0,3,33" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5"  >
+            <ScrollViewer.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.125"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ScrollViewer.RenderTransform>
+            <Grid Width="800" Height="Auto">
+                <TextBox Text="Ед." Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="40"/>
+                <TextBox Text="Мн." Margin="590,24,0,0" Style="{StaticResource FormLabel}" Width="40"/>
+
+                <!-- Singular m -->
+                <!-- Case Labels -->
+                <TextBox Text="И" Margin="0,70,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="В" Margin="0,115,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Р" Margin="0,160,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="П" Margin="0,205,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Д" Margin="0,250,0,0" Style="{StaticResource FormLabel}" />
+                <TextBox Text="Т" Margin="0,295,0,0" Style="{StaticResource FormLabel}" />
+
+                <!-- Forms -->
+                <TextBox Name ="LastName_M_Sg_N" Text="{Binding LastName_M_Sg_N}" Margin="70,70,0,0"  Style="{Binding LastName_M_Sg_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="LastName_M_Sg_A" Text="{Binding LastName_M_Sg_A}" Margin="70,115,0,0" Style="{Binding LastName_M_Sg_A_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="LastName_M_Sg_G" Text="{Binding LastName_M_Sg_G}" Margin="70,160,0,0" Style="{Binding LastName_M_Sg_G_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="LastName_M_Sg_P" Text="{Binding LastName_M_Sg_P}" Margin="70,205,0,0" Style="{Binding LastName_M_Sg_P_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="LastName_M_Sg_D" Text="{Binding LastName_M_Sg_D}" Margin="70,250,0,0" Style="{Binding LastName_M_Sg_D_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="LastName_M_Sg_I" Text="{Binding LastName_M_Sg_I}" Margin="70,295,0,0" Style="{Binding LastName_M_Sg_I_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+
+                <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
+                <Button Margin="218,74,0,0" CommandParameter="LastName_M_Sg_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_M_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,82,0,0" CommandParameter="LastName_M_Sg_N" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_M_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="218,119,0,0" CommandParameter="LastName_M_Sg_A" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_M_Sg_A_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,127,0,0" CommandParameter="LastName_M_Sg_A" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_M_Sg_A_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="218,164,0,0" CommandParameter="LastName_M_Sg_G" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_M_Sg_G_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,172,0,0" CommandParameter="LastName_M_Sg_G" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_M_Sg_G_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="218,209,0,0" CommandParameter="LastName_M_Sg_P" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_M_Sg_P_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,217,0,0" CommandParameter="LastName_M_Sg_P" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_M_Sg_P_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="218,254,0,0" CommandParameter="LastName_M_Sg_D" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_M_Sg_D_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,262,0,0" CommandParameter="LastName_M_Sg_D" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_M_Sg_D_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="218,299,0,0" CommandParameter="LastName_M_Sg_I" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_M_Sg_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="218,307,0,0" CommandParameter="LastName_M_Sg_I" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_M_Sg_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <!-- Triangle image -->
+                <Image HorizontalAlignment="Left" Margin="233,77,0,0" VerticalAlignment="Top" Style="{Binding LastName_M_Sg_N_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,122,0,0" VerticalAlignment="Top" Style="{Binding LastName_M_Sg_A_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,167,0,0" VerticalAlignment="Top" Style="{Binding LastName_M_Sg_G_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,212,0,0" VerticalAlignment="Top" Style="{Binding LastName_M_Sg_P_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,257,0,0" VerticalAlignment="Top" Style="{Binding LastName_M_Sg_D_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,302,0,0" VerticalAlignment="Top" Style="{Binding LastName_M_Sg_I_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,257,0,0" VerticalAlignment="Top" Style="{Binding LastName_M_Sg_Part_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="233,302,0,0" VerticalAlignment="Top" Style="{Binding LastName_M_Sg_P2_Marks, Converter={StaticResource StyleConverterMarks}}" />
+
+                <!-- Comment button -->
+                <Button  Margin="251,70,0,0" CommandParameter="LastName_M_Sg_N" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_M_Sg_N_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="251,115,0,0" CommandParameter="LastName_M_Sg_A" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_M_Sg_A_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="251,160,0,0" CommandParameter="LastName_M_Sg_G" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_M_Sg_G_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="251,205,0,0" CommandParameter="LastName_M_Sg_P" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_M_Sg_P_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="251,250,0,0" CommandParameter="LastName_M_Sg_D" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_M_Sg_D_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="251,295,0,0" CommandParameter="LastName_M_Sg_I" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_M_Sg_I_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+
+                <TextBox Text="М.ед." Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="40" />
+                <TextBox Text="Ж.ед." Margin="358,24,0,0" Style="{StaticResource FormLabel}" Width="40" />
+
+                <!-- Singular f -->
+                <!-- Case Labels -->
+                <!-- Forms -->
+                <TextBox Name ="LastName_F_Sg_N" Text="{Binding LastName_F_Sg_N}" Margin="290,70,0,0"  Style="{Binding LastName_F_Sg_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="LastName_F_Sg_A" Text="{Binding LastName_F_Sg_A}" Margin="290,115,0,0" Style="{Binding LastName_F_Sg_A_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="LastName_F_Sg_G" Text="{Binding LastName_F_Sg_G}" Margin="290,160,0,0" Style="{Binding LastName_F_Sg_G_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="LastName_F_Sg_P" Text="{Binding LastName_F_Sg_P}" Margin="290,205,0,0" Style="{Binding LastName_F_Sg_P_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="LastName_F_Sg_D" Text="{Binding LastName_F_Sg_D}" Margin="290,250,0,0" Style="{Binding LastName_F_Sg_D_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"  />
+                <TextBox Name ="LastName_F_Sg_I" Text="{Binding LastName_F_Sg_I}" Margin="290,295,0,0" Style="{Binding LastName_F_Sg_I_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+
+                <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
+                <Button Margin="438,74,0,0" CommandParameter="LastName_F_Sg_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_F_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="438,82,0,0" CommandParameter="LastName_F_Sg_N" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_F_Sg_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="438,119,0,0" CommandParameter="LastName_F_Sg_A" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_F_Sg_A_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="438,127,0,0" CommandParameter="LastName_F_Sg_A" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_F_Sg_A_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="438,164,0,0" CommandParameter="LastName_F_Sg_G" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_F_Sg_G_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="438,172,0,0" CommandParameter="LastName_F_Sg_G" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_F_Sg_G_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="438,209,0,0" CommandParameter="LastName_F_Sg_P" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_F_Sg_P_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="438,217,0,0" CommandParameter="LastName_F_Sg_P" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_F_Sg_P_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="438,254,0,0" CommandParameter="LastName_F_Sg_D" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_F_Sg_D_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="438,262,0,0" CommandParameter="LastName_F_Sg_D" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_F_Sg_D_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="438,299,0,0" CommandParameter="LastName_F_Sg_I" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_F_Sg_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="438,307,0,0" CommandParameter="LastName_F_Sg_I" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_F_Sg_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <!-- Triangle image -->
+                <Image HorizontalAlignment="Left" Margin="453,77,0,0" VerticalAlignment="Top" Style="{Binding LastName_F_Sg_N_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="453,122,0,0" VerticalAlignment="Top" Style="{Binding LastName_F_Sg_A_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="453,167,0,0" VerticalAlignment="Top" Style="{Binding LastName_F_Sg_G_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="453,212,0,0" VerticalAlignment="Top" Style="{Binding LastName_F_Sg_P_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="453,257,0,0" VerticalAlignment="Top" Style="{Binding LastName_F_Sg_D_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="453,302,0,0" VerticalAlignment="Top" Style="{Binding LastName_F_Sg_I_Marks, Converter={StaticResource StyleConverterMarks}}" />
+
+                <!-- Comment button -->
+                <Button  Margin="471,70,0,0" CommandParameter="LastName_F_Sg_N" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_F_Sg_N_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="471,115,0,0" CommandParameter="LastName_F_Sg_A" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_F_Sg_A_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="471,160,0,0" CommandParameter="LastName_F_Sg_G" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_F_Sg_G_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="471,205,0,0" CommandParameter="LastName_F_Sg_P" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_F_Sg_P_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="471,250,0,0" CommandParameter="LastName_F_Sg_D" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_F_Sg_D_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                <Button  Margin="471,295,0,0" CommandParameter="LastName_F_Sg_I" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_F_Sg_I_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+
+                <!-- Plural -->
+                <!-- Case Labels -->
+
+                <!-- Forms -->
+                <TextBox Name ="LastName_Pl_N" Text="{Binding Path=LastName_Pl_N}" Margin="523,70,0,0" Style="{Binding LastName_Pl_N_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="LastName_Pl_A" Text="{Binding Path=LastName_Pl_A}" Margin="523,115,0,0" Style="{Binding LastName_Pl_A_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="LastName_Pl_G" Text="{Binding Path=LastName_Pl_G}" Margin="523,160,0,0" Style="{Binding LastName_Pl_G_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="LastName_Pl_P" Text="{Binding Path=LastName_Pl_P}" Margin="523,205,0,0" Style="{Binding LastName_Pl_P_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="LastName_Pl_D" Text="{Binding Path=LastName_Pl_D}" Margin="523,250,0,0" Style="{Binding LastName_Pl_D_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name ="LastName_Pl_I" Text="{Binding Path=LastName_Pl_I}" Margin="523,295,0,0" Style="{Binding LastName_Pl_I_CellStatus, Converter={StaticResource StyleConverterCell}}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+
+                <!-- Scroll buttons for multiple forms; not shown when only one form is available -->
+                <Button Margin="671,74,0,0" CommandParameter="LastName_Pl_N" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_Pl_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="671,82,0,0" CommandParameter="LastName_Pl_N" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_Pl_N_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="671,119,0,0" CommandParameter="LastName_Pl_A" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_Pl_A_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="671,127,0,0" CommandParameter="LastName_Pl_A" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_Pl_A_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="671,164,0,0" CommandParameter="LastName_Pl_G" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_Pl_G_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="671,172,0,0" CommandParameter="LastName_Pl_G" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_Pl_G_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="671,209,0,0" CommandParameter="LastName_Pl_P" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_Pl_P_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="671,217,0,0" CommandParameter="LastName_Pl_P" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_Pl_P_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="671,254,0,0" CommandParameter="LastName_Pl_D" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_Pl_D_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="671,262,0,0" CommandParameter="LastName_Pl_D" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_Pl_D_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <Button Margin="671,299,0,0" CommandParameter="LastName_Pl_I" Command="{Binding FormScrollUpCommand}" Style="{StaticResource BtnFormScrollerUp}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_Pl_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+                <Button Margin="671,307,0,0" CommandParameter="LastName_Pl_I" Command="{Binding FormScrollDownCommand}" Style="{StaticResource BtnFormScrollerDown}" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding LastName_Pl_I_HasMultipleForms, Converter={StaticResource BoolToVisibility}}" />
+
+                <!-- Triangle image -->
+                <Image HorizontalAlignment="Left" Margin="686,77,0,0" VerticalAlignment="Top" Style="{Binding LastName_Pl_N_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="686,122,0,0" VerticalAlignment="Top" Style="{Binding LastName_Pl_A_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="686,167,0,0" VerticalAlignment="Top" Style="{Binding LastName_Pl_G_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="686,212,0,0" VerticalAlignment="Top" Style="{Binding LastName_Pl_P_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="686,257,0,0" VerticalAlignment="Top" Style="{Binding LastName_Pl_D_Marks, Converter={StaticResource StyleConverterMarks}}" />
+                <Image HorizontalAlignment="Left" Margin="686,302,0,0" VerticalAlignment="Top" Style="{Binding LastName_Pl_I_Marks, Converter={StaticResource StyleConverterMarks}}" />
+
+                <!-- Comment button -->
+                <Button  Margin="704,70,0,0" CommandParameter="LastName_Pl_N" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_Pl_N_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <Button  Margin="704,115,0,0" CommandParameter="LastName_Pl_A" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_Pl_A_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <Button  Margin="704,160,0,0" CommandParameter="LastName_Pl_G" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_Pl_G_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <Button  Margin="704,205,0,0" CommandParameter="LastName_Pl_P" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_Pl_P_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <Button  Margin="704,250,0,0" CommandParameter="LastName_Pl_D" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_Pl_D_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <Button  Margin="704,295,0,0" CommandParameter="LastName_Pl_I" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_Pl_I_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            </Grid>
+        </ScrollViewer>
+        <!--        
+        <Button Style="{DynamicResource BtnLarge}" Content="Сохранить" Command="{Binding SaveFormsCommand}"  Grid.Column="1" Margin="0,200,40,250" />
+-->
+    </Grid>
+</UserControl>

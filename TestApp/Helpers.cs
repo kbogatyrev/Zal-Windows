@@ -72,6 +72,13 @@ namespace ZalTestApp
             "NumAdj_Pl_A_Inanim", "NumAdj_Pl_A_Anim",  "NumAdj_Pl_G", "NumAdj_Pl_P", "NumAdj_Pl_D", "NumAdj_Pl_I"
         };
 
+        public static List<string> m_listPropNamesLastNames = new List<string>()
+        {
+            "LastName_M_Sg_N", "LastName_M_Sg_A", "LastName_M_Sg_G", "LastName_M_Sg_P", "LastName_M_Sg_D",
+            "LastName_M_Sg_I", "LastName_F_Sg_N", "LastName_F_Sg_A", "LastName_F_Sg_G", "LastName_F_Sg_P", "LastName_F_Sg_D", 
+            "LastName_F_Sg_I", "LastName_Pl_N", "LastName_Pl_A", "LastName_Pl_G", "LastName_Pl_P", "LastName_Pl_D", "LastName_Pl_I"
+        };
+
         public static List<string> m_listPropNamesPartPresAct = new List<string>()
         {
             "PPresA_M_Sg_N", "PPresA_M_Sg_A_Inanim", "PPresA_M_Sg_A_Anim", "PPresA_M_Sg_G", "PPresA_M_Sg_P", "PPresA_M_Sg_D",
@@ -482,6 +489,11 @@ namespace ZalTestApp
                 case "NumAdj":
                     ePartOfSpeech = EM_PartOfSpeech.POS_NUM_ADJ;
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_NUM_ADJ;
+                    break;
+
+                case "LastName":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_LAST_NAME;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_LAST_NAME;
                     break;
 
                 case "PPresA":
@@ -1043,6 +1055,11 @@ namespace ZalTestApp
                             iKeyIdx = m_listPropNamesPronAdj.IndexOf(sFormHash);
                             sDisplayHash = m_listPropNamesAdj[iKeyIdx];
                         }
+                        break;
+
+                    case EM_PartOfSpeech.POS_LAST_NAME:
+                        iKeyIdx = m_listPropNamesLastNames.IndexOf(sFormHash);
+                        sDisplayHash = m_listPropNamesLastNames[iKeyIdx];
                         break;
 
                     case EM_PartOfSpeech.POS_VERB:

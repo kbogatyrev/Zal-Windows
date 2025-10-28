@@ -1080,6 +1080,7 @@ namespace ZalTestApp
                     //                case EM_PartOfSpeech.POS_NUM:
                     paradigmViewModel = new NounViewModel(inflection, m_MainModel);
                     break;
+
                 case EM_PartOfSpeech.POS_NUM:
                     if (EM_Subparadigm.SUBPARADIGM_NUM_2TO4 == lexeme.eSubparadigm())
                     {
@@ -1094,16 +1095,23 @@ namespace ZalTestApp
                         MessageBox.Show("Illegal subparadigm value for a numeral.");
                     }
                     break;
+
                 case EM_PartOfSpeech.POS_ADJ:
                 case EM_PartOfSpeech.POS_PRONOUN_ADJ:
                 case EM_PartOfSpeech.POS_NUM_ADJ:
                     paradigmViewModel = new AdjViewModel(lexeme, inflection, EM_Subparadigm.SUBPARADIGM_LONG_ADJ, m_MainModel);
                     break;
+
+                case EM_PartOfSpeech.POS_LAST_NAME:
+                    paradigmViewModel = new LastNameViewModel(lexeme, inflection, EM_Subparadigm.SUBPARADIGM_LAST_NAME, m_MainModel);
+                    break;
+
                 case EM_PartOfSpeech.POS_VERB:
                     VerbViewModel vvm = new VerbViewModel(lexeme, inflection, m_MainModel, lexemeViewModel);
                     vvm.ShowParticipleFormsEvent += new VerbViewModel.ShowParticipleForms(ShowParticiple);
                     paradigmViewModel = vvm;
                     break;
+
                 case EM_PartOfSpeech.POS_ADV:
                 case EM_PartOfSpeech.POS_CONJUNCTION:
                 case EM_PartOfSpeech.POS_COMPAR:
