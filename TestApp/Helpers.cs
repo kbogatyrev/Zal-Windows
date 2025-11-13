@@ -75,8 +75,30 @@ namespace ZalTestApp
         public static List<string> m_listPropNamesLastNames = new List<string>()
         {
             "LastName_M_Sg_N", "LastName_M_Sg_A", "LastName_M_Sg_G", "LastName_M_Sg_P", "LastName_M_Sg_D",
-            "LastName_M_Sg_I", "LastName_F_Sg_N", "LastName_F_Sg_A", "LastName_F_Sg_G", "LastName_F_Sg_P", "LastName_F_Sg_D", 
+            "LastName_M_Sg_I", "LastName_F_Sg_N", "LastName_F_Sg_A", "LastName_F_Sg_G", "LastName_F_Sg_P", "LastName_F_Sg_D",
             "LastName_F_Sg_I", "LastName_Pl_N", "LastName_Pl_A", "LastName_Pl_G", "LastName_Pl_P", "LastName_Pl_D", "LastName_Pl_I"
+        };
+
+        public static List<string> m_listPropNamesLastNamesNoun = new List<string>()
+        {
+            "LastNameNoun_M_Sg_N", "LastNameNoun_M_Sg_A", "LastNameNoun_M_Sg_G", "LastNameNoun_M_Sg_P", "LastNameNoun_M_Sg_D",
+            "LastNameNoun_M_Sg_I", "LastNameNoun_F_Sg_N", "LastNameNoun_F_Sg_A", "LastNameNoun_F_Sg_G", "LastNameNoun_F_Sg_P", "LastNameNoun_F_Sg_D",
+            "LastNameNoun_F_Sg_I", "LastNameNoun_Pl_N", "LastNameNoun_Pl_A", "LastNameNoun_Pl_G", "LastNameNoun_Pl_P", "LastNameNoun_Pl_D", "LastNameNoun_Pl_I"
+        };
+
+        public static List<string> m_listPropNamesLastNamesLongAdj = new List<string>()
+        {
+            "LastNameLongAdj_M_Sg_N", "LastNameLongAdj_M_Sg_A", "LastNameLongAdj_M_Sg_G", "LastNameLongAdj_M_Sg_P", "LastNameLongAdj_M_Sg_D",
+            "LastNameLongAdj_M_Sg_I", "LastNameLongAdj_F_Sg_N", "LastNameLongAdj_F_Sg_A", "LastNameLongAdj_F_Sg_G", "LastNameLongAdj_F_Sg_P", "LastNameLongAdj_F_Sg_D",
+            "LastNameLongAdj_F_Sg_I", "LastNameLongAdj_Pl_N", "LastNameLongAdj_Pl_A", "LastNameLongAdj_Pl_G", "LastNameLongAdj_Pl_P", "LastNameLongAdj_Pl_D", "LastNameLongAdj_Pl_I"
+        };
+
+
+        public static List<string> m_listPropNamesLastNamesPronAdj = new List<string>()
+        {
+            "LastNamePronAdj_M_Sg_N", "LastNamePronAdj_M_Sg_A", "LastNamePronAdj_M_Sg_G", "LastNamePronAdj_M_Sg_P", "LastNamePronAdj_M_Sg_D",
+            "LastNamePronAdj_M_Sg_I", "LastNamePronAdj_F_Sg_N", "LastNamePronAdj_F_Sg_A", "LastNamePronAdj_F_Sg_G", "LastNamePronAdj_F_Sg_P", "LastNamePronAdj_F_Sg_D", 
+            "LastNamePronAdj_F_Sg_I", "LastNamePronAdj_Pl_N", "LastNamePronAdj_Pl_A", "LastNamePronAdj_Pl_G", "LastNamePronAdj_Pl_P", "LastNamePronAdj_Pl_D", "LastNamePronAdj_Pl_I"
         };
 
         public static List<string> m_listPropNamesPartPresAct = new List<string>()
@@ -451,6 +473,11 @@ namespace ZalTestApp
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_NOUN;
                     break;
 
+                case "LastNameNoun":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_LAST_NAME;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_LAST_NAME_NOUN;
+                    break;
+
                 case "Pronoun":
                     ePartOfSpeech = EM_PartOfSpeech.POS_PRONOUN;
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_PRONOUN;
@@ -471,6 +498,11 @@ namespace ZalTestApp
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_LONG_ADJ;
                     break;
 
+                case "LastNameLongAdj":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_LAST_NAME;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_LAST_NAME_LONG_ADJ;
+                    break;
+
                 case "AdjComp":
                     ePartOfSpeech = EM_PartOfSpeech.POS_ADJ;
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_COMPARATIVE;
@@ -486,15 +518,20 @@ namespace ZalTestApp
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_PRONOUN_ADJ;
                     break;
 
+                case "LastNamePronAdj":
+                    ePartOfSpeech = EM_PartOfSpeech.POS_LAST_NAME;
+                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_LAST_NAME_PRONOUN_ADJ;
+                    break;
+
                 case "NumAdj":
                     ePartOfSpeech = EM_PartOfSpeech.POS_NUM_ADJ;
                     eSubParadigm = EM_Subparadigm.SUBPARADIGM_NUM_ADJ;
                     break;
 
-                case "LastName":
-                    ePartOfSpeech = EM_PartOfSpeech.POS_LAST_NAME;
-                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_LAST_NAME;
-                    break;
+//                case "LastName":
+//                    ePartOfSpeech = EM_PartOfSpeech.POS_LAST_NAME;
+//                    eSubParadigm = EM_Subparadigm.SUBPARADIGM_LAST_NAME;
+//                    break;
 
                 case "PPresA":
                     ePartOfSpeech = EM_PartOfSpeech.POS_VERB;
@@ -1058,7 +1095,18 @@ namespace ZalTestApp
                         break;
 
                     case EM_PartOfSpeech.POS_LAST_NAME:
-                        iKeyIdx = m_listPropNamesLastNames.IndexOf(sFormHash);
+                        switch (eSubparadigm)
+                        {
+                            case EM_Subparadigm.SUBPARADIGM_LAST_NAME_NOUN:
+                                iKeyIdx = m_listPropNamesLastNamesNoun.IndexOf(sFormHash);
+                                break;
+                            case EM_Subparadigm.SUBPARADIGM_LAST_NAME_LONG_ADJ:
+                                iKeyIdx = m_listPropNamesLastNamesLongAdj.IndexOf(sFormHash);
+                                break;
+                            case EM_Subparadigm.SUBPARADIGM_LAST_NAME_PRONOUN_ADJ:
+                                iKeyIdx = m_listPropNamesLastNamesPronAdj.IndexOf(sFormHash);
+                                break;
+                        }
                         sDisplayHash = m_listPropNamesLastNames[iKeyIdx];
                         break;
 

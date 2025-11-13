@@ -871,9 +871,28 @@ namespace ZalTestApp
             {
                 MessageBox.Show("Internal error: unable to determine gram hashes.");
             }
+
+            IsDerived = true;
+
+            switch (m_eSubparadigm)
+            {
+                case EM_Subparadigm.SUBPARADIGM_LAST_NAME_NOUN:
+                    listKeys = Helpers.m_listPropNamesLastNamesNoun;
+                    break;
+
+                case EM_Subparadigm.SUBPARADIGM_LAST_NAME_LONG_ADJ:
+                    listKeys = Helpers.m_listPropNamesLastNamesLongAdj;
+                    break;
+
+                case EM_Subparadigm.SUBPARADIGM_LAST_NAME_PRONOUN_ADJ:
+                    listKeys = Helpers.m_listPropNamesLastNamesPronAdj;
+                    break;
+
+                default:
+                    MessageBox.Show("Illegal subparadigm.");
+                    break;
+            }
         }       //  GetGramHashes()
-
-
         #endregion
     }       //  public class LastNameViewModel ...
 }       //  namespace ZalTestApp

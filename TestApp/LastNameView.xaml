@@ -79,8 +79,8 @@
                 <Button  Margin="251,250,0,0" CommandParameter="LastName_M_Sg_D" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_M_Sg_D_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                 <Button  Margin="251,295,0,0" CommandParameter="LastName_M_Sg_I" Command="{Binding ShowFormComment }" Style="{StaticResource BtnComment}" Visibility="{Binding LastName_M_Sg_I_HasComments, Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
-                <TextBox Text="М.ед." Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="40" />
-                <TextBox Text="Ж.ед." Margin="358,24,0,0" Style="{StaticResource FormLabel}" Width="40" />
+                <TextBox Text="М. ед." Margin="128,25,0,0" Style="{StaticResource FormLabel}" Width="50" />
+                <TextBox Text="Ж. ед." Margin="358,24,0,0" Style="{StaticResource FormLabel}" Width="50" />
 
                 <!-- Singular f -->
                 <!-- Case Labels -->

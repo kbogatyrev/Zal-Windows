@@ -1261,14 +1261,6 @@ return true;
 
             CWordFormManaged wf = null;
             eRet = (EM_ReturnCode)inflection.eGetFirstWordForm(ref wf);
-
-            EM_Subparadigm eSp = EM_Subparadigm.SUBPARADIGM_LAST_NAME;
-            if (eSp != wf.eSubparadigm())
-            {
-                System.Windows.MessageBox.Show("Internal error: expected subparadigm SUBPARADIGM_LAST_NAME.");
-                return false;
-            }
-
             while (EM_ReturnCode.H_NO_ERROR == eRet)
             {
                 if (null == wf)
@@ -1276,15 +1268,41 @@ return true;
                     continue;
                 }
 
+                EM_Subparadigm eSp = wf.eSubparadigm();
                 string sKey = "LastName";
-                sKey = "LastName_";
-                if (wf.eNumber() == EM_Number.NUM_SG)
+                if (EM_Subparadigm.SUBPARADIGM_LAST_NAME_NOUN == eSp || EM_Subparadigm.SUBPARADIGM_LAST_NAME_NOUN_F == eSp)
                 {
-                    sKey += Helpers.sGenderToString(wf.eGender()) + "_";
+                    sKey += "Noun";
+                }
+                else if (EM_Subparadigm.SUBPARADIGM_LAST_NAME_LONG_ADJ == eSp)
+                {
+                    sKey += "LongAdj";
+                }
+                else if (EM_Subparadigm.SUBPARADIGM_LAST_NAME_PRONOUN_ADJ == eSp)
+                {
+                    sKey += "PronAdj";
                 }
                 else
                 {
-                    int hren = 0;
+                    return false;
+                }
+
+                sKey += "_";
+
+                if (wf.eNumber() == EM_Number.NUM_SG)
+                {
+                    if (EM_Subparadigm.SUBPARADIGM_LAST_NAME_NOUN == eSp)
+                    {
+                        sKey += ("M_");
+                    }
+                    else if (EM_Subparadigm.SUBPARADIGM_LAST_NAME_NOUN_F == eSp)
+                    {
+                        sKey += ("F_");
+                    }
+                    else
+                    {
+                        sKey += Helpers.sGenderToString(wf.eGender()) + "_";
+                    }
                 }
 
                 sKey += Helpers.sNumberToString(wf.eNumber()) + "_" + Helpers.sCaseToString(wf.eCase());
@@ -1728,9 +1746,9 @@ return true;
 //                    sPrefix = "PronAdj_";
                     break;
 
-                case EM_Subparadigm.SUBPARADIGM_LAST_NAME:
-                    sPrefix = "LastName_";
-                    break;
+//                case EM_Subparadigm.SUBPARADIGM_LAST_NAME:
+//                    sPrefix = "LastName_";
+//                    break;
 
                 case EM_Subparadigm.SUBPARADIGM_PART_PRES_ACT:
                     sPrefix = "PPresA_";

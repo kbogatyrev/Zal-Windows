@@ -1103,7 +1103,7 @@ namespace ZalTestApp
                     break;
 
                 case EM_PartOfSpeech.POS_LAST_NAME:
-                    paradigmViewModel = new LastNameViewModel(lexeme, inflection, EM_Subparadigm.SUBPARADIGM_LAST_NAME, m_MainModel);
+                    paradigmViewModel = new LastNameViewModel(lexeme, inflection, lexeme.eSubparadigm(), m_MainModel);
                     break;
 
                 case EM_PartOfSpeech.POS_VERB:
