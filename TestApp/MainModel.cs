@@ -1106,6 +1106,8 @@ return true;
 
                 eSp = wf.eSubparadigm();
 
+                var sKey = wf.sGramHash();
+/*
                 string sKey = "";
                 if (eSp == EM_Subparadigm.SUBPARADIGM_LONG_ADJ)
                 {
@@ -1173,7 +1175,7 @@ return true;
                     }
                     comments[sKey].Add(new Tuple<string, string>(wf.sLeadComment(), wf.sTrailingComment()));
                 }
-
+*/
                 if (sKey != null)
                 {
                     if (!dctParadigm.ContainsKey(sKey))
@@ -1182,7 +1184,6 @@ return true;
                     }
                     dctParadigm[sKey].Add(wf);
                 }
-
                 eRet = (EM_ReturnCode)inflection.eGetNextWordForm(ref wf);
 
             }   //  while... 
@@ -1238,7 +1239,7 @@ return true;
                 }
             }
 
-            HandleAccusatives(inflection, eSp);
+//            HandleAccusatives(inflection, eSp);
 
             return true;
 
@@ -1774,44 +1775,57 @@ return true;
 
             try
             {
-                var values = dctParadigm[sPrefix + "M_Sg_N"];
-                foreach (var sForm in values)
+                List<CWordFormManaged> values;
+                dctParadigm.TryGetValue(sPrefix + "M_Sg_N", out values);
+                if (values != null)
                 {
-                    if (!dctParadigm.ContainsKey(sPrefix + "M_Sg_A_Inanim"))
+                    foreach (var sForm in values)
                     {
-                        dctParadigm[sPrefix + "M_Sg_A_Inanim"] = new List<CWordFormManaged>();
+                        if (!dctParadigm.ContainsKey(sPrefix + "M_Sg_A_Inanim"))
+                        {
+                            dctParadigm[sPrefix + "M_Sg_A_Inanim"] = new List<CWordFormManaged>();
+                        }
+                        dctParadigm[sPrefix + "M_Sg_A_Inanim"].Add(sForm);
                     }
-                    dctParadigm[sPrefix + "M_Sg_A_Inanim"].Add(sForm);
                 }
 
-                values = dctParadigm[sPrefix + "M_Sg_G"];
-                foreach (var sForm in values)
+                dctParadigm.TryGetValue(sPrefix + "M_Sg_G", out values);
+                if (values != null)
                 {
-                    if (!dctParadigm.ContainsKey(sPrefix + "M_Sg_A_Anim"))
+                    foreach (var sForm in values)
                     {
-                        dctParadigm[sPrefix + "M_Sg_A_Anim"] = new List<CWordFormManaged>();
+                        if (!dctParadigm.ContainsKey(sPrefix + "M_Sg_A_Anim"))
+                        {
+                            dctParadigm[sPrefix + "M_Sg_A_Anim"] = new List<CWordFormManaged>();
+                        }
+                        dctParadigm[sPrefix + "M_Sg_A_Anim"].Add(sForm);
                     }
-                    dctParadigm[sPrefix + "M_Sg_A_Anim"].Add(sForm);
                 }
 
-                values = dctParadigm[sPrefix + "Pl_N"];
-                foreach (var sForm in values)
+                dctParadigm.TryGetValue(sPrefix + "Pl_N", out values);
+                if (values != null)
                 {
-                    if (!dctParadigm.ContainsKey(sPrefix + "Pl_A_Inanim"))
+                    foreach (var sForm in values)
                     {
-                        dctParadigm[sPrefix + "Pl_A_Inanim"] = new List<CWordFormManaged>();
+                        if (!dctParadigm.ContainsKey(sPrefix + "Pl_A_Inanim"))
+                        {
+                            dctParadigm[sPrefix + "Pl_A_Inanim"] = new List<CWordFormManaged>();
+                        }
+                        dctParadigm[sPrefix + "Pl_A_Inanim"].Add(sForm);
                     }
-                    dctParadigm[sPrefix + "Pl_A_Inanim"].Add(sForm);
                 }
 
-                values = dctParadigm[sPrefix + "Pl_G"];
-                foreach (var sForm in values)
+                dctParadigm.TryGetValue(sPrefix + "Pl_G", out values);
+                if (values != null)
                 {
-                    if (!dctParadigm.ContainsKey(sPrefix + "Pl_A_Anim"))
+                    foreach (var sForm in values)
                     {
-                        dctParadigm[sPrefix + "Pl_A_Anim"] = new List<CWordFormManaged>();
+                        if (!dctParadigm.ContainsKey(sPrefix + "Pl_A_Anim"))
+                        {
+                            dctParadigm[sPrefix + "Pl_A_Anim"] = new List<CWordFormManaged>();
+                        }
+                        dctParadigm[sPrefix + "Pl_A_Anim"].Add(sForm);
                     }
-                    dctParadigm[sPrefix + "Pl_A_Anim"].Add(sForm);
                 }
             }
 //            catch (KeyNotFoundException exKey)
