@@ -1900,24 +1900,24 @@ namespace ZalTestApp
 
                 if (!bValue)
                 {
-                    m_Inflection.SetStemAugment(-1);
+                    m_Inflection.SetStemExtension(-1);
                 }
 
                 if (EM_PartOfSpeech.POS_NOUN == m_Lexeme.ePartOfSpeech())
                 {
                     if (1 == m_Inflection.iType())
                     {
-                        m_Inflection.SetStemAugment(1);
+                        m_Inflection.SetStemExtension(1);
                     }
                     else if (3 == m_Inflection.iType())
                     {
                         if (m_Lexeme.sSourceForm().EndsWith("онок") || m_Lexeme.sSourceForm().EndsWith("ёнок"))
                         {
-                            m_Inflection.SetStemAugment(1);
+                            m_Inflection.SetStemExtension(1);
                         }
                         else if (m_Lexeme.sSourceForm().EndsWith("оночек") || m_Lexeme.sSourceForm().EndsWith("ёночек"))
                         {
-                            m_Inflection.SetStemAugment(2);
+                            m_Inflection.SetStemExtension(2);
                         }
                         else
                         {
@@ -1929,13 +1929,13 @@ namespace ZalTestApp
                     {
                         if (m_Lexeme.sSourceForm().EndsWith("мя"))
                         {
-                            m_Inflection.SetStemAugment(3);
+                            m_Inflection.SetStemExtension(3);
                         }
                     }
                 }
                 else if (EM_PartOfSpeech.POS_VERB == m_Lexeme.ePartOfSpeech())
                 {
-                    m_Inflection.SetStemAugment(1);
+                    m_Inflection.SetStemExtension(1);
                 }
                 return true;
             });
@@ -2169,7 +2169,7 @@ namespace ZalTestApp
 
             Triangle = m_Lexeme.bHasIrregularForms() ? m_YesNoValues[0] : m_YesNoValues[1];
 
-            if (m_Inflection.iStemAugment() > 0)
+            if (m_Inflection.iStemExtension() > 0)
             {
                 SmallCircle = m_YesNoValues[0];
             }

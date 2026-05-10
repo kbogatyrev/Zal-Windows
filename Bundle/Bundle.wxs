@@ -8,7 +8,7 @@
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 	<Bundle 
 			Name="А.А.Зализняк. Грамматический словарь русского языка. Электронная версия." 
-			Version="5.2.16.62" 
+			Version="5.2.19.65" 
 			Manufacturer="Eight Twelve Papa Papa" 
 			UpgradeCode="64db7b44-b14d-4796-b9b7-ddf6cacd6423"
 	>

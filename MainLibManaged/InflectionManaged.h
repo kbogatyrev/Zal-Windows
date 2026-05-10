@@ -80,8 +80,8 @@ namespace MainLibManaged
         void SetNoPassivePastParticiple(bool);
         bool bFleetingVowel();
         void SetFleetingVowel(bool);
-        int iStemAugment();
-        void SetStemAugment(int);
+        int iStemExtension();
+        void SetStemExtension(int);
 
         bool bSecondGenitive();
         void SetSecondGenitive(bool);

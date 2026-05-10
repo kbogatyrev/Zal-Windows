@@ -526,7 +526,7 @@ namespace ZalTestApp
 //                AddProperty("См. также:", m_Lexeme.sSeeRef());
 //            }
 
-            if (m_Inflection.iStemAugment() > 0)
+            if (m_Inflection.iStemExtension() > 0)
             {
                 string sSmallCircleType = m_Inflection.iType().ToString() + 'ᵒ';
                 AddProperty("Чередование в основе: ", sSmallCircleType);

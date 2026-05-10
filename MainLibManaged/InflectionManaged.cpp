@@ -178,14 +178,14 @@ namespace MainLibManaged
         pGetInstance()->SetFleetingVowel(bValue);
     }
 
-    int CInflectionManaged::iStemAugment()
+    int CInflectionManaged::iStemExtension()
     {
-        return pGetInstance()->iStemAugment();
+        return pGetInstance()->iStemExtension();
     }
 
-    void CInflectionManaged::SetStemAugment(int iValue)
+    void CInflectionManaged::SetStemExtension(int iValue)
     {
-        return pGetInstance()->SetStemAugment(iValue);
+        return pGetInstance()->SetStemExtension(iValue);
     }
 
     bool CInflectionManaged::bSecondGenitive()
